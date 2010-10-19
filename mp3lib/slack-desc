@@ -1,0 +1,19 @@
+# HOW TO EDIT THIS FILE:
+# The "handy ruler" below makes it easier to edit a package description.  Line
+# up the first '|' above the ':' following the base package name, and the '|'
+# on the right side marks the last column you can put a character in.  You must
+# make exactly 11 lines for the formatting to be correct.  It's also
+# customary to leave one space after the ':'.
+
+      |-----handy-ruler------------------------------------------------------|
+mp3lib: mp3lib
+mp3lib:
+mp3lib: mp3lib is a MP3 decoding library, based on MPlayer-0.90pre7 (great
+mp3lib: movie player). MPlayer's mp3 decoding engine is very fast, and
+mp3lib: optimized SIMD instructions (SSE/MMX/3DNow!Ex/3DNow!).
+mp3lib:
+mp3lib: URL: http://members.jcom.home.ne.jp/jacobi/linux/softwares.html
+mp3lib:
+mp3lib:
+mp3lib:
+mp3lib: Packaged by Widya Walesa <walecha99@gmail.com>

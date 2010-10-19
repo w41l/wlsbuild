@@ -1,0 +1,3 @@
+ncurses
+openssl | openssl-solibs
+readline

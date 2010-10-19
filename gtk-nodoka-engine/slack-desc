@@ -1,0 +1,12 @@
+				 |-----handy-ruler------------------------------------------------------|
+gtk-nodoka-engine: gtk-nodoka-engine
+gtk-nodoka-engine:
+gtk-nodoka-engine: Nodoka is the new Fedora default theme for Gnome. It currently
+gtk-nodoka-engine: contains gtk engine, gtk theme, metacity theme and gnome meta theme.
+gtk-nodoka-engine: Nodoka is a Murrine engine based gtk2 theme engine. The package is
+gtk-nodoka-engine: shipped with a default Nodoka theme featuring the engine.
+gtk-nodoka-engine: This is the Nodoka GTK Theme Engine.
+gtk-nodoka-engine:
+gtk-nodoka-engine:
+gtk-nodoka-engine:
+gtk-nodoka-engine:

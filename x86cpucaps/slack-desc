@@ -1,0 +1,19 @@
+# HOW TO EDIT THIS FILE:
+# The "handy ruler" below makes it easier to edit a package description.  Line
+# up the first '|' above the ':' following the base package name, and the '|'
+# on the right side marks the last column you can put a character in.  You must
+# make exactly 11 lines for the formatting to be correct.  It's also
+# customary to leave one space after the ':'.
+
+          |-----handy-ruler------------------------------------------------------|
+x86cpucaps: x86cpucaps
+x86cpucaps:
+x86cpucaps: x86cpucaps is a library, which investigates CPU information using
+x86cpucaps: 'cpuid' in assembler. This library can detect CPU IDs (Family-Model-
+x86cpucaps: Stepping), vendor name strings ("GenuineIntel", "AuthenticAMD", and so
+x86cpucaps: on), and SIMD capabilities. Furthermore, there are functions,
+x86cpucaps: estimating optimal Processor Type (for building kernel), and
+x86cpucaps: estimating optimization flags for gcc.
+x86cpucaps: URL: http://members.jcom.home.ne.jp/jacobi/linux/softwares.html
+x86cpucaps:
+x86cpucaps: Packaged by Widya Walesa <walecha99@gmail.com>

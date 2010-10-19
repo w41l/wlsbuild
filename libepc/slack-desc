@@ -1,0 +1,12 @@
+      |-----handy-ruler------------------------------------------------------|
+libepc: libepc (Easy Publish and Consume Library)
+libepc:
+libepc: The Easy Publish and Consume library provides an easy method to
+libepc: publish data using HTTPS, announce that information via DNS-SD,
+libepc: find that information, and and finally consume it. You can use
+libepc: this library as a key/value store published to the network,
+libepc: using encryption, authentication and service discovery.
+libepc:
+libepc:
+libepc:
+libepc: Packaged by: Widya Walesa <walecha99@gmail.com>

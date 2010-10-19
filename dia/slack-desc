@@ -1,0 +1,19 @@
+# HOW TO EDIT THIS FILE:
+# The "handy ruler" below makes it easier to edit a package description.  Line
+# up the first '|' above the ':' following the base package name, and the '|'
+# on the right side marks the last column you can put a character in.  You must
+# make exactly 11 lines for the formatting to be correct.  It's also
+# customary to leave one space after the ':'.
+
+   |-----handy-ruler----------------------------------------------------|
+dia: dia (GNOME image viewer and browser)
+dia: 
+dia: Dia is a GTK+ based diagram creation program for Linux, Unix and
+dia: Windows released under the GPL license. It can be used to draw many
+dia: different kinds of diagrams. It currently has special objects to
+dia: help draw entity relationship diagrams, UML diagrams, flowcharts,
+dia: network diagrams, and many other diagrams. It is also possible to
+dia: add support for new shapes by writing simple XML files, using a
+dia: subset of SVG to draw the shape.
+dia: 
+dia: Packaged by: Widya Walesa <walecha99@gmail.com>

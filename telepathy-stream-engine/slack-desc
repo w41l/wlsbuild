@@ -1,0 +1,19 @@
+# HOW TO EDIT THIS FILE:
+# The "handy ruler" below makes it easier to edit a package description.  Line
+# up the first '|' above the ':' following the base package name, and the '|' on
+# the right side marks the last column you can put a character in.  You must make
+# exactly 11 lines for the formatting to be correct.  It's also customary to
+# leave one space after the ':'.
+
+                       |-----handy-ruler------------------------------------------------------|
+telepathy-stream-engine: Stream-Engine (Telepathy stream engine)
+telepathy-stream-engine:
+telepathy-stream-engine: Stream Engine is a Telepathy client that uses Farsight and GStreamer
+telepathy-stream-engine: to handle media streaming channels. It's used as a background
+telepathy-stream-engine: process by other Telepathy clients, rather than presenting any
+telepathy-stream-engine: user interface of its own.
+telepathy-stream-engine:
+telepathy-stream-engine:
+telepathy-stream-engine:
+telepathy-stream-engine:
+telepathy-stream-engine:

@@ -1,0 +1,12 @@
+	           |-----handy-ruler------------------------------------------------------|
+NetworkManager-pptp: NetworkManager-pptp (NetworkManager Plugin Point-to-point tunneling)
+NetworkManager-pptp:
+NetworkManager-pptp: NetworkManager attempts to make networking invisible. When moving 
+NetworkManager-pptp: into areas you've been before, NetworkManager automatically connects 
+NetworkManager-pptp: to the last network the user chose to connect to. Likewise, when 
+NetworkManager-pptp: back at the desk, NetworkManager will switch to the faster, more 
+NetworkManager-pptp: reliable wired network connection. 
+NetworkManager-pptp:
+NetworkManager-pptp: This package contains vpn plugins for NetworkManager to allow easy
+NetworkManager-pptp: access to virtual private networks via point-to-point tunneling.
+NetworkManager-pptp:

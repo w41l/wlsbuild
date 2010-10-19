@@ -1,0 +1,12 @@
+         |-----handy-ruler------------------------------------------------------|
+DeviceKit: DeviceKit (DeviceKit Hardware Framework)
+DeviceKit:
+DeviceKit: DeviceKit is an abstraction for enumerating devices and listening to
+DeviceKit: device events. Any application on the system can access the
+DeviceKit: org.freedesktop.DeviceKit service via the system message bus. On
+DeviceKit: GNU/Linux, DeviceKit can be considered a simple D-Bus frontend to
+DeviceKit: udev.
+DeviceKit:
+DeviceKit:
+DeviceKit:
+DeviceKit:

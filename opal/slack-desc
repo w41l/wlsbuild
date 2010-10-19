@@ -1,0 +1,12 @@
+	|-----handy-ruler------------------------------------------------------|
+opal: opal (Open Phone Abstraction Library)
+opal:
+opal: OPAL is the Open Phone Abstraction Library, and is the successor to
+opal: OpenH323. There were a couple of architectural issues in OpenH323,
+opal: especially in the area of the codecs and media channels, that required
+opal: a major rewrite. OPAL is designed to be an infrastructure for any
+opal: protocol, not just H.323. It enables normalized interfaces so an
+opal: application can quickly use a range of "call protocols", be it H.323,
+opal: SIP, PSTN hardware, PC sound cards, MGCP or whatever proprietary
+opal: protocol might exist. OPAL is under Mozilla Public License (MPL).
+opal: Packaged by: Widya Walesa <walecha99@gmail.com>

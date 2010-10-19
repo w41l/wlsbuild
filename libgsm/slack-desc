@@ -1,0 +1,19 @@
+# HOW TO EDIT THIS FILE:
+# The "handy ruler" below makes it easier to edit a package description.  Line
+# up the first '|' above the ':' following the base package name, and the '|' on
+# the right side marks the last column you can put a character in.  You must make
+# exactly 11 lines for the formatting to be correct.  It's also customary to
+# leave one space after the ':'.
+
+      |-----handy-ruler------------------------------------------------------|
+libgsm: libgsm (GSM speech compressor library)
+libgsm:
+libgsm: Contains runtime shared libraries for libgsm, an implementation of
+libgsm: the European GSM 06.10 provisional standard for full-rate speech
+libgsm: transcoding, prI-ETS 300 036, which uses RPE/LTP (residual pulse
+libgsm: excitation/long term prediction) coding at 13 kbit/s.
+libgsm:
+libgsm: URL: http://kbs.cs.tu-berlin.de/~jutta/toast.html
+libgsm:
+libgsm:
+libgsm: Packaged by: Widya Walesa <walecha99@gmail.com>

@@ -1,0 +1,19 @@
+# HOW TO EDIT THIS FILE:
+# The "handy ruler" below makes it easier to edit a package description.  Line
+# up the first '|' above the ':' following the base package name, and the '|'
+# on the right side marks the last column you can put a character in.  You must
+# make exactly 11 lines for the formatting to be correct.  It's also
+# customary to leave one space after the ':'.
+
+    |-----handy-ruler----------------------------------------------------|
+lxdm: lxdm (LXDE Display Manager)
+lxdm:
+lxdm: LXDM is the future display manager of LXDE, the Lightweight X11
+lxdm: Desktop environment. It is designed as a lightweight alternative to
+lxdm: replace GDM or KDM in LXDE distros. It's still in very early stage
+lxdm: of development.
+lxdm:
+lxdm: URL: http://www.lxde.org/
+lxdm:
+lxdm:
+lxdm: Packaged by: Widya Walesa <walecha99@gmail.com>

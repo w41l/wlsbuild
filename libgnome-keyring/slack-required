@@ -1,0 +1,7 @@
+dbus
+dbus-glib
+eggdbus
+glib2
+libgcrypt
+libgpg-error
+zlib

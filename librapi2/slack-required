@@ -1,0 +1,6 @@
+dbus
+dbus-glib
+glib2
+hal
+libsynce
+util-linux-ng

@@ -1,0 +1,11 @@
+grub: grub (GNU GRUB Boot Loader)
+grub:
+grub: GNU GRUB is a Multiboot boot loader. It was derived from GRUB, the
+grub: GRand Unified Bootloader, which was originally designed and
+grub: implemented by Erich Stefan Boleyn.
+grub:
+grub: URL: http://www.gnu.org/software/grub/
+grub:
+grub:
+grub:
+grub: Packaged by: Widya Walesa <walecha99@gmail.com>

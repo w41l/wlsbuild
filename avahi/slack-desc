@@ -1,0 +1,12 @@
+     |-----handy-ruler------------------------------------------------------|
+avahi: avahi (Zeroconf networking)
+avahi:
+avahi: Avahi is a system which facilitates service discovery on a local
+avahi: network. This means that you can plug your laptop or computer into a
+avahi: network and instantly be able to view other people who you can chat
+avahi: with, find printers to print to or find files being shared.
+avahi:
+avahi: URL: http://www.avahi.org/
+avahi:
+avahi:
+avahi: Packaged by: Widya Walesa <walecha99@gmail.com>

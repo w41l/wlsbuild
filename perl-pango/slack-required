@@ -1,0 +1,16 @@
+cairo
+cxxlibs
+expat
+fontconfig
+freetype
+gcc
+glib2
+libX11
+libXau
+libXdmcp
+libXrender
+libpng
+libxcb
+pango
+pixman
+zlib

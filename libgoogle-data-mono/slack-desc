@@ -1,0 +1,19 @@
+# HOW TO EDIT THIS FILE:
+# The "handy ruler" below makes it easier to edit a package description.  Line
+# up the first '|' above the ':' following the base package name, and the '|'
+# on the right side marks the last column you can put a character in.  You must
+# make exactly 11 lines for the formatting to be correct.  It's also
+# customary to leave one space after the ':'.
+
+				   |-----handy-ruler------------------------------------------------|
+libgoogle-data-mono: libgoogle-data-mono (Google Data API for Mono)
+libgoogle-data-mono:
+libgoogle-data-mono: The Google Data APIs (GData) provide a simple protocol for
+libgoogle-data-mono: reading and writing data on the web. The GData .NET Client
+libgoogle-data-mono: Library provides a library and source code that make it easy to
+libgoogle-data-mono: access data through Google Data APIs.
+libgoogle-data-mono:
+libgoogle-data-mono:
+libgoogle-data-mono:
+libgoogle-data-mono:
+libgoogle-data-mono:

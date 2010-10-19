@@ -1,0 +1,19 @@
+# HOW TO EDIT THIS FILE:
+# The "handy ruler" below makes it easier to edit a package description.  Line
+# up the first '|' above the ':' following the base package name, and the '|'
+# on the right side marks the last column you can put a character in.  You must
+# make exactly 11 lines for the formatting to be correct.  It's also
+# customary to leave one space after the ':'.
+
+         |-----handy-ruler----------------------------------------------------|
+xarchiver: xarchiver (GTK+2 Archive Utility)
+xarchiver:
+xarchiver: Xarchiver is a GTK+2 only frontend to 7z,zip,rar,tar,bzip2, gzip,
+xarchiver: arj, lha, rpm and deb (open and extract only). Xarchiver allows you
+xarchiver: to create,add, extract and delete files in the above formats. 7z,
+xarchiver: zip, rar, arj password protected archives are supported
+xarchiver:
+xarchiver: URL: http://xarchiver.sourceforge.net/
+xarchiver:
+xarchiver:
+xarchiver: Packaged by: Widya Walesa <walecha99@gmail.com>

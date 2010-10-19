@@ -1,0 +1,12 @@
+     |-----handy-ruler------------------------------------------------------|
+p7zip: p7zip
+p7zip:
+p7zip: p7zip is a port of 7za.exe for POSIX systems like Unix (Linux,
+p7zip: Solaris, OpenBSD, FreeBSD, Cygwin, AIX, ...), MacOS X and BeOS. 7-Zip
+p7zip: is a file archiver with highest compression ratio.
+p7zip:
+p7zip: URL: http://p7zip.sourceforge.net/
+p7zip:
+p7zip:
+p7zip:
+p7zip: Packaged by Widya Walesa <walecha99@gmail.com>

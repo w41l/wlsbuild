@@ -1,0 +1,19 @@
+# HOW TO EDIT THIS FILE:
+# The "handy ruler" below makes it easier to edit a package description.  Line
+# up the first '|' above the ':' following the base package name, and the '|'
+# on the right side marks the last column you can put a character in. You must
+# make exactly 11 lines for the formatting to be correct.  It's also
+# customary to leave one space after the ':'.
+
+        |-----handy-ruler------------------------------------------------------|
+libcheck: libcheck (C Unit Test Framework)
+libcheck:
+libcheck: Check is a unit test framework for C. It features a simple interface
+libcheck: for defining unit tests, putting little in the way of the
+libcheck: developer. Tests are run in a separate address space, so Check can
+libcheck: catch both assertion failures and code errors that cause segmentation
+libcheck: faults or other signals. The output from unit tests can be used within
+libcheck: source code editors and IDEs.
+libcheck:
+libcheck: URL: http://check.sourceforge.net/
+libcheck: Packaged by: Widya Walesa <walecha99@gmail.com>

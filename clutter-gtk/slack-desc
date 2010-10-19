@@ -1,0 +1,12 @@
+		   |-----handy-ruler------------------------------------------------------|
+clutter-gtk: clutter-gtk
+clutter-gtk:
+clutter-gtk: Clutter-GTK is a library providing facilities to integrate Clutter
+clutter-gtk: into GTK+ applications. It provides a GTK+ widget, GtkClutterEmbed,
+clutter-gtk: for embedding the default ClutterStage into any GtkContainer.
+clutter-gtk:
+clutter-gtk: URL: http://www.clutter-project.org
+clutter-gtk:
+clutter-gtk:
+clutter-gtk:
+clutter-gtk: Packaged by: Widya Walesa <walecha99@gmail.com>

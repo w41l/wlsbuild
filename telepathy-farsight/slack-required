@@ -1,0 +1,9 @@
+dbus
+dbus-glib
+farsight2
+glib2
+gstreamer
+libxml2
+python
+telepathy-glib
+zlib

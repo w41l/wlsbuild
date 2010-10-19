@@ -1,0 +1,19 @@
+# HOW TO EDIT THIS FILE:
+# The "handy ruler" below makes it easier to edit a package description.  Line
+# up the first '|' above the ':' following the base package name, and the '|'
+# on the right side marks the last column you can put a character in.  You must
+# make exactly 11 lines for the formatting to be correct.  It's also
+# customary to leave one space after the ':'.
+
+         |-----handy-ruler------------------------------------------------------|
+isomaster: isomaster (a graphical CD image editor)
+isomaster:
+isomaster: ISO Master is an open-source, easy to use, GUI CD image editor for
+isomaster: Linux and BSD. Basically you can use this program to extract files
+isomaster: from an ISO, add files to an ISO, and create bootable ISOs - all in
+isomaster: a graphical user interface. It can open both ISO and NRG files but
+isomaster: can only save as ISO. It is based on bkisofs - a library for reading,
+isomaster: modifying and writing ISO images.
+isomaster:
+isomaster: URL: http://www.littlesvr.ca/isomaster
+isomaster:

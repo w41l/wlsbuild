@@ -1,0 +1,9 @@
+glib
+gtk+
+libX11
+libXau
+libXdmcp
+libXext
+libXv
+libxcb
+popt

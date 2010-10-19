@@ -1,0 +1,19 @@
+# HOW TO EDIT THIS FILE:
+# The "handy ruler" below makes it easier to edit a package description.  Line
+# up the first '|' above the ':' following the base package name, and the '|'
+# on the right side marks the last column you can put a character in.  You must
+# make exactly 11 lines for the formatting to be correct.  It's also
+# customary to leave one space after the ':'.
+
+         |-----handy-ruler---------------------------------------------------|
+farsight2: farsight2 (Audio/Video Communications Framework)
+farsight2:
+farsight2: Farsight uses GStreamer for all it's media streaming needs. A large
+farsight2: part of the project is to provide the required elements and
+farsight2: improvements to GStreamer in order to deal with streaming protocols
+farsight2: such as RTP.
+farsight2:
+farsight2: URL: http://farsight.freedesktop.org/
+farsight2:
+farsight2:
+farsight2: packaged by: Widya Walesa <walecha99@gmail.com>

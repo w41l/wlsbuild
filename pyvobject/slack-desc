@@ -1,0 +1,12 @@
+		 |-----handy-ruler------------------------------------------------------|
+pyvobject: vobject (Python vCard/vCalendar Module)
+pyvobject:
+pyvobject: vobject parses vCard or vCalendar files, returning a tree of Python
+pyvobject: objects. It also provids an API to create vCards or vCalendars data
+pyvobject: structures which can then be serialized.
+pyvobject:
+pyvobject: URL: http://vobject.skyhouseconsulting.com/
+pyvobject:
+pyvobject:
+pyvobject:
+pyvobject: Packaged by Widya Walesa <walecha99@gmail.com>

@@ -1,0 +1,12 @@
+          |-----handy-ruler------------------------------------------------------|
+gst-ffmpeg: gst-ffmpeg (FFMPEG GStreamer plugins)
+gst-ffmpeg: 
+gst-ffmpeg: This module contains a GStreamer plugin for FFmpeg, as well as an internal
+gst-ffmpeg: copy of the FFmpeg source code.
+gst-ffmpeg:
+gst-ffmpeg: www: http://gstreamer.freedesktop.org/
+gst-ffmpeg:
+gst-ffmpeg: 
+gst-ffmpeg:
+gst-ffmpeg: 
+gst-ffmpeg: Packaged by: Widya Walesa <walecha99@gmail.com>

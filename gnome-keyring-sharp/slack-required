@@ -1,0 +1,8 @@
+dbus
+dbus-glib
+eggdbus
+glib2
+libgcrypt
+libgnome-keyring
+libgpg-error
+zlib

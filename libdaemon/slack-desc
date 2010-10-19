@@ -1,0 +1,12 @@
+		  |-----handy-ruler------------------------------------------------------|
+libdaemon: libdaemon (UNIX daemon library)
+libdaemon:
+libdaemon: libdaemon is a lightweight C library that eases the writing of UNIX
+libdaemon: daemons. It consists of a fork() which does the correct daemonization
+libdaemon: procedure of a process, syslog() for simpler and compatible log
+libdaemon: output to Syslog or STDERR, serializing UNIX signals into a pipe for
+libdaemon: usage with select() or poll(), and subprocesses with STDOUT and
+libdaemon: STDERR redirected to syslog.
+libdaemon:
+libdaemon:
+libdaemon: Packaged by: Widya Walesa <walecha99@gmail.com>

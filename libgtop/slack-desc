@@ -1,0 +1,12 @@
+       |-----handy-ruler------------------------------------------------------|
+libgtop: libgtop (System information library)
+libgtop:
+libgtop: A library that fetches information about the running system such as
+libgtop: cpu usage, memory usage, and active processes.  On Linux systems, this
+libgtop: information is taken directly from the /proc filesystem.
+libgtop:
+libgtop:
+libgtop:
+libgtop:
+libgtop:
+libgtop:

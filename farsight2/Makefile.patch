@@ -1,0 +1,22 @@
+--- python/Makefile.in.orig	2010-07-31 16:39:42.000000000 +0700
++++ python/Makefile.in	2010-07-31 16:40:48.000000000 +0700
+@@ -677,7 +677,7 @@
+ 	mostlyclean-generic mostlyclean-libtool pdf pdf-am ps ps-am \
+ 	tags uninstall uninstall-am uninstall-pyfarsightLTLIBRARIES
+ 
+-[ -z "$PYDEFS" && PYDEFS=`pkg-config --variable=defsdir pygtk-2.0`]
++	[ -z "$(PYDEFS)" && PYDEFS=`pkg-config --variable=defsdir pygtk-2.0`; ]
+ 
+ pyfarsight.c: pyfarsight.override pyfarsight.defs
+ 	$(PYCODEGEN)						\
+--- docs/libs/Makefile.in.orig	2010-07-31 16:46:15.000000000 +0700
++++ docs/libs/Makefile.in	2010-07-31 16:46:51.000000000 +0700
+@@ -766,7 +766,7 @@
+ 	-cp $(srcdir)/$(DOC_MODULE).types $(distdir)/
+ 	-cp $(srcdir)/$(DOC_MODULE)-sections.txt $(distdir)/
+ 	cd $(distdir) && rm -f $(DISTCLEANFILES)
+-        -gtkdoc-rebase --online --relative --html-dir=$(distdir)/html
++	-gtkdoc-rebase --online --relative --html-dir=$(distdir)/html
+ 
+ .PHONY : dist-hook-local docs
+ 

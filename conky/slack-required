@@ -1,0 +1,24 @@
+alsa-lib
+curl
+cyrus-sasl
+expat
+fontconfig
+freetype
+glib2
+libX11
+libXau
+libXdamage
+libXdmcp
+libXext
+libXfixes
+libXft
+libXrender
+libidn
+libxcb
+libxml2
+lua
+ncurses
+openldap-client
+openssl | openssl-solibs
+readline
+zlib

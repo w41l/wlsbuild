@@ -1,0 +1,11 @@
+dbus
+dbus-glib
+farsight2
+glib2
+gst-plugins-base
+gstreamer
+libidn
+libxml2
+pidgin
+telepathy-glib
+zlib

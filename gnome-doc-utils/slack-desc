@@ -1,0 +1,12 @@
+               |-----handy-ruler------------------------------------------------------|
+gnome-doc-utils: gnome-doc-utils (GNOME Documentation Utilities)
+gnome-doc-utils:
+gnome-doc-utils: gnome-doc-utils is a collection of documentation utilities for the
+gnome-doc-utils: GNOME project.  Notably, it contains utilities for building
+gnome-doc-utils: documentation and all auxiliary files in your source tree, and it
+gnome-doc-utils: contains the DocBook XSLT stylesheets that were once distributed with
+gnome-doc-utils: Yelp.
+gnome-doc-utils:
+gnome-doc-utils:
+gnome-doc-utils:
+gnome-doc-utils: Packaged by: Widya Walesa <walecha99@gmail.com>

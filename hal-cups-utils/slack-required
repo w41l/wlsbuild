@@ -1,0 +1,6 @@
+cups
+dbus
+hal
+openssl | openssl-solibs
+util-linux-ng
+zlib

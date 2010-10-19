@@ -1,0 +1,19 @@
+# HOW TO EDIT THIS FILE:
+# The "handy ruler" below makes it easier to edit a package description.  Line
+# up the first '|' above the ':' following the base package name, and the '|'
+# on the right side marks the last column you can put a character in.  You must
+# make exactly 11 lines for the formatting to be correct.  It's also
+# customary to leave one space after the ':'.
+
+           |-----handy-ruler----------------------------------------------------|
+pyalsaaudio: Pyalsaaudio (Python ALSA API)
+pyalsaaudio:
+pyalsaaudio: This  package contains  wrappers  for accessing the ALSA API from
+pyalsaaudio: Python. It is currently fairly complete for PCM devices and Mixer
+pyalsaaudio: access.
+pyalsaaudio:
+pyalsaaudio:
+pyalsaaudio:
+pyalsaaudio:
+pyalsaaudio:
+pyalsaaudio:

@@ -1,0 +1,12 @@
+      |-----handy-ruler------------------------------------------------------|
+libpst: libpst (MS Outlook File Utility)
+libpst:
+libpst: The Libpst utilities include readpst which can convert email messages
+libpst: to both mbox and MH mailbox formats, pst2ldif which can convert the
+libpst: contacts to .ldif format for import into ldap databases, and pst2dii
+libpst: which can convert email messages to the DII load file format used by
+libpst: Summation.
+libpst:
+libpst: URL: http://www.five-ten-sg.com/
+libpst:
+libpst: Packaged by: Widya Walesa <walecha99@gmail.com>

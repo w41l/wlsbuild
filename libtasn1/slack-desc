@@ -1,0 +1,12 @@
+        |-----handy-ruler------------------------------------------------------|
+libtasn1: libtasn1 (ANS.1 Library for GnuTLS)
+libtasn1:
+libtasn1: Libtasn1 is the ASN.1 library used by GnuTLS, GNU Shishi and some
+libtasn1: other packages. It is currently maintained by Simon Josefsson. The
+libtasn1: goal of this implementation is to be highly portable, and only
+libtasn1: require an ANSI C89 platform.
+libtasn1:
+libtasn1: URL: http://www.gnu.org/software/libtasn1/
+libtasn1:
+libtasn1:
+libtasn1: Packaged by: Widya Walesa <walecha99@gmail.com>

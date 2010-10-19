@@ -1,0 +1,19 @@
+# HOW TO EDIT THIS FILE:
+# The "handy ruler" below makes it easier to edit a package description. Line
+# up the first '|' above the ':' following the base package name, and the '|'
+# on the right side marks the last column you can put a character in. You must
+# make exactly 11 lines for the formatting to be correct. It's also customary
+# to leave one space after the ':'.
+
+        |----handy-ruler-------------------------------------------------------|
+librapi2: Librapi2
+librapi2:
+librapi2: The RAPI library is an open source implementation that works like
+librapi2: RAPI.DLL, available on Microsoft operating systems. The library makes
+librapi2: it possible to make remote calls to a computer running Pocket PC.
+librapi2:
+librapi2: URL: http://www.synce.org/
+librapi2:
+librapi2:
+librapi2:
+librapi2: packaged by: Widya Walesa <walecha99@gmail.com>

@@ -1,0 +1,5 @@
+cxxlibs
+glib2
+gtk+2
+libjpeg
+zlib

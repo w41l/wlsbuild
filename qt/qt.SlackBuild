@@ -1,0 +1,203 @@
+#!/bin/sh
+
+# Copyright 2006, 2007, 2008, 2009, 2010  Patrick J. Volkerding, Sebeka, MN, USA
+# All rights reserved.
+#
+# Redistribution and use of this script, with or without modification, is
+# permitted provided that the following conditions are met:
+#
+# 1. Redistributions of this script must retain the above copyright
+#    notice, this list of conditions and the following disclaimer.
+#
+#  THIS SOFTWARE IS PROVIDED BY THE AUTHOR ``AS IS'' AND ANY EXPRESS OR IMPLIED
+#  WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF
+#  MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED.  IN NO
+#  EVENT SHALL THE AUTHOR BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
+#  SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,
+#  PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS;
+#  OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY,
+#  WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR
+#  OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF
+#  ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+
+# Merged some ideas from Alex Sarmardzic's script for qt4 at SlackBuilds.org
+# ^^ Modified by Robby Workman <rworkman@slackware.com> for QT4 & KDE4
+
+# We're using qt-copy instead of a released qt version, as this git release
+# has at least one bugfix strongly recommended by the kde developers.
+
+# Obtained from:
+# git clone git://gitorious.org/+kde-developers/qt/kde-qt.git
+# git checkout origin/4.5.3-patched
+# git checkout origin/4.6.0-stable-patched
+# git checkout origin/4.6.1-patched
+# wget http://qt.gitorious.org/qt/kde-qt/archive-tarball/4.6.2-patched
+
+PKGNAM=qt
+#VERSION=$(ls qt-*.tar.?z* | cut -d - -f 2 | rev | cut -f 3- -d . | rev)
+VERSION=4.7.0_e180641
+BUILD=${BUILD:-1}
+TAG=${TAG:-_wls}
+
+# Automatically determine the architecture we're building on:
+if [ -z "$ARCH" ]; then
+  case "$( uname -m )" in
+    i?86) export ARCH=i486 ;;
+    arm*) export ARCH=arm ;;
+    # Unless $ARCH is already set, use uname -m for all other archs:
+       *) export ARCH=$( uname -m ) ;;
+  esac
+fi
+
+NUMJOBS=${NUMJOBS:--j4}
+
+if [ "$ARCH" = "i486" ]; then
+  SLKCFLAGS="-O2 -march=i486 -mtune=i686"
+  LIBDIRSUFFIX=""
+elif [ "$ARCH" = "s390" ]; then
+  SLKCFLAGS="-O2"
+  LIBDIRSUFFIX=""
+elif [ "$ARCH" = "x86_64" ]; then
+  SLKCFLAGS="-O2 -fPIC"
+  LIBDIRSUFFIX="64"
+else
+  SLKCFLAGS="-O2"
+  LIBDIRSUFFIX=""
+fi
+
+CWD=$(pwd)
+TMP=${TMP:-/home/tmp/wls}
+PKG=$TMP/package-${PKGNAM}
+OUTPUT=${OUTPUT:-/tmp}
+
+rm -rf $PKG
+mkdir -p $TMP $PKG
+cd $TMP
+#rm -rf qt-x11-opensource-src-$VERSION
+#tar xvf $CWD/qt-x11-opensource-src-$VERSION.tar.gz     # For qt releases
+#cd qt-x11-opensource-src-$VERSION || exit 1
+
+rm -rf qt-$VERSION
+if [ -r $CWD/qt-$VERSION.tar.gz ]; then
+  tar xvf $CWD/qt-$VERSION.tar.gz || exit 1
+elif [ -r $CWD/qt-$VERSION.tar.bz2 ]; then
+  tar xvf $CWD/qt-$VERSION.tar.bz2 || exit 1
+elif [ -r $CWD/qt-$VERSION.tar.xz ]; then
+  tar xvf $CWD/qt-$VERSION.tar.xz || exit 1
+elif [ -r $CWD/qt-$VERSION.tar.lzma ]; then
+  tar xvf $CWD/qt-$VERSION.tar.lzma || exit 1
+else
+  exit 1
+fi
+cd qt-$VERSION || exit 1
+
+chown -R root:root .
+find . \
+ \( -perm 777 -o -perm 775 -o -perm 711 -o -perm 555 -o -perm 511 \) \
+ -exec chmod 755 {} \; -o \
+ \( -perm 666 -o -perm 664 -o -perm 600 -o -perm 444 -o -perm 440 -o -perm 400 \) \
+ -exec chmod 644 {} \;
+
+# apply_patches looks for a ".svn" directory, which doesn't exist in the used snapshot.
+# removing the check from apply_patches to not try to apply already applied patches
+sed -i "s| test -d .svn &&||" apply_patches
+
+# This is only needed/wanted for qt-copy (the r###### version) that we're
+# building right now. It might require manual intervention, so don't walk
+# away during the build
+./apply_patches
+
+if [ $ARCH = "i486" ]; then
+  zcat $CWD/qt.x86.cflags.diff.gz | patch -p1 || exit 1
+fi
+
+# Fix path to mysql header
+zcat $CWD/qt.mysql.h.diff.gz | patch -p1 || exit 1
+
+export CFLAGS="$SLKCFLAGS"
+export CXXFLAGS="$SLKCFLAGS"
+export OPENSOURCE_CXXFLAGS="$SLKCFLAGS"
+./configure \
+  -confirm-license \
+  -opensource \
+  -prefix /usr/lib${LIBDIRSUFFIX}/qt \
+  -qt-gif \
+  -fast \
+  -system-libpng \
+  -system-libjpeg \
+  -system-zlib \
+  -system-sqlite \
+  -plugin-sql-sqlite \
+  -dbus \
+  -webkit \
+  -no-phonon \
+  -nomake examples \
+  -nomake demos \
+  -no-separate-debug-info \
+  -no-pch
+  # No-precompiled-headers is ccache-friendly.
+
+# Sometimes a failure happens when parallelizing make.  Try again if make fails,
+# but make a failure the second time around (single threaded) a fatal error:
+make $NUMJOBS || make || exit 1
+make install INSTALL_ROOT=$PKG || exit 1
+
+# The infamous qt -> qt-${VERSION} link that keeps the full path out of .la files:
+( cd $PKG/usr/lib${LIBDIRSUFFIX} ; ln -sf qt qt-${VERSION} )
+
+# Link the shared libraries into /usr/lib:
+( cd $PKG/usr/lib${LIBDIRSUFFIX}
+  for file in qt/lib/*.so* ; do
+    ln -sf $file .
+  done
+)
+
+if [ $ARCH = "i486" ]; then
+  # Put this back as shipped:
+   zcat $CWD/qt.x86.cflags.diff.gz | patch -p1 -R
+fi
+
+find $PKG | xargs file | grep -e "executable" -e "shared object" | grep ELF \
+  | cut -f 1 -d : | xargs strip --strip-unneeded 2> /dev/null
+
+# Add profile scripts
+mkdir -p $PKG/etc/profile.d
+sed -e "s#usr/lib/#usr/lib${LIBDIRSUFFIX}/#g" $CWD/profile.d/qt4.sh \
+  > $PKG/etc/profile.d/qt4.sh
+sed -e "s#usr/lib/#usr/lib${LIBDIRSUFFIX}/#g" $CWD/profile.d/qt4.csh \
+  > $PKG/etc/profile.d/qt4.csh
+chmod 0755 $PKG/etc/profile.d/*
+
+# Put a ton of links to more "normal" places.  I'd just use a prefix of /usr, but it
+# creates a ton of new (and ambiguously named) /usr directories...
+mkdir -p $PKG/usr/bin
+( cd $PKG/usr/lib${LIBDIRSUFFIX}/qt/bin
+  for file in * ; do
+    ( cd $PKG/usr/bin ; ln -sf /usr/lib${LIBDIRSUFFIX}/qt/bin/$file . )
+  done
+)
+
+mkdir -p $PKG/usr/lib${LIBDIRSUFFIX}/pkgconfig
+( cd $PKG/usr/lib${LIBDIRSUFFIX}/qt/lib/pkgconfig
+  for file in *.pc ; do
+    ( cd $PKG/usr/lib${LIBDIRSUFFIX}/pkgconfig ; ln -sf /usr/lib${LIBDIRSUFFIX}/qt/lib/pkgconfig/$file . )
+  done
+)
+
+# Add a documentation directory:
+mkdir -p $PKG/usr/doc/$PKGNAM-$VERSION
+cp -a *GPL_EXCEPTION* FAQ* INSTALL KNOWN* LICENSE* README* changes-* \
+  $PKG/usr/doc/$PKGNAM-$VERSION
+( cd $PKG/usr/doc/$PKGNAM-$VERSION
+  ln -sf /usr/lib${LIBDIRSUFFIX}/qt/doc/html .
+)
+
+mkdir -p $PKG/install
+zcat $CWD/doinst.sh.gz > $PKG/install/doinst.sh
+cat $CWD/slack-desc > $PKG/install/slack-desc
+
+cd $PKG
+/sbin/makepkg -l y -c n $OUTPUT/$PKGNAM-$VERSION-$ARCH-${BUILD}${TAG}.txz
+
+echo "Cleaning up build directory"
+rm -rf ${PKG} ${TMP}/qt-$VERSION

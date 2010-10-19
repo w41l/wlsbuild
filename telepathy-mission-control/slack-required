@@ -1,0 +1,7 @@
+GConf
+ORBit2
+dbus
+dbus-glib
+glib2
+telepathy-glib
+zlib

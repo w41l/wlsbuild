@@ -1,0 +1,19 @@
+# HOW TO EDIT THIS FILE:
+# The "handy ruler" below makes it easier to edit a package description.  Line
+# up the first '|' above the ':' following the base package name, and the '|'
+# on the right side marks the last column you can put a character in.  You must
+# make exactly 11 lines for the formatting to be correct.  It's also
+# customary to leave one space after the ':'.
+
+                    |-----handy-ruler-----------------------------------------|
+gnome-python-desktop: gnome-python-desktop by Slack.Sarava
+gnome-python-desktop:
+gnome-python-desktop: This package contains a few python modules that used to
+gnome-python-desktop: live in gnome-python-extras:
+gnome-python-desktop: - gnomeapplet
+gnome-python-desktop: - gnomeprint, gnomeprint.ui
+gnome-python-desktop: - gtksourceview
+gnome-python-desktop: - wnck
+gnome-python-desktop: - totem.plparser
+gnome-python-desktop: - gtop
+gnome-python-desktop: - nautilusburn, mediaprofiles, metacity

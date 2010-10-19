@@ -1,0 +1,19 @@
+# HOW TO EDIT THIS FILE:
+# The "handy ruler" below makes it easier to edit a package description.  Line
+# up the first '|' above the ':' following the base package name, and the '|'
+# on the right side marks the last column you can put a character in.  You must
+# make exactly 11 lines for the formatting to be correct.  It's also
+# customary to leave one space after the ':'.
+
+                     |-----handy-ruler-----------------------------------------------------|
+perl-extutils-depends: perl-extutils-depends (PERL Module)
+perl-extutils-depends:
+perl-extutils-depends: This module tries to make it easy to build Perl extensions that use
+perl-extutils-depends: functions and typemaps provided by other perl extensions. This means
+perl-extutils-depends: that a perl extension is treated like a shared library that provides
+perl-extutils-depends: also a C and an XS interface besides the perl one.
+perl-extutils-depends:
+perl-extutils-depends: URL: http://search.cpan.org/search?query=extutils-depends&mode=all
+perl-extutils-depends:
+perl-extutils-depends:
+perl-extutils-depends: Packaged by Widya Walesa <walecha99@gmail.com>

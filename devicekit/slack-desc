@@ -1,0 +1,19 @@
+# HOW TO EDIT THIS FILE:
+# The "handy ruler" below makes it easier to edit a package description.  Line
+# up the first '|' above the ':' following the base package name, and the '|'
+# on the right side marks the last column you can put a character in.  You must
+# make exactly 11 lines for the formatting to be correct.  It's also
+# customary to leave one space after the ':'.
+
+         |-----handy-ruler------------------------------------------------------|
+devicekit: devicekit (DeviceKit Hardware Framework)
+devicekit:
+devicekit: DeviceKit is an abstraction for enumerating devices and listening to
+devicekit: device events. Any application on the system can access the
+devicekit: org.freedesktop.DeviceKit service via the system message bus. On
+devicekit: GNU/Linux, DeviceKit can be considered a simple D-Bus frontend to
+devicekit: udev.
+devicekit:
+devicekit:
+devicekit:
+devicekit:

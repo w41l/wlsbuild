@@ -1,0 +1,5 @@
+dbus
+dbus-glib
+glib2
+hal
+util-linux-ng

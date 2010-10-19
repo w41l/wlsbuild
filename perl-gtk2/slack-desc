@@ -1,0 +1,19 @@
+# HOW TO EDIT THIS FILE:
+# The "handy ruler" below makes it easier to edit a package description.  Line
+# up the first '|' above the ':' following the base package name, and the '|'
+# on the right side marks the last column you can put a character in.  You must
+# make exactly 11 lines for the formatting to be correct.  It's also
+# customary to leave one space after the ':'.
+
+         |-----handy-ruler-----------------------------------------------------|
+perl-gtk2: perl-gtk2 (PERL Module)
+perl-gtk2:
+perl-gtk2: Perl bindings to the 2.x series of the Gtk+ widget set. This module
+perl-gtk2: allows you to write graphical user interfaces in a Perlish and
+perl-gtk2: object-oriented way, freeing you from the casting and memory management
+perl-gtk2: in C, yet remaining very close in spirit to original API.
+perl-gtk2:
+perl-gtk2: URL: http://search.cpan.org/search?query=gtk2&mode=all
+perl-gtk2:
+perl-gtk2:
+perl-gtk2: Packaged by Widya Walesa <walecha99@gmail.com>

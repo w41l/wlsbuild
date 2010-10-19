@@ -1,0 +1,12 @@
+               |-----handy-ruler------------------------------------------------------|
+DeviceKit-disks: DeviceKit-disks (DeviceKit for Disk Devices)
+DeviceKit-disks:
+DeviceKit-disks: DeviceKit-disks is a daemon that provide interfaces to obtain
+DeviceKit-disks: information and perform operations on storage devices. It also
+DeviceKit-disks: supports monitoring of ata smart devices.
+DeviceKit-disks:
+DeviceKit-disks:
+DeviceKit-disks:
+DeviceKit-disks:
+DeviceKit-disks:
+DeviceKit-disks:

@@ -1,0 +1,6 @@
+cxxlibs
+expat
+libdiscid
+neon
+openssl | openssl-solibs
+zlib

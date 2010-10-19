@@ -1,0 +1,12 @@
+      |-----handy-ruler------------------------------------------------------|
+gtkmm: gtkmm (C++ Bindings for Gtk+2)
+gtkmm: 
+gtkmm: gtkmm is the official C++ interface for the popular GUI library GTK+2.
+gtkmm: Highlights include typesafe callbacks, and a comprehensive set of 
+gtkmm: widgets that are easily extensible via inheritance. You can create
+gtkmm: user interfaces either in code or with the Glade User Interface
+gtkmm: designer, using libglademm. There's extensive documentation,
+gtkmm: including API reference and a tutorial. gtkmm is free software
+gtkmm: distributed under LGPL. 
+gtkmm: 
+gtkmm: 

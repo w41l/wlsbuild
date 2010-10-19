@@ -1,0 +1,19 @@
+# HOW TO EDIT THIS FILE:
+# The "handy ruler" below makes it easier to edit a package description.  Line
+# up the first '|' above the ':' following the base package name, and the '|'
+# on the right side marks the last column you can put a character in.  You must
+# make exactly 11 lines for the formatting to be correct.  It's also
+# customary to leave one space after the ':'.
+
+      |-----handy-ruler------------------------------------------------------|
+id3lib: id3lib (MP3 ID3v2 Library)
+id3lib:
+id3lib: id3lib is a software library for reading, writing, and manipulating
+id3lib: ID3v2 tags. Additionally it is possible to get some basic mp3 header
+id3lib: information like bitrate etc.
+id3lib:
+id3lib: URL: http://id3lib.sourceforge.net/
+id3lib:
+id3lib:
+id3lib:
+id3lib: Packaged by Widya Walesa <walecha99@gmail.com>

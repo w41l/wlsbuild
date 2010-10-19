@@ -1,0 +1,12 @@
+          |-----handy-ruler------------------------------------------------------|
+libgnomeui: libgnomeui (GNOME Core Graphical Libraries)
+libgnomeui:
+libgnomeui: libgnomeui is the library that provides basic GNOME2 graphic widgets.
+libgnomeui: GNOME (GNU Network Object Model Environment) is a user-friendly set
+libgnomeui: of GUI applications and desktop tools to be used in conjunction with
+libgnomeui: a window manager for the X Window System. The libgnomeui package
+libgnomeui: includes GUI-related libraries that are needed to run GNOME.
+libgnomeui:
+libgnomeui:
+libgnomeui:
+libgnomeui: Packaged by: Widya Walesa <walecha99@gmail.com>

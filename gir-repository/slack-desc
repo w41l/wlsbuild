@@ -1,0 +1,19 @@
+# HOW TO EDIT THIS FILE:
+# The "handy ruler" below makes it easier to edit a package description.  Line
+# up the first '|' above the ':' following the base package name, and the '|'
+# on the right side marks the last column you can put a character in.  You must
+# make exactly 11 lines for the formatting to be correct.  It's also
+# customary to leave one space after the ':'.
+
+              |-----handy-ruler------------------------------------------------------|
+gir-repository: gir-repository (Gobject Introspection Repository)
+gir-repository:
+gir-repository: Gir-repository is a package containing gir files used by the
+gir-repository: gobject-introspection project for a bunch of projects. The point of it
+gir-repository: is to make it easier for language bindings and projects using
+gir-repository: gobject-introspection to get girs and typelibs installed.
+gir-repository:
+gir-repository: URL: http://live.gnome.org/GObjectIntrospection
+gir-repository:
+gir-repository:
+gir-repository: Packaged by: Widya Walesa <walecha99@gmail.com>

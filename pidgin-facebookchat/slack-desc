@@ -1,0 +1,19 @@
+# HOW TO EDIT THIS FILE:
+# The "handy ruler" below makes it easier to edit a package description.  Line
+# up the first '|' above the ':' following the base package name, and the '|'
+# on the right side marks the last column you can put a character in.  You must
+# make exactly 11 lines for the formatting to be correct.  It's also
+# customary to leave one space after the ':'.
+
+                   |-----handy-ruler-----------------------------------------------------|
+pidgin-facebookchat: pidgin-facebookchat (Pidgin Facebook Chat Plugin)
+pidgin-facebookchat:
+pidgin-facebookchat: This is a Facebook chat plugin for Pidgin and libpurple messengers.
+pidgin-facebookchat: It connects to the new Facebook Chat IM service without the need for
+pidgin-facebookchat: an API key. It was created by Eion Robb in May 2008 and has had major
+pidgin-facebookchat: code additions by Casey Ho and Mark Doliner who joined the project at
+pidgin-facebookchat: the end of 2008. This plugin is in no way associated with Google nor
+pidgin-facebookchat: the Summer of Code, other than being hosted on the Google Code website,
+pidgin-facebookchat: it was written purely during the spare time of the above-mentioned
+pidgin-facebookchat: developers.
+pidgin-facebookchat:

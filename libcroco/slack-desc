@@ -1,0 +1,19 @@
+# HOW TO EDIT THIS FILE:
+# The "handy ruler" below makes it easier to edit a package description.  Line
+# up the first '|' above the ':' following the base package name, and the '|' on
+# the right side marks the last column you can put a character in.  You must make
+# exactly 11 lines for the formatting to be correct.  It's also customary to
+# leave one space after the ':'.
+
+        |-----handy-ruler------------------------------------------------------|
+libcroco: libcroco (CSS2 parsing library)
+libcroco:
+libcroco: The Libcroco project is an effort to build a generic Cascading Style
+libcroco: Sheet (CSS) parsing and manipulation toolkit that can be used by GNOME
+libcroco: applications in need of CSS support.
+libcroco:
+libcroco: URL: http://www.freespiders.org/projects/libcroco/
+libcroco:
+libcroco:
+libcroco:
+libcroco: Packaged by: Widya Walesa <walecha99@gmail.com>

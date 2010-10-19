@@ -1,0 +1,19 @@
+# HOW TO EDIT THIS FILE:
+# The "handy ruler" below makes it easier to edit a package description.  Line
+# up the first '|' above the ':' following the base package name, and the '|'
+# on the right side marks the last column you can put a character in.  You must
+# make exactly 11 lines for the formatting to be correct.  It's also
+# customary to leave one space after the ':'.
+
+		   |-----handy-ruler-------------------------------------------------------|
+libreoffice: libreoffice (a free and open office productivity suite)
+libreoffice:
+libreoffice: libreoffice is the leading open-source office software suite for
+libreoffice: word processing, spreadsheets, presentations, graphics, databases and
+libreoffice: more. It is available in many languages and works on all common
+libreoffice: computers. It stores all your data in an international open standard
+libreoffice: format and can also read and write files from other common office
+libreoffice: software packages. It can be downloaded and used completely free of
+libreoffice: charge for any purpose.
+libreoffice:
+libreoffice:

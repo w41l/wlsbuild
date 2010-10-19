@@ -1,0 +1,14 @@
+boost
+cxxlibs
+expat
+fontconfig
+freetype
+gd
+libX11
+libXau
+libXdmcp
+libXpm
+libjpeg
+libpng
+libxcb
+zlib

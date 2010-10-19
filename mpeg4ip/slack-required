@@ -1,0 +1,11 @@
+cxxlibs
+gcc
+libX11
+libXau
+libXdmcp
+libXext
+libXrandr
+libXrender
+libxcb
+sdl
+svgalib

@@ -1,0 +1,19 @@
+# HOW TO EDIT THIS FILE:
+# The "handy ruler" below makes it easier to edit a package description.  Line
+# up the first '|' above the ':' following the base package name, and the '|'
+# on the right side marks the last column you can put a character in.  You must
+# make exactly 11 lines for the formatting to be correct.  It's also
+# customary to leave one space after the ':'.
+
+        |-----handy-ruler------------------------------------------------------|
+metacity: metacity (GNOME Window Manager)
+metacity:
+metacity: Metacity (rhymes with "capacity") is a window manager used by default 
+metacity: in the GNOME desktop environment. The development of Metacity 
+metacity: was started by Havoc Pennington and it is released under the GNU
+metacity: General Public License.
+metacity: 
+metacity: Although Metacity is part of the GNOME project and designed to 
+metacity: integrate into the GNOME desktop, it does not require GNOME to run, 
+metacity: and GNOME can be used with different window managers. 
+metacity: 

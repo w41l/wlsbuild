@@ -1,0 +1,12 @@
+           |-----handy-ruler------------------------------------------------------|
+gnome-media: gnome-media (GNOME Multimedia Programs)
+gnome-media:
+gnome-media: GNOME media is a collection of utilities for simple multimedia
+gnome-media: handling on the GNOME desktop. It contains a volume control
+gnome-media: application, a control application for selecting your sound and 
+gnome-media: video card to be used by media players, a sound recorder, Gstreamer
+gnome-media: control panel, and GNOME media profiles.
+gnome-media:
+gnome-media:
+gnome-media:
+gnome-media:

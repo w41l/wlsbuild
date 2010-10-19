@@ -1,0 +1,19 @@
+# HOW TO EDIT THIS FILE:
+# The "handy ruler" below makes it easier to edit a package description.  Line
+# up the first '|' above the ':' following the base package name, and the '|' on
+# the right side marks the last column you can put a character in.  You must make
+# exactly 11 lines for the formatting to be correct.  It's also customary to
+# leave one space after the ':'.
+
+                |-----handy-ruler------------------------------------------------------|
+telepathy-gabble: Telepathy-gabble (Telepathy Jabber/XMPP manager)
+telepathy-gabble:
+telepathy-gabble: Gabble is a Jabber/XMPP connection manager for the Telepathy
+telepathy-gabble: framework, currently  supporting  single  user  chats, multi
+telepathy-gabble: user chats and voice/video calls.
+telepathy-gabble:
+telepathy-gabble:
+telepathy-gabble:
+telepathy-gabble:
+telepathy-gabble:
+telepathy-gabble:

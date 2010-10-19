@@ -1,0 +1,12 @@
+                  |-----handy-ruler------------------------------------------------------|
+cairo-dock-plugins: cairo-dock-plugins (Plugins for cairo-dock)
+cairo-dock-plugins:
+cairo-dock-plugins: Cairo-dock is an animated application launch bar displayed on the
+cairo-dock-plugins: desktop comparable to Mac OS X's Dock. It is compatible with Beryl,
+cairo-dock-plugins: Compiz, Metacity+xcompmgr and probably KDE since Kwin now manage
+cairo-dock-plugins: composite display.
+cairo-dock-plugins:
+cairo-dock-plugins: URL: https://launchpad.net/cairo-dock-plug-ins
+cairo-dock-plugins:
+cairo-dock-plugins:
+cairo-dock-plugins: Packaged by Widya Walesa <walecha99@gmail.com>

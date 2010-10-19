@@ -1,0 +1,19 @@
+# HOW TO EDIT THIS FILE:
+# The "handy ruler" below makes it easier to edit a package description.  Line
+# up the first '|' above the ':' following the base package name, and the '|' on
+# the right side marks the last column you can put a character in.  You must make
+# exactly 11 lines for the formatting to be correct.  It's also customary to
+# leave one space after the ':'.
+
+                |-----handy-ruler------------------------------------------------------|
+telepathy-salut: Telepathy-salut
+telepathy-salut:
+telepathy-salut: Salut is a link-local XMPP (XEP-0174) connection manager for the
+telepathy-salut: Telepathy framework, currently supporting presence and single-user
+telepathy-salut: chats with iChat interoperability, and multi-user chats and Tubes
+telepathy-salut: using the Clique protocol
+telepathy-salut:
+telepathy-salut:
+telepathy-salut:
+telepathy-salut:
+telepathy-salut:

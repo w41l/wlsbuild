@@ -1,0 +1,12 @@
+            |-----handy-ruler------------------------------------------------------|
+libchamplain: libchamplain (gtk+2 widgets for maps)
+libchamplain:
+libchamplain: Libchamplain is a C library providing a ClutterActor to display maps. 
+libchamplain: It also provides a Gtk+ widget to display maps in Gtk+ applications.
+libchamplain:
+libchamplain:
+libchamplain:
+libchamplain:
+libchamplain:
+libchamplain:
+libchamplain:

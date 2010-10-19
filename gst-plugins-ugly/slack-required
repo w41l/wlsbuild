@@ -1,0 +1,17 @@
+a52dec
+cxxlibs
+glib2
+gst-plugins-base
+gstreamer
+lame
+libcdio
+libdvdread
+libid3tag
+libmad
+libmpeg2
+liboil
+libxml2
+opencore-amr
+twolame
+x264
+zlib

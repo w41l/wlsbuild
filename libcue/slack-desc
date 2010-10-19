@@ -1,0 +1,19 @@
+# HOW TO EDIT THIS FILE:
+# The "handy ruler" below makes it easier to edit a package description.  Line
+# up the first '|' above the ':' following the base package name, and the '|'
+# on the right side marks the last column you can put a character in.  You must
+# make exactly 11 lines for the formatting to be correct.  It's also
+# customary to leave one space after the ':'.
+
+      |-----handy-ruler----------------------------------------------------|
+libcue: LibCUE (CUE Sheet Parser Library)
+libcue:
+libcue: LibCUE is intended to parse a so called cue sheet from a char string
+libcue: or a file pointer. For  handling of the parsed data a convenient API
+libcue: is  available. This project is  meant as a fork of cuetools by Svend
+libcue: Sorensen.
+libcue:
+libcue:
+libcue:
+libcue:
+libcue:

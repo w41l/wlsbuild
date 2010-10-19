@@ -1,0 +1,7 @@
+cups
+cxxlibs
+gcc
+libjpeg
+libtiff
+openssl | openssl-solibs
+zlib

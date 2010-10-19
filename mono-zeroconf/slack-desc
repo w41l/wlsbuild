@@ -1,0 +1,12 @@
+             |-----handy-ruler------------------------------------------------------|
+mono-zeroconf: mono-zeroconf (Zero Configuration Networking for Mono C#)
+mono-zeroconf: 
+mono-zeroconf: Mono.Zeroconf is a cross platform Zero Configuration Networking 
+mono-zeroconf: library for Mono and .NET. It provides a unified API for performing 
+mono-zeroconf: the most common zeroconf operations on a variety of platforms and 
+mono-zeroconf: subsystems: all the operating systems supported by Mono and both the 
+mono-zeroconf: Avahi and Bonjour/mDNSResponder transports.
+mono-zeroconf:
+mono-zeroconf:
+mono-zeroconf:
+mono-zeroconf:

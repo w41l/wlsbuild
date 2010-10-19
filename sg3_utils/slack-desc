@@ -1,0 +1,12 @@
+         |-----handy-ruler------------------------------------------------------|
+sg3_utils: sg3_utils (Low-level SCSI Access Library)
+sg3_utils: 
+sg3_utils: sg3_utils contains low level utilities for devices that use a SCSI 
+sg3_utils: command set. Apart from SCSI parallel interface (SPI) devices, the
+sg3_utils: SCSI command set is used by ATAPI devices (CD/DVDs and tapes), USB
+sg3_utils: mass storage devices, Fibre Channel disks, IEEE 1394 storage devices
+sg3_utils: (that use the "SBP" protocol), SAS and iSCSI.  
+sg3_utils: 
+sg3_utils: 
+sg3_utils: 
+sg3_utils: 

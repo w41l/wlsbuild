@@ -1,0 +1,19 @@
+# HOW TO EDIT THIS FILE:
+# The "handy ruler" below makes it easier to edit a package description.  Line
+# up the first '|' above the ':' following the base package name, and the '|' on
+# the right side marks the last column you can put a character in.  You must make
+# exactly 11 lines for the formatting to be correct.  It's also customary to
+# leave one space after the ':'.
+
+	  |-----handy-ruler------------------------------------------------------|
+rfkill: rfkill (RF kill switch support)
+rfkill:
+rfkill: The rfkill subsystem provides a generic interface to disabling any
+rfkill: radio transmitter in the system. When a transmitter is blocked, it
+rfkill: shall not radiate any power. The subsystem also provides the ability
+rfkill: to react on button presses and disable all transmitters of a certain
+rfkill: type (or all). This is intended for situations where transmitters need
+rfkill: to be turned off, for example on aircraft.
+rfkill:
+rfkill:
+rfkill: Packaged by: Widya Walesa <walecha99@gmail.com>

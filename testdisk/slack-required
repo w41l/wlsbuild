@@ -1,0 +1,8 @@
+e2fsprogs
+heimdal-libraries
+libjpeg
+ncurses
+ntfsprogs
+openssl | openssl-solibs
+util-linux-ng
+zlib

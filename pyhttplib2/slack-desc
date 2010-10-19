@@ -1,0 +1,19 @@
+# HOW TO EDIT THIS FILE:
+# The "handy ruler" below makes it easier to edit a package description.  Line
+# up the first '|' above the ':' following the base package name, and the '|'
+# on the right side marks the last column you can put a character in.  You must
+# make exactly 11 lines for the formatting to be correct.  It's also
+# customary to leave one space after the ':'.
+
+		  |-----handy-ruler-------------------------------------------------------|
+pyhttplib2: Python HTTP Client Library
+pyhttplib2:
+pyhttplib2: A comprehensive HTTP client library that supports many features left
+pyhttplib2: out of other HTTP libraries.
+pyhttplib2:
+pyhttplib2: URL: http://code.google.com/p/httplib2/
+pyhttplib2:
+pyhttplib2:
+pyhttplib2:
+pyhttplib2:
+pyhttplib2: Packaged by Widya Walesa <walecha99@gmail.com>

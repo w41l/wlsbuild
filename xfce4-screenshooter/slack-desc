@@ -1,0 +1,19 @@
+# HOW TO EDIT THIS FILE:
+# The "handy ruler" below makes it easier to edit a package description.  Line
+# up the first '|' above the ':' following the base package name, and the '|'
+# on the right side marks the last column you can put a character in.  You must
+# make exactly 11 lines for the formatting to be correct.  It's also
+# customary to leave one space after the ':'.
+
+                   |-----handy-ruler----------------------------------------------------|
+xfce4-screenshooter: xfce4-screenshooter (GTK+2 Desktop Screenshoot Utility)
+xfce4-screenshooter:
+xfce4-screenshooter: This application allows you to capture the entire screen, the active
+xfce4-screenshooter: window or a selected region. You can set the delay that elapses
+xfce4-screenshooter: before the screenshot is taken and the action that will be done with
+xfce4-screenshooter: the screenshot: save it to a PNG  file, copy it to the clipboard,
+xfce4-screenshooter: open it using another application.
+xfce4-screenshooter:
+xfce4-screenshooter: URL: http://goodies.xfce.org/projects/applications/xfce4-screenshooter
+xfce4-screenshooter:
+xfce4-screenshooter: Packaged by: Widya Walesa <walecha99@gmail.com>

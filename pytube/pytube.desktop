@@ -1,0 +1,14 @@
+[Desktop Entry]
+Encoding=UTF-8
+Name=PyTube
+GenericName=Multimedia Converter
+GenericName[it]=Convertitore Multimediale
+Comment=Download and Convert Videos from YouTube.com
+Comment[it]=Scarica e converte i video da YouTube.com
+Icon=/usr/share/pixmaps/pytube.png
+Type=Application
+Categories=Application;AudioVideo;Audio;Multimedia
+Exec=pytube
+StartupNotify=false
+Terminal=false
+

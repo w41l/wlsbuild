@@ -1,0 +1,19 @@
+# HOW TO EDIT THIS FILE:
+# The "handy ruler" below makes it easier to edit a package description.  Line
+# up the first '|' above the ':' following the base package name, and the '|'
+# on the right side marks the last column you can put a character in.  You must
+# make exactly 11 lines for the formatting to be correct.  It's also
+# customary to leave one space after the ':'.
+
+       |-----handy-ruler----------------------------------------------------|
+lxpanel: lxpanel (LXDE Desktop Panel)
+lxpanel:
+lxpanel: The panel can generate menu for installed applications automatically
+lxpanel: from *.desktop files. It can be configured from GUI preference
+lxpanel: dialog, and there is no need to edit config files. The component
+lxpanel: provides a "Run" dialog with autocompletion.
+lxpanel:
+lxpanel: URL: http://www.lxde.org/
+lxpanel:
+lxpanel:
+lxpanel: Packaged by: Widya Walesa <walecha99@gmail.com>

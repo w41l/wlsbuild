@@ -1,0 +1,19 @@
+# HOW TO EDIT THIS FILE:
+# The "handy ruler" below makes it easier to edit a package description.  Line
+# up the first '|' above the ':' following the base package name, and the '|'
+# on the right side marks the last column you can put a character in.  You must
+# make exactly 11 lines for the formatting to be correct.  It's also
+# customary to leave one space after the ':'.
+
+	  |-----handy-ruler-------------------------------------------------------|
+arista: arista (GNOME Multimedia Transcoder)
+arista:
+arista: Arista focuses on being easy to use by making the complex task of
+arista: encoding for various devices simple. Pick your input, pick your target
+arista: device, choose a file to save to and go. Features include automatic
+arista: discovery of DVD media and V4L devices, ripping from DVD, V4L devices,
+arista: or files, a live quality preview, and included presets for the most
+arista: popular devices currently in use.
+arista: URL: http://www.transcoder.org/
+arista:
+arista: Packaged by Widya Walesa <walecha99@gmail.com>

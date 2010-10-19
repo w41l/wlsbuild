@@ -1,0 +1,12 @@
+             |-----handy-ruler------------------------------------------------------|
+gconf-cleaner: gconf-cleaner (GConf database cleaner)
+gconf-cleaner:
+gconf-cleaner: GConf Cleaner is to clean up the unknown/invalid gconf keys that still
+gconf-cleaner: sitting down on your gconf database.
+gconf-cleaner:
+gconf-cleaner: URL: http://code.google.com/p/gconf-cleaner/
+gconf-cleaner:
+gconf-cleaner:
+gconf-cleaner:
+gconf-cleaner:
+gconf-cleaner: Package by Widya Walesa <walecha99@gmail.com>

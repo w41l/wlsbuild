@@ -1,0 +1,12 @@
+      |-----handy-ruler------------------------------------------------------|
+pygdata: pygdata (Google Service Bindings for Python)
+pygdata: 
+pygdata: The Google Data bindings for python provide a simple protocol for 
+pygdata: reading and writing data on the web.  Google services, such as Base, 
+pygdata: Blogger, Calendar, Picasa Web Albums, Spreadsheets, Documents List, 
+pygdata: YouTube, Code Search, and Notebook are provided for.  The Google 
+pygdata: Data Python Client Library provides a library and source code that
+pygdata: make it easy to access data through Google.
+pygdata: 
+pygdata: 
+pygdata: 

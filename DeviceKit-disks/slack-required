@@ -1,0 +1,13 @@
+dbus
+dbus-glib
+eggdbus
+expat
+glib2
+libatasmart
+lvm2
+parted
+polkit
+sg3_utils
+udev
+util-linux-ng
+zlib

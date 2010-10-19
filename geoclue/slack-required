@@ -1,0 +1,17 @@
+GConf
+ORBit2
+cxxlibs
+dbus
+dbus-glib
+eggdbus
+glib2
+gnutls
+libgcrypt
+libgnome-keyring
+libgpg-error
+libproxy
+libsoup
+libxml2
+seamonkey | seamonkey-solibs
+sqlite
+zlib

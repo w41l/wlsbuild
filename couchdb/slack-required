@@ -1,0 +1,9 @@
+curl
+cxxlibs
+cyrus-sasl
+libicu
+libidn
+openldap-client
+openssl | openssl-solibs
+seamonkey | seamonkey-solibs
+zlib

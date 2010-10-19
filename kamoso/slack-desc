@@ -1,0 +1,19 @@
+# HOW TO EDIT THIS FILE:
+# The "handy ruler" below makes it easier to edit a package description.  Line
+# up the first '|' above the ':' following the base package name, and the '|'
+# on the right side marks the last column you can put a character in.  You must
+# make exactly 11 lines for the formatting to be correct.  It's also
+# customary to leave one space after the ':'.
+
+      |-----handy-ruler-------------------------------------------------------|
+kamoso: Kamoso (KDE4 Webcam Utility)
+kamoso:
+kamoso: Kamoso is an application to take pictures and videos out of your webcam.
+kamoso: It also lets you to push the media to some web 2.0 services such as
+kamoso: facebook and youtube.
+kamoso:
+kamoso: URL: http://gitorious.org/kamoso
+kamoso:
+kamoso:
+kamoso:
+kamoso: Packaged by Widya Walesa <walecha99@gmail.com>

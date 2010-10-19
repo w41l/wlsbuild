@@ -1,0 +1,19 @@
+# HOW TO EDIT THIS FILE:
+# The "handy ruler" below makes it easier to edit a package description.  Line
+# up the first '|' above the ':' following the base package name, and the '|'
+# on the right side marks the last column you can put a character in.  You must
+# make exactly 11 lines for the formatting to be correct.  It's also
+# customary to leave one space after the ':'.
+
+        |-----handy-ruler----------------------------------------------------|
+nitrogen: nitrogen (GTK+2 Desktop Background Utility)
+nitrogen:
+nitrogen: Nitrogen is a background browser and setter for X windows. It is
+nitrogen: written in C++ using the gtkmm toolkit. It can be used in two modes:
+nitrogen: browser and recall. Nitrogen has been in development for over 2
+nitrogen: years, due to real life and laziness.
+nitrogen:
+nitrogen: URL: http://projects.l3ib.org/nitrogen/
+nitrogen:
+nitrogen:
+nitrogen: Packaged by: Widya Walesa <walecha99@gmail.com>

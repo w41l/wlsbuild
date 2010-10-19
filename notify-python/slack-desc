@@ -1,0 +1,46 @@
+PACKAGE NAME:     notify-python-0.1.1-x86_64-1
+COMPRESSED PACKAGE SIZE:     20K
+UNCOMPRESSED PACKAGE SIZE:     90K
+PACKAGE LOCATION: /var/slapt-get/./slackware64/l/notify-python-0.1.1-x86_64-1.txz
+PACKAGE DESCRIPTION:
+notify-python: notify-python (Python bindings for libnotify)
+notify-python:
+notify-python: The notify-python package contains bindings to use libnotify with
+notify-python: Python programs.
+notify-python:
+notify-python: Homepage for notify-python:  http://www.galago-project.org/
+notify-python:
+notify-python:
+notify-python:
+notify-python:
+notify-python:
+FILE LIST:
+./
+usr/
+usr/lib64/
+usr/lib64/pkgconfig/
+usr/lib64/pkgconfig/notify-python.pc
+usr/lib64/python2.6/
+usr/lib64/python2.6/site-packages/
+usr/lib64/python2.6/site-packages/gtk-2.0/
+usr/lib64/python2.6/site-packages/gtk-2.0/pynotify/
+usr/lib64/python2.6/site-packages/gtk-2.0/pynotify/__init__.pyo
+usr/lib64/python2.6/site-packages/gtk-2.0/pynotify/__init__.pyc
+usr/lib64/python2.6/site-packages/gtk-2.0/pynotify/_pynotify.la
+usr/lib64/python2.6/site-packages/gtk-2.0/pynotify/_pynotify.so
+usr/lib64/python2.6/site-packages/gtk-2.0/pynotify/__init__.py
+usr/share/
+usr/share/pygtk/
+usr/share/pygtk/2.0/
+usr/share/pygtk/2.0/defs/
+usr/share/pygtk/2.0/defs/pynotify.defs
+usr/doc/
+usr/doc/notify-python-0.1.1/
+usr/doc/notify-python-0.1.1/ChangeLog
+usr/doc/notify-python-0.1.1/COPYING
+usr/doc/notify-python-0.1.1/INSTALL
+usr/doc/notify-python-0.1.1/AUTHORS
+usr/doc/notify-python-0.1.1/README
+usr/doc/notify-python-0.1.1/NEWS
+install/
+install/slack-desc

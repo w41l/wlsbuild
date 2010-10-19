@@ -1,0 +1,19 @@
+# HOW TO EDIT THIS FILE:
+# The "handy ruler" below makes it easier to edit a package description.  Line
+# up the first '|' above the ':' following the base package name, and the '|'
+# on the right side marks the last column you can put a character in.  You must
+# make exactly 11 lines for the formatting to be correct.  It's also
+# customary to leave one space after the ':'.
+
+	|-----handy-ruler-------------------------------------------------------|
+mdic: MDic (Dictionary Program)
+mdic:
+mdic: MDic is a complete Multilingual Dictionary for GNU/Linux. It is a
+mdic: graphical dictionary client for GNU/Linux Systems.It enables you to
+mdic: search through dictionary databases for a word or phrase, then displays
+mdic: suitable definitions. The back/forward functionality is also
+mdic: implemented, enabling you to quickly go back to the result of previous
+mdic: queries. MDic is able to process the content of the clipboard, so it’s
+mdic: easy to combine MDic with your web browser or text editor.
+mdic:
+mdic:

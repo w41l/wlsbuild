@@ -1,0 +1,19 @@
+# HOW TO EDIT THIS FILE:
+# The "handy ruler" below makes it easier to edit a package description.  Line
+# up the first '|' above the ':' following the base package name, and the '|' on
+# the right side marks the last column you can put a character in.  You must make
+# exactly 11 lines for the formatting to be correct.  It's also customary to
+# leave one space after the ':'.
+
+		  |-----handy-ruler---------------------------------------------------|
+xfce4-dict: xfce4-dict
+xfce4-dict:
+xfce4-dict: This program allows you to search different kinds of dictionary
+xfce4-dict: services for words or phrases and shows you the result. Currently
+xfce4-dict: you can query a Dict server(RFC 2229), any online dictionary
+xfce4-dict: service by opening a web browser or search for words using the
+xfce4-dict: aspell/ispell program. xfce4-dict contains a stand-alone application
+xfce4-dict: called “xfce4-dict” and a panel plugin for the Xfce panel.
+xfce4-dict: URL: http://goodies.xfce.org/projects/applications/xfce4-dict
+xfce4-dict:
+xfce4-dict: Packaged by Widya Walesa <walecha99@gmail.com>

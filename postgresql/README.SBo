@@ -1,0 +1,40 @@
+Before you can run postgresql you'll need to create the
+database files in /var/lib/pgsql. The following should do
+the trick.
+	# su postgres -c "initdb -D /var/lib/pgsql/data"
+
+Additionally, a logrotation script and init script are included.
+For production level log file handling please read
+http://www.postgresql.org/docs/8.4/interactive/logfile-maintenance.html
+
+In order to start postgresql at boot and stop it properly at shutdown, 
+make sure rc.postgresql is executable and add the following lines to 
+the following files:
+
+	/etc/rc.d/rc.local
+	==================
+	# Startup postgresql
+	if [ -x /etc/rc.d/rc.postgresql ]; then
+		/etc/rc.d/rc.postgresql start
+	fi
+
+	/etc/rc.d/rc.local_shutdown
+	===========================
+	# Stop postgres
+	if [ -x /etc/rc.d/rc.postgresql ]; then
+		/etc/rc.d/rc.postgresql stop
+	fi
+
+Additionally, rc.postgresql script has additionalg modes for stop/restart:
+  force-stop|force-restart (i.e. pg_ctl 'fast' mode)
+  unclean-stop|unclean-restart (i.e. pg_ctl 'immediate' mode)
+See http://www.postgresql.org/docs/8.4/static/app-pg-ctl.html
+
+This script builds postgresql with the 'adminpack' and 'pgcrypto' 
+features in the contrib directory.
+
+Please note that in order to actually use extension, you must execute
+accompanying SQL scripts located in /usr/share/postgresql/contrib
+
+Additionally, you can enable tsearch2 compatibility module with:
+  TSEARCH2_COMPAT=yes ./postgresql.SlackBuild

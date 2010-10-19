@@ -1,0 +1,7 @@
+GeoIP
+boost
+cxxlibs
+gcc
+openssl | openssl-solibs
+python
+zlib

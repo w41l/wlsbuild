@@ -1,0 +1,13 @@
+                      |-----handy-ruler------------------------------------------------------|
+network-manager-applet: network-manager-applet (Panel Applet for NetworkManager)
+network-manager-applet:
+network-manager-applet: NetworkManager attempts to make networking invisible. When moving
+network-manager-applet: into areas you've been before, NetworkManager automatically connects
+network-manager-applet: to the last network the user chose to connect to. Likewise, when
+network-manager-applet: back at the desk, NetworkManager will switch to the faster, more
+network-manager-applet: reliable wired network connection.
+network-manager-applet:
+network-manager-applet: This package contains a GNOME Panel applet to easily control
+network-manager-applet: NetworkManager from the desktop.
+network-manager-applet:
+

@@ -1,0 +1,11 @@
+dbus
+dbus-glib
+glib2
+gnutls
+libgcrypt
+libgpg-error
+libsoup
+libxml2
+telepathy-glib
+util-linux-ng
+zlib

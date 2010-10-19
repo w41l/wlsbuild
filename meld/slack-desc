@@ -1,0 +1,19 @@
+# HOW TO EDIT THIS FILE:
+# The "handy ruler" below makes it easier to edit a package description.  Line
+# up the first '|' above the ':' following the base package name, and the '|'
+# on the right side marks the last column you can put a character in.  You must
+# make exactly 11 lines for the formatting to be correct.  It's also
+# customary to leave one space after the ':'.
+
+    |-----handy-ruler-------------------------------------------------------|
+meld: meld (GTK+/Python Visual Diff Merge Tool)
+meld:
+meld: Meld is a visual diff merge and source control tool. This application
+meld: requires GTK+ version 2.8.x. Other dependencies include gnome-python
+meld: and pygtk.
+meld:
+meld: URL: http://meld.sf.net/
+meld:
+meld:
+meld:
+meld: Packaged by Widya Walesa <walecha99@gmail.com>

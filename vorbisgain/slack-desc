@@ -1,0 +1,12 @@
+		  |-----handy-ruler------------------------------------------------------|
+vorbisgain: vorbisgain (Ogg/Vorbis Audio ReplayGain)
+vorbisgain:
+vorbisgain: It calculates a percieved sound level of an Ogg Vorbis file using the
+vorbisgain: ReplayGain algorithm. VorbisGain then stores in the comments (tags) in
+vorbisgain: the file a suggestion on how the volume should be changed during
+vorbisgain: playback, to get a uniform sound level.
+vorbisgain:
+vorbisgain: URL: http://www.rarewares.org/ogg-tools.php
+vorbisgain:
+vorbisgain:
+vorbisgain:

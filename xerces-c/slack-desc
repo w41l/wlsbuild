@@ -1,0 +1,19 @@
+# HOW TO EDIT THIS FILE:
+# The "handy ruler" below makes it easier to edit a package description.  Line
+# up the first '|' above the ':' following the base package name, and the '|' on
+# the right side marks the last column you can put a character in.  You must make
+# exactly 11 lines for the formatting to be correct.  It's also customary to
+# leave one space after the ':'.
+
+        |-----handy-ruler------------------------------------------------------|
+xerces-c: xerces-c (Geometry Engine)
+xerces-c:
+xerces-c: Xerces-C++ is a validating XML parser written in a portable subset of
+xerces-c: C++. Xerces-C++ makes it easy to give your application the ability to
+xerces-c: read and write XML data. A shared library is provided for parsing,
+xerces-c: generating, manipulating, and validating XML documents using the DOM,
+xerces-c: SAX, and SAX2 APIs.
+xerces-c:
+xerces-c: URL: http://xerces.apache.org/index.html
+xerces-c:
+xerces-c: Packaged by: Widya Walesa <walecha99@gmail.com>

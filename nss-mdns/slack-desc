@@ -1,0 +1,19 @@
+# HOW TO EDIT THIS FILE:
+# The "handy ruler" below makes it easier to edit a package description.  Line
+# up the first '|' above the ':' following the base package name, and the '|'
+# on the right side marks the last column you can put a character in.  You must
+# make exactly 11 lines for the formatting to be correct.  It's also
+# customary to leave one space after the ':'.
+
+        |-----handy-ruler------------------------------------------------------|
+nss-mdns: nss-mdns
+nss-mdns:
+nss-mdns: nss-mdns is a plugin for the GNU Name Service Switch (NSS) functionality
+nss-mdns: of the GNU C Library (glibc) providing host name resolution via Multicast
+nss-mdns: DNS (aka Zeroconf, aka Apple Rendezvous, aka Apple Bonjour), effectively
+nss-mdns: allowing name resolution by common Unix/Linux programs in the ad-hoc mDNS
+nss-mdns: domain .local. 
+nss-mdns:
+nss-mdns:
+nss-mdns:
+nss-mdns: Packaged by: Widya Walesa <walecha99@gmail.com>

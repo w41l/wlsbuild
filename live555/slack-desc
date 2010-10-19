@@ -1,0 +1,19 @@
+# HOW TO EDIT THIS FILE:
+# The "handy ruler" below makes it easier to edit a package description.  Line
+# up the first '|' above the ':' following the base package name, and the '|' on
+# the right side marks the last column you can put a character in.  You must make
+# exactly 11 lines for the formatting to be correct.  It's also customary to
+# leave one space after the ':'.
+
+       |-----handy-ruler------------------------------------------------------|
+live555: Live555
+live555:
+live555: Live555 using open standard protocols (RTP/RTCP, RTSP, SIP). The
+live555: libraries - which can be compiled for Unix (including Linux and Mac
+live555: OS X), Windows, and QNX (and other POSIX-compliant systems) - can be
+live555: used to build streaming applications.
+live555:
+live555: URL: http://www.live555.com/liveMedia/
+live555:
+live555:
+live555: Packaged by: Widya Walesa <walecha99@gmail.com>

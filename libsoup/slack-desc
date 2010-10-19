@@ -1,0 +1,12 @@
+       |-----handy-ruler------------------------------------------------------|
+libsoup: libsoup (HTTP library)
+libsoup:
+libsoup: libsoup is an HTTP client/server library for GNOME. It uses GObjects
+libsoup: and the glib main loop, to integrate well with GNOME applications. It
+libsoup: features both asynchronous and synchronous APIs, SSL Support using
+libsoup: GnuTLS, proxy support, including authentication and SSL tunneling,
+libsoup: client support for Digest, NTLM, and Basic authentication, server
+libsoup: support for Digest and Basic authentication, and basic client-side
+libsoup: SOAP and XML-RPC support.
+libsoup:
+libsoup: Packaged by: Widya Walesa <walecha99@gmail.com>

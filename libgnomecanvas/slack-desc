@@ -1,0 +1,12 @@
+              |-----handy-ruler------------------------------------------------------|
+libgnomecanvas: libgnomecanvas (GNOME Canvas Widget Library)
+libgnomecanvas:
+libgnomecanvas: libgnomecanvas is the library for the GNOME canvas, an engine for
+libgnomecanvas: structured graphics that offers a rich imaging model, high performance
+libgnomecanvas: rendering, and a powerful, high-level API. It is based on the Tk
+libgnomecanvas: toolkit's canvas widget, and is one of the essential Gnome libraries.
+libgnomecanvas:
+libgnomecanvas:
+libgnomecanvas:
+libgnomecanvas:
+libgnomecanvas: Packaged by: Widya Walesa <walecha99@gmail.com>

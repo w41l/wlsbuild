@@ -1,8 +1,0 @@
-dbus
-dbus-glib
-eggdbus
-glib2
-libusb
-polkit
-udev
-zlib

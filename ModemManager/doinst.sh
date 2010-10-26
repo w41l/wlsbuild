@@ -12,3 +12,7 @@ config() {
 }
 
 config etc/dbus-1/system.d/org.freedesktop.ModemManager.conf.new
+
+if ps acx | grep -q "dbus-daemon" ; then
+    etc/rc.d/rc.messagebus reload
+fi

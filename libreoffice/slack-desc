@@ -5,15 +5,15 @@
 # make exactly 11 lines for the formatting to be correct.  It's also
 # customary to leave one space after the ':'.
 
-		   |-----handy-ruler-------------------------------------------------------|
+           |-----handy-ruler-------------------------------------------------------|
 libreoffice: libreoffice (a free and open office productivity suite)
 libreoffice:
-libreoffice: libreoffice is the leading open-source office software suite for
-libreoffice: word processing, spreadsheets, presentations, graphics, databases and
-libreoffice: more. It is available in many languages and works on all common
-libreoffice: computers. It stores all your data in an international open standard
-libreoffice: format and can also read and write files from other common office
-libreoffice: software packages. It can be downloaded and used completely free of
-libreoffice: charge for any purpose.
+libreoffice: LibreOffice is a productivity suite that is compatible with other major
+libreoffice: office suites, and available on a variety of platforms. It is free
+libreoffice: software and therefore free to download, use and distribute.
+libreoffice:
+libreoffice: URL: http://www.documentfoundation.org/
+libreoffice:
+libreoffice:
 libreoffice:
 libreoffice:

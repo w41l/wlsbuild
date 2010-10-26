@@ -52,13 +52,13 @@ fi
 NUMJOBS=${NUMJOBS:--j4}
 
 if [ "$ARCH" = "i486" ]; then
-  SLKCFLAGS="-O2 -march=i486 -mtune=i686"
+  SLKCFLAGS="-O2 -pipe -march=i486 -mtune=i686"
   LIBDIRSUFFIX=""
 elif [ "$ARCH" = "s390" ]; then
   SLKCFLAGS="-O2"
   LIBDIRSUFFIX=""
 elif [ "$ARCH" = "x86_64" ]; then
-  SLKCFLAGS="-O2 -fPIC"
+  SLKCFLAGS="-O2 -m64 -pipe -fPIC"
   LIBDIRSUFFIX="64"
 else
   SLKCFLAGS="-O2"
@@ -100,12 +100,12 @@ find . \
 
 # apply_patches looks for a ".svn" directory, which doesn't exist in the used snapshot.
 # removing the check from apply_patches to not try to apply already applied patches
-sed -i "s| test -d .svn &&||" apply_patches
+#sed -i "s| test -d .svn &&||" apply_patches
 
 # This is only needed/wanted for qt-copy (the r###### version) that we're
 # building right now. It might require manual intervention, so don't walk
 # away during the build
-./apply_patches
+#./apply_patches
 
 if [ $ARCH = "i486" ]; then
   zcat $CWD/qt.x86.cflags.diff.gz | patch -p1 || exit 1

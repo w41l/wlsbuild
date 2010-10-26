@@ -24,9 +24,10 @@
 # YOUR DATA IS DESTROYED, YOUR HOUSE BURNS DOWN OR YOUR DOG RUNS OFF.
 
 PRGNAM=seahorse
-VERSION=${VERSION:-2.30.1}
+VERSION=${VERSION:-2.32.0}
 BUILD=${BUILD:-1}
 TAG=${TAG:-_wls}
+NUMJOBS=${NUMJOBS:--j4}
 
 if [ -z "$ARCH" ]; then
   case "$( uname -m )" in
@@ -74,26 +75,30 @@ find . \
 CFLAGS="$SLKCFLAGS" \
 CXXFLAGS="$SLKCFLAGS" \
 ./configure \
-  --prefix=/usr \
-  --libdir=/usr/lib${LIBDIRSUFFIX} \
-  --sysconfdir=/etc \
-  --localstatedir=/var \
-  --mandir=/usr/man \
-  --disable-static \
-  --enable-shared \
+  --build=$ARCH-slackware-linux --host=$ARCH-slackware-linux \
+  --program-prefix= --program-suffix= \
+  --prefix=/usr --exec-prefix=/usr \
+  --bindir=/usr/bin --sbindir=/usr/sbin \
+  --libdir=/usr/lib$LIBDIRSUFFIX --includedir=/usr/include \
+  --mandir=/usr/man --infodir=/usr/info \
+  --sysconfdir=/etc --docdir=/usr/doc/$PRGNAM-$VERSION \
+  --localstatedir=/var/lib \
+  --disable-static --enable-shared \
   --enable-nls \
   --disable-gtk-doc \
   --disable-schemas-install \
   --disable-debug \
-  --build=$ARCH-slackware-linux
 
-make
+make $NUMJOBS
 make install DESTDIR=$PKG
 
 mkdir -p $PKG/etc/gconf/gconf.xml.defaults
 
 find $PKG | xargs file | grep -e "executable" -e "shared object" | grep ELF \
   | cut -f 1 -d : | xargs strip --strip-unneeded 2> /dev/null || true
+
+find $PKG/usr/man -type f -exec gzip -9 {} \;
+for i in $( find $PKG/usr/man -type l ) ; do ln -s $( readlink $i ).gz $i.gz ; rm $i ; done
 
 mkdir -p $PKG/usr/doc/$PRGNAM-$VERSION
 cp -a $DOCS $PKG/usr/doc/$PRGNAM-$VERSION

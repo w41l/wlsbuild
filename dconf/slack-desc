@@ -1,0 +1,12 @@
+     |-----handy-ruler------------------------------------------------------|
+dconf: dconf
+dconf:
+dconf: is a low-level configuration system. Its main purpose is to provide
+dconf: a backend to GSettings on platforms that don't already have
+dconf: configuration storage systems.
+dconf:
+dconf: URL: http://live.gnome.org/dconf
+dconf:
+dconf:
+dconf:
+dconf:

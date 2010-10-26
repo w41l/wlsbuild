@@ -13,6 +13,7 @@ config() {
 
 config etc/gconf/2/path.new
 config etc/gconf/2/evoldap.conf.new
+config etc/dbus-1/system.d/org.gnome.GConf.Defaults.conf.new
 
 if [ -x /usr/bin/update-desktop-database ]; then
   /usr/bin/update-desktop-database -q usr/share/applications >/dev/null 2>&1

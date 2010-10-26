@@ -63,7 +63,7 @@ rm -rf $PKG
 mkdir -p $TMP $PKG $OUTPUT
 cd $TMP
 rm -rf $PRGNAM-$VERSION
-tar xvf $CWD/$PRGNAM-$VERSION.tar.gz
+tar xvf $CWD/$PRGNAM-$VERSION.tar.bz2
 cd $PRGNAM-$VERSION
 chown -R root:root .
 find . \
@@ -75,26 +75,31 @@ find . \
 CFLAGS="$SLKCFLAGS" \
 CXXFLAGS="$SLKCFLAGS" \
 ./configure \
-  --prefix=/usr \
-  --libdir=/usr/lib${LIBDIRSUFFIX} \
-  --sysconfdir=/etc \
-  --localstatedir=/var \
-  --mandir=/usr/man \
-  --disable-static \
-  --enable-shared \
-  --build=$ARCH-slackware-linux \
-  --disable-schemas-install \
+  --build=$ARCH-slackware-linux --host=$ARCH-slackware-linux \
+  --program-prefix= --program-suffix= \
+  --prefix=/usr --exec-prefix=/usr \
+  --bindir=/usr/bin --sbindir=/usr/sbin \
+  --libdir=/usr/lib$LIBDIRSUFFIX --includedir=/usr/include \
+  --mandir=/usr/man --infodir=/usr/info \
+  --sysconfdir=/etc --docdir=/usr/doc/$PRGNAM-$VERSION \
+  --localstatedir=/var/lib \
+  --disable-static --enable-shared \
   --disable-pam \
-  --disable-tests \
+  --enable-tests \
+  --with-root-certs=/etc/ssl/certs \
+  --enable-acl-prompts \
   --enable-ssh-agent \
-  --with-root-certs=/etc/ssl/certs
+  --disable-schemas-install \
+
+#  --enable-gpg-agent \
+#  --with-gtk=2.0 \
 
 make ${NUMJOBS}
-make install-strip DESTDIR=$PKG
+make install DESTDIR=$PKG
 
 # Move xdg to /etc/gnome
-mkdir -p $PKG/etc/gnome
-mv $PKG/etc/xdg $PKG/etc/gnome/
+#mkdir -p $PKG/etc/gnome
+#mv $PKG/etc/xdg $PKG/etc/gnome/
 
 find $PKG | xargs file | grep -e "executable" -e "shared object" | grep ELF \
   | cut -f 1 -d : | xargs strip --strip-unneeded 2> /dev/null || true

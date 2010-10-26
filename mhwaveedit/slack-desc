@@ -1,0 +1,19 @@
+# HOW TO EDIT THIS FILE:
+# The "handy ruler" below makes it easier to edit a package description.  Line
+# up the first '|' above the ':' following the base package name, and the '|'
+# on the right side marks the last column you can put a character in.  You must
+# make exactly 11 lines for the formatting to be correct.  It's also
+# customary to leave one space after the ':'.
+
+		  |-----handy-ruler------------------------------------------------------|
+mhwaveedit: mhwaveedit (GTK+ Audio File Editor)
+mhwaveedit:
+mhwaveedit: mhWaveEdit is a graphical program for editing, playing and recording
+mhwaveedit: sound files. It is lightweight, portable, user-friendly and handles
+mhwaveedit: large files very well. The program itself has only simple editing
+mhwaveedit: features such as cut'n'paste and volume adjustment but it can also use
+mhwaveedit: Ladspa effect plugins and the effects provided by the SoX application.
+mhwaveedit: It can also support additional file formats besides wav through
+mhwaveedit: libsndfile and mp3/ogg import and export through lame and oggenc/oggdec.
+mhwaveedit: For sound playback and recording, mhWaveEdit supports OSS, ALSA, Jack,
+mhwaveedit: SDL, PortAudio and Esound.

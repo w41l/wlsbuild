@@ -1,0 +1,2 @@
+export NUMJOBS="-j4"
+export PKGTYPE="txz"

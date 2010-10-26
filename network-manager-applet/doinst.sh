@@ -37,3 +37,7 @@ if [ -e usr/share/icons/hicolor/icon-theme.cache ]; then
     /usr/bin/gtk-update-icon-cache usr/share/icons/hicolor >/dev/null 2>&1
   fi
 fi
+
+if ps acx | grep "gconfd-2" ; then
+    killall -HUP gconfd-2
+fi

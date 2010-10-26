@@ -24,8 +24,7 @@
 # YOUR DATA IS DESTROYED, YOUR HOUSE BURNS DOWN OR YOUR DOG RUNS OFF.
 
 PRGNAM=libreoffice
-SRCVERSION=${SRCVERSION:-3.3.0-beta1}
-VERSION=${VERSION:-3.3.0_beta1}
+VERSION=${VERSION:-3.3.0_beta2}
 MAJORVER=$( echo $VERSION | sed "s/\(.*\)\.\(.*\)\..*/\1/" )
 BUILD=${BUILD:-1}
 TAG=${TAG:-_wls}
@@ -69,7 +68,7 @@ rm -rf $PKG
 mkdir -p $TMP $PKG $OUTPUT
 cd $TMP
 rm -rf en-US
-tar xvf $CWD/LO_${SRCVERSION}_Linux_${DEBARCH}_install-deb_en-US.tar.gz
+tar xvf $CWD/LibO_${VERSION}_Linux_${DEBARCH}_install-deb_en-US.tar.gz
 cd en-US
 chown -R root:root .
 find . \
@@ -78,43 +77,43 @@ find . \
  \( -perm 666 -o -perm 664 -o -perm 600 -o -perm 444 -o -perm 440 -o -perm 400 \) \
  -exec chmod 644 {} \;
 
-# install libreoffice README and LICENSE
+echo "install libreoffice README and LICENSE"
 mkdir -p ${PKG}/usr/doc/${PRGNAM}-${VERSION}
-mv licenses/* ${PKG}/usr/doc/${PRGNAM}-${VERSION}/
-mv readmes/* ${PKG}/usr/doc/${PRGNAM}-${VERSION}/
+mv -v licenses/* ${PKG}/usr/doc/${PRGNAM}-${VERSION}/
+mv -v readmes/* ${PKG}/usr/doc/${PRGNAM}-${VERSION}/
 
-# Unpack DEBS
+echo "Unpacking deb packages"
 cd DEBS
 for i in `ls *.deb`; do
-    ar x $i
-    tar xf data.tar.gz
+    ar xv $i
+    tar xvf data.tar.gz
     rm data.tar.gz control.tar.gz
 done
 
-# Unpack desktop-integration DEB and install icons and mime
-# files
+echo "Unpacking desktop-integration packages"
 cd desktop-integration
-	ar x libreoffice*.deb
-	tar xf data.tar.gz
-	mkdir -p ${PKG}/usr/share
-	mv usr/share/icons ${PKG}/usr/share/
-	mv usr/share/mime ${PKG}/usr/share/
-	mv usr/share/mimelnk ${PKG}/usr/share/
-	mkdir -p ${PKG}/usr/bin
-	mv usr/bin/* ${PKG}/usr/bin/
-	sed -i "s,exec /opt,exec /usr/lib${LIBDIRSUFFIX},g" ${PKG}/usr/bin/libreoffice3
-	sed -i "s,exec /opt,exec /usr/lib${LIBDIRSUFFIX},g" ${PKG}/usr/bin/libreoffice3-printeradmin
-	chmod 755 ${PKG}/usr/bin/libreoffice${MAJORVER}*
+  ar xv libreoffice*.deb
+  tar xvf data.tar.gz
+  echo "Install icons and mime files"
+  mkdir -p ${PKG}/usr/share
+  mv -v usr/share/icons ${PKG}/usr/share/
+  mv -v usr/share/mime ${PKG}/usr/share/
+  mv -v usr/share/mimelnk ${PKG}/usr/share/
+  mkdir -p ${PKG}/usr/bin
+  mv -v usr/bin/* ${PKG}/usr/bin/
+  sed -i "s,exec /opt,exec /usr/lib${LIBDIRSUFFIX},g" ${PKG}/usr/bin/libreoffice3
+  sed -i "s,exec /opt,exec /usr/lib${LIBDIRSUFFIX},g" ${PKG}/usr/bin/libreoffice3-printeradmin
+  chmod -v 755 ${PKG}/usr/bin/libreoffice${MAJORVER}*
 cd ..
 
-# Install program files
+echo "Install program files"
 mkdir -p ${PKG}/usr/lib${LIBDIRSUFFIX}
-mv opt/* ${PKG}/usr/lib${LIBDIRSUFFIX}/
-
+mv -v opt/* ${PKG}/usr/lib${LIBDIRSUFFIX}/
+echo "Install desktop files"
 mkdir -p ${PKG}/usr/share/applications
-mv ${PKG}/usr/lib${LIBDIRSUFFIX}/libreoffice${MAJORVER}/share/xdg/*.desktop ${PKG}/usr/share/applications/
+mv -v ${PKG}/usr/lib${LIBDIRSUFFIX}/libreoffice${MAJORVER}/share/xdg/*.desktop ${PKG}/usr/share/applications/
 rm -rf ${PKG}/usr/lib${LIBDIRSUFFIX}/libreoffice${MAJORVER}/share/xdg
-
+echo "Creating binary symlinks"
 mkdir -p ${PKG}/usr/bin
 ( cd ${PKG}/usr/bin
   ln -s ../lib64/libreoffice${MAJORVER}/program/soffice soffice

@@ -24,7 +24,7 @@
 # YOUR DATA IS DESTROYED, YOUR HOUSE BURNS DOWN OR YOUR DOG RUNS OFF.
 
 PRGNAM=gtk-murrine-engine
-VERSION=0.90.3_ef6b6c8
+VERSION=0.98.1.1
 BUILD=${BUILD:-1}
 TAG=${TAG:-_wls}
 DOCS="AUTHORS COPY* ChangeLog CREDITS INSTALL MAINTAINERS NEWS README TODO"
@@ -43,12 +43,6 @@ CWD=$(pwd)
 TMP=${TMP:-/tmp/wls}
 PKG=$TMP/package-$PRGNAM
 OUTPUT=${OUTPUT:-/tmp}
-
-# The default themepack for murrine is
-# http://cimi.netsons.org/media/download_gallery/MurrineThemePack.tar.bz2
-# Others may work fine here, but the script has not been tested with them.
-# If you want to use another theme or themepack, ammend the line below.
-THEME=MurrineThemePack
 
 set -e
 
@@ -69,9 +63,9 @@ fi
 rm -rf $PKG
 mkdir -p $TMP $PKG $OUTPUT
 cd $TMP
-rm -rf $PRGNAM-$VERSION
-cp -r $CWD/murrine $PRGNAM-$VERSION
-cd $PRGNAM-$VERSION
+rm -rf murrine-$VERSION
+tar xvf $CWD/murrine-$VERSION.tar.xz
+cd murrine-$VERSION
 chown -R root:root .
 find . \
  \( -perm 777 -o -perm 775 -o -perm 711 -o -perm 555 -o -perm 511 \) \
@@ -79,45 +73,18 @@ find . \
  \( -perm 666 -o -perm 664 -o -perm 600 -o -perm 444 -o -perm 440 -o -perm 400 \) \
  -exec chmod 644 {} \;
 
-# Install a default set of themes in the right directory.
-if [ -r $CWD/$THEME.tar.bz2 ]; then
-    mkdir -p $PKG/usr/share/themes
-    ( cd $PKG/usr/share/themes
-      echo "Installing $THEME"
-      tar -xvjf $CWD/$THEME.tar.bz2
-      chown -R root:root .
-    )
-else
-    # Warn users that the package may not work as expected
-    echo
-    echo "A usable theme tarball does not appear to exist in "
-    echo "$CWD"
-    echo "See the README for more information on where to download"
-    echo "this. (or you didn't edit the script to reflect it or "
-    echo "something else is broken)."
-    echo
-    echo "The script will continue to build a package, but some manual"
-    echo "setup may be required ager installation."
-    echo
-    echo "Type 'exit' to quit or any other key to continue the script."
-    read _continue
-    if [ "$_continue" = "exit" ]; then
-        exit 1
-    fi
-fi
-
 CFLAGS="$SLKCFLAGS" \
 CXXFLAGS="$SLKCFLAGS" \
 ./autogen.sh \
-  --prefix=/usr \
-  --libdir=/usr/lib${LIBDIRSUFFIX} \
-  --sysconfdir=/etc \
-  --localstatedir=/var \
-  --mandir=/usr/man \
-  --docdir=/usr/doc/$PRGNAM-$VERSION \
-  --disable-static \
-  --enable-shared \
-  --build=$ARCH-slackware-linux \
+  --build=$ARCH-slackware-linux --host=$ARCH-slackware-linux \
+  --program-prefix= --program-suffix= \
+  --prefix=/usr --exec-prefix=/usr \
+  --bindir=/usr/bin --sbindir=/usr/sbin \
+  --libdir=/usr/lib$LIBDIRSUFFIX --includedir=/usr/include \
+  --mandir=/usr/man --infodir=/usr/info \
+  --sysconfdir=/etc --docdir=/usr/doc/$PRGNAM-$VERSION \
+  --localstatedir=/var/lib \
+  --disable-static --enable-shared \
   --enable-animation \
 
 make $NUMJOBS
@@ -137,4 +104,4 @@ cd $PKG
 /sbin/makepkg -l y -c n $OUTPUT/$PRGNAM-$VERSION-$ARCH-$BUILD$TAG.${PKGTYPE:-tgz}
 
 echo "Cleaning up build directory"
-rm -rf $TMP/$PRGNAM-$VERSION $TMP/package-$PRGNAM
+rm -rf $TMP/murrine-$VERSION $PKG

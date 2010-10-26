@@ -49,7 +49,7 @@ elif [ "$ARCH" = "i686" ]; then
   LIBDIRSUFFIX="";
   CHOST="i486-slackware-linux"
 elif [ "$ARCH" = "x86_64" ]; then
-  SLKCFLAGS="-O2 -pipe -mtune=generic -m64 -fPIC";
+  SLKCFLAGS="-O2 -pipe -m64 -fPIC";
   LIBDIRSUFFIX="64";
   CHOST="$ARCH-slackware-linux"
 fi

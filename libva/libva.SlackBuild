@@ -24,8 +24,8 @@
 # YOUR DATA IS DESTROYED, YOUR HOUSE BURNS DOWN OR YOUR DOG RUNS OFF.
 
 PRGNAM=libva
-VERSION=${VERSION:-0.31.0}
-BUILD=${BUILD:-1}
+VERSION=${VERSION:-0.32.0}
+BUILD=${BUILD:-2}
 TAG=${TAG:-_wls}
 NUMJOBS=${NUMJOBS:--j4}
 
@@ -63,11 +63,13 @@ rm -rf $PKG
 mkdir -p $TMP $PKG $OUTPUT
 cd $TMP
 rm -rf $PRGNAM-$VERSION
-tar xvf $CWD/$PRGNAM-${VERSION}-1+sds13.tar.gz
+tar xvf $CWD/${PRGNAM}_${VERSION}-1+sds1.tar.gz
 cd $PRGNAM-$VERSION
+
 # Apply a wad of patches:
 for DPATCH in $(ls debian/patches/*.patch) ; do cat $DPATCH | patch -p1; done
 autoreconf -ivsf
+
 chown -R root:root .
 find . \
  \( -perm 777 -o -perm 775 -o -perm 711 -o -perm 555 -o -perm 511 \) \
@@ -93,9 +95,6 @@ CXXFLAGS="$SLKCFLAGS" \
 make $NUMJOBS
 make install DESTDIR=$PKG
 
-# Remove useless binaries:
-rm -f $PKG/usr/bin/{h264encode,mpeg2vldemo,putsurface} $PKG/usr/bin/test_*
-
 find $PKG | xargs file | grep -e "executable" -e "shared object" | grep ELF \
   | cut -f 1 -d : | xargs strip --strip-unneeded 2> /dev/null || true
 
@@ -110,4 +109,4 @@ cd $PKG
 /sbin/makepkg -l y -c n $OUTPUT/$PRGNAM-$VERSION-$ARCH-$BUILD$TAG.${PKGTYPE:-tgz}
 
 echo "Cleaning up build directory"
-rm -rf $TMP/$PRGNAM-$VERSION $PKG
+cd $TMP; rm -rf $PRGNAM-$VERSION $PKG

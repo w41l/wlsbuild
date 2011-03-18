@@ -24,8 +24,7 @@
 # YOUR DATA IS DESTROYED, YOUR HOUSE BURNS DOWN OR YOUR DOG RUNS OFF.
 
 PRGNAM=x264
-VERSION=${VERSION:-snapshot_20100414_2245}
-SRCVERSION=${SRCVERSION:-snapshot-20100414-2245}
+VERSION=${VERSION:-20101023}
 BUILD=${BUILD:-1}
 TAG=${TAG:-_wls}
 NUMJOBS=${NUMJOBS:--j4}
@@ -63,9 +62,20 @@ set -e
 rm -rf $PKG
 mkdir -p $TMP $PKG $OUTPUT
 cd $TMP
-rm -rf $PRGNAM-$SRCVERSION
-tar xvf $CWD/$PRGNAM-$SRCVERSION.tar.bz2
-cd $PRGNAM-$SRCVERSION
+rm -rf $PRGNAM-snapshot-$VERSION-2245
+tar xvf $CWD/$PRGNAM-snapshot-$VERSION-2245.tar.bz2
+cd $PRGNAM-snapshot-$VERSION-2245
+
+# Add shared gpac
+sed -i 's,-lgpac_static,-lgpac,g' configure
+
+# x86_64 option
+if [ "$ARCH" = "x86_64" ]; then
+    PIC_OPT="--enable-pic"
+else
+    PIC_OPT=""
+fi
+
 chown -R root:root .
 find . \
  \( -perm 777 -o -perm 775 -o -perm 711 -o -perm 555 -o -perm 511 \) \
@@ -79,9 +89,9 @@ find . \
   --bindir=/usr/bin \
   --libdir=/usr/lib$LIBDIRSUFFIX --includedir=/usr/include \
   --enable-shared \
-  --enable-pic \
-  --disable-mp4-output \
+  --enable-visualize \
   --extra-cflags="$SLKCFLAGS" \
+  $PIC_OPT
 
 make $NUMJOBS
 make install DESTDIR=$PKG
@@ -100,4 +110,4 @@ cd $PKG
 /sbin/makepkg -l y -c n $OUTPUT/$PRGNAM-$VERSION-$ARCH-$BUILD$TAG.${PKGTYPE:-tgz}
 
 echo "Cleaning up build directory"
-rm -rf $TMP/$PRGNAM-$SRCVERSION $PKG
+cd $TMP; rm -rf $PRGNAM-snapshot-$VERSION-2245 $PKG

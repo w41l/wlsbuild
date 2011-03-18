@@ -1,0 +1,11 @@
+--- configure.old	2011-03-11 22:05:41.057000112 +0700
++++ configure	2011-03-11 22:06:29.746000086 +0700
+@@ -6853,7 +6853,7 @@
+   mpc_streaminfo info;
+   mpc_decoder decoder;
+   mpc_decoder_set_streaminfo(&decoder, &info);
+-  mpc_decoder_decode_frame(_frame(&decoder, NULL, 0, NULL)decoder, NULL, NULL);
++  mpc_decoder_decode_frame(&decoder, NULL, NULL);
+   return 0;
+ }
+ EOF

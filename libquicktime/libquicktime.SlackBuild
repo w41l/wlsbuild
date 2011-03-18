@@ -24,7 +24,7 @@
 # YOUR DATA IS DESTROYED, YOUR HOUSE BURNS DOWN OR YOUR DOG RUNS OFF.
 
 PRGNAM=libquicktime
-VERSION=${VERSION:-1.1.5}
+VERSION=${VERSION:-1.2.2}
 BUILD=${BUILD:-1}
 TAG=${TAG:-_wls}
 NUMJOBS=${NUMJOBS:--j1}
@@ -65,6 +65,7 @@ cd $TMP
 rm -rf $PRGNAM-$VERSION
 tar xvf $CWD/$PRGNAM-$VERSION.tar.gz
 cd $PRGNAM-$VERSION
+
 chown -R root:root .
 find . \
  \( -perm 777 -o -perm 775 -o -perm 711 -o -perm 555 -o -perm 511 \) \
@@ -85,10 +86,11 @@ CXXFLAGS="$SLKCFLAGS" \
   --localstatedir=/var/lib \
   --disable-static --enable-shared \
   --with-libdv \
-  --enable-gpl \
-  --without-x \
-  --without-doxygen \
-  --without-gtk \
+
+  #--enable-gpl \
+  #--without-x \
+  #--without-doxygen \
+  #--without-gtk \
 
 make $NUMJOBS
 make install DESTDIR=$PKG
@@ -110,4 +112,4 @@ cd $PKG
 /sbin/makepkg -l y -c n $OUTPUT/$PRGNAM-$VERSION-$ARCH-$BUILD$TAG.${PKGTYPE:-tgz}
 
 echo "Cleaning up build directory"
-rm -rf $TMP/$PRGNAM-$VERSION $PKG
+cd $TMP; rm -rf $PRGNAM-$VERSION $PKG

@@ -1,11 +1,9 @@
 #!/bin/sh
 
-# Slackware build script for libnice
+# Slackware build script for gnome-session
 
-# Copyright 2009  David Woodfall <dave@unrealize.co.uk>
+# Copyright 2010  Widya Walesa <walecha99@gmail.com>
 # All rights reserved.
-#
-# aka dive in #slackware on freenode.net
 #
 # Redistribution and use of this script, with or without modification, is
 # permitted provided that the following conditions are met:
@@ -26,7 +24,7 @@
 # YOUR DATA IS DESTROYED, YOUR HOUSE BURNS DOWN OR YOUR DOG RUNS OFF.
 
 PRGNAM=gnome-session
-VERSION=${VERSION:-2.30.2}
+VERSION=${VERSION:-2.32.1}
 BUILD=${BUILD:-1}
 TAG=${TAG:-_wls}
 NUMJOBS=${NUMJOBS:--j4}
@@ -46,13 +44,13 @@ OUTPUT=${OUTPUT:-/tmp}
 DOCS="AUTHORS ChangeLog COPY* INSTALL NEWS README"
 
 if [ "$ARCH" = "i486" ]; then
-  SLKCFLAGS="-O2 -march=i486 -mtune=i686"
+  SLKCFLAGS="-O2 -pipe -march=i486 -mtune=i686"
   LIBDIRSUFFIX=""
 elif [ "$ARCH" = "i686" ]; then
-  SLKCFLAGS="-O2 -march=i686 -mtune=i686"
+  SLKCFLAGS="-O2 -pipe -march=i686 -mtune=i686"
   LIBDIRSUFFIX=""
 elif [ "$ARCH" = "x86_64" ]; then
-  SLKCFLAGS="-O2 -fPIC"
+  SLKCFLAGS="-O2 -pipe -m64 -fPIC"
   LIBDIRSUFFIX="64"
 else
   SLKCFLAGS="-O2"
@@ -77,24 +75,23 @@ find . \
 CFLAGS="$SLKCFLAGS" \
 CXXFLAGS="$SLKCFLAGS" \
 ./configure \
-  --prefix=/usr \
-  --libdir=/usr/lib${LIBDIRSUFFIX} \
-  --sysconfdir=/etc \
-  --localstatedir=/var \
-  --mandir=/usr/man \
-  --docdir=/usr/doc/$PRGNAM-$VERSION \
-  --disable-static \
-  --enable-shared \
-  --build=$ARCH-slackware-linux \
+  --build=$ARCH-slackware-linux --host=$ARCH-slackware-linux \
+  --program-prefix= --program-suffix= \
+  --prefix=/usr --exec-prefix=/usr \
+  --bindir=/usr/bin --sbindir=/usr/sbin \
+  --libdir=/usr/lib$LIBDIRSUFFIX --includedir=/usr/include \
+  --mandir=/usr/man --infodir=/usr/info \
+  --sysconfdir=/etc --docdir=/usr/doc/$PRGNAM-$VERSION \
+  --localstatedir=/var/lib \
+  --disable-static --enable-shared \
   --disable-schemas-install \
   --with-default-wm=gnome-wm \
-  --enable-splash \
 
 make $NUMJOBS
-make install DESTDIR=$PKG
+make DESTDIR=$PKG install
 
-mkdir -p $PKG/etc/gnome
-mv $PKG/etc/xdg $PKG/etc/gnome/
+#mkdir -p $PKG/etc/gnome
+#mv $PKG/etc/xdg $PKG/etc/gnome/
 
 # Change gnome-wm to use compiz ccp if compiz selected
 mv $PKG/usr/bin/gnome-wm $PKG/usr/bin/gnome-wm.orig || exit 1
@@ -110,7 +107,7 @@ cat $CWD/xinitrc.gnome | sed -e "s,@LIBDIR@,lib${LIBDIRSUFFIX},g" \
 chmod 755 $PKG/etc/X11/xinit/xinitrc.gnome.new || exit 1
 
 # Add default `gnome` for gnome-session
-( cd $PKG/usr/bin ; ln -s gnome-session gnome ); 
+( cd $PKG/usr/bin ; ln -s gnome-session gnome );
 
 # Fix gdm session file (in case it's replaced)
 mkdir -p $PKG/usr/share/xsessions &&
@@ -134,8 +131,5 @@ cat $CWD/doinst.sh >> $PKG/install/doinst.sh
 cd $PKG
 /sbin/makepkg -l y -c n $OUTPUT/$PRGNAM-$VERSION-$ARCH-$BUILD$TAG.${PKGTYPE:-tgz}
 
-#echo "Installing $PRGNAME-$VERSION"
-#installpkg $OUTPUT/$PRGNAM-$VERSION-$ARCH-$BUILD$TAG.${PKGTYPE:-tgz}
-
 echo "Cleaning up build directory"
-rm -rf $TMP/$PRGNAM-$VERSION $TMP/package-$PRGNAM
+rm -rf $TMP/$PRGNAM-$VERSION $PKG

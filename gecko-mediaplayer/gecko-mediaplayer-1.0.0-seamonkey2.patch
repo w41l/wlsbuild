@@ -1,0 +1,11 @@
+--- gecko-mediaplayer-1.0.0/configure.in	2010-11-05 23:13:24.000000000 +0700
++++ gecko-mediaplayer-1.0.0/configure.in.seamonkey2	2010-12-01 12:11:15.826000063 +0700
+@@ -79,7 +79,7 @@
+ fi
+ 
+ if test "$GECKO_CFLAGS" = ""; then
+-PKG_CHECK_MODULES(GECKO, [seamonkey-plugin seamonkey-xpcom],[ AC_MSG_NOTICE([Using seamonkey])
++PKG_CHECK_MODULES(GECKO, [seamonkey-plugin >= 2 seamonkey-xpcom >= 2],[GECKO_CFLAGS="$GECKO_CFLAGS -DMOZ_NO_MOZALLOC" AC_DEFINE([HAVE_NEW_XULRUNNER],[1],[Define to 1 if using seamonkey 2.0.0 or higher]) AC_MSG_NOTICE([Using seamonkey >= 2.1 beta 1])
+     ],[AC_MSG_WARN([seamokey-plugin not found, trying another])])
+ fi
+ 

@@ -7,12 +7,12 @@ enchant
 expat
 fontconfig
 freetype
-geoclue
 glib2
 gnutls
 gst-plugins-base
 gstreamer
 gtk+2
+icu4c
 libICE
 libSM
 libX11
@@ -30,7 +30,6 @@ libXrender
 libXt
 libgcrypt
 libgpg-error
-libicu
 libjpeg
 libpng
 libsoup

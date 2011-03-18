@@ -1,0 +1,71 @@
+diff -up gecko-mediaplayer-1.0.0/configure.in.libxul2 gecko-mediaplayer-1.0.0/configure.in
+--- gecko-mediaplayer-1.0.0/configure.in.libxul2	2010-11-05 17:13:24.000000000 +0100
++++ gecko-mediaplayer-1.0.0/configure.in	2010-11-06 10:59:41.000000000 +0100
+@@ -50,7 +50,7 @@ AC_ARG_WITH([xulrunner-sdk],
+         [])
+ 
+ if test "$GECKO_CFLAGS" = ""; then
+-PKG_CHECK_MODULES(GECKO, [libxul >= 2.0],[GECKO_CFLAGS="$GECKO_CFLAGS -DMOZ_NO_MOZALLOC" AC_DEFINE([HAVE_NEW_XULRUNNER],[1],[Define to 1 if using libxul 2.0.0 or higher]) AC_MSG_NOTICE([Using libxul >= 2.0 beta 5])
++PKG_CHECK_MODULES(GECKO, [libxul >= 2],[GECKO_CFLAGS="$GECKO_CFLAGS -DMOZ_NO_MOZALLOC" AC_DEFINE([HAVE_NEW_XULRUNNER],[1],[Define to 1 if using libxul 2.0.0 or higher]) AC_MSG_NOTICE([Using libxul >= 2.0 beta 5])
+     ],[AC_MSG_NOTICE([libxul >= 2.0 beta 5 not found, trying another])])
+ fi
+ 
+diff -up gecko-mediaplayer-1.0.0/configure.libxul2 gecko-mediaplayer-1.0.0/configure
+--- gecko-mediaplayer-1.0.0/configure.libxul2	2010-11-05 17:13:48.000000000 +0100
++++ gecko-mediaplayer-1.0.0/configure	2010-11-06 11:00:00.000000000 +0100
+
+@@ -7237,12 +7242,12 @@ if test -n "$GECKO_CFLAGS"; then
+     pkg_cv_GECKO_CFLAGS="$GECKO_CFLAGS"
+  elif test -n "$PKG_CONFIG"; then
+     if test -n "$PKG_CONFIG" && \
+-    { { $as_echo "$as_me:${as_lineno-$LINENO}: \$PKG_CONFIG --exists --print-errors \"libxul >= 2.0\""; } >&5
+-  ($PKG_CONFIG --exists --print-errors "libxul >= 2.0") 2>&5
++    { { $as_echo "$as_me:${as_lineno-$LINENO}: \$PKG_CONFIG --exists --print-errors \"libxul >= 2\""; } >&5
++  ($PKG_CONFIG --exists --print-errors "libxul >= 2") 2>&5
+   ac_status=$?
+   $as_echo "$as_me:${as_lineno-$LINENO}: \$? = $ac_status" >&5
+   test $ac_status = 0; }; then
+-  pkg_cv_GECKO_CFLAGS=`$PKG_CONFIG --cflags "libxul >= 2.0" 2>/dev/null`
++  pkg_cv_GECKO_CFLAGS=`$PKG_CONFIG --cflags "libxul >= 2" 2>/dev/null`
+ else
+   pkg_failed=yes
+ fi
+@@ -7253,12 +7258,12 @@ if test -n "$GECKO_LIBS"; then
+     pkg_cv_GECKO_LIBS="$GECKO_LIBS"
+  elif test -n "$PKG_CONFIG"; then
+     if test -n "$PKG_CONFIG" && \
+-    { { $as_echo "$as_me:${as_lineno-$LINENO}: \$PKG_CONFIG --exists --print-errors \"libxul >= 2.0\""; } >&5
+-  ($PKG_CONFIG --exists --print-errors "libxul >= 2.0") 2>&5
++    { { $as_echo "$as_me:${as_lineno-$LINENO}: \$PKG_CONFIG --exists --print-errors \"libxul >= 2\""; } >&5
++  ($PKG_CONFIG --exists --print-errors "libxul >= 2") 2>&5
+   ac_status=$?
+   $as_echo "$as_me:${as_lineno-$LINENO}: \$? = $ac_status" >&5
+   test $ac_status = 0; }; then
+-  pkg_cv_GECKO_LIBS=`$PKG_CONFIG --libs "libxul >= 2.0" 2>/dev/null`
++  pkg_cv_GECKO_LIBS=`$PKG_CONFIG --libs "libxul >= 2" 2>/dev/null`
+ else
+   pkg_failed=yes
+ fi
+@@ -7276,9 +7281,9 @@ else
+         _pkg_short_errors_supported=no
+ fi
+         if test $_pkg_short_errors_supported = yes; then
+-	        GECKO_PKG_ERRORS=`$PKG_CONFIG --short-errors --print-errors "libxul >= 2.0" 2>&1`
++	        GECKO_PKG_ERRORS=`$PKG_CONFIG --short-errors --print-errors "libxul >= 2" 2>&1`
+         else
+-	        GECKO_PKG_ERRORS=`$PKG_CONFIG --print-errors "libxul >= 2.0" 2>&1`
++	        GECKO_PKG_ERRORS=`$PKG_CONFIG --print-errors "libxul >= 2" 2>&1`
+         fi
+ 	# Put the nasty error message in config.log where it belongs
+ 	echo "$GECKO_PKG_ERRORS" >&5
+--- gecko-mediaplayer-1.0.0/configure.in	2010-11-05 23:13:24.000000000 +0700
++++ gecko-mediaplayer-1.0.0/configure.in.seamonkey2	2010-12-01 12:11:15.826000063 +0700
+@@ -79,7 +79,7 @@
+ fi
+ 
+ if test "$GECKO_CFLAGS" = ""; then
+-PKG_CHECK_MODULES(GECKO, [seamonkey-plugin seamonkey-xpcom],[ AC_MSG_NOTICE([Using seamonkey])
++PKG_CHECK_MODULES(GECKO, [seamonkey-plugin >= 2 seamonkey-xpcom >= 2],[GECKO_CFLAGS="$GECKO_CFLAGS -DMOZ_NO_MOZALLOC" AC_DEFINE([HAVE_NEW_XULRUNNER],[1],[Define to 1 if using seamonkey 2.0.0 or higher]) AC_MSG_NOTICE([Using seamonkey >= 2.1 beta 1])
+     ],[AC_MSG_WARN([seamokey-plugin not found, trying another])])
+ fi
+ 

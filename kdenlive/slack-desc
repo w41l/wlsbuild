@@ -1,0 +1,19 @@
+# HOW TO EDIT THIS FILE:
+# The "handy ruler" below makes it easier to edit a package description.  Line
+# up the first '|' above the ':' following the base package name, and the '|'
+# on the right side marks the last column you can put a character in.  You must
+# make exactly 11 lines for the formatting to be correct.  It's also
+# customary to leave one space after the ':'.
+
+        |-----handy-ruler------------------------------------------------------|
+kdenlive: kdenlive (Free and open source video editor)
+kdenlive:
+kdenlive: Kdenlive is an intuitive and powerful multi-track video editor,
+kdenlive: including most recent video technologies. Our software is completely
+kdenlive: free, as defined by the GNU foundation. Using Kdenlive is investing in
+kdenlive: a community driven project, which aims to establish relationships
+kdenlive: between people in order to built the best video tools.
+kdenlive:
+kdenlive: URL: http://www.kdenlive.org/
+kdenlive:
+kdenlive: http://www.walecha.net/

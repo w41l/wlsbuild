@@ -1,0 +1,14 @@
+X-Git-Url: http://git.videolan.org/?p=vlc.git;a=blobdiff_plain;f=modules%2Fservices_discovery%2Fupnp_intel.cpp;h=fdae66aa295bcbcf642f332110161fbfbea8ec4e;hp=45749e0cc9e598c29b2cc22552a8a516a5844873;hb=e454bb83467b64c0cec10e74f0cb3312078c61a5;hpb=f38e00c93262c7fa48af84d2e40210978a9165e2
+
+diff --git a/modules/services_discovery/upnp_intel.cpp b/modules/services_discovery/upnp_intel.cpp
+index 45749e0..fdae66a 100644
+--- a/modules/services_discovery/upnp_intel.cpp
++++ b/modules/services_discovery/upnp_intel.cpp
+@@ -94,6 +94,7 @@ static int Open( vlc_object_t *p_this )
+     if( res != UPNP_E_SUCCESS )
+     {
+         msg_Err( p_sd, "%s", UpnpGetErrorMessage( res ) );
++        free( p_sys );
+         return VLC_EGENERIC;
+     }
+ 

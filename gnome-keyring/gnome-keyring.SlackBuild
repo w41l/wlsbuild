@@ -24,8 +24,8 @@
 # YOUR DATA IS DESTROYED, YOUR HOUSE BURNS DOWN OR YOUR DOG RUNS OFF.
 
 PRGNAM=gnome-keyring
-VERSION=${VERSION:-2.30.3}
-BUILD=${BUILD:-1}
+VERSION=${VERSION:-2.32.1}
+BUILD=${BUILD:-3}
 TAG=${TAG:-_wls}
 NUMJOBS=${NUMJOBS:--j4}
 
@@ -50,7 +50,7 @@ elif [ "$ARCH" = "i686" ]; then
   SLKCFLAGS="-O2 -pipe -march=i686 -mtune=i686"
   LIBDIRSUFFIX=""
 elif [ "$ARCH" = "x86_64" ]; then
-  SLKCFLAGS="-O2 -pipe -fPIC"
+  SLKCFLAGS="-O2 -pipe -m64 -fPIC"
   LIBDIRSUFFIX="64"
 else
   SLKCFLAGS="-O2"
@@ -65,6 +65,7 @@ cd $TMP
 rm -rf $PRGNAM-$VERSION
 tar xvf $CWD/$PRGNAM-$VERSION.tar.bz2
 cd $PRGNAM-$VERSION
+
 chown -R root:root .
 find . \
  \( -perm 777 -o -perm 775 -o -perm 711 -o -perm 555 -o -perm 511 \) \
@@ -89,8 +90,8 @@ CXXFLAGS="$SLKCFLAGS" \
   --with-root-certs=/etc/ssl/certs \
   --enable-acl-prompts \
   --enable-ssh-agent \
-  --disable-schemas-install \
 
+#  --disable-schemas-install \
 #  --enable-gpg-agent \
 #  --with-gtk=2.0 \
 
@@ -98,8 +99,8 @@ make ${NUMJOBS}
 make install DESTDIR=$PKG
 
 # Move xdg to /etc/gnome
-#mkdir -p $PKG/etc/gnome
-#mv $PKG/etc/xdg $PKG/etc/gnome/
+mkdir -p $PKG/etc/gnome
+mv $PKG/etc/xdg $PKG/etc/gnome/
 
 find $PKG | xargs file | grep -e "executable" -e "shared object" | grep ELF \
   | cut -f 1 -d : | xargs strip --strip-unneeded 2> /dev/null || true
@@ -107,8 +108,12 @@ find $PKG | xargs file | grep -e "executable" -e "shared object" | grep ELF \
 mkdir -p $PKG/usr/doc/$PRGNAM-$VERSION
 cp -a $DOCS $PKG/usr/doc/$PRGNAM-$VERSION
 cat $CWD/$PRGNAM.SlackBuild > $PKG/usr/doc/$PRGNAM-$VERSION/$PRGNAM.SlackBuild
+#( cd $PKG/usr/doc/$PRGNAM-$VERSION
+#  ln -s /usr/share/gtk-doc/html/gcr html-gcr
+#  ln -s /usr/share/gtk-doc/html/gp11 html-gp11
+#)
 ( cd $PKG/usr/doc/$PRGNAM-$VERSION
-  ln -s /usr/share/gtk-doc/html/gcr html-gcr
+  ln -s /usr/share/gtk-doc/html/gcr-0 html-gcr-0
   ln -s /usr/share/gtk-doc/html/gp11 html-gp11
 )
 
@@ -120,4 +125,4 @@ cd $PKG
 /sbin/makepkg -p -l y -c n $OUTPUT/$PRGNAM-$VERSION-$ARCH-$BUILD$TAG.${PKGTYPE:-tgz}
 
 echo "Cleaning up build directory"
-rm -rf $TMP/$PRGNAM-$VERSION $PKG
+cd $TMP; rm -rf $PRGNAM-$VERSION $PKG

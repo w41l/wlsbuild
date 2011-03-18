@@ -1,0 +1,60 @@
+X-Git-Url: http://git.videolan.org/?p=vlc.git;a=blobdiff_plain;f=modules%2Fservices_discovery%2Fupnp_intel.cpp;h=721615f82927297bcee065a76f797d484008ffcf;hp=5bfef205fc30cb2c709dc7bd02321da6ef67f962;hb=0210d3064cdcda689aa56f755c82c58d69d99060;hpb=eb3eab26d98260f1d7bcf07cd3c9372f59a3d6dc
+
+diff --git a/modules/services_discovery/upnp_intel.cpp b/modules/services_discovery/upnp_intel.cpp
+index 5bfef20..721615f 100644
+--- a/modules/services_discovery/upnp_intel.cpp
++++ b/modules/services_discovery/upnp_intel.cpp
+@@ -260,6 +260,19 @@ private:
+ };
+ 
+ 
++
++// VLC handle
++
++struct services_discovery_sys_t
++{
++    playlist_t *p_playlist;
++    playlist_item_t *p_node_cat;
++    playlist_item_t *p_node_one;
++    Cookie cookie;
++};
++
++
++
+ // VLC callback prototypes
+ 
+ static playlist_t *pl_Get( services_discovery_t *p_sd )
+@@ -267,6 +280,8 @@ static playlist_t *pl_Get( services_discovery_t *p_sd )
+     return p_sd->p_sys->p_playlist;
+ }
+ 
++
++
+ // More prototypes...
+ 
+ static int Callback( Upnp_EventType eventType, void* event, void* pCookie );
+@@ -276,16 +291,6 @@ IXML_Document* parseBrowseResult( IXML_Document* doc );
+ 
+ 
+ 
+-// VLC handle
+-
+-struct services_discovery_sys_t
+-{
+-    playlist_t *p_playlist;
+-    playlist_item_t *p_node_cat;
+-    playlist_item_t *p_node_one;
+-    Cookie cookie;
+-};
+-
+ // VLC callbacks...
+ 
+ static int Open( vlc_object_t *p_this )
+@@ -296,6 +301,7 @@ static int Open( vlc_object_t *p_this )
+ 
+     p_sd->p_sys = p_sys;
+     p_sys->p_playlist = pl_Yield( p_sd );
++    Cookie cookie = p_sys->cookie;
+ 
+     /* Create our playlist node */
+     vlc_object_lock( p_sys->p_playlist );

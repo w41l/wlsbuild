@@ -1,0 +1,19 @@
+# HOW TO EDIT THIS FILE:
+# The "handy ruler" below makes it easier to edit a package description.  Line
+# up the first '|' above the ':' following the base package name, and the '|' on
+# the right side marks the last column you can put a character in.  You must make
+# exactly 11 lines for the formatting to be correct.  It's also customary to
+# leave one space after the ':'.
+
+		    |-----handy-ruler---------------------------------------------------|
+xfce4-sensors-plugin: xfce4-sensors-plugin
+xfce4-sensors-plugin:
+xfce4-sensors-plugin: Written by Fabian Nowak, this is a hardware sensors plugin for the
+xfce4-sensors-plugin: panel. For now, it only works on Linux and requires libsensors to
+xfce4-sensors-plugin: display your mainboard sensors and fan speeds. Furthermore, it
+xfce4-sensors-plugin: supports hddtemp to surveil your hard disk's temperature values.
+xfce4-sensors-plugin:
+xfce4-sensors-plugin: URL: http://goodies.xfce.org/projects/panel-plugins/xfce4-sensors-plugin
+xfce4-sensors-plugin:
+xfce4-sensors-plugin:
+xfce4-sensors-plugin: Packaged by Widya Walesa <walecha99@gmail.com>

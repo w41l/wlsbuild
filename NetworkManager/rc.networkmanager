@@ -2,7 +2,7 @@
 #
 # NetworkManager:   NetworkManager daemon
 #
-# description:  This is a daemon for automatically switching network 
+# description:  This is a daemon for automatically switching network
 #               connections to the best available connection.
 #
 # processnames: NetworkManager, wpa_supplicant
@@ -32,12 +32,12 @@ if [ "`pgrep dbus-daemon`" = "" ]; then
   echo "D-BUS must be running to start NetworkManager"
   return ;
 fi
- 
+
 # Check for HAL
-if [ "`pgrep hald`" = "" ]; then
-  echo "HAL must be running to start NetworkManager"
-  return
-fi
+#if [ "`pgrep hald`" = "" ]; then
+#  echo "HAL must be running to start NetworkManager"
+#  return
+#fi
 
 # Make sure we aren't already running
 

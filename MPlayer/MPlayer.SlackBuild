@@ -24,20 +24,15 @@
 # YOUR DATA IS DESTROYED, YOUR HOUSE BURNS DOWN OR YOUR DOG RUNS OFF.
 
 PRGNAM=MPlayer
-VERSION=${VERSION:-1.0rc3}
-# Synced with FFMPEG 20100504 or svn revision 23017
-# so MPlayer revision is
-# libavcodec = 23017
-# libavformat = 23017
-# libavutil = 23017
-# libpostproc = 23017
-# libdvdread4 = 1190
-# libdvdnav = 1190
-# So, to get the correct synced source with ffmpeg, use something like this:
-# mkdir -p mplayer.svn && cd mplayer.svn
-# svn co -r $REV svn://svn.mplayerhq.hu/mplayer/trunk/ .
-# cd libavcodec && svn up -r 23017 && cd -
-# until the last libdvdnav using revision 1190
+VERSION=${VERSION:-1.0rc4}
+#FFMPEG_VERSION=${FFMPEG_VERSION:-r25512}
+#LIBSWSCALE_VERSION=${LIBSWSCALE_VERSION:-r32424}
+# Synced with FFMPEG $FFMPEG_VERSION at spesific release date.
+# mkdir -p mplayer && cd mplayer
+# svn co -r $VERSION svn://svn.mplayerhq.hu/mplayer/trunk/ .
+# cd ffmpeg && svn up -r $FFMPEG_VERSION
+# cd libswscale && svn up -r $LIBSWSCALE_VERSION
+# cd ../../
 # export the source like this:
 # svn export . ../MPlayer-$VERSION/ && cd ..
 # tar cvf - MPlayer-$VERSION/ | xz -9c > MPlayer-$VERSION.tar.xz
@@ -83,9 +78,9 @@ tar xvf $CWD/$PRGNAM-$VERSION.tar.bz2
 cd $PRGNAM-$VERSION
 
 # Remove internal codec, use externals
-#rm -rf ffmpeg
-rm -rf libdvdcss
-#rm -rf liba52
+if [ -d libdvdcss ]; then
+  rm -rf libdvdcss
+fi
 
 chown -R root:root .
 find . \
@@ -94,36 +89,34 @@ find . \
  \( -perm 666 -o -perm 664 -o -perm 600 -o -perm 444 -o -perm 440 -o -perm 400 \) \
  -exec chmod 644 {} \;
 
-#echo "$VERSION" > VERSION
+echo "$VERSION" > VERSION
 CODECSDIR="/usr/lib${LIBDIRSUFFIX}/codecs"
 LANGUAGES="en"
 ./configure \
-    --cc=$ARCH-slackware-linux-gcc \
-    --target=$ARCH-linux \
-    --prefix=/usr \
-    --libdir=/usr/lib${LIBDIRSUFFIX} \
-    --mandir=/usr/man \
-    --datadir=/usr/share/mplayer \
-    --confdir=/etc/mplayer \
-    --codecsdir=${CODECSDIR} \
-    --language="${LANGUAGES}" \
-    --enable-runtime-cpudetection \
-    --enable-menu \
-    --enable-largefiles \
-    --disable-arts \
-    --disable-gui \
-    --disable-faad-internal \
-    --disable-dvdread-internal \
-    --disable-libdvdcss-internal \
-    --enable-jpeg \
+  --prefix=/usr \
+  --libdir=/usr/lib${LIBDIRSUFFIX} \
+  --mandir=/usr/man \
+  --datadir=/usr/share/mplayer \
+  --confdir=/etc/mplayer \
+  --codecsdir=${CODECSDIR} \
+  --language="${LANGUAGES}" \
+  --disable-arts \
+  --disable-gui \
+  --disable-dvdread-internal \
+  --disable-libdvdcss-internal \
+  --enable-menu \
+  --enable-largefiles \
+  --enable-runtime-cpudetection \
+  --cc=$ARCH-slackware-linux-gcc \
+  --host-cc=$ARCH-slackware-linux-gcc \
 
 make $NUMJOBS
 # Build the html documentation (not all languages are available):
-( cd DOCS/xml
-  for i in $(echo $LANGUAGES | tr , ' ') ; do
-    [ -d $i ] && make html-single-$i ;
-  done
-)
+#( cd DOCS/xml
+  #for i in $(echo $LANGUAGES | tr , ' ') ; do
+    #[ -d $i ] && make html-single-$i ;
+  #done
+#)
 make install DESTDIR=$PKG
 
 # Prepare the configfile:
@@ -145,10 +138,11 @@ for i in $( find $PKG/usr/man -type l ) ; do ln -s $( readlink $i ).gz $i.gz ; r
 
 mkdir -p $PKG/usr/doc/$PRGNAM-$VERSION
 cp -a -r $DOCS $PKG/usr/doc/$PRGNAM-$VERSION/
-cp -r -p DOCS/HTML-single $PKG/usr/doc/$PRGNAM-$VERSION/
+cp -r -p DOCS/HTML $PKG/usr/doc/$PRGNAM-$VERSION/
 cp -r -p DOCS/tech $PKG/usr/doc/$PRGNAM-$VERSION/
 cp -r -p TOOLS $PKG/usr/doc/$PRGNAM-$VERSION/
 cat $CWD/$PRGNAM.SlackBuild > $PKG/usr/doc/$PRGNAM-$VERSION/$PRGNAM.SlackBuild
+find $PKG/usr/doc -type d -exec chmod -v 755 {} \;
 
 mkdir -p $PKG/install
 cat $CWD/slack-desc > $PKG/install/slack-desc
@@ -158,4 +152,4 @@ cd $PKG
 /sbin/makepkg -l y -c n $OUTPUT/$PRGNAM-$VERSION-$ARCH-$BUILD$TAG.${PKGTYPE:-tgz}
 
 echo "Cleaning up build directory"
-rm -rf $TMP/$PRGNAM-$VERSION $PKG
+cd $TMP; rm -rf $PRGNAM-$VERSION $PKG

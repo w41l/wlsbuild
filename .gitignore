@@ -13,6 +13,8 @@
 *.ebuild
 *.wls
 *.git
+*.deb
+*.rpm
 blueman
 bluez*
 obex-data-server*

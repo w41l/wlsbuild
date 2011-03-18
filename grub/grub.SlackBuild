@@ -25,7 +25,7 @@
 
 PRGNAM=grub
 VERSION=${VERSION:-1.98}
-BUILD=${BUILD:-1}
+BUILD=${BUILD:-2}
 TAG=${TAG:-_wls}
 NUMJOBS=${NUMJOBS:--j4}
 
@@ -86,6 +86,12 @@ CXXFLAGS="$SLKCFLAGS" \
 
 make $NUMJOBS
 make DESTDIR=$PKG install
+
+mv $PKG/etc/grub.d/30_os-prober $PKG/etc/grub.d/30_os-prober.new
+mv $PKG/etc/grub.d/README $PKG/etc/grub.d/README.new
+mv $PKG/etc/grub.d/00_header $PKG/etc/grub.d/00_header.new
+mv $PKG/etc/grub.d/10_linux $PKG/etc/grub.d/10_linux.new
+mv $PKG/etc/grub.d/40_custom $PKG/etc/grub.d/40_custom.new
 
 # copying grub.cfg example
 mkdir -p  $PKG/usr/doc/$PRGNAM-$VERSION

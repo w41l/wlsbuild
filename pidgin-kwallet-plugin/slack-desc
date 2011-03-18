@@ -1,0 +1,19 @@
+# HOW TO EDIT THIS FILE:
+# The "handy ruler" below makes it easier to edit a package description.  Line
+# up the first '|' above the ':' following the base package name, and the '|'
+# on the right side marks the last column you can put a character in.  You must
+# make exactly 11 lines for the formatting to be correct.  It's also
+# customary to leave one space after the ':'.
+
+                     |-----handy-ruler------------------------------------------------------|
+pidgin-kwallet-plugin: pidgin-kwallet-plugin (Pidgin Plugin)
+pidgin-kwallet-plugin:
+pidgin-kwallet-plugin: This Pidgin plugin allows you to store your passwords encrypted within
+pidgin-kwallet-plugin: KDE's wallet (by default Pidgin stored them in clear text under ~/.purple)
+pidgin-kwallet-plugin: The plugin will move your passwords from ~/.purple/accounts.xml into
+pidgin-kwallet-plugin: the KDE wallet. It is activated via the 'Tools/KWallet/Encrypt Password'
+pidgin-kwallet-plugin: menu item. You will need to call this each time you change an account's
+pidgin-kwallet-plugin: password.
+pidgin-kwallet-plugin:
+pidgin-kwallet-plugin: URL: http://kde-apps.org/content/show.php/Pidgin+KWallet+Plugin?content=127136
+pidgin-kwallet-plugin:

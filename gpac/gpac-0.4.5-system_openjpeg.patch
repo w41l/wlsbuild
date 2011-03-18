@@ -1,0 +1,36 @@
+diff -up gpac/configure.openjpeg gpac/configure
+--- gpac/configure.openjpeg	2008-02-17 15:16:22.000000000 +0100
++++ gpac/configure	2008-02-17 15:16:31.000000000 +0100
+@@ -526,17 +526,17 @@ fi
+ #look for OpenJPEG support
+ cat > $TMPC << EOF
+ #include <stdio.h>
+-#include <openjpeg.h>
++#include <openjpeg/openjpeg.h>
+ int main( void ) { return 0; }
+ EOF
+ 
+-if $cc -o $TMPO $TMPC -lopenjpeg 2> /dev/null  ; then
++if $cc -o $TMPO $TMPC -lopenjpeg -lm -L${libdir} 2> /dev/null  ; then
+ has_openjpeg="system"
+ elif test "$alt_macosx_dir" != "" ; then
+  if cc -o $TMPO $TMPC -I$alt_macosx_dir/include -L$alt_macosx_dir/lib -ljpeg 2> /dev/null ; then
+  has_openjpeg="system"
+  fi
+-elif $cc -o $TMPO $TMPC -I$local_inc/openjpeg -L$local_lib -lopenjpeg 2> /dev/null  ; then
++elif $cc -o $TMPO $TMPC -I$local_inc/openjpeg -L$local_lib -lopenjpeg -lm 2> /dev/null  ; then
+ has_openjpeg="local"
+ fi
+ 
+diff -up gpac/modules/img_in/jp2_dec.c.openjpeg gpac/modules/img_in/jp2_dec.c
+--- gpac/modules/img_in/jp2_dec.c.openjpeg	2007-09-12 18:47:11.000000000 +0200
++++ gpac/modules/img_in/jp2_dec.c	2008-02-17 15:16:22.000000000 +0100
+@@ -26,7 +26,7 @@
+ 
+ #ifdef GPAC_HAS_JP2
+ 
+-#include <openjpeg.h>
++#include <openjpeg/openjpeg.h>
+ 
+ typedef struct
+ {

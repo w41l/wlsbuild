@@ -24,7 +24,7 @@
 # YOUR DATA IS DESTROYED, YOUR HOUSE BURNS DOWN OR YOUR DOG RUNS OFF.
 
 PRGNAM=network-manager-applet
-VERSION=${VERSION:-0.8.1}
+VERSION=${VERSION:-0.8.3.997}
 BUILD=${BUILD:-1}
 TAG=${TAG:-_wls}
 NUMJOBS=${NUMJOBS:--j4}
@@ -63,12 +63,14 @@ rm -rf $PKG
 mkdir -p $TMP $PKG $OUTPUT
 cd $TMP
 rm -rf $PRGNAM-$VERSION
-tar xvf $CWD/$PRGNAM-$VERSION.tar.gz
+tar xvf $CWD/$PRGNAM-$VERSION.tar.bz2
 cd $PRGNAM-$VERSION
 
-zcat $CWD/${PRGNAM}.gseal_enable.diff.gz | patch -p1
-
-autoreconf -ivsf
+# Fix issue with nm-applet fallback icon missing
+# Thanks to Angel Montanez for bringing it to my attention, and *big* thanks
+# to Dan Williams (NM upstream) for addressing it quickly
+#patch -p1 < $CWD/applet-fix-fallback-icon-issues-for-good.patch
+#autoreconf
 
 chown -R root:root .
 find . \
@@ -95,13 +97,11 @@ CXXFLAGS="$SLKCFLAGS" \
 make $NUMJOBS
 make install DESTDIR=$PKG
 
+#rm -rf $PKG/usr/lib64/gnome-bluetooth
+
 # Allow group netdev to use nm-applet
 sed -i 's,at_console="true",group="netdev",g' \
   $PKG/etc/dbus-1/system.d/nm-applet.conf
-
-# Move xdg to /etc/gnome
-#mkdir -p $PKG/etc/gnome
-#mv $PKG/etc/xdg $PKG/etc/gnome/
 
 # Preserve old config
 mv $PKG/etc/dbus-1/system.d/nm-applet.conf $PKG/etc/dbus-1/system.d/nm-applet.conf.new

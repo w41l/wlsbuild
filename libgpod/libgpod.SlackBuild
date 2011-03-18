@@ -24,7 +24,7 @@
 # YOUR DATA IS DESTROYED, YOUR HOUSE BURNS DOWN OR YOUR DOG RUNS OFF.
 
 PRGNAM=libgpod
-VERSION=${VERSION:-0.7.94}
+VERSION=${VERSION:-0.8.0}
 BUILD=${BUILD:-1}
 TAG=${TAG:-_wls}
 NUMJOBS=${NUMJOBS:--j1}
@@ -41,16 +41,16 @@ CWD=$(pwd)
 TMP=${TMP:-/tmp/wls}
 PKG=$TMP/package-$PRGNAM
 OUTPUT=${OUTPUT:-/tmp}
-DOCS="AUTHORS ChangeLog COPY* INSTALL NEWS README* TODO"
+DOCS="AUTHORS ChangeLog COPY* INSTALL NEWS README* TROUBLESHOOTING"
 
 if [ "$ARCH" = "i486" ]; then
-  SLKCFLAGS="-O2 -march=i486 -mtune=i686"
+  SLKCFLAGS="-O2 -pipe -march=i486 -mtune=i686"
   LIBDIRSUFFIX=""
 elif [ "$ARCH" = "i686" ]; then
-  SLKCFLAGS="-O2 -march=i686 -mtune=i686"
+  SLKCFLAGS="-O2 -pipe -march=i686 -mtune=i686"
   LIBDIRSUFFIX=""
 elif [ "$ARCH" = "x86_64" ]; then
-  SLKCFLAGS="-O2 -fPIC"
+  SLKCFLAGS="-O2 -pipe -m64 -fPIC"
   LIBDIRSUFFIX="64"
 else
   SLKCFLAGS="-O2"
@@ -75,20 +75,15 @@ find . \
 CFLAGS="$SLKCFLAGS" \
 CXXFLAGS="$SLKCFLAGS" \
 ./configure \
-  --prefix=/usr \
-  --libdir=/usr/lib${LIBDIRSUFFIX} \
-  --sysconfdir=/etc \
-  --localstatedir=/var \
-  --mandir=/usr/man \
-  --docdir=/usr/doc/$PRGNAM-$VERSION \
-  --disable-static \
-  --enable-shared \
   --build=$ARCH-slackware-linux \
+  --host=$ARCH-slackware-linux \
+  --prefix=/usr --libdir=/usr/lib${LIBDIRSUFFIX} \
+  --sysconfdir=/etc --localstatedir=/var \
+  --mandir=/usr/man --docdir=/usr/doc/$PRGNAM-$VERSION \
+  --disable-static --enable-shared \
   --enable-udev \
   --without-hal \
-  --with-python=/usr/bin/python \
-  --with-mono \
-  --with-temp-mount-dir=/media
+  --with-temp-mount-dir=/media \
 
 make $NUMJOBS
 make install DESTDIR=$PKG

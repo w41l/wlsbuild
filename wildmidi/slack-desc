@@ -1,0 +1,12 @@
+        |-----handy-ruler------------------------------------------------------|
+wildmidi: wildmidi (Open Source Midi Synthesizer)
+wildmidi:
+wildmidi: WildMIDI is a simple software midi player which has a core softsynth
+wildmidi: library that can be use with other applications. The WildMIDI library
+wildmidi: uses Gravis Ultrasound patch files to convert MIDI files into audio
+wildmidi: which is them passed back to the calling application for further
+wildmidi: processing or output.
+wildmidi:
+wildmidi: URL: http://wildmidi.sourceforge.net/
+wildmidi:
+wildmidi: http://www.walecha.net/

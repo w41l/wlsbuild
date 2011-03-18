@@ -25,7 +25,7 @@
 
 PRGNAM=gtk-engines
 VERSION=${VERSION:-2.20.2}
-BUILD=${BUILD:-1}
+BUILD=${BUILD:-2}
 TAG=${TAG:-_wls}
 NUMJOBS=${NUMJOBS:--j4}
 
@@ -104,4 +104,4 @@ cd $PKG
 /sbin/makepkg -l y -c n $OUTPUT/$PRGNAM-$VERSION-$ARCH-$BUILD$TAG.${PKGTYPE:-tgz}
 
 echo "Cleaning up build directory"
-rm -rf $TMP/aurora-$SRCVERSION $PKG
+cd $TMP; rm -rf $PRGNAM-$VERSION $PKG

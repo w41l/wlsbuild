@@ -1,0 +1,239 @@
+Sun Mar 13 18:50:11 WIT 2011
+  * google-chrome-10.0.648.127_r76697-x86_64-2_wls.txz: rebuilt
+    Move the google-chrome files to /usr/lib64/google/chrome from /opt.
+  * bombono-dvd-1.0.1-x86_64-2_wls.txz: rebuilt
+  * scons-2.0.1-x86_64-3_wls.txz: rebuilt
+  * gtkpod-1.0.0-x86_64-2_wls.txz: added
+
+Sat Mar 12 12:37:26 WIT 2011
+  * vlc-1.1.7-x86_64-5_wls.txz: rebuilt
+  * pidgin-kwallet-plugin-1.1.0-x86_64-3_wls.txz: rebuilt
+  * projectM-2.0.1-x86_64-2_wls.txz: rebuilt
+  * goom2-2k4.0-x86_64-2_wls.txz: rebuilt
+  * ftgl-2.1.3-x86_64-2_wls.txz: rebuilt
+  * libdvbpsi-0.1.7-x86_64-2_wls.txz: rebuilt
+  * libshout-2.2.2-x86_64-2_wls.txz: rebuilt
+  * libupnp-1.6.10-x86_64-3_wls.txz: rebuilt
+  * libva-0.32.0-x86_64-2_wls.txz: rebuilt
+  * lua-5.1.4-x86_64-2_wls.txz: rebuilt
+  * soundkonverter-0.9.94rc2-x86_64-2_wls.txz: rebuilt
+  * choqok-1.0-x86_64-2_wls.txz: rebuilt
+  * qoauth-1.0.1-x86_64-2_wls.txz: rebuilt
+  * clementine-0.6-x86_64-2_wls.txz: rebuilt
+  * libimobiledevice-1.0.4-x86_64-2_wls.txz: rebuilt
+  * usbmuxd-1.0.6-x86_64-2_wls.txz: rebuilt
+  * dvdauthor-0.7.0-x86_64-2_wls.txz: rebuilt
+  * transcode-1.1.5-x86_64-2_wls.txz: rebuilt
+  * vcdimager-0.7.23-x86_64-2_wls.txz: rebuilt
+  * kipi-plugins-1.9.0-x86_64-2_wls.txz: rebuilt
+  * qjson-0.7.1-x86_64-2_wls.txz: rebuilt
+  * gst-ffmpeg-0.10.11-x86_64-2_wls.txz: rebuilt
+  * gst-python-0.10.21-x86_64-2_wls.txz: rebuilt
+  * gst-plugins-gl-0.10.2-x86_64-1_wls.txz: added
+
+Fri Mar 11 23:39:40 WIT 2011
+  * gst-plugins-bad-0.10.21-x86_64-2_wls.txz: rebuilt
+  * wildmidi-0.2.3.4-x86_64-1_wls.txz: added
+    Added to have more audio format in gst-plugins-bad.
+  * opencv-2.2.0-x86_64-2_wls.txz: rebuilt
+  * libmodplug-0.8.8.1-x86_64-2_wls.txz: rebuilt
+  * libmms-0.4-x86_64-1_wls.txz: added
+    Added to have more audio format in gst-plugins-bad.
+  * gst-plugins-ugly-0.10.17-x86_64-2_wls.txz: rebuilt
+  * smplayer-0.6.9-x86_64-2_wls.txz: rebuilt
+  * MPlayer-1.0rc4-x86_64-1_wls.txz: upgraded
+    Upgraded to latest RC release with additional bluray playback support.
+  * libmpcdec-1.2.6-x86_64-1_wls.txz: added
+    Added to replace musepack. MPlayer still using the old API.
+  * musepack-r435-x86_64-2_wls.txz: removed
+    Replaced with libmpcdec. Can not be used by MPlayer.
+  * libbluray-b33b0fc_20110223git-x86_64-1_wls.txz: added
+    Add bluray playback support to MPlayer.
+  * rtmpdump-2.3-x86_64-2_wls.txz: rebuilt
+  * libkate-0.3.8-x86_64-3_wls.txz: rebuilt
+  * vorbisgain-0.37-x86_64-2_wls.txz: rebuilt
+  * mp3gain-1.5.2-x86_64-2_wls.txz: rebuilt
+  * wavegain-1.2.8-x86_64-2_wls.txz: rebuilt
+  * live555-2011.03.05-x86_64-1_wls.txz: upgraded
+  * libcdaudio-0.99.12p2-x86_64-2_wls.txz: rebuilt
+  * libavc1394-0.5.4-x86_64-1_wls.txz: upgraded
+  * libiec61883-1.2.0-x86_64-2_wls.txz: rebuilt
+  * mjpegtools-1.9.0-x86_64-2_wls.txz: rebuilt
+  * libquicktime-1.2.2-x86_64-1_wls.txz: upgraded
+  * libdvdnav-4.1.3-x86_64-2_wls.txz: rebuilt
+  * libdvdcss-1.2.10-x86_64-2_wls.txz: rebuilt
+  * libdca-0.0.5-x86_64-2_wls.txz: rebuilt
+  * twolame-0.3.13-x86_64-1_wls.txz: upgraded
+    After two years of hiatus, twolame released the its new version.
+  * libass-0.9.11-x86_64-2_wls.txz: rebuilt
+  * libmpeg2-0.5.1-x86_64-2_wls.txz: rebuilt
+  * cuetools-1.4.0_r305-x86_64-2_wls.txz: rebuilt
+  * libcue-1.4.0-x86_64-2_wls.txz: rebuilt
+  * libreplaygain-r453-x86_64-2_wls.txz: rebuilt
+  * libdv-1.0.0-x86_64-2_wls.txz: rebuilt
+  * a52dec-0.7.4-x86_64-2_wls.txz: rebuilt
+  * ffmpeg-0.6.1-x86_64-4_wls.txz: rebuilt
+  * speex-1.2rc1-x86_64-2_wls.txz: rebuilt
+  * libvpx-0.9.6-x86_64-1_wls.txz: upgraded
+  * openjpeg-1.4-x86_64-1_wls.txz: upgraded
+  * libdc1394-2.1.3-x86_64-1_wls.txz: upgraded
+  * xvidcore-1.2.2-x86_64-2_wls.txz: rebuilt
+  * x264-20101023-x86_64-1_wls.txz: upgraded
+  * gpac-0.4.5-x86_64-2_wls.txz: rebuilt
+  * opencore-amr-0.1.2-x86_64-2_wls.txz: rebuilt
+  * lame-3.98.4-x86_64-2_wls.txz: rebuilt
+  * libgsm-1.0.13-x86_64-2_wls.txz: rebuilt
+  * schroedinger-1.0.10-x86_64-2_wls.txz: rebuilt
+  * dirac-1.0.2-x86_64-2_wls.txz: rebuilt
+  * orc-0.4.11-x86_64-1_wls.txz: upgraded
+  * p7zip-9.13-x86_64-2_wls.txz: rebuilt
+  * unrar-3.9.10-x86_64-2_wls.txz: rebuilt
+  * faad2-2.7-x86_64-2_wls.txz: rebuilt
+  * faac-1.28-x86_64-2_wls.txz: rebuilt
+  * mp4v2-1.9.1-x86_64-2_wls.txz: rebuilt
+  * grub-1.98-x86_64-2_wls.txz: rebuilt
+  * gtk-equinox-engine-1.30.2-x86_64-2_wls.txz: rebuilt
+  * gtk-murrine-engine-0.98.1.1-x86_64-2_wls.txz: rebuilt
+  * gtk-engines-2.20.2-x86_64-2_wls.txz: rebuilt
+
+Thu Mar 10 19:52:54 WIT 2011
+  * gtk-qtcurve-engine-1.8.4-x86_64-2_wls.txz: rebuilt
+  * oxygen-gtk-1.0.2-x86_64-2_wls.txz: rebuilt
+  * geany-0.20-x86_64-2_wls.txz: rebuilt
+  * network-manager-applet-0.8.2-x86_64-3_wls.txz: rebuilt
+  * ModemManager-0.4-x86_64-2_wls.txz: rebuilt
+  * NetworkManager-vpnc-0.8.2-x86_64-2_wls.txz: rebuilt
+  * NetworkManager-pptp-0.8.2-x86_64-2_wls.txz: rebuilt
+  * NetworkManager-openvpn-0.8.2-x86_64-2_wls.txz: rebuilt
+  * NetworkManager-openconnect-0.8.2-x86_64-2_wls.txz: rebuilt
+  * NetworkManager-0.8.2-x86_64-3_wls.txz: rebuilt
+  * libxml++-2.33.2-x86_64-2_wls.txz: rebuilt
+  * gtkmm-2.24.0-x86_64-2_wls.txz: rebuilt
+  * atkmm-2.22.2-x86_64-2_wls.txz: rebuilt
+  * pangomm-2.27.1-x86_64-2_wls.txz: rebuilt
+  * cairomm-1.9.8-x86_64-2_wls.txz: rebuilt
+  * glibmm-2.25.5-x86_64-2_wls.txz: rebuilt
+  * libsigc++-2.2.8-x86_64-2_wls.txz: rebuilt
+  * rarian-0.8.1-x86_64-2_wls.txz: rebuilt
+  * gnome-vfs-2.24.4-x86_64-2_wls.txz: rebuilt
+  * gnome-mime-data-2.18.0-x86_64-2_wls.txz: rebuilt
+  * gvfs-1.7.2-x86_64-2_wls.txz: rebuilt
+  * gnome-keyring-2.32.1-x86_64-3_wls.txz: rebuilt
+  * libtasn1-2.8-x86_64-3_wls.txz: rebuilt
+  * libsoup-2.32.2-x86_64-2_wls.txz: rebuilt
+  * libproxy-0.4.6-x86_64-3_wls.txz: rebuilt
+  * libproxy-0.4.6-x86_64-3_wls.txz: rebuilt
+  * libgnome-keyring-2.32.0-x86_64-3_wls.txz: rebuilt
+  * nss-mdns-0.10-x86_64-3_wls.txz: rebuilt
+  * GConf-2.32.1-x86_64-2_wls.txz: rebuilt
+  * gsettings-desktop-schemas-0.1.5-x86_64-2_wls.txz: rebuilt
+  * ORBit2-2.14.19-x86_64-2_wls.txz: rebuilt
+  * avahi-0.6.28-x86_64-3_wls.txz: rebuilt
+  * libdaemon-0.14-x86_64-3_wls.txz: rebuilt
+
+Wed Mar  9 23:04:19 WIT 2011
+  * NetworkManager-0.8.2-x86_64-3_wls.txz: rebuilt
+    Fix user proxy search as libproxy wasn't built against NetworkManager and
+    NetworkManager was built after libproxy was installed.
+  * google-chrome-10.0.648.127_r76697-x86_64-1_wls.txz: added
+
+Sun Mar  6 21:27:35 WIT 2011
+  * MPlayer-1.0rc20101218-x86_64-2_wls.txz: rebuilt
+  * ffmpeg-0.6.1-x86_64-2_wls.txz: rebuilt
+  * libebml-1.2.0-x86_64-1_wls.txz: upgraded
+  * libmatroska-1.1.0-x86_64-1_wls.txz: upgraded
+  * vlc-1.1.7-x86_64-4_wls.txz: rebuilt
+    Add NP Plugin patch for building against Seamonkey 2.1b2, so the plugin
+    could be working again in Firefox 4.0 beta.
+
+Sun Mar  6 14:46:28 WIT 2011
+  * kipi-plugins-1.9.0-x86_64-1_wls.txz: upgraded
+  * libreoffice-3.3.1-x86_64-1_wls.txz: upgraded
+  * vlc-1.1.7-x86_64-3_wls.txz: rebuilt
+    Disable VLC Mozilla plugin as it makes Firefox crashed.
+
+Sat Mar  5 19:10:25 WIT 2011
+  * gc-7.1-x86_64-1_wls.txz: added
+  * inkscape-0.48.1-x86_64-1_wls.txz: added
+  * vlc-1.1.7-x86_64-2_wls.txz: rebuilt
+
+Thu Mar  3 14:22:20 WIT 2011
+  * kmediafactory-r625-x86_64-1_wls.txz: tested
+
+Wed Mar  2 23:36:48 WIT 2011
+  * atkmm-2.22.2-x86_64-1_wls.txz: added
+  * bombono-dvd-1.0.1-x86_64-1_wls.txz: added
+  * cairomm-1.9.8-x86_64-1_wls.txz:: added
+  * dvdauthor-0.7.0-x86_64-1_wls.txz: added
+  * glibmm-2.25.5-x86_64-1_wls.txz: added
+  * gtkmm-2.24.0-x86_64-1_wls.txz: added
+  * libsigc++-2.2.8-x86_64-1_wls.txz: added
+  * libxml++-2.33.2-x86_64-1_wls.txz: added
+  * pangomm-2.27.1-x86_64-1_wls.txz: added
+  * pidgin-kwallet-plugin-1.1.0-x86_64-2_wls.txz: rebuilt
+  * scons-2.0.1-x86_64-1_wls.txz: added
+  * transcode-1.1.5-x86_64-1_wls.txz: added
+  * vcdimager-0.7.23-x86_64-1_wls.txz: added
+
+Tue Mar  1 13:41:09 WIT 2011
+  * GConf-2.32.1-x86_64-1_wls.txz: upgraded
+  * gvfs-1.7.2-x86_64-1_wls.txz: upgraded
+  * libsoup-2.32.2-x86_64-1_wls.txz: upgraded
+  * rekonq-0.6.85-x86_64-1_wls.txz: upgraded
+
+Mon Feb 28 16:07:47 WIT 2011
+  * dia-0.9.7-x86_64-1_wls.txz: added
+
+Thu Feb 24 16:58:45 WIT 2011
+  * usbmuxd-1.0.6-x86_64-1_wls.txz: added
+  * libimobiledevice-1.0.4-x86_64-1_wls.txz: added
+  * clementine-0.6-x86_64-1_wls.txz: added
+
+Thu Feb 24 08:50:11 WIT 2011
+  * liferea-1.6.5-x86_64-1_wls.txz: added
+  * rekonq-0.6.80-x86_64-1_wls.txz: added
+
+Tue Feb 22 07:39:59 WIT 2011
+  * GConf-2.32.0-x86_64-1_wls.txz: rebuilt
+  * NetworkManager-0.8.2-x86_64-2_wls.txz: rebuilt
+  * ORBit2-2.14.19-x86_64-1_wls.txz: rebuilt
+  * avahi-0.6.28-x86_64-2_wls.txz: rebuilt
+  * ftgl-2.1.3-x86_64-1_wls.txz: added
+  * gnome-keyring-2.32.1-x86_64-2_wls.txz: rebuilt
+  * gnome-mime-data-2.18.0-x86_64-1_wls.txz: added
+  * gnome-vfs-2.24.4-x86_64-1_wls.txz: added
+  * goom2-2k4.0-x86_64-1_wls: added
+  * gsettings-desktop-schemas-0.1.5-x86_64-1_wls.txz: upgraded
+  * icu4c-4.6-x86_64-2_wls.txz: rebuilt
+  * kipi-plugins-1.7.0-x86_64-2_wls.txz: rebuilt
+  * libbonobo: removed
+  * libcanberra: removed
+  * libdaemon-0.14-x86_64-2_wls.txz: rebuilt
+  * libdvbpsi-0.1.7-x86_64-1_wls.txz: added
+  * libgnome: removed
+  * libgnomecanvas: removed
+  * libgnome-keyring-2.32.0-x86_64-2_wls.txz: rebuilt
+  * libkate-0.3.8-x86_64-2_wls.txz: rebuilt
+  * libmodplug-0.8.8.1-x86_64-1_wls.txz: added
+  * libproxy-0.4.6-x86_64-2_wls.txz: rebuilt
+  * libshout-2.2.2-x86_64-1_wls.txz: added
+  * libsoup-2.32.0-x86_64-1_wls.txz: rebuilt
+  * libtasn1-2.8-x86_64-2_wls.txz: rebuilt
+  * libunique-1.1.6-x86_64-2_wls.txz: rebuilt
+  * libupnp-1.6.10-x86_64-2_wls.txz: rebuilt
+  * libva-0.32.0-x86_64-1_wls.txz: added
+  * lua-5.1.4-x86_64-1_wls.txz: added
+  * midori-0.3.2-x86_64-1_wls.txz: upgraded
+  * network-manager-applet-0.8.2-x86_64-2_wls.txz: rebuilt
+  * nss-mdns-0.10-x86_64-2_wls.txz: rebuilt
+  * numpy-1.4.0-x86_64-1_wls.txz: added
+  * opencv-2.2.0-x86_64-2_wls.txz: rebuilt
+  * phonon-vlc-20101214-x86_64-1_wls.txz: added
+  * projectM-2.0.1-x86_64-1_wls.txz: added
+  * pywebkitgtk-1.1.8-x86_64-2_wls.txz: rebuilt
+  * pyxdg-0.19-x86_64-2_wls.txz: rebuilt
+  * rarian-0.8.1-x86_64-1_wls.txz: added
+  * seahorse-2.32.0-x86_64-1_wls.txz: added
+  * vlc-1.1.7-x86_64-1_wls.txz: upgraded
+  * webkitgtk-1.2.7-x86_64-2_wls.txz: rebuilt
+  * wxGTK: removed

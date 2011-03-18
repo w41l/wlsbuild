@@ -1,0 +1,246 @@
+# DRAFT
+
+# Recommended UID/GIDs for use with SlackBuilds.org scripts. These
+# do not conflict with default system accounts for Slackware-11.0
+# nor with the initial (and subsequent) UIDs recommended by adduser.
+
+dbus
+=======
+User:	messagebus	UID: 81		GID: 81
+Group:	messagebus			GID: 81
+
+HAL
+=======
+User:	haldaemon	UID: 82		GID: 82
+Group:	haldaemon			GID: 82
+Group:	plugdev				GID: 83
+Group:	power				GID: 84
+
+postfix
+=======
+User:	postfix		UID: 200	GID: 200
+Group:	postdrop			GID: 201
+
+dovecot
+=======
+User:	dovecot		UID: 202	GID: 202
+Group:	dovecot				GID: 202
+
+ircd
+=======
+User:	ircd		UID: 203	GID: 203
+Group:	ircd				GID: 203
+
+Mailman
+=======
+User:	mailman		UID: 204	GID: 204
+Group:	mailman				GID: 204
+
+nullmailer
+=========
+User:	nullmailer	UID: 205	GID: 205
+Group:	nullmailer			GID: 205
+
+privoxy
+=======
+User:	privoxy		UID: 206	GID: 206
+Group:	privoxy				GID: 206
+
+apache2
+=======
+User:	apache2		UID: 207	GID: 207
+Group:	apache2				GID: 207
+
+lighttpd
+========
+User:	lighttpd	UID: 208	GID: 208
+Group:	lighttpd			GID: 208
+
+postgresql
+==========
+User:	postgres	UID: 209	GID: 209
+Group:	postgres			GID: 209
+
+Clamav
+======
+User:	clamav		UID: 210	GID: 210
+Group:	clamav				GID: 210
+
+Amavisd
+========
+User:	amavis		UID: 211	GID: 211
+Group:	amavis				GID: 211
+
+ntop
+========
+User:	ntop		UID: 212	GID: 212
+Group:	ntop				GID: 212
+
+nagios
+========
+User:	nagios		UID: 213	GID: 213
+Group:	nagios				GID: 213
+
+avahi
+========
+User:	avahi		UID: 214	GID: 214
+Group:	avahi				GID: 214
+
+VirtualBox
+========
+User:	vboxadd		UID: 215	GID: 1
+User:	vboxweb		UID: 240	GID: 215
+Group:	vboxusers			GID: 215
+
+pulseaudio
+========
+User:	pulse		UID: 216	GID: 216
+Group:	pulse				GID: 216
+
+openntpd
+========
+User:	_ntp		UID: 217	GID: 217
+Group:	_ntp				GID: 217
+
+nut
+========
+User:	nut		UID: 218	GID: 218
+Group:	nut				GID: 218
+
+znc
+========
+User:	znc		UID: 219	GID: 0
+Group:	root				GID: 0
+
+tor
+========
+User:	tor		UID: 220	GID: 220
+Group:	tor				GID: 220
+
+kvm
+========
+User:	---		UID: ---	GID: ---
+Group:	kvm				GID: 221
+
+exim
+========
+User:	exim		UID: 222	GID: 222
+Group:	exim				GID: 222
+
+vdr
+========
+User:	vdr		UID: 223	GID: 223
+Group:	vdr				GID: 223
+
+halevt
+========
+User:	halevt		UID: 224	GID: 224
+Group:	halevt				GID: 224
+
+mpd
+========
+User:	mpd		UID: 225	GID: 17
+Group:	---				GID: ---
+
+heartbeat
+=======
+User:	hacluster	UID: 226	GID: 226
+Group:	haclient			GID: 226
+
+thttpd
+=======
+User:	thttpd 		UID: 227	GID: 227
+Group:	thttpd 				GID: 227
+
+zabbix
+=======
+User:	zabbix		UID: 228	GID: 228
+Group:	zabbix				GID: 228
+
+wesnoth
+=======
+User:	wesnoth		UID: 229	GID: 229
+Group:	wesnoth				GID: 229
+
+davfs2
+=======
+User:	davfs2		UID: 230	GID: 230
+Group:	davfs2				GID: 230
+
+couchdb
+=======
+User:	couchdb		UID: 231	GID: 231
+Group:	couchdb				GID: 231
+
+apache-tomcat
+=======
+User:	tomcat		UID: 232	GID: 232
+Group:	tomcat				GID: 232
+
+cvsd
+=======
+User:	cvsd		UID: 233	GID: 233
+Group:	cvsd				GID: 233
+
+kismet
+=======
+User:	---		UID: ---	GID: ---
+Group:	kismet				GID: 234
+
+hadoop
+=======
+User:	hadoop		UID: 235	GID: 235
+Group:	hadoop				GID: 235
+
+scribe
+=======
+User:	scribe		UID: 236	GID: 236
+Group:	scribe				GID: 236
+
+neatx
+=======
+User:	neatx		UID: 237	GID: 237
+Group:	neatx				GID: 237
+
+cyrus-imapd
+=======
+User:	TBA		UID: 238	GID: 238
+Group:	TBA				GID: 238
+
+DKIMproxy
+=======
+User:	dkim		UID: 239	GID: 239
+Group:	dkim				GID: 239
+
+mediatomb
+=======
+User:	mediatomb	UID: 241	GID: 241
+Group:  mediatomb			GID: 241
+
+WhatPulse
+=======
+User:	---		UID: ---	GID: ---
+Group:	whatpulse			UID: 242
+
+NX (NoMachine X / FreeNX)
+=======
+User:	nx		UID: 243	GID: 243
+Group:	nx				GID: 243
+
+armagetronad
+=======
+User:	armagetronad	UID: 244	GID: 20
+Group:	---				GID: ---
+
+quagga
+=======
+User:	quagga		UID: 245	GID: 245
+Group:  quagga				GID: 245
+Group:  quaggavt			GID: 246
+
+mirrorbrain
+=======
+User:	mirrorbrain	UID: 247	GID: 247
+Group:	mirrorbrain			GID: 247
+
+

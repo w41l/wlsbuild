@@ -11,7 +11,15 @@ install_file() {
   # Otherwise, we leave the .new copy for the admin to consider...
 }
 
-install_file etc/mono/1.0/machine.config.new
-install_file etc/mono/2.0/web.config.new
+install_file etc/mono/2.0/settings.map.new
+install_file etc/mono/2.0/Browsers/Compat.browser.new
+install_file etc/mono/2.0/DefaultWsdlHelpGenerator.aspx.new
 install_file etc/mono/2.0/machine.config.new
+install_file etc/mono/2.0/web.config.new
+install_file etc/mono/browscap.ini.new
+install_file etc/mono/4.0/settings.map.new
+install_file etc/mono/4.0/DefaultWsdlHelpGenerator.aspx.new
+install_file etc/mono/4.0/machine.config.new
+install_file etc/mono/4.0/web.config.new
+install_file etc/mono/mconfig/config.xml.new
 install_file etc/mono/config.new

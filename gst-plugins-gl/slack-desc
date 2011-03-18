@@ -1,0 +1,12 @@
+              |-----handy-ruler------------------------------------------------------|
+gst-plugins-gl: gst-plugins-gl (GStreamer OpenGL Plug-ins)
+gst-plugins-gl:
+gst-plugins-gl: The GStreamer OpenGL module provides helper libraries, base classes
+gst-plugins-gl: and elements for integrating with OpenGL and using it to perform video
+gst-plugins-gl: display and processing.
+gst-plugins-gl:
+gst-plugins-gl: URL: http://gstreamer.freedesktop.org/modules/gst-plugins-gl.html
+gst-plugins-gl:
+gst-plugins-gl:
+gst-plugins-gl:
+gst-plugins-gl: http://www.walecha.net/

@@ -1,6 +1,6 @@
 #!/bin/sh
 
-# Slackware build script for libgnome
+# Slackware build script for libreoffice
 
 # Copyright 2010  Widya Walesa <walecha99@gmail.com>
 # All rights reserved.
@@ -24,8 +24,9 @@
 # YOUR DATA IS DESTROYED, YOUR HOUSE BURNS DOWN OR YOUR DOG RUNS OFF.
 
 PRGNAM=libreoffice
-VERSION=${VERSION:-3.3.0_beta2}
-MAJORVER=$( echo $VERSION | sed "s/\(.*\)\.\(.*\)\..*/\1/" )
+VERSION=${VERSION:-3.3.1}
+RCVERS=${RCVERS:-rc2}
+MAJORVER=$( echo $VERSION | sed "s/\(.*\)\.\(.*\)\.*/\1/" )
 BUILD=${BUILD:-1}
 TAG=${TAG:-_wls}
 NUMJOBS=${NUMJOBS:--j4}
@@ -67,9 +68,10 @@ set -e
 rm -rf $PKG
 mkdir -p $TMP $PKG $OUTPUT
 cd $TMP
-rm -rf en-US
+rm -rf LibO_${VERSION}${RCVERS}_Linux_${DEBARCH}_install-deb_en-US
 tar xvf $CWD/LibO_${VERSION}_Linux_${DEBARCH}_install-deb_en-US.tar.gz
-cd en-US
+cd LibO_${VERSION}${RCVERS}_Linux_${DEBARCH}_install-deb_en-US
+
 chown -R root:root .
 find . \
  \( -perm 777 -o -perm 775 -o -perm 711 -o -perm 555 -o -perm 511 \) \
@@ -79,7 +81,7 @@ find . \
 
 echo "install libreoffice README and LICENSE"
 mkdir -p ${PKG}/usr/doc/${PRGNAM}-${VERSION}
-mv -v licenses/* ${PKG}/usr/doc/${PRGNAM}-${VERSION}/
+#mv -v licenses/* ${PKG}/usr/doc/${PRGNAM}-${VERSION}/
 mv -v readmes/* ${PKG}/usr/doc/${PRGNAM}-${VERSION}/
 
 echo "Unpacking deb packages"
@@ -89,6 +91,22 @@ for i in `ls *.deb`; do
     tar xvf data.tar.gz
     rm data.tar.gz control.tar.gz
 done
+
+echo "Install program files"
+mkdir -p ${PKG}/usr/lib${LIBDIRSUFFIX}
+mv -v opt/* ${PKG}/usr/lib${LIBDIRSUFFIX}/
+echo "Install desktop files"
+mkdir -p ${PKG}/usr/share/applications
+mv -v ${PKG}/usr/lib${LIBDIRSUFFIX}/libreoffice/share/xdg/*.desktop ${PKG}/usr/share/applications/
+rm -rf ${PKG}/usr/lib${LIBDIRSUFFIX}/libreoffice/share/xdg
+echo "Creating binary symlinks"
+mkdir -p ${PKG}/usr/bin
+( cd ${PKG}/usr/bin
+  ln -s ../lib$LIBDIRSUFFIX/libreoffice/program/soffice soffice
+  for APP in base calc draw impress math padmin writer; do
+    ln -s /usr/lib${LIBDIRSUFFIX}/libreoffice/program/s${APP} lo${APP}
+  done
+)
 
 echo "Unpacking desktop-integration packages"
 cd desktop-integration
@@ -101,26 +119,10 @@ cd desktop-integration
   mv -v usr/share/mimelnk ${PKG}/usr/share/
   mkdir -p ${PKG}/usr/bin
   mv -v usr/bin/* ${PKG}/usr/bin/
-  sed -i "s,exec /opt,exec /usr/lib${LIBDIRSUFFIX},g" ${PKG}/usr/bin/libreoffice3
-  sed -i "s,exec /opt,exec /usr/lib${LIBDIRSUFFIX},g" ${PKG}/usr/bin/libreoffice3-printeradmin
-  chmod -v 755 ${PKG}/usr/bin/libreoffice${MAJORVER}*
+  sed -i "s,exec /opt,exec /usr/lib${LIBDIRSUFFIX},g" ${PKG}/usr/bin/libreoffice
+  sed -i "s,exec /opt,exec /usr/lib${LIBDIRSUFFIX},g" ${PKG}/usr/bin/libreoffice-printeradmin
+  chmod -v 755 ${PKG}/usr/bin/libreoffice*
 cd ..
-
-echo "Install program files"
-mkdir -p ${PKG}/usr/lib${LIBDIRSUFFIX}
-mv -v opt/* ${PKG}/usr/lib${LIBDIRSUFFIX}/
-echo "Install desktop files"
-mkdir -p ${PKG}/usr/share/applications
-mv -v ${PKG}/usr/lib${LIBDIRSUFFIX}/libreoffice${MAJORVER}/share/xdg/*.desktop ${PKG}/usr/share/applications/
-rm -rf ${PKG}/usr/lib${LIBDIRSUFFIX}/libreoffice${MAJORVER}/share/xdg
-echo "Creating binary symlinks"
-mkdir -p ${PKG}/usr/bin
-( cd ${PKG}/usr/bin
-  ln -s ../lib64/libreoffice${MAJORVER}/program/soffice soffice
-  for APP in base calc draw impress math padmin writer; do
-    ln -s /usr/lib${LIBDIRSUFFIX}/libreoffice${MAJORVER}/program/s${APP} lo${APP}
-  done
-)
 
 chown -R root:root ${PKG}
 cd -
@@ -136,4 +138,4 @@ cd $PKG
 /sbin/makepkg -p -l y -c n $OUTPUT/$PRGNAM-$VERSION-$ARCH-$BUILD$TAG.txz
 
 echo "Cleaning up $TMP";
-rm -rf $PKG ${TMP}/en-US;
+rm -rf $PKG ${TMP}/LibO_${VERSION}${RCVERS}_Linux_${DEBARCH}_install-deb_en-US;

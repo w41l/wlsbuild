@@ -1,0 +1,11 @@
+diff -up gpac/src/Makefile.soname gpac/src/Makefile
+--- gpac/src/Makefile.soname	2008-12-02 15:01:08.000000000 +0100
++++ gpac/src/Makefile	2008-12-17 11:55:52.000000000 +0100
+@@ -171,6 +171,7 @@ ifeq ($(CONFIG_DARWIN),yes)
+ LDFLAGS+=-install_name $(prefix)/lib/$(LIB)
+ endif
+ EXTRALIBS+=$(GPAC_SH_FLAGS)
++LDFLAGS+="-Wl,-soname,libgpac.so.0"
+ endif
+ 
+ ifeq ($(WANT_PIC),yes)

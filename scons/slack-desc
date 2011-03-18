@@ -12,8 +12,8 @@ scons: The scons utility builds software (or other files) by determining which
 scons: component pieces must be rebuilt and executing the necessary commands
 scons: to rebuild them.
 scons:
+scons: URL: http://www.scons.org/
 scons:
 scons:
 scons:
-scons:
-scons:
+scons: http://www.walecha.net/

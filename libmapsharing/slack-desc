@@ -1,0 +1,12 @@
+	      |-----handy-ruler------------------------------------------------------|
+libdmapsharing: Libdmapsharing (DAAP, DPAP & DACP Libraries)
+libdmapsharing:
+libdmapsharing: Libdmapsharing is a library you may use to access and share media
+libdmapsharing: content using DMAP (DAAP, DPAP & DACP). The library presently supports
+libdmapsharing: Linux and other POSIX-based systems. It is written in C using GObject
+libdmapsharing: and libsoup.
+libdmapsharing:
+libdmapsharing: URL: http://www.flyn.org/projects/libdmapsharing/
+libdmapsharing:
+libdmapsharing:
+libdmapsharing:

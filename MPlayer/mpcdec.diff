@@ -1,0 +1,11 @@
+--- MPlayer-1.0rc4/configure.orig	2011-03-11 22:09:56.861000113 +0700
++++ MPlayer-1.0rc4/configure	2011-03-11 22:10:08.909000120 +0700
+@@ -6853,7 +6853,7 @@
+   mpc_streaminfo info;
+   mpc_decoder decoder;
+   mpc_decoder_set_streaminfo(&decoder, &info);
+-  mpc_decoder_decode_frame(&decoder, NULL, 0, NULL);
++  mpc_decoder_decode_frame(&decoder, NULL, 0);
+   return 0;
+ }
+ EOF

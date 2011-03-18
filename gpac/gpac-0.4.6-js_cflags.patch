@@ -1,0 +1,13 @@
+diff -up gpac/configure.js gpac/configure
+diff -up gpac/src/Makefile.js gpac/src/Makefile
+--- gpac/src/Makefile.js	2009-09-01 16:23:44.053745967 +0200
++++ gpac/src/Makefile	2009-09-01 16:47:32.491499125 +0200
+@@ -76,7 +76,7 @@ endif
+ #3 - spidermonkey support
+ ifeq ($(CONFIG_JS),no)
+ else
+-SCENEGRAPH_CFLAGS+=$(JS_FLAGS)
++CFLAGS+=$(JS_FLAGS)
+ ifeq ($(CONFIG_JS),local)
+ NEED_LOCAL_LIB="yes"
+ endif

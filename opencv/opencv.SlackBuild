@@ -24,8 +24,8 @@
 # YOUR DATA IS DESTROYED, YOUR HOUSE BURNS DOWN OR YOUR DOG RUNS OFF.
 
 PRGNAM=opencv
-VERSION=${VERSION:-2.1.0}
-BUILD=${BUILD:-1}
+VERSION=${VERSION:-2.2.0}
+BUILD=${BUILD:-2}
 TAG=${TAG:-_wls}
 NUMJOBS=${NUMJOBS:--j4}
 
@@ -69,9 +69,9 @@ cd OpenCV-$VERSION
 # patch for multilib
 # Honor LIB_SUFFIX http://sourceforge.net/tracker/index.php?func=detail&aid=2876292&group_id=22870&atid=376679
 # rewritten by ponce for 2.1.0
-zcat $CWD/libopencv-2.1.0-libdir.patch.gz | patch -p1
-zcat $CWD/libpng-1.4.patch.gz | patch -p1
-zcat $CWD/$PRGNAM-$VERSION-ffmpeg.uint64.patch.gz | patch -p1
+#cat $CWD/opencv-multilib-noffmpeg.patch | patch -p1
+#zcat $CWD/opencv-cflags.patch.gz | patch -p1
+#zcat $CWD/opencv-link.patch.gz | patch -p1
 
 chown -R root:root .
 find . \
@@ -82,20 +82,28 @@ find . \
 
 mkdir -p build
 cd build
-  LDFLAGS=" -L/usr/lib${LIBDIRSUFFIX} -L/lib${LIBDIRSUFFIX} " cmake .. \
+  LDFLAGS=" -L/usr/lib${LIBDIRSUFFIX} -L/lib${LIBDIRSUFFIX} " \
+  cmake .. \
     -DCMAKE_C_FLAGS="$SLKCFLAGS" \
     -DCMAKE_CXX_FLAGS="$SLKCFLAGS" \
-    -DCMAKE_BUILD_TYPE="Release" \
+    -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_PREFIX=/usr \
-    -DINSTALL_MAN_DIR=man \
-    -DINSTALL_DOC_DIR=doc/$PRGNAM-$VERSION \
-    -DBUILD_SHARED_LIBS=ON \
-    -DLIB_SUFFIX=$LIBDIRSUFFIX \
-    -DLIB_INSTALL_DIR=/usr/lib$LIBDIRSUFFIX
+    -DCMAKE_SKIP_RPATH=ON \
+    -DWITH_XINE=ON \
+    -DWITH_UNICAP=OFF \
 
   make $NUMJOBS
-  make install DESTDIR=$PKG
+  make DESTDIR=$PKG install
 cd ..
+
+# upstream doesn't support multilib
+if [ "$ARCH" = "x86_64" ]; then
+    mkdir -p $PKG/usr/lib64
+    mv $PKG/usr/lib/* $PKG/usr/lib64/
+    rm -r $PKG/usr/lib
+    sed -i 's,libdir=${exec_prefix}/lib,libdir=${exec_prefix}/lib64,g' \
+	$PKG/usr/lib64/pkgconfig/opencv.pc
+fi
 
 find $PKG | xargs file | grep -e "executable" -e "shared object" | grep ELF \
   | cut -f 1 -d : | xargs strip --strip-unneeded 2> /dev/null || true
@@ -114,5 +122,4 @@ cd $PKG
 /sbin/makepkg -l y -c n $OUTPUT/$PRGNAM-$VERSION-$ARCH-$BUILD$TAG.${PKGTYPE:-tgz}
 
 echo "Cleaning up build directory"
-rm -rf $TMP/OpenCV-$VERSION $PKG
-
+cd $TMP; rm -rf OpenCV-$VERSION $PKG

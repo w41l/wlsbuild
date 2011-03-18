@@ -25,7 +25,7 @@
 
 PRGNAM=gnome-vfs
 VERSION=${VERSION:-2.24.4}
-BUILD=${BUILD:-1}
+BUILD=${BUILD:-2}
 TAG=${TAG:-_wls}
 NUMJOBS=${NUMJOBS:--j4}
 
@@ -97,7 +97,7 @@ CXXFLAGS="$SLKCFLAGS" \
   --enable-fam \
 
 make ${NUMJOBS}
-make install-strip DESTDIR=$PKG
+make install DESTDIR=$PKG
 
 mv $PKG/etc/gnome-vfs-2.0/modules/smb-module.conf $PKG/etc/gnome-vfs-2.0/modules/smb-module.conf.new
 mv $PKG/etc/gnome-vfs-2.0/modules/ssl-modules.conf $PKG/etc/gnome-vfs-2.0/modules/ssl-modules.conf.new

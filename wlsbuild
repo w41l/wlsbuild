@@ -1,0 +1,284 @@
+## GENERAL LIBS ##
+#glib2 - use slackware package
+#gtk+2 - use slackware package
+unrar
+p7zip
+libdaemon
+avahi
+ORBit2
+gsettings-desktop-schemas
+GConf
+dconf
+nss-mdns
+libgnome-keyring
+libproxy
+libsoup
+libtasn1
+gnome-keyring
+gvfs
+gnome-mime-data
+gnome-vfs
+rarian
+lua
+
+## C++ LIBS ##
+libsigc++
+glibmm
+cairomm
+pangomm
+atkmm
+gtkmm
+libxml++
+
+## GTK THEMES ##
+gtk-engines
+gnome-themes
+# gnome-icon-theme - use slackware package
+gtk-murrine-engine
+gtk-equinox-engine
+gtk-nodoka-engine
+gtk-qtcurve-engine
+oxygen-gtk
+gtk-chtheme
+
+## MULTIMEDIA ##
+mp4v2
+faac
+faad2
+orc
+dirac
+schroedinger
+libgsm
+lame
+opencore-amr
+## TESTING ##
+a52dec
+xvidcore
+libdc1394
+openjpeg
+speex
+libvpx
+## TESTING ##
+gpac
+x264
+ffmpeg
+libdv
+libreplaygain
+libcue
+cuetools
+# musepack - use libmpcdec, more compatible with MPlayer
+libmpcdec
+libmpeg2
+libass
+# libsndfile - use Slackware package
+twolame
+libdca
+libdvdcss
+libdvdnav
+libquicktime
+mjpegtools
+libiec61883
+libavc1394
+libcdaudio
+live555
+wavegain
+mp3gain
+vorbisgain
+libkate
+rtmpdump
+libbluray
+libmms
+libmodplug
+wildmidi
+numpy
+opencv
+MPlayer
+gst-plugins-ugly
+gst-plugins-bad
+gst-plugins-gl
+gst-python
+gst-ffmpeg
+
+## EXTRA MULTIMEDIA LIBS ##
+vcdimager
+transcode
+dvdauthor
+libnice
+farsight2
+gstreamermm
+cppunit
+libmusicbrainz
+
+## KDE/QT APPS ##
+smplayer
+usbmuxd
+libimobiledevice
+clementine
+qjson
+kipi-plugins
+soundkonverter
+libva
+libupnp
+libshout
+libdvbpsi
+ftgl
+goom2
+projectM
+vlc
+qoauth
+choqok
+libevent
+tor
+polipo
+vidalia
+gavl
+frei0r
+mlt
+kdenlive
+
+## GTK APPS ##
+geany
+pidgin-kwallet-plugin
+gtkpod
+scons
+bombono-dvd
+gc
+gsl
+inkscape
+dia
+gwget
+gnome-mplayer
+gecko-mediaplayer
+# gnormalize - use soundkonverter as it support replaygain
+libebml
+libmatroska
+mkvtoolnix
+icu4c 4.6
+webkitgtk 1.2.7
+pywebkitgtk 1.1.8
+libunique 1.1.6
+pyxdg 0.19
+midori
+liferea
+subtitleeditor
+
+## NETWORKING ##
+NetworkManager 0.8.2
+NetworkManager-openconnect 0.8.2
+NetworkManager-openvpn 0.8.2
+NetworkManager-pptp 0.8.2
+NetworkManager-vpnc 0.8.2
+ModemManager 0.4
+network-manager-applet 0.8.2
+gsl 1.14
+bogofilter 1.2.2
+
+## GNOME LIBS ##
+json-glib
+clutter
+clutter-gtk
+clutter-gst
+gnome-common 2.28.0
+rarian 0.8.1
+libbonobo 2.32.0
+libcanberra 0.25
+libgnome 2.32.0
+libgnomecanvas 2.30.2
+libbonoboui 2.24.4
+json-glib 0.12.0
+clutter 1.4.0
+clutter-gtk 0.10.8
+libgnomekbd
+heimdal-libraries
+libgweather
+upower 0.9.7
+libgnomeui
+libsexy
+sexy-python
+notification-daemon
+gnome-doc-utils
+exempi
+pyorbit
+libgtop
+totem-pl-parser
+libburn
+libisofs
+libisoburn
+gtksourceview
+pygtksourceview
+libopenraw
+libiptcdata
+gtkhtml
+libpst
+vala
+libgee
+
+## GNOME BASE ##
+gnome-desktop
+gnome-menus
+zenity
+metacity
+gnome-settings-daemon
+evolution-data-server
+gnome-control-center
+gnome-panel
+gnome-applets
+gnome-session 2.32.1
+gnome-media
+gnome-backgrounds
+gnome-screensaver
+gnome-power-manager
+nautilus
+gnome-mount
+bug-buddy
+gnome-python
+pyxdg
+alacarte
+evince
+file-roller
+gnome-terminal
+brasero
+gthumb
+gcalctool
+totem
+gnome-utils
+gtkimageview
+evolution
+epiphany
+yelp
+gedit
+seahorse
+seahorse-plugins
+gconf-editor
+gnome-system-monitor
+midori
+liferea
+gksu-polkit
+gdm
+gnome-system-tools
+pyalsaaudio
+python-xlib
+volti
+
+## DEVICE RELATED ##
+sg3_utils 1.29
+libatasmart 0.17
+udisks 1.0.2
+wxGTK
+CImg
+wxcam
+
+## ADMIN RELATED ##
+slapt-get
+gslapt
+lua
+conky
+perl-glib
+perl-cairo
+perl-pango
+perl-gtk2
+perl-audio-cd
+perl-cddb-get
+perl-mp3-info
+gparted
+ipmitool

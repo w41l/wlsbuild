@@ -24,8 +24,8 @@
 # YOUR DATA IS DESTROYED, YOUR HOUSE BURNS DOWN OR YOUR DOG RUNS OFF.
 
 PRGNAM=vlc
-VERSION=${VERSION:-1.1.4.1}
-BUILD=${BUILD:-1}
+VERSION=${VERSION:-1.1.7}
+BUILD=${BUILD:-4}
 TAG=${TAG:-_wls}
 NUMJOBS=${NUMJOBS:--j4}
 
@@ -66,7 +66,15 @@ rm -rf $PRGNAM-$VERSION
 tar xvf $CWD/$PRGNAM-$VERSION.tar.bz2
 cd $PRGNAM-$VERSION
 
-zcat $CWD/vlc-1.1.x-mozilla-1.9.2-npruntime.patch.gz | patch -p1
+cat $CWD/vlc-upnp.patch | patch -p1
+cat $CWD/configure.ac.patch | patch -p1
+
+NPVERSION=`pkg-config --modversion seamonkey-plugin | cut -d . -f 1`
+if [ ! "$NPVERSION" = 1 ]; then
+    cat $CWD/vlc-1.1.x-xul-2.xbeta-npp.patch | patch -p1
+fi
+
+autoreconf
 
 chown -R root:root .
 find . \
@@ -87,12 +95,29 @@ CXXFLAGS="$SLKCFLAGS" \
   --sysconfdir=/etc --docdir=/usr/doc/$PRGNAM-$VERSION \
   --localstatedir=/var/lib \
   --disable-static --enable-shared \
+  --enable-libproxy \
+  --enable-lua \
   --enable-live555 \
   --with-live555-tree=/usr/lib${LIBDIRSUFFIX}/live \
-  -enable-mozilla \
+  --enable-kate \
+  --enable-libass \
+  --enable-upnp \
+  --enable-bonjour \
+  --enable-mkv \
+  --enable-mpc \
+  --enable-qt4 \
+  --enable-speex \
+  --enable-dirac \
+  --enable-schroedinger \
+  --enable-x264 \
+  --disable-pulse \
+  --disable-oss \
+  --disable-jack \
+  --disable-debug \
+  --enable-mozilla \
 
 make $NUMJOBS
-make install DESTDIR=$PKG
+make DESTDIR=$PKG install
 
 find $PKG | xargs file | grep -e "executable" -e "shared object" | grep ELF \
   | cut -f 1 -d : | xargs strip --strip-unneeded 2> /dev/null || true
@@ -112,4 +137,4 @@ cd $PKG
 /sbin/makepkg -l y -c n $OUTPUT/$PRGNAM-$VERSION-$ARCH-$BUILD$TAG.${PKGTYPE:-tgz}
 
 echo "Cleaning up build directory"
-rm -rf $TMP/$PRGNAM-$VERSION $PKG
+cd $TMP; rm -rf $PRGNAM-$VERSION $PKG

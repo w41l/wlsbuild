@@ -24,7 +24,7 @@
 # YOUR DATA IS DESTROYED, YOUR HOUSE BURNS DOWN OR YOUR DOG RUNS OFF.
 
 PRGNAM=NetworkManager
-VERSION=${VERSION:-0.8.1}
+VERSION=${VERSION:-0.8.3.997}
 BUILD=${BUILD:-1}
 TAG=${TAG:-_wls}
 NUMJOBS=${NUMJOBS:--j4}
@@ -63,8 +63,14 @@ rm -rf $PKG
 mkdir -p $TMP $PKG $OUTPUT
 cd $TMP
 rm -rf $PRGNAM-$VERSION
-tar xvf $CWD/$PRGNAM-$VERSION.tar.gz
+tar xvf $CWD/$PRGNAM-$VERSION.tar.bz2
 cd $PRGNAM-$VERSION
+
+#patch -p1 < $CWD/fixup_rc.networkmanager.patch
+#patch -p1 < $CWD/fix_crash_in_glib_with_time.patch
+#patch -p1 < $CWD/ignore_temp_files.patch
+#autoreconf
+
 chown -R root:root .
 find . \
  \( -perm 777 -o -perm 775 -o -perm 711 -o -perm 555 -o -perm 511 \) \
@@ -87,18 +93,24 @@ CXXFLAGS="$SLKCFLAGS" \
   --sysconfdir=/etc --docdir=/usr/doc/$PRGNAM-$VERSION \
   --localstatedir=/var \
   --disable-static --enable-shared \
-  --with-distro=slackware \
   --with-crypto=gnutls \
+  --without-resolvconf \
+  --with-dhcpcd=/sbin/dhcpcd \
+  --with-dhclient=yes \
   --with-pppd-plugin-dir=/usr/lib$LIBDIRSUFFIX/pppd/$PPPDVER \
-  --without-tests \
+  --with-distro=slackware \
+  --with-udev-dir=/lib/udev \
+  --with-kernel-firmware-dir=/lib/firmware \
   --with-system-ca-path=/etc/ssl/certs \
-  --disable-more-warnings \
+
+#   --without-tests \
+#   --disable-more-warnings \
 
 make ${NUMJOBS}
 make install DESTDIR=$PKG
 
 # Add our own networkmanager init script
-cat $CWD/rc.networkmanager > $PKG/etc/rc.d/rc.networkmanager
+#cat $CWD/rc.networkmanager > $PKG/etc/rc.d/rc.networkmanager
 
 # Add wpa_supplicant dbus support
 mkdir -p $PKG/usr/share/dbus-1/system-services &&
@@ -109,17 +121,16 @@ cat $CWD/fi.epitest.hostap.WPASupplicant.service > \
 sed -i "s/at_console=\"true\"/group=\"netdev\"/g" \
   $PKG/etc/dbus-1/system.d/NetworkManager.conf
 
-# Add default nm-setting configuration
+# Add default NetworkManager.conf
 mkdir -p $PKG/etc/NetworkManager &&
-cat $CWD/nm-system-settings.conf > $PKG/etc/NetworkManager/nm-system-settings.conf
+cat $CWD/NetworkManager.conf.new > $PKG/etc/NetworkManager/NetworkManager.conf.new
 
 # Preserving old config
-mv $PKG/etc/NetworkManager/nm-system-settings.conf $PKG/etc/NetworkManager/nm-system-settings.conf.new
+mv $PKG/etc/rc.d/rc.networkmanager $PKG/etc/rc.d/rc.networkmanager.new
 mv $PKG/etc/dbus-1/system.d/NetworkManager.conf $PKG/etc/dbus-1/system.d/NetworkManager.conf.new
 mv $PKG/etc/dbus-1/system.d/nm-dhcp-client.conf $PKG/etc/dbus-1/system.d/nm-dhcp-client.conf.new
 mv $PKG/etc/dbus-1/system.d/nm-dispatcher.conf $PKG/etc/dbus-1/system.d/nm-dispatcher.conf.new
 mv $PKG/etc/dbus-1/system.d/nm-avahi-autoipd.conf $PKG/etc/dbus-1/system.d/nm-avahi-autoipd.conf.new
-mv $PKG/etc/rc.d/rc.networkmanager $PKG/etc/rc.d/rc.networkmanager.new
 
 # NM use this directory to keep its dhcp leases
 mkdir -p $PKG/var/lib/dhclient

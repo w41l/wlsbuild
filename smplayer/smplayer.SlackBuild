@@ -25,7 +25,7 @@
 
 PRGNAM=smplayer
 VERSION=${VERSION:-0.6.9}
-BUILD=${BUILD:-1}
+BUILD=${BUILD:-2}
 TAG=${TAG:-_wls}
 NUMJOBS=${NUMJOBS:--j4}
 

@@ -1,0 +1,19 @@
+# HOW TO EDIT THIS FILE:
+# The "handy ruler" below makes it easier to edit a package description.  Line
+# up the first '|' above the ':' following the base package name, and the '|' on
+# the right side marks the last column you can put a character in.  You must make
+# exactly 11 lines for the formatting to be correct.  It's also customary to
+# leave one space after the ':'.
+
+         |-----handy-ruler------------------------------------------------------|
+transcode: transcode (Audio/Video Transcoding Utility)
+transcode:
+transcode: Transcode is a suite of tools, all of which are command line utilities,
+transcode: for transcoding various video, audio, and container formats, running
+transcode: on a platform that supports shared libraries and threads. Decoding and
+transcode: encoding is done by loaded modules that are responsible for feeding
+transcode: transcode with raw video/audio streams (import modules) and encoding
+transcode: the frames (export modules). Transcode runs on UN*X like systems like
+transcode: Linux, BSD, and MacOSX.
+transcode:
+transcode: Packaged by Widya Walesa <walecha99@gmail.com>

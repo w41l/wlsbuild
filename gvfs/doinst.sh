@@ -13,6 +13,10 @@ config() {
 
 config etc/profile.d/gvfs-bash-completion.sh.new
 
+if [ -x usr/bin/glib-compile-schemas -a -d usr/share/glib-2.0/schemas ]; then
+    usr/bin/glib-compile-schemas usr/share/glib-2.0/schemas
+fi
+
 # Restart gconfd-2 if running to reload new gconf settings
 if ps acx | grep -q gconfd-2 ; then
         killall -HUP gconfd-2 ;

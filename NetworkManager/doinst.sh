@@ -16,4 +16,4 @@ config etc/rc.d/rc.networkmanager.new
 config etc/dbus-1/system.d/nm-dhcp-client.conf.new
 config etc/dbus-1/system.d/nm-dispatcher.conf.new
 config etc/dbus-1/system.d/nm-avahi-autoipd.conf.new
-config etc/NetworkManager/nm-system-settings.conf.new
+config etc/NetworkManager/NetworkManager.conf.new

@@ -1,0 +1,90 @@
+diff -Naur a/projects/mozilla/support/npunix.c b/projects/mozilla/support/npunix.c
+--- a/projects/mozilla/support/npunix.c	2010-04-13 07:22:27.000000000 +0700
++++ b/projects/mozilla/support/npunix.c	2011-03-06 20:18:33.376000097 +0700
+@@ -49,7 +49,7 @@
+ 
+ #include <npapi.h>
+ #if (((NP_VERSION_MAJOR << 8) + NP_VERSION_MINOR) < 20)
+-#include "npupp.h" 
++#include "npupp.h"
+ #else
+ #include "npfunctions.h"
+ #endif
+@@ -613,7 +613,7 @@
+  * Wrapper functions : Netscape Navigator -> plugin
+  *
+  * These functions let the plugin developer just create the APIs
+- * as documented and defined in npapi.h, without needing to 
++ * as documented and defined in npapi.h, without needing to
+  * install those functions in the function table or worry about
+  * setting up globals for 68K plugins.
+  *
+@@ -648,7 +648,7 @@
+     NPError ret;
+     PLUGINDEBUGSTR("New");
+     ret = NPP_New(pluginType, instance, mode, argc, argn, argv, saved);
+-    return ret; 
++    return ret;
+ }
+ 
+ NPError
+@@ -755,7 +755,7 @@
+ }
+ #endif
+ 
+-/*********************************************************************** 
++/***********************************************************************
+  *
+  * These functions are located automagically by netscape.
+  *
+@@ -991,7 +991,9 @@
+         pluginFuncs->javaClass = NULL;
+ #endif
+ 
++#if (((NP_VERSION_MAJOR << 8) + NP_VERSION_MINOR) < 20)
+         err = NPP_Initialize();
++#endif
+     }
+ 
+     return err;
+diff -Naur a/projects/mozilla/vlcshell.cpp b/projects/mozilla/vlcshell.cpp
+--- a/projects/mozilla/vlcshell.cpp	2010-05-03 16:26:24.000000000 +0700
++++ b/projects/mozilla/vlcshell.cpp	2011-03-06 20:15:37.350000088 +0700
+@@ -163,7 +163,7 @@
+         return false;
+     }
+ 
+-#ifndef __x86_64__  
++#ifndef __x86_64__
+     EventRecord *myEvent = (EventRecord*)event;
+ 
+     switch( myEvent->what )
+@@ -264,10 +264,12 @@
+ /******************************************************************************
+  * General Plug-in Calls
+  *****************************************************************************/
++#if (((NP_VERSION_MAJOR << 8) + NP_VERSION_MINOR) < 20)
+ NPError NPP_Initialize( void )
+ {
+     return NPERR_NO_ERROR;
+ }
++#endif
+ 
+ #ifdef OJI
+ jref NPP_GetJavaClass( void )
+diff -Naur a/projects/mozilla/vlcshell.h b/projects/mozilla/vlcshell.h
+--- a/projects/mozilla/vlcshell.h	2010-04-28 04:44:27.000000000 +0700
++++ b/projects/mozilla/vlcshell.h	2011-03-06 20:15:00.813000107 +0700
+@@ -26,9 +26,11 @@
+ 
+ char * NPP_GetMIMEDescription( void );
+ 
++#if (((NP_VERSION_MAJOR << 8) + NP_VERSION_MINOR) < 20)
+ NPError NPP_Initialize( void );
++#endif
+ 
+-#ifdef OJI 
++#ifdef OJI
+ jref NPP_GetJavaClass( void );
+ #endif
+ void NPP_Shutdown( void );

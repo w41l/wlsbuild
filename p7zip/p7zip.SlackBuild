@@ -25,7 +25,7 @@
 
 PRGNAM=p7zip
 VERSION=${VERSION:-9.20.1}
-BUILD=${BUILD:-2}
+BUILD=${BUILD:-1}
 TAG=${TAG:-_wls}
 NUMJOBS=${NUMJOBS:--j4}
 
@@ -94,6 +94,8 @@ find $PKG/usr/man -type f -exec gzip -9 {} \;
 for i in $( find $PKG/usr/man -type l ) ; do ln -s $( readlink $i ).gz $i.gz ; rm $i ; done
 
 mkdir -p ${PKG}/usr/doc/${PRGNAM}-${VERSION}
+mv $PKG/usr/share/doc/p7zip/DOCS/* $PKG/usr/doc/$PRGNAM-$VERSION/
+rm -rf $PKG/usr/share/doc/p7zip/DOCS
 mv $PKG/usr/share/doc/p7zip/* $PKG/usr/doc/$PRGNAM-$VERSION/
 rm -rf $PKG/usr/share/doc
 cp -a *.txt ${PKG}/usr/doc/${PRGNAM}-${VERSION}/

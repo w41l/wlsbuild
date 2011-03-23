@@ -91,17 +91,36 @@ CXXFLAGS="$SLKCFLAGS" \
   --localstatedir=/var \
   --disable-static --enable-shared \
   --disable-more-warnings \
-  --with-udev-base-dir=/lib/udev \
+  --with-udev-base-dir=/etc/udev \
   --without-tests \
   --with-pppd-plugin-dir=/usr/lib$LIBDIRSUFFIX/pppd/$PPPDVER \
+  --with-polkit
 
 make $NUMJOBS
 make install DESTDIR=$PKG
 
+# preserved old config
+mv $PKG/etc/udev/rules.d/77-mm-longcheer-port-types.rules \
+    $PKG/etc/udev/rules.d/77-mm-longcheer-port-types.rules.new
+mv $PKG/etc/udev/rules.d/77-mm-platform-serial-whitelist.rules \
+    $PKG/etc/udev/rules.d/77-mm-platform-serial-whitelist.rules.new
+mv $PKG/etc/udev/rules.d/77-mm-zte-port-types.rules \
+    $PKG/etc/udev/rules.d/77-mm-zte-port-types.rules.new
+mv $PKG/etc/udev/rules.d/77-mm-simtech-port-types.rules \
+    $PKG/etc/udev/rules.d/77-mm-simtech-port-types.rules.new
+mv $PKG/etc/udev/rules.d/77-mm-pcmcia-device-blacklist.rules \
+    $PKG/etc/udev/rules.d/77-mm-pcmcia-device-blacklist.rules.new
+mv $PKG/etc/udev/rules.d/77-mm-ericsson-mbm.rules \
+    $PKG/etc/udev/rules.d/77-mm-ericsson-mbm.rules.new
+mv $PKG/etc/udev/rules.d/77-mm-usb-device-blacklist.rules \
+    $PKG/etc/udev/rules.d/77-mm-usb-device-blacklist.rules.new
+mv $PKG/etc/dbus-1/system.d/org.freedesktop.ModemManager.conf \
+    $PKG/etc/dbus-1/system.d/org.freedesktop.ModemManager.conf.new
+
 # Use our own dbus config
-rm $PKG/etc/dbus-1/system.d/org.freedesktop.ModemManager.conf
-install -m 644 $CWD/org.freedesktop.ModemManager.conf \
-  $PKG/etc/dbus-1/system.d/org.freedesktop.ModemManager.conf.new
+#rm $PKG/etc/dbus-1/system.d/org.freedesktop.ModemManager.conf
+#install -m 644 $CWD/org.freedesktop.ModemManager.conf \
+#  $PKG/etc/dbus-1/system.d/org.freedesktop.ModemManager.conf.new
 
 find $PKG | xargs file | grep -e "executable" -e "shared object" | grep ELF \
   | cut -f 1 -d : | xargs strip --strip-unneeded 2> /dev/null || true

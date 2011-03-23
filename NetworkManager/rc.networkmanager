@@ -33,12 +33,6 @@ if [ "`pgrep dbus-daemon`" = "" ]; then
   return ;
 fi
 
-# Check for HAL
-#if [ "`pgrep hald`" = "" ]; then
-#  echo "HAL must be running to start NetworkManager"
-#  return
-#fi
-
 # Make sure we aren't already running
 
 if ps acx | grep -q NetworkManager ; then

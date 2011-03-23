@@ -24,7 +24,7 @@
 # YOUR DATA IS DESTROYED, YOUR HOUSE BURNS DOWN OR YOUR DOG RUNS OFF.
 
 PRGNAM=NetworkManager
-VERSION=${VERSION:-0.8.3.997}
+VERSION=${VERSION:-0.8.996}
 BUILD=${BUILD:-1}
 TAG=${TAG:-_wls}
 NUMJOBS=${NUMJOBS:--j4}
@@ -99,12 +99,11 @@ CXXFLAGS="$SLKCFLAGS" \
   --with-dhclient=yes \
   --with-pppd-plugin-dir=/usr/lib$LIBDIRSUFFIX/pppd/$PPPDVER \
   --with-distro=slackware \
-  --with-udev-dir=/lib/udev \
-  --with-kernel-firmware-dir=/lib/firmware \
+  --with-udev-dir=/etc/udev \
   --with-system-ca-path=/etc/ssl/certs \
+  --disable-wimax \
 
 #   --without-tests \
-#   --disable-more-warnings \
 
 make ${NUMJOBS}
 make install DESTDIR=$PKG
@@ -127,10 +126,14 @@ cat $CWD/NetworkManager.conf.new > $PKG/etc/NetworkManager/NetworkManager.conf.n
 
 # Preserving old config
 mv $PKG/etc/rc.d/rc.networkmanager $PKG/etc/rc.d/rc.networkmanager.new
-mv $PKG/etc/dbus-1/system.d/NetworkManager.conf $PKG/etc/dbus-1/system.d/NetworkManager.conf.new
-mv $PKG/etc/dbus-1/system.d/nm-dhcp-client.conf $PKG/etc/dbus-1/system.d/nm-dhcp-client.conf.new
-mv $PKG/etc/dbus-1/system.d/nm-dispatcher.conf $PKG/etc/dbus-1/system.d/nm-dispatcher.conf.new
-mv $PKG/etc/dbus-1/system.d/nm-avahi-autoipd.conf $PKG/etc/dbus-1/system.d/nm-avahi-autoipd.conf.new
+mv $PKG/etc/dbus-1/system.d/NetworkManager.conf \
+    $PKG/etc/dbus-1/system.d/NetworkManager.conf.new
+mv $PKG/etc/dbus-1/system.d/nm-dhcp-client.conf \
+    $PKG/etc/dbus-1/system.d/nm-dhcp-client.conf.new
+mv $PKG/etc/dbus-1/system.d/nm-dispatcher.conf \
+    $PKG/etc/dbus-1/system.d/nm-dispatcher.conf.new
+mv $PKG/etc/dbus-1/system.d/nm-avahi-autoipd.conf \
+    $PKG/etc/dbus-1/system.d/nm-avahi-autoipd.conf.new
 
 # NM use this directory to keep its dhcp leases
 mkdir -p $PKG/var/lib/dhclient
@@ -162,4 +165,4 @@ cd $PKG
 /sbin/makepkg -l y -c n $OUTPUT/$PRGNAM-$VERSION-$ARCH-$BUILD$TAG.${PKGTYPE:-tgz}
 
 echo "Cleaning up build directory"
-rm -rf $TMP/$PRGNAM-$VERSION $PKG
+cd $TMP; rm -rf $PRGNAM-$VERSION $PKG

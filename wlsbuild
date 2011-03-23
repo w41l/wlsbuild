@@ -1,47 +1,4 @@
-## GENERAL LIBS ##
-#glib2 - use slackware package
-#gtk+2 - use slackware package
-unrar
-p7zip
-libdaemon
-avahi
-ORBit2
-gsettings-desktop-schemas
-GConf
-dconf
-nss-mdns
-libgnome-keyring
-libproxy
-libsoup
-libtasn1
-gnome-keyring
-gvfs
-gnome-mime-data
-gnome-vfs
-rarian
-lua
-
-## C++ LIBS ##
-libsigc++
-glibmm
-cairomm
-pangomm
-atkmm
-gtkmm
-libxml++
-
-## GTK THEMES ##
-gtk-engines
-gnome-themes
-# gnome-icon-theme - use slackware package
-gtk-murrine-engine
-gtk-equinox-engine
-gtk-nodoka-engine
-gtk-qtcurve-engine
-oxygen-gtk
-gtk-chtheme
-
-## MULTIMEDIA ##
+## MULTIMEDIA LIBS ##
 mp4v2
 faac
 faad2
@@ -93,30 +50,62 @@ wildmidi
 numpy
 opencv
 MPlayer
+gst-ffmpeg
+gst-python
 gst-plugins-ugly
 gst-plugins-bad
 gst-plugins-gl
-gst-python
-gst-ffmpeg
 
-## EXTRA MULTIMEDIA LIBS ##
-vcdimager
-transcode
-dvdauthor
-libnice
-farsight2
-gstreamermm
-cppunit
-libmusicbrainz
+## GENERAL LIBS ##
+#glib2 - use slackware package
+#gtk+2 - use slackware package
+unrar
+p7zip
+libdaemon
+avahi
+nss-mdns
+gsettings-desktop-schemas
+dconf
+gvfs
+libgnome-keyring
+ORBit2
+GConf
+libproxy
+libsoup
+libtasn1
+gnome-keyring
+#gnome-mime-data
+#gnome-vfs
+#rarian
+lua
+
+## C++ LIBS ##
+libsigc++
+glibmm
+cairomm
+pangomm
+atkmm
+gtkmm
+libxml++
+
+## GTK THEMES ##
+gtk-engines
+# gnome-icon-theme - use slackware package
+gtk-murrine-engine
+gtk-equinox-engine
+gtk-nodoka-engine
+gtk-qtcurve-engine
+oxygen-gtk
+gnome-themes
+gtk-chtheme
 
 ## KDE/QT APPS ##
 smplayer
 usbmuxd
 libimobiledevice
-clementine
+kio_afc
 qjson
 kipi-plugins
-soundkonverter
 libva
 libupnp
 libshout
@@ -124,7 +113,10 @@ libdvbpsi
 ftgl
 goom2
 projectM
+## Seamonkey - install it before building vlc
 vlc
+soundkonverter
+clementine
 qoauth
 choqok
 libevent
@@ -149,7 +141,7 @@ dia
 gwget
 gnome-mplayer
 gecko-mediaplayer
-# gnormalize - use soundkonverter as it support replaygain
+# gnormalize - use soundkonverter as its support replaygain
 libebml
 libmatroska
 mkvtoolnix
@@ -282,3 +274,13 @@ perl-cddb-get
 perl-mp3-info
 gparted
 ipmitool
+
+## EXTRA MULTIMEDIA LIBS ##
+vcdimager
+transcode
+dvdauthor
+libnice
+farsight2
+gstreamermm
+cppunit
+libmusicbrainz

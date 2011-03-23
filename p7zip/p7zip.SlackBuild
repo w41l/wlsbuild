@@ -63,7 +63,7 @@ rm -rf $PKG
 mkdir -p $TMP $PKG $OUTPUT
 cd $TMP
 rm -rf ${PRGNAM}_${VERSION}
-tar xvf $CWD/${PRGNAM}_${VERSION}_src_all.tar.bz2
+tar xf $CWD/${PRGNAM}_${VERSION}_src_all.tar.bz2
 cd ${PRGNAM}_${VERSION}
 
 chown -R root:root .

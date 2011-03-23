@@ -1,3 +1,3 @@
-if [ -r var/run/dbus/dbus.pid -a -x etc/rc.d/rc.messagebus ]; then
-  etc/rc.d/rc.messagebus reload
+if ps acx | grep -q "dbus-daemon" ; then
+    etc/rc.d/rc.messagebus reload
 fi

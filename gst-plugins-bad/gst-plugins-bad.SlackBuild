@@ -87,7 +87,7 @@ CXXFLAGS="$SLKCFLAGS" \
   --disable-static --enable-shared \
   --disable-gtk-doc \
   --disable-valgrind \
-  --disable-examples \
+  --disable-examples
 
 make $NUMJOBS
 make DESTDIR=$PKG install

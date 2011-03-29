@@ -24,7 +24,7 @@
 # YOUR DATA IS DESTROYED, YOUR HOUSE BURNS DOWN OR YOUR DOG RUNS OFF.
 
 PRGNAM=libreoffice
-VERSION=${VERSION:-3.3.1}
+VERSION=${VERSION:-3.3.2}
 RCVERS=${RCVERS:-rc2}
 MAJORVER=$( echo $VERSION | sed "s/\(.*\)\.\(.*\)\.*/\1/" )
 BUILD=${BUILD:-1}
@@ -87,7 +87,7 @@ mv -v readmes/* ${PKG}/usr/doc/${PRGNAM}-${VERSION}/
 echo "Unpacking deb packages"
 cd DEBS
 for i in `ls *.deb`; do
-    ar xv $i
+    ar x $i
     tar xvf data.tar.gz
     rm data.tar.gz control.tar.gz
 done
@@ -138,4 +138,4 @@ cd $PKG
 /sbin/makepkg -p -l y -c n $OUTPUT/$PRGNAM-$VERSION-$ARCH-$BUILD$TAG.txz
 
 echo "Cleaning up $TMP";
-rm -rf $PKG ${TMP}/LibO_${VERSION}${RCVERS}_Linux_${DEBARCH}_install-deb_en-US;
+cd $TMP; rm -rf $PKG LibO_${VERSION}${RCVERS}_Linux_${DEBARCH}_install-deb_en-US;

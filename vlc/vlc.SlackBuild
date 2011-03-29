@@ -24,7 +24,7 @@
 # YOUR DATA IS DESTROYED, YOUR HOUSE BURNS DOWN OR YOUR DOG RUNS OFF.
 
 PRGNAM=vlc
-VERSION=${VERSION:-1.1.7}
+VERSION=${VERSION:-1.1.8}
 BUILD=${BUILD:-4}
 TAG=${TAG:-_wls}
 NUMJOBS=${NUMJOBS:--j4}
@@ -66,15 +66,10 @@ rm -rf $PRGNAM-$VERSION
 tar xvf $CWD/$PRGNAM-$VERSION.tar.bz2
 cd $PRGNAM-$VERSION
 
-cat $CWD/vlc-upnp.patch | patch -p1
-cat $CWD/configure.ac.patch | patch -p1
-
-NPVERSION=`pkg-config --modversion seamonkey-plugin | cut -d . -f 1`
-if [ ! "$NPVERSION" = 1 ]; then
-    cat $CWD/vlc-1.1.x-xul-2.xbeta-npp.patch | patch -p1
-fi
-
-autoreconf
+cat $CWD/01.vlc-upnp.patch | patch -p1
+cat $CWD/02.configure.ac.patch | patch -p1
+cat $CWD/03.xul-2.xbeta-npp.patch | patch -p1
+autoreconf -ivsf
 
 chown -R root:root .
 find . \
@@ -110,11 +105,11 @@ CXXFLAGS="$SLKCFLAGS" \
   --enable-dirac \
   --enable-schroedinger \
   --enable-x264 \
+  --enable-mozilla \
   --disable-pulse \
   --disable-oss \
   --disable-jack \
   --disable-debug \
-  --enable-mozilla \
 
 make $NUMJOBS
 make DESTDIR=$PKG install

@@ -73,6 +73,13 @@ find . \
  \( -perm 666 -o -perm 664 -o -perm 600 -o -perm 444 -o -perm 440 -o -perm 400 \) \
  -exec chmod 644 {} \;
 
+# Test for libvncserver existent
+if [ "$(libvncserver-config --version >/dev/null)" = "" ]; then
+    AQEMU_VNC="-DWITHOUT_EMBEDDED_DISPLAY=OFF"
+else
+    AQEMU_VNC="-DWITHOUT_EMBEDDED_DISPLAY=ON"
+fi
+
 mkdir build
 cd build
   cmake \
@@ -84,6 +91,7 @@ cd build
     -DLIB_INSTALL_DIR=/usr/lib$LIBDIRSUFFIX \
     -DMAN_INSTALL_DIR=/usr/man \
     -DSYSCONF_INSTALL_DIR=/etc \
+    $AQEMU_VNC \
     ..
   make ${NUMJOBS}
   make install DESTDIR=$PKG

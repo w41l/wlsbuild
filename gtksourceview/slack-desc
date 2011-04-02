@@ -1,7 +1,7 @@
              |-----handy-ruler------------------------------------------------------|
 gtksourceview: gtksourceview (GTK Source Code Widgets)
 gtksourceview:
-gtksourceview: A text widget that extends the standard gtk+ 2.x text widget 
+gtksourceview: A text widget that extends the standard gtk+ 2.x text widget
 gtksourceview: GtkTextview. It improves GtkTextview by implementing syntax
 gtksourceview: highlighting and other features typical of a source editor.
 gtksourceview:
@@ -9,4 +9,4 @@ gtksourceview:
 gtksourceview:
 gtksourceview:
 gtksourceview:
-gtksourceview:
+gtksourceview: http://www.walecha.net

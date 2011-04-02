@@ -25,9 +25,9 @@
 
 PRGNAM=vlc
 VERSION=${VERSION:-1.1.8}
-BUILD=${BUILD:-4}
+BUILD=${BUILD:-1}
 TAG=${TAG:-_wls}
-NUMJOBS=${NUMJOBS:--j4}
+NUMJOBS=${NUMJOBS:--j1}
 
 if [ -z "$ARCH" ]; then
   case "$( uname -m )" in
@@ -69,7 +69,7 @@ cd $PRGNAM-$VERSION
 cat $CWD/01.vlc-upnp.patch | patch -p1
 cat $CWD/02.configure.ac.patch | patch -p1
 cat $CWD/03.xul-2.xbeta-npp.patch | patch -p1
-autoreconf -ivsf
+autoreconf
 
 chown -R root:root .
 find . \

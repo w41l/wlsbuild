@@ -66,6 +66,9 @@ avahi
 nss-mdns
 gsettings-desktop-schemas
 dconf
+usbmuxd
+libimobiledevice
+ifuse
 gvfs
 libgnome-keyring
 ORBit2
@@ -74,9 +77,9 @@ libproxy
 libsoup
 libtasn1
 gnome-keyring
-#gnome-mime-data
-#gnome-vfs
-#rarian
+gnome-mime-data
+gnome-vfs
+rarian
 lua
 
 ## C++ LIBS ##
@@ -101,8 +104,6 @@ gtk-chtheme
 
 ## KDE/QT APPS ##
 smplayer
-usbmuxd
-libimobiledevice
 kio_afc
 qjson
 kipi-plugins

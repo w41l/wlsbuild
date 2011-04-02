@@ -1,0 +1,12 @@
+      |-----handy-ruler------------------------------------------------------|
+libgda: libgda (GNU Data Access (GDA) Library)
+libgda:
+libgda: libgda is an interface to the GDA architecture, providing a nice
+libgda: wrapper around the GDA interfaces, for both the client and the server
+libgda: parts. It also provides a bunch of tools to help you both in the
+libgda: development and management of your data sources, all done through
+libgda: the GDA model's interfaces.
+libgda:
+libgda:
+libgda:
+libgda: http://www.walecha.net

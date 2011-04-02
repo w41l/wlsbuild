@@ -6,7 +6,7 @@
 # leave one space after the ':'.
 
        |-----handy-ruler---------------------------------------------------|
-gtkpod: gtkpod (USB Multiplex Daemon)
+gtkpod: gtkpod (Apple's Gadget Manager)
 gtkpod:
 gtkpod: gtkpod is a platform independent GUI for Apple's iPod using GTK2.
 gtkpod: It allows you to import your existing iTunes database, add songs,
@@ -16,4 +16,4 @@ gtkpod:
 gtkpod: URL: http://www.gtkpod.org/
 gtkpod:
 gtkpod:
-gtkpod:
+gtkpod: http://www.walecha.net

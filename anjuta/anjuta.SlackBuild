@@ -1,6 +1,6 @@
 #!/bin/sh
 
-# Slackware build script for kio_afc
+# Slackware build script for anjuta
 
 # Copyright 2011  Widya Walesa <walecha99@gmail.com>
 # All rights reserved.
@@ -23,9 +23,9 @@
 # ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. FURTHERMORE I AM NOT LIABLE IF
 # YOUR DATA IS DESTROYED, YOUR HOUSE BURNS DOWN OR YOUR DOG RUNS OFF.
 
-PRGNAM=kio_afc
-VERSION=${VERSION:-863f1ea}
-BUILD=${BUILD:-3}
+PRGNAM=anjuta
+VERSION=${VERSION:-2.32.1.1}
+BUILD=${BUILD:-1}
 TAG=${TAG:-_wls}
 NUMJOBS=${NUMJOBS:--j4}
 
@@ -40,8 +40,9 @@ fi
 CWD=$(pwd)
 TMP=${TMP:-/tmp/wls}
 PKG=$TMP/package-$PRGNAM
+PKGLIB=$TMP/package-lib${PRGNAM}
 OUTPUT=${OUTPUT:-/tmp}
-DOCS="AUTHORS BUGS COPYING ChangeLog README"
+DOCS="ABOUT-NLS AUTHORS COPYING ChangeLog FUTURE INSTALL MAINTAINERS NEWS README ROADMAP THANKS TODO"
 
 if [ "$ARCH" = "i486" ]; then
   SLKCFLAGS="-O2 -pipe -march=i486 -mtune=i686"
@@ -59,11 +60,11 @@ fi
 
 set -e
 
-rm -rf $PKG
-mkdir -p $TMP $PKG $OUTPUT
+rm -rf $PKG $PKGLIB
+mkdir -p $TMP $PKG $PKGLIB $OUTPUT
 cd $TMP
 rm -rf $PRGNAM-$VERSION
-tar xvf $CWD/${PRGNAM}-${VERSION}.tar.xz
+tar xvf $CWD/$PRGNAM-$VERSION.tar.bz2
 cd $PRGNAM-$VERSION
 
 chown -R root:root .
@@ -73,31 +74,62 @@ find . \
  \( -perm 666 -o -perm 664 -o -perm 600 -o -perm 444 -o -perm 440 -o -perm 400 \) \
  -exec chmod 644 {} \;
 
-mkdir build
-cd build
-  cmake \
-    -DCMAKE_C_FLAGS="$SLKCFLAGS" \
-    -DCMAKE_CXX_FLAGS="$SLKCFLAGS" \
-    -DCMAKE_BUILD_TYPE=Release \
-    -DCMAKE_INSTALL_PREFIX=$(kde4-config --prefix) \
-    -DLIB_SUFFIX=${LIBDIRSUFFIX} \
-    ..
-  make ${NUMJOBS}
-  make install DESTDIR=$PKG
-cd -
+CFLAGS="$SLKCFLAGS" \
+CXXFLAGS="$SLKCFLAGS" \
+./configure \
+  --build=$ARCH-slackware-linux --host=$ARCH-slackware-linux \
+  --program-prefix= --program-suffix= \
+  --prefix=/usr --exec-prefix=/usr \
+  --bindir=/usr/bin --sbindir=/usr/sbin \
+  --libdir=/usr/lib$LIBDIRSUFFIX --includedir=/usr/include \
+  --mandir=/usr/man --infodir=/usr/info \
+  --sysconfdir=/etc --docdir=/usr/doc/$PRGNAM-$VERSION \
+  --localstatedir=/var/lib \
+  --disable-static --enable-shared \
+  --disable-schemas-install \
+  --disable-scrollkeeper \
+  --disable-gtk-doc \
+  --enable-plugin-sourceview \
+  --enable-plugin-subversion \
+  --with-svn-lib=/usr/lib${LIBDIRSUFFIX}
+
+make ${NUMJOBS}
+make install DESTDIR=$PKG
 
 find $PKG | xargs file | grep -e "executable" -e "shared object" | grep ELF \
   | cut -f 1 -d : | xargs strip --strip-unneeded 2> /dev/null || true
 
+find $PKG/usr/man -type f -exec gzip -9 {} \;
+for i in $( find $PKG/usr/man -type l ) ; do ln -s $( readlink $i ).gz $i.gz ; rm $i ; done
+
 mkdir -p $PKG/usr/doc/$PRGNAM-$VERSION
-cp -a ${DOCS} $PKG/usr/doc/$PRGNAM-$VERSION
+( cd $PKG/usr/doc/$PRGNAM-$VERSION ;
+  ln -s /usr/share/gtk-doc/html/libanjuta html-libanjuta ;
+)
+chmod -x $DOCS
+cp -a $DOCS $PKG/usr/doc/$PRGNAM-$VERSION
 cat $CWD/$PRGNAM.SlackBuild > $PKG/usr/doc/$PRGNAM-$VERSION/$PRGNAM.SlackBuild
 
+# Creating libanjuta package
+mkdir -p $PKGLIB/usr/share
+cp -r -p $PKG/usr/share/gtk-doc $PKGLIB/usr/share/
+cp -r -p $PKG/usr/include $PKGLIB/usr/
+cp -r -p $PKG/usr/doc $PKGLIB/usr/
+cp -r -p $PKG/usr/lib${LIBDIRSUFFIX} $PKGLIB/usr/
+rm -rf $PKGLIB/usr/lib${LIBDIRSUFFIX}/${PRGNAM}
+mkdir -p $PKGLIB/install
+cat $CWD/lib${PRGNAM}-slack-desc > $PKGLIB/install/slack-desc
+
+cd $PKGLIB
+/sbin/makepkg -p -l y -c n $OUTPUT/lib${PRGNAM}-$VERSION-$ARCH-$BUILD$TAG.${PKGTYPE:-tgz}
+
+# Creating anjuta package
 mkdir -p $PKG/install
 cat $CWD/slack-desc > $PKG/install/slack-desc
+cat $CWD/doinst.sh >> $PKG/install/doinst.sh
 
 cd $PKG
-/sbin/makepkg -l y -c n $OUTPUT/$PRGNAM-$VERSION-$ARCH-$BUILD$TAG.${PKGTYPE:-tgz}
+/sbin/makepkg -p -l y -c n $OUTPUT/$PRGNAM-$VERSION-$ARCH-$BUILD$TAG.${PKGTYPE:-tgz}
 
 echo "Cleaning up build directory"
-cd $TMP; rm -rf $PRGNAM-$VERSION $PKG
+cd $TMP; rm -rf $PRGNAM-$VERSION $PKG $PKGLIB

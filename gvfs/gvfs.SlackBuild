@@ -24,8 +24,8 @@
 # YOUR DATA IS DESTROYED, YOUR HOUSE BURNS DOWN OR YOUR DOG RUNS OFF.
 
 PRGNAM=gvfs
-VERSION=${VERSION:-1.7.2}
-BUILD=${BUILD:-2}
+VERSION=${VERSION:-1.6.7}
+BUILD=${BUILD:-1}
 TAG=${TAG:-_wls}
 NUMJOBS=${NUMJOBS:--j4}
 
@@ -96,9 +96,9 @@ CXXFLAGS="$SLKCFLAGS" \
   --enable-fuse \
   --enable-cdda \
   --enable-avahi \
-  --enable-http
-
-#  --enable-gconf \
+  --enable-http \
+  --enable-afc \
+  --enable-gconf \
 
 make $NUMJOBS
 make install DESTDIR=$PKG

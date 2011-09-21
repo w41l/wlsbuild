@@ -1,0 +1,273 @@
+Update .gob source to handle changes between gob2 2.0.15 and 2.0.16.
+
+--- mail-notification-5.4.dfsg.1.orig/src/mn-authenticated-mailbox.gob
++++ mail-notification-5.4.dfsg.1/src/mn-authenticated-mailbox.gob
+@@ -361,12 +361,12 @@
+     self->auth_failed = TRUE;
+   }
+ 
+-  [G_GNUC_PRINTF(3, 4)]
+   private gboolean
+     prompt_for_password (self,
+ 			 char **password (check null),
+ 			 const char *format (check null),
+ 			 ...)
++    attr {G_GNUC_PRINTF(3, 4)}
+   {
+     char *message;
+     gboolean ok;
+--- mail-notification-5.4.dfsg.1.orig/src/mn-evolution-client.gob
++++ mail-notification-5.4.dfsg.1/src/mn-evolution-client.gob
+@@ -33,7 +33,7 @@
+  * from unreferencing the proxy, so provide an eternal singleton
+  * proxy.
+  */
+-class MN:Evolution:Client
++class MN:Evolution:Client from G:Object
+ {
+   public DBusGProxy *proxy;
+   property POINTER proxy (link, export, type = DBusGProxy *);
+--- mail-notification-5.4.dfsg.1.orig/src/mn-evolution-folder-tree-server.gob
++++ mail-notification-5.4.dfsg.1/src/mn-evolution-folder-tree-server.gob
+@@ -31,7 +31,7 @@
+ #include "mn-evolution-folder-tree-server-dbus.h"
+ %}
+ 
+-class MN:Evolution:Folder:Tree:Server
++class MN:Evolution:Folder:Tree:Server from G:Object
+ {
+   /* the GdkNativeWindow, which we also use as our ID */
+   private guint32 id;
+--- mail-notification-5.4.dfsg.1.orig/src/mn-evolution-server.gob
++++ mail-notification-5.4.dfsg.1/src/mn-evolution-server.gob
+@@ -65,7 +65,7 @@
+  * interface methods are run from a main loop callback.
+  */
+ 
+-class MN:Evolution:Server
++class MN:Evolution:Server from G:Object
+ {
+   signal NONE (STRING)
+     void folder_changed (self, const char *uri (check null));
+--- mail-notification-5.4.dfsg.1.orig/src/mn-imap-mailbox.gob
++++ mail-notification-5.4.dfsg.1/src/mn-imap-mailbox.gob
+@@ -1492,11 +1492,11 @@
+     return FALSE;
+   }
+ 
+-  [G_GNUC_PRINTF(2, 3)]
+   private int
+     session_write (MNClientSessionPrivate *priv (check null),
+ 		   const char *format (check null),
+ 		   ...)
++    attr {G_GNUC_PRINTF(2, 3)}
+   {
+     char *command;
+     int result;
+--- mail-notification-5.4.dfsg.1.orig/src/mn-mailbox-properties.gob
++++ mail-notification-5.4.dfsg.1/src/mn-mailbox-properties.gob
+@@ -27,7 +27,7 @@
+ #include "mn-mailbox-properties-dialog.h"
+ %}
+ 
+-class MN:Mailbox:Properties (abstract)
++class MN:Mailbox:Properties from G:Object (abstract)
+ {
+   classwide const char *type;
+   classwide const char *stock_id;
+--- mail-notification-5.4.dfsg.1.orig/src/mn-mailbox.gob
++++ mail-notification-5.4.dfsg.1/src/mn-mailbox.gob
+@@ -110,7 +110,7 @@
+ static unsigned int cleanup_messages_considered_as_read_idle_id = 0;
+ %}
+ 
+-class MN:Mailbox (abstract)
++class MN:Mailbox from G:Object (abstract)
+ {
+   classwide const char *type;
+   classwide int default_check_delay = -1;
+@@ -506,9 +506,9 @@
+   public char *error destroywith g_free;
+   property STRING error (link);
+ 
+-  [G_GNUC_PRINTF(2, 3)]
+   protected void
+     set_error (self, const char *format, ...)
++    attr {G_GNUC_PRINTF(2, 3)}
+   {
+     char *error = NULL;
+ 
+@@ -634,9 +634,9 @@
+     self_filter_messages(self);
+   }
+ 
+-  [G_GNUC_NULL_TERMINATED]
+   public MNMailbox *
+     new (const char *type (check null), ...)
++    attr {G_GNUC_NULL_TERMINATED}
+   {
+     va_list args;
+     GType type_id;
+@@ -1105,9 +1105,9 @@
+       : SELF_GET_CLASS(self)->default_check_delay;
+   }
+ 
+-  [G_GNUC_UNUSED]		/* invoked via the class pointer */
+   virtual private MNMailbox *
+-    parse_uri (self, const char *uri (check null));
++    parse_uri (self, const char *uri (check null))
++    /*attr {G_GNUC_UNUSED}*/;   	/* invoked via the class pointer */
+ 
+   virtual public void
+     check (self)
+@@ -1135,9 +1135,9 @@
+     self_check(self);
+   }
+ 
+-  [G_GNUC_PRINTF(2, 3)]
+   protected void
+     notice (self, const char *format (check null), ...)
++    attr {G_GNUC_PRINTF(2, 3)}
+   {
+     char *message;
+ 
+@@ -1153,9 +1153,9 @@
+     g_free(message);
+   }
+ 
+-  [G_GNUC_PRINTF(2, 3)]
+   protected void
+     warning (self, const char *format (check null), ...)
++    attr {G_GNUC_PRINTF(2, 3)}
+   {
+     char *message;
+ 
+--- mail-notification-5.4.dfsg.1.orig/src/mn-mailboxes.gob
++++ mail-notification-5.4.dfsg.1/src/mn-mailboxes.gob
+@@ -39,7 +39,7 @@
+ #include "mn-util.h"
+ %}
+ 
+-class MN:Mailboxes
++class MN:Mailboxes from G:Object
+ {
+   public GList *list;		/* freed in finalize */
+ 
+@@ -97,11 +97,11 @@
+     self_error_changed(self);
+   }
+ 
+-  [G_GNUC_UNUSED] /* we use g_signal_emit_by_name(), for passing a detail */
+   signal (DETAILED) private NONE (OBJECT, POINTER)
+     void mailbox_notify (self,
+ 			 MN:Mailbox *mailbox (check null type),
+-			 GParamSpec *pspec (check null));
++			 GParamSpec *pspec (check null))
++    /*attr {G_GNUC_UNUSED}*/; /* we use g_signal_emit_by_name(), for passing a detail */
+ 
+   /**
+    * list-changed:
+@@ -310,12 +310,12 @@
+       self_save(self);
+   }
+ 
+-  [G_GNUC_PRINTF(3, 4)]
+   private void
+     add_error (GString **errors (check null),
+ 	       int *n_errors (check null),
+ 	       const char *format,
+ 	       ...)
++    attr {G_GNUC_PRINTF(3, 4)}
+   {
+     char *message;
+ 
+--- mail-notification-5.4.dfsg.1.orig/src/mn-maildir-message.gob
++++ mail-notification-5.4.dfsg.1/src/mn-maildir-message.gob
+@@ -141,9 +141,9 @@
+     return NULL;
+   }
+ 
+-  [G_GNUC_PRINTF(2, 3)]
+   private GError *
+     delete_with_prompt (self, const char *format (check null), ...)
++    attr {G_GNUC_PRINTF(2, 3)}
+   {
+     GtkWidget *dialog;
+     char *prompt;
+--- mail-notification-5.4.dfsg.1.orig/src/mn-message.gob
++++ mail-notification-5.4.dfsg.1/src/mn-message.gob
+@@ -134,7 +134,7 @@
+ };
+ %}
+ 
+-class MN:Message
++class MN:Message from G:Object
+ {
+   /*
+    * In order to not create reference cycles, we do not hold a
+--- mail-notification-5.4.dfsg.1.orig/src/mn-popups.gob
++++ mail-notification-5.4.dfsg.1/src/mn-popups.gob
+@@ -28,7 +28,7 @@
+ #include "mn-properties-dialog.h"
+ %}
+ 
+-class MN:Popups
++class MN:Popups from G:Object
+ {
+   /*
+    * Maps message IDs to popups. If a message is known but has no
+--- mail-notification-5.4.dfsg.1.orig/src/mn-server.gob
++++ mail-notification-5.4.dfsg.1/src/mn-server.gob
+@@ -43,7 +43,7 @@
+  * main loop callback.
+  */
+ 
+-class MN:Server
++class MN:Server from G:Object
+ {
+   class_init (class)
+   {
+--- mail-notification-5.4.dfsg.1.orig/src/mn-shell.gob
++++ mail-notification-5.4.dfsg.1/src/mn-shell.gob
+@@ -73,7 +73,7 @@
+   NONE
+ } MN:Shell:Tooltip:Mail:Summary;
+ 
+-class MN:Shell
++class MN:Shell from G:Object
+ {
+   public MNMailboxes *mailboxes;
+ 
+--- mail-notification-5.4.dfsg.1.orig/src/mn-sound-player.gob
++++ mail-notification-5.4.dfsg.1/src/mn-sound-player.gob
+@@ -31,7 +31,7 @@
+ #include "mn-util.h"
+ %}
+ 
+-class MN:Sound:Player
++class MN:Sound:Player from G:Object
+ {
+   private gboolean can_play;
+   property BOOLEAN can_play (export)
+--- mail-notification-5.4.dfsg.1.orig/src/mn-tooltips.gob
++++ mail-notification-5.4.dfsg.1/src/mn-tooltips.gob
+@@ -71,7 +71,7 @@
+ #define GTK_PRIVATE_SET_FLAG(wid,flag)    G_STMT_START{ (GTK_PRIVATE_FLAGS (wid) |= (PRIVATE_ ## flag)); }G_STMT_END
+ %}
+ 
+-class MN:Tooltips
++class MN:Tooltips from G:Object
+ {
+   private GtkWidget *window;
+   private TooltipsData *active_data;
+--- mail-notification-5.4.dfsg.1.orig/src/mn-vfs-mailbox-backend.gob
++++ mail-notification-5.4.dfsg.1/src/mn-vfs-mailbox-backend.gob
+@@ -31,7 +31,7 @@
+ #include "mn-util.h"
+ %}
+ 
+-class MN:VFS:Mailbox:Backend (abstract)
++class MN:VFS:Mailbox:Backend from G:Object (abstract)
+ {
+   classwide const char *format;
+ 

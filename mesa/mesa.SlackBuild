@@ -1,0 +1,158 @@
+#!/bin/sh
+
+# Slackware build script for mesa
+
+# Copyright 2011  Widya Walesa <walecha99@gmail.com>
+# All rights reserved.
+#
+# Redistribution and use of this script, with or without modification, is
+# permitted provided that the following conditions are met:
+#
+# 1. Redistributions of this script must retain the above copyright
+#    notice, this list of conditions and the following disclaimer.
+#
+# THIS SOFTWARE IS PROVIDED BY THE AUTHOR ''AS IS'' AND ANY EXPRESS OR IMPLIED
+# WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF
+# MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO
+# EVENT SHALL THE AUTHOR BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
+# SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,
+# PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS;
+# OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY,
+# WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR
+# OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF
+# ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. FURTHERMORE I AM NOT LIABLE IF
+# YOUR DATA IS DESTROYED, YOUR HOUSE BURNS DOWN OR YOUR DOG RUNS OFF.
+
+PRGNAM=mesa
+VERSION=7.11
+GLUTVERSION=7.11
+DEMOVERSION=8.0.1
+SRCVERSION=7.11
+BUILD=${BUILD:-2}
+TAG=${TAG:-_wls}
+
+NUMJOBS=${NUMJOBS:--j3}
+
+# Be sure this list is up-to-date:
+DRI_DRIVERS="i810,i915,i965,mach64,mga,nouveau,r128,r200,r300,r600,radeon,savage,sis,tdfx,unichrome,swrast"
+
+if [ -z "$ARCH" ]; then
+  case "$( uname -m )" in
+    i?86) export ARCH=i486 ;;
+    arm*) export ARCH=arm ;;
+       *) export ARCH=$( uname -m ) ;;
+  esac
+fi
+
+CWD=$(pwd)
+WRK=${WRK:-$CWD/wlsbuild}
+PKG=$WRK/package-mesa
+OUTPUT=${OUTPUT:-/tmp}
+DOCS=""
+
+if [ "$ARCH" = "i486" ]; then
+  SLKCFLAGS="-O2 -pipe -march=i486 -mtune=i686"
+  LIBDIRSUFFIX=""
+elif [ "$ARCH" = "x86_64" ]; then
+  SLKCFLAGS="-O2 -fPIC"
+  LIBDIRSUFFIX="64"
+else
+  SLKCFLAGS="-O2"
+  LIBDIRSUFFIX=""
+fi
+
+rm -rf $PKG
+mkdir -p $WRK $PKG
+cd $WRK
+rm -rf Mesa-${SRCVERSION}
+tar xvf $CWD/MesaLib-${SRCVERSION}.tar.?z* || exit 1
+
+# If MesaLib came from git, we might already have GLUT.
+if [ ! -d Mesa-${SRCVERSION}/src/glut/glx ]; then
+  tar xvf $CWD/MesaGLUT-${SRCVERSION}.tar.?z* || exit 1
+#  mv Mesa-${SRCVERSION}/* Mesa-${SRCVERSION}/
+fi
+
+cd Mesa-${SRCVERSION}
+
+# Make sure ownerships and permissions are sane:
+chown -R root:root .
+find . \
+  \( -perm 777 -o -perm 775 -o -perm 711 -o -perm 555 -o -perm 511 \) \
+  -exec chmod 755 {} \; -o \
+  \( -perm 666 -o -perm 664 -o -perm 600 -o -perm 444 -o -perm 440 -o -perm 400 \) \
+  -exec chmod 644 {} \;
+
+# Apply patches from git (and maybe elsewhere):
+# Patches obtained by:
+#   git checkout origin/7.9
+#   git format-patch 67aeab0b77fb6be864088e69ea74a010b6543fa1..
+#if /bin/ls $CWD/patches/*.gz 1> /dev/null 2> /dev/null ; then
+#  for patch in $CWD/patches/*.gz ; do
+#    zcat $patch | patch -p1 || exit 1 ;
+#  done
+#  autoreconf -fi
+#fi
+
+CFLAGS="$SLKCFLAGS" \
+CXXFLAGS="$SLKCFLAGS" \
+./configure \
+  --build=$ARCH-slackware-linux \
+  --host=$ARCH-slackware-linux \
+  --prefix=/usr \
+  --sysconfdir=/etc \
+  --libdir=/usr/lib${LIBDIRSUFFIX} \
+  --includedir=/usr/include \
+  --mandir=/usr/man \
+  --docdir=/usr/doc/mesa-$VERSION \
+  --with-dri-driverdir=/usr/lib${LIBDIRSUFFIX}/xorg/modules/dri \
+  --with-dri-drivers="$DRI_DRIVERS" \
+  --with-gallium-drivers=r300,r600,nouveau,swrast \
+  --with-driver=dri \
+  --enable-pic \
+  --enable-gles1 \
+  --enable-gles2 \
+  --enable-egl \
+  --disable-gallium-egl \
+  --enable-gl-osmesa \
+  --enable-gallium-llvm \
+
+#  --enable-glx-tls \
+#  --enable-driglx-direct \
+#  --with-egl-platforms='drm x11' \
+#  --enable-shared-glapi \
+#  --enable-xcb \
+#  --enable-shared-dricore \
+
+make ${NUMJOBS} || exit 1
+make install DESTDIR=$PKG || exit 1
+
+# Strip binaries:
+find $PKG | xargs file | grep -e "executable" -e "shared object" | grep ELF \
+  | cut -f 1 -d : | xargs strip --strip-unneeded 2> /dev/null
+
+find $PKG/usr/man -type f -exec gzip -9 {} \;
+for i in $( find $PKG/usr/man -type l ) ; do ln -s $( readlink $i ).gz $i.gz ; rm $i ; done
+
+# Compress info files, if any:
+if [ -d $PKG/usr/info ]; then
+  rm -f $PKG/usr/info/dir
+  gzip -9 $PKG/usr/info/*
+fi
+
+mkdir -p $PKG/usr/doc/Mesa-$VERSION/html
+cp -a \
+  docs/COPYING* docs/relnotes-${VERSION}*.html docs/README* docs/GL* \
+  $PKG/usr/doc/Mesa-$VERSION
+cp -a docs/*.html $PKG/usr/doc/Mesa-$VERSION/html
+rm -f $PKG/usr/doc/Mesa-$VERSION/html/relnotes*.html
+cat $CWD/$PRGNAM.SlackBuild > $PKG/usr/doc/Mesa-$VERSION/$PRGNAM.SlackBuild
+
+mkdir -p $PKG/install
+cat $CWD/slack-desc > $PKG/install/slack-desc
+
+cd $PKG
+/sbin/makepkg -l y -c n $OUTPUT/${PRGNAM}-$VERSION-$ARCH-${BUILD}${TAG}.txz
+
+echo "Cleaning up build directory"
+cd $CWD; rm -rf $WRK

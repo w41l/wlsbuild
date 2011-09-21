@@ -1,0 +1,19 @@
+# HOW TO EDIT THIS FILE:
+# The "handy ruler" below makes it easier to edit a package description.  Line
+# up the first '|' above the ':' following the base package name, and the '|'
+# on the right side marks the last column you can put a character in.  You must
+# make exactly 11 lines for the formatting to be correct.  It's also
+# customary to leave one space after the ':'.
+
+       |-----handy-ruler------------------------------------------------------|
+aegisub: aegisub (Subtitle editor)
+aegisub:
+aegisub: Aegisub is an advanced subtitle editor for Windows, and UNIX-like
+aegisub: systems, such as Linux, Mac OS X and BSD. It is open source software
+aegisub: for any use. Aegisub natively works with the Advanced SubStation Alpha
+aegisub: and free format (aptly abbreviated ASS) which allows for many advanced
+aegisub: effects in the subtitles, apart from just basic timed text. Aegisub's
+aegisub: goal is to support using these advanced functions with ease.
+aegisub:
+aegisub: URL: http://www.aegisub.org/
+aegisub:

@@ -1,0 +1,19 @@
+# HOW TO EDIT THIS FILE:
+# The "handy ruler" below makes it easier to edit a package description.  Line
+# up the first '|' above the ':' following the base package name, and the '|'
+# on the right side marks the last column you can put a character in.  You must
+# make exactly 11 lines for the formatting to be correct.  It's also
+# customary to leave one space after the ':'.
+
+	   |-----handy-ruler------------------------------------------------------|
+libcarvpath: libcarvpath (Data Recovery Library)
+libcarvpath:
+libcarvpath: LibCarvpath is a library for computer forensics carving tools.
+libcarvpath: It provides the low level needs of zero-storage carving using virtual
+libcarvpath: paths. These virtual file paths can be used in conjunction with the
+libcarvpath: CarvFS filesystem.
+libcarvpath:
+libcarvpath: URL: http://sourceforge.net/projects/carvpath/
+libcarvpath:
+libcarvpath:
+libcarvpath: Packaged by: Widya Walesa <walecha99@gmail.com>

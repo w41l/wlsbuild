@@ -1,0 +1,11 @@
+--- 0ad-r09786-alpha/build/premake/extern_libs.lua.old	2011-08-24 20:45:39.535001382 +0700
++++ 0ad-r09786-alpha/build/premake/extern_libs.lua	2011-08-24 20:45:56.252001173 +0700
+@@ -77,7 +77,7 @@
+ -- * defines: a table of symbols to define
+ extern_lib_defs = {
+ 	boost = {
+-		unix_names = { "boost_signals-mt", "boost_filesystem-mt", "boost_system-mt" },
++		unix_names = { "boost_signals", "boost_filesystem", "boost_system" },
+ 		osx_names = { "boost_signals-mt", "boost_filesystem-mt", "boost_system-mt" }
+ 	},
+ 	cryptopp = {

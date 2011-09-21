@@ -1,0 +1,19 @@
+# HOW TO EDIT THIS FILE:
+# The "handy ruler" below makes it easier to edit a package description.  Line
+# up the first '|' above the ':' following the base package name, and the '|' on
+# the right side marks the last column you can put a character in.  You must make
+# exactly 11 lines for the formatting to be correct.  It's also customary to
+# leave one space after the ':'.
+
+            |-----handy-ruler---------------------------------------------------|
+libxfce4util: libxfce4util
+libxfce4util:
+libxfce4util: This package contains the API documentation and development files
+libxfce4util: needed for developing applications based on libxfce4util.
+libxfce4util:
+libxfce4util: URL: http://www.xfce.org/
+libxfce4util:
+libxfce4util:
+libxfce4util:
+libxfce4util:
+libxfce4util: http://www.walecha.net/

@@ -1,0 +1,19 @@
+# HOW TO EDIT THIS FILE:
+# The "handy ruler" below makes it easier to edit a package description.  Line
+# up the first '|' above the ':' following the base package name, and the '|'
+# on the right side marks the last column you can put a character in.  You must
+# make exactly 11 lines for the formatting to be correct.  It's also
+# customary to leave one space after the ':'.
+
+	       |-----handy-ruler------------------------------------------------------|
+slicer-goldberg: slicer-goldberg (Palapeli Plugins)
+slicer-goldberg:
+slicer-goldberg: The Goldberg slicer is a plugin for the jigsaw puzzle game Palapeli,
+slicer-goldberg: which comes with the KDE distribution from version 4.4 onwards.
+slicer-goldberg: Slicers in Palapeli are responsible for splitting up an image into
+slicer-goldberg: a number of puzzle pieces.
+slicer-goldberg:
+slicer-goldberg: URL: http://slicer-goldberg.sourceforge.net/
+slicer-goldberg:
+slicer-goldberg:
+slicer-goldberg:

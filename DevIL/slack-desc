@@ -1,0 +1,19 @@
+# HOW TO EDIT THIS FILE:
+# The "handy ruler" below makes it easier to edit a package description.  Line
+# up the first '|' above the ':' following the base package name, and the '|' on
+# the right side marks the last column you can put a character in.  You must make
+# exactly 11 lines for the formatting to be correct.  It's also customary to
+# leave one space after the ':'.
+
+     |-----handy-ruler---------------------------------------------------|
+DevIL: DevIL (Developer's Image Library)
+DevIL:
+DevIL: Developer's Image Library is a cross-platform image library utilizing
+DevIL: a simple syntax to load, save, convert, manipulate, filter and display
+DevIL: a variety of image with ease.
+DevIL:
+DevIL: URL: http://OpenIL.sourceforge.net/
+DevIL:
+DevIL:
+DevIL:
+DevIL: packaged by: Widya Walesa <walecha99@gmail.com>

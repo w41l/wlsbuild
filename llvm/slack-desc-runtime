@@ -1,0 +1,19 @@
+# HOW TO EDIT THIS FILE:
+# The "handy ruler" below makes it easier to edit a package description.  Line
+# up the first '|' above the ':' following the base package name, and the '|'
+# on the right side marks the last column you can put a character in.  You must
+# make exactly 11 lines for the formatting to be correct.  It's also
+# customary to leave one space after the ':'.
+
+            |-----handy-ruler------------------------------------------------|
+llvm-runtime: llvm-runtime (Low Level Virtual Machine Runtime Library)
+llvm-runtime:
+llvm-runtime: Low Level Virtual Machine is a toolkit for the construction of
+llvm-runtime: highly optimized compilers, optimizers, and runtime
+llvm-runtime: environments.
+llvm-runtime:
+llvm-runtime: URL: http://llvm.org/
+llvm-runtime:
+llvm-runtime: This packages contains runtime libraries only
+llvm-runtime:
+llvm-runtime: Packaged by: Widya Walesa <walecha99@gmail.com>

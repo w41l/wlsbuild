@@ -1,0 +1,19 @@
+# HOW TO EDIT THIS FILE:
+# The "handy ruler" below makes it easier to edit a package description.  Line
+# up the first '|' above the ':' following the base package name, and the '|'
+# on the right side marks the last column you can put a character in.  You must
+# make exactly 11 lines for the formatting to be correct.  It's also
+# customary to leave one space after the ':'.
+
+          |-----handy-ruler------------------------------------------------------|
+libclastfm: libclastfm
+libclastfm:
+libclastfm: liblastfm is an unofficial C-API for the Last.fm web service written
+libclastfm: with libcurl. Has support for Album, Artist and User API methods as
+libclastfm: well as full audio scrobbler support. This library doesn't use Nokia Qt
+libclastfm: like the official liblastfm.
+libclastfm:
+libclastfm: URL: http://liblastfm.sourceforge.net/
+libclastfm:
+libclastfm:
+libclastfm: Packaged by: Widya Walesa <walecha99@gmail.com>

@@ -1,0 +1,335 @@
+1.0.4
+	Fix problem where file is downloaded before gnome-mplayer is started (locally cached)
+	Added Portuguese translation
+	Remove some whitespace
+	Updated French translation
+	Updated Polish translation
+	Updated Turkish translation
+1.0.4b2
+	If http is found in the URL it may not be a stream (this might break some sites)
+	Get status messages looking better, requires gnome-mplayer from SVN on same date
+	Disable Windows OnDSPlayStateChangeEvt callback
+	Emulate WMP status
+	Emulate WMP versionInfo
+	Add in some more WMP javascript emulation
+	Align PlayStateChanges similar to WMP
+	Rework how media events are handled
+	Fix problems with SetVolume
+	Remove a couple of state change callbacks to stop fork bomb
+	Call javascript function OnDSPlayStateChange if it is exists
+	Add .media.getItemInfo title,url, bitrate to WMP Javascript emulation
+	Add .URL to WMP Javascript emulation
+	Updated Polish translation
+	Add .media.duration to WMP Javascript emulation
+	Add .settings.volume to WMP Javascript emulation
+1.0.4b1
+	When getting a file from Apple, only play the first media link
+	Add udp as supported streaming format
+	Fix up some issues with apple trailers
+1.0.3
+	Allow files > 2GB to be loaded in NP_FULL mode
+	Always include gecko-mediaplayer.schema in tar file
+	Make configure option --with-gconf=yes override use of gsettings
+1.0.3beta
+	Cleanup some compile warnings
+	Try out silent make files
+	Mark asf files as streaming
+	Remove code to set the firefox preference
+	Version bump to 1.0.3beta
+	Apply changes to fix compiling on Ubuntu
+	Apply config changes to gconf schema
+	Apply changes to make gecko-mediaplayer with with gnome-mplayer 1.0.3beta and higher
+	Apply patch from issue #126
+	Updated Turkish translation
+	Work around xulrunner api change Issue #124
+	Fix a couple of NULL pointer errors Issue #123
+	Fixes to using libcurl
+	Only do list_dump when we process the list
+	Use libcurl to fetch content when running in QuickTime emulation
+	Fix spot where QuickTime was not set to 7.6.9 
+	Get width and height from the style attribute if present
+	Bump QuickTime emulated version to 7.6.9
+1.0.0
+	Fix problem with javascript seek function where value was coming in as an int where unexpected
+	Change libxul 2.0 check from 2.0b5 to just 2.0
+	Fix incorrect variable
+	Apply patch from Onur Kucuk to allow gecko-mediaplayer to compile against 
+		xulrunner 2.0beta5 and higher
+	Fully qualify streaming URLs loaded from the embed tag
+	Obtain the plugin caller page and use that to resolve streaming urls
+	Fix problem where first item on list is not playable
+	Support qtsrcdontusebrowser option
+	Updated Spanish translation
+	Add WEBM types to plugin
+	Handle nocache=1 better
+	Mark asx files with ENTRY in them as non-playable
+	Allow separate cache sizes for audio or video data, depends on mimetype identification
+	Protect against NULL console
+	Added German translation
+	Move "stream" test to streaming function, change from int to boolean
+	If url has "stream" in it, mark the url as streaming
+	Give each item in the RAM playlist a unique id 
+0.9.9.2
+	Detect and use NS_GetServiceManager dynamically
+	Keep requested flag consistent
+	Work better with .m3u playlists
+	Reorder configure.in checks
+	Fix Apple HD Gallery site (target = QuickTime issue)
+	Add --enable-new-libxul when using --with-xulrunner-sdk
+	User proper NPERR and NPRES codes in the URLNotify and DestroyStream
+0.9.9
+	Minor changes to the preference setting code
+	Start preparing for 0.9.9 release
+	Revert website change from movies to www at apple.com
+	Fix javascript calls PlayAt, Get/SetAutoPlay
+	Bump QuickTime emulation to 7.6.4
+	Fix new apple HD trailers, where trailers is downloaded from the menu
+	Use correct controlid with launching some apple.com HD videos
+	For apple.com videos change movies.apple.com to www.apple.com
+	Fix compile with libxul 1.9.2 and higher
+	Fix crash on http://itunes.apple.com/us/album/endangered-species-live-at-abbey/id309810246
+	Support the qtnext parameter
+	Rework code to work better with xulrunner 1.9.2
+	Use preferred player in all launch cases
+	Add support for VLC plugin emulation
+	Add new mimetype video/x-ms-asx
+	Allow for configurable backend (fosfor or gnome-mplayer or something else)
+	Make dom event javascript a little more unique
+	React to Network Errors in DestroyStream differently
+	Added /DEBUG path for debugging purposes
+	Added ListDump dbus method
+	konqueror patch from Christian.Morales.Vega
+	plugin-dir patch from Christian.Morales.Vega
+0.9.8
+	When cancelling a stream (USER_BREAK) and the cancelled one is streaming
+		don't automatically load the next item on the playlist
+	When stream->lastmodified == 0 mark stream as streaming
+		fixes http://www.radioswissclassic.ch/en
+	Various fixes from the mailing list
+	Version bump
+	Add in new type of qt parser, make videos at PBS.org work
+	Move on to the next item in the playlist, when the an open item gives an error
+	Fix the autostart property when then plugin window is hidden
+	Only emulate QuickTime with the qt plugin
+	Change the user agent to "QuickTime/7.6.2" while the plugin is loaded, makes Apple.com/trailers work again
+0.9.7
+	Clean up code with 'make indent'
+	Added a RAM parser
+	Added Czech translation by Petr Pisar
+	Add Dutch translation
+	Add in check for GIO, enables functionality in libgmlib
+	Remove need for LIBTOOL, program should compile cleaner now
+	Patch to correct --as-needed linker flag
+0.9.6
+	Fix constant issue with old xulrunner kits
+	Update GUI while cache is loading
+	Make Copy Location get the entire url
+	Add support for Apple's 'postdomevents' option
+	Apply browser id patch to work around site specifically looking for mplayerplug-in
+	Infrastructure to support windowless mode, but it doesn't work
+	Convert internal preference store to gm_pref_store from libgmlib
+	Reuse gm_tempname from libgmlib saving duplicate code
+	Merge in libgmlib, it is pulled from the gnome-mplayer svn
+0.9.5
+	Fix problem with memmem on OpenBSD, memmem_compat is now used by all
+	Added Japanese Translation by Munehiro Yamamoto
+	Fixed issue with pt_BR.po file
+0.9.4
+	Add support for OpenBSD which does not have memmem
+	Add Italian translation by Francesco Groccia
+	Make gecko-mediaplayer work in Konqueror 4
+	Keep updating progress text until file is completely downloaded
+	Try to get bitrate from media at 1-5% markers
+	Remove gconftool --shutdown from makefile
+	Cleanup configure.in and Makefile.am files
+	Remove unnecessary files from build tree
+	Switch from XPCom to NPRuntime support
+	Fix a problem with the dbus path when the side provides and invalid path
+	Fix some compliation issues with xulrunner-sdk 1.9.1
+	Workaround file rename in xulrunner sdk
+0.9.3
+	Make http://everadio.gamingradio.net work
+	Fix compilation dependancy
+	Now translations work
+	Enable translations hopefully
+	Replace call to getenv with g_getenv
+	Flip to streaming mode when we get a sequence starting with "Content-length"
+	Fix video/mpeg declaration
+	More mimetype cleanup
+	Add audio/ogg and video/ogg mimetypes
+	Add mimetype application/ogg
+	Allow compile against xulrunner-sdk
+	Added a couple of additional mimetypes
+0.9.2
+	Convert to XDG cache location
+	Try using gnome-mplayer if not found use gnome-mplayer-minimal
+	Version bump
+	Fix up a couple of minor compile warnings
+	Move temporary files from TMPDIR to .gnome-mplayer cache directory
+0.9.0
+	Fix preference issue
+	Add feature to ASX parser to add url prefix if missing
+	Fix make dist so that rpmbuild works again
+	Fix automake rules to allow --disable-schemas-install configure flag
+	Make requirement on GCONF optional (--without-gconf on ./configure line)
+0.8.0
+	Add embed 'showcontrols' option and 'onendofstream' event
+    	Add mimetypes for matroska audio and video files
+	Remove gthread from the list of requirements
+0.7.0
+    	Limit bitrate requests to 5 per item, should prevent CPU peg
+	Add in audio mp4 mime types
+	Add libxul-unstable checks in
+	Remove mozilla-plugin out of the libxul test
+0.6.3
+        Update URL in about:plugins page
+0.6.2
+	Add Turkish translation by Onur Küçük
+	Add back in "Plug-in" to QT description
+	Change "QuickTime Plug-in 6.0 /7" to "QuickTime 7.4.5"
+	Better local file handling
+    	Detect local files and play them directly
+0.6.1
+	Update Makefile.am to install schema file correctly 
+	Update aclocal/automake settings
+	Add embedoption "enablefullscreen" works like "enablecontextmenu" to prevent user from
+		making the window fullscreen
+	No longer require libxul-embedding on F9
+	Remove debian files, add DOCS/tech/javascript.txt
+	Added Spanish translation by Festor Wailon Dacoba
+0.6.0
+	Set start trigger to be based off of media bitrate
+		New trigger code works like this
+		Test for > 20% and over cache size
+		Test for 2 * cache size as long as cache size > 512
+		Test for downloaded amount / bitrate > 10
+	Trigger at either 20% of media or 2 * cache size whichever is smaller
+	Fix compliation problem with xulrunner on Fedora 9
+0.5.4
+	Fix .h generation problem
+	Add support for tv:// type devices
+	Change "Windows Media Player Plugin" to "Windows Media Player Plug-in"
+0.5.3
+	Added Polish translation
+	Print Error on unable to launch gnome-mplayer
+	Increase URL buffer from 1K to 4K
+	Added pt_BR language
+	Set Copy Url eariler in the code, so that you can copy the url before 20% buffer
+	Fix problem with uninitialized width and height and NP_FULL media
+0.5.2
+	Add French translation
+	Add javascript src attribute
+	Fix for BBC radio to work
+	Turn off forcing of streaming for flash media
+	More work on realplayer emulation
+0.5.1
+	Implement several WMP controls methods
+	Tell the player what URL we are getting the data from via SetURL
+	Cleanup K/s display to show only tenths, also make sure we use floating point math
+	A K/s info while caching for non-streaming data
+	New dbus callback "ReloadPlugins" tells browser to reload its plugin settings
+	Allow configuration of plugins by setting from gconf
+	In send_signal_when_ready change the sleep to a smaller value and then only try 100 times before dropping out
+	Implement PlayPause JS method
+	Remove custom dbus dispatcher for Opera, doesn't seem to be needed
+	Make sure dbus dispatcher is stopped
+	Use private dbus connection
+0.5.0
+	If mimetype is video/x-flv then mark the media as streaming
+	Version sync with gnome-mplayer
+	Handle more javascript methods, that allow setting callbacks on events
+	Make qtsrc locations work, makes some apple sites work
+	Add configure option --disable-caching, which never uses local storage for the media cache
+	If cache size from gnome-mplayer is 0, set media to streaming
+	Fix several bugs in dbus event processor
+	Add the ability to set the onClick callback via a javascript method
+0.0.7
+	Add "debug" option to the embed tag so that we can watch output in certain test cases
+	Detect ICY streams on download and switch them to streaming media
+	Add embed command 'NoCache'
+	Callback event "onDestroy"
+	Add support for option "enableContextMenu"
+	Add more callback events onmouseclick, onmousedown, onmouseup, onmouseover, onmouseout
+	GUI message improvements
+	Implement MediaComplete event and callback
+	Implement Event handling from gnome-mplayer
+	Added video/x-m4v mimetype, made a video at arstechnica work.
+	Slow down the cache update messages to only 1 per 1/2 second
+	Fix SetWindow return value, helps Opera some
+	More safety checks in Write method
+	Don't allow NULL filename
+	When opening the media and no window has been set, tell gnome-mplayer to run hidden
+	Fix problem with looping
+	QuickTime Media Link Parsing Support now plays http://movies.yahoo.com/feature/transformers.html
+0.0.6
+    Debian-ized the package
+    Another ASX fix, strip out invalid unicode characters
+    More work on the ASX parser to handle XMLish URLs and not break
+    Fix ASX parser to increment the entry pointer when we encounter a entry tag
+        This used for single ASX files where the entry entity contains several
+        ref tags all pointing to the same content
+    Fix ASX parser to handle entryrefs which basically is a url to another 
+        asx file that contains the same media at different sites (mirrors)
+    If the local version of the url is requested but not found then use the url as the source
+    Handle request for "Next" item off the playlist differently
+    Implement ASX parser and extract the ASX fields out
+    Switch from using dbus_connection_setup_with_g_main to 
+        using our own dbus dispatcher but only when we can't connect to 
+        g_main_loop. Fixes some trailers in Opera and in Firefox
+0.0.5 (Not released)    
+    Create autobuilding spec file
+    Fix doc location
+    Make quicktime autohref urls work
+    Version bump
+0.0.4
+    Fix looping problem and initialization
+    Mark cancelled player as not ready
+    Marked cancelled items as not opened
+    Fix problem with request_*_value methods using wrong dest
+    Handle Cancel signal from player
+    Change request calls to use unique (based on controlid) object names
+    Remove unnecessary glib flushes
+    Trap several instance = NULL cases
+    Fix problem where window is destroyed immediately
+    Fix NULL pointer problem in several places
+    Put xpt files in place that browser can find them
+    Bump version
+    Make Apple HD trailers cache properly
+    When sending command, check for control id on item and then use instance
+    Handle "filename" embed tag
+    Implement GetLoop, SetLoop and loop embed tag methods
+    Implement GetMIMEType JS Method
+    Fix problem when starting an hrefid and over cache
+0.0.3   Mar 12, 2007
+    Fix up install issues
+    Switch to using controlid when using GNOME MPlayer allows control of hidden windows
+    Fix infinite loop problem when hidden=true
+    Fix problem where streaming media not started when hidden
+    Fix problem with non-streaming media not playing when hidden
+    Use cache setting from GNOME MPlayer so now play amount cached > cache_size * 1024
+    Set cache percent value
+    Start playing when cache percent is > 20% and amount cached is > 2000K
+    Fixed a bug when the player is not launched and open is called, plugin would spin forever
+    Add javascript methods
+        ShowControls
+        Fullscreen
+        Seek
+        FF/FastForward
+        Rew/Rewind/FastReverse
+        GetVolume
+        GetFullScreen
+        GetShowControls
+        SetVolume
+        GetTime
+        GetDuration
+        GetPercent
+    Fix firefox-xpcom not being included with firefox 2.0.0.2
+0.0.2
+    Cleanup some of the chattyness
+    Implement signal handlers for signals: RequestById, Next
+    Add wrappers for dbus signals, makes calling things simpler
+    Implement qt reference file parseing, makes non-HD Apple trailers work
+    Make Apple HD Trailer work (caching still a problem)
+    Make HREF links work, when coming back to same player
+0.0.1   Feb 19,2007
+    Initial release

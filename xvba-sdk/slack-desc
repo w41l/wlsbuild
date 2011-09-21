@@ -1,0 +1,19 @@
+# HOW TO EDIT THIS FILE:
+# The "handy ruler" below makes it easier to edit a package description.  Line
+# up the first '|' above the ':' following the base package name, and the '|'
+# on the right side marks the last column you can put a character in.  You must
+# make exactly 11 lines for the formatting to be correct.  It's also
+# customary to leave one space after the ':'.
+
+	|-----handy-ruler------------------------------------------------------|
+xvba-sdk: XvBA SDK (X-Video Bitstream Acceleration SDK)
+xvba-sdk:
+xvba-sdk: X-Video Bitstream Acceleration (XvBA) is AMD's video acceleration API
+xvba-sdk: for Linux. It allows Linux applications to take advantage of the UVD
+xvba-sdk: engine in AMD GPUs to accelerate video decoding. The XvBA SDK contains
+xvba-sdk: the header file and XvBA Specification.
+xvba-sdk:
+xvba-sdk: URL: http://developer.amd.com/zones/opensource/Pages/default.aspx
+xvba-sdk:
+xvba-sdk:
+xvba-sdk:

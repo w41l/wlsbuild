@@ -1,0 +1,42 @@
+From 42825af84565d76eedda605a81f41abe5bd693d7 Mon Sep 17 00:00:00 2001
+From: Andrey Rijov <rdron@users.sourceforge.net>
+Date: Tue, 1 Feb 2011 12:17:52 +0300
+Subject: [PATCH] USB. Remove dependence on manufacturer and product files
+
+---
+ System_Info.cpp |   12 ++++++------
+ 1 files changed, 6 insertions(+), 6 deletions(-)
+
+diff --git a/System_Info.cpp b/System_Info.cpp
+index 83e51a2..b454d26 100644
+--- a/System_Info.cpp
++++ b/System_Info.cpp
+@@ -2598,9 +2598,9 @@ bool System_Info::Scan_USB_Sys( QList<VM_USB> &list )
+ 		}
+ 		else
+ 		{
+-			AQError( "bool System_Info::Scan_USB_Sys( QList<VM_USB> &list )",
+-					 "Cannot read manufacturer from /sys/bus/usb/devices/" );
+-			continue;
++			AQWarning( "bool System_Info::Scan_USB_Sys( QList<VM_USB> &list )",
++					   "Cannot read manufacturer from /sys/bus/usb/devices/" );
++			tmp_usb.Set_Manufacturer_Name( "Unknown Manufacturer" );
+ 		}
+
+ 		// product
+@@ -2610,9 +2610,9 @@ bool System_Info::Scan_USB_Sys( QList<VM_USB> &list )
+ 		}
+ 		else
+ 		{
+-			AQError( "bool System_Info::Scan_USB_Sys( QList<VM_USB> &list )",
+-					 "Cannot read product from /sys/bus/usb/devices/" );
+-			continue;
++			AQWarning( "bool System_Info::Scan_USB_Sys( QList<VM_USB> &list )",
++					   "Cannot read product from /sys/bus/usb/devices/" );
++			tmp_usb.Set_Product_Name( "Unknown Product" );
+ 		}
+
+ 		// speed
+--
+1.7.0.1
+

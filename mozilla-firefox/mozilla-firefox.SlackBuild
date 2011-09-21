@@ -1,0 +1,199 @@
+#!/bin/sh
+
+# Copyright 2008, 2009, 2010, 2011  Patrick J. Volkerding, Sebeka, Minnesota, USA
+# All rights reserved.
+#
+# Redistribution and use of this script, with or without modification, is
+# permitted provided that the following conditions are met:
+#
+# 1. Redistributions of this script must retain the above copyright
+#    notice, this list of conditions and the following disclaimer.
+#
+#  THIS SOFTWARE IS PROVIDED BY THE AUTHOR ``AS IS'' AND ANY EXPRESS OR IMPLIED
+#  WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF
+#  MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED.  IN NO
+#  EVENT SHALL THE AUTHOR BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
+#  SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,
+#  PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS;
+#  OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY,
+#  WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR
+#  OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF
+#  ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+
+# Thanks to the folks at the Mozilla Foundation for permission to
+# distribute this, and for all the great work!  :-)
+
+VERSION=$(basename $(ls firefox-*.tar.bz2 | cut -d - -f 2 | rev | cut -f 3- -d . | rev) .source)
+# Automatically determine the architecture we're building on:
+if [ -z "$ARCH" ]; then
+  case "$( uname -m )" in
+    i?86) export ARCH=i486 ;;
+    arm*) export ARCH=arm ;;
+    # Unless $ARCH is already set, use uname -m for all other archs:
+       *) export ARCH=$( uname -m ) ;;
+  esac
+fi
+
+BUILD=${BUILD:-1}
+TAG=${TAG:-_wls}
+MOZVERS=${MOZVERS:-release}
+RELEASEVER=$(echo $VERSION | cut -f 1 -d r | cut -f 1 -d b)
+
+# Try to be gentle to the compiler, no optimizations:
+if [ "$ARCH" = "i486" ]; then
+  SLKCFLAGS="-O"
+  LIBDIRSUFFIX=""
+elif [ "$ARCH" = "s390" ]; then
+  SLKCFLAGS="-O"
+  LIBDIRSUFFIX=""
+elif [ "$ARCH" = "x86_64" ]; then
+  SLKCFLAGS="-O -fPIC"
+  LIBDIRSUFFIX="64"
+elif [ "$ARCH" = "arm" ]; then
+  SLKCFLAGS="-O2 -march=armv4 -mtune=xscale"
+  LIBDIRSUFFIX=""
+elif [ "$ARCH" = "armel" ]; then
+  SLKCFLAGS="-O2 -march=armv4t"
+  LIBDIRSUFFIX=""
+fi
+
+NUMJOBS=${NUMJOBS:--j3}
+
+CWD=$(pwd)
+TMP=${TMP:-$CWD/wlsbuild}
+PKG=$TMP/package-mozilla-firefox
+OUTPUT=${OUTPUT:-/tmp}
+
+rm -rf $PKG
+mkdir -p $OUTPUT $TMP $PKG/usr/lib${LIBDIRSUFFIX}
+
+cd $TMP
+rm -rf mozilla-$MOZVERS
+tar xvf $CWD/firefox-$VERSION.source.tar.bz2 || exit 1
+cd mozilla-$MOZVERS || exit 1
+
+# Fix a long standing bug that's prevented staying current on GTK+.
+# Thanks to the BLFS folks.  :-)
+cat << EOF >> layout/build/Makefile.in
+
+ifdef MOZ_ENABLE_CANVAS
+EXTRA_DSO_LDOPTS += \$(XLDFLAGS) -lX11 -lXrender
+endif
+
+EOF
+
+# Patch mimeTypes.rdf
+# Uncomment this if you want to use the patch; otherwise, we overwrite the
+# mimeTypes.rdf inside the package directory later
+# zcat $CWD/mozilla-firefox-mimeTypes-fix.diff.gz | patch -p1 || exit 1
+
+chown -R root:root .
+find . \
+  \( -perm 777 -o -perm 775 -o -perm 711 -o -perm 555 -o -perm 511 \) \
+  -exec chmod 755 {} \; -o \
+  \( -perm 666 -o -perm 664 -o -perm 600 -o -perm 444 -o -perm 440 -o -perm 400 \) \
+  -exec chmod 644 {} \;
+
+export MOZILLA_OFFICIAL="1" &&
+export BUILD_OFFICIAL="1" &&
+export MOZ_PHOENIX="1" &&
+export CFLAGS="$SLKCFLAGS" &&
+export CXXFLAGS="$SLKCFLAGS" &&
+export MOZ_MAKE_FLAGS="$NUMJOBS" &&
+./configure \
+  --enable-official-branding \
+  --prefix=/usr \
+  --libdir=/usr/lib${LIBDIRSUFFIX} \
+  --with-default-mozilla-five-home=/usr/lib${LIBDIRSUFFIX}/firefox-$RELEASEVER \
+  --with-system-zlib \
+  --enable-application=browser \
+  --enable-default-toolkit=cairo-gtk2 \
+  --enable-system-cairo \
+  --enable-startup-notification \
+  --enable-crypto \
+  --enable-svg \
+  --enable-canvas \
+  --enable-logging \
+  --enable-xft \
+  --enable-webm \
+  --enable-xinerama \
+  --enable-optimize \
+  --enable-reorder \
+  --enable-strip \
+  --enable-cpp-rtti \
+  --enable-single-profile \
+  --disable-ldap \
+  --disable-accessibility \
+  --disable-debug \
+  --disable-tests \
+  --disable-pedantic \
+  --disable-installer \
+  --disable-mailnews \
+  --disable-composer \
+  --disable-profilesharing
+  # Complains about missing APNG support in Slackware's libpng:
+  #--with-system-png \
+
+#make -f client.mk build MOZ_MAKE_FLAGS="$NUMJOBS" || exit 1
+make $NUMJOBS || exit 1
+make install DESTDIR=$PKG || exit 1
+
+# We don't need these (just symlinks anyway):
+rm -rf $PKG/usr/lib${LIBDIRSUFFIX}/firefox-devel-$RELEASEVER
+
+# Nor these:
+rm -rf $PKG/usr/include
+
+( cd $PKG/usr/lib${LIBDIRSUFFIX}/firefox-$RELEASEVER
+  #mv defaults/profile/mimeTypes.rdf defaults/profile/mimeTypes.rdf.orig || exit 1
+  if [ -d defaults/profile ]; then
+    zcat $CWD/mimeTypes.rdf > defaults/profile/mimeTypes.rdf || exit 1
+  fi
+  zcat $CWD/firefox.moz_plugin_path.diff.gz \
+    | sed -e "s#usr/lib#usr/lib${LIBDIRSUFFIX}#g" \
+    | patch -p1 --verbose --backup --suffix=.orig || exit 1
+  # Clean up if the above patch was successful:
+  rm -f firefox.orig
+) || exit
+
+mkdir -p $PKG/usr/lib${LIBDIRSUFFIX}/mozilla/plugins
+mkdir -p $PKG/usr/share/applications
+cat $CWD/mozilla-firefox.desktop > $PKG/usr/share/applications/mozilla-firefox.desktop
+mkdir -p $PKG/usr/share/pixmaps
+cat $CWD/firefox.png > $PKG/usr/share/pixmaps/firefox.png
+
+# These files/directories are usually created if Firefox is run as root,
+# which on many systems might (and possibly should) be never.  Therefore, if we
+# don't see them we'll put stubs in place to prevent startup errors.
+( cd $PKG/usr/lib${LIBDIRSUFFIX}/firefox-$RELEASEVER
+  if [ -d extensions/talkback\@mozilla.org ]; then
+    if [ ! -r extensions/talkback\@mozilla.org/chrome.manifest ]; then
+      echo > extensions/talkback\@mozilla.org/chrome.manifest
+    fi
+  fi
+  if [ ! -d updates ]; then
+    mkdir -p updates/0
+  fi
+)
+
+# Need some default icons in the right place:
+mkdir -p $PKG/usr/lib${LIBDIRSUFFIX}/firefox-$RELEASEVER/chrome/icons/default
+install -m 644 other-licenses/branding/firefox/default16.png \
+  $PKG/usr/lib${LIBDIRSUFFIX}/firefox-$RELEASEVER/icons/
+install -m 644 other-licenses/branding/firefox/default16.png \
+  $PKG/usr/lib${LIBDIRSUFFIX}/firefox-$RELEASEVER/chrome/icons/default/ 
+( cd $PKG/usr/lib${LIBDIRSUFFIX}/firefox-$RELEASEVER
+  install -m 644 icons/{default,mozicon50}.xpm chrome/icons/default/
+)
+
+# Copy over the LICENSE
+install -p -c -m 644 LICENSE $PKG/usr/lib${LIBDIRSUFFIX}/firefox-$RELEASEVER/
+
+mkdir $PKG/install
+cat $CWD/slack-desc > $PKG/install/slack-desc
+
+cd $PKG
+/sbin/makepkg -l y -c n $OUTPUT/mozilla-firefox-$VERSION-$ARCH-${BUILD}${TAG}.txz
+
+echo "Cleaning build directory"
+cd $CWD ; rm -rf $TMP

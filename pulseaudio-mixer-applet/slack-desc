@@ -1,0 +1,12 @@
+                       |-----handy-ruler------------------------------------------------------|
+pulseaudio-mixer-applet: pulseaudio-mixer-applet
+pulseaudio-mixer-applet:
+pulseaudio-mixer-applet: Pulseaudio Mixer Applet is a small applet for the GNOME panel that can
+pulseaudio-mixer-applet: control both input and output device volumes, and individual playback
+pulseaudio-mixer-applet: stream volumes. It also provides a convenient way to change the
+pulseaudio-mixer-applet: default input and output devices, and move application audio streams
+pulseaudio-mixer-applet: to different devices.
+pulseaudio-mixer-applet:
+pulseaudio-mixer-applet: URL: https://launchpad.net/pama
+pulseaudio-mixer-applet:
+pulseaudio-mixer-applet: Packager: Widya Walesa <walecha99@gmail.com>

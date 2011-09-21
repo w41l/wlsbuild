@@ -1,0 +1,19 @@
+# HOW TO EDIT THIS FILE:
+# The "handy ruler" below makes it easier to edit a package description.  Line
+# up the first '|' above the ':' following the base package name, and the '|' on
+# the right side marks the last column you can put a character in.  You must make
+# exactly 11 lines for the formatting to be correct.  It's also customary to
+# leave one space after the ':'.
+
+                   |-----handy-ruler------------------------------------------|
+flash-player-plugin: Flash Player Plugin (Macromedia Flash Browser Plugin)
+flash-player-plugin:
+flash-player-plugin: Macromedia  Flash  Player  is free  software that lets you
+flash-player-plugin: view web content created by Macromedia Flash. This content
+flash-player-plugin: may  be  interactive  content such as menus that slide, or
+flash-player-plugin: may be complex programs like games and movies.
+flash-player-plugin:
+flash-player-plugin: URL: http://www.adobe.com/
+flash-player-plugin:
+flash-player-plugin:
+flash-player-plugin:

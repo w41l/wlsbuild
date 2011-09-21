@@ -1,0 +1,52 @@
+Submitted By:            Randy McMurchy <randy_at_linuxfromscratch_dot_org>
+Date:                    2010-12-07
+Initial Package Version: 1.4
+Upstream Status:         version-script.map file from upstream GIT. OTP lib fix not submitted.
+Origin:                  Upstream and Randy McMurchy
+Description:             Adds a missing file and corrects the bdb reference so that the OTP
+                         library and test program builds successfully.
+
+
+diff -Naur heimdal-1.4-orig/lib/otp/Makefile.in heimdal-1.4/lib/otp/Makefile.in
+--- heimdal-1.4-orig/lib/otp/Makefile.in	2010-09-13 07:24:22.000000000 +0000
++++ heimdal-1.4/lib/otp/Makefile.in	2010-12-07 21:25:01.000000000 +0000
+@@ -404,7 +404,7 @@
+ include_HEADERS = otp.h
+ lib_LTLIBRARIES = libotp.la
+ libotp_la_LDFLAGS = -version-info 1:5:1 $(am__append_1)
+-libotp_la_LIBADD = $(LIB_hcrypto) $(LIB_roken) $(LIB_NDBM)
++libotp_la_LIBADD = $(LIB_hcrypto) $(LIB_roken) $(DBLIB)
+ @HAVE_DB3_FALSE@ndbm_wrap = 
+ @HAVE_DB3_TRUE@ndbm_wrap = ndbm_wrap.c ndbm_wrap.h
+ dist_libotp_la_SOURCES = \
+
+diff -Naur heimdal-1.4-orig/lib/otp/version-script.map heimdal-1.4/lib/otp/version-script.map
+--- heimdal-1.4-orig/lib/otp/version-script.map	1970-01-01 00:00:00.000000000 +0000
++++ heimdal-1.4/lib/otp/version-script.map	2010-12-07 14:50:41.000000000 +0000
+@@ -0,0 +1,26 @@
++HEIMDAL_OTP_1.0 {
++	global:
++		otp_challenge;
++		otp_checksum;
++		otp_db_close;
++		otp_db_open;
++		otp_delete;
++		otp_error;
++		otp_find_alg;		
++		otp_get;
++		otp_parse;
++		otp_parse_altdict;
++		otp_parse_hex;
++		otp_parse_stddict;
++		otp_print_hex;
++		otp_print_hex_extended;
++		otp_print_stddict;
++		otp_print_stddict_extended;
++		otp_put;
++		otp_simple_get;
++		otp_verify_user;
++		otp_verify_user_1;
++	local:
++		*;
++};
++

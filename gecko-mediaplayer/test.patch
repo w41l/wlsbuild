@@ -1,0 +1,68 @@
+diff -Naur a/configure.in b/configure.in
+--- a/configure.in	2011-07-01 23:40:13.000000000 +0700
++++ b/configure.in	2011-07-21 08:29:36.806706623 +0700
+@@ -36,9 +36,9 @@
+         [Use Gconf to store preferences])],
+         [],
+         [with_gconf=check])
+-AS_IF([test "x$with_gconf" != xyes],
++AS_IF([test "x$with_gconf" != xyes],
+     [PKG_CHECK_MODULES(GLIB2_26,[glib-2.0 >= 2.26.0],[with_gconf=no with_gsettings=yes with_gio=yes GLIB2_26_DEFINES="-DGLIB2_26_ENABLED" AC_DEFINE([GLIB2_26_ENABLED],[1],[Define to 1 if you have GLIB 2.26 or higher])],AC_MSG_NOTICE([Using GLIB < 2.26 specific features]))
+-    ])
++    ])
+
+ AC_SUBST(GLIB2_26_DEFINES)
+ AC_SUBST(ALSA_CFLAGS)
+@@ -60,7 +60,7 @@
+ 		GECKO_CFLAGS="$GECKO_CFLAGS -DMOZ_NO_MOZALLOC"
+ 		AC_DEFINE([HAVE_NEW_XULRUNNER],[1],[Define to 1 if using libxul 1.9.2 or higher])
+ 	fi
+-
++
+ 	],
+         [])
+
+@@ -95,8 +95,8 @@
+ fi
+
+ if test "$GECKO_CFLAGS" = ""; then
+-PKG_CHECK_MODULES(GECKO, [seamonkey-plugin seamonkey-xpcom],[ AC_MSG_NOTICE([Using seamonkey])
+-    ],[AC_MSG_WARN([seamokey-plugin not found, trying another])])
++PKG_CHECK_MODULES(GECKO, [seamonkey-plugin >= 2],[GECKO_CFLAGS="$GECKO_CFLAGS -DMOZ_NO_MOZALLOC" AC_DEFINE([HAVE_NEW_XULRUNNER],[1],[Define to 1 if using seamonkey 2.0.0 or higher]) AC_MSG_NOTICE([Using seamonkey-plugin >= 2.0 ])
++    ],[AC_MSG_NOTICE([seamonkey-plugin >= 2 not found, trying another])])
+ fi
+
+ if test "$GECKO_CFLAGS" = ""; then
+@@ -128,7 +128,7 @@
+         [Use Gconf to store preferences])],
+         [AM_CONDITIONAL([GCONF_SCHEMAS_INSTALL],[false])],
+         [with_gconf=check])
+-AS_IF([test "x$with_gconf" != xno],
++AS_IF([test "x$with_gconf" != xno],
+     [PKG_CHECK_MODULES(GCONF, [gconf-2.0],[AM_GCONF_SOURCE_2 USE_GCONF=1
+  GCONF_DEFINES="-DHAVE_GCONF" AC_DEFINE([HAVE_GCONF],[1],[Define to 1 to use GConf to store preferences])],[AM_CONDITIONAL([GCONF_SCHEMAS_INSTALL],[false]) AC_MSG_NOTICE([Using keystore for preferences])])
+     AC_SUBST(GCONF_DEFINES)
+@@ -142,7 +142,7 @@
+         [Use GIO for file I/O])],
+         [],
+         [with_gio=check])
+-AS_IF([test "x$with_gio" != xno],
++AS_IF([test "x$with_gio" != xno],
+     [PKG_CHECK_MODULES(GIO,[gio-2.0],[GIO_DEFINES="-DGIO_ENABLED" AC_DEFINE([GIO_ENABLED],[1],[Define to 1 if you have GIO support])],AC_MSG_WARN([Compiling without gio support]))
+     AC_SUBST(GIO_DEFINES)
+     AC_SUBST(GIO_CFLAGS)
+@@ -169,12 +169,12 @@
+         [Add support for libcurl])],
+         [],
+         [with_libcurl=check])
+-AS_IF([test "x$with_libcurl" != xno],
++AS_IF([test "x$with_libcurl" != xno],
+     [PKG_CHECK_MODULES(CURL,[libcurl],[CURL_DEFINES="-DHAVE_CURL" AC_DEFINE([CURL_ENABLED],[1],[Define to 1 if you have curl support])],AC_MSG_NOTICE([Compiling without curl support. May disable apple.com sites]))
+     AC_SUBST(CURL_DEFINES)
+     AC_SUBST(CURL_CFLAGS)
+     AC_SUBST(CURL_LIBS)
+-    ])
++    ])
+
+
+ AC_OUTPUT([

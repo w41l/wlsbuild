@@ -1,0 +1,116 @@
+Index: mail-notification-5.4/build/src/mn-evolution-server.c
+===================================================================
+--- mail-notification-5.4.orig/build/src/mn-evolution-server.c
++++ mail-notification-5.4/build/src/mn-evolution-server.c
+@@ -27,10 +27,16 @@
+ #include <stdio.h>
+ #include <libintl.h>
+ #include <gobject/gvaluecollector.h>
++#include <libedataserver/eds-version.h>
+ #include <camel/camel-folder.h>
++#if EDS_CHECK_VERSION(2,29,0)
++#include <shell/e-shell.h>
++#include <mail/e-mail-browser.h>
++#else
+ #include <mail/em-folder-view.h>
+ #include <mail/em-format.h>
+ #include <mail/em-message-browser.h>
++#endif
+ #include <mail/em-utils.h>
+ #include <mail/mail-session.h>
+ #include <mail/mail-tools.h>
+@@ -595,7 +601,12 @@ mn_evolution_server_get_unseen_messages
+ 
+ 	for (i = 0; i < summary->len; i++)
+ 	  {
++#if EDS_CHECK_VERSION(2,23,5)
++	    char *uid = summary->pdata[i];
++	    CamelMessageInfo *info = camel_folder_get_message_info(folder, uid);
++#else
+ 	    CamelMessageInfo *info = summary->pdata[i];
++#endif
+ 
+ 	    if ((camel_message_info_flags(info) & CAMEL_MESSAGE_SEEN) == 0)
+ 	      g_ptr_array_add(*ret, self_camel_message_info_to_dbus_struct(info));
+@@ -673,6 +684,19 @@ mn_evolution_server_open_message (MNEvol
+     folder = self_lookup_folder(folder_uri, err);
+     if (folder)
+       {
++#if EDS_CHECK_VERSION(2,29,0)
++	EShell *shell;
++	EShellBackend *shell_backend;
++	GtkWidget *browser;
++
++	shell = e_shell_get_default ();
++	shell_backend = e_shell_get_backend_by_name (shell, "mail");
++
++	browser = e_mail_browser_new (shell_backend);
++	e_mail_reader_set_folder (E_MAIL_READER (browser), folder, folder_uri);
++	e_mail_reader_set_message (E_MAIL_READER (browser), message_uid);
++	gtk_widget_show (browser);
++#else
+ 	GtkWidget *browser;
+ 
+ 	/* modelled after Evolution's handleuri_got_folder() */
+@@ -683,6 +707,7 @@ mn_evolution_server_open_message (MNEvol
+ 	em_folder_view_set_folder((EMFolderView *) browser, folder, folder_uri);
+ 	em_folder_view_set_message((EMFolderView *) browser, message_uid, FALSE);
+ 	gtk_widget_show(((EMMessageBrowser *) browser)->window);
++#endif
+ 
+ 	camel_object_unref(folder);
+       }
+Index: mail-notification-5.4/build/src/mn-evolution-folder-tree-server.c
+===================================================================
+--- mail-notification-5.4.orig/build/src/mn-evolution-folder-tree-server.c
++++ mail-notification-5.4/build/src/mn-evolution-folder-tree-server.c
+@@ -25,7 +25,10 @@
+ #line 24 "src/mn-evolution-folder-tree-server.gob"
+ 
+ #include <dbus/dbus.h>
++#include <libedataserver/eds-version.h>
++#if !EDS_CHECK_VERSION(2,29,0)
+ #include <mail/mail-component.h>
++#endif
+ #include <mail/em-folder-tree.h>
+ #include "mn-evolution-plugin.h"
+ #include "mn-evolution.h"
+@@ -441,10 +444,14 @@ mn_evolution_folder_tree_server_construc
+ {
+ #line 61 "src/mn-evolution-folder-tree-server.gob"
+ 	
++#if EDS_CHECK_VERSION(2,29,0)
++    selfp->tree = em_folder_tree_new();
++#else
+     EMFolderTreeModel *model;
+ 
+     model = mail_component_peek_tree_model(mail_component_peek());
+     selfp->tree = em_folder_tree_new_with_model(model);
++#endif
+ 
+     selfp->plug = gtk_plug_new((GdkNativeWindow) selfp->id);
+     gtk_container_add(GTK_CONTAINER(selfp->plug), selfp->tree);
+Index: mail-notification-5.4/src/mn-evolution-plugin.c
+===================================================================
+--- mail-notification-5.4.orig/src/mn-evolution-plugin.c
++++ mail-notification-5.4/src/mn-evolution-plugin.c
+@@ -27,6 +27,7 @@
+ #include <camel/camel-folder.h>
+ #include <mail/em-event.h>
+ #include <mail/mail-tools.h>
++#include <libedataserver/eds-version.h>
+ #include "mn-evolution.h"
+ #include "mn-evolution-server.h"
+ #include "mn-evolution-plugin.h"
+@@ -204,7 +205,11 @@ connect_to_session_bus (void)
+ }
+ 
+ int
++#if EDS_CHECK_VERSION(2,29,0)
++e_plugin_lib_enable (EPlugin *ep, int enable)
++#else
+ e_plugin_lib_enable (EPluginLib *ep, int enable)
++#endif
+ {
+   static gboolean enabled = FALSE;
+   GError *err = NULL;

@@ -1,0 +1,64 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2011-07-01 10:40-0600\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=CHARSET\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: src/plugin.cpp:339
+#, c-format
+msgid "gecko mediaplayer v%s\n"
+msgstr ""
+
+#: src/plugin.cpp:614
+#, c-format
+msgid "Cache fill: %2.2f%%"
+msgstr ""
+
+#: src/plugin.cpp:879
+#, c-format
+msgid "Write unable to write because item is NULL\n"
+msgstr ""
+
+#: src/plugin.cpp:945 src/plugin.cpp:1360
+#, c-format
+msgid "Caching %iK (%0.1f K/s)"
+msgstr ""
+
+#: src/plugin.cpp:948 src/plugin.cpp:1363
+#, c-format
+msgid "Cache fill: %2.2f%% (%0.1f K/s)"
+msgstr ""
+
+#: src/plugin.cpp:2621
+msgid "Playing"
+msgstr ""
+
+#: src/plugin.cpp:2624
+msgid "Paused"
+msgstr ""
+
+#: src/plugin.cpp:2627
+msgid "Stopped"
+msgstr ""
+
+#: src/plugin.cpp:2630
+#, c-format
+msgid "Buffering %2.1lf%%"
+msgstr ""
+
+#: src/plugin.cpp:2633
+msgid "Unknown Status"
+msgstr ""

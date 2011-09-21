@@ -1,0 +1,49 @@
+diff -Naur a/gir/Makefile.am b/gir/Makefile.am
+--- a/gir/Makefile.am	2009-08-29 08:42:39.000000000 +0700
++++ b/gir/Makefile.am	2011-04-11 10:48:52.473000056 +0700
+@@ -1,5 +1,5 @@
+ CLEANFILES =
+-EXTRA_DIST = 
++EXTRA_DIST =
+ lib_LTLIBRARIES =
+ BUILT_GIRSOURCES =
+ CUSTOM_GIRSOURCES =
+@@ -402,7 +402,7 @@
+              --pkg gtk+-2.0 \
+              --pkg vte \
+              --output $@ \
+-             $(VTE_INCLUDEDIR)/vte/*.h
++             $(VTE_INCLUDEDIR)/vte-0.0/vte/*.h
+ BUILT_GIRSOURCES += Vte-1.0.gir
+ endif
+ 
+diff -Naur a/gir/Makefile.in b/gir/Makefile.in
+--- a/gir/Makefile.in	2009-09-10 02:31:46.000000000 +0700
++++ b/gir/Makefile.in	2011-04-11 10:48:42.270000057 +0700
+@@ -625,13 +625,13 @@
+ 	  echo "rm -f \"$${dir}/so_locations\""; \
+ 	  rm -f "$${dir}/so_locations"; \
+ 	done
+-libgirepo-Clutter-custom.la: $(libgirepo_Clutter_custom_la_OBJECTS) $(libgirepo_Clutter_custom_la_DEPENDENCIES) 
++libgirepo-Clutter-custom.la: $(libgirepo_Clutter_custom_la_OBJECTS) $(libgirepo_Clutter_custom_la_DEPENDENCIES)
+ 	$(libgirepo_Clutter_custom_la_LINK) $(am_libgirepo_Clutter_custom_la_rpath) $(libgirepo_Clutter_custom_la_OBJECTS) $(libgirepo_Clutter_custom_la_LIBADD) $(LIBS)
+-libgirepo-DBus-custom.la: $(libgirepo_DBus_custom_la_OBJECTS) $(libgirepo_DBus_custom_la_DEPENDENCIES) 
++libgirepo-DBus-custom.la: $(libgirepo_DBus_custom_la_OBJECTS) $(libgirepo_DBus_custom_la_DEPENDENCIES)
+ 	$(libgirepo_DBus_custom_la_LINK) $(am_libgirepo_DBus_custom_la_rpath) $(libgirepo_DBus_custom_la_OBJECTS) $(libgirepo_DBus_custom_la_LIBADD) $(LIBS)
+-libgirepo-Gdk-custom.la: $(libgirepo_Gdk_custom_la_OBJECTS) $(libgirepo_Gdk_custom_la_DEPENDENCIES) 
++libgirepo-Gdk-custom.la: $(libgirepo_Gdk_custom_la_OBJECTS) $(libgirepo_Gdk_custom_la_DEPENDENCIES)
+ 	$(libgirepo_Gdk_custom_la_LINK) $(am_libgirepo_Gdk_custom_la_rpath) $(libgirepo_Gdk_custom_la_OBJECTS) $(libgirepo_Gdk_custom_la_LIBADD) $(LIBS)
+-libgirepo-Gtk-custom.la: $(libgirepo_Gtk_custom_la_OBJECTS) $(libgirepo_Gtk_custom_la_DEPENDENCIES) 
++libgirepo-Gtk-custom.la: $(libgirepo_Gtk_custom_la_OBJECTS) $(libgirepo_Gtk_custom_la_DEPENDENCIES)
+ 	$(libgirepo_Gtk_custom_la_LINK) $(am_libgirepo_Gtk_custom_la_rpath) $(libgirepo_Gtk_custom_la_OBJECTS) $(libgirepo_Gtk_custom_la_LIBADD) $(LIBS)
+ 
+ mostlyclean-compile:
+@@ -1228,7 +1228,7 @@
+ @BUILD_VTE_TRUE@             --pkg gtk+-2.0 \
+ @BUILD_VTE_TRUE@             --pkg vte \
+ @BUILD_VTE_TRUE@             --output $@ \
+-@BUILD_VTE_TRUE@             $(VTE_INCLUDEDIR)/vte/*.h
++@BUILD_VTE_TRUE@             $(VTE_INCLUDEDIR)/vte-0.0/vte/*.h
+ @BUILD_CLUTTER_TRUE@ClutterJson-0.8.gir: $(INTROSPECTION_SCANNER)
+ @BUILD_CLUTTER_TRUE@	$(INTROSPECTION_SCANNER) -v --namespace ClutterJson --nsversion=0.8 \
+ @BUILD_CLUTTER_TRUE@	    --add-include-path=$(srcdir) --add-include-path=. \

@@ -1,0 +1,187 @@
+dnl Process this file with autoconf to produce a configure script.
+dnl Created by Anjuta application wizard.
+
+AC_INIT(configure.in)
+AM_INIT_AUTOMAKE(gecko-mediaplayer, 1.0.4)
+AM_CONFIG_HEADER(config.h)
+AM_MAINTAINER_MODE
+m4_ifdef([AM_SILENT_RULES], [AM_SILENT_RULES([yes])])
+
+AC_ISC_POSIX
+AC_PROG_CC
+AM_PROG_CC_STDC
+AC_HEADER_STDC
+
+
+AC_PROG_CPP
+AC_PROG_CXX
+AM_PROG_CC_C_O
+AC_PROG_RANLIB
+
+dnl Set gettext package name
+GETTEXT_PACKAGE=gecko-mediaplayer
+AC_SUBST(GETTEXT_PACKAGE)
+AC_DEFINE_UNQUOTED(GETTEXT_PACKAGE,"$GETTEXT_PACKAGE", [GETTEXT package name])
+
+dnl Add the languages which your application supports here.
+ALL_LINGUAS="cs de es fr ja it nl pl pt pt_BR tr"
+AM_GLIB_GNU_GETTEXT
+
+PKG_CHECK_MODULES(GLIB, [glib-2.0])
+AC_SUBST(GLIB_CFLAGS)
+AC_SUBST(GLIB_LIBS)
+
+AC_ARG_WITH([gconf],
+    [AS_HELP_STRING([--with-gconf],
+        [Use Gconf to store preferences])],
+        [],
+        [with_gconf=check])
+AS_IF([test "x$with_gconf" != xyes],        
+    [PKG_CHECK_MODULES(GLIB2_26,[glib-2.0 >= 2.26.0],[with_gconf=no with_gsettings=yes with_gio=yes GLIB2_26_DEFINES="-DGLIB2_26_ENABLED" AC_DEFINE([GLIB2_26_ENABLED],[1],[Define to 1 if you have GLIB 2.26 or higher])],AC_MSG_NOTICE([Using GLIB < 2.26 specific features]))
+    ])    
+
+AC_SUBST(GLIB2_26_DEFINES)
+AC_SUBST(ALSA_CFLAGS)
+AC_SUBST(PULSE_CFLAGS)
+
+
+AC_ARG_WITH([xulrunner-sdk],
+    [AS_HELP_STRING([--with-xulrunner-sdk=path_to_sdk],
+        [Path to xulrunner SDK for build --with-xulrunner-sdk=/path/to/sdk])],
+        [
+	XULRUNNER_SDK_PREFIX=$with_xulrunner_sdk
+	GECKO_CFLAGS="-I$XULRUNNER_SDK_PREFIX/include -I$XULRUNNER_SDK_PREFIX/include/plugin -I$XULRUNNER_SDK_PREFIX/include/nspr -I$XULRUNNER_SDK_PREFIX/include/xpcom -I$XULRUNNER_SDK_PREFIX/include/string -I$XULRUNNER_SDK_PREFIX/include/java"
+	GECKO_LIBS="-L$XULRUNNER_SDK_PREFIX/lib -lxpcomglue_s -lxul -lxpcom -lplds4 -lplc4 -lnspr4 -lpthread -ldl"
+	AC_ARG_ENABLE(new-libxul,
+		AC_HELP_STRING([--enable-new-libxul],[libxul/xulrunner-sdk is 1.9.2 or higher]),
+		[usenewlibxul=$enableval],[usenewlibxul=no])
+
+	if test "$usenewlibxul" = "yes"; then
+		GECKO_CFLAGS="$GECKO_CFLAGS -DMOZ_NO_MOZALLOC"
+		AC_DEFINE([HAVE_NEW_XULRUNNER],[1],[Define to 1 if using libxul 1.9.2 or higher])
+	fi
+	
+	],
+        [])
+
+if test "$GECKO_CFLAGS" = ""; then
+PKG_CHECK_MODULES(GECKO, [libxul >= 2],[GECKO_CFLAGS="$GECKO_CFLAGS -DMOZ_NO_MOZALLOC" AC_DEFINE([HAVE_NEW_XULRUNNER],[1],[Define to 1 if using libxul 2.0.0 or higher]) AC_MSG_NOTICE([Using libxul >= 2.0 ])
+    ],[AC_MSG_NOTICE([libxul >= 2 not found, trying another])])
+fi
+
+if test "$GECKO_CFLAGS" = ""; then
+PKG_CHECK_MODULES(GECKO, [libxul >= 1.9.2],[ AC_DEFINE([HAVE_NEW_XULRUNNER],[1],[Define to 1 if using libxul 1.9.2 or higher]) AC_MSG_NOTICE([Using libxul >= 1.9.2])
+    ],[AC_MSG_NOTICE([libxul >= 1.9.2 not found, trying another])])
+fi
+
+if test "$GECKO_CFLAGS" = ""; then
+PKG_CHECK_MODULES(GECKO, [libxul < 1.9.2],[ AC_MSG_NOTICE([Using libxul < 1.9.2])
+    ],[AC_MSG_WARN([libxul < 1.9.2 not found, trying another])])
+fi
+
+if test "$GECKO_CFLAGS" = ""; then
+PKG_CHECK_MODULES(GECKO, [libxul-unstable],[ AC_MSG_NOTICE([Using libxul-unstable])
+    ],[AC_MSG_WARN([libxul-unstable not found, trying another])])
+fi
+
+if test "$GECKO_CFLAGS" = ""; then
+PKG_CHECK_MODULES(GECKO, [mozilla-plugin mozilla-xpcom],[ AC_MSG_NOTICE([Using mozilla])
+    ],[AC_MSG_WARN([mozilla-plugin not found, trying another])])
+fi
+
+if test "$GECKO_CFLAGS" = ""; then
+PKG_CHECK_MODULES(GECKO, [firefox-plugin firefox-xpcom],[ AC_MSG_NOTICE([Using firefox])
+    ],[AC_MSG_WARN([firefox-plugin not found, trying another])])
+fi
+
+if test "$GECKO_CFLAGS" = ""; then
+PKG_CHECK_MODULES(GECKO, [seamonkey-plugin seamonkey-xpcom],[ AC_MSG_NOTICE([Using seamonkey])
+    ],[AC_MSG_WARN([seamokey-plugin not found, trying another])])
+fi
+
+if test "$GECKO_CFLAGS" = ""; then
+PKG_CHECK_MODULES(GECKO, [xulrunner-plugin xulrunner-xpcom],[ AC_MSG_NOTICE([Using xulrunner])
+    ],[AC_MSG_WARN([xulrunner-plugin not found, trying another])])
+fi
+
+if test "$GECKO_CFLAGS" = ""; then
+PKG_CHECK_MODULES(GECKO, [iceape-plugin iceape-xpcom],[ AC_MSG_NOTICE([Using iceape])
+    ],[AC_MSG_WARN([iceape-plugin not found, trying another])])
+fi
+
+PKG_CHECK_MODULES(NSPR, [nspr],[
+    libdir=`$PKG_CONFIG --variable=libdir nspr`
+    AC_SUBST(libdir)
+    ],[AC_MSG_WARN([nspr not found, may not be needed])])
+
+
+AC_SUBST(GECKO_CFLAGS)
+AC_SUBST(GECKO_LIBS)
+
+PKG_CHECK_MODULES(DBUS, [dbus-1 >= 0.95 dbus-glib-1 >= 0.70])
+AC_SUBST(DBUS_CFLAGS)
+AC_SUBST(DBUS_LIBS)
+
+USE_GCONF=0
+AC_ARG_WITH([gconf],
+    [AS_HELP_STRING([--with-gconf],
+        [Use Gconf to store preferences])],
+        [AM_CONDITIONAL([GCONF_SCHEMAS_INSTALL],[false])],
+        [with_gconf=check])
+AS_IF([test "x$with_gconf" != xno],        
+    [PKG_CHECK_MODULES(GCONF, [gconf-2.0],[AM_GCONF_SOURCE_2 USE_GCONF=1
+ GCONF_DEFINES="-DHAVE_GCONF" AC_DEFINE([HAVE_GCONF],[1],[Define to 1 to use GConf to store preferences])],[AM_CONDITIONAL([GCONF_SCHEMAS_INSTALL],[false]) AC_MSG_NOTICE([Using keystore for preferences])])
+    AC_SUBST(GCONF_DEFINES)
+    AC_SUBST(GCONF_CFLAGS)
+    AC_SUBST(GCONF_LIBS)
+    ])
+AC_SUBST(USE_GCONF)
+
+AC_ARG_WITH([gio],
+    [AS_HELP_STRING([--with-gio],
+        [Use GIO for file I/O])],
+        [],
+        [with_gio=check])
+AS_IF([test "x$with_gio" != xno], 
+    [PKG_CHECK_MODULES(GIO,[gio-2.0],[GIO_DEFINES="-DGIO_ENABLED" AC_DEFINE([GIO_ENABLED],[1],[Define to 1 if you have GIO support])],AC_MSG_WARN([Compiling without gio support]))
+    AC_SUBST(GIO_DEFINES)
+    AC_SUBST(GIO_CFLAGS)
+    AC_SUBST(GIO_LIBS)
+    ])
+
+AC_ARG_WITH([plugin_dir],
+    [AS_HELP_STRING([--with-plugin-dir=dir],
+        [Directory where plugins are stored])],
+        [plugindir=$withval],
+        [plugindir='$(libdir)/mozilla/plugins'])
+AC_SUBST(plugindir)
+
+AC_ARG_ENABLE(caching,
+	AC_HELP_STRING([--disable-caching],[Disable caching of remote media to local storage]),
+	[usecache=$enableval],[usecache=yes])
+
+if test $usecache != yes; then
+	GECKO_CFLAGS="$GECKO_CFLAGS -DDISABLE_CACHE"
+fi
+
+AC_ARG_WITH([libcurl],
+    [AS_HELP_STRING([--with-libcurl],
+        [Add support for libcurl])],
+        [],
+        [with_libcurl=check])
+AS_IF([test "x$with_libcurl" != xno], 
+    [PKG_CHECK_MODULES(CURL,[libcurl],[CURL_DEFINES="-DHAVE_CURL" AC_DEFINE([CURL_ENABLED],[1],[Define to 1 if you have curl support])],AC_MSG_NOTICE([Compiling without curl support. May disable apple.com sites]))
+    AC_SUBST(CURL_DEFINES)
+    AC_SUBST(CURL_CFLAGS)
+    AC_SUBST(CURL_LIBS)
+    ])    
+
+
+AC_OUTPUT([
+Makefile
+gecko-mediaplayer.spec
+src/Makefile
+src/libgmlib/Makefile
+po/Makefile.in
+])
+

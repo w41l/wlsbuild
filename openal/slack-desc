@@ -1,0 +1,19 @@
+# HOW TO EDIT THIS FILE:
+# The "handy ruler" below makes it easier to edit a package description.  Line
+# up the first '|' above the ':' following the base package name, and the '|'
+# on the right side marks the last column you can put a character in.  You must
+# make exactly 11 lines for the formatting to be correct.  It's also
+# customary to leave one space after the ':'.
+
+      |-----handy-ruler------------------------------------------------------|
+openal: openal (Cross-Platform 3D Audio API)
+openal:
+openal: OpenAL is a cross platform 3D audio API appropriate for use with
+openal: gaming applications and many other types of audio applications.
+openal: The library models a collection of audio sources moving in 3D space
+openal: that are heard by a single listener somewhere in that space.
+openal:
+openal: URL: http://connect.creativelabs.com/openal/default.aspx
+openal:
+openal:
+openal:

@@ -1,0 +1,19 @@
+# HOW TO EDIT THIS FILE:
+# The "handy ruler" below makes it easier to edit a package description.  Line
+# up the first '|' above the ':' following the base package name, and the '|'
+# on the right side marks the last column you can put a character in.  You must
+# make exactly 11 lines for the formatting to be correct.  It's also
+# customary to leave one space after the ':'.
+
+                 |-----handy-ruler------------------------------------------------------|
+mail-notification: mail-notification (Systray Mail Notification)
+mail-notification:
+mail-notification: Mail Notification is a status icon (aka tray icon) that informs you if
+mail-notification: you have new mail. It works with system trays implementing the
+mail-notification: freedesktop.org System Tray Specification, such as the GNOME Panel
+mail-notification: Notification Area, the Xfce Notification Area and the KDE System Tray.
+mail-notification:
+mail-notification: URL: http://www.nongnu.org/mailnotify/
+mail-notification:
+mail-notification:
+mail-notification: Packager: Widya Walesa <walecha99@gmail.com>

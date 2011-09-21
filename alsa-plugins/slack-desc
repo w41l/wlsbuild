@@ -1,0 +1,19 @@
+# HOW TO EDIT THIS FILE:
+# The "handy ruler" below makes it easier to edit a package description.  Line
+# up the first '|' above the ':' following the base package name, and the '|'
+# on the right side marks the last column you can put a character in.  You must
+# make exactly 11 lines for the formatting to be correct.  It's also
+# customary to leave one space after the ':'.
+
+            |-----handy-ruler----------------------------------------------------|
+alsa-plugins: Alsa-Plugins (Advanced Linux Sound Architecture Plugins)
+alsa-plugins:
+alsa-plugins: Plugins are used to create virtual devices that can be used like
+alsa-plugins: normal hardware devices but cause  extra processing of the sound
+alsa-plugins: stream  to take place. They  are used  while configuring ALSA in
+alsa-plugins: the .asoundrc file.
+alsa-plugins:
+alsa-plugins:
+alsa-plugins:
+alsa-plugins:
+alsa-plugins:

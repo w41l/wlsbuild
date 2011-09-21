@@ -1,0 +1,203 @@
+gecko-mediaplayer supports the following javascript methods, properties and events
+
+
+methods:
+
+	void Play();
+	void PlayAt(in double value);
+	void Pause();
+	void Stop();
+	void quit();
+	void DoPlay();
+	void DoPause();
+	void FastForward();
+	void FastReverse();
+	void ff();
+	void rew();
+	void rewind();
+	void Seek(in double value);
+	void Open(in string filename);
+	void SetFileName(in string filename);
+	double getTime();
+	double getDuration();
+	double getPercent();
+	void SetVolume(in double value);
+	double GetVolume();
+	
+	void controls.play();
+	void controls.pause();
+	void controls.stop();
+	
+properties:
+
+	attribute string filename;
+	readonly attribute long playState;
+	attribute boolean ShowControls;
+	attribute boolean fullscreen;
+	attribute boolean showlogo;
+	boolean isplaying();
+
+events:
+
+	onMediaComplete
+	onMediaCompleteWithError(error)
+	onEndOfStream
+	onVisible
+	onHidden
+	onDestroy
+	onClick
+	onMouseDown(button)
+	onMouseUp(button)
+	
+Detail:
+
+	Play(), DoPlay(), controls.play()	 	
+			
+			plays the current media
+
+	PlayAt(value)
+			plays the current media, starting at value seconds into the media
+	
+	Pause(), DoPause(), controls.pause()
+			
+			pauses the playing media
+	
+	Stop(), controls.stop()		
+			
+			stops the playing media
+	quit()		
+			
+			cancels the media player triggers onMediaComplete and onEndOfStream events
+			
+	FastForward(),ff()
+	
+			Seeks forward 10 seconds in the media
+			
+	FastReverse(),rew(),rewind()
+	
+			Seeks backwards 10 seconds in the media
+	
+	Seek(value)
+	
+			Seeks "value" seconds into the media
+			
+	Open(filename),SetFileName()
+	
+			Opens "filename", but does not start it
+			
+	getTime()
+		
+			Returns the number of seconds into the media
+			
+	getDuration()
+	
+			Returns the number of seconds the media is long
+			
+	getPercent()
+	
+			Gets percentage of media played 0 = 0% 100= 100%
+			Will return 0 for some media types since duration is not always 
+			available from mplayer
+	
+	SetVolume(value)
+			Sets the volume to % value. So setting this to 50 sets the volume to 50% of max
+
+	GetVolume()
+			Returns the percentage of max volume.
+
+	filename
+	
+			Able to get and set this property
+			x = filename, puts the URL of the current media in x
+			filename = "x", opens URL x, like Open("x")
+
+	isplaying()
+	
+			Returns true if playState > 1 and < 7
+	
+	playState
+	
+			read only property
+			Possible return values and meanings
+			
+			UNDEFINED 	0
+			STOPPED 	1
+			PAUSED 		2
+			PLAYING		3
+			SCANFORWARD	4
+			SCANREVERSE 	5
+			BUFFERING	6
+			WAITING		7
+			MEDIAENDED	8
+			TRANSITIONING  	9
+			READY		10
+			RECONNECTING	11
+			INITIALIZING   	12
+
+	ShowControls
+	
+			Boolean property to make the player controls visible or not
+	
+	fullscreen
+			Boolean property to make the player go fullscreen or not
+	
+	showlogo
+			Boolean property to make the logo visible or not	
+						
+	onMediaComplete, onEndOfStream
+	
+			Events that are triggered when the playlist is empty
+			
+			example:
+			
+			<embed onEndOfStream='alert("media done");' src="http://host/some/media.mov"></embed>
+	
+	onMediaCompleteWithError(error)
+	
+			Events that are triggered when the playlist is empty
+			error is an integer
+			ERROR_NO_ERROR			0
+			ERROR_NO_STREAM			1
+			ERROR_CODEC_FAILURE		ERROR_NO_STREAM << 1
+			ERROR_EXPLICIT_KILL		ERROR_NO_STREAM << 2
+			ERROR_PLAYER_INTERRUPTED	ERROR_NO_STREAM << 3
+			ERROR_EXECV			ERROR_NO_STREAM << 4
+			ERROR_NOT_PLAYLIST		ERROR_NO_STREAM << 5
+			ERROR_FILE_NOT_FOUND		ERROR_NO_STREAM << 6			
+			
+			example:
+			
+			<embed onMediaCompleteWithError='error_handler(error)' src="http://host/some/media.mov"></embed>
+			
+	onVisible
+	
+			Event that is triggered when video media is uncovered by a window, might want to use
+			with the nopauseonhide embed attribute
+
+			<embed onVisible='someMethod();' nopauseonhide=true src="http://host/some/media.mov"></embed>
+
+	onHidden
+	
+			Event that is triggered when video media is covered by a window, might want to use
+			with the nopauseonhide embed attribute
+
+			<embed onHidden='someMethod();' nopauseonhide=true src="http://host/some/media.mov"></embed>
+	
+	onDestroy
+
+			Event that is triggered when the embedded mplayerplug-in is destroyed, best used when mplayerplug-in
+			is in a frame and the frame is destroyed/hidden.
+
+	onClick
+			
+			Event that is triggered when mouse button one is clicked over the plugin. 
+
+	onMouseDown(button)
+	
+			Event that is triggered when the mouse button is down over the plugin.
+			button is an integer that is the button that is down
+
+	onMouseUp(button)
+	
+			Event that is triggered when the mouse button is released over the plugin.
+			button is an integer that is the button that is down

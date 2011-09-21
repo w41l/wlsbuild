@@ -1,0 +1,19 @@
+# HOW TO EDIT THIS FILE:
+# The "handy ruler" below makes it easier to edit a package description.  Line
+# up the first '|' above the ':' following the base package name, and the '|' on
+# the right side marks the last column you can put a character in.  You must make
+# exactly 11 lines for the formatting to be correct.  It's also customary to
+# leave one space after the ':'.
+
+          |-----handy-ruler---------------------------------------------------|
+xfce-utils: xfce-utils
+xfce-utils:
+xfce-utils: This is a collection of scripts and utilities for the Xfce desktop
+xfce-utils: environment, including an about dialog, an application launcher,
+xfce-utils: and several useful scripts that are also used by other Xfce
+xfce-utils: components such as the panel and the desktop menu.
+xfce-utils:
+xfce-utils: URL: http://www.xfce.org/
+xfce-utils:
+xfce-utils:
+xfce-utils: http://www.walecha.net/

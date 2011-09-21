@@ -1,0 +1,19 @@
+# HOW TO EDIT THIS FILE:
+# The "handy ruler" below makes it easier to edit a package description.  Line
+# up the first '|' above the ':' following the base package name, and the '|'
+# on the right side marks the last column you can put a character in.  You must
+# make exactly 11 lines for the formatting to be correct.  It's also
+# customary to leave one space after the ':'.
+
+         |-----handy-ruler------------------------------------------------|
+xfdesktop: xfdesktop (XFCE Desktop Manager)
+xfdesktop:
+xfdesktop: Xfdesktop is a desktop manager for the Xfce Desktop Environment
+xfdesktop: which can set the background image, provides a right-click menu
+xfdesktop: to launch applications and can optionally show files (including
+xfdesktop: application launchers) or iconified windows, includes gradient
+xfdesktop: support for background color, saturation support for background
+xfdesktop: images, as well as real multiscreen and xinerama support.
+xfdesktop: URL: http://www.xfce.org/
+xfdesktop:
+xfdesktop: http://www.walecha.net/

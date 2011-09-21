@@ -1,0 +1,19 @@
+# HOW TO EDIT THIS FILE:
+# The "handy ruler" below makes it easier to edit a package description.  Line
+# up the first '|' above the ':' following the base package name, and the '|'
+# on the right side marks the last column you can put a character in.  You must
+# make exactly 11 lines for the formatting to be correct.  It's also
+# customary to leave one space after the ':'.
+
+           |-----handy-ruler------------------------------------------------|
+libxfcegui4: libxfcegui4
+libxfcegui4:
+libxfcegui4: The libxfcegui4 library provides a number of widgets commonly
+libxfcegui4: used by Xfce applications. It has been superseded by the
+libxfcegui4: libxfce4ui library.
+libxfcegui4:
+libxfcegui4: URL: http://www.xfce.org/
+libxfcegui4:
+libxfcegui4:
+libxfcegui4:
+libxfcegui4: http://www.walecha.net/

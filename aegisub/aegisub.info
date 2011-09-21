@@ -1,0 +1,7 @@
+PRGNAM="aegisub"
+VERSION="2.1.8"
+HOMEPAGE="http://www.aegisub.org/"
+DOWNLOAD="ftp://ftp.aegisub.org/pub/releases/aegisub-2.1.8.tar.gz"
+MD5SUM="04438f9c237618d225d3654cded3d4bb"
+DOWNLOAD_x86_64=""
+MD5SUM_x86_64=""

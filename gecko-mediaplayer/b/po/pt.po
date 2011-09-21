@@ -1,0 +1,65 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: gecko-mediaplayer\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2011-07-01 10:40-0600\n"
+"PO-Revision-Date: 2011-06-15 18:25-0000\n"
+"Last-Translator: Sérgio Marques <smarquespt@gmail.com>\n"
+"Language-Team: \n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Poedit-Language: Potuguese\n"
+"X-Poedit-Country: Portugal\n"
+
+#: src/plugin.cpp:339
+#, c-format
+msgid "gecko mediaplayer v%s\n"
+msgstr "gecko mediaplayer v%s\n"
+
+#: src/plugin.cpp:614
+#, c-format
+msgid "Cache fill: %2.2f%%"
+msgstr "Preenchimento de cache: %2.2f%%"
+
+#: src/plugin.cpp:879
+#, c-format
+msgid "Write unable to write because item is NULL\n"
+msgstr "Não é possível escrever pois o item é NULL\n"
+
+#: src/plugin.cpp:945 src/plugin.cpp:1360
+#, c-format
+msgid "Caching %iK (%0.1f K/s)"
+msgstr "A colocar em cache %iK (%0.1f K/s)"
+
+#: src/plugin.cpp:948 src/plugin.cpp:1363
+#, c-format
+msgid "Cache fill: %2.2f%% (%0.1f K/s)"
+msgstr "Preenchimento de cache: %2.2f%% (%0.1f K/s)"
+
+#: src/plugin.cpp:2621
+msgid "Playing"
+msgstr "A reproduzir"
+
+#: src/plugin.cpp:2624
+msgid "Paused"
+msgstr "Em pausa"
+
+#: src/plugin.cpp:2627
+msgid "Stopped"
+msgstr "Parado"
+
+#: src/plugin.cpp:2630
+#, c-format
+msgid "Buffering %2.1lf%%"
+msgstr "A colocar em mémoria %2.1lf%%"
+
+#: src/plugin.cpp:2633
+msgid "Unknown Status"
+msgstr "Estado desconhecido"

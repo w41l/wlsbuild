@@ -1,0 +1,20 @@
+# HOW TO EDIT THIS FILE:
+# The "handy ruler" below makes it easier to edit a package description.  Line
+# up the first '|' above the ':' following the base package name, and the '|'
+# on the right side marks the last column you can put a character in.  You must
+# make exactly 11 lines for the formatting to be correct.  It's also
+# customary to leave one space after the ':'.
+
+    |-----handy-ruler------------------------------------------------------|
+mako: mako (Mako Templates for Python)
+mako:
+mako: Mako is a template library written in Python. It provides a familiar,
+mako: non-XML syntax which compiles into Python modules for maximum performance.
+mako: Mako's syntax and API borrows from the best ideas of many others,
+mako: including Django templates, Cheetah, Myghty, and Genshi.
+mako:
+mako: URL: http://www.makotemplates.org/
+mako:
+mako:
+mako:
+mako: Packaged by: Widya Walesa <walecha99@gmail.com>

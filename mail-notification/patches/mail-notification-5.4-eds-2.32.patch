@@ -1,0 +1,39 @@
+Index: mail-notification-5.4/src/mn-evolution-message.gob
+===================================================================
+--- mail-notification-5.4.orig/src/mn-evolution-message.gob
++++ mail-notification-5.4/src/mn-evolution-message.gob
+@@ -23,7 +23,7 @@
+ 
+ %{
+ #include <glib/gi18n.h>
+-#include <camel/camel-folder-summary.h>
++#include <camel/camel.h>
+ #include "mn-evolution-mailbox.h"
+ #include "mn-message-private.h"
+ #include "mn-evolution-client.h"
+Index: mail-notification-5.4/src/mn-evolution-plugin.c
+===================================================================
+--- mail-notification-5.4.orig/src/mn-evolution-plugin.c
++++ mail-notification-5.4/src/mn-evolution-plugin.c
+@@ -24,7 +24,7 @@
+ #include <dbus/dbus.h>
+ #include <dbus/dbus-glib-lowlevel.h>
+ #include <dbus/dbus-glib-bindings.h>
+-#include <camel/camel-folder.h>
++#include <camel/camel.h>
+ #include <mail/em-event.h>
+ #include <mail/mail-tools.h>
+ #include <libedataserver/eds-version.h>
+Index: mail-notification-5.4/src/mn-evolution-server.gob
+===================================================================
+--- mail-notification-5.4.orig/src/mn-evolution-server.gob
++++ mail-notification-5.4/src/mn-evolution-server.gob
+@@ -26,7 +26,7 @@
+ #include <libintl.h>
+ #include <gobject/gvaluecollector.h>
+ #include <libedataserver/eds-version.h>
+-#include <camel/camel-folder.h>
++#include <camel/camel.h>
+ #if EDS_CHECK_VERSION(2,29,0)
+ #include <shell/e-shell.h>
+ #include <mail/e-mail-browser.h>

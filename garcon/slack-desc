@@ -1,0 +1,19 @@
+# HOW TO EDIT THIS FILE:
+# The "handy ruler" below makes it easier to edit a package description.  Line
+# up the first '|' above the ':' following the base package name, and the '|'
+# on the right side marks the last column you can put a character in.  You must
+# make exactly 11 lines for the formatting to be correct.  It's also
+# customary to leave one space after the ':'.
+
+      |-----handy-ruler------------------------------------------------|
+garcon: garcon
+garcon:
+garcon: Garcon is a library based on GLib and GIO which implements the
+garcon: freedesktop.org Desktop Menu Specification. It is the sucessor
+garcon: to libxfce4menu and covers almost every part of the menu
+garcon: specification except for legacy menus and a few XML attributes.
+garcon: It is capable of loading menus modified with menu editors such
+garcon: as Alacarte and also supports merging.
+garcon: URL: http://www.xfce.org/
+garcon:
+garcon: http://www.walecha.net/

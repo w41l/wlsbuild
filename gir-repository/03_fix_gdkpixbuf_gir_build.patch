@@ -1,0 +1,11 @@
+--- a/gir/Makefile.am
++++ b/gir/Makefile.am
+@@ -248,7 +248,7 @@
+ 
+ EXTRA_DIST += $(srcdir)/GdkPixbuf-custom.c
+ if BUILD_GTK
+-GDKPIXBUF_INCLUDEDIR=`pkg-config --variable=includedir gdk-pixbuf-2.0`/gtk-2.0
++GDKPIXBUF_INCLUDEDIR=`pkg-config --variable=includedir gdk-pixbuf-2.0`/gdk-pixbuf-2.0
+ GdkPixbuf-2.0.gir: $(INTROSPECTION_SCANNER) GdkPixbuf-custom.c
+ 	$(INTROSPECTION_SCANNER) -v --namespace GdkPixbuf --nsversion=2.0 --strip-prefix=Gdk\
+ 	    --add-include-path=$(srcdir) --add-include-path=. \

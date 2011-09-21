@@ -1,0 +1,63 @@
+# Italian translation of gecko-mediaplayer.
+# Copyright (C) Kevin DeKorte 2006-2007 <kdekorte@gmail.com>.
+# This file is distributed under the same license as the gecko-mediaplayer package.
+# Francesco Groccia <fgr@anche.no>, 2010.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: gecko-mediaplayer 0.9.9.2\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2011-07-01 10:40-0600\n"
+"PO-Revision-Date: 2010-09-01 16:09+0200\n"
+"Last-Translator: Francesco Groccia <fgr@anche.no>\n"
+"Language-Team: Italian <tp@lists.linux.it>\n"
+"Language: it\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: src/plugin.cpp:339
+#, c-format
+msgid "gecko mediaplayer v%s\n"
+msgstr ""
+
+#: src/plugin.cpp:614
+#, c-format
+msgid "Cache fill: %2.2f%%"
+msgstr "Cache piena al: %2.2f%%"
+
+#: src/plugin.cpp:879
+#, c-format
+msgid "Write unable to write because item is NULL\n"
+msgstr "Impossibile scrivere perché l'oggetto è NULL\n"
+
+#: src/plugin.cpp:945 src/plugin.cpp:1360
+#, c-format
+msgid "Caching %iK (%0.1f K/s)"
+msgstr "Memorizzati %iK (%0.1f K/s)"
+
+#: src/plugin.cpp:948 src/plugin.cpp:1363
+#, c-format
+msgid "Cache fill: %2.2f%% (%0.1f K/s)"
+msgstr "Cache piena al: %2.2f%% (%0.1f K/s)"
+
+#: src/plugin.cpp:2621
+msgid "Playing"
+msgstr ""
+
+#: src/plugin.cpp:2624
+msgid "Paused"
+msgstr ""
+
+#: src/plugin.cpp:2627
+msgid "Stopped"
+msgstr ""
+
+#: src/plugin.cpp:2630
+#, c-format
+msgid "Buffering %2.1lf%%"
+msgstr ""
+
+#: src/plugin.cpp:2633
+msgid "Unknown Status"
+msgstr ""

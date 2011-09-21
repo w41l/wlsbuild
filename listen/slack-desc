@@ -1,0 +1,19 @@
+# HOW TO EDIT THIS FILE:
+# The "handy ruler" below makes it easier to edit a package description.  Line
+# up the first '|' above the ':' following the base package name, and the '|' on
+# the right side marks the last column you can put a character in.  You must make
+# exactly 11 lines for the formatting to be correct.  It's also customary to
+# leave one space after the ':'.
+
+      |-----handy-ruler---------------------------------------------------|
+listen: listen (GTK+ Python Audio Player)
+listen:
+listen: Listen is an audio player written in Python. You can easily organize
+listen: your music collections. It supports many features such as Podcasts
+listen: management, browse Shoutcast directory. It provides a direct access
+listen: to lyrics, lastfm and wikipedia informations. It intuitively creates
+listen: playlists for you by retrieving informations from lastfm and what
+listen: you most frequently listen to.
+listen: URL: http://www.listen-project.org/
+listen:
+listen: packaged by: Widya Walesa <walecha99@gmail.com>

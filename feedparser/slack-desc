@@ -1,0 +1,20 @@
+# HOW TO EDIT THIS FILE:
+# The "handy ruler" below makes it easier to edit a package description.  Line
+# up the first '|' above the ':' following the base package name, and the '|'
+# on the right side marks the last column you can put a character in.  You must
+# make exactly 11 lines for the formatting to be correct.  It's also
+# customary to leave one space after the ':'.
+
+          |-----handy-ruler------------------------------------------------------|
+feedparser: feedparser (Python Feed Parser)
+feedparser:
+feedparser: Universal Feed Parser is a Python module for downloading and parsing
+feedparser: syndicated feeds. It can handle RSS 0.90, Netscape RSS 0.91, Userland
+feedparser: RSS 0.91, RSS 0.92, RSS 0.93, RSS 0.94, RSS 1.0, RSS 2.0, Atom 0.3,
+feedparser: Atom 1.0, and CDF feeds. It also parses several popular extension
+feedparser: modules, including Dublin Core and Apple's iTunes extensions.
+feedparser:
+feedparser: http://code.google.com/p/feedparser/
+feedparser:
+feedparser:
+feedparser: Packaged by: Widya Walesa <walecha99@gmail.com>

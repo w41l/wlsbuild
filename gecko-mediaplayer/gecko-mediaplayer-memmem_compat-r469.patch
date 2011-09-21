@@ -1,0 +1,11 @@
+--- a/src/memmem_compat.cpp	2011-06-07 04:47:44.000000000 +0700
++++ b/src/memmem_compat.cpp	2011-07-21 09:50:51.175768626 +0700
+@@ -14,7 +14,7 @@
+   
+    You should have received a copy of the GNU General Public License
+    along with this file; if not, write to the Free Software
+-   Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307,
++   Foundation, Inc., 51 Franklin Street, Suite 500, Boston, MA 02110-1335,
+    USA.  */
+ 
+ 

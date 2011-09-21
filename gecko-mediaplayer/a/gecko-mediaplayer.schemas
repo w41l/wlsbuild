@@ -1,0 +1,78 @@
+<gconfschemafile>
+  <schemalist>
+
+    <schema>
+      <key>/schemas/apps/gecko-mediaplayer/preferences/disable-qt</key>
+      <applyto>/apps/gecko-mediaplayer/preferences/disable-qt</applyto>
+      <owner>gecko-mediaplayer</owner>
+      <type>bool</type>
+      <default>false</default>
+      <locale name="C">
+        <short>Disable QuickTime Support</short>
+        <long>Disable QuickTime Support in gecko-mediaplayer</long>
+      </locale>
+    </schema>
+
+    <schema>
+      <key>/schemas/apps/gecko-mediaplayer/preferences/disable-real</key>
+      <applyto>/apps/gecko-mediaplayer/preferences/disable-real</applyto>
+      <owner>gecko-mediaplayer</owner>
+      <type>bool</type>
+      <default>false</default>
+      <locale name="C">
+        <short>Disable RealMedia Support</short>
+        <long>Disable RealMedia Support in gecko-mediaplayer</long>
+      </locale>
+    </schema>
+
+    <schema>
+      <key>/schemas/apps/gecko-mediaplayer/preferences/disable-wmp</key>
+      <applyto>/apps/gecko-mediaplayer/preferences/disable-wmp</applyto>
+      <owner>gecko-mediaplayer</owner>
+      <type>bool</type>
+      <default>false</default>
+      <locale name="C">
+        <short>Disable Windows Media Support</short>
+        <long>Disable Windows Media Support in gecko-mediaplayer</long>
+      </locale>
+    </schema>
+
+    <schema>
+      <key>/schemas/apps/gecko-mediaplayer/preferences/disable-dvx</key>
+      <applyto>/apps/gecko-mediaplayer/preferences/disable-dvx</applyto>
+      <owner>gecko-mediaplayer</owner>
+      <type>bool</type>
+      <default>false</default>
+      <locale name="C">
+        <short>Disable DiVX Support</short>
+        <long>Disable DiVX Support in gecko-mediaplayer</long>
+      </locale>
+    </schema>
+
+
+    <schema>
+      <key>/schemas/apps/gecko-mediaplayer/preferences/debug-level</key>
+      <applyto>/apps/gecko-mediaplayer/preferences/debug-level</applyto>
+      <owner>gecko-mediaplayer</owner>
+      <type>int</type>
+      <default>0</default>
+      <locale name="C">
+        <short>Set debug level</short>
+        <long>Set debug level higher numbers give more verbose messages</long>
+      </locale>
+    </schema>
+
+	<schema>
+      <key>/schemas/apps/gecko-mediaplayer/preferences/player-backend</key>
+      <applyto>/apps/gecko-mediaplayer/preferences/player-backend</applyto>
+      <owner>gecko-mediaplayer</owner>
+      <type>string</type>
+      <default></default>
+      <locale name="C">
+        <short>Backend to use</short>
+        <long>Backend to use</long>
+      </locale>
+    </schema>
+    
+  </schemalist>
+</gconfschemafile>

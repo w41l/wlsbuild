@@ -1,0 +1,19 @@
+# HOW TO EDIT THIS FILE:
+# The "handy ruler" below makes it easier to edit a package description.  Line
+# up the first '|' above the ':' following the base package name, and the '|'
+# on the right side marks the last column you can put a character in.  You must
+# make exactly 11 lines for the formatting to be correct.  It's also
+# customary to leave one space after the ':'.
+
+        |-----handy-ruler------------------------------------------------------|
+Terminal: Terminal (Xfce's Terminal Emulator)
+Terminal:
+Terminal: This is the Terminal emulator application.  Terminal is a lightweight
+Terminal: and easy to use terminal emulator for the X windowing system, with
+Terminal: some new ideas and features that makes it unique among X terminal
+Terminal: emulators.
+Terminal:
+Terminal: URL: http://www.xfce.org/
+Terminal:
+Terminal:
+Terminal: http://www.walecha.net/

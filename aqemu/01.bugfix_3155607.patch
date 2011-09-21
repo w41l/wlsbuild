@@ -1,0 +1,36 @@
+--- a/VM.cpp
++++ b/VM.cpp
+@@ -6168,7 +6168,21 @@ QStringList Virtual_Machine::Build_QEMU_Args()
+                                                continue;
+                                        }
+
+-                                       Args << "-usbdevice" << "host:" + current_USB_Device.Get_BusAddr();
++                                       if( ! Current_Emulator_Devices.PSO_Device )
++                                               Args << "-usbdevice" << "host:" + current_USB_Device.Get_BusAddr();
++                                       else
++                                       {
++                                               QStringList busAddrList = current_USB_Device.Get_BusAddr().split( '.', QString::SkipEmptyParts );
++                                               if( busAddrList.count() != 2 )
++                                               {
++                                                       AQError( "QStringList Virtual_Machine::Build_QEMU_Args()",
++                                                                        "USB busAddrList.count() != 2" );
++                                               }
++                                               else
++                                               {
++                                                       Args << "-device" << QString( "usb-host,hostbus=%1,hostaddr=%2" ).arg( busAddrList[0] ).arg( busAddrList[1] );
++                                               }
++                                       }
+                                }
+                                else
+                                {
+@@ -6185,7 +6199,7 @@ QStringList Virtual_Machine::Build_QEMU_Args()
+                                        else
+                                        {
+                                                AQError( "QStringList Virtual_Machine::Build_QEMU_Args()",
+-                                                                "Incorrcect Device!" );
++                                                                "Incorrcect USB Device!" );
+                                        }
+                                }
+                        }
+
+

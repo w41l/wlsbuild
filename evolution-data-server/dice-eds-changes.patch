@@ -1,0 +1,310 @@
+Index: evolution-data-server-2.31.92/calendar/libecal/e-cal-component.c
+===================================================================
+--- evolution-data-server-2.31.92.orig/calendar/libecal/e-cal-component.c
++++ evolution-data-server-2.31.92/calendar/libecal/e-cal-component.c
+@@ -163,6 +163,8 @@ struct _ECalComponentPrivate {
+ 	 * object over the wire.
+ 	 */
+ 	guint need_sequence_inc : 1;
++	
++	GSList *x_list; /* list of X icalproperty objects */
+ };
+ 
+ /* Private structure for alarms */
+@@ -335,6 +337,9 @@ free_icalcomponent (ECalComponent *comp,
+ 	/* Free the subcomponents */
+ 
+ 	g_hash_table_foreach_remove (priv->alarm_uid_hash, free_alarm_cb, NULL);
++	
++	g_slist_free (priv->x_list);
++	priv->x_list = NULL;
+ 
+ 	/* Free the icalcomponent */
+ 
+@@ -497,6 +502,13 @@ e_cal_component_clone (ECalComponent *co
+ 	return new_comp;
+ }
+ 
++static void
++scan_x_prop (GSList **list, icalproperty *prop)
++{
++	*list = g_slist_append (*list, prop);
++}
++
++
+ /* Scans an attachment property */
+ static void
+ scan_attachment (GSList **attachment_list, icalproperty *prop)
+@@ -759,7 +771,8 @@ scan_property (ECalComponent *comp, ical
+ 	case ICAL_LOCATION_PROPERTY :
+ 		priv->location = prop;
+ 		break;
+-
++	case ICAL_X_PROPERTY:
++		scan_x_prop (&priv->x_list ,prop);
+ 	default:
+ 		break;
+ 	}
+@@ -915,6 +928,9 @@ scan_icalcomponent (ECalComponent *comp)
+ 
+ 	g_return_if_fail (priv->icalcomp != NULL);
+ 
++	if (e_cal_component_get_vtype (comp) == E_CAL_COMPONENT_VCALENDAR)
++		return;
++
+ 	/* Scan properties */
+ 
+ 	for (prop = icalcomponent_get_first_property (priv->icalcomp, ICAL_ANY_PROPERTY);
+@@ -1013,7 +1029,9 @@ e_cal_component_set_new_vtype (ECalCompo
+ 	case E_CAL_COMPONENT_TIMEZONE:
+ 		kind = ICAL_VTIMEZONE_COMPONENT;
+ 		break;
+-
++	case E_CAL_COMPONENT_VCALENDAR:
++		kind = ICAL_VCALENDAR_COMPONENT;
++		break;		
+ 	default:
+ 		g_warn_if_reached ();
+ 		kind = ICAL_NO_COMPONENT;
+@@ -1031,8 +1049,8 @@ e_cal_component_set_new_vtype (ECalCompo
+ 	scan_icalcomponent (comp);
+ 
+ 	/* Add missing stuff */
+-
+-	ensure_mandatory_properties (comp);
++	if (type != E_CAL_COMPONENT_VCALENDAR && type != E_CAL_COMPONENT_TIMEZONE && type != E_CAL_COMPONENT_FREEBUSY);
++		ensure_mandatory_properties (comp);
+ }
+ 
+ /**
+@@ -1055,6 +1073,7 @@ e_cal_component_set_icalcomponent (ECalC
+ {
+ 	ECalComponentPrivate *priv;
+ 	icalcomponent_kind kind;
++	ECalComponentVType vtype;
+ 
+ 	g_return_val_if_fail (comp != NULL, FALSE);
+ 	g_return_val_if_fail (E_IS_CAL_COMPONENT (comp), FALSE);
+@@ -1077,13 +1096,17 @@ e_cal_component_set_icalcomponent (ECalC
+ 	      || kind == ICAL_VTODO_COMPONENT
+ 	      || kind == ICAL_VJOURNAL_COMPONENT
+ 	      || kind == ICAL_VFREEBUSY_COMPONENT
+-	      || kind == ICAL_VTIMEZONE_COMPONENT))
++	      || kind == ICAL_VTIMEZONE_COMPONENT
++	      || kind == ICAL_VCALENDAR_COMPONENT))
+ 		return FALSE;
+ 
+ 	priv->icalcomp = icalcomp;
+ 
+ 	scan_icalcomponent (comp);
+-	ensure_mandatory_properties (comp);
++	
++	vtype = e_cal_component_get_vtype (comp);
++	if (vtype != E_CAL_COMPONENT_VCALENDAR && vtype != E_CAL_COMPONENT_TIMEZONE && vtype != E_CAL_COMPONENT_FREEBUSY);
++		ensure_mandatory_properties (comp);
+ 
+ 	return TRUE;
+ }
+@@ -1122,6 +1145,7 @@ void
+ e_cal_component_rescan (ECalComponent *comp)
+ {
+ 	ECalComponentPrivate *priv;
++	ECalComponentVType vtype;
+ 
+ 	g_return_if_fail (comp != NULL);
+ 	g_return_if_fail (E_IS_CAL_COMPONENT (comp));
+@@ -1133,7 +1157,10 @@ e_cal_component_rescan (ECalComponent *c
+ 
+ 	/* Rescan */
+ 	scan_icalcomponent (comp);
+-	ensure_mandatory_properties (comp);
++	
++	vtype = e_cal_component_get_vtype (comp);
++	if (vtype != E_CAL_COMPONENT_VCALENDAR && vtype != E_CAL_COMPONENT_TIMEZONE && vtype != E_CAL_COMPONENT_FREEBUSY);
++		ensure_mandatory_properties (comp);
+ }
+ 
+ /**
+@@ -1194,6 +1221,9 @@ e_cal_component_get_vtype (ECalComponent
+ 	case ICAL_VTIMEZONE_COMPONENT:
+ 		return E_CAL_COMPONENT_TIMEZONE;
+ 
++	case ICAL_VCALENDAR_COMPONENT:
++		return E_CAL_COMPONENT_VCALENDAR;		
++
+ 	default:
+ 		/* We should have been loaded with a supported type! */
+ 		g_warn_if_reached ();
+@@ -2586,6 +2616,27 @@ e_cal_component_set_dtstart (ECalCompone
+ 	priv->need_sequence_inc = TRUE;
+ }
+ 
++gboolean
++e_cal_component_is_allday (ECalComponent *comp)
++{
++	ECalComponentPrivate *priv;
++	ECalComponentDateTime dtstart, dtend;
++	gboolean ret = FALSE;
++	
++	priv = comp->priv;
++
++	e_cal_component_get_dtstart (comp, &dtstart);
++	e_cal_component_get_dtend (comp, &dtend);
++
++	if (dtstart.value->is_date && dtend.value->is_date)
++		ret = TRUE;
++
++	e_cal_component_free_datetime (&dtstart);
++	e_cal_component_free_datetime (&dtend);
++
++	return ret;
++}
++
+ /**
+  * e_cal_component_get_due:
+  * @comp: A calendar component object.
+@@ -4039,6 +4090,24 @@ e_cal_component_get_sequence (ECalCompon
+ 	**sequence = icalproperty_get_sequence (priv->sequence);
+ }
+ 
++int 
++e_cal_component_get_sequence_as_int (ECalComponent *comp)
++{
++	ECalComponentPrivate *priv;
++	
++	g_return_val_if_fail ((comp != NULL), -1);
++	g_return_val_if_fail (E_IS_CAL_COMPONENT (comp), -1);
++	
++	priv = comp->priv;
++	g_return_val_if_fail ((priv->icalcomp != NULL), -1);
++	
++	if (!priv->sequence) {
++		return 0;
++	}
++
++	return icalproperty_get_sequence (priv->sequence);
++}
++
+ /**
+  * e_cal_component_set_sequence:
+  * @comp: A calendar component object.
+@@ -5964,3 +6033,77 @@ e_cal_component_event_dates_match	(ECalC
+ 	return retval;
+ }
+ 
++void 
++e_cal_component_set_x_prop (ECalComponent *comp, const char *x_name, const char *x_value)
++{
++	GSList *l;
++	ECalComponentPrivate *priv;
++	icalproperty *prop;
++	
++	priv = comp->priv;
++
++	for (l = priv->x_list; l != NULL; l = g_slist_next (l))	
++	{
++		prop = l->data;
++		const char *name = icalproperty_get_x_name (prop);
++
++		if (!strcmp (x_name, name)) {
++			break;
++		}
++		prop = NULL;
++	}
++
++	if (prop) {
++		icalcomponent_remove_property (priv->icalcomp, prop);
++		priv->x_list = g_slist_remove (priv->x_list, prop);
++		icalproperty_free (prop);
++		prop = NULL;
++	}
++
++	if (!x_value || !*x_value)
++		return;
++		
++	prop = icalproperty_new_x (x_value);
++	icalproperty_set_x_name (prop, x_name);
++	icalcomponent_add_property (priv->icalcomp, prop);
++
++	priv->x_list = g_slist_prepend (priv->x_list, prop);
++}
++
++char *
++e_cal_component_get_x_prop (ECalComponent *comp, const char *x_name)
++{
++	GSList *l;
++	ECalComponentPrivate *priv;
++
++	priv = comp->priv;
++
++	for (l = priv->x_list; l != NULL; l = g_slist_next (l))	
++	{
++		icalproperty *prop = l->data;
++		const char *name = icalproperty_get_x_name (prop);
++
++		if (!strcmp (x_name, name)) {
++			const char *val = icalproperty_get_x (prop);
++
++			return g_strdup (val);
++		}
++	}
++
++	return NULL;
++}
++
++int
++e_cal_component_get_x_prop_as_int (ECalComponent *comp, const char *x_name)
++{
++	char *x_val = e_cal_component_get_x_prop (comp, x_name);
++
++	if (x_val) {
++		int val = atoi (x_val);
++		g_free (x_val);
++
++		return val;
++	}
++
++	return -1;
++}
+Index: evolution-data-server-2.31.92/calendar/libecal/e-cal-component.h
+===================================================================
+--- evolution-data-server-2.31.92.orig/calendar/libecal/e-cal-component.h
++++ evolution-data-server-2.31.92/calendar/libecal/e-cal-component.h
+@@ -51,7 +51,8 @@ typedef enum {
+ 	E_CAL_COMPONENT_TODO,
+ 	E_CAL_COMPONENT_JOURNAL,
+ 	E_CAL_COMPONENT_FREEBUSY,
+-	E_CAL_COMPONENT_TIMEZONE
++	E_CAL_COMPONENT_TIMEZONE,
++	E_CAL_COMPONENT_VCALENDAR
+ } ECalComponentVType;
+ 
+ /* Field identifiers for a calendar component; these are used by the data model
+@@ -256,6 +257,7 @@ void e_cal_component_set_dtend (ECalComp
+ void e_cal_component_get_dtstamp (ECalComponent *comp, struct icaltimetype *t);
+ void e_cal_component_set_dtstamp (ECalComponent *comp, struct icaltimetype *t);
+ 
++gboolean e_cal_component_is_allday (ECalComponent *comp);
+ void e_cal_component_get_dtstart (ECalComponent *comp, ECalComponentDateTime *dt);
+ void e_cal_component_set_dtstart (ECalComponent *comp, ECalComponentDateTime *dt);
+ 
+@@ -312,6 +314,8 @@ gboolean e_cal_component_is_instance (EC
+ void e_cal_component_get_sequence (ECalComponent *comp, gint **sequence);
+ void e_cal_component_set_sequence (ECalComponent *comp, gint *sequence);
+ 
++int e_cal_component_get_sequence_as_int (ECalComponent *comp);
++
+ void e_cal_component_get_status (ECalComponent *comp, icalproperty_status *status);
+ void e_cal_component_set_status (ECalComponent *comp, icalproperty_status status);
+ 
+@@ -457,6 +461,10 @@ gboolean e_cal_component_alarm_has_atten
+ 
+ icalcomponent *e_cal_component_alarm_get_icalcomponent (ECalComponentAlarm *alarm);
+ 
++char *e_cal_component_get_x_prop (ECalComponent *comp, const char *x_name);
++int e_cal_component_get_x_prop_as_int (ECalComponent *comp, const char *x_name);
++void e_cal_component_set_x_prop (ECalComponent *comp, const char *x_name, const char *x_value);
++
+ 
+ 
+ G_END_DECLS

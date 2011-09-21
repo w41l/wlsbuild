@@ -1,0 +1,19 @@
+# HOW TO EDIT THIS FILE:
+# The "handy ruler" below makes it easier to edit a package description.  Line
+# up the first '|' above the ':' following the base package name, and the '|'
+# on the right side marks the last column you can put a character in. You must
+# make exactly 11 lines for the formatting to be correct.  It's also
+# customary to leave one space after the ':'.
+
+    |-----handy-ruler---------------------------------------------------|
+gob2: gob2 (GTK+ Object Builder)
+gob2:
+gob2: GOB is a simple preprocessor for making GTK+ objects. It makes
+gob2: objects from a single file which has inline C code so that you
+gob2: don't have to edit the generated files. Syntax is somewhat inspired
+gob2: by java and yacc.
+gob2:
+gob2: URL: http://www.5z.com/jirka/gob.html
+gob2:
+gob2:
+gob2: packaged by: Widya Walesa <walecha99@gmail.com>

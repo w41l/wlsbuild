@@ -1,0 +1,12 @@
+       |-----handy-ruler------------------------------------------------------|
+lxsplit: lxsplit
+lxsplit:
+lxsplit: lxSplit is a tool for splitting files and joining the splitted files
+lxsplit: on unix-like platforms. It is fully compatible with hjsplit, a tool
+lxsplit: which is available for other operating systems.
+lxsplit:
+lxsplit: URL: http://lxsplit.sourceforge.net/
+lxsplit:
+lxsplit:
+lxsplit:
+lxsplit: Packaged by: Widya Walesa <walecha99@gmail.com>

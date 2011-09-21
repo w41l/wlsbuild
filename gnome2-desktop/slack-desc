@@ -1,0 +1,19 @@
+# HOW TO EDIT THIS FILE:
+# The "handy ruler" below makes it easier to edit a package description.  Line
+# up the first '|' above the ':' following the base package name, and the '|'
+# on the right side marks the last column you can put a character in.  You must
+# make exactly 11 lines for the formatting to be correct.  It's also
+# customary to leave one space after the ':'.
+
+              |-----handy-ruler------------------------------------------------------|
+gnome2-desktop: gnome2-desktop (Core GNOME2 library and applications)
+gnome2-desktop:
+gnome2-desktop: This package contains the libgnome2-desktop library, some documents
+gnome2-desktop: installed as part of the core GNOME distribution, GNOME's .desktop
+gnome2-desktop: files, the gnome2-about program, some manpages, and GNOME's core
+gnome2-desktop: graphics files and icons.
+gnome2-desktop:
+gnome2-desktop:
+gnome2-desktop:
+gnome2-desktop:
+gnome2-desktop: http://www.walecha.net/

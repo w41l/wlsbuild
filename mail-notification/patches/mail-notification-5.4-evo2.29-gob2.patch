@@ -1,0 +1,93 @@
+Index: mail-notification-5.4/src/mn-evolution-folder-tree-server.gob
+===================================================================
+--- mail-notification-5.4.orig/src/mn-evolution-folder-tree-server.gob
++++ mail-notification-5.4/src/mn-evolution-folder-tree-server.gob
+@@ -23,7 +23,10 @@
+ 
+ %{
+ #include <dbus/dbus.h>
++#include <libedataserver/eds-version.h>
++#if !EDS_CHECK_VERSION(2,29,0)
+ #include <mail/mail-component.h>
++#endif
+ #include <mail/em-folder-tree.h>
+ #include "mn-evolution-plugin.h"
+ #include "mn-evolution.h"
+@@ -59,10 +62,14 @@ class MN:Evolution:Folder:Tree:Server
+ 
+   constructor (self)
+   {
++#if EDS_CHECK_VERSION(2,29,0)
++    selfp->tree = em_folder_tree_new();
++#else
+     EMFolderTreeModel *model;
+ 
+     model = mail_component_peek_tree_model(mail_component_peek());
+     selfp->tree = em_folder_tree_new_with_model(model);
++#endif
+ 
+     selfp->plug = gtk_plug_new((GdkNativeWindow) selfp->id);
+     gtk_container_add(GTK_CONTAINER(selfp->plug), selfp->tree);
+Index: mail-notification-5.4/src/mn-evolution-server.gob
+===================================================================
+--- mail-notification-5.4.orig/src/mn-evolution-server.gob
++++ mail-notification-5.4/src/mn-evolution-server.gob
+@@ -25,10 +25,16 @@
+ #include <stdio.h>
+ #include <libintl.h>
+ #include <gobject/gvaluecollector.h>
++#include <libedataserver/eds-version.h>
+ #include <camel/camel-folder.h>
++#if EDS_CHECK_VERSION(2,29,0)
++#include <shell/e-shell.h>
++#include <mail/e-mail-browser.h>
++#else
+ #include <mail/em-folder-view.h>
+ #include <mail/em-format.h>
+ #include <mail/em-message-browser.h>
++#endif
+ #include <mail/em-utils.h>
+ #include <mail/mail-session.h>
+ #include <mail/mail-tools.h>
+@@ -235,7 +241,13 @@ class MN:Evolution:Server
+ 
+ 	for (i = 0; i < summary->len; i++)
+ 	  {
++#if EDS_CHECK_VERSION(2,23,5)
++	    char *uid = summary->pdata[i];
++	    CamelMessageInfo *info = camel_folder_get_message_info(folder, uid);
++#else
+ 	    CamelMessageInfo *info = summary->pdata[i];
++#endif
++
+ 
+ 	    if ((camel_message_info_flags(info) & CAMEL_MESSAGE_SEEN) == 0)
+ 	      g_ptr_array_add(*ret, self_camel_message_info_to_dbus_struct(info));
+@@ -285,6 +297,19 @@ class MN:Evolution:Server
+     folder = self_lookup_folder(folder_uri, err);
+     if (folder)
+       {
++#if EDS_CHECK_VERSION(2,29,0)
++	EShell *shell;
++	EShellBackend *shell_backend;
++	GtkWidget *browser;
++
++	shell = e_shell_get_default ();
++	shell_backend = e_shell_get_backend_by_name (shell, "mail");
++
++	browser = e_mail_browser_new (shell_backend);
++	e_mail_reader_set_folder (E_MAIL_READER (browser), folder, folder_uri);
++	e_mail_reader_set_message (E_MAIL_READER (browser), message_uid);
++	gtk_widget_show (browser);
++#else
+ 	GtkWidget *browser;
+ 
+ 	/* modelled after Evolution's handleuri_got_folder() */
+@@ -295,6 +320,7 @@ class MN:Evolution:Server
+ 	em_folder_view_set_folder((EMFolderView *) browser, folder, folder_uri);
+ 	em_folder_view_set_message((EMFolderView *) browser, message_uid, FALSE);
+ 	gtk_widget_show(((EMMessageBrowser *) browser)->window);
++#endif
+ 
+ 	camel_object_unref(folder);
+       }

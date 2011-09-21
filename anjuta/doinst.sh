@@ -35,12 +35,10 @@ if [ -r usr/share/icons/hicolor/icon-theme.cache ]; then
   fi
 fi
 
-# Restart gconfd-2 if running to reload new gconf settings
 if ps acx | grep -q gconfd-2 ; then
     killall -HUP gconfd-2 ;
 fi
 
-# run gsettings schemas conversion
 if [ -x usr/bin/glib-compile-schemas -a -d usr/share/glib-2.0/schemas ]; then
   usr/bin/glib-compile-schemas usr/share/glib-2.0/schemas
 fi

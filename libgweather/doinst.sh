@@ -22,3 +22,10 @@ if [ -e usr/share/icons/hicolor/icon-theme.cache ]; then
   fi
 fi
 
+if ps acx | grep -q gconfd-2 ; then
+  killall -HUP gconfd-2 ;
+fi
+
+if [ -x usr/bin/glib-compile-schemas -a -d usr/share/glib-2.0/schemas ]; then
+    usr/bin/glib-compile-schemas usr/share/glib-2.0/schemas
+fi

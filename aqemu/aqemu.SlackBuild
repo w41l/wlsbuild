@@ -25,7 +25,7 @@
 
 PRGNAM=aqemu
 VERSION=${VERSION:-0.8.1}
-BUILD=${BUILD:-1}
+BUILD=${BUILD:-2}
 TAG=${TAG:-_wls}
 NUMJOBS=${NUMJOBS:--j4}
 
@@ -65,6 +65,10 @@ cd $TMP
 rm -rf $PRGNAM-$VERSION
 tar xvf $CWD/${PRGNAM}-${VERSION}.tar.bz2
 cd $PRGNAM-$VERSION
+
+cat $CWD/01.bugfix_3155607.patch | patch -p1
+cat $CWD/02.fix_missing_english.ts.patch | patch -p1
+#cat $CWD/03.remove_usb_manufacture.patch | patch -p1
 
 chown -R root:root .
 find . \

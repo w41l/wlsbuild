@@ -24,7 +24,7 @@
 # YOUR DATA IS DESTROYED, YOUR HOUSE BURNS DOWN OR YOUR DOG RUNS OFF.
 
 PRGNAM=x264
-VERSION=${VERSION:-20101023}
+VERSION=${VERSION:-20110622}
 BUILD=${BUILD:-1}
 TAG=${TAG:-_wls}
 NUMJOBS=${NUMJOBS:--j4}
@@ -62,9 +62,9 @@ set -e
 rm -rf $PKG
 mkdir -p $TMP $PKG $OUTPUT
 cd $TMP
-rm -rf $PRGNAM-snapshot-$VERSION-2245
-tar xvf $CWD/$PRGNAM-snapshot-$VERSION-2245.tar.bz2
-cd $PRGNAM-snapshot-$VERSION-2245
+rm -rf $PRGNAM-snapshot-$VERSION-2245-stable
+tar xvf $CWD/$PRGNAM-snapshot-$VERSION-2245-stable.tar.bz2
+cd $PRGNAM-snapshot-$VERSION-2245-stable
 
 # Add shared gpac
 sed -i 's,-lgpac_static,-lgpac,g' configure
@@ -110,4 +110,4 @@ cd $PKG
 /sbin/makepkg -l y -c n $OUTPUT/$PRGNAM-$VERSION-$ARCH-$BUILD$TAG.${PKGTYPE:-tgz}
 
 echo "Cleaning up build directory"
-cd $TMP; rm -rf $PRGNAM-snapshot-$VERSION-2245 $PKG
+cd $TMP; rm -rf $PRGNAM-snapshot-$VERSION-2245-stable $PKG

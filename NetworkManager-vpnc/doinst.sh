@@ -12,4 +12,3 @@ config() {
 }
 
 config etc/NetworkManager/VPN/nm-vpnc-service.name.new
-config etc/dbus-1/system.d/nm-vpnc-service.conf.new

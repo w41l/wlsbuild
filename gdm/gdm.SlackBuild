@@ -24,7 +24,7 @@
 # YOUR DATA IS DESTROYED, YOUR HOUSE BURNS DOWN OR YOUR DOG RUNS OFF.
 
 PRGNAM=gdm
-VERSION=${VERSION:-2.20.11}
+VERSION=${VERSION:-2.32.2}
 BUILD=${BUILD:-1}
 TAG=${TAG:-_wls}
 NUMJOBS=${NUMJOBS:--j4}
@@ -41,7 +41,7 @@ CWD=$(pwd)
 TMP=${TMP:-/tmp/wls}
 PKG=$TMP/package-$PRGNAM
 OUTPUT=${OUTPUT:-/tmp}
-DOCS="AUTHORS ChangeLog COPY* NEWS README"
+DOCS="AUTHORS COPYING ChangeLog INSTALL MAINTAINERS NEWS README TODO"
 
 if [ "$ARCH" = "i486" ]; then
   SLKCFLAGS="-O2 -pipe -march=i486 -mtune=i686"
@@ -63,8 +63,9 @@ rm -rf $PKG
 mkdir -p $TMP $PKG $OUTPUT
 cd $TMP
 rm -rf $PRGNAM-$VERSION
-tar xvf $CWD/$PRGNAM-$VERSION.tar.bz2
+tar xvf $CWD/$PRGNAM-$VERSION.tar.xz
 cd $PRGNAM-$VERSION
+
 chown -R root:root .
 find . \
  \( -perm 777 -o -perm 775 -o -perm 711 -o -perm 555 -o -perm 511 \) \
@@ -82,9 +83,10 @@ CXXFLAGS="$SLKCFLAGS" \
   --libdir=/usr/lib$LIBDIRSUFFIX --includedir=/usr/include \
   --mandir=/usr/man --infodir=/usr/info \
   --sysconfdir=/etc --docdir=/usr/doc/$PRGNAM-$VERSION \
-  --localstatedir=/var/lib \
+  --localstatedir=/var --sharedstatedir=/var/lib \
   --disable-static --enable-shared \
   --disable-scrollkeeper \
+  --disable-schemas-install \
   --enable-ipv6 \
   --enable-authentication-scheme=shadow \
   --enable-console-helper=no \
@@ -92,18 +94,16 @@ CXXFLAGS="$SLKCFLAGS" \
   --with-sysconfsubdir=X11/gdm \
   --with-dmconfdir=/usr/share/xsessions \
   --with-log-dir=/var/log/gdm \
-  --with-pid-file=/var/run/gdm.pid \
-  --with-x \
-
-#  --enable-secureremote=yes \
-#  --with-prefetch=yes \
-#  --with-atspi-dir=/usr/libexec \
+  --with-pid-file=/var/run/gdm.pid
 
 make $NUMJOBS
 make install DESTDIR=$PKG
 
-# Make some handy softlinks
-( cd $PKG/usr/bin; ln -s ../sbin/gdm . ; ln -s ../sbin/gdmsetup . )
+# Use my own pam.d configuration. We don't need autologin!
+rm -rf $PKG/etc/pam.d
+cp -r $CWD/pam.d $PKG/etc/
+chown -R root:root $PKG/etc/pam.d
+chmod 644 $PKG/etc/pam.d/*
 
 # Copy over session entries for gdm menu
 mkdir -p $PKG/usr/share/xsessions ;
@@ -114,27 +114,21 @@ chown -R root:root $PKG/usr/share/xsessions/* || exit 1;
 chmod 644 $PKG/usr/share/xsessions/* || exit 1;
 
 # preserve settings
-mv $PKG/etc/X11/gdm/Xsession $PKG/etc/X11/gdm/Xsession.new || exit 1;
-rm -fr $PKG/etc/X11/gdm/custom.conf || exit 1;
-cp $CWD/custom.conf $PKG/etc/X11/gdm/custom.conf.new || exit 1;
-mv $PKG/etc/X11/gdm/PreSession/Default $PKG/etc/X11/gdm/PreSession/Default.new || exit 1;
-mv $PKG/etc/X11/gdm/PostSession/Default $PKG/etc/X11/gdm/PostSession/Default.new || exit 1
-mv $PKG/etc/X11/gdm/PostLogin/Default.sample $PKG/etc/X11/gdm/PostLogin/Default.new || exit 1;
-chown -R root:root $PKG/etc/X11/gdm || exit 1;
+mv $PKG/etc/X11/gdm/Xsession $PKG/etc/X11/gdm/Xsession.new
+mv $PKG/etc/X11/gdm/custom.conf $PKG/etc/X11/gdm/custom.conf.new
+mv $PKG/etc/X11/gdm/Init/Default $PKG/etc/X11/gdm/Init/Default.new
+mv $PKG/etc/X11/gdm/PostSession/Default $PKG/etc/X11/gdm/PostSession/Default.new
+mv $PKG/etc/X11/gdm/PreSession/Default $PKG/etc/X11/gdm/PreSession/Default.new
+chown -R root:root $PKG/etc/X11/gdm
 
 # Create gdm directory
-mkdir -p $PKG/var/lib/gdm
-chown -R root:gdm $PKG/var/lib/gdm
 mkdir -p $PKG/var/state/gdm
-chown -R root:gdm $PKG/var/state/gdm
+chown -R gdm:gdm $PKG/var/state/gdm
 mkdir -p $PKG/var/log/gdm
 chown -R root:gdm $PKG/var/log/gdm
 
 find $PKG | xargs file | grep -e "executable" -e "shared object" | grep ELF \
   | cut -f 1 -d : | xargs strip --strip-unneeded 2> /dev/null || true
-
-find $PKG/usr/man -type f -exec gzip -9 {} \;
-for i in $( find $PKG/usr/man -type l ) ; do ln -s $( readlink $i ).gz $i.gz ; rm $i ; done
 
 mkdir -p $PKG/usr/doc/$PRGNAM-$VERSION
 cp -a $DOCS $PKG/usr/doc/$PRGNAM-$VERSION
@@ -148,4 +142,4 @@ cd $PKG
 /sbin/makepkg -l y -c n $OUTPUT/$PRGNAM-$VERSION-$ARCH-$BUILD$TAG.${PKGTYPE:-tgz}
 
 echo "Cleaning up build directory"
-rm -rf $TMP/$PRGNAM-$VERSION $PKG
+cd $TMP; rm -rf $PRGNAM-$VERSION $PKG

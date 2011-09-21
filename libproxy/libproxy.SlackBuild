@@ -83,7 +83,7 @@ cd build
   -DCMAKE_INSTALL_PREFIX=/usr \
   -DLIB_INSTALL_DIR=/usr/lib${LIBDIRSUFFIX} \
   -DMODULE_INSTALL_DIR=/usr/lib${LIBDIRSUFFIX}/libproxy/${VERSION}/modules \
-  -DPERL_VENDORINSTALL=yes \
+  -DPERL_VENDORINSTALL=yes
 
   make ${NUMJOBS}
   make install DESTDIR=$PKG
@@ -98,6 +98,7 @@ cat $CWD/$PRGNAM.SlackBuild > $PKG/usr/doc/$PRGNAM-$VERSION/$PRGNAM.SlackBuild
 
 mkdir -p $PKG/install
 cat $CWD/slack-desc > $PKG/install/slack-desc
+cat $CWD/slack-required > $PKG/install/slack-required
 
 cd $PKG
 /sbin/makepkg -l y -c n $OUTPUT/$PRGNAM-$VERSION-$ARCH-$BUILD$TAG.${PKGTYPE:-tgz}

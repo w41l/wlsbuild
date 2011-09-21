@@ -41,7 +41,7 @@ CWD=$(pwd)
 TMP=${TMP:-/tmp/wls}
 PKG=$TMP/package-$PRGNAM
 OUTPUT=${OUTPUT:-/tmp}
-DOCS="API-NOTES COPYING NEWS README TODO TUTORIAL"
+DOCS="AUTHORS COPY* ChangeLog INSTALL* MAINTAINERS NEWS README"
 
 if [ "$ARCH" = "i486" ]; then
   SLKCFLAGS="-O2 -pipe -march=i486 -mtune=i686"
@@ -65,6 +65,7 @@ cd $TMP
 rm -rf $PRGNAM-$VERSION
 tar xvf $CWD/$PRGNAM-$VERSION.tar.bz2
 cd $PRGNAM-$VERSION
+
 chown -R root:root .
 find . \
  \( -perm 777 -o -perm 775 -o -perm 711 -o -perm 555 -o -perm 511 \) \
@@ -81,11 +82,20 @@ CXXFLAGS="$SLKCFLAGS" \
 find $PKG | xargs file | grep -e "executable" -e "shared object" | grep ELF \
   | cut -f 1 -d : | xargs strip --strip-unneeded 2> /dev/null || true
 
-mkdir -p $PKG/usr/doc/$PRGNAM-$VERSION $PKG/install
+mkdir -p $PKG/usr/doc/$PRGNAM-$VERSION
+( cd $PKG/usr/doc/$PRGNAM-$VERSION ;
+  ln -sf /usr/share/gtk-doc/html/pygnomeprint html-pygnomeprint ;
+  ln -sf /usr/share/gtk-doc/html/pygtksourceview html-pygtksourceview ;
+  ln -sf /usr/share/gtk-doc/html/pygnomeprintui html-pygnomeprintui ;
+)
 cp -a $DOCS $PKG/usr/doc/$PRGNAM-$VERSION
-
 cat $CWD/$PRGNAM.SlackBuild > $PKG/usr/doc/$PRGNAM-$VERSION/$PRGNAM.SlackBuild
+
+mkdir -p $PKG/install
 cat $CWD/slack-desc > $PKG/install/slack-desc
 
 cd $PKG
-/sbin/makepkg -l y -c n $OUTPUT/$PRGNAM-$VERSION-$ARCH-$BUILD$TAG.${PKGTYPE:-tgz}
+/sbin/makepkg -p -l y -c n $OUTPUT/$PRGNAM-$VERSION-$ARCH-$BUILD$TAG.${PKGTYPE:-tgz}
+
+echo "Cleaning up build directory"
+cd $TMP; rm -rf $PRGNAM-$VERSION $PKG

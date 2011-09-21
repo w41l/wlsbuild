@@ -1,13 +1,2 @@
-GConf
 ORBit2
-bzip2
-cxxlibs
-dbus
-dbus-glib
-gamin
-glib2
-kdelibs
-qt
-seamonkey | seamonkey-solibs
-xz
-zlib
+GConf

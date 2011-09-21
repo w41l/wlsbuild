@@ -84,8 +84,7 @@ CXXFLAGS="$SLKCFLAGS" \
   --sysconfdir=/etc --docdir=/usr/doc/$PRGNAM-$VERSION \
   --localstatedir=/var/lib \
   --disable-static --enable-shared \
-  --enable-animation \
-  --enable-lua \
+  --enable-animation
 
 make $NUMJOBS
 make install DESTDIR=$PKG

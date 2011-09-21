@@ -13,12 +13,11 @@ config() {
 
 config etc/gconf/2/path.new
 config etc/gconf/2/evoldap.conf.new
-config etc/dbus-1/system.d/org.gnome.GConf.Defaults.conf.new
-
-if [ -x usr/bin/glib-compile-schemas -a -d usr/share/glib-2.0/schemas ]; then
-    usr/bin/glib-compile-schemas usr/share/glib-2.0/schemas
-fi
 
 if ps acx | grep -q gconfd-2 ; then
   killall -HUP gconfd-2 ;
+fi
+
+if [ -x /usr/bin/glib-compile-schemas ]; then
+    /usr/bin/glib-compile-schemas /usr/share/glib-2.0/schemas
 fi

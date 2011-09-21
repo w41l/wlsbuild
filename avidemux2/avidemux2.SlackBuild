@@ -24,12 +24,12 @@
 # YOUR DATA IS DESTROYED, YOUR HOUSE BURNS DOWN OR YOUR DOG RUNS OFF.
 
 PRGNAM=avidemux2
-VERSION=${VERSION:-2.5.4}
+VERSION=${VERSION:-2.5.5}
 BUILD=${BUILD:-1}
 TAG=${TAG:-_wls}
 NUMJOBS=${NUMJOBS:--j4}
 
-# Please check this one. If you use GTK-based desktop, turn off this switch
+# Please check this one. If you're using GTK-based desktop, turn off this switch
 # using: USE_QT="NO"
 USE_QT="YES"
 
@@ -70,8 +70,16 @@ rm -rf avidemux_${VERSION}
 tar xvf $CWD/avidemux_${VERSION}.tar.gz
 cd avidemux_${VERSION}
 
-cat $CWD/avidemux-$VERSION-build-plugins-fix.patch | patch -p1
-cat $CWD/avidemux-$VERSION-dummy-sound-fix.patch | patch -p1
+cat $CWD/avidemux-2.5.5-gcc46_tmp_fix.patch | patch -p1
+cat $CWD/avidemux-2.5.5_fix_lav_audio_encoder.patch | patch -p1
+cat $CWD/avidemux_2.5.5-ffmpeg_aac.patch | patch -p1
+cat $CWD/avidemux-2.5.4-x264-build115.patch | patch -p1
+
+# This is bug for x86_64! And we have to make a workaround for it
+if [ "$ARCH" = "x86_64" ]; then
+  sed -i.bak 's/startDir="lib";/startDir="lib64";/' avidemux/ADM_core/src/ADM_fileio.cpp
+  sed -i.bak 's/startDir="lib";/startDir="lib64";/' avidemux/main.cpp
+fi
 
 chown -R root:root .
 find . \
@@ -82,22 +90,39 @@ find . \
 
 mkdir -p build
 cd build
-  cmake .. \
+  cmake \
     -DCMAKE_C_FLAGS="$SLKCFLAGS" \
     -DCMAKE_CXX_FLAGS="$SLKCFLAGS" \
-    -DAVIDEMUX_SOURCE_DIR="$TMP/avidemux_${VERSION}" \
-    -DAVIDEMUX_INSTALL_PREFIX="$TMP/avidemux_${VERSION}/build" \
-    -DAVIDEMUX_CORECONFIG_DIR="$TMP/avidemux_${VERSION}/build/config" \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DCMAKE_INSTALL_LIBDIR=/usr/lib$LIBDIRSUFFIX \
     -DCMAKE_BUILD_TYPE=RELEASE \
     -DLIB_SUFFIX=${LIBDIRSUFFIX} \
+    ..
 
-  make ${NUMJOBS}
-  make -C "$TMP/avidemux_${VERSION}/build/plugins" ${NUMJOBS}
+  make
+  # Create the temp link directory manually since otherwise it happens too early
+  mkdir -p lib${LIBDIRSUFFIX}
+  find avidemux -name '*.so*' | xargs ln -sft lib$LIBDIRSUFFIX
   make DESTDIR=$PKG install
-  make -C "$TMP/avidemux_${VERSION}/build/plugins" DESTDIR=$PKG install
-cd ${TMP}/avidemux_${VERSION}
+cd ..
+
+mkdir -p build/plugins
+cd build/plugins
+  cmake \
+    -DCMAKE_C_FLAGS="$SLKCFLAGS" \
+    -DCMAKE_CXX_FLAGS="$SLKCFLAGS" \
+    -DCMAKE_INSTALL_PREFIX=/usr \
+    -DCMAKE_INSTALL_LIBDIR=/usr/lib$LIBDIRSUFFIX \
+    -DCMAKE_BUILD_TYPE=RELEASE \
+    -DLIB_SUFFIX=${LIBDIRSUFFIX} \
+    -DAVIDEMUX_SOURCE_DIR="$TMP/avidemux_${VERSION}" \
+    -DAVIDEMUX_INSTALL_PREFIX="$TMP/avidemux_${VERSION}/build" \
+    -DAVIDEMUX_CORECONFIG_DIR="$TMP/avidemux_${VERSION}/build/config" \
+    ../../plugins
+
+  make
+  make DESTDIR=$PKG install
+cd ../..
 
 # Copying icon
 mkdir -p $PKG/usr/share/pixmaps
@@ -110,12 +135,6 @@ if [ "$USE_QT" = "YES" ]; then
     > $PKG/usr/share/applications/avidemux2.desktop
 elif [ "$USE_QT" = "NO" ]; then
   cat avidemux2.desktop > $PKG/usr/share/applications/avidemux2.desktop
-fi
-
-# This is bug for x86_64! And we have to make a workaround for it
-if [ "$ARCH" = "x86_64" ]; then
-  mkdir -p $PKG/usr/lib
-  ln -sf /usr/lib64/ADM_plugins $PKG/usr/lib/ADM_plugins
 fi
 
 find $PKG | xargs file | grep -e "executable" -e "shared object" | grep ELF \
@@ -133,4 +152,4 @@ cd $PKG
 /sbin/makepkg -l y -c n $OUTPUT/$PRGNAM-$VERSION-$ARCH-$BUILD$TAG.${PKGTYPE:-tgz}
 
 echo "Cleaning up build directory"
-rm -rf $TMP/avidemux_${VERSION} $PKG
+cd $TMP ; rm -rf avidemux_${VERSION} $PKG

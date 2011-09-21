@@ -1,15 +1,2 @@
-GConf
-ORBit2
-dbus
-dbus-glib
-eggdbus
-glib2
-gnutls
-libgcrypt
 libgnome-keyring
-libgpg-error
-libproxy
 libsoup
-libxml2
-sqlite
-zlib

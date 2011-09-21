@@ -24,7 +24,7 @@
 # YOUR DATA IS DESTROYED, YOUR HOUSE BURNS DOWN OR YOUR DOG RUNS OFF.
 
 PRGNAM=clutter
-VERSION=${VERSION:-1.6.8}
+VERSION=${VERSION:-1.7.4}
 BUILD=${BUILD:-1}
 TAG=${TAG:-_wls}
 NUMJOBS=${NUMJOBS:--j4}
@@ -41,7 +41,7 @@ CWD=$(pwd)
 TMP=${TMP:-/tmp/wls}
 PKG=$TMP/package-$PRGNAM
 OUTPUT=${OUTPUT:-/tmp}
-DOCS="ABOUT-NLS AUTHORS COPYING ChangeLog NEWS README"
+DOCS="ABOUT-NLS COPY* ChangeLog NEWS README"
 
 if [ "$ARCH" = "i486" ]; then
   SLKCFLAGS="-O2 -pipe -march=i486 -mtune=i686"
@@ -63,7 +63,7 @@ rm -rf $PKG
 mkdir -p $TMP $PKG $OUTPUT
 cd $TMP
 rm -rf $PRGNAM-$VERSION
-tar xvf $CWD/$PRGNAM-$VERSION.tar.bz2
+tar xvf $CWD/$PRGNAM-$VERSION.tar.xz
 cd $PRGNAM-$VERSION
 
 chown -R root:root .
@@ -83,10 +83,10 @@ CXXFLAGS="$SLKCFLAGS" \
   --libdir=/usr/lib$LIBDIRSUFFIX --includedir=/usr/include \
   --mandir=/usr/man --infodir=/usr/info \
   --sysconfdir=/etc --docdir=/usr/doc/$PRGNAM-$VERSION \
-  --localstatedir=/var/lib \
+  --localstatedir=/var --sharedstatedir=/var/lib \
   --disable-static --enable-shared \
-  --disable-introspection \
   --enable-docs=no \
+  --enable-introspection=no
 
 make ${NUMJOBS}
 make DESTDIR=$PKG install
@@ -95,14 +95,13 @@ find $PKG | xargs file | grep -e "executable" -e "shared object" | grep ELF \
   | cut -f 1 -d : | xargs strip --strip-unneeded 2> /dev/null || true
 
 mkdir -p $PKG/usr/doc/$PRGNAM-$VERSION
-( cd $PKG/usr/doc/$PRGNAM-$VERSION;
-  ln -s /usr/share/gtk-doc/html/cogl html-cogl )
 cp -a $DOCS $PKG/usr/doc/$PRGNAM-$VERSION
 cp -a doc/{CODING_STYLE,HACKING,HACKING.backends} $PKG/usr/doc/$PRGNAM-$VERSION
 cat $CWD/$PRGNAM.SlackBuild > $PKG/usr/doc/$PRGNAM-$VERSION/$PRGNAM.SlackBuild
 
 mkdir -p $PKG/install
 cat $CWD/slack-desc > $PKG/install/slack-desc
+cat $CWD/slack-required > $PKG/install/slack-required
 
 cd $PKG
 /sbin/makepkg -l y -c n $OUTPUT/$PRGNAM-$VERSION-$ARCH-$BUILD$TAG.${PKGTYPE:-tgz}

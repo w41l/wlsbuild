@@ -1,11 +1,9 @@
 #!/bin/sh
 
-# Slackware build script for libnice
+# Slackware build script for libgnomekbd
 
-# Copyright 2009  David Woodfall <dave@unrealize.co.uk>
+# Copyright 2011  Widya Walesa <walecha99@gmail.com>
 # All rights reserved.
-#
-# aka dive in #slackware on freenode.net
 #
 # Redistribution and use of this script, with or without modification, is
 # permitted provided that the following conditions are met:
@@ -26,7 +24,7 @@
 # YOUR DATA IS DESTROYED, YOUR HOUSE BURNS DOWN OR YOUR DOG RUNS OFF.
 
 PRGNAM=libgnomekbd
-VERSION=${VERSION:-2.30.2}
+VERSION=${VERSION:-2.32.0}
 BUILD=${BUILD:-1}
 TAG=${TAG:-_wls}
 NUMJOBS=${NUMJOBS:--j4}
@@ -67,6 +65,7 @@ cd $TMP
 rm -rf $PRGNAM-$VERSION
 tar xvf $CWD/$PRGNAM-$VERSION.tar.bz2
 cd $PRGNAM-$VERSION
+
 chown -R root:root .
 find . \
  \( -perm 777 -o -perm 775 -o -perm 711 -o -perm 555 -o -perm 511 \) \
@@ -77,16 +76,16 @@ find . \
 CFLAGS="$SLKCFLAGS" \
 CXXFLAGS="$SLKCFLAGS" \
 ./configure \
-  --prefix=/usr \
-  --libdir=/usr/lib${LIBDIRSUFFIX} \
-  --sysconfdir=/etc \
-  --localstatedir=/var \
-  --mandir=/usr/man \
-  --docdir=/usr/doc/$PRGNAM-$VERSION \
-  --disable-static \
-  --enable-shared \
-  --build=$ARCH-slackware-linux \
-  --disable-schemas-install \
+  --build=$ARCH-slackware-linux --host=$ARCH-slackware-linux \
+  --program-prefix= --program-suffix= \
+  --prefix=/usr --exec-prefix=/usr \
+  --bindir=/usr/bin --sbindir=/usr/sbin \
+  --libdir=/usr/lib$LIBDIRSUFFIX --includedir=/usr/include \
+  --mandir=/usr/man --infodir=/usr/info \
+  --sysconfdir=/etc --docdir=/usr/doc/$PRGNAM-$VERSION \
+  --localstatedir=/var --sharedstatedir=/var/lib \
+  --disable-static --enable-shared \
+  --disable-schemas-install
 
 make $NUMJOBS
 make install DESTDIR=$PKG
@@ -100,13 +99,11 @@ cat $CWD/$PRGNAM.SlackBuild > $PKG/usr/doc/$PRGNAM-$VERSION/$PRGNAM.SlackBuild
 
 mkdir -p $PKG/install
 cat $CWD/slack-desc > $PKG/install/slack-desc
+cat $CWD/slack-required > $PKG/install/slack-required
 cat $CWD/doinst.sh >> $PKG/install/doinst.sh
 
 cd $PKG
 /sbin/makepkg -l y -c n $OUTPUT/$PRGNAM-$VERSION-$ARCH-$BUILD$TAG.${PKGTYPE:-tgz}
 
-#echo "Installing $PRGNAME-$VERSION"
-#installpkg $OUTPUT/$PRGNAM-$VERSION-$ARCH-$BUILD$TAG.${PKGTYPE:-tgz}
-
 echo "Cleaning up build directory"
-rm -rf $TMP/$PRGNAM-$VERSION $TMP/package-$PRGNAM
+cd $TMP; rm -rf $PRGNAM-$VERSION $PKG

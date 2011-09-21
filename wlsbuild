@@ -23,15 +23,13 @@ libdv
 libreplaygain
 libcue
 cuetools
-# musepack - use libmpcdec, more compatible with MPlayer
 libmpcdec
 libmpeg2
 libass
-# libsndfile - use Slackware package
 twolame
 libdca
 libdvdcss
-libdvdnav
+#libdvdnav | use Slackware package
 libquicktime
 mjpegtools
 libiec61883
@@ -50,141 +48,65 @@ wildmidi
 numpy
 opencv
 MPlayer
-gst-ffmpeg
-gst-python
-gst-plugins-ugly
-gst-plugins-bad
-gst-plugins-gl
 
 ## GENERAL LIBS ##
 #glib2 - use slackware package
 #gtk+2 - use slackware package
+setuptools
 unrar
 p7zip
+sg3_utils
+libatasmart
+udisks
 libdaemon
 avahi
 nss-mdns
 gsettings-desktop-schemas
 dconf
-usbmuxd
-libimobiledevice
-ifuse
-gvfs
+libunique
 libgnome-keyring
 ORBit2
 GConf
 libproxy
+glib-networking
 libsoup
 libtasn1
+usbmuxd
+libimobiledevice
+ifuse
+upower
 gnome-keyring
+rarian
+gnome-disk-utility
+gvfs
 gnome-mime-data
 gnome-vfs
-rarian
 lua
-
-## C++ LIBS ##
-libsigc++
-glibmm
-cairomm
-pangomm
-atkmm
-gtkmm
-libxml++
-
-## GTK THEMES ##
-gtk-engines
-# gnome-icon-theme - use slackware package
-gtk-murrine-engine
-gtk-equinox-engine
-gtk-nodoka-engine
-gtk-qtcurve-engine
-oxygen-gtk
-gnome-themes
-gtk-chtheme
-
-## KDE/QT APPS ##
-smplayer
-kio_afc
-qjson
-kipi-plugins
-libva
-libupnp
-libshout
-libdvbpsi
-ftgl
-goom2
-projectM
-## Seamonkey - install it before building vlc
-vlc
-soundkonverter
-clementine
-qoauth
-choqok
-libevent
-tor
-polipo
-vidalia
-gavl
-frei0r
-mlt
-kdenlive
-
-## GTK APPS ##
-geany
-pidgin-kwallet-plugin
-gtkpod
-scons
-bombono-dvd
-gc
-gsl
-inkscape
-dia
-gwget
-gnome-mplayer
-gecko-mediaplayer
-# gnormalize - use soundkonverter as its support replaygain
-libebml
-libmatroska
-mkvtoolnix
-icu4c 4.6
-webkitgtk 1.2.7
-pywebkitgtk 1.1.8
-libunique 1.1.6
-pyxdg 0.19
-midori
-liferea
-subtitleeditor
-
-## NETWORKING ##
-NetworkManager 0.8.2
-NetworkManager-openconnect 0.8.2
-NetworkManager-openvpn 0.8.2
-NetworkManager-pptp 0.8.2
-NetworkManager-vpnc 0.8.2
-ModemManager 0.4
-network-manager-applet 0.8.2
-gsl 1.14
-bogofilter 1.2.2
+glade3
+pulseaudio
+libcanberra
+alsa-plugins
+pyxdg
+gst-plugins-good - add GConf and pulseaudio support
+gst-ffmpeg
+gst-plugins-ugly
+gst-plugins-bad
+gst-python
+gst-plugins-gl
 
 ## GNOME LIBS ##
 json-glib
+cogl
 clutter
 clutter-gtk
 clutter-gst
-gnome-common 2.28.0
-rarian 0.8.1
-libbonobo 2.32.0
-libcanberra 0.25
-libgnome 2.32.0
-libgnomecanvas 2.30.2
-libbonoboui 2.24.4
-json-glib 0.12.0
-clutter 1.4.0
-clutter-gtk 0.10.8
+gnome-common
+libbonobo
+libgnome
+libgnomecanvas
+libbonoboui
 libgnomekbd
-heimdal-libraries
 libgweather
-upower 0.9.7
 libgnomeui
 libsexy
 sexy-python
@@ -205,6 +127,9 @@ gtkhtml
 libpst
 vala
 libgee
+icu4c
+webkitgtk
+pywebkitgtk
 
 ## GNOME BASE ##
 gnome-desktop
@@ -212,20 +137,21 @@ gnome-menus
 zenity
 metacity
 gnome-settings-daemon
+heimdal-libraries
+libgdata
 evolution-data-server
 gnome-control-center
 gnome-panel
 gnome-applets
-gnome-session 2.32.1
+gnome-session
 gnome-media
 gnome-backgrounds
 gnome-screensaver
 gnome-power-manager
 nautilus
-gnome-mount
+#gnome-mount
 bug-buddy
 gnome-python
-pyxdg
 alacarte
 evince
 file-roller
@@ -234,38 +160,90 @@ brasero
 gthumb
 gcalctool
 totem
-gnome-utils
-gtkimageview
-evolution
 epiphany
-yelp
 gedit
 seahorse
-seahorse-plugins
+seahorse-plugins | if needed
 gconf-editor
-gnome-system-monitor
-midori
-liferea
-gksu-polkit
-gdm
 gnome-system-tools
+gnome-utils
+gtkimageview
+gsl
+bogofilter
+evolution
+yelp-xsl
+yelp
+
+#Use if without pulseaudio
 pyalsaaudio
 python-xlib
 volti
 
-## DEVICE RELATED ##
-sg3_utils 1.29
-libatasmart 0.17
-udisks 1.0.2
-wxGTK
-CImg
-wxcam
+## XFCE ##
+xfce4-dev-tools
+libxfce4util
+xfconf
+libxfce4ui
+xfce-utils
+exo
+libxfcegui4
+garcon
+xfdesktop
+xfwm4
+gtk-xfce-engine
+xfce4-settings
+xfce4-panel
+xfce4-session
+xfce4-appfinder
+Thunar
+thunar-vfs
+thunar-archive-plugin
+thunar-volman
+Terminal
+xfce4-notifyd
+xfce4-power-manager
+xfce4-mixer
+xfce4-cpufreq-plugin
+xfce4-volumed
+xfce4-screenshooter
+xfce4-notes-plugin
+
+## NETWORKING ##
+NetworkManager
+NetworkManager-openconnect
+NetworkManager-openvpn
+NetworkManager-pptp
+NetworkManager-vpnc
+ModemManager
+network-manager-applet
+pptp
+
+## C++ LIBS ##
+libsigc++
+glibmm
+cairomm
+pangomm
+atkmm
+gtkmm
+libxml++
+
+## GTK THEMES ##
+gtk-engines
+# gnome-icon-theme - use slackware package
+gtk-murrine-engine
+gtk-equinox-engine
+gtk-nodoka-engine
+gtk-qtcurve-engine
+gnome-themes
+oxygen-gtk
+gtk-chtheme
 
 ## ADMIN RELATED ##
+gnome-system-monitor
+gksu-polkit
+gdm
 slapt-get
 gslapt
-lua
-conky
 perl-glib
 perl-cairo
 perl-pango
@@ -276,6 +254,58 @@ perl-mp3-info
 gparted
 ipmitool
 
+## KDE/QT APPS ##
+umplayer | smplayer
+kio_afc
+qjson
+kipi-plugins
+libva
+libupnp
+libshout
+libdvbpsi
+ftgl
+goom2
+projectM
+seamonkey
+vlc
+soundkonverter
+clementine
+qoauth
+choqok
+libevent
+tor
+polipo
+vidalia
+gavl
+frei0r
+mlt
+kdenlive
+
+## GTK APPS ##
+conky
+geany
+pidgin-kwallet-plugin
+gtkpod
+scons
+bombono-dvd
+gc
+gsl
+inkscape
+dia
+gwget
+gnome-mplayer
+gecko-mediaplayer
+wxGTK
+CImg
+wxcam
+# gnormalize - use soundkonverter as its support replaygain
+libebml
+libmatroska
+mkvtoolnix
+midori
+liferea
+subtitleeditor
+
 ## EXTRA MULTIMEDIA LIBS ##
 vcdimager
 transcode
@@ -285,3 +315,11 @@ farsight2
 gstreamermm
 cppunit
 libmusicbrainz
+
+## GWIBBER ##
+PIL
+simplejson
+egenix-mx-base
+pycurl
+gnome-python-desktop
+feedparser

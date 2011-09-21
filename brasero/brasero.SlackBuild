@@ -25,7 +25,7 @@
 
 PRGNAM=brasero
 VERSION=${VERSION:-2.32.1}
-BUILD=${BUILD:-1}
+BUILD=${BUILD:-2}
 TAG=${TAG:-_wls}
 NUMJOBS=${NUMJOBS:--j4}
 
@@ -65,6 +65,7 @@ cd $TMP
 rm -rf $PRGNAM-$VERSION
 tar xvf $CWD/$PRGNAM-$VERSION.tar.bz2
 cd $PRGNAM-$VERSION
+
 chown -R root:root .
 find . \
  \( -perm 777 -o -perm 775 -o -perm 711 -o -perm 555 -o -perm 511 \) \
@@ -86,7 +87,7 @@ CXXFLAGS="$SLKCFLAGS" \
   --disable-static --enable-shared \
   --disable-search \
   --enable-libburnia \
-  --enable-preview \
+  --enable-preview
 
 make $NUMJOBS
 make DESTDIR=$PKG install
@@ -98,19 +99,16 @@ find $PKG/usr/man -type f -exec gzip -9 {} \;
 for i in $( find $PKG/usr/man -type l ) ; do ln -s $( readlink $i ).gz $i.gz ; rm $i ; done
 
 mkdir -p $PKG/usr/doc/$PRGNAM-$VERSION
-( cd $PKG/usr/doc/$PRGNAM-$VERSION;
-  ln -s /usr/share/gtk-doc/html/libbrasero-burn html-libbrasero-burn
-  ln -s /usr/share/gtk-doc/html/libbrasero-media html-libbrasero-media
-)
 cp -a $DOCS $PKG/usr/doc/$PRGNAM-$VERSION
 cat $CWD/$PRGNAM.SlackBuild > $PKG/usr/doc/$PRGNAM-$VERSION/$PRGNAM.SlackBuild
 
 mkdir -p $PKG/install
 cat $CWD/slack-desc > $PKG/install/slack-desc
+cat $CWD/slack-required > $PKG/install/slack-required
 cat $CWD/doinst.sh >> $PKG/install/doinst.sh
 
 cd $PKG
 /sbin/makepkg -l y -c n $OUTPUT/$PRGNAM-$VERSION-$ARCH-$BUILD$TAG.${PKGTYPE:-tgz}
 
 echo "Cleaning up build directory"
-rm -rf $TMP/$PRGNAM-$VERSION $PKG
+cd $TMP; rm -rf $PRGNAM-$VERSION $PKG

@@ -25,7 +25,7 @@
 
 PRGNAM=gnome-mime-data
 VERSION=${VERSION:-2.18.0}
-BUILD=${BUILD:-2}
+BUILD=${BUILD:-3}
 TAG=${TAG:-_wls}
 NUMJOBS=${NUMJOBS:--j4}
 
@@ -82,10 +82,10 @@ CXXFLAGS="$SLKCFLAGS" \
   --bindir=/usr/bin --sbindir=/usr/sbin \
   --libdir=/usr/lib$LIBDIRSUFFIX --includedir=/usr/include \
   --mandir=/usr/man --infodir=/usr/info \
-  --sysconfdir=/etc --docdir=/usr/doc/$PRGNAM-$VERSION \
-  --localstatedir=/var/lib \
+  --sysconfdir=/etc/gnome --docdir=/usr/doc/$PRGNAM-$VERSION \
+  --localstatedir=/var --sharedstatedir=/var/lib \
   --disable-static --enable-shared \
-  --disable-schemas-install \
+  --disable-schemas-install
 
 make $NUMJOBS
 make install DESTDIR=$PKG
@@ -93,8 +93,6 @@ make install DESTDIR=$PKG
 # Fix pkg-config files placement
 mkdir -p $PKG/usr/lib${LIBDIRSUFFIX}
 mv $PKG/usr/share/pkgconfig $PKG/usr/lib${LIBDIRSUFFIX}/
-
-mv $PKG/etc/gnome-vfs-mime-magic $PKG/etc/gnome-vfs-mime-magic.new
 
 find $PKG | xargs file | grep -e "executable" -e "shared object" | grep ELF \
   | cut -f 1 -d : | xargs strip --strip-unneeded 2> /dev/null || true

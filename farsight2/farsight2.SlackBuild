@@ -24,7 +24,7 @@
 # YOUR DATA IS DESTROYED, YOUR HOUSE BURNS DOWN OR YOUR DOG RUNS OFF.
 
 PRGNAM=farsight2
-VERSION=${VERSION:-0.0.21}
+VERSION=${VERSION:-0.0.27}
 BUILD=${BUILD:-1}
 TAG=${TAG:-_wls}
 NUMJOBS=${NUMJOBS:--j4}
@@ -41,7 +41,7 @@ CWD=$(pwd)
 TMP=${TMP:-/tmp/wls}
 PKG=$TMP/package-$PRGNAM
 OUTPUT=${OUTPUT:-/tmp}
-DOCS="AUTHORS ChangeLog COPY* INSTALL NEWS README"
+DOCS="AUTHORS COPYING ChangeLog INSTALL NEWS README"
 
 if [ "$ARCH" = "i486" ]; then
   SLKCFLAGS="-O2 -pipe -march=i486 -mtune=i686"
@@ -65,9 +65,6 @@ cd $TMP
 rm -rf $PRGNAM-$VERSION
 tar xvf $CWD/$PRGNAM-$VERSION.tar.gz
 cd $PRGNAM-$VERSION
-
-zcat $CWD/Makefile.patch.gz | patch -p0 --verbose || exit 1
-
 chown -R root:root .
 find . \
   \( -perm 777 -o -perm 775 -o -perm 711 -o -perm 555 -o -perm 511 \) \
@@ -85,10 +82,12 @@ CXXFLAGS="$SLKCFLAGS" \
   --libdir=/usr/lib$LIBDIRSUFFIX --includedir=/usr/include \
   --mandir=/usr/man --infodir=/usr/info \
   --sysconfdir=/etc --docdir=/usr/doc/$PRGNAM-$VERSION \
-  --localstatedir=/var/lib \
+  --localstatedir=/var --sharedstatedir=/var/lib \
   --disable-static --enable-shared \
   --disable-gtk-doc \
   --disable-python \
+  --disable-debug \
+  --with-package-origin="http://farsight.freedesktop.org"
 
 make $NUMJOBS
 make install DESTDIR=$PKG
@@ -97,18 +96,15 @@ find $PKG | xargs file | grep -e "executable" -e "shared object" | grep ELF \
   | cut -f 1 -d : | xargs strip --strip-unneeded 2> /dev/null || true
 
 mkdir -p $PKG/usr/doc/$PRGNAM-$VERSION
-( cd $PKG/usr/doc/$PRGNAM-$VERSION;
-  ln -s usr/share/gtk-doc/html/farsight2-libs-0.10 html-farsight2-libs-0.10;
-  ln -s usr/share/gtk-doc/html/farsight2-plugins-0.10 html-farsight2-plugins-0.10;
-)
 cp -a $DOCS $PKG/usr/doc/$PRGNAM-$VERSION
 cat $CWD/$PRGNAM.SlackBuild > $PKG/usr/doc/$PRGNAM-$VERSION/$PRGNAM.SlackBuild
 
 mkdir -p $PKG/install
 cat $CWD/slack-desc > $PKG/install/slack-desc
+cat $CWD/slack-required > $PKG/install/slack-required
 
 cd $PKG
 /sbin/makepkg -l y -c n $OUTPUT/$PRGNAM-$VERSION-$ARCH-$BUILD$TAG.${PKGTYPE:-tgz}
 
 echo "Cleaning up build directory"
-rm -rf $TMP/$PRGNAM-$VERSION $PKG
+cd $TMP ; rm -rf $PRGNAM-$VERSION $PKG

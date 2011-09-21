@@ -24,7 +24,7 @@
 # YOUR DATA IS DESTROYED, YOUR HOUSE BURNS DOWN OR YOUR DOG RUNS OFF.
 
 PRGNAM=gconf-editor
-VERSION=${VERSION:-2.30.0}
+VERSION=${VERSION:-2.32.0}
 BUILD=${BUILD:-1}
 TAG=${TAG:-_wls}
 NUMJOBS=${NUMJOBS:--j4}
@@ -75,16 +75,16 @@ find . \
 CFLAGS="$SLKCFLAGS" \
 CXXFLAGS="$SLKCFLAGS" \
 ./configure \
-  --prefix=/usr \
-  --libdir=/usr/lib${LIBDIRSUFFIX} \
-  --sysconfdir=/etc \
-  --localstatedir=/var \
-  --mandir=/usr/man \
-  --docdir=/usr/doc/$PRGNAM-$VERSION \
-  --disable-static \
-  --enable-shared \
-  --build=$ARCH-slackware-linux \
-  --disable-schemas-install \
+  --build=$ARCH-slackware-linux --host=$ARCH-slackware-linux \
+  --program-prefix= --program-suffix= \
+  --prefix=/usr --exec-prefix=/usr \
+  --bindir=/usr/bin --sbindir=/usr/sbin \
+  --libdir=/usr/lib$LIBDIRSUFFIX --includedir=/usr/include \
+  --mandir=/usr/man --infodir=/usr/info \
+  --sysconfdir=/etc --docdir=/usr/doc/$PRGNAM-$VERSION \
+  --localstatedir=/var --sharedstatedir=/var/lib \
+  --disable-static --enable-shared \
+  --disable-schemas-install
 
 make $NUMJOBS
 make install DESTDIR=$PKG
@@ -101,10 +101,11 @@ cat $CWD/$PRGNAM.SlackBuild > $PKG/usr/doc/$PRGNAM-$VERSION/$PRGNAM.SlackBuild
 
 mkdir -p $PKG/install
 cat $CWD/slack-desc > $PKG/install/slack-desc
+cat $CWD/slack-required > $PKG/install/slack-required
 cat $CWD/doinst.sh >> $PKG/install/doinst.sh
 
 cd $PKG
 /sbin/makepkg -l y -c n $OUTPUT/$PRGNAM-$VERSION-$ARCH-$BUILD$TAG.${PKGTYPE:-tgz}
 
 echo "Cleaning up build directory"
-rm -rf $TMP/$PRGNAM-$VERSION $TMP/package-$PRGNAM
+cd $TMP; rm -rf $PRGNAM-$VERSION $PKG

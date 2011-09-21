@@ -25,7 +25,7 @@
 
 PRGNAM=openjpeg
 VERSION=${VERSION:-1.4}
-BUILD=${BUILD:-1}
+BUILD=${BUILD:-2}
 TAG=${TAG:-_wls}
 NUMJOBS=${NUMJOBS:--j4}
 
@@ -62,9 +62,15 @@ set -e
 rm -rf $PKG
 mkdir -p $TMP $PKG $OUTPUT
 cd $TMP
-rm -rf OpenJPEG_v1_3
-tar xvf $CWD/${PRGNAM}_v1_4_sources_r697.tgz
-cd ${PRGNAM}_v1_4_sources_r697
+rm -rf openjpeg_v1_4_sources_r697
+tar xvf $CWD/openjpeg_v1_4_sources_r697.tgz
+cd openjpeg_v1_4_sources_r697
+
+# Patching
+cat $CWD/patches/${PRGNAM}-${VERSION}-cmake-stdbool.patch | patch -p1
+cat $CWD/patches/${PRGNAM}-${VERSION}-libpng15.patch | patch -p1
+cat $CWD/patches/${PRGNAM}-${VERSION}-linking.patch | patch -p1
+cat $CWD/patches/${PRGNAM}-${VERSION}-pkgconfig.patch | patch -p1
 
 chown -R root:root .
 find . \
@@ -77,9 +83,7 @@ mkdir -p build
 cd build
   cmake .. \
     -DCMAKE_C_FLAGS="$SLKCFLAGS" \
-    -DCMAKE_CXX_FLAGS="$SLKCFLAGS" \
     -DCMAKE_INSTALL_PREFIX=/usr \
-    -DBUILD_EXAMPLES:BOOL=ON \
     -DBUILD_SHARED_LIBS:BOOL=ON \
     -DCMAKE_BUILD_TYPE=Release \
     -DOPENJPEG_INSTALL_BIN_DIR=/usr/bin \
@@ -90,9 +94,11 @@ cd build
 cd -
 
 # fix header
+#mkdir -p $PKG/usr/include
+#mv $PKG/openjpeg $PKG/usr/include
 ( cd $PKG/usr/include;
-  rm openjpeg.h;
-  ln -s $PRGNAM-$VERSION/openjpeg.h;
+  rm -f openjpeg.h;
+  ln -s ${PRGNAM}-${VERSION}/openjpeg.h;
 )
 
 mv $PKG/usr/share/man $PKG/usr/
@@ -101,12 +107,12 @@ rm -rf $PKG/usr/share
 find $PKG | xargs file | grep -e "executable" -e "shared object" | grep ELF \
   | cut -f 1 -d : | xargs strip --strip-unneeded 2> /dev/null || true
 
+find $PKG/usr/man -type f -exec gzip -9 {} \;
+for i in $( find $PKG/usr/man -type l ) ; do ln -s $( readlink $i ).gz $i.gz ; rm $i ; done
+
 mkdir -p $PKG/usr/doc/$PRGNAM-$VERSION
 cp -a $DOCS $PKG/usr/doc/$PRGNAM-$VERSION
 cat $CWD/$PRGNAM.SlackBuild > $PKG/usr/doc/$PRGNAM-$VERSION/$PRGNAM.SlackBuild
-
-find $PKG/usr/man -type f -exec gzip -9 {} \;
-for i in $( find $PKG/usr/man -type l ) ; do ln -s $( readlink $i ).gz $i.gz ; rm $i ; done
 
 mkdir -p $PKG/install
 cat $CWD/slack-desc > $PKG/install/slack-desc
@@ -115,4 +121,4 @@ cd $PKG
 /sbin/makepkg -l y -c n $OUTPUT/$PRGNAM-$VERSION-$ARCH-$BUILD$TAG.${PKGTYPE:-tgz}
 
 echo "Cleaning up build directory"
-cd $TMP; rm -rf ${PRGNAM}_v1_4_sources_r697 $PKG
+cd $TMP; rm -rf openjpeg_v1_4_sources_r697 $PKG

@@ -6,7 +6,7 @@
 # customary to leave one space after the ':'.
 
         |-----handy-ruler------------------------------------------------------|
-testdisk: testdir (Data Recovery Software)
+testdisk: testdisk (Data Recovery Software)
 testdisk:
 testdisk: TestDisk is a powerful free data recovery software! It was primarily
 testdisk: designed to help recover lost partitions and/or make non-booting disks

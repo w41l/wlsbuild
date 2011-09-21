@@ -24,7 +24,7 @@
 # YOUR DATA IS DESTROYED, YOUR HOUSE BURNS DOWN OR YOUR DOG RUNS OFF.
 
 PRGNAM=NetworkManager-pptp
-VERSION=${VERSION:-0.8.995}
+VERSION=${VERSION:-0.8.4}
 BUILD=${BUILD:-1}
 TAG=${TAG:-_wls}
 NUMJOBS=${NUMJOBS:--j4}
@@ -87,8 +87,7 @@ CXXFLAGS="$SLKCFLAGS" \
   --sysconfdir=/etc --docdir=/usr/doc/$PRGNAM-$VERSION \
   --localstatedir=/var \
   --disable-static --enable-shared \
-  --with-pppd-plugin-dir=/usr/lib$LIBDIRSUFFIX/pppd/$PPPDVER \
-  --with-gtkver=2
+  --with-pppd-plugin-dir=/usr/lib$LIBDIRSUFFIX/pppd/$PPPDVER
 
 make $NUMJOBS
 make install DESTDIR=$PKG
@@ -96,8 +95,6 @@ make install DESTDIR=$PKG
 # Preserve system settings
 mv $PKG/etc/NetworkManager/VPN/nm-pptp-service.name \
   $PKG/etc/NetworkManager/VPN/nm-pptp-service.name.new
-mv $PKG/etc/dbus-1/system.d/nm-pptp-service.conf \
-  $PKG/etc/dbus-1/system.d/nm-pptp-service.conf.new
 
 find $PKG | xargs file | grep -e "executable" -e "shared object" | grep ELF \
   | cut -f 1 -d : | xargs strip --strip-unneeded 2> /dev/null || true
@@ -108,10 +105,11 @@ cat $CWD/$PRGNAM.SlackBuild > $PKG/usr/doc/$PRGNAM-$VERSION/$PRGNAM.SlackBuild
 
 mkdir -p $PKG/install
 cat $CWD/slack-desc > $PKG/install/slack-desc
+cat $CWD/slack-required > $PKG/install/slack-required
 cat $CWD/doinst.sh >> $PKG/install/doinst.sh
 
 cd $PKG
 /sbin/makepkg -l y -c n $OUTPUT/$PRGNAM-$VERSION-$ARCH-$BUILD$TAG.${PKGTYPE:-tgz}
 
 echo "Cleaning up build directory"
-rm -rf $TMP/$PRGNAM-$VERSION $PKG
+cd $TMP ; rm -rf $PRGNAM-$VERSION $PKG

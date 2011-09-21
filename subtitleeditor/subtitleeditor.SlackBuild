@@ -24,8 +24,8 @@
 # YOUR DATA IS DESTROYED, YOUR HOUSE BURNS DOWN OR YOUR DOG RUNS OFF.
 
 PRGNAM=subtitleeditor
-VERSION=${VERSION:-0.37.1}
-BUILD=${BUILD:-1}
+VERSION=${VERSION:-0.39.0}
+BUILD=${BUILD:-2}
 TAG=${TAG:-_wls}
 NUMJOBS=${NUMJOBS:--j1}
 
@@ -107,4 +107,4 @@ cd $PKG
 /sbin/makepkg -l y -c n $OUTPUT/$PRGNAM-$VERSION-$ARCH-$BUILD$TAG.${PKGTYPE:-tgz}
 
 echo "Cleaning up build directory"
-rm -rf $TMP/$PRGNAM-$VERSION $PKG
+cd $TMP ; rm -rf $PRGNAM-$VERSION $PKG

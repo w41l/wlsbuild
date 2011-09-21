@@ -11,8 +11,3 @@ if [ -e usr/share/icons/hicolor/icon-theme.cache ]; then
     /usr/bin/gtk-update-icon-cache usr/share/icons/hicolor >/dev/null 2>&1
   fi
 fi
-
-# run gsettings schemas conversion
-if [ -x usr/bin/glib-compile-schemas -a -d usr/share/glib-2.0/schemas ]; then
-  usr/bin/glib-compile-schemas usr/share/glib-2.0/schemas
-fi

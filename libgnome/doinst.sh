@@ -11,8 +11,8 @@ config() {
   # Otherwise, we leave the .new copy for the admin to consider...
 }
 
-config etc/sound/events/gnome-2.soundlist.new
-config etc/sound/events/gtk-events-2.soundlist.new
+config etc/gnome/sound/events/gnome-2.soundlist.new
+config etc/gnome/sound/events/gtk-events-2.soundlist.new
 
 schema_install() {
   SCHEMA="$1"
@@ -55,3 +55,10 @@ if [ -e usr/share/icons/hicolor/icon-theme.cache ]; then
   fi
 fi
 
+if ps acx | grep -q gconfd-2 ; then
+    killall -HUP gconfd-2 ;
+fi
+
+if [ -x usr/bin/glib-compile-schemas -a -d usr/share/glib-2.0/schemas ]; then
+  usr/bin/glib-compile-schemas usr/share/glib-2.0/schemas
+fi

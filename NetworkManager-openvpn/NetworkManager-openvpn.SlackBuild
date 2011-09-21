@@ -24,7 +24,7 @@
 # YOUR DATA IS DESTROYED, YOUR HOUSE BURNS DOWN OR YOUR DOG RUNS OFF.
 
 PRGNAM=NetworkManager-openvpn
-VERSION=${VERSION:-0.8.995}
+VERSION=${VERSION:-0.8.5.91}
 BUILD=${BUILD:-1}
 TAG=${TAG:-_wls}
 NUMJOBS=${NUMJOBS:--j4}
@@ -63,7 +63,7 @@ rm -rf $PKG
 mkdir -p $TMP $PKG $OUTPUT
 cd $TMP
 rm -rf $PRGNAM-$VERSION
-tar xvf $CWD/$PRGNAM-$VERSION.tar.bz2
+tar xvf $CWD/$PRGNAM-$VERSION.tar.xz
 cd $PRGNAM-$VERSION
 chown -R root:root .
 find . \
@@ -82,9 +82,8 @@ CXXFLAGS="$SLKCFLAGS" \
   --libdir=/usr/lib$LIBDIRSUFFIX --includedir=/usr/include \
   --mandir=/usr/man --infodir=/usr/info \
   --sysconfdir=/etc --docdir=/usr/doc/$PRGNAM-$VERSION \
-  --localstatedir=/var \
+  --localstatedir=/var --sharedstatedir=/var/lib \
   --disable-static --enable-shared \
-  --with-gtkver=2
 
 make $NUMJOBS
 make install DESTDIR=$PKG
@@ -92,8 +91,6 @@ make install DESTDIR=$PKG
 # Preserve system settings
 mv $PKG/etc/NetworkManager/VPN/nm-openvpn-service.name \
   $PKG/etc/NetworkManager/VPN/nm-openvpn-service.name.new
-mv $PKG/etc/dbus-1/system.d/nm-openvpn-service.conf \
-  $PKG/etc/dbus-1/system.d/nm-openvpn-service.conf.new
 
 find $PKG | xargs file | grep -e "executable" -e "shared object" | grep ELF \
   | cut -f 1 -d : | xargs strip --strip-unneeded 2> /dev/null || true
@@ -104,6 +101,7 @@ cat $CWD/$PRGNAM.SlackBuild > $PKG/usr/doc/$PRGNAM-$VERSION/$PRGNAM.SlackBuild
 
 mkdir -p $PKG/install
 cat $CWD/slack-desc > $PKG/install/slack-desc
+cat $CWD/slack-required > $PKG/install/slack-required
 cat $CWD/doinst.sh >> $PKG/install/doinst.sh
 
 cd $PKG

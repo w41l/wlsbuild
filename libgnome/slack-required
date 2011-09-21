@@ -1,15 +1,6 @@
-GConf
-ORBit2
-alsa-lib
-audiofile
 avahi
-dbus
-dbus-glib
-esound
-glib2
+GConf
 gnome-vfs
 libbonobo
-libxml2
-openssl | openssl-solibs
-popt
-zlib
+libcanberra
+ORBit2

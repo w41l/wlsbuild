@@ -24,10 +24,10 @@
 # YOUR DATA IS DESTROYED, YOUR HOUSE BURNS DOWN OR YOUR DOG RUNS OFF.
 
 PRGNAM=icu4c
-VERSION=${VERSION:-4.6}
-BUILD=${BUILD:-2}
+VERSION=${VERSION:-4.8.1}
+BUILD=${BUILD:-1}
 TAG=${TAG:-_wls}
-NUMJOBS=${NUMJOBS:--j4}
+NUMJOBS=${NUMJOBS:--j3}
 
 if [ -z "$ARCH" ]; then
   case "$( uname -m )" in
@@ -38,8 +38,8 @@ if [ -z "$ARCH" ]; then
 fi
 
 CWD=$(pwd)
-TMP=${TMP:-/tmp/wls}
-PKG=$TMP/package-$PRGNAM
+WRK=${WRK:-$CWD/wlsbuild}
+PKG=$WRK/package-$PRGNAM
 OUTPUT=${OUTPUT:-/tmp}
 DOCS="APIChangeReport.html icu4c.css license.html readme.html unicode-license.txt"
 
@@ -60,10 +60,10 @@ fi
 set -e
 
 rm -rf $PKG
-mkdir -p $TMP $PKG $OUTPUT
-cd $TMP
+mkdir -p $WRK $PKG $OUTPUT
+cd $WRK
 rm -rf icu
-tar xvf $CWD/$PRGNAM-4_6-src.tgz
+tar xvf $CWD/$PRGNAM-4_8_1-src.tgz
 cd icu
 chown -R root:root .
 find . \
@@ -83,10 +83,10 @@ CXXFLAGS="$SLKCFLAGS" \
   --libdir=/usr/lib$LIBDIRSUFFIX --includedir=/usr/include \
   --mandir=/usr/man --infodir=/usr/info \
   --sysconfdir=/etc --docdir=/usr/doc/$PRGNAM-$VERSION \
-  --localstatedir=/var/lib \
+  --localstatedir=/var --sharedstatedir=/var/lib \
   --disable-static --enable-shared \
   --disable-samples \
-  --with-data-packaging=library \
+  --with-data-packaging=library
 
 make ${NUMJOBS}
 make install DESTDIR=$PKG
@@ -109,4 +109,4 @@ cd $PKG
 /sbin/makepkg -p -l y -c n $OUTPUT/$PRGNAM-$VERSION-$ARCH-$BUILD$TAG.${PKGTYPE:-tgz}
 
 echo "Cleaning up build directory"
-rm -rf $TMP/icu $PKG
+cd $CWD; rm -rf $WRK

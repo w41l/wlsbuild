@@ -83,14 +83,9 @@ CXXFLAGS="$SLKCFLAGS" \
   --libdir=/usr/lib$LIBDIRSUFFIX --includedir=/usr/include \
   --mandir=/usr/man --infodir=/usr/info \
   --sysconfdir=/etc --docdir=/usr/doc/$PRGNAM-$VERSION \
-  --localstatedir=/var/lib \
+  --localstatedir=/var --sharedstatedir=/var/lib \
   --disable-static --enable-shared \
-  --with-libdv \
-
-  #--enable-gpl \
-  #--without-x \
-  #--without-doxygen \
-  #--without-gtk \
+  --with-libdv
 
 make $NUMJOBS
 make install DESTDIR=$PKG

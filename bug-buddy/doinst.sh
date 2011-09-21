@@ -8,19 +8,26 @@ schema_install() {
 
 schema_install bug-buddy.schemas
 
-chroot . /usr/bin/libtool --finish /usr/lib64/gtk-2.0/modules/libgnomebreakpad.la
-
 if [ -x /usr/bin/update-desktop-database ]; then
-  /usr/bin/update-desktop-database -q usr/share/applications >/dev/null 2>&1
+  /usr/bin/update-desktop-database -q /usr/share/applications >/dev/null 2>&1
 fi
 
 if [ -x /usr/bin/update-mime-database ]; then
-  /usr/bin/update-mime-database usr/share/mime >/dev/null 2>&1
+  /usr/bin/update-mime-database /usr/share/mime >/dev/null 2>&1
 fi
 
-if [ -e usr/share/icons/hicolor/icon-theme.cache ]; then
+if [ -e /usr/share/icons/hicolor/icon-theme.cache ]; then
   if [ -x /usr/bin/gtk-update-icon-cache ]; then
-    /usr/bin/gtk-update-icon-cache usr/share/icons/hicolor >/dev/null 2>&1
+    /usr/bin/gtk-update-icon-cache /usr/share/icons/hicolor >/dev/null 2>&1
   fi
 fi
 
+# Restart gconfd-2 if running to reload new gconf settings
+if ps acx | grep -q gconfd-2 ; then
+    killall -HUP gconfd-2 ;
+fi
+
+# run gsettings schemas conversion
+if [ -x /usr/bin/glib-compile-schemas -a -d /usr/share/glib-2.0/schemas ]; then
+  /usr/bin/glib-compile-schemas /usr/share/glib-2.0/schemas
+fi

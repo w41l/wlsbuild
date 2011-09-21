@@ -85,7 +85,7 @@ CXXFLAGS="$SLKCFLAGS" \
   --localstatedir=/var --sharedstatedir=/var/lib \
   --disable-static --enable-shared \
   --disable-python \
-  --disable-lua \
+  --disable-lua
 
 make $NUMJOBS
 make DESTDIR=$PKG install
@@ -104,4 +104,4 @@ cd $PKG
 /sbin/makepkg -l y -c n $OUTPUT/$PRGNAM-$VERSION-$ARCH-$BUILD$TAG.${PKGTYPE:-tgz}
 
 echo "Cleaning up build directory"
-rm -rf $TMP/$PRGNAM-$VERSION $PKG
+cd $TMP ; rm -rf $PRGNAM-$VERSION $PKG

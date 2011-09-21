@@ -1,7 +1,2 @@
-cxxlibs
-gcc
-glib2
-glibmm
 libsigc++
-libxml2
-zlib
+glibmm

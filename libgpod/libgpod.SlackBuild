@@ -78,12 +78,12 @@ CXXFLAGS="$SLKCFLAGS" \
   --build=$ARCH-slackware-linux \
   --host=$ARCH-slackware-linux \
   --prefix=/usr --libdir=/usr/lib${LIBDIRSUFFIX} \
-  --sysconfdir=/etc --localstatedir=/var \
+  --sysconfdir=/etc --localstatedir=/var --sharedstatedir=/var/lib \
   --mandir=/usr/man --docdir=/usr/doc/$PRGNAM-$VERSION \
   --disable-static --enable-shared \
-  --enable-udev \
   --without-hal \
-  --with-temp-mount-dir=/media \
+  --enable-udev \
+  --with-temp-mount-dir=/var/run/libgpod/
 
 make $NUMJOBS
 make install DESTDIR=$PKG
@@ -92,9 +92,6 @@ find $PKG | xargs file | grep -e "executable" -e "shared object" | grep ELF \
   | cut -f 1 -d : | xargs strip --strip-unneeded 2> /dev/null || true
 
 mkdir -p $PKG/usr/doc/$PRGNAM-$VERSION
-( cd $PKG/usr/doc/$PRGNAM-$VERSION
-  ln -s /usr/share/gtk-doc/html/libgpod html-libgpod
-)
 cp -a $DOCS $PKG/usr/doc/$PRGNAM-$VERSION
 cat $CWD/$PRGNAM.SlackBuild > $PKG/usr/doc/$PRGNAM-$VERSION/$PRGNAM.SlackBuild
 
@@ -105,4 +102,4 @@ cd $PKG
 /sbin/makepkg -l y -c n $OUTPUT/$PRGNAM-$VERSION-$ARCH-$BUILD$TAG.${PKGTYPE:-tgz}
 
 echo "Cleaning up build directory"
-rm -rf $TMP/$PRGNAM-$VERSION $PKG
+cd $TMP ; rm -rf $PRGNAM-$VERSION $PKG

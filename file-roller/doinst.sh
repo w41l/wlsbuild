@@ -8,23 +8,28 @@ schema_install() {
 
 schema_install file-roller.schemas
 
-# update rarian database
-if [ -x usr/bin/rarian-sk-update ]; then
-  usr/bin/rarian-sk-update 1> /dev/null 2> /dev/null
+if [ -x /usr/bin/rarian-sk-update ]; then
+  /usr/bin/rarian-sk-update 1> /dev/null 2> /dev/null
 fi
 
-# update desktop entries
-if [ -x usr/bin/update-desktop-database ]; then
-  usr/bin/update-desktop-database 1> /dev/null 2> /dev/null
+if [ -x /usr/bin/update-mime-database ]; then
+  /usr/bin/update-mime-database /usr/share/mime >/dev/null 2>&1
 fi
 
-# update hicolor icons
-if [ -e usr/share/icons/hicolor/icon-theme.cache ]; then
-        rm -f usr/share/icons/hicolor/icon-theme.cache
+if [ -x /usr/bin/update-desktop-database ]; then
+  /usr/bin/update-desktop-database -q /usr/share/applications >/dev/null 2>&1
 fi
-usr/bin/gtk-update-icon-cache -f -q usr/share/icons/hicolor 1>/dev/null 2>/dev/null
 
-# Restart gconfd-2 if running to reload new gconf settings
+if [ -e /usr/share/icons/hicolor/icon-theme.cache ]; then
+  if [ -x /usr/bin/gtk-update-icon-cache ]; then
+    /usr/bin/gtk-update-icon-cache -q /usr/share/icons/hicolor >/dev/null 2>&1
+  fi
+fi
+
 if ps acx | grep -q gconfd-2 ; then
         killall -HUP gconfd-2 ;
+fi
+
+if [ -x /usr/bin/glib-compile-schemas -a -d /usr/share/glib-2.0/schemas ]; then
+  /usr/bin/glib-compile-schemas /usr/share/glib-2.0/schemas
 fi

@@ -24,7 +24,7 @@
 # YOUR DATA IS DESTROYED, YOUR HOUSE BURNS DOWN OR YOUR DOG RUNS OFF.
 
 PRGNAM=libburn
-VERSION=${VERSION:-1.0.0}
+VERSION=${VERSION:-1.1.0}
 BUILD=${BUILD:-1}
 TAG=${TAG:-_wls}
 NUMJOBS=${NUMJOBS:--j4}
@@ -63,7 +63,7 @@ rm -rf $PKG
 mkdir -p $TMP $PKG $OUTPUT
 cd $TMP
 rm -rf $PRGNAM-$VERSION
-tar xvf $CWD/$PRGNAM-${VERSION}.pl00.tar.gz
+tar xvf $CWD/$PRGNAM-${VERSION}.pl01.tar.gz
 cd $PRGNAM-$VERSION
 chown -R root:root .
 find . \
@@ -83,7 +83,7 @@ CXXFLAGS="$SLKCFLAGS" \
   --mandir=/usr/man --infodir=/usr/info \
   --sysconfdir=/etc --docdir=/usr/doc/$PRGNAM-$VERSION \
   --localstatedir=/var --sharedstatedir=/var/lib \
-  --disable-static --enable-shared \
+  --disable-static --enable-shared
 
 make $NUMJOBS
 make DESTDIR=$PKG install
@@ -105,4 +105,4 @@ cd $PKG
 /sbin/makepkg -l y -c n $OUTPUT/$PRGNAM-$VERSION-$ARCH-$BUILD$TAG.${PKGTYPE:-tgz}
 
 echo "Cleaning up build directory"
-rm -rf $TMP/$PRGNAM-$VERSION $PKG
+cd $TMP ; rm -rf $PRGNAM-$VERSION $PKG

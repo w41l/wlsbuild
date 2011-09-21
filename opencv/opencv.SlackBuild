@@ -24,8 +24,8 @@
 # YOUR DATA IS DESTROYED, YOUR HOUSE BURNS DOWN OR YOUR DOG RUNS OFF.
 
 PRGNAM=opencv
-VERSION=${VERSION:-2.2.0}
-BUILD=${BUILD:-2}
+VERSION=${VERSION:-2.3.0}
+BUILD=${BUILD:-1}
 TAG=${TAG:-_wls}
 NUMJOBS=${NUMJOBS:--j4}
 
@@ -63,15 +63,8 @@ rm -rf $PKG
 mkdir -p $TMP $PKG $OUTPUT
 cd $TMP
 rm -rf OpenCV-$VERSION
-tar xvf $CWD/OpenCV-$VERSION.tar.bz2
+tar xvf $CWD/OpenCV-${VERSION}rc.tar.bz2
 cd OpenCV-$VERSION
-
-# patch for multilib
-# Honor LIB_SUFFIX http://sourceforge.net/tracker/index.php?func=detail&aid=2876292&group_id=22870&atid=376679
-# rewritten by ponce for 2.1.0
-#cat $CWD/opencv-multilib-noffmpeg.patch | patch -p1
-#zcat $CWD/opencv-cflags.patch.gz | patch -p1
-#zcat $CWD/opencv-link.patch.gz | patch -p1
 
 chown -R root:root .
 find . \
@@ -90,7 +83,7 @@ cd build
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DCMAKE_SKIP_RPATH=ON \
     -DWITH_XINE=ON \
-    -DWITH_UNICAP=OFF \
+    -DWITH_UNICAP=OFF
 
   make $NUMJOBS
   make DESTDIR=$PKG install
@@ -109,7 +102,7 @@ find $PKG | xargs file | grep -e "executable" -e "shared object" | grep ELF \
   | cut -f 1 -d : | xargs strip --strip-unneeded 2> /dev/null || true
 
 mkdir -p $PKG/usr/doc/$PRGNAM-$VERSION
-cp -a -r -p $PKG/usr/share/opencv/doc/* $PKG/usr/doc/$PRGNAM-$VERSION/
+mv $PKG/usr/share/opencv/doc/* $PKG/usr/doc/$PRGNAM-$VERSION/
 rm -rf $PKG/usr/share/opencv/doc
 ln -sf /usr/doc/$PRGNAM-$VERSION $PKG/usr/share/opencv/doc
 cp -a $DOCS $PKG/usr/doc/$PRGNAM-$VERSION/
@@ -117,6 +110,7 @@ cat $CWD/$PRGNAM.SlackBuild > $PKG/usr/doc/$PRGNAM-$VERSION/$PRGNAM.SlackBuild
 
 mkdir -p $PKG/install
 cat $CWD/slack-desc > $PKG/install/slack-desc
+cat $CWD/slack-required > $PKG/install/slack-required
 
 cd $PKG
 /sbin/makepkg -l y -c n $OUTPUT/$PRGNAM-$VERSION-$ARCH-$BUILD$TAG.${PKGTYPE:-tgz}

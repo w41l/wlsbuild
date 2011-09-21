@@ -12,4 +12,3 @@ config() {
 }
 
 config etc/NetworkManager/VPN/nm-pptp-service.name.new
-config etc/dbus-1/system.d/nm-pptp-service.conf.new

@@ -1,6 +1,6 @@
 #!/bin/sh
 
-# Slackware build script for brasero
+# Slackware build script for gnac
 
 # Copyright 2010  Widya Walesa <walecha99@gmail.com>
 # All rights reserved.
@@ -24,7 +24,7 @@
 # YOUR DATA IS DESTROYED, YOUR HOUSE BURNS DOWN OR YOUR DOG RUNS OFF.
 
 PRGNAM=gnac
-VERSION=${VERSION:-0.2.2}
+VERSION=${VERSION:-0.2.3}
 BUILD=${BUILD:-1}
 TAG=${TAG:-_wls}
 NUMJOBS=${NUMJOBS:--j4}
@@ -44,13 +44,13 @@ OUTPUT=${OUTPUT:-/tmp}
 DOCS="AUTHORS ChangeLog COPY* INSTALL NEWS README THANKS TODO"
 
 if [ "$ARCH" = "i486" ]; then
-  SLKCFLAGS="-O2 -march=i486 -mtune=i686"
+  SLKCFLAGS="-O2 -pipe -march=i486 -mtune=i686"
   LIBDIRSUFFIX=""
 elif [ "$ARCH" = "i686" ]; then
-  SLKCFLAGS="-O2 -march=i686 -mtune=i686"
+  SLKCFLAGS="-O2 -pipe -march=i686 -mtune=i686"
   LIBDIRSUFFIX=""
 elif [ "$ARCH" = "x86_64" ]; then
-  SLKCFLAGS="-O2 -fPIC"
+  SLKCFLAGS="-O2 -pipe -fPIC"
   LIBDIRSUFFIX="64"
 else
   SLKCFLAGS="-O2"
@@ -75,16 +75,15 @@ find . \
 CFLAGS="$SLKCFLAGS" \
 CXXFLAGS="$SLKCFLAGS" \
 ./configure \
-  --prefix=/usr \
-  --libdir=/usr/lib${LIBDIRSUFFIX} \
+  --build=$ARCH-slackware-linux --host=$ARCH-slackware-linux \
+  --program-prefix= --program-suffix= \
+  --prefix=/usr --exec-prefix=/usr \
+  --bindir=/usr/bin --sbindir=/usr/sbin \
+  --libdir=/usr/lib$LIBDIRSUFFIX --includedir=/usr/include \
+  --mandir=/usr/man --infodir=/usr/info \
   --sysconfdir=/etc \
-  --localstatedir=/var \
-  --mandir=/usr/man \
-  --docdir=/usr/doc/$PRGNAM-$VERSION \
-  --disable-static \
-  --enable-shared \
-  --build=$ARCH-slackware-linux \
-  --disable-schemas-install \
+  --localstatedir=/var/lib \
+  --disable-static --enable-shared
 
 make $NUMJOBS
 make install DESTDIR=$PKG
@@ -96,10 +95,6 @@ find $PKG/usr/man -type f -exec gzip -9 {} \;
 for i in $( find $PKG/usr/man -type l ) ; do ln -s $( readlink $i ).gz $i.gz ; rm $i ; done
 
 mkdir -p $PKG/usr/doc/$PRGNAM-$VERSION
-( cd $PKG/usr/doc/$PRGNAM-$VERSION;
-  ln -s /usr/share/gtk-doc/html/libbrasero-burn html-libbrasero-burn
-  ln -s /usr/share/gtk-doc/html/libbrasero-media html-libbrasero-media
-)
 cp -a $DOCS $PKG/usr/doc/$PRGNAM-$VERSION
 cat $CWD/$PRGNAM.SlackBuild > $PKG/usr/doc/$PRGNAM-$VERSION/$PRGNAM.SlackBuild
 
@@ -111,4 +106,4 @@ cd $PKG
 /sbin/makepkg -l y -c n $OUTPUT/$PRGNAM-$VERSION-$ARCH-$BUILD$TAG.${PKGTYPE:-tgz}
 
 echo "Cleaning up build directory"
-rm -rf $TMP/$PRGNAM-$VERSION $PKG
+cd $TMP ; rm -rf $PRGNAM-$VERSION $PKG

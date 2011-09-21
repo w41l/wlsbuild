@@ -1,6 +1,6 @@
-diff -Naur a/projects/mozilla/support/npunix.c b/projects/mozilla/support/npunix.c
---- a/projects/mozilla/support/npunix.c	2010-04-13 07:22:27.000000000 +0700
-+++ b/projects/mozilla/support/npunix.c	2011-03-06 20:18:33.376000097 +0700
+diff -Naur b/projects/mozilla/support/npunix.c a/projects/mozilla/support/npunix.c
+--- b/projects/mozilla/support/npunix.c	2010-04-13 07:22:27.000000000 +0700
++++ a/projects/mozilla/support/npunix.c	2011-04-25 09:04:15.274307553 +0700
 @@ -49,7 +49,7 @@
  
  #include <npapi.h>
@@ -47,9 +47,18 @@ diff -Naur a/projects/mozilla/support/npunix.c b/projects/mozilla/support/npunix
      }
  
      return err;
-diff -Naur a/projects/mozilla/vlcshell.cpp b/projects/mozilla/vlcshell.cpp
---- a/projects/mozilla/vlcshell.cpp	2010-05-03 16:26:24.000000000 +0700
-+++ b/projects/mozilla/vlcshell.cpp	2011-03-06 20:15:37.350000088 +0700
+@@ -1008,6 +1010,8 @@
+ NP_Shutdown(void)
+ {
+     PLUGINDEBUGSTR("NP_Shutdown");
++#if (((NP_VERSION_MAJOR << 8) + NP_VERSION_MINOR) < 20)
+     NPP_Shutdown();
++#endif
+     return NPERR_NO_ERROR;
+ }
+diff -Naur b/projects/mozilla/vlcshell.cpp a/projects/mozilla/vlcshell.cpp
+--- b/projects/mozilla/vlcshell.cpp	2010-05-03 16:26:24.000000000 +0700
++++ a/projects/mozilla/vlcshell.cpp	2011-04-25 08:44:45.292934333 +0700
 @@ -163,7 +163,7 @@
          return false;
      }
@@ -72,10 +81,23 @@ diff -Naur a/projects/mozilla/vlcshell.cpp b/projects/mozilla/vlcshell.cpp
  
  #ifdef OJI
  jref NPP_GetJavaClass( void )
-diff -Naur a/projects/mozilla/vlcshell.h b/projects/mozilla/vlcshell.h
---- a/projects/mozilla/vlcshell.h	2010-04-28 04:44:27.000000000 +0700
-+++ b/projects/mozilla/vlcshell.h	2011-03-06 20:15:00.813000107 +0700
-@@ -26,9 +26,11 @@
+@@ -276,10 +278,12 @@
+ }
+ #endif
+ 
++#if (((NP_VERSION_MAJOR << 8) + NP_VERSION_MINOR) < 20)
+ void NPP_Shutdown( void )
+ {
+     ;
+ }
++#endif
+ 
+ NPError NPP_New( NPMIMEType pluginType, NPP instance,
+ #if (((NP_VERSION_MAJOR << 8) + NP_VERSION_MINOR) < 20)
+diff -Naur b/projects/mozilla/vlcshell.h a/projects/mozilla/vlcshell.h
+--- b/projects/mozilla/vlcshell.h	2010-04-28 04:44:27.000000000 +0700
++++ a/projects/mozilla/vlcshell.h	2011-04-25 08:47:37.651779551 +0700
+@@ -26,12 +26,17 @@
  
  char * NPP_GetMIMEDescription( void );
  
@@ -87,4 +109,10 @@ diff -Naur a/projects/mozilla/vlcshell.h b/projects/mozilla/vlcshell.h
 +#ifdef OJI
  jref NPP_GetJavaClass( void );
  #endif
++
++#if (((NP_VERSION_MAJOR << 8) + NP_VERSION_MINOR) < 20)
  void NPP_Shutdown( void );
++#endif
+ 
+ #if (((NP_VERSION_MAJOR << 8) + NP_VERSION_MINOR) < 20)
+ NPError NPP_New( NPMIMEType pluginType, NPP instance, uint16 mode, int16 argc,

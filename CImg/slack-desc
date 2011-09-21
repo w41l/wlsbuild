@@ -8,12 +8,12 @@
     |----handy-ruler---------------------------------------------------------|
 CImg: CImg (open-source C++ toolkit for image processing)
 CImg:
-CImg: It mainly consists in a (big) single header file CImg.h providing a set
-CImg: of C++ classes and functions that can be used in your own sources, to
-CImg: load/save, manage/process and display generic images. It's actually a
-CImg: very simple and pleasant toolkit for coding image processing stuffs in
-CImg: C++ : Just include the header file CImg.h, and you are ready to handle
-CImg: images in your C++ programs.
+CImg: The CImg Library provides a minimal set of C++ classes that can be used
+CImg: to perform common operations on generic 2D/3D images. It is simple-to-use,
+CImg: efficient, and portable. It's a really pleasant toolkit for developing
+CImg: image processing stuffs in C++.
+CImg:
+CImg:
 CImg:
 CImg: URL: http://cimg.sourceforge.net/
 CImg:

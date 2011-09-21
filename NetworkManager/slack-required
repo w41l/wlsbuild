@@ -1,12 +1,1 @@
-dbus
-dbus-glib
-eggdbus
-glib2
-gnutls
-libgcrypt
-libgpg-error
-libnl
-polkit
-udev
-util-linux-ng
-zlib
+

@@ -109,7 +109,7 @@ chmod +x configure
   --disable-opt \
   --disable-ipv6 \
   $wx_option \
-  $x64_option \
+  $x64_option
 
 make -j1 # Parallel build seems to fail
 make install DESTDIR=$PKG
@@ -127,6 +127,7 @@ cat $CWD/$PRGNAM.SlackBuild > $PKG/usr/doc/$PRGNAM-$VERSION/$PRGNAM.SlackBuild
 
 mkdir -p $PKG/install
 cat $CWD/slack-desc > $PKG/install/slack-desc
+cat $CWD/slack-required > $PKG/install/slack-required
 
 cd $PKG
 /sbin/makepkg -l y -c n $OUTPUT/$PRGNAM-$VERSION-$ARCH-$BUILD$TAG.${PKGTYPE:-tgz}

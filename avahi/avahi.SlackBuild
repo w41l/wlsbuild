@@ -24,8 +24,8 @@
 # YOUR DATA IS DESTROYED, YOUR HOUSE BURNS DOWN OR YOUR DOG RUNS OFF.
 
 PRGNAM=avahi
-VERSION=${VERSION:-0.6.28}
-BUILD=${BUILD:-3}
+VERSION=${VERSION:-0.6.30}
+BUILD=${BUILD:-2}
 TAG=${TAG:-_wls}
 NUMJOBS=${NUMJOBS:--j4}
 
@@ -96,16 +96,14 @@ CXXFLAGS="$SLKCFLAGS" \
   --disable-qt3 \
   --disable-mono \
   --disable-monodoc \
+  --disable-introspection \
   --enable-compat-howl \
   --enable-compat-libdns_sd \
   --with-distro=slackware \
   --with-xml=expat \
   --with-avahi-user=avahi \
   --with-avahi-group=avahi \
-  --with-avahi-priv-access-group=netdev \
-
-#  --with-autoipd-user=avahi-autoipd \
-#  --with-autoipd-group=avahi-autoipd \
+  --with-avahi-priv-access-group=netdev
 
 make ${NUMJOBS}
 make DESTDIR=$PKG install
@@ -119,7 +117,6 @@ mv $PKG/etc/avahi/services/ssh.service $PKG/etc/avahi/services/ssh.service.new
 mv $PKG/etc/avahi/services/sftp-ssh.service $PKG/etc/avahi/services/sftp-ssh.service.new
 mv $PKG/etc/rc.d/rc.avahidaemon $PKG/etc/rc.d/rc.avahidaemon.new
 mv $PKG/etc/rc.d/rc.avahidnsconfd $PKG/etc/rc.d/rc.avahidnsconfd.new
-mv $PKG/etc/dbus-1/system.d/avahi-dbus.conf $PKG/etc/dbus-1/system.d/avahi-dbus.conf.new
 
 find $PKG | xargs file | grep -e "executable" -e "shared object" | grep ELF \
   | cut -f 1 -d : | xargs strip --strip-unneeded 2> /dev/null || true
@@ -133,6 +130,7 @@ cat $CWD/$PRGNAM.SlackBuild > $PKG/usr/doc/$PRGNAM-$VERSION/$PRGNAM.SlackBuild
 
 mkdir -p $PKG/install
 cat $CWD/slack-desc > $PKG/install/slack-desc
+cat $CWD/slack-required > $PKG/install/slack-required
 cat $CWD/doinst.sh >> $PKG/install/doinst.sh
 
 cd $PKG

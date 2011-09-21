@@ -83,17 +83,13 @@ CXXFLAGS="$SLKCFLAGS" \
   --libdir=/usr/lib$LIBDIRSUFFIX --includedir=/usr/include \
   --mandir=/usr/man --infodir=/usr/info \
   --sysconfdir=/etc --docdir=/usr/doc/$PRGNAM-$VERSION \
-  --localstatedir=/var/lib \
+  --localstatedir=/var --sharedstatedir=/var/lib \
   --disable-static --enable-shared \
   --disable-pam \
   --enable-tests \
   --with-root-certs=/etc/ssl/certs \
   --enable-acl-prompts \
-  --enable-ssh-agent \
-
-#  --disable-schemas-install \
-#  --enable-gpg-agent \
-#  --with-gtk=2.0 \
+  --enable-ssh-agent
 
 make ${NUMJOBS}
 make install DESTDIR=$PKG
@@ -108,18 +104,10 @@ find $PKG | xargs file | grep -e "executable" -e "shared object" | grep ELF \
 mkdir -p $PKG/usr/doc/$PRGNAM-$VERSION
 cp -a $DOCS $PKG/usr/doc/$PRGNAM-$VERSION
 cat $CWD/$PRGNAM.SlackBuild > $PKG/usr/doc/$PRGNAM-$VERSION/$PRGNAM.SlackBuild
-#( cd $PKG/usr/doc/$PRGNAM-$VERSION
-#  ln -s /usr/share/gtk-doc/html/gcr html-gcr
-#  ln -s /usr/share/gtk-doc/html/gp11 html-gp11
-#)
-( cd $PKG/usr/doc/$PRGNAM-$VERSION
-  ln -s /usr/share/gtk-doc/html/gcr-0 html-gcr-0
-  ln -s /usr/share/gtk-doc/html/gp11 html-gp11
-)
 
 mkdir -p $PKG/install
 cat $CWD/slack-desc > $PKG/install/slack-desc
-cat $CWD/doinst.sh >> $PKG/install/doinst.sh
+cat $CWD/doinst.sh > $PKG/install/doinst.sh
 
 cd $PKG
 /sbin/makepkg -p -l y -c n $OUTPUT/$PRGNAM-$VERSION-$ARCH-$BUILD$TAG.${PKGTYPE:-tgz}

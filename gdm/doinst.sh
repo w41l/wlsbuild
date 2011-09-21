@@ -1,3 +1,13 @@
+schema_install() {
+  SCHEMA="$1"
+  GCONF_CONFIG_SOURCE="xml::etc/gconf/gconf.xml.defaults" \
+  chroot . gconftool-2 --makefile-install-rule \
+    /etc/gconf/schemas/$SCHEMA \
+    1>/dev/null
+}
+
+schema_install gdm-simple-greeter.schemas
+
 config() {
   NEW="$1"
   OLD="$(dirname $NEW)/$(basename $NEW .new)"
@@ -15,28 +25,24 @@ config etc/X11/gdm/Xsession.new
 config etc/X11/gdm/custom.conf.new
 config etc/X11/gdm/PreSession/Default.new
 config etc/X11/gdm/PostSession/Default.new
-config etc/X11/gdm/PostLogin/Default.new
+config etc/X11/gdm/Init/Default.new
 
 # update rarian database
 if [ -x usr/bin/rarian-sk-update ]; then
   usr/bin/rarian-sk-update 1> /dev/null 2> /dev/null
 fi
 
-# update desktop entries
-if [ -x usr/bin/update-desktop-database ]; then
-  usr/bin/update-desktop-database 1> /dev/null 2> /dev/null
+if [ -x /usr/bin/update-desktop-database ]; then
+  /usr/bin/update-desktop-database -q /usr/share/applications >/dev/null 2>&1
 fi
 
-# update hicolor icons
-if [ -e usr/share/icons/hicolor/icon-theme.cache ]; then
-    rm -f usr/share/icons/hicolor/icon-theme.cache
+if [ -x /usr/bin/update-mime-database ]; then
+  /usr/bin/update-mime-database /usr/share/mime >/dev/null 2>&1
 fi
 
-if [ -x     usr/bin/gtk-update-icon-cache -a -d usr/share/icons/hicolor ]; then
-    usr/bin/gtk-update-icon-cache -f -q usr/share/icons/hicolor 1>/dev/null 2>/dev/null
+if [ -e /usr/share/icons/hicolor/icon-theme.cache ]; then
+  if [ -x /usr/bin/gtk-update-icon-cache ]; then
+    /usr/bin/gtk-update-icon-cache /usr/share/icons/hicolor >/dev/null 2>&1
+  fi
 fi
 
-# Restart gconfd-2 if running to reload new gconf settings
-if ps acx | grep -q gconfd-2 ; then
-    killall -HUP gconfd-2 ;
-fi

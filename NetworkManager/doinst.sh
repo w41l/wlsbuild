@@ -1,3 +1,7 @@
+# Set the hostname from /etc/HOSTNAME
+MYHOST=$(hostname)
+sed -i "s/hostname=yourhostname/hostname=$MYHOST/g" etc/NetworkManager/NetworkManager.conf.new
+
 config() {
   NEW="$1"
   OLD="$(dirname $NEW)/$(basename $NEW .new)"
@@ -11,9 +15,5 @@ config() {
   # Otherwise, we leave the .new copy for the admin to consider...
 }
 
-config etc/dbus-1/system.d/NetworkManager.conf.new
 config etc/rc.d/rc.networkmanager.new
-config etc/dbus-1/system.d/nm-dhcp-client.conf.new
-config etc/dbus-1/system.d/nm-dispatcher.conf.new
-config etc/dbus-1/system.d/nm-avahi-autoipd.conf.new
 config etc/NetworkManager/NetworkManager.conf.new

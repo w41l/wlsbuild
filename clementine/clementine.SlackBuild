@@ -24,10 +24,10 @@
 # YOUR DATA IS DESTROYED, YOUR HOUSE BURNS DOWN OR YOUR DOG RUNS OFF.
 
 PRGNAM=clementine
-VERSION=${VERSION:-0.7}
+VERSION=${VERSION:-0.7.3}
 BUILD=${BUILD:-1}
 TAG=${TAG:-_wls}
-NUMJOBS=${NUMJOBS:--j4}
+NUMJOBS=${NUMJOBS:--j3}
 
 if [ -z "$ARCH" ]; then
   case "$( uname -m )" in
@@ -38,10 +38,10 @@ if [ -z "$ARCH" ]; then
 fi
 
 CWD=$(pwd)
-TMP=${TMP:-/tmp/wls}
-PKG=$TMP/package-$PRGNAM
+WRK=${WRK:-$CWD/wlsbuild}
+PKG=$WRK/package-$PRGNAM
 OUTPUT=${OUTPUT:-/tmp}
-DOCS="Changelog COPY* TODO"
+DOCS="Changelog COPY*"
 
 if [ "$ARCH" = "i486" ]; then
   SLKCFLAGS="-O2 -pipe -march=i486 -mtune=i686"
@@ -60,10 +60,10 @@ fi
 set -e
 
 rm -rf $PKG
-mkdir -p $TMP $PKG $OUTPUT
-cd $TMP
+mkdir -p $WRK $PKG $OUTPUT
+cd $WRK
 rm -rf $PRGNAM-$VERSION
-tar xvf $CWD/${PRGNAM}-${VERSION}.tar.gz
+tar xvf $CWD/${PRGNAM}-${VERSION}.tar.xz
 cd $PRGNAM-$VERSION
 
 chown -R root:root .
@@ -80,10 +80,7 @@ cd build
     -DCMAKE_CXX_FLAGS="$SLKCFLAGS" \
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_PREFIX=$(kde4-config --prefix) \
-    -DLIB_SUFFIX=${LIBDIRSUFFIX} \
     -DLIB_INSTALL_DIR=/usr/lib$LIBDIRSUFFIX \
-    -DMAN_INSTALL_DIR=/usr/man \
-    -DSYSCONF_INSTALL_DIR=/etc \
     ..
 
   make $NUMJOBS
@@ -105,4 +102,4 @@ cd $PKG
 /sbin/makepkg -l y -c n $OUTPUT/$PRGNAM-$VERSION-$ARCH-$BUILD$TAG.${PKGTYPE:-tgz}
 
 echo "Cleaning up build directory"
-cd $TMP; rm -rf $PRGNAM-$VERSION $PKG
+cd $CWD; rm -rf $WRK

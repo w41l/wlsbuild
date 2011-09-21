@@ -25,7 +25,7 @@
 
 PRGNAM=gnome-vfs
 VERSION=${VERSION:-2.24.4}
-BUILD=${BUILD:-2}
+BUILD=${BUILD:-3}
 TAG=${TAG:-_wls}
 NUMJOBS=${NUMJOBS:--j4}
 
@@ -85,7 +85,7 @@ CXXFLAGS="$SLKCFLAGS" \
   --libdir=/usr/lib$LIBDIRSUFFIX --includedir=/usr/include \
   --mandir=/usr/man --infodir=/usr/info \
   --sysconfdir=/etc --docdir=/usr/doc/$PRGNAM-$VERSION \
-  --localstatedir=/var/lib \
+  --localstatedir=/var --sharedstatedir=/var/lib \
   --disable-static --enable-shared \
   --disable-schemas-install \
   --enable-hal \
@@ -94,22 +94,19 @@ CXXFLAGS="$SLKCFLAGS" \
   --enable-avahi \
   --enable-daemon \
   --enable-ipv6 \
-  --enable-fam \
+  --enable-fam
 
 make ${NUMJOBS}
 make install DESTDIR=$PKG
 
-mv $PKG/etc/gnome-vfs-2.0/modules/smb-module.conf $PKG/etc/gnome-vfs-2.0/modules/smb-module.conf.new
-mv $PKG/etc/gnome-vfs-2.0/modules/ssl-modules.conf $PKG/etc/gnome-vfs-2.0/modules/ssl-modules.conf.new
-mv $PKG/etc/gnome-vfs-2.0/modules/default-modules.conf $PKG/etc/gnome-vfs-2.0/modules/default-modules.conf.new
+# Move gnome config to /etc/gnome
+mkdir -p $PKG/etc/gnome
+mv $PKG/etc/gnome-vfs-2.0 $PKG/etc/gnome/
 
 find $PKG | xargs file | grep -e "executable" -e "shared object" | grep ELF \
   | cut -f 1 -d : | xargs strip --strip-unneeded 2> /dev/null || true
 
 mkdir -p $PKG/usr/doc/$PRGNAM-$VERSION
-( cd $PKG/usr/doc/$PRGNAM-$VERSION;
-  ln -s /usr/share/gtk-doc/html/gnome-vfs-2.0 html-gnome-vfs-2.0
-)
 cp -a $DOCS $PKG/usr/doc/$PRGNAM-$VERSION
 cat $CWD/$PRGNAM.SlackBuild > $PKG/usr/doc/$PRGNAM-$VERSION/$PRGNAM.SlackBuild
 
@@ -121,4 +118,4 @@ cd $PKG
 /sbin/makepkg -l y -c n $OUTPUT/$PRGNAM-$VERSION-$ARCH-$BUILD$TAG.${PKGTYPE:-tgz}
 
 echo "Cleaning up build directory"
-rm -rf $TMP/$PRGNAM-$VERSION $PKG
+cd $TMP ; rm -rf $PRGNAM-$VERSION $PKG

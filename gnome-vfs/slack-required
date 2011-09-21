@@ -1,18 +1,4 @@
-GConf
-ORBit2
-acl
-attr
 avahi
-bzip2
-cyrus-sasl
-dbus
-dbus-glib
-gamin
-glib2
-hal
-libxml2
-openldap-client
-openssl | openssl-solibs
-samba
-util-linux-ng
-zlib
+GConf
+gnome-mime-data
+ORBit2

@@ -25,9 +25,9 @@
 
 PRGNAM=qjson
 VERSION=${VERSION:-0.7.1}
-BUILD=${BUILD:-2}
+BUILD=${BUILD:-3}
 TAG=${TAG:-_wls}
-NUMJOBS=${NUMJOBS:--j4}
+NUMJOBS=${NUMJOBS:--j3}
 
 if [ -z "$ARCH" ]; then
   case "$( uname -m )" in
@@ -45,6 +45,7 @@ DOCS="COPY* INSTALL README"
 
 if [ "$ARCH" = "i486" ]; then
   SLKCFLAGS="-O2 -pipe -march=i486 -mtune=i686"
+#  SLKCFLAGS="-g -O0 -pipe -march=i486 -mtune=i686"
   LIBDIRSUFFIX=""
 elif [ "$ARCH" = "i686" ]; then
   SLKCFLAGS="-O2 -pipe -march=i686 -mtune=i686"
@@ -77,14 +78,14 @@ cd build
 cmake .. \
   -DCMAKE_C_FLAGS:STRING="${SLKCFLAGS}" \
   -DCMAKE_CXX_FLAGS:STRING="${SLKCFLAGS}" \
-  -DCMAKE_BUILD_TYPE=release \
+  -DCMAKE_BUILD_TYPE=Release \
   -DCMAKE_INSTALL_PREFIX=/usr \
   -DMAN_INSTALL_DIR=/usr/man \
   -DSYSCONF_INSTALL_DIR=/etc \
   -DLIB_INSTALL_DIR:PATH=/usr/lib${LIBDIRSUFFIX} \
   -DLIB_SUFFIX=${LIBDIRSUFFIX}
 
-make $NUMJOBS
+make VERBOSE=1 $NUMJOBS
 make install DESTDIR=$PKG
 cd ..
 

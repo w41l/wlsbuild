@@ -1,0 +1,19 @@
+# HOW TO EDIT THIS FILE:
+# The "handy ruler" below makes it easier to edit a package description.  Line
+# up the first '|' above the ':' following the base package name, and the '|'
+# on the right side marks the last column you can put a character in.  You must
+# make exactly 11 lines for the formatting to be correct.  It's also
+# customary to leave one space after the ':'.
+
+	  |-----handy-ruler------------------------------------------------------|
+libgeotiff: libgeotiff (GeoTIFF Library)
+libgeotiff:
+libgeotiff: GeoTIFF represents an effort by over 160 different remote sensing,
+libgeotiff: GIS, cartographic, and surveying related companies and organizations
+libgeotiff: to establish a  TIFF based interchange format for georeferenced raster
+libgeotiff: imagery.
+libgeotiff:
+libgeotiff: URL: http://trac.osgeo.org/geotiff/
+libgeotiff:
+libgeotiff:
+libgeotiff: http://www.walecha.net/

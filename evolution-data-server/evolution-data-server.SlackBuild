@@ -24,8 +24,8 @@
 # YOUR DATA IS DESTROYED, YOUR HOUSE BURNS DOWN OR YOUR DOG RUNS OFF.
 
 PRGNAM=evolution-data-server
-VERSION=${VERSION:-2.32.3}
-BUILD=${BUILD:-1}
+VERSION=2.32.3
+BUILD=1
 TAG=${TAG:-_wls}
 NUMJOBS=${NUMJOBS:--j4}
 
@@ -38,7 +38,7 @@ if [ -z "$ARCH" ]; then
 fi
 
 CWD=$(pwd)
-TMP=${TMP:-/tmp/wls}
+TMP=${TMP:-/tmp/wlsbuild}
 PKG=$TMP/package-$PRGNAM
 OUTPUT=${OUTPUT:-/tmp}
 DOCS="AUTHORS COPYING ChangeLog HACKING MAINTAINERS NEWS README TODO"
@@ -66,10 +66,13 @@ rm -rf $PRGNAM-$VERSION
 tar xvf $CWD/$PRGNAM-$VERSION.tar.bz2
 cd $PRGNAM-$VERSION
 
+zcat $CWD/evolution-data-server-2.32.3-libgdata.gz | patch -p0
 cat $CWD/e-d-s-camel-skip-failing-test.patch | patch -p1
-sed -e 's/\(SUBDIRS =.*\)ebook/\1/' -i addressbook/tests/Makefile.{am,in}
-cat $CWD/$PRGNAM-2.32.1-libgdata07.patch | patch -p1
+sed -e 's/\(SUBDIRS =.*\)ebook/\1/' -i addressbook/tests/Makefile.am
+sed -e 's/\(SUBDIRS =.*\)ebook/\1/' -i addressbook/tests/Makefile.in
+#cat $CWD/$PRGNAM-2.32.1-libgdata07.patch | patch -p1
 sed 's/^\(AM_CPPFLAGS="\)$WARNING_FLAGS/\1/' -i configure.ac configure
+libtoolize --force
 autoreconf -i -f
 
 chown -R root:root .
@@ -104,7 +107,7 @@ CXXFLAGS="$SLKCFLAGS" \
   --with-nss-includes=/usr/include/seamonkey/nss \
   --with-nss-libs=/usr/lib${LIBDIRSUFFIX}/seamonkey
 
-make $NUMJOBS
+make
 make install DESTDIR=$PKG
 
 find $PKG | xargs file | grep -e "executable" -e "shared object" | grep ELF \

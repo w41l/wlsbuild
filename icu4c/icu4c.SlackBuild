@@ -24,8 +24,8 @@
 # YOUR DATA IS DESTROYED, YOUR HOUSE BURNS DOWN OR YOUR DOG RUNS OFF.
 
 PRGNAM=icu4c
-VERSION=${VERSION:-4.8.1}
-BUILD=${BUILD:-1}
+VERSION=4.8.1
+BUILD=1
 TAG=${TAG:-_wls}
 NUMJOBS=${NUMJOBS:--j3}
 
@@ -38,8 +38,8 @@ if [ -z "$ARCH" ]; then
 fi
 
 CWD=$(pwd)
-WRK=${WRK:-$CWD/wlsbuild}
-PKG=$WRK/package-$PRGNAM
+TMP=${TMP:-/tmp/wlsbuild}
+PKG=$TMP/package-$PRGNAM
 OUTPUT=${OUTPUT:-/tmp}
 DOCS="APIChangeReport.html icu4c.css license.html readme.html unicode-license.txt"
 
@@ -60,11 +60,12 @@ fi
 set -e
 
 rm -rf $PKG
-mkdir -p $WRK $PKG $OUTPUT
-cd $WRK
+mkdir -p $TMP $PKG $OUTPUT
+cd $TMP
 rm -rf icu
 tar xvf $CWD/$PRGNAM-4_8_1-src.tgz
 cd icu
+
 chown -R root:root .
 find . \
  \( -perm 777 -o -perm 775 -o -perm 711 -o -perm 555 -o -perm 511 \) \
@@ -88,7 +89,7 @@ CXXFLAGS="$SLKCFLAGS" \
   --disable-samples \
   --with-data-packaging=library
 
-make ${NUMJOBS}
+make
 make install DESTDIR=$PKG
 cd -
 
@@ -109,4 +110,4 @@ cd $PKG
 /sbin/makepkg -p -l y -c n $OUTPUT/$PRGNAM-$VERSION-$ARCH-$BUILD$TAG.${PKGTYPE:-tgz}
 
 echo "Cleaning up build directory"
-cd $CWD; rm -rf $WRK
+cd $TMP; rm -rf icu $PKG

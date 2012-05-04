@@ -4,3 +4,4 @@ unset LC_CTYPE ; export LC_CTYPE=C
 export NUMJOBS="-j3"
 export PKGTYPE="txz"
 #export BUILD=1
+export OUTPUT="/home/walecha/tmp/pkg"

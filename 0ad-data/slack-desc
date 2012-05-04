@@ -1,0 +1,19 @@
+# HOW TO EDIT THIS FILE:
+# The "handy ruler" below makes it easier to edit a package description.  Line
+# up the first '|' above the ':' following the base package name, and the '|' on
+# the right side marks the last column you can put a character in.  You must make
+# exactly 11 lines for the formatting to be correct.  It's also customary to
+# leave one space after the ':'.
+
+        |-----handy-ruler---------------------------------------------------|
+0ad-data: 0ad-data (0ad Game Data)
+0ad-data:
+0ad-data: 0 A.D. (pronounced "zero ey-dee") is a free, open-source,
+0ad-data: cross-platform real-time strategy (RTS) game of ancient warfare.
+0ad-data: In short, it is a historically-based war/economy game that allows
+0ad-data: players to relive or rewrite the history of Western civilizations,
+0ad-data: focusing on the years between 500 B.C. and 500 A.D.
+0ad-data:
+0ad-data: URL: http://wildfiregames.com/0ad/
+0ad-data:
+0ad-data: packaged by: Widya Walesa <walecha99@gmail.com>

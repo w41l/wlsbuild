@@ -1,0 +1,19 @@
+# HOW TO EDIT THIS FILE:
+# The "handy ruler" below makes it easier to edit a package description.  Line
+# up the first '|' above the ':' following the base package name, and the '|'
+# on the right side marks the last column you can put a character in.  You must
+# make exactly 11 lines for the formatting to be correct.  It's also
+# customary to leave one space after the ':'.
+
+    |-----handy-ruler-------------------------------------------------------|
+gksu: gksu (gksu GTK+ UI)
+gksu:
+gksu: GKSu is a library that provides a Gtk+ frontend to su and sudo.
+gksu: It supports login shells and preserving environment when acting as a su
+gksu: frontend. It is useful to menu items or other graphical programs that
+gksu: need to ask a user's password to run another program as another user.
+gksu:
+gksu: URL: http://www.nongnu.org/gksu/
+gksu:
+gksu:
+gksu: http://www.walecha.net/

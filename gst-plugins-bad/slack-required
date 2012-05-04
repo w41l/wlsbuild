@@ -1,6 +1,8 @@
 dirac
 faac
 faad2
+gst-plugins-base
+gstreamer
 libass
 libcdaudio
 libdc1394
@@ -15,5 +17,4 @@ mjpegtools
 orc
 rtmpdump
 schroedinger
-wildmidi
 xvidcore

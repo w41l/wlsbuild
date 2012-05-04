@@ -1,36 +1,44 @@
 #!/bin/sh
 
-## Slackware build script for PostgreSQL
-## $Revision: 5548380e2466 $
-## $Date: 2009/09/09 17:37:50 $
-##
-## Copyright 2007-2009 Adis Nezirovic <adis _at_ linux.org.ba>
-## Licensed under GNU GPL v2
+# Slackware build script for postgresql
 
-# Modified by the SlackBuilds.org Project
+# Copyright 2011 Widya Walesa <walecha99@gmail.com>
+# All rights reserved.
+#
+# Redistribution and use of this script, with or without modification, is
+# permitted provided that the following conditions are met:
+#
+# 1. Redistributions of this script must retain the above copyright
+#    notice, this list of conditions and the following disclaimer.
+#
+# THIS SOFTWARE IS PROVIDED BY THE AUTHOR ''AS IS'' AND ANY EXPRESS OR IMPLIED
+# WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF
+# MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO
+# EVENT SHALL THE AUTHOR BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
+# SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,
+# PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS;
+# OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY,
+# WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR
+# OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF
+# ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. FURTHERMORE I AM NOT LIABLE IF
+# YOUR DATA IS DESTROYED, YOUR HOUSE BURNS DOWN OR YOUR DOG RUNS OFF.
 
 PRGNAM=postgresql
-VERSION=8.4.4
-BUILD=${BUILD:-1}
-TAG=${TAG:-_SBo}
+VERSION=9.1.1
+BUILD=1
+TAG="_wls"
+NUMJOBS="-j3"
 
 PG_UID=${PG_UID:-209}
 PG_GID=${PG_GID:-209}
 
-# Automatically determine the architecture we're building on:
 if [ -z "$ARCH" ]; then
   case "$( uname -m )" in
     i?86) ARCH=i486 ;;
     arm*) ARCH=arm ;;
-    # Unless $ARCH is already set, use uname -m for all other archs:
        *) ARCH=$( uname -m ) ;;
   esac
 fi
-
-CWD=$(pwd)
-TMP=${TMP:-/tmp/SBo}
-PKG=$TMP/package-$PRGNAM
-OUTPUT=${OUTPUT:-/tmp}
 
 # Bail out if user or group isn't valid on your system
 # For slackbuilds.org, assigned postgres uid/gid are 209/209
@@ -46,36 +54,53 @@ elif ! grep ^postgres: /etc/passwd 2>&1 > /dev/null; then
   exit 1
 fi
 
+CWD=$(pwd)
+WRK=${WRK:-/tmp/wlsbuild}
+PKG=$WRK/package-$PRGNAM
+OUTPUT=${OUTPUT:-/tmp}
+DOCS="AUTHORS COPY* GETTING.STARTED INSTALL NEWS* README* RELEASE.NOTES TODO"
+
 if [ "$ARCH" = "i486" ]; then
-  SLKCFLAGS="-O2 -march=i486 -mtune=i686"
+  SLKCFLAGS="-O2 -pipe -march=i486 -mtune=i686"
   LIBDIRSUFFIX=""
 elif [ "$ARCH" = "i686" ]; then
-  SLKCFLAGS="-O2 -march=i686 -mtune=i686"
+  SLKCFLAGS="-O2 -pipe -march=i686 -mtune=i686"
   LIBDIRSUFFIX=""
 elif [ "$ARCH" = "x86_64" ]; then
-  SLKCFLAGS="-O2 -fPIC"
+  SLKCFLAGS="-O2 -m64 -pipe -fPIC"
   LIBDIRSUFFIX="64"
 else
   SLKCFLAGS="-O2"
   LIBDIRSUFFIX=""
 fi
 
-set -e # Exit on any and all errors
+set -e
 
-rm -rf $TMP/$PRGNAM-$VERSION $PKG
-mkdir -p $TMP $PKG $OUTPUT
-cd $TMP
+rm -rf $PKG
+mkdir -p $WRK $PKG $OUTPUT
+cd $WRK
+rm -rf $PRGNAM-$VERSION
 tar xvf $CWD/$PRGNAM-$VERSION.tar.bz2
 cd $PRGNAM-$VERSION
 chown -R root:root .
-chmod -R a-s,u+w,go+r-w .
+find . \
+ \( -perm 777 -o -perm 775 -o -perm 711 -o -perm 555 -o -perm 511 \) \
+ -exec chmod 755 {} \; -o \
+ \( -perm 666 -o -perm 664 -o -perm 600 -o -perm 444 -o -perm 440 -o -perm 400 \) \
+ -exec chmod 644 {} \;
 
 CFLAGS="$SLKCFLAGS" \
+CXXFLAGS="$SLKCFLAGS" \
 ./configure \
-  --prefix=/usr \
-  --libdir=/usr/lib${LIBDIRSUFFIX} \
-  --mandir=/usr/man \
-  --docdir=/usr/doc/$PRGNAM-$VERSION \
+  --build=$ARCH-slackware-linux --host=$ARCH-slackware-linux \
+  --program-prefix= --program-suffix= \
+  --prefix=/usr --exec-prefix=/usr \
+  --bindir=/usr/bin --sbindir=/usr/sbin \
+  --libdir=/usr/lib$LIBDIRSUFFIX --includedir=/usr/include \
+  --mandir=/usr/man --infodir=/usr/info \
+  --sysconfdir=/etc --docdir=/usr/doc/$PRGNAM-$VERSION \
+  --localstatedir=/var --sharedstatedir=/var/lib \
+  --disable-static --enable-shared \
   --with-openssl \
   --with-tcl \
   --with-perl \
@@ -83,17 +108,16 @@ CFLAGS="$SLKCFLAGS" \
   --with-ldap \
   --with-libxml \
   --with-libxslt \
-  --enable-thread-safety \
-  --build=$ARCH-slackware-linux
+  --enable-thread-safety
 
 make
-make install-strip DESTDIR=$PKG
+make install DESTDIR=$PKG
 
 # adminpack extension for pgAdmin
 cd contrib/adminpack
   make
-  make install-strip DESTDIR=$PKG
-cd $TMP/$PRGNAM-$VERSION
+  make install DESTDIR=$PKG
+cd $WRK/$PRGNAM-$VERSION
 
 # Since version 8.3 tsearch2 is directly supported by PostgreSQL
 # This contrib module is now a compatibility layer.
@@ -102,25 +126,15 @@ cd $TMP/$PRGNAM-$VERSION
 if ! [ "${TSEARCH2_COMPAT:-no}" == "no" ]; then
   cd contrib/tsearch2
     make
-    make install-strip DESTDIR=$PKG
-  cd $TMP/$PRGNAM-$VERSION
+    make install DESTDIR=$PKG
+  cd $WRK/$PRGNAM-$VERSION
 fi
 
 # Some business oriented applications use this extension
 cd contrib/pgcrypto
   make
-  make install-strip DESTDIR=$PKG
-cd $TMP/$PRGNAM-$VERSION
-
-( cd $PKG/usr/man || exit 1
-  find . -type f -exec gzip -9 {} \;
-  for i in $(find . -type l) ; do ln -s $(readlink $i).gz $i.gz ; rm $i ; done
-)
-
-cp -a COPYRIGHT HISTORY README doc/* $PKG/usr/doc/$PRGNAM-$VERSION/
-rm -rf $PKG/usr/doc/$PRGNAM-$VERSION/{man.tar.gz,man1,manl,man7,postgres.tar.gz}
-cat $CWD/$PRGNAM.SlackBuild > $PKG/usr/doc/$PRGNAM-$VERSION/$PRGNAM.SlackBuild
-cat $CWD/README.SBo > $PKG/usr/doc/$PRGNAM-$VERSION/README.SBo
+  make install DESTDIR=$PKG
+cd $WRK/$PRGNAM-$VERSION
 
 # base database directory
 # assumes you are using /var/lib/pgsql as a homedir for postgres user
@@ -144,9 +158,26 @@ sed -e "s%@UID@%$PG_UID%" -e "s%@GID@%$PG_GID%" $CWD/setup.$PRGNAM \
   > $PKG/var/log/setup/setup.$PRGNAM
 chmod 755 $PKG/var/log/setup/setup.$PRGNAM
 
+# Build and install manual pages
+make -C doc/ all
+make -C doc/ install DESTDIR=$PKG
+
+find $PKG | xargs file | grep -e "executable" -e "shared object" | grep ELF \
+  | cut -f 1 -d : | xargs strip --strip-unneeded 2> /dev/null || true
+
+find $PKG/usr/man -type f -exec gzip -9 {} \;
+for i in $( find $PKG/usr/man -type l ) ; do ln -s $( readlink $i ).gz $i.gz ; rm $i ; done
+
+cp -a COPYRIGHT HISTORY README $PKG/usr/doc/$PRGNAM-$VERSION/
+rm -rf $PKG/usr/doc/$PRGNAM-$VERSION/{man.tar.gz,man1,manl,man7,postgres.tar.gz}
+cat $CWD/$PRGNAM.SlackBuild > $PKG/usr/doc/$PRGNAM-$VERSION/$PRGNAM.SlackBuild
+
 mkdir -p $PKG/install
 cat $CWD/slack-desc > $PKG/install/slack-desc
 cat $CWD/doinst.sh > $PKG/install/doinst.sh
 
 cd $PKG
-/sbin/makepkg -l y -c n $OUTPUT/$PRGNAM-$VERSION-$ARCH-$BUILD$TAG.${PKGTYPE:-tgz}
+/sbin/makepkg -p -l y -c n $OUTPUT/$PRGNAM-$VERSION-$ARCH-$BUILD$TAG.${PKGTYPE:-tgz}
+
+echo "Cleaning up build directory"
+cd $WRK; rm -rf $PRGNAM-$VERSION $PKG

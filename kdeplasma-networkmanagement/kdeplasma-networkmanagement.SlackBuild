@@ -24,11 +24,10 @@
 # YOUR DATA IS DESTROYED, YOUR HOUSE BURNS DOWN OR YOUR DOG RUNS OFF.
 
 PRGNAM=kdeplasma-networkmanagement
-GITVERSION=20110727
-VERSION=${VERSION:-0.9_${GITVERSION}git}
+VERSION=20110922_f72e4ec
 BUILD=${BUILD:-1}
 TAG=${TAG:-_wls}
-NUMJOBS=${NUMJOBS:--j4}
+NUMJOBS=${NUMJOBS:--j3}
 
 if [ -z "$ARCH" ]; then
   case "$( uname -m )" in
@@ -39,8 +38,8 @@ if [ -z "$ARCH" ]; then
 fi
 
 CWD=$(pwd)
-TMP=${TMP:-/tmp/wls}
-PKG=$TMP/package-$PRGNAM
+WRK=${WRK:-/tmp/wlsbuild}
+PKG=$WRK/package-$PRGNAM
 OUTPUT=${OUTPUT:-/tmp}
 DOCS="COPY* DESIGN README TODO"
 
@@ -61,10 +60,10 @@ fi
 set -e
 
 rm -rf $PKG
-mkdir -p $TMP $PKG $OUTPUT
-cd $TMP
+mkdir -p $WRK $PKG $OUTPUT
+cd $WRK
 rm -rf networkmanagement
-tar xvf $CWD/networkmanagement-${GITVERSION}.tar.bz2
+tar xvf $CWD/networkmanagement.tar.bz2
 cd networkmanagement
 
 chown -R root:root .
@@ -85,9 +84,15 @@ cd build
     -DLIB_INSTALL_DIR=/usr/lib$LIBDIRSUFFIX \
     -DDBUS_SYSTEM_POLICY_DIR=/etc/dbus-1/system.d \
     ..
-  make ${NUMJOBS}
+  make
   make install DESTDIR=$PKG
 cd -
+
+mkdir -p $PKG/etc/dbus-1/system.d
+cp -a NetworkManager-kde4.conf $PKG/etc/dbus-1/system.d
+
+mkdir -p $PKG/usr/share/icons/oxygen/scalable/apps
+cp -a networkmanager.svg $PKG/usr/share/icons/oxygen/scalable/apps
 
 find $PKG | xargs file | grep -e "executable" -e "shared object" | grep ELF \
   | cut -f 1 -d : | xargs strip --strip-unneeded 2> /dev/null || true
@@ -104,4 +109,4 @@ cd $PKG
 /sbin/makepkg -l y -c n $OUTPUT/$PRGNAM-$VERSION-$ARCH-$BUILD$TAG.${PKGTYPE:-tgz}
 
 echo "Cleaning up build directory"
-cd $TMP; rm -rf networkmanagement $PKG
+cd $CWD; rm -rf networkmanagement $PKG

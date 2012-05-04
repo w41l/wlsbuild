@@ -1,0 +1,19 @@
+# HOW TO EDIT THIS FILE:
+# The "handy ruler" below makes it easier to edit a package description.  Line
+# up the first '|' above the ':' following the base package name, and the '|' on
+# the right side marks the last column you can put a character in.  You must make
+# exactly 11 lines for the formatting to be correct.  It's also customary to
+# leave one space after the ':'.
+
+      |-----handy-ruler------------------------------------------------------|
+peazip: peazip (accessibility functions library)
+peazip:
+peazip: PeaZip is an Open Source file and archive manager: flexible, portable,
+peazip: secure, and free as in freedom. Extract, create and convert multiple
+peazip: archives at once, create self-extracting archives, split/join, strong
+peazip: encryption, secure deletion, advanced search and compare features.
+peazip:
+peazip: URL: http://www.peazip.org/
+peazip:
+peazip:
+peazip: http://www.walecha.net/

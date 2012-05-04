@@ -2,7 +2,7 @@
 
 # Slackware build script for gdm
 
-# Copyright 2010  Widya Walesa <walecha99@gmail.com>
+# Copyright 2011 Widya Walesa <walecha99@gmail.com>
 # All rights reserved.
 #
 # Redistribution and use of this script, with or without modification, is
@@ -24,8 +24,8 @@
 # YOUR DATA IS DESTROYED, YOUR HOUSE BURNS DOWN OR YOUR DOG RUNS OFF.
 
 PRGNAM=gdm
-VERSION=${VERSION:-2.32.2}
-BUILD=${BUILD:-1}
+VERSION=2.20.11
+BUILD=1
 TAG=${TAG:-_wls}
 NUMJOBS=${NUMJOBS:--j4}
 
@@ -38,7 +38,7 @@ if [ -z "$ARCH" ]; then
 fi
 
 CWD=$(pwd)
-TMP=${TMP:-/tmp/wls}
+TMP=${TMP:-/tmp/wlsbuild}
 PKG=$TMP/package-$PRGNAM
 OUTPUT=${OUTPUT:-/tmp}
 DOCS="AUTHORS COPYING ChangeLog INSTALL MAINTAINERS NEWS README TODO"
@@ -63,7 +63,7 @@ rm -rf $PKG
 mkdir -p $TMP $PKG $OUTPUT
 cd $TMP
 rm -rf $PRGNAM-$VERSION
-tar xvf $CWD/$PRGNAM-$VERSION.tar.xz
+tar xvf $CWD/$PRGNAM-$VERSION.tar.bz2
 cd $PRGNAM-$VERSION
 
 chown -R root:root .
@@ -105,13 +105,17 @@ cp -r $CWD/pam.d $PKG/etc/
 chown -R root:root $PKG/etc/pam.d
 chmod 644 $PKG/etc/pam.d/*
 
+# Remove built-in gnome.desktop files, gnome-session should providing it
+if [ -f $PKG/usr/share/xsessions/gnome.desktop ]; then
+  rm -f $PKG/usr/share/xsessions/gnome.desktop
+fi
 # Copy over session entries for gdm menu
-mkdir -p $PKG/usr/share/xsessions ;
-for file in ${CWD}/sessions/*.desktop ; do
-  cp ${file} $PKG/usr/share/xsessions ;
-done
-chown -R root:root $PKG/usr/share/xsessions/* || exit 1;
-chmod 644 $PKG/usr/share/xsessions/* || exit 1;
+#mkdir -p $PKG/usr/share/xsessions ;
+#for file in ${CWD}/sessions/*.desktop ; do
+  #cp ${file} $PKG/usr/share/xsessions ;
+#done
+#chown -R root:root $PKG/usr/share/xsessions/* || exit 1;
+#chmod 644 $PKG/usr/share/xsessions/* || exit 1;
 
 # preserve settings
 mv $PKG/etc/X11/gdm/Xsession $PKG/etc/X11/gdm/Xsession.new
@@ -130,13 +134,17 @@ chown -R root:gdm $PKG/var/log/gdm
 find $PKG | xargs file | grep -e "executable" -e "shared object" | grep ELF \
   | cut -f 1 -d : | xargs strip --strip-unneeded 2> /dev/null || true
 
+find $PKG/usr/man -type f -exec gzip -9 {} \;
+for i in $( find $PKG/usr/man -type l ) ; do ln -s $( readlink $i ).gz $i.gz ; rm $i ; done
+
 mkdir -p $PKG/usr/doc/$PRGNAM-$VERSION
 cp -a $DOCS $PKG/usr/doc/$PRGNAM-$VERSION
 cat $CWD/$PRGNAM.SlackBuild > $PKG/usr/doc/$PRGNAM-$VERSION/$PRGNAM.SlackBuild
 
 mkdir -p $PKG/install
 cat $CWD/slack-desc > $PKG/install/slack-desc
-cat $CWD/doinst.sh >> $PKG/install/doinst.sh
+cat $CWD/slack-required > $PKG/install/slack-required
+cat $CWD/doinst.sh > $PKG/install/doinst.sh
 
 cd $PKG
 /sbin/makepkg -l y -c n $OUTPUT/$PRGNAM-$VERSION-$ARCH-$BUILD$TAG.${PKGTYPE:-tgz}

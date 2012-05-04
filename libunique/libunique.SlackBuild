@@ -2,7 +2,7 @@
 
 # Slackware build script for libunique
 
-# Copyright 2010  Widya Walesa <walecha99@gmail.com>
+# Copyright 2011 Widya Walesa <walecha99@gmail.com>
 # All rights reserved.
 #
 # Redistribution and use of this script, with or without modification, is
@@ -24,8 +24,8 @@
 # YOUR DATA IS DESTROYED, YOUR HOUSE BURNS DOWN OR YOUR DOG RUNS OFF.
 
 PRGNAM=libunique
-VERSION=${VERSION:-1.1.6}
-BUILD=${BUILD:-2}
+VERSION=1.1.6
+BUILD=1
 TAG=${TAG:-_wls}
 NUMJOBS=${NUMJOBS:--j4}
 
@@ -38,7 +38,7 @@ if [ -z "$ARCH" ]; then
 fi
 
 CWD=$(pwd)
-TMP=${TMP:-/tmp/wls}
+TMP=${TMP:-/tmp/wlsbuild}
 PKG=$TMP/package-$PRGNAM
 OUTPUT=${OUTPUT:-/tmp}
 DOCS="AUTHORS ChangeLog COPY* INSTALL NEWS README TODO"
@@ -87,6 +87,7 @@ CXXFLAGS="$SLKCFLAGS" \
   --disable-static --enable-shared \
   --enable-bacon=yes \
   --disable-debug \
+  --disable-introspection \
   --enable-maintainer-flags=no \
 
 make ${NUMJOBS}

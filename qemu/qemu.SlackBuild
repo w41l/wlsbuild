@@ -2,7 +2,7 @@
 
 # Slackware build script for qemu
 
-# Copyright 2010  Widya Walesa <walecha99@gmail.com>
+# Copyright 2011 Widya Walesa <walecha99@gmail.com>
 # All rights reserved.
 #
 # Redistribution and use of this script, with or without modification, is
@@ -24,24 +24,25 @@
 # YOUR DATA IS DESTROYED, YOUR HOUSE BURNS DOWN OR YOUR DOG RUNS OFF.
 
 PRGNAM=qemu
-VERSION=${VERSION:-0.14.0}
-BUILD=${BUILD:-2}
+VERSION=1.0
+BUILD=1
 TAG=${TAG:-_wls}
 NUMJOBS=${NUMJOBS:--j1}
 
 if [ -z "$ARCH" ]; then
   case "$( uname -m )" in
-    i?86) ARCH=i486 ;;
+    i386) ARCH=i486 ;;
+    i486) ARCH=i486 ;;
     arm*) ARCH=arm ;;
        *) ARCH=$( uname -m ) ;;
   esac
 fi
 
 CWD=$(pwd)
-TMP=${TMP:-/tmp/wls}
+TMP=${TMP:-/tmp/wlsbuild}
 PKG=$TMP/package-$PRGNAM
 OUTPUT=${OUTPUT:-/tmp}
-DOCS="CODING_STYLE COPY* Changelog HACKING LICENSE MAINTAINERS QMP README TODO VERSION"
+DOCS="CODING_STYLE COPYING COPYING.LIB Changelog HACKING LICENSE MAINTAINERS README TODO VERSION"
 
 if [ "$ARCH" = "i486" ]; then
   SLKCFLAGS="-O2 -pipe -march=i486 -mtune=i686"
@@ -60,7 +61,7 @@ fi
 set -e
 
 if ! grep "^kvm:" /etc/group >/dev/null 2>&1; then
-  echo "Please add group kvm: /usr/sbin/groupadd -g 186 kvm"
+  echo "Please add group kvm: /usr/sbin/groupadd -g 286 kvm"
   exit 1
 fi;
 
@@ -102,6 +103,29 @@ else
     echo "Audio driver: $AUDIODRV"
 fi
 
+## PLEASE READ THIS ##
+#
+# set target list (default: build everything)
+# Available targets: i386-softmmu x86_64-softmmu
+# alpha-softmmu arm-softmmu cris-softmmu lm32-softmmu
+# m68k-softmmu microblaze-softmmu microblazeel-softmmu
+# mips-softmmu mipsel-softmmu mips64-softmmu
+# mips64el-softmmu ppc-softmmu ppcemb-softmmu
+# ppc64-softmmu sh4-softmmu sh4eb-softmmu
+# sparc-softmmu sparc64-softmmu s390x-softmmu
+# xtensa-softmmu xtensaeb-softmmu i386-linux-user
+# x86_64-linux-user alpha-linux-user arm-linux-user
+# armeb-linux-user cris-linux-user m68k-linux-user
+# microblaze-linux-user microblazeel-linux-user
+# mips-linux-user mipsel-linux-user ppc-linux-user
+# ppc64-linux-user ppc64abi32-linux-user
+# sh4-linux-user sh4eb-linux-user sparc-linux-user
+# sparc64-linux-user sparc32plus-linux-user
+# unicore32-linux-user s390x-linux-user
+#
+# LEAVE BLANK FOR default
+TARGET_LIST="--target-list=i386-softmmu,x86_64-softmmu,arm-softmmu,lm32-softmmu,ppc-softmmu,ppcemb-softmmu,ppc64-softmmu,s390x-softmmu,i386-linux-user,x86_64-linux-user,arm-linux-user,s390x-linux-user,ppc-linux-user,ppc64-linux-user,ppc64abi32-linux-user"
+
 CFLAGS="$SLKCFLAGS" \
 CXXFLAGS="$SLKCFLAGS" \
 ./configure \
@@ -116,9 +140,9 @@ CXXFLAGS="$SLKCFLAGS" \
   --enable-mixemu \
   --enable-user \
   --enable-linux-aio \
-  --enable-io-thread \
   $VDE_SUPPORT \
   $KVM_SUPPORT \
+  $TARGET_LIST
 
 make
 make install DESTDIR=$PKG

@@ -1,0 +1,19 @@
+# HOW TO EDIT THIS FILE:
+# The "handy ruler" below makes it easier to edit a package description.  Line
+# up the first '|' above the ':' following the base package name, and the '|'
+# on the right side marks the last column you can put a character in.  You must
+# make exactly 11 lines for the formatting to be correct.  It's also
+# customary to leave one space after the ':'.
+
+                    |-----handy-ruler------------------------------------------------|
+xfce4-netload-plugin: xfce4-netload-plugin
+xfce4-netload-plugin:
+xfce4-netload-plugin: This plugin displays the current load of the network interfaces
+xfce4-netload-plugin: of your choice in the panel. It currently works on Linux, *BSD,
+xfce4-netload-plugin: Sun Solaris, HP_UX and MacOS X.
+xfce4-netload-plugin:
+xfce4-netload-plugin: URL: http://goodies.xfce.org/projects/panel-plugins/xfce4-netload-plugin
+xfce4-netload-plugin:
+xfce4-netload-plugin:
+xfce4-netload-plugin:
+xfce4-netload-plugin: http://www.walecha.net/

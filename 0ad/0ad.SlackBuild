@@ -24,10 +24,10 @@
 # YOUR DATA IS DESTROYED, YOUR HOUSE BURNS DOWN OR YOUR DOG RUNS OFF.
 
 PRGNAM=0ad
-VERSION=${VERSION:-r09786}
-BUILD=${BUILD:-1}
+VERSION=r11339
+BUILD=1
 TAG=${TAG:-_wls}
-NUMJOBS=${NUMJOBS:--j3}
+NUMJOBS=${NUMJOBS:--j4}
 
 if [ -z "$ARCH" ]; then
   case "$( uname -m )" in
@@ -38,7 +38,7 @@ if [ -z "$ARCH" ]; then
 fi
 
 CWD=$(pwd)
-TMP=${TMP:-$CWD/wlsbuild}
+TMP=${TMP:-/home/walecha/tmp/wlsbuild}
 PKG=$TMP/package-$PRGNAM
 OUTPUT=${OUTPUT:-/tmp}
 
@@ -66,7 +66,7 @@ tar xvf $CWD/$PRGNAM-$VERSION-alpha-unix-build.tar.xz
 cd $PRGNAM-$VERSION-alpha
 
 # Fix boost libraries name for Slackware
-cat $CWD/slackware-boost-libs-name.patch | patch -p1
+sed -i 's:-mt::g' ./build/premake/extern_libs4.lua
 
 chown -R root:root .
 find . \
@@ -78,34 +78,38 @@ find . \
 ./build/workspaces/clean-workspaces.sh
 
 CFLAGS="$SLKCFLAGS" \
-CXXFLAGS="$SLKCFLAGS" \
-./build/workspaces/update-workspaces.sh \
-  --bindir /usr/bin \
-  --libdir /usr/lib$LIBDIRSUFFIX/$PRGNAM \
-  --datadir /usr/share/$PRGNAM \
-  --verbose
+CPPFLAGS="$SLKCFLAGS" \
+build/workspaces/update-workspaces.sh \
+  --bindir=/usr/bin \
+  --libdir=/usr/lib$LIBDIRSUFFIX/0ad \
+  --datadir=/usr/share/0ad \
+  --with-system-enet \
+  --with-system-nvtt \
+  --with-system-mozjs185
 
-cd ./build/workspaces/gcc
+cd build/workspaces/gcc
 make CONFIG=Release
 cd -
 
 # There is no install script, so we install it manually
 mkdir -p $PKG/usr/bin
 install -v -m 0755 binaries/system/pyrogenesis $PKG/usr/bin/pyrogenesis
-install -v -m 0755 build/resources/0ad.sh $PKG/usr/bin/0ad.sh
-#install -v -m 0755 binaries/system/ActorEditor $PKG/usr/bin/ActorEditor
-#install -v -m 0755 binaries/system/ColourTester $PKG/usr/bin/ColourTester
+install -v -m 0755 binaries/system/ActorEditor $PKG/usr/bin/ActorEditor
+install -v -m 0755 build/resources/0ad.sh $PKG/usr/bin/0ad
 
 mkdir -p $PKG/usr/lib$LIBDIRSUFFIX/$PRGNAM
 install -v -m 0755 binaries/system/libCollada.so $PKG/usr/lib$LIBDIRSUFFIX/$PRGNAM/libCollada.so
-install -v -m 0755 binaries/system/libenet.so.1 $PKG/usr/lib$LIBDIRSUFFIX/$PRGNAM/libenet.so.1
-install -v -m 0755 binaries/system/libmozjs-ps-release.so \
-  $PKG/usr/lib$LIBDIRSUFFIX/$PRGNAM/libmozjs-ps-release.so
-install -v -m 0755 binaries/system/libnvcore.so $PKG/usr/lib$LIBDIRSUFFIX/$PRGNAM/libnvcore.so
-install -v -m 0755 binaries/system/libnvimage.so $PKG/usr/lib$LIBDIRSUFFIX/$PRGNAM/libnvimage.so
-install -v -m 0755 binaries/system/libnvmath.so $PKG/usr/lib$LIBDIRSUFFIX/$PRGNAM/libnvmath.so
-install -v -m 0755 binaries/system/libnvtt.so $PKG/usr/lib$LIBDIRSUFFIX/$PRGNAM/libnvtt.so
 install -v -m 0755 binaries/system/libAtlasUI.so $PKG/usr/lib$LIBDIRSUFFIX/$PRGNAM/libAtlasUI.so
+
+# install -v -m 0755 binaries/system/libmozjs185-ps-release.so.1.0 \
+#     $PKG/usr/lib$LIBDIRSUFFIX/$PRGNAM/libmozjs185-ps-release.so.1.0
+# install -v -m 0755 binaries/system/libnvcore.so $PKG/usr/lib$LIBDIRSUFFIX/$PRGNAM/libnvcore.so
+# install -v -m 0755 binaries/system/libnvimage.so $PKG/usr/lib$LIBDIRSUFFIX/$PRGNAM/libnvimage.so
+# install -v -m 0755 binaries/system/libnvmath.so $PKG/usr/lib$LIBDIRSUFFIX/$PRGNAM/libnvmath.so
+# install -v -m 0755 binaries/system/libnvtt.so $PKG/usr/lib$LIBDIRSUFFIX/$PRGNAM/libnvtt.so
+
+mkdir -p $PKG/usr/share/0ad
+cp -r binaries/data/* $PKG/usr/share/0ad
 
 mkdir -p $PKG/usr/share/applications
 install -v -m 0644 build/resources/0ad.desktop \
@@ -113,19 +117,6 @@ install -v -m 0644 build/resources/0ad.desktop \
 
 mkdir -p $PKG/usr/share/pixmaps
 install -v -m 0644 build/resources/0ad.png $PKG/usr/share/pixmaps/0ad.png
-
-mkdir -p $PKG/usr/share/0ad
-
-cd $TMP
-tar xvf $CWD/$PRGNAM-$VERSION-alpha-unix-data.tar.xz
-cd $PRGNAM-$VERSION-alpha
-chown -R root:root .
-find . \
- \( -perm 777 -o -perm 775 -o -perm 711 -o -perm 555 -o -perm 511 \) \
- -exec chmod 755 {} \; -o \
- \( -perm 666 -o -perm 664 -o -perm 600 -o -perm 444 -o -perm 440 -o -perm 400 \) \
- -exec chmod 644 {} \;
-mv binaries/data/* $PKG/usr/share/0ad/
 
 find $PKG | xargs file | grep -e "executable" -e "shared object" | grep ELF \
   | cut -f 1 -d : | xargs strip --strip-unneeded 2> /dev/null || true
@@ -141,6 +132,7 @@ cat $CWD/doinst.sh > $PKG/install/doinst.sh
 
 cd $PKG
 /sbin/makepkg -l y -c n $OUTPUT/$PRGNAM-$VERSION-$ARCH-$BUILD$TAG.${PKGTYPE:-tgz}
+/usr/bin/gpg --armor --detach-sign $OUTPUT/$PRGNAM-$VERSION-$ARCH-$BUILD$TAG.${PKGTYPE:-tgz}
 
 echo "Cleaning up build directory"
-cd $CWD ; rm -rf $TMP
+cd $TMP ; rm -rf $PRGNAM-$VERSION-alpha $PKG

@@ -24,10 +24,10 @@
 # YOUR DATA IS DESTROYED, YOUR HOUSE BURNS DOWN OR YOUR DOG RUNS OFF.
 
 PRGNAM=kipi-plugins
-VERSION=${VERSION:-1.9.0}
-BUILD=${BUILD:-3}
+VERSION=1.9.0
+BUILD=1
 TAG=${TAG:-_wls}
-NUMJOBS=${NUMJOBS:--j1}
+NUMJOBS=${NUMJOBS:--j4}
 
 if [ -z "$ARCH" ]; then
   case "$( uname -m )" in
@@ -38,7 +38,7 @@ if [ -z "$ARCH" ]; then
 fi
 
 CWD=$(pwd)
-TMP=${TMP:-/tmp/wls}
+TMP=${TMP:-/tmp/wlsbuild}
 PKG=$TMP/package-$PRGNAM
 OUTPUT=${OUTPUT:-/tmp}
 DOCS="AUTHORS ChangeLog COPY* HACKING INSTALL NEWS README TODO"
@@ -75,7 +75,8 @@ find . \
 
 mkdir -p build
 cd build
-  LDFLAGS=" -L/usr/lib${LIBDIRSUFFIX} -L/lib${LIBDIRSUFFIX}" cmake \
+  LDFLAGS=" -L/usr/lib${LIBDIRSUFFIX} -L/lib${LIBDIRSUFFIX}" \
+  cmake .. \
   -DCMAKE_C_FLAGS="$SLKCFLAGS" \
   -DCMAKE_CXX_FLAGS="$SLKCFLAGS" \
   -DCMAKE_BUILD_TYPE="Release" \
@@ -84,8 +85,7 @@ cd build
   -DINSTALL_DOC_DIR=doc/$PRGNAM-$VERSION \
   -DBUILD_SHARED_LIBS=ON \
   -DLIB_SUFFIX=$LIBDIRSUFFIX \
-  -DLIB_INSTALL_DIR=/usr/lib$LIBDIRSUFFIX \
-  ..
+  -DLIB_INSTALL_DIR=/usr/lib$LIBDIRSUFFIX
 
   make $NUMJOBS
   make DESTDIR=$PKG install

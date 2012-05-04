@@ -1,5 +1,7 @@
+geoclue
+glib-networking
 icu4c
 libsoup
 pyxdg
 vala
-webkit
+webkitgtk

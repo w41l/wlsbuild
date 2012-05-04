@@ -24,10 +24,10 @@
 # YOUR DATA IS DESTROYED, YOUR HOUSE BURNS DOWN OR YOUR DOG RUNS OFF.
 
 PRGNAM=umplayer
-VERSION=${VERSION:-0.97}
-SVN_REVISION=175
+VERSION=0.97
+svn_revision=180
 extra=""
-BUILD=${BUILD:-1}
+BUILD=1
 TAG=${TAG:-_wls}
 NUMJOBS=${NUMJOBS:--j4}
 
@@ -40,8 +40,8 @@ if [ -z "$ARCH" ]; then
 fi
 
 CWD=$(pwd)
-TMP=${TMP:-/tmp/wls}
-PKG=$TMP/package-$PRGNAM
+WRK=${WRK:-/tmp/wlsbuild}
+PKG=$WRK/package-$PRGNAM
 OUTPUT=${OUTPUT:-/tmp}
 DOCS="*.txt"
 
@@ -62,13 +62,13 @@ fi
 set -e
 
 rm -rf $PKG
-mkdir -p $TMP $PKG $OUTPUT
-cd $TMP
-rm -rf $PRGNAM-r${SVN_REVISION}
-tar xvf $CWD/$PRGNAM-r${SVN_REVISION}.tar.xz
-cd $PRGNAM-r${SVN_REVISION}
+mkdir -p $WRK $PKG $OUTPUT
+cd $WRK
+rm -rf $PRGNAM-r${svn_revision}
+tar xvf $CWD/$PRGNAM-r${svn_revision}.tar.xz
+cd $PRGNAM-r${svn_revision}
 # Update SVN revision info
-NEW_REVISION="#define SVN_REVISION \"SVN-r${SVN_REVISION}${extra}\""
+NEW_REVISION="#define SVN_REVISION \"SVN-r${svn_revision}${extra}\""
 echo "$NEW_REVISION" > src/svn_revision.h
 
 chown -R root:root .
@@ -112,7 +112,7 @@ cat $CWD/slack-desc > $PKG/install/slack-desc
 cat $CWD/doinst.sh > $PKG/install/doinst.sh
 
 cd $PKG
-/sbin/makepkg -l y -c n $OUTPUT/$PRGNAM-${VERSION}_r${SVN_REVISION}-$ARCH-$BUILD$TAG.${PKGTYPE:-tgz}
+/sbin/makepkg -l y -c n $OUTPUT/$PRGNAM-${VERSION}_r${svn_revision}-$ARCH-$BUILD$TAG.${PKGTYPE:-tgz}
 
 echo "Cleaning up build directory"
-cd $TMP ; rm -rf $PRGNAM-r${SVN_REVISION} $PKG
+cd $WRK ; rm -rf $PRGNAM-r${svn_revision} $PKG

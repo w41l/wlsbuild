@@ -23,8 +23,8 @@
 # ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 PRGNAM=python-xlib
-VERSION=${VERSION:-0.15rc1}
-BUILD=${BUILD:-1}
+VERSION=0.15rc1
+BUILD=1
 TAG=${TAG:-_wls}
 
 # Automatically determine the architecture we're building on:
@@ -38,7 +38,7 @@ if [ -z "$ARCH" ]; then
 fi
 
 CWD=$(pwd)
-TMP=${TMP:-/tmp/wls}
+TMP=${TMP:-/tmp/wlsbuild}
 PKG=$TMP/package-$PRGNAM
 OUTPUT=${OUTPUT:-/tmp}
 

@@ -1,5 +1,4 @@
 GConf
-ORBit2
-icu4c
+json-glib
 libsoup
 webkitgtk

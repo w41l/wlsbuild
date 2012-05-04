@@ -1,0 +1,57 @@
+#!/bin/sh
+
+DNSCRYPT=/usr/sbin/dnscrypt-proxy
+LISTENIP="127.0.0.1"
+PIDFILE=/var/run/dnscrypt.pid
+
+# Make sure we have dnscrypt-proxy executable
+[ -x $DNSCRYPT ] || exit 0
+
+# start service
+dnscrypt_start() {
+  echo -n "Starting DNSCrypt Proxy Service: "
+  $DNSCRYPT -a $LISTENIP -p $PIDFILE -d
+  echo "started"
+  echo "Don't forget to set your dns to 127.0.0.1."
+}
+
+# stop service
+dnscrypt_stop() {
+  echo -n "Stopping DNSCrypt Proxy Service: "
+  if [ -f $PIDFILE ]; then
+    kill -9 `cat $PIDFILE`
+    rm -f $PIDFILE
+  fi
+  # Just to make sure daemon has been killed
+  killall -q -9 dnscrypt-proxy
+  echo "stopped"
+  echo "Don't forget to restore your dns configuration."
+}
+
+# service status
+dnscrypt_status() {
+  if ps acx | grep -q "dnscrypt-proxy" ; then
+     echo "DNSCrypt Proxy is running."
+  else
+     echo "DNSCrypt Proxy not running."
+  fi;
+}
+
+case "$1" in
+'start')
+  dnscrypt_start
+  ;;
+'stop')
+  dnscrypt_stop
+  ;;
+'restart')
+  dnscrypt_stop
+  dnscrypt_start
+  ;;
+'status')
+  dnscrypt_status
+  ;;
+*)
+  echo "Usage: $0 start|stop|restart|status"
+  ;;
+esac

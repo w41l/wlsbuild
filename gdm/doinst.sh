@@ -28,8 +28,8 @@ config etc/X11/gdm/PostSession/Default.new
 config etc/X11/gdm/Init/Default.new
 
 # update rarian database
-if [ -x usr/bin/rarian-sk-update ]; then
-  usr/bin/rarian-sk-update 1> /dev/null 2> /dev/null
+if [ -x /usr/bin/rarian-sk-update ]; then
+  /usr/bin/rarian-sk-update 1> /dev/null 2> /dev/null
 fi
 
 if [ -x /usr/bin/update-desktop-database ]; then

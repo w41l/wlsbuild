@@ -1,0 +1,153 @@
+*** ./src/rpc_soc.c.ORIG	Wed Oct 26 18:02:55 2011
+--- ./src/rpc_soc.c	Wed Oct 26 18:02:55 2011
+***************
+*** 519,524 ****
+--- 519,525 ----
+   * Create the client des authentication object. Obsoleted by
+   * authdes_seccreate().
+   */
++ #if 0
+  AUTH *
+  authdes_create(servername, window, syncaddr, ckey)
+  	char *servername;		/* network name of server */
+***************
+*** 546,551 ****
+--- 547,553 ----
+  	dummy = authdes_seccreate(servername, window, NULL, ckey);
+  	return (dummy);
+  }
++ #endif
+  
+  /*
+   * Create a client handle for a unix connection. Obsoleted by clnt_vc_create()
+*** ./src/Makefile.in.ORIG	Wed Oct 26 18:02:55 2011
+--- ./src/Makefile.in	Wed Oct 26 18:02:55 2011
+***************
+*** 81,88 ****
+  	rpc_commondata.c rpc_callmsg.c rpc_generic.c rpc_soc.c \
+  	rpcb_clnt.c rpcb_prot.c rpcb_st_xdr.c svc.c svc_auth.c \
+  	svc_dg.c svc_auth_unix.c svc_generic.c svc_raw.c svc_run.c \
+! 	svc_simple.c svc_vc.c getpeereid.c auth_time.c auth_des.c \
+! 	authdes_prot.c des_crypt.c xdr.c xdr_rec.c xdr_array.c \
+  	xdr_float.c xdr_mem.c xdr_reference.c xdr_stdio.c auth_gss.c \
+  	authgss_prot.c svc_auth_gss.c svc_auth_none.c
+  @GSS_TRUE@am__objects_1 = libtirpc_la-auth_gss.lo \
+--- 81,88 ----
+  	rpc_commondata.c rpc_callmsg.c rpc_generic.c rpc_soc.c \
+  	rpcb_clnt.c rpcb_prot.c rpcb_st_xdr.c svc.c svc_auth.c \
+  	svc_dg.c svc_auth_unix.c svc_generic.c svc_raw.c svc_run.c \
+! 	svc_simple.c svc_vc.c getpeereid.c auth_time.c  \
+! 	  xdr.c xdr_rec.c xdr_array.c \
+  	xdr_float.c xdr_mem.c xdr_reference.c xdr_stdio.c auth_gss.c \
+  	authgss_prot.c svc_auth_gss.c svc_auth_none.c
+  @GSS_TRUE@am__objects_1 = libtirpc_la-auth_gss.lo \
+***************
+*** 110,117 ****
+  	libtirpc_la-svc_generic.lo libtirpc_la-svc_raw.lo \
+  	libtirpc_la-svc_run.lo libtirpc_la-svc_simple.lo \
+  	libtirpc_la-svc_vc.lo libtirpc_la-getpeereid.lo \
+! 	libtirpc_la-auth_time.lo libtirpc_la-auth_des.lo \
+! 	libtirpc_la-authdes_prot.lo libtirpc_la-des_crypt.lo \
+  	libtirpc_la-xdr.lo libtirpc_la-xdr_rec.lo \
+  	libtirpc_la-xdr_array.lo libtirpc_la-xdr_float.lo \
+  	libtirpc_la-xdr_mem.lo libtirpc_la-xdr_reference.lo \
+--- 110,117 ----
+  	libtirpc_la-svc_generic.lo libtirpc_la-svc_raw.lo \
+  	libtirpc_la-svc_run.lo libtirpc_la-svc_simple.lo \
+  	libtirpc_la-svc_vc.lo libtirpc_la-getpeereid.lo \
+! 	libtirpc_la-auth_time.lo  \
+! 	  \
+  	libtirpc_la-xdr.lo libtirpc_la-xdr_rec.lo \
+  	libtirpc_la-xdr_array.lo libtirpc_la-xdr_float.lo \
+  	libtirpc_la-xdr_mem.lo libtirpc_la-xdr_reference.lo \
+***************
+*** 291,297 ****
+  # release number of your package. This is an abuse that only fosters
+  # misunderstanding of the purpose of library versions."
+  #
+! libtirpc_la_LDFLAGS = -lnsl -lpthread -version-info 1:10:0 \
+  	$(am__append_2)
+  libtirpc_la_SOURCES = auth_none.c auth_unix.c authunix_prot.c \
+  	bindresvport.c clnt_bcast.c clnt_dg.c clnt_generic.c \
+--- 291,297 ----
+  # release number of your package. This is an abuse that only fosters
+  # misunderstanding of the purpose of library versions."
+  #
+! libtirpc_la_LDFLAGS =  -lpthread -version-info 1:10:0 \
+  	$(am__append_2)
+  libtirpc_la_SOURCES = auth_none.c auth_unix.c authunix_prot.c \
+  	bindresvport.c clnt_bcast.c clnt_dg.c clnt_generic.c \
+***************
+*** 302,309 ****
+  	rpc_commondata.c rpc_callmsg.c rpc_generic.c rpc_soc.c \
+  	rpcb_clnt.c rpcb_prot.c rpcb_st_xdr.c svc.c svc_auth.c \
+  	svc_dg.c svc_auth_unix.c svc_generic.c svc_raw.c svc_run.c \
+! 	svc_simple.c svc_vc.c getpeereid.c auth_time.c auth_des.c \
+! 	authdes_prot.c des_crypt.c xdr.c xdr_rec.c xdr_array.c \
+  	xdr_float.c xdr_mem.c xdr_reference.c xdr_stdio.c \
+  	$(am__append_1)
+  @GSS_TRUE@libtirpc_la_CFLAGS = -DHAVE_RPCSEC_GSS $(GSSGLUE_CFLAGS)
+--- 302,309 ----
+  	rpc_commondata.c rpc_callmsg.c rpc_generic.c rpc_soc.c \
+  	rpcb_clnt.c rpcb_prot.c rpcb_st_xdr.c svc.c svc_auth.c \
+  	svc_dg.c svc_auth_unix.c svc_generic.c svc_raw.c svc_run.c \
+! 	svc_simple.c svc_vc.c getpeereid.c auth_time.c  \
+! 	  xdr.c xdr_rec.c xdr_array.c \
+  	xdr_float.c xdr_mem.c xdr_reference.c xdr_stdio.c \
+  	$(am__append_1)
+  @GSS_TRUE@libtirpc_la_CFLAGS = -DHAVE_RPCSEC_GSS $(GSSGLUE_CFLAGS)
+***************
+*** 753,778 ****
+  @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+  @am__fastdepCC_FALSE@	$(LIBTOOL)  --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libtirpc_la_CFLAGS) $(CFLAGS) -c -o libtirpc_la-auth_time.lo `test -f 'auth_time.c' || echo '$(srcdir)/'`auth_time.c
+  
+! libtirpc_la-auth_des.lo: auth_des.c
+! @am__fastdepCC_TRUE@	$(LIBTOOL)  --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libtirpc_la_CFLAGS) $(CFLAGS) -MT libtirpc_la-auth_des.lo -MD -MP -MF $(DEPDIR)/libtirpc_la-auth_des.Tpo -c -o libtirpc_la-auth_des.lo `test -f 'auth_des.c' || echo '$(srcdir)/'`auth_des.c
+  @am__fastdepCC_TRUE@	$(am__mv) $(DEPDIR)/libtirpc_la-auth_des.Tpo $(DEPDIR)/libtirpc_la-auth_des.Plo
+! @AMDEP_TRUE@@am__fastdepCC_FALSE@	source='auth_des.c' object='libtirpc_la-auth_des.lo' libtool=yes @AMDEPBACKSLASH@
+  @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+! @am__fastdepCC_FALSE@	$(LIBTOOL)  --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libtirpc_la_CFLAGS) $(CFLAGS) -c -o libtirpc_la-auth_des.lo `test -f 'auth_des.c' || echo '$(srcdir)/'`auth_des.c
+  
+! libtirpc_la-authdes_prot.lo: authdes_prot.c
+! @am__fastdepCC_TRUE@	$(LIBTOOL)  --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libtirpc_la_CFLAGS) $(CFLAGS) -MT libtirpc_la-authdes_prot.lo -MD -MP -MF $(DEPDIR)/libtirpc_la-authdes_prot.Tpo -c -o libtirpc_la-authdes_prot.lo `test -f 'authdes_prot.c' || echo '$(srcdir)/'`authdes_prot.c
+  @am__fastdepCC_TRUE@	$(am__mv) $(DEPDIR)/libtirpc_la-authdes_prot.Tpo $(DEPDIR)/libtirpc_la-authdes_prot.Plo
+! @AMDEP_TRUE@@am__fastdepCC_FALSE@	source='authdes_prot.c' object='libtirpc_la-authdes_prot.lo' libtool=yes @AMDEPBACKSLASH@
+  @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+! @am__fastdepCC_FALSE@	$(LIBTOOL)  --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libtirpc_la_CFLAGS) $(CFLAGS) -c -o libtirpc_la-authdes_prot.lo `test -f 'authdes_prot.c' || echo '$(srcdir)/'`authdes_prot.c
+  
+! libtirpc_la-des_crypt.lo: des_crypt.c
+! @am__fastdepCC_TRUE@	$(LIBTOOL)  --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libtirpc_la_CFLAGS) $(CFLAGS) -MT libtirpc_la-des_crypt.lo -MD -MP -MF $(DEPDIR)/libtirpc_la-des_crypt.Tpo -c -o libtirpc_la-des_crypt.lo `test -f 'des_crypt.c' || echo '$(srcdir)/'`des_crypt.c
+  @am__fastdepCC_TRUE@	$(am__mv) $(DEPDIR)/libtirpc_la-des_crypt.Tpo $(DEPDIR)/libtirpc_la-des_crypt.Plo
+! @AMDEP_TRUE@@am__fastdepCC_FALSE@	source='des_crypt.c' object='libtirpc_la-des_crypt.lo' libtool=yes @AMDEPBACKSLASH@
+  @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+! @am__fastdepCC_FALSE@	$(LIBTOOL)  --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libtirpc_la_CFLAGS) $(CFLAGS) -c -o libtirpc_la-des_crypt.lo `test -f 'des_crypt.c' || echo '$(srcdir)/'`des_crypt.c
+  
+  libtirpc_la-xdr.lo: xdr.c
+  @am__fastdepCC_TRUE@	$(LIBTOOL)  --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libtirpc_la_CFLAGS) $(CFLAGS) -MT libtirpc_la-xdr.lo -MD -MP -MF $(DEPDIR)/libtirpc_la-xdr.Tpo -c -o libtirpc_la-xdr.lo `test -f 'xdr.c' || echo '$(srcdir)/'`xdr.c
+--- 753,778 ----
+  @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+  @am__fastdepCC_FALSE@	$(LIBTOOL)  --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libtirpc_la_CFLAGS) $(CFLAGS) -c -o libtirpc_la-auth_time.lo `test -f 'auth_time.c' || echo '$(srcdir)/'`auth_time.c
+  
+! : 
+! @am__fastdepCC_TRUE@	$(LIBTOOL)  --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libtirpc_la_CFLAGS) $(CFLAGS) -MT  -MD -MP -MF $(DEPDIR)/libtirpc_la-auth_des.Tpo -c -o  `test -f '' || echo '$(srcdir)/'`
+  @am__fastdepCC_TRUE@	$(am__mv) $(DEPDIR)/libtirpc_la-auth_des.Tpo $(DEPDIR)/libtirpc_la-auth_des.Plo
+! @AMDEP_TRUE@@am__fastdepCC_FALSE@	source='' object='' libtool=yes @AMDEPBACKSLASH@
+  @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+! @am__fastdepCC_FALSE@	$(LIBTOOL)  --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libtirpc_la_CFLAGS) $(CFLAGS) -c -o  `test -f '' || echo '$(srcdir)/'`
+  
+! : 
+! @am__fastdepCC_TRUE@	$(LIBTOOL)  --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libtirpc_la_CFLAGS) $(CFLAGS) -MT  -MD -MP -MF $(DEPDIR)/libtirpc_la-authdes_prot.Tpo -c -o  `test -f '' || echo '$(srcdir)/'`
+  @am__fastdepCC_TRUE@	$(am__mv) $(DEPDIR)/libtirpc_la-authdes_prot.Tpo $(DEPDIR)/libtirpc_la-authdes_prot.Plo
+! @AMDEP_TRUE@@am__fastdepCC_FALSE@	source='' object='' libtool=yes @AMDEPBACKSLASH@
+  @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+! @am__fastdepCC_FALSE@	$(LIBTOOL)  --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libtirpc_la_CFLAGS) $(CFLAGS) -c -o  `test -f '' || echo '$(srcdir)/'`
+  
+! : 
+! @am__fastdepCC_TRUE@	$(LIBTOOL)  --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libtirpc_la_CFLAGS) $(CFLAGS) -MT  -MD -MP -MF $(DEPDIR)/libtirpc_la-des_crypt.Tpo -c -o  `test -f '' || echo '$(srcdir)/'`
+  @am__fastdepCC_TRUE@	$(am__mv) $(DEPDIR)/libtirpc_la-des_crypt.Tpo $(DEPDIR)/libtirpc_la-des_crypt.Plo
+! @AMDEP_TRUE@@am__fastdepCC_FALSE@	source='' object='' libtool=yes @AMDEPBACKSLASH@
+  @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+! @am__fastdepCC_FALSE@	$(LIBTOOL)  --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libtirpc_la_CFLAGS) $(CFLAGS) -c -o  `test -f '' || echo '$(srcdir)/'`
+  
+  libtirpc_la-xdr.lo: xdr.c
+  @am__fastdepCC_TRUE@	$(LIBTOOL)  --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libtirpc_la_CFLAGS) $(CFLAGS) -MT libtirpc_la-xdr.lo -MD -MP -MF $(DEPDIR)/libtirpc_la-xdr.Tpo -c -o libtirpc_la-xdr.lo `test -f 'xdr.c' || echo '$(srcdir)/'`xdr.c

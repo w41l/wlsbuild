@@ -1,1 +1,12 @@
+avahi
+GConf
+gnome-panel
+gnome-vfs
+libbonobo
+libbonoboui
+libcanberra
+libgnome
+libgnomecanvas
+ORBit2
 pam
+upower

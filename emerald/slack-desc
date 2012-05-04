@@ -1,0 +1,19 @@
+# HOW TO EDIT THIS FILE:
+# The "handy ruler" below makes it easier to edit a package description.  Line
+# up the first '|' above the ':' following the base package name, and the '|'
+# on the right side marks the last column you can put a character in.  You must
+# make exactly 11 lines for the formatting to be correct.  It's also
+# customary to leave one space after the ':'.
+
+       |-----handy-ruler------------------------------------------------------|
+emerald: emerald (OpenGL window and compositing manager)
+emerald:
+emerald: The Emerald Window Decorator is a custom window decorator shipped with
+emerald: Compiz Fusion that allows for theming and full composite window
+emerald: decorations with the use of engines. Emerald allows for all sorts of
+emerald: different configurations and layouts of buttons, look, title bars and
+emerald: frames. Emerald Window Decorator is completely independent of any
+emerald: desktop, and you specify your own themes to use for it. The Decoration
+emerald: plugin must be enabled in order for Emerald Window Decorator to function.
+emerald: URL: http://www.compiz.org/
+emerald: Packaged by: Widya Walesa <walecha99@gmail.com>

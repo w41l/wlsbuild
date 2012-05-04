@@ -1,0 +1,7 @@
+PRGNAM="spatialite-tools"
+VERSION="2.3.1"
+HOMEPAGE="http://www.gaia-gis.it/spatialite/index.html"
+DOWNLOAD="http://www.gaia-gis.it/spatialite/spatialite-tools-2.3.1.tar.gz"
+MD5SUM="40895fd4bf7a21b3629c9face258dcd6"
+DOWNLOAD_x86_64=""
+MD5SUM_x86_64=""

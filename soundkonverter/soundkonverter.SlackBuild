@@ -2,7 +2,7 @@
 
 # Slackware build script for soundkonverter
 
-# Copyright 2010  Widya Walesa <walecha99@gmail.com>
+# Copyright 2010 Widya Walesa <walecha99@gmail.com>
 # All rights reserved.
 #
 # Redistribution and use of this script, with or without modification, is
@@ -24,8 +24,8 @@
 # YOUR DATA IS DESTROYED, YOUR HOUSE BURNS DOWN OR YOUR DOG RUNS OFF.
 
 PRGNAM=soundkonverter
-VERSION=${VERSION:-1.1.0}
-BUILD=${BUILD:-1}
+VERSION=1.4.0
+BUILD=1
 TAG=${TAG:-_wls}
 NUMJOBS=${NUMJOBS:--j3}
 
@@ -38,7 +38,7 @@ if [ -z "$ARCH" ]; then
 fi
 
 CWD=$(pwd)
-WRK=${WRK:-$CWD/wlsbuild}
+WRK=${WRK:-/tmp/wlsbuild}
 PKG=$WRK/package-$PRGNAM
 OUTPUT=${OUTPUT:-/tmp}
 DOCS="CHANGELOG INSTALL README TODO"
@@ -84,7 +84,7 @@ cmake .. \
   -DLIB_INSTALL_DIR:PATH=/usr/lib${LIBDIRSUFFIX} \
   -DLIB_SUFFIX=${LIBDIRSUFFIX}
 
-make $NUMJOBS VERBOSE=1
+make $NUMJOBS
 make install DESTDIR=$PKG
 cd ..
 
@@ -103,4 +103,4 @@ cd $PKG
 /sbin/makepkg -l y -c n $OUTPUT/$PRGNAM-$VERSION-$ARCH-$BUILD$TAG.${PKGTYPE:-tgz}
 
 echo "Cleaning up build directory"
-cd $CWD ; rm -rf $WRK
+cd $WRK ; rm -rf $PRGNAM-$VERSION $PKG

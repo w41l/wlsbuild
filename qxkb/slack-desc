@@ -1,0 +1,19 @@
+# HOW TO EDIT THIS FILE:
+# The "handy ruler" below makes it easier to edit a package description.  Line
+# up the first '|' above the ':' following the base package name, and the '|'
+# on the right side marks the last column you can put a character in.  You must
+# make exactly 11 lines for the formatting to be correct.  It's also
+# customary to leave one space after the ':'.
+
+    |-----handy-ruler------------------------------------------------------|
+qxkb: qxkb (Qt4 Keypad Switch)
+qxkb:
+qxkb: qxkb - the further development of the project axkb. In connection with
+qxkb: project closure antico, it has been decided to rename the project and
+qxkb: to develop separately as separate application. Outwardly repeats kxkb.
+qxkb:
+qxkb: URL: http://code.google.com/p/qxkb/
+qxkb:
+qxkb:
+qxkb:
+qxkb: http://www.walecha.net/

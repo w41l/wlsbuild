@@ -2,7 +2,7 @@
 
 # Slackware build script for gst-plugins-gl
 
-# Copyright 2011  Widya Walesa <walecha99@gmail.com>
+# Copyright 2011 Widya Walesa <walecha99@gmail.com>
 # All rights reserved.
 #
 # Redistribution and use of this script, with or without modification, is
@@ -24,8 +24,8 @@
 # YOUR DATA IS DESTROYED, YOUR HOUSE BURNS DOWN OR YOUR DOG RUNS OFF.
 
 PRGNAM=gst-plugins-gl
-VERSION=${VERSION:-0.10.2}
-BUILD=${BUILD:-1}
+VERSION=0.10.2
+BUILD=1
 TAG=${TAG:-_wls}
 NUMJOBS=${NUMJOBS:--j4}
 
@@ -38,7 +38,7 @@ if [ -z "$ARCH" ]; then
 fi
 
 CWD=$(pwd)
-TMP=${TMP:-/tmp/wls}
+TMP=${TMP:-/tmp/wlsbuild}
 PKG=$TMP/package-$PRGNAM
 OUTPUT=${OUTPUT:-/tmp}
 DOCS="ABOUT-NLS AUTHORS ChangeLog COPY* INSTALL NEWS README RELEASE REQUIREMENTS"
@@ -86,8 +86,7 @@ CXXFLAGS="$SLKCFLAGS" \
   --localstatedir=/var/lib \
   --disable-static --enable-shared \
   --disable-gtk-doc \
-  --disable-valgrind \
-  --disable-examples \
+  --disable-debug
 
 make $NUMJOBS
 make DESTDIR=$PKG install
@@ -96,15 +95,12 @@ find $PKG | xargs file | grep -e "executable" -e "shared object" | grep ELF \
   | cut -f 1 -d : | xargs strip --strip-unneeded 2> /dev/null || true
 
 mkdir -p $PKG/usr/doc/$PRGNAM-$VERSION
-( cd $PKG/usr/doc/$PRGNAM-$VERSION;
-  ln -s /usr/share/gtk-doc/html/gst-plugins-gl-plugins-0.10 html-gst-plugins-gl-plugins-0.10;
-)
 cp -a $DOCS $PKG/usr/doc/$PRGNAM-$VERSION
 cat $CWD/$PRGNAM.SlackBuild > $PKG/usr/doc/$PRGNAM-$VERSION/$PRGNAM.SlackBuild
 
 mkdir -p $PKG/install
 cat $CWD/slack-desc > $PKG/install/slack-desc
-cat $CWD/doinst.sh > $PKG/install/doinst.sh
+cat $CWD/slack-required > $PKG/install/slack-required
 
 cd $PKG
 /sbin/makepkg -l y -c n $OUTPUT/$PRGNAM-$VERSION-$ARCH-$BUILD$TAG.${PKGTYPE:-tgz}

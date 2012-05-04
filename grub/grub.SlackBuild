@@ -24,8 +24,8 @@
 # YOUR DATA IS DESTROYED, YOUR HOUSE BURNS DOWN OR YOUR DOG RUNS OFF.
 
 PRGNAM=grub
-VERSION=${VERSION:-1.98}
-BUILD=${BUILD:-2}
+VERSION=1.99
+BUILD=1
 TAG=${TAG:-_wls}
 NUMJOBS=${NUMJOBS:--j4}
 
@@ -38,7 +38,7 @@ if [ -z "$ARCH" ]; then
 fi
 
 CWD=$(pwd)
-TMP=${TMP:-/tmp/wls}
+TMP=${TMP:-/tmp/wlsbuild}
 PKG=$TMP/package-$PRGNAM
 OUTPUT=${OUTPUT:-/tmp}
 DOCS="AUTHORS ChangeLog COPY* INSTALL NEWS README THANKS TODO"
@@ -63,7 +63,7 @@ rm -rf $PKG
 mkdir -p $TMP $PKG $OUTPUT
 cd $TMP
 rm -rf $PRGNAM-$VERSION
-tar xvf $CWD/$PRGNAM-$VERSION.tar.gz
+tar xvf $CWD/$PRGNAM-$VERSION.tar.xz
 cd $PRGNAM-$VERSION
 chown -R root:root .
 find . \
@@ -82,7 +82,8 @@ CXXFLAGS="$SLKCFLAGS" \
   --libdir=/lib$LIBDIRSUFFIX --includedir=/usr/include \
   --mandir=/usr/man --infodir=/usr/info \
   --sysconfdir=/etc --docdir=/usr/doc/$PRGNAM-$VERSION \
-  --datarootdir=/usr/share --localstatedir=/var/lib \
+  --datarootdir=/usr/share \
+  --localstatedir=/var --sharedstatedir=/var/lib
 
 make $NUMJOBS
 make DESTDIR=$PKG install
@@ -96,6 +97,42 @@ mv $PKG/etc/grub.d/40_custom $PKG/etc/grub.d/40_custom.new
 # copying grub.cfg example
 mkdir -p  $PKG/usr/doc/$PRGNAM-$VERSION
 cat docs/grub.cfg > $PKG/usr/doc/$PRGNAM-$VERSION/grub.cfg
+
+# Install os-prober
+cd $TMP
+rm -rf os-prober
+tar xvf $CWD/os-prober_1.49.tar.gz
+cd os-prober
+
+chown -R root:root .
+find . \
+ \( -perm 777 -o -perm 775 -o -perm 711 -o -perm 555 -o -perm 511 \) \
+ -exec chmod 755 {} \; -o \
+ \( -perm 666 -o -perm 664 -o -perm 600 -o -perm 444 -o -perm 440 -o -perm 400 \) \
+ -exec chmod 644 {} \;
+
+make
+mkdir -p $PKG/usr/bin
+cp -p os-prober $PKG/usr/bin
+cp -p linux-boot-prober $PKG/usr/bin
+mkdir -p $PKG/usr/lib${LIBDIRSUFFIX}/os-prober
+cp -p newns $PKG/usr/lib${LIBDIRSUFFIX}/os-prober
+for probes in os-probes os-probes/mounted os-probes/init \
+    linux-boot-probes linux-boot-probes/mounted; do \
+    mkdir -p $PKG/usr/lib${LIBDIRSUFFIX}/$probes;
+    cp -p $probes/common/* $PKG/usr/lib${LIBDIRSUFFIX}/$probes;
+    if [ -e "$probes/x86" ]; then
+	cp -p $probes/x86/* $PKG/usr/lib${LIBDIRSUFFIX}/$probes;
+    fi; \
+done
+mkdir -p $PKG/usr/share/os-prober
+cp -p common.sh $PKG/usr/share/os-prober
+mkdir -p $PKG/var/lib/os-prober/mount
+
+cd $TMP/$PRGNAM-$VERSION
+
+find $PKG | xargs file | grep -e "executable" -e "shared object" | grep ELF \
+  | cut -f 1 -d : | xargs strip --strip-unneeded 2> /dev/null || true
 
 rm -rf $PKG/usr/man
 
@@ -119,4 +156,4 @@ cd $PKG
 /sbin/makepkg -l y -c n $OUTPUT/$PRGNAM-$VERSION-$ARCH-$BUILD$TAG.${PKGTYPE:-tgz}
 
 echo "Cleaning up build directory"
-rm -rf $TMP/$PRGNAM-$VERSION $PKG
+cd $TMP ; rm -rf $PRGNAM-$VERSION $PKG

@@ -1,0 +1,19 @@
+# HOW TO EDIT THIS FILE:
+# The "handy ruler" below makes it easier to edit a package description.  Line
+# up the first '|' above the ':' following the base package name, and the '|'
+# on the right side marks the last column you can put a character in.  You must
+# make exactly 11 lines for the formatting to be correct.  It's also
+# customary to leave one space after the ':'.
+
+                    |-----handy-ruler------------------------------------------------|
+xfce4-clipman-plugin: xfce4-clipman-plugin
+xfce4-clipman-plugin:
+xfce4-clipman-plugin: Clipman is a clipboard manager for Xfce. It keeps the clipboard
+xfce4-clipman-plugin: contents around while it is usually lost when you close an
+xfce4-clipman-plugin: application. It is able to handle text and images, and has a
+xfce4-clipman-plugin: feature to execute actions on specific text selections by matching
+xfce4-clipman-plugin: them against regular expressions.
+xfce4-clipman-plugin:
+xfce4-clipman-plugin: URL: http://goodies.xfce.org/projects/panel-plugins/xfce4-clipman-plugin
+xfce4-clipman-plugin:
+xfce4-clipman-plugin: http://www.walecha.net/

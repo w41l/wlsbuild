@@ -1,4 +1,6 @@
 a52dec
+gst-plugins-base
+gstreamer
 lame
 libmpeg2
 opencore-amr

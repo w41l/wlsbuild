@@ -1,0 +1,19 @@
+# HOW TO EDIT THIS FILE:
+# The "handy ruler" below makes it easier to edit a package description.  Line
+# up the first '|' above the ':' following the base package name, and the '|' on
+# the right side marks the last column you can put a character in.  You must make
+# exactly 11 lines for the formatting to be correct.  It's also customary to
+# leave one space after the ':'.
+
+      |-----handy-ruler------------------------------------------------------|
+e_dbus: e_dbus (E17 DBus Wrapper Library)
+e_dbus:
+e_dbus: E_Dbus is a set of wrappers around DBus APIs by third party, so they
+e_dbus: can be easily used by EFL applications, automatically providing
+e_dbus: Ecore/main loop integration, as well as Eina data types.
+e_dbus:
+e_dbus: URL: http://www.enlightenment.org/p.php?p=home
+e_dbus:
+e_dbus:
+e_dbus:
+e_dbus: http://www.walecha.net/

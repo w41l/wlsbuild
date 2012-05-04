@@ -1,0 +1,19 @@
+# HOW TO EDIT THIS FILE:
+# The "handy ruler" below makes it easier to edit a package description.  Line
+# up the first '|' above the ':' following the base package name, and the '|' on
+# the right side marks the last column you can put a character in.  You must make
+# exactly 11 lines for the formatting to be correct.  It's also customary to
+# leave one space after the ':'.
+
+          |-----handy-ruler---------------------------------------------------|
+libgssglue: libgssglue (Generic Security Services API)
+libgssglue:
+libgssglue: This library exports a gssapi interface, but doesn\'t implement any
+libgssglue: gssapi mechanisms itself; instead it calls gssapi routines in other
+libgssglue: libraries, depending on the mechanism.
+libgssglue:
+libgssglue: URL: http://www.citi.umich.edu/projects/nfsv4/linux/libgssglue/
+libgssglue:
+libgssglue:
+libgssglue:
+libgssglue: packaged by: Widya Walesa <walecha99@gmail.com>

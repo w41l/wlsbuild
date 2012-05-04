@@ -22,18 +22,18 @@
 
 
 KERNNAME=generic
-VERSION=${VERSION:-2.6.35.4}
-ARCH=${ARCH:-x86_64}
+VERSION=${VERSION:-3.0.8}
+ARCH=$( uname -m )
 KARCH=${KARCH:-x86}
 BUILD=${BUILD:-1}
 TAG=${TAG:-_wls}
 
-TMP=${TMP:-/tmp}
+WRK=${WRK:-/tmp/wlsbuild}
 CWD=$(pwd)
-PKG=$TMP/package-kernel
+PKG=$WRK/package-kernel
 
 rm -rf $PKG
-mkdir -p $TMP $PKG
+mkdir -p $WRK $PKG
 
 # First try to find the loot in the current dir, then look
 # in /usr/src/linux-$VERSION:
@@ -71,7 +71,7 @@ else
 fi
 
 cat << EOF
-Building kernel-$KERNNAME-${VERSION}-$ARCH-$BUILD.txz
+Building kernel-$KERNNAME-${VERSION}-$ARCH-${BUILD}$TAG.txz
 using these source files.  Please check and then hit 
 enter to make the package.
 
@@ -85,17 +85,18 @@ read junk;
 rm -rf $PKG
 mkdir -p $PKG
 mkdir -p $PKG/boot
-cp $KERNEL $PKG/boot/vmlinuz-$KERNNAME-${VERSION}
-( cd $PKG/boot ; ln -sf vmlinuz-$KERNNAME-${VERSION} vmlinuz )
-cp $SYSMAP $PKG/boot/System.map-$KERNNAME-${VERSION}
-( cd $PKG/boot ; ln -sf System.map-$KERNNAME-${VERSION} System.map )
-cp $CONFIG $PKG/boot/config-$KERNNAME-${VERSION}
-( cd $PKG/boot ; ln -sf config-$KERNNAME-${VERSION} config )
+cp $KERNEL $PKG/boot/vmlinuz-$KERNNAME-${VERSION}-wls
+( cd $PKG/boot ; ln -sf vmlinuz-$KERNNAME-${VERSION}-wls vmlinuz )
+cp $SYSMAP $PKG/boot/System.map-$KERNNAME-${VERSION}-wls
+( cd $PKG/boot ; ln -sf System.map-$KERNNAME-${VERSION}-wls System.map )
+cp $CONFIG $PKG/boot/config-$KERNNAME-${VERSION}-wls
+( cd $PKG/boot ; ln -sf config-$KERNNAME-${VERSION}-wls config )
 
 mkdir -p $PKG/install
 cat $CWD/slack-desc > $PKG/install/slack-desc
 
 # Build the package:
 cd $PKG
-/sbin/makepkg -l y -c n $TMP/kernel-$KERNNAME-${VERSION}-$ARCH-${BUILD}${TAG}.txz
+/sbin/makepkg -l y -c n /tmp/kernel-$KERNNAME-${VERSION}-$ARCH-${BUILD}${TAG}.txz
 
+cd $WRK ; rm -rf $PKG

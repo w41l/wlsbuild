@@ -1,0 +1,19 @@
+# HOW TO EDIT THIS FILE:
+# The "handy ruler" below makes it easier to edit a package description.  Line
+# up the first '|' above the ':' following the base package name, and the '|' on
+# the right side marks the last column you can put a character in.  You must make
+# exactly 11 lines for the formatting to be correct.  It's also customary to
+# leave one space after the ':'.
+
+     |-----handy-ruler---------------------------------------------------|
+byobu: byobu (GNU Screen Enhancement)
+byobu:
+byobu: Byobu is a Japanese term for decorative, multi-panel screens that
+byobu: serve as folding room dividers. As an open source project, Byobu is
+byobu: an elegant enhancement of the otherwise functional, plain,
+byobu: practical GNU Screen. Byobu includes an enhanced profile and
+byobu: configuration utilities for the GNU screen window manager, such as
+byobu: toggle-able system status notifications.
+byobu: URL: https://launchpad.net/byobu
+byobu:
+byobu: packaged by: Widya Walesa <walecha99@gmail.com>

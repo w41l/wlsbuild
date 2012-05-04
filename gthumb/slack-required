@@ -1,13 +1,8 @@
-brasero
-clutter
-clutter-gtk
-cogl
 GConf
-json-glib
-libcanberra
+gst-plugins-base
+gstreamer
+gthumb
 libgnome-keyring
 libopenraw
-libproxy
 libsoup
 ORBit2
-totem-pl-parser

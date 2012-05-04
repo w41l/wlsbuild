@@ -1,0 +1,19 @@
+# HOW TO EDIT THIS FILE:
+# The "handy ruler" below makes it easier to edit a package description.  Line
+# up the first '|' above the ':' following the base package name, and the '|'
+# on the right side marks the last column you can put a character in.  You must
+# make exactly 11 lines for the formatting to be correct.  It's also
+# customary to leave one space after the ':'.
+
+	     |-----handy-ruler------------------------------------------------------|
+librasterlite: librasterlite (Spatialite Raster Data Library)
+librasterlite:
+librasterlite: A library supporting Raster Data Sources within a SpatiaLite DB.
+librasterlite:
+librasterlite:
+librasterlite:
+librasterlite: URL: http://www.gaia-gis.it/spatialite/index.html
+librasterlite:
+librasterlite:
+librasterlite:
+librasterlite: http://www.walecha.net/

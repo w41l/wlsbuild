@@ -1,0 +1,19 @@
+# HOW TO EDIT THIS FILE:
+# The "handy ruler" below makes it easier to edit a package description.  Line
+# up the first '|' above the ':' following the base package name, and the '|' on
+# the right side marks the last column you can put a character in.  You must make
+# exactly 11 lines for the formatting to be correct.  It's also customary to
+# leave one space after the ':'.
+
+	  |-----handy-ruler------------------------------------------------------|
+pyargparse: pyargparse (Python Command Line Parsing)
+pyargparse:
+pyargparse: The argparse module makes it easy to write user-friendly command-line
+pyargparse: interfaces. The program defines what arguments it requires, and argparse
+pyargparse: will figure out how to parse those out of sys.argv. The argparse module
+pyargparse: also automatically generates help and usage messages and issues errors
+pyargparse: when users give the program invalid arguments.
+pyargparse:
+pyargparse: URL: http://code.google.com/p/argparse/
+pyargparse:
+pyargparse: Packager: Widya Walesa <http://www.walecha.net/>

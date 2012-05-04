@@ -2,7 +2,7 @@
 
 # Slackware build script for gtk-murrine-engine
 
-# Copyright 2010  Widya Walesa <walecha99@gmail.com>
+# Copyright 2010 Widya Walesa <walecha99@gmail.com>
 # All rights reserved.
 #
 # Redistribution and use of this script, with or without modification, is
@@ -24,10 +24,10 @@
 # YOUR DATA IS DESTROYED, YOUR HOUSE BURNS DOWN OR YOUR DOG RUNS OFF.
 
 PRGNAM=gtk-murrine-engine
-VERSION=0.98.1.1
-BUILD=${BUILD:-2}
+VERSION=0.98.2
+BUILD=1
 TAG=${TAG:-_wls}
-DOCS="AUTHORS COPY* ChangeLog CREDITS INSTALL MAINTAINERS NEWS README TODO"
+DOCS="AUTHORS COPYING COPYING.2.1 ChangeLog INSTALL NEWS README TODO"
 
 # Automatically determine the architecture we're building on:
 if [ -z "$ARCH" ]; then
@@ -40,7 +40,7 @@ if [ -z "$ARCH" ]; then
 fi
 
 CWD=$(pwd)
-TMP=${TMP:-/tmp/wls}
+TMP=${TMP:-/tmp/wlsbuild}
 PKG=$TMP/package-$PRGNAM
 OUTPUT=${OUTPUT:-/tmp}
 
@@ -75,7 +75,7 @@ find . \
 
 CFLAGS="$SLKCFLAGS" \
 CXXFLAGS="$SLKCFLAGS" \
-./autogen.sh \
+./configure \
   --build=$ARCH-slackware-linux --host=$ARCH-slackware-linux \
   --program-prefix= --program-suffix= \
   --prefix=/usr --exec-prefix=/usr \
@@ -83,7 +83,7 @@ CXXFLAGS="$SLKCFLAGS" \
   --libdir=/usr/lib$LIBDIRSUFFIX --includedir=/usr/include \
   --mandir=/usr/man --infodir=/usr/info \
   --sysconfdir=/etc --docdir=/usr/doc/$PRGNAM-$VERSION \
-  --localstatedir=/var/lib \
+  --localstatedir=/var --sharedstatedir=/var/lib \
   --disable-static --enable-shared \
   --enable-animation \
 

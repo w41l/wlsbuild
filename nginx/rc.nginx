@@ -1,0 +1,76 @@
+#!/bin/sh
+
+# Start/stop/restart the nginx:
+
+PATH=/sbin:/bin:/usr/sbin:/usr/bin:/usr/local/bin:/usr/local/sbin
+NAME="nginx"
+DAEMON="/usr/sbin/$NAME"
+PID="/var/run/nginx/nginx.pid"
+CFG="/etc/nginx/nginx.conf"
+
+nginx_start()
+{
+  if [ -f $CFG ]; then
+      $DAEMON -t -c $CFG
+      echo -en "Starting $NAME: \t"
+      $DAEMON -c $CFG
+      echo "started"
+  else
+    echo "file $CFG is not found"
+  fi
+}
+
+nginx_status()
+{
+  echo -en "$NAME is running as PID: "
+  if [ -e $PID ]; then
+    cat $PID
+  else
+    echo "$NAME is not running"
+  fi
+}
+
+nginx_stop()
+{
+  echo -en "Stopping $NAME: \t"
+  if [ -e $PID ]; then
+    $DAEMON -s stop
+    sleep 2
+    echo "stopped";
+  else
+    echo "not running"
+  fi
+}
+
+nginx_reload()
+{
+  echo -en "Reloading $NAME: \t"
+  if [ -e $PID ]; then
+    $DAEMON -s reload
+    sleep 2
+    echo "reloaded";
+  else
+    echo "not running"
+  fi
+}
+
+case "$1" in
+'start')
+    nginx_start
+  ;;
+'stop')
+  nginx_stop
+  ;;
+'restart')
+  nginx_stop
+  nginx_start
+  ;;
+'status')
+  nginx_status
+  ;;
+'reload')
+  nginx_reload
+  ;;
+*)
+  echo "usage $0 start|stop|status|restart|reload"
+esac

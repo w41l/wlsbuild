@@ -1,0 +1,19 @@
+# HOW TO EDIT THIS FILE:
+# The "handy ruler" below makes it easier to edit a package description.  Line
+# up the first '|' above the ':' following the base package name, and the '|' on
+# the right side marks the last column you can put a character in.  You must make
+# exactly 11 lines for the formatting to be correct.  It's also customary to
+# leave one space after the ':'.
+
+	   |-----handy-ruler---------------------------------------------------|
+qtermwidget: qtermwidget (Qt Terminal Emulation Widget)
+qtermwidget:
+qtermwidget: QTermWidget is an opensource project based on KDE4 Konsole
+qtermwidget: application. The main goal of this project is to provide
+qtermwidget: unicode-enabled, embeddable QT widget for using as a built-in
+qtermwidget: console (or terminal emulation widget).
+qtermwidget:
+qtermwidget: URL: http://gitorious.org/qtermwidget
+qtermwidget:
+qtermwidget:
+qtermwidget: packaged by: Widya Walesa <walecha99@gmail.com>

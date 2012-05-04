@@ -1,16 +1,6 @@
 audacious
-dirac
-faac
 faad2
-ffmpeg
 lame
 libcue
-libgsm
 libmms
-opencore-amr
-orc
-pulseaudio
-schroedinger
-speex
-x264
-xvidcore
+libmodplug

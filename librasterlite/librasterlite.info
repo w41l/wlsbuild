@@ -1,0 +1,7 @@
+PRGNAM="librasterlite"
+VERSION="1.0"
+HOMEPAGE="http://www.gaia-gis.it/spatialite/index.html"
+DOWNLOAD="http://www.gaia-gis.it/spatialite/librasterlite-1.0.tar.gz"
+MD5SUM="c6f7864ac6101ff63f8aec4b02603b46"
+DOWNLOAD_x86_64=""
+MD5SUM_x86_64=""

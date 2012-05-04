@@ -26,6 +26,8 @@ fi
 
 LXDE_SESSION_SETTINGS=""
 
+#export XDG_CONFIG_DIRS=/etc/xdg:/etc/lxde/xdg
+
 # Use ssh-agent if available
 if [ -x /usr/bin/ssh-agent ]; then
   LXDE_SESSION_SETTINGS="$LXDE_SESSION_SETTINGS /usr/bin/ssh-agent"

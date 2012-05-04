@@ -24,17 +24,16 @@
 # YOUR DATA IS DESTROYED, YOUR HOUSE BURNS DOWN OR YOUR DOG RUNS OFF.
 
 PRGNAM=mesa
-VERSION=7.11
-GLUTVERSION=7.11
+VERSION=7.11.2
+GLUTVERSION=7.11.2
 DEMOVERSION=8.0.1
-SRCVERSION=7.11
-BUILD=${BUILD:-2}
+BUILD=1
 TAG=${TAG:-_wls}
-
-NUMJOBS=${NUMJOBS:--j3}
+NUMJOBS=${NUMJOBS:--j4}
 
 # Be sure this list is up-to-date:
-DRI_DRIVERS="i810,i915,i965,mach64,mga,nouveau,r128,r200,r300,r600,radeon,savage,sis,tdfx,unichrome,swrast"
+DRI_DRIVERS="i810,i915,i965,mach64,mga,nouveau,r128,r200,r300,r600,radeon,savage,swrast,tdfx,unichrome"
+GALLIUM_DRIVERS="i915,i965,nouveau,r300,r600,svga,swrast"
 
 if [ -z "$ARCH" ]; then
   case "$( uname -m )" in
@@ -45,7 +44,7 @@ if [ -z "$ARCH" ]; then
 fi
 
 CWD=$(pwd)
-WRK=${WRK:-$CWD/wlsbuild}
+WRK=${WRK:-/tmp/wlsbuild}
 PKG=$WRK/package-mesa
 OUTPUT=${OUTPUT:-/tmp}
 DOCS=""
@@ -64,16 +63,15 @@ fi
 rm -rf $PKG
 mkdir -p $WRK $PKG
 cd $WRK
-rm -rf Mesa-${SRCVERSION}
-tar xvf $CWD/MesaLib-${SRCVERSION}.tar.?z* || exit 1
+rm -rf Mesa-${VERSION}
+tar xvf $CWD/MesaLib-${VERSION}.tar.?z* || exit 1
 
 # If MesaLib came from git, we might already have GLUT.
-if [ ! -d Mesa-${SRCVERSION}/src/glut/glx ]; then
-  tar xvf $CWD/MesaGLUT-${SRCVERSION}.tar.?z* || exit 1
-#  mv Mesa-${SRCVERSION}/* Mesa-${SRCVERSION}/
+if [ ! -d Mesa-${VERSION}/src/glut/glx ]; then
+  tar xvf $CWD/MesaGLUT-${GLUTVERSION}.tar.?z* || exit 1
 fi
 
-cd Mesa-${SRCVERSION}
+cd Mesa-${VERSION}
 
 # Make sure ownerships and permissions are sane:
 chown -R root:root .
@@ -84,6 +82,7 @@ find . \
   -exec chmod 644 {} \;
 
 # Apply patches from git (and maybe elsewhere):
+#cat $CWD/patches/wayland-egl-0.1.diff | patch -p1
 # Patches obtained by:
 #   git checkout origin/7.9
 #   git format-patch 67aeab0b77fb6be864088e69ea74a010b6543fa1..
@@ -96,33 +95,39 @@ find . \
 
 CFLAGS="$SLKCFLAGS" \
 CXXFLAGS="$SLKCFLAGS" \
+CPPFLAGS="$SLKCFLAGS" \
 ./configure \
   --build=$ARCH-slackware-linux \
   --host=$ARCH-slackware-linux \
   --prefix=/usr \
   --sysconfdir=/etc \
-  --libdir=/usr/lib${LIBDIRSUFFIX} \
   --includedir=/usr/include \
+  --libdir=/usr/lib${LIBDIRSUFFIX} \
   --mandir=/usr/man \
   --docdir=/usr/doc/mesa-$VERSION \
-  --with-dri-driverdir=/usr/lib${LIBDIRSUFFIX}/xorg/modules/dri \
-  --with-dri-drivers="$DRI_DRIVERS" \
-  --with-gallium-drivers=r300,r600,nouveau,swrast \
-  --with-driver=dri \
-  --enable-pic \
+  --enable-opengl \
   --enable-gles1 \
   --enable-gles2 \
   --enable-egl \
-  --disable-gallium-egl \
-  --enable-gl-osmesa \
+  --enable-xorg \
   --enable-gallium-llvm \
+  --enable-shared-glapi \
+  --enable-gbm \
+  --enable-gl-osmesa \
+  --enable-shared-dricore \
+  --enable-xcb \
+  --with-driver=dri \
+  --with-x \
+  --with-egl-platforms='x11,drm' \
+  --with-dri-driverdir=/usr/lib${LIBDIRSUFFIX}/xorg/modules/dri \
+  --with-dri-drivers="$DRI_DRIVERS" \
+  --with-gallium-drivers="$GALLIUM_DRIVERS"
 
+#  --enable-dri \
+#  --enable-glx \
+#  --enable-osmesa \
+#  --with-egl-platforms='x11,wayland,drm' \
 #  --enable-glx-tls \
-#  --enable-driglx-direct \
-#  --with-egl-platforms='drm x11' \
-#  --enable-shared-glapi \
-#  --enable-xcb \
-#  --enable-shared-dricore \
 
 make ${NUMJOBS} || exit 1
 make install DESTDIR=$PKG || exit 1
@@ -155,4 +160,4 @@ cd $PKG
 /sbin/makepkg -l y -c n $OUTPUT/${PRGNAM}-$VERSION-$ARCH-${BUILD}${TAG}.txz
 
 echo "Cleaning up build directory"
-cd $CWD; rm -rf $WRK
+cd $WRK; rm -rf Mesa-$VERSION $PKG

@@ -1,0 +1,19 @@
+# HOW TO EDIT THIS FILE:
+# The "handy ruler" below makes it easier to edit a package description.  Line
+# up the first '|' above the ':' following the base package name, and the '|'
+# on the right side marks the last column you can put a character in.  You must
+# make exactly 11 lines for the formatting to be correct.  It's also
+# customary to leave one space after the ':'.
+
+      |-----handy-ruler------------------------------------------------------|
+fatrat: fatrat (Qt4 Download Manager)
+fatrat:
+fatrat: FatRat is an open source download manager for Linux written in C++ and
+fatrat: built on top of the Trolltech Qt 4 library. It is rich in features and
+fatrat: is continuously extended.
+fatrat:
+fatrat: URL: http://fatrat.dolezel.info/
+fatrat:
+fatrat:
+fatrat:
+fatrat: http://www.walecha.net/

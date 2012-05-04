@@ -1,0 +1,19 @@
+# HOW TO EDIT THIS FILE:
+# The "handy ruler" below makes it easier to edit a package description.  Line
+# up the first '|' above the ':' following the base package name, and the '|'
+# on the right side marks the last column you can put a character in.  You must
+# make exactly 11 lines for the formatting to be correct.  It's also
+# customary to leave one space after the ':'.
+
+      |-----handy-ruler------------------------------------------------------|
+podofo: podofo
+podofo:
+podofo: PoDoFo is a library to work with the PDF file format. The name comes
+podofo: from the first letter of PDF (Portable Document Format). A few tools
+podofo: to work with PDF files are already included in the PoDoFo package.
+podofo:
+podofo: URL: http://podofo.sourceforge.net/
+podofo:
+podofo:
+podofo:
+podofo: http://www.walecha.net/

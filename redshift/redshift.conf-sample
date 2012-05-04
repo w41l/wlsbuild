@@ -1,0 +1,22 @@
+; Copy this file to ~/.config/redshift.conf and adjust your location
+; Global settings
+[redshift]
+temp-day=6500
+temp-night=4500
+transition=1
+gamma=1.0:1.0:1.0
+location-provider=manual
+adjustment-method=vidmode
+
+; The location provider and adjustment method settings
+; are in their own sections.
+[manual]
+lat=-7.98
+lon=112.62
+
+; In this example screen 1 is adjusted by vidmode. Note
+; that the numbering starts from 0, so this is actually
+; the second screen.
+[vidmode]
+screen=1
+

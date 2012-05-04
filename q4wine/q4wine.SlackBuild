@@ -2,7 +2,7 @@
 
 # Slackware build script for q4wine
 
-# Copyright 2011  Widya Walesa <walecha99@gmail.com>
+# Copyright 2011 Widya Walesa <walecha99@gmail.com>
 # All rights reserved.
 #
 # Redistribution and use of this script, with or without modification, is
@@ -24,11 +24,10 @@
 # YOUR DATA IS DESTROYED, YOUR HOUSE BURNS DOWN OR YOUR DOG RUNS OFF.
 
 PRGNAM=q4wine
-VERSION=${VERSION:-0.120r1}
-SRCVERSION=${SRCVERSION:-0.120-r1}
-BUILD=${BUILD:-1}
+VERSION=0.121
+BUILD=1
 TAG=${TAG:-_wls}
-NUMJOBS=${NUMJOBS:--j4}
+NUMJOBS=${NUMJOBS:--j3}
 
 if [ -z "$ARCH" ]; then
   case "$( uname -m )" in
@@ -39,8 +38,8 @@ if [ -z "$ARCH" ]; then
 fi
 
 CWD=$(pwd)
-TMP=${TMP:-/tmp/wls}
-PKG=$TMP/package-$PRGNAM
+WRK=${WRK:-/tmp/wlsbuild}
+PKG=$WRK/package-$PRGNAM
 OUTPUT=${OUTPUT:-/tmp}
 DOCS="AUTHORS ChangeLog INSTALL LICENSE README SEMDEBUG.TXT TODO"
 
@@ -61,11 +60,11 @@ fi
 set -e
 
 rm -rf $PKG
-mkdir -p $TMP $PKG $OUTPUT
-cd $TMP
-rm -rf $PRGNAM-$SRCVERSION
-tar xvf $CWD/$PRGNAM-$SRCVERSION.tar.bz2
-cd $PRGNAM-$SRCVERSION
+mkdir -p $WRK $PKG $OUTPUT
+cd $WRK
+rm -rf $PRGNAM-$VERSION
+tar xvf $CWD/$PRGNAM-$VERSION.tar.gz
+cd $PRGNAM-$VERSION
 
 chown -R root:root .
 find . \
@@ -83,7 +82,7 @@ cd build
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DLIBS_ENTRY_PATH=/usr/lib${LIBDIRSUFFIX}/q4wine \
     -DMANPAGE_ENTRY_PATH=/usr/man \
-    -DUSE_GZIP="ON" \
+    -DUSE_GZIP="ON"
 
   make ${NUMJOBS}
   make install DESTDIR=$PKG
@@ -104,4 +103,4 @@ cd $PKG
 /sbin/makepkg -p -l y -c n $OUTPUT/$PRGNAM-$VERSION-$ARCH-$BUILD$TAG.${PKGTYPE:-tgz}
 
 echo "Cleaning up build directory"
-cd $TMP; rm -rf $PRGNAM-$SRCVERSION $PKG
+cd $WRK; rm -rf $PRGNAM-$VERSION $PKG

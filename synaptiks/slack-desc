@@ -1,0 +1,19 @@
+# HOW TO EDIT THIS FILE:
+# The "handy ruler" below makes it easier to edit a package description.  Line
+# up the first '|' above the ':' following the base package name, and the '|' on
+# the right side marks the last column you can put a character in.  You must make
+# exactly 11 lines for the formatting to be correct.  It's also customary to
+# leave one space after the ':'.
+
+	 |-----handy-ruler------------------------------------------------------|
+synaptiks: synaptiks (KDE Touchpad Configuration)
+synaptiks:
+synaptiks: synaptiks is a touchpad configuration and management tool for KDE,
+synaptiks: available under the terms of the simplified BSD licence (see COPYING).
+synaptiks: It provides a System Settings module to configure basic and advanced
+synaptiks: features of the touchpad. Additionally it comes with a little system
+synaptiks: tray application, which can switch the touchpad automatically off,
+synaptiks: while an external mouse is plugged or while you are typing.
+synaptiks:
+synaptiks: URL: http://synaptiks.lunaryorn.de/
+synaptiks:

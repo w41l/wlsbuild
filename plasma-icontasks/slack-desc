@@ -1,0 +1,19 @@
+# HOW TO EDIT THIS FILE:
+# The "handy ruler" below makes it easier to edit a package description.  Line
+# up the first '|' above the ':' following the base package name, and the '|'
+# on the right side marks the last column you can put a character in.  You must
+# make exactly 11 lines for the formatting to be correct.  It's also
+# customary to leave one space after the ':'.
+
+				|-----handy-ruler-------------------------------------------------------|
+plasma-icontasks: plasma-icontasks
+plasma-icontasks:
+plasma-icontasks: This is a modified version of the KDE taskbar, and taskmanager
+plasma-icontasks: library. The main change is to preserve the position of tasks
+plasma-icontasks: and launchers. e.g. when a launcher is activated, the resultant
+plasma-icontasks: task item appears in the same place in the taskbar as the
+plasma-icontasks: launcher did.
+plasma-icontasks:
+plasma-icontasks: URL: http://kde-apps.org/content/show.php/Icon+Tasks?content=144808
+plasma-icontasks:
+plasma-icontasks: Packaged by Widya Walesa <http://www.walecha.net/>

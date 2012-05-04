@@ -21,27 +21,36 @@
 #  ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 
-VERSION=${VERSION:-2.6.35.4}
-ARCH=${ARCH:-x86_64}
+VERSION=${VERSION:-3.0.8}
+EXTRA=${EXTRA:--wls}
 BUILD=${BUILD:-1}
 TAG=${TAG:-_wls}
+ARCH=$( uname -m )
+
+#if [ -z "$ARCH" ]; then
+#  case "$( uname -m )" in
+#    i?86) ARCH=i686 ;;
+#    arm*) ARCH=arm ;;
+#    *) ARCH=$( uname -m ) ;;
+#  esac
+#fi
 
 CWD=$(pwd)
-TMP=${TMP:-/tmp}
-PKG=$TMP/package-kernel-modules
+WRK=${WRK:-/tmp/wlsbuild}
+PKG=$WRK/package-kernel-modules
 
 rm -rf $PKG
-mkdir -p $TMP $PKG
+mkdir -p $WRK $PKG
 
-echo "Using /lib/modules/${VERSION}/"
+echo "Using /lib/modules/${VERSION}${EXTRA}/"
 echo "Make sure these are *ready*... compressed, or not."
 echo "However you want 'em."
 sleep 5
 mkdir -p $PKG/lib/modules
-cp -a /lib/modules/${VERSION} $PKG/lib/modules
+cp -a /lib/modules/${VERSION}${EXTRA} $PKG/lib/modules
 mkdir -p $PKG/etc/rc.d
-cat $CWD/rc.modules.new > $PKG/etc/rc.d/rc.modules-${VERSION}.new
-chmod 755 $PKG/etc/rc.d/rc.modules-${VERSION}.new
+cat $CWD/rc.modules.new > $PKG/etc/rc.d/rc.modules-${VERSION}${EXTRA}.new
+chmod 755 $PKG/etc/rc.d/rc.modules-${VERSION}${EXTRA}.new
 
 mkdir -p $PKG/install
 cat $CWD/slack-desc > $PKG/install/slack-desc
@@ -59,7 +68,7 @@ config() {
   fi
   # Otherwise, we leave the .new copy for the admin to consider...
 }
-config etc/rc.d/rc.modules-${VERSION}.new
+config etc/rc.d/rc.modules-${VERSION}${EXTRA}.new
 
 # If rc.modules is a real file, back it up:
 if [ -r etc/rc.d/rc.modules -a ! -L etc/rc.d/rc.modules ]; then
@@ -70,16 +79,17 @@ fi
 # of this script on your own...
 if [ ! -L etc/rc.d/rc.modules ]; then
   ( cd etc/rc.d ; rm -rf rc.modules )
-  ( cd etc/rc.d ; ln -sf rc.modules-${VERSION} rc.modules )
+  ( cd etc/rc.d ; ln -sf rc.modules-${VERSION}${EXTRA} rc.modules )
 fi
 
 # A good idea whenever kernel modules are added or changed:
 if [ -x sbin/depmod ]; then
-  chroot . /sbin/depmod -a ${VERSION} 1> /dev/null 2> /dev/null
+  chroot . /sbin/depmod -a ${VERSION}${EXTRA} 1> /dev/null 2> /dev/null
 fi
 
 EOF
 
 cd $PKG
-/sbin/makepkg -l y -c n $TMP/kernel-modules-${VERSION}-$ARCH-${BUILD}${TAG}.txz
+/sbin/makepkg -l y -c n /tmp/kernel-modules-${VERSION}-$ARCH-${BUILD}${TAG}.txz
 
+cd $WRK ; rm -rf $PKG

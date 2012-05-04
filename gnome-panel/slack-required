@@ -3,8 +3,6 @@ evolution-data-server
 GConf
 gnome-desktop
 gnome-menus
-gnome-vfs
-heimdal-libraries
 libbonobo
 libbonoboui
 libcanberra

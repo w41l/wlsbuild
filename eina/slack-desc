@@ -1,0 +1,19 @@
+# HOW TO EDIT THIS FILE:
+# The "handy ruler" below makes it easier to edit a package description.  Line
+# up the first '|' above the ':' following the base package name, and the '|' on
+# the right side marks the last column you can put a character in.  You must make
+# exactly 11 lines for the formatting to be correct.  It's also customary to
+# leave one space after the ':'.
+
+    |-----handy-ruler------------------------------------------------------|
+eina: eina (E17 Library)
+eina:
+eina: The Eina library is a library that implements an API for data types in
+eina: an efficient way. It also provides some useful tools like opening
+eina: shared libraries, errors management, type conversion, time accounting
+eina: and memory pool. This library is cross-platform and can be compiled and
+eina: used on Linux, BSD, Opensolaris and Windows (XP and CE).
+eina:
+eina: URL: http://www.enlightenment.org/p.php?p=home
+eina:
+eina: http://www.walecha.net/

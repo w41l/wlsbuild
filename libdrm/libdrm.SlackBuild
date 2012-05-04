@@ -24,8 +24,8 @@
 # YOUR DATA IS DESTROYED, YOUR HOUSE BURNS DOWN OR YOUR DOG RUNS OFF.
 
 PRGNAM=libdrm
-VERSION=${VERSION:-2.4.25}
-BUILD=${BUILD:-1}
+VERSION=2.4.31
+BUILD=1
 TAG=${TAG:-_wls}
 
 # Automatically determine architecture for build & packaging:
@@ -40,8 +40,8 @@ fi
 NUMJOBS=${NUMJOBS:-" -j4 "}
 
 CWD=$(pwd)
-TMP=${TMP:-/tmp/wls}
-PKG=$TMP/package-${PRGNAM}
+WRK=${WRK:-/tmp/wlsbuild}
+PKG=$WRK/package-${PRGNAM}
 OUTPUT=${OUTPUT:-/tmp}
 DOCS="README"
 
@@ -60,14 +60,14 @@ else
 fi
 
 rm -rf $PKG
-mkdir -p $TMP $PKG
-cd $TMP
+mkdir -p $WRK $PKG
+cd $WRK
 rm -rf $PRGNAM-$VERSION
 tar xvf $CWD/${PRGNAM}-$VERSION.tar.?z* || exit 1
 cd $PRGNAM-$VERSION
 
 # Fix missing definitions in drm_mode.h:
-zcat $CWD/libdrm.uint32_t.diff.gz | patch -p1 --verbose || exit 1
+#zcat $CWD/libdrm.uint32_t.diff.gz | patch -p1 --verbose || exit 1
 
 # Make sure ownerships and permissions are sane:
 chown -R root:root .
@@ -79,9 +79,15 @@ find . \
 
 # Configure:
 CFLAGS="$SLKCFLAGS" \
-./autogen.sh \
+CXXFLAGS="$SLKCFLAGS" \
+CPPFLAGS="$SLKCFLAGS" \
+./configure \
+  --build=$ARCH-slackware-linux \
+  --host=$ARCH-slackware-linux \
   --prefix=/usr \
   --libdir=/usr/lib${LIBDIRSUFFIX} \
+  --sysconfdir=/usr/doc/$PRGNAM-$VERSION \
+  --localstatedir=/var --sharedstatedir=/var/lib \
   --enable-udev \
   --enable-nouveau-experimental-api \
   --enable-vmwgfx-experimental-api \
@@ -131,4 +137,5 @@ cd $PKG
 /sbin/makepkg -l y -c n $OUTPUT/$PRGNAM-$VERSION-$ARCH-$BUILD$TAG.${PKGTYPE:-tgz}
 
 echo "Cleaning up build directory"
-cd $TMP; rm -rf $PRGNAM-$VERSION $PKG
+cd $WRK; rm -rf $PRGNAM-$VERSION $PKG
+

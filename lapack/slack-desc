@@ -1,0 +1,19 @@
+# HOW TO EDIT THIS FILE:
+# The "handy ruler" below makes it easier to edit a package description.  Line
+# up the first '|' above the ':' following the base package name, and the '|' on
+# the right side marks the last column you can put a character in.  You must make
+# exactly 11 lines for the formatting to be correct.  It's also customary to
+# leave one space after the ':'.
+
+      |-----handy-ruler---------------------------------------------------|
+lapack: lapack
+lapack:
+lapack: LAPACK is a library of Fortran 90 with subroutines for solving
+lapack: the most commonly occurring problems in numerical linear algebra.
+lapack: It is freely-available software, and is copyrighted.  However this
+lapack: code is intended for use only if there is no other implementation
+lapack: of the BLAS already available on your machine; the efficiency of
+lapack: LAPACK depends very much on the efficiency of the BLAS.
+lapack: URL: http://www.netlib.org/lapack/
+lapack:
+lapack: packaged by: Widya Walesa <walecha99@gmail.com>

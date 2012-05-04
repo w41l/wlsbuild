@@ -1,0 +1,52 @@
+--- gjs-1.30.0/configure.ac.orig	2011-09-27 21:24:52.000000000 +0700
++++ gjs-1.30.0/configure.ac	2011-12-15 12:35:21.216267524 +0700
+@@ -92,8 +92,8 @@
+ AC_CHECK_FUNCS(mallinfo)
+ 
+ AC_ARG_WITH([js-package],
+-    AS_HELP_STRING([--with-js-package[=@<:@auto/mozjs185/mozilla-js@:>@]],
+-                   [Choose JavaScript package: 'mozjs185' (i.e. spidermonkey), 'mozilla-js' (i.e. xulrunner or firefox), or 'auto' (detect automatically)]),
++    AS_HELP_STRING([--with-js-package[=@<:@auto/mozjs185/seamonkey-js@:>@]],
++                   [Choose JavaScript package: 'mozjs185' (i.e. spidermonkey), 'seamonkey-js' (i.e. xulrunner or firefox), or 'auto' (detect automatically)]),
+     [with_js_package=$withval],
+     [with_js_package="auto"])
+ 
+@@ -111,15 +111,15 @@
+     fi
+ fi
+ 
+-if test $with_js_package = mozilla-js -o $with_js_package = auto; then
+-    # If we didn't find mozjs185 (the standalone spidermonkey), look for mozilla-js
++if test $with_js_package = seamonkey-js -o $with_js_package = auto; then
++    # If we didn't find mozjs185 (the standalone spidermonkey), look for seamonkey-js
+     if test x$JS_PACKAGE = x; then
+-        AC_MSG_CHECKING([for mozilla-js 1.9.2])
+-        PKG_CHECK_EXISTS([mozilla-js >= 1.9.2], JS_PACKAGE=mozilla-js,)
++        AC_MSG_CHECKING([for seamonkey-js 1.9.2])
++        PKG_CHECK_EXISTS([seamonkey-js >= 1.9.2], JS_PACKAGE=seamonkey-js,)
+         if test x$JS_PACKAGE != x; then
+             AC_MSG_RESULT([yes])
+         else
+-            AC_MSG_ERROR([Could not find mozilla-js 1.9.2])
++            AC_MSG_ERROR([Could not find seamonkey-js 1.9.2])
+         fi
+ 
+         PKG_CHECK_MODULES(JS, $JS_PACKAGE)
+@@ -128,7 +128,7 @@
+         FIREFOX_JS_SDKDIR=`$PKG_CONFIG --variable=sdkdir $JS_PACKAGE`
+         FIREFOX_JS_LIBDIR=`$PKG_CONFIG --variable=libdir $JS_PACKAGE`
+ 
+-        ## Ubuntu does not set libdir in mozilla-js.pc
++        ## Ubuntu does not set libdir in seamonkey-js.pc
+         if test x"$FIREFOX_JS_LIBDIR" = x; then
+             ## Ubuntu returns xulrunner-devel as the sdkdir, but for the
+             ## libdir we want the runtime location on the target system,
+@@ -184,7 +184,7 @@
+ LIBS=$saved_LIBS
+ 
+ if test x$MOZJS_IS_STANDALONE = xyes || `$PKG_CONFIG --exists $JS_PACKAGE '>=' 2`; then
+-  AC_DEFINE(HAVE_MOZJS_2, [1], [Define if mozilla-js is at least 2])
++  AC_DEFINE(HAVE_MOZJS_2, [1], [Define if seamonkey-js is at least 2])
+ fi
+ 
+ AC_MSG_CHECKING([whether JSLocaleToUnicode takes a const char*])

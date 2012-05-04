@@ -1,0 +1,19 @@
+# HOW TO EDIT THIS FILE:
+# The "handy ruler" below makes it easier to edit a package description.  Line
+# up the first '|' above the ':' following the base package name, and the '|' on
+# the right side marks the last column you can put a character in.  You must make
+# exactly 11 lines for the formatting to be correct.  It's also customary to
+# leave one space after the ':'.
+
+	 |-----handy-ruler---------------------------------------------------|
+qterminal: qterminal (Qt Terminal Emulation)
+qterminal:
+qterminal: Light QT-based multitab terminal emulator. Based on QTermWidget
+qterminal: component by e_k@users.sourceforge.net
+qterminal:
+qterminal: URL: http://qterminal.sourceforge.net/
+qterminal:
+qterminal:
+qterminal:
+qterminal:
+qterminal: packaged by: Widya Walesa <walecha99@gmail.com>

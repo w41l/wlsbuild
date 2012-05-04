@@ -24,8 +24,8 @@
 # YOUR DATA IS DESTROYED, YOUR HOUSE BURNS DOWN OR YOUR DOG RUNS OFF.
 
 PRGNAM=quodlibet
-VERSION=${VERSION:-2.3}
-BUILD=${BUILD:-1}
+VERSION=2.3.2
+BUILD=1
 TAG=${TAG:-_wls}
 NUMJOBS=${NUMJOBS:--j4}
 
@@ -38,7 +38,7 @@ if [ -z "$ARCH" ]; then
 fi
 
 CWD=$(pwd)
-TMP=${TMP:-/tmp/wls}
+TMP=${TMP:-/tmp/wlsbuild}
 PKG=$TMP/package-$PRGNAM
 OUTPUT=${OUTPUT:-/tmp}
 DOCS="COPYING HACKING NEWS PKG-INFO README"
@@ -79,13 +79,6 @@ python setup.py install --root=$PKG --prefix=/usr
 
 mkdir -p $PKG/usr/share/pixmaps/
 cp quodlibet/images/{exfalso,quodlibet}.png $PKG/usr/share/pixmaps/
-
-#mkdir -p $PKG/usr/share/icons/hicolor/{64x64,scalable}/apps/
-#cp quodlibet/missing-cover.svg %{buildroot}/%{_datadir}/pixmaps/
-#cp quodlibet/quodlibet.png $PKG/usr/share/icons/hicolor/64x64/apps/
-#cp quodlibet/quodlibet.svg $PKG/usr/share/icons/hicolor/scalable/apps/
-#cp quodlibet/exfalso.png $PKG/usr/share/icons/hicolor/64x64/apps/
-#cp quodlibet/exfalso.svg $PKG/usr/share/icons/hicolor/scalable/apps/
 
 find $PKG | xargs file | grep -e "executable" -e "shared object" | grep ELF \
   | cut -f 1 -d : | xargs strip --strip-unneeded 2> /dev/null || true

@@ -1,0 +1,19 @@
+# HOW TO EDIT THIS FILE:
+# The "handy ruler" below makes it easier to edit a package description.  Line
+# up the first '|' above the ':' following the base package name, and the '|' on
+# the right side marks the last column you can put a character in.  You must make
+# exactly 11 lines for the formatting to be correct.  It's also customary to
+# leave one space after the ':'.
+
+     |-----handy-ruler---------------------------------------------------|
+fping: fping (ping hosts in parallel)
+fping:
+fping: fping is a ping(1)-like program which uses the (ICMP) echo request
+fping: to determine if a host is up. fping is different from ping in that
+fping: you can specify any number of hosts on the command line, or specify
+fping: a file containing the lists of hosts to ping.
+fping:
+fping: URL: http://fping.sourceforge.net/
+fping:
+fping:
+fping: Widya Walesa <http://www.walecha.net/>

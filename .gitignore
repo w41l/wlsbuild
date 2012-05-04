@@ -2,7 +2,6 @@
 *.tgz
 *.txz
 *.zip
-*/trunk/*
 *.md5*
 *.sig
 *.asc
@@ -15,11 +14,4 @@
 *.git
 *.deb
 *.rpm
-blueman
-bluez*
-obex-data-server*
-obexfs*
-obexftp*
-pino/pino3/*
-python-twitter/python-twitter/*
-gtk-murrine-engine/murrine/*
+*.spec

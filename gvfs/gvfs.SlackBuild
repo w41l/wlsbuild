@@ -2,7 +2,7 @@
 
 # Slackware build script for gvfs
 
-# Copyright 2010  Widya Walesa <walecha99@gmail.com>
+# Copyright 2011 Widya Walesa <walecha99@gmail.com>
 # All rights reserved.
 #
 # Redistribution and use of this script, with or without modification, is
@@ -24,8 +24,8 @@
 # YOUR DATA IS DESTROYED, YOUR HOUSE BURNS DOWN OR YOUR DOG RUNS OFF.
 
 PRGNAM=gvfs
-VERSION=${VERSION:-1.6.7}
-BUILD=${BUILD:-3}
+VERSION=1.8.2
+BUILD=1
 TAG=${TAG:-_wls}
 NUMJOBS=${NUMJOBS:--j4}
 
@@ -38,7 +38,7 @@ if [ -z "$ARCH" ]; then
 fi
 
 CWD=$(pwd)
-TMP=${TMP:-/tmp/wls}
+TMP=${TMP:-/tmp/wlsbuild}
 PKG=$TMP/package-$PRGNAM
 OUTPUT=${OUTPUT:-/tmp}
 DOCS="AUTHORS ChangeLog COPY* NEWS README"
@@ -73,6 +73,8 @@ find . \
  \( -perm 666 -o -perm 664 -o -perm 600 -o -perm 444 -o -perm 440 -o -perm 400 \) \
  -exec chmod 644 {} \;
 
+AFC_CFLAGS="$(pkg-config --cflags libimobiledevice-1.0)" \
+AFC_LIBS="$(pkg-config --libs libimobiledevice-1.0)" \
 CFLAGS="$SLKCFLAGS" \
 CXXFLAGS="$SLKCFLAGS" \
 ./configure \
@@ -97,10 +99,9 @@ CXXFLAGS="$SLKCFLAGS" \
   --enable-cdda \
   --enable-avahi \
   --enable-http \
-  --enable-afc \
-  --enable-gconf
+  --enable-afc
 
-make $NUMJOBS
+make $NUMJOBS V=1
 make install DESTDIR=$PKG
 
 find $PKG | xargs file | grep -e "executable" -e "shared object" | grep ELF \

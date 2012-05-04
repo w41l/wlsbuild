@@ -1,5 +1,5 @@
 # Pull a stable branch + patches
-BRANCH=7.10
+BRANCH=7.11
 
 rm -rf mesa
 git clone git://anongit.freedesktop.org/git/mesa/mesa

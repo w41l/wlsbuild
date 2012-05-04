@@ -32,7 +32,7 @@ esac
 # Get the version from the Debian/Ubuntu .deb (thanks to Fred Richards):
 VERSION=$(ar p google-chrome-${RELEASE}_current_${DEBARCH}.deb control.tar.gz 2> /dev/null | tar zxO ./control 2> /dev/null | grep Version | awk '{print $2}' | cut -d- -f1)
 BUILD=${BUILD:-1}
-
+TAG=${TAG:-_wls}
 
 if [ ! $UID = 0 ]; then
   cat << EOF
@@ -53,6 +53,9 @@ binary packages:
   google-chrome-stable_current_amd64.deb  (for 64-bit x86_64)
   google-chrome-stable_current_i386.deb   (for 32-bit x86)
 
+Download it from here:
+https://dl.google.com/linux/direct/google-chrome-stable_current_i386.deb
+
 This will create a Slackware .txz package.  Install it with installpkg
 or use upgradepkg to upgrade from a previous version.
 
@@ -61,7 +64,7 @@ EOF
 fi
 
 CWD=$(pwd)
-WRK=${WRK:-$CWD/wlsbuild}
+WRK=${WRK:-/tmp/wlsbuild}
 PKG=$WRK/package-$PKGNAM
 OUTPUT=${OUTPUT:-/tmp}
 
@@ -109,6 +112,6 @@ cat $CWD/slack-desc > $PKG/install/slack-desc
 cat $CWD/doinst.sh > $PKG/install/doinst.sh
 
 cd $PKG
-/sbin/makepkg -l y -c n $OUTPUT/$PKGNAM-$VERSION-$ARCH-$BUILD.txz
+/sbin/makepkg -l y -c n $OUTPUT/$PKGNAM-$VERSION-$ARCH-${BUILD}${TAG}.txz
 
-cd $CWD ; rm -rf $WRK
+cd $CWD ; rm -rf $PKG

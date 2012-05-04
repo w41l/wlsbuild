@@ -1,3 +1,3 @@
-setuptools
-mutagen
 gst-python
+mutagen
+setuptools

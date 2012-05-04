@@ -2,7 +2,7 @@
 
 # Slackware build script for projectM
 
-# Copyright 2010  Widya Walesa <walecha99@gmail.com>
+# Copyright 2010 Widya Walesa <walecha99@gmail.com>
 # All rights reserved.
 #
 # Redistribution and use of this script, with or without modification, is
@@ -24,8 +24,8 @@
 # YOUR DATA IS DESTROYED, YOUR HOUSE BURNS DOWN OR YOUR DOG RUNS OFF.
 
 PRGNAM=projectM
-VERSION=${VERSION:-2.0.1}
-BUILD=${BUILD:-2}
+VERSION=2.0.1
+BUILD=1
 TAG=${TAG:-_wls}
 NUMJOBS=${NUMJOBS:--j4}
 
@@ -38,7 +38,7 @@ if [ -z "$ARCH" ]; then
 fi
 
 CWD=$(pwd)
-TMP=${TMP:-/tmp/wls}
+TMP=${TMP:-/tmp/wlsbuild}
 PKG=$TMP/package-$PRGNAM
 OUTPUT=${OUTPUT:-/tmp}
 DOCS="ChangeLog COPY*"
@@ -82,10 +82,7 @@ cmake .. \
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DLIB_INSTALL_DIR=/usr/lib$LIBDIRSUFFIX \
-    -DMAN_INSTALL_DIR=/usr/man \
-    -DSYSCONF_INSTALL_DIR=/etc \
-    -DLIB_SUFFIX=$LIBDIRSUFFIX \
-    -DINCLUDE-PROJECTM-PULSEAUDIO:BOOL=OFF \
+    -DLIB_SUFFIX=$LIBDIRSUFFIX
 
 make ${NUMJOBS}
 make install DESTDIR=$PKG
@@ -105,4 +102,4 @@ cd $PKG
 /sbin/makepkg -l y -c n $OUTPUT/$PRGNAM-$VERSION-$ARCH-$BUILD$TAG.${PKGTYPE:-tgz}
 
 echo "Cleaning up build directory"
-rm -rf $TMP/${PRGNAM}-${VERSION}-Source $PKG
+cd $TMP ; rm -rf ${PRGNAM}-${VERSION}-Source $PKG

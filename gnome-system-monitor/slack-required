@@ -1,8 +1,8 @@
-ORBit2
-GConf
-libgtop
-libsigc++
-glibmm
 cairomm
-pangomm
+GConf
+glibmm
 gtkmm
+libsigc++
+libgtop
+ORBit2
+pangomm

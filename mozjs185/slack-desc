@@ -1,0 +1,19 @@
+# HOW TO EDIT THIS FILE:
+# The "handy ruler" below makes it easier to edit a package description.  Line
+# up the first '|' above the ':' following the base package name, and the '|'
+# on the right side marks the last column you can put a character in.  You must
+# make exactly 11 lines for the formatting to be correct.  It's also
+# customary to leave one space after the ':'.
+
+        |-----handy-ruler----------------------------------------------------|
+mozjs185: mozjs185 (Mozilla's JavaScript Engine)
+mozjs185:
+mozjs185: mozjs185 is Mozilla's JavaScript engine written in C/C++.
+mozjs185: It is used in various Mozilla products, including Firefox, and is
+mozjs185: available under MPL/GPL/LGPL tri-license.
+mozjs185:
+mozjs185: URL: http://www.mozilla.org/js/mozjs185/
+mozjs185:
+mozjs185:
+mozjs185:
+mozjs185: Packager: http://www.walecha.net/

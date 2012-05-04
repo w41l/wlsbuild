@@ -1,1 +1,2 @@
-glib2
+perl-extutils-depends
+perl-extutils-pkgconfig

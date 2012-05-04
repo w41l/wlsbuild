@@ -1,0 +1,19 @@
+# HOW TO EDIT THIS FILE:
+# The "handy ruler" below makes it easier to edit a package description.  Line
+# up the first '|' above the ':' following the base package name, and the '|' on
+# the right side marks the last column you can put a character in.  You must make
+# exactly 11 lines for the formatting to be correct.  It's also customary to
+# leave one space after the ':'.
+
+      |-----handy-ruler---------------------------------------------------|
+json-c: JSON-C (JSON implementation in C)
+json-c:
+json-c: JSON-C implements a reference counting object model that allows you
+json-c: to easily construct JSON objects in C, output them as JSON formatted
+json-c: strings and parse JSON formatted strings back into the C
+json-c: representation of JSON objects.
+json-c:
+json-c: URL: http://oss.metaparadigm.com/json-c/
+json-c:
+json-c:
+json-c: packaged by: Widya Walesa <walecha99@gmail.com>

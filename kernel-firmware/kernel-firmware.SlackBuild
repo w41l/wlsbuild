@@ -22,16 +22,16 @@
 
 
 CWD=$(pwd)
-TMP=${TMP:-/tmp}
-PKG=$TMP/package-kernel-firmware
+WRK=${WRK:-/tmp}
+PKG=$WRK/package-kernel-firmware
 
-VERSION=${VERSION:-2.6.35.4}
+VERSION=${VERSION:-3.0.8}
 ARCH=${ARCH:-noarch}
 BUILD=${BUILD:-1}
 TAG=${TAG:-_wls}
 
 rm -rf $PKG
-mkdir -p $TMP $PKG
+mkdir -p $WRK $PKG
 echo "Using /usr/src/linux-${VERSION}/"
 echo "Make sure this is *ready*..."
 mkdir -p $PKG/lib/firmware
@@ -42,5 +42,6 @@ mkdir -p $PKG/install
 cat $CWD/slack-desc > $PKG/install/slack-desc
 
 cd $PKG
-/sbin/makepkg -l y -c n $TMP/kernel-firmware-${VERSION}-noarch-${BUILD}${TAG}.txz
+/sbin/makepkg -l y -c n /tmp/kernel-firmware-${VERSION}-noarch-${BUILD}${TAG}.txz
 
+cd $WRK ; rm -rf $PKG

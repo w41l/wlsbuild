@@ -1,0 +1,13 @@
+atk
+GConf
+gdk-pixbuf2
+glib2
+gtk+3
+libffi
+libgksu
+libgnome-keyring
+libgtop
+nautilus
+ORBit2
+pango
+startup-notification

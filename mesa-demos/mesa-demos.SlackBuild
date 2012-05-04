@@ -39,7 +39,7 @@ if [ -z "$ARCH" ]; then
 fi
 
 CWD=$(pwd)
-WRK=${WRK:-$CWD/wlsbuild}
+WRK=${WRK:-/tmp/wlsbuild}
 PKG=$WRK/package-$PKGNAM
 OUTPUT=${OUTPUT:-/tmp}
 DOCS=""
@@ -81,9 +81,10 @@ CFLAGS="$SLKCFLAGS" \
   --libdir=/usr/lib${LIBDIRSUFFIX} \
   --build=$ARCH-slackware-linux \
 
-make -C src/demos gears glinfo || exit 1
-make -C src/xdemos glthreads glxcontexts glxdemo glxgears_fbconfig \
-  glxheads glxinfo glxpbdemo glxpixmap || exit 1
+make
+#make -C src/demos gears glinfo || exit 1
+#make -C src/xdemos glthreads glxcontexts glxdemo glxgears_fbconfig \
+#  glxheads glxinfo glxpbdemo glxpixmap || exit 1
 
 mkdir -p $PKG/usr/bin
 cp -a src/demos/{gears,glinfo} $PKG/usr/bin
@@ -103,4 +104,4 @@ cd $PKG
 /sbin/makepkg -l y -c n $OUTPUT/${PKGNAM}-$VERSION-$ARCH-${BUILD}${TAG}.txz
 
 echo "Cleaning up build directory"
-cd $CWD; rm -rf $WRK
+cd $WRK; rm -rf $PKG $PKGNAM-$VERSION

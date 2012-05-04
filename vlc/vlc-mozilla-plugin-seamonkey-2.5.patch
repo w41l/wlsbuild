@@ -1,0 +1,37 @@
+diff -Naur a/projects/mozilla/support/npunix.cpp b/projects/mozilla/support/npunix.cpp
+--- a/projects/mozilla/support/npunix.cpp	2011-05-30 22:03:50.000000000 +0700
++++ b/projects/mozilla/support/npunix.cpp	2011-12-15 19:27:35.038573289 +0700
+@@ -767,8 +767,7 @@
+  *  - Netscape uses the return value to identify when an object instance
+  *    of this plugin should be created.
+  */
+-char *
+-NP_GetMIMEDescription(void)
++const char* NP_GetMIMEDescription(void)
+ {
+     return NPP_GetMIMEDescription();
+ }
+diff -Naur a/projects/mozilla/vlcshell.cpp b/projects/mozilla/vlcshell.cpp
+--- a/projects/mozilla/vlcshell.cpp	2011-07-10 04:46:16.000000000 +0700
++++ b/projects/mozilla/vlcshell.cpp	2011-12-15 19:27:52.447355651 +0700
+@@ -71,7 +71,7 @@
+ /******************************************************************************
+  * UNIX-only API calls
+  *****************************************************************************/
+-char * NPP_GetMIMEDescription( void )
++const char* NPP_GetMIMEDescription( void )
+ {
+     static char mimetype[] = PLUGIN_MIMETYPES;
+     return mimetype;
+diff -Naur a/projects/mozilla/vlcshell.h b/projects/mozilla/vlcshell.h
+--- a/projects/mozilla/vlcshell.h	2010-04-28 04:44:27.000000000 +0700
++++ b/projects/mozilla/vlcshell.h	2011-12-15 19:28:02.495230034 +0700
+@@ -24,7 +24,7 @@
+ #ifndef __VLCSHELL_H__
+ #define __VLCSHELL_H__
+ 
+-char * NPP_GetMIMEDescription( void );
++const char* NPP_GetMIMEDescription( void );
+ 
+ NPError NPP_Initialize( void );
+ 

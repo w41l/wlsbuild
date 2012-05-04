@@ -12,3 +12,9 @@ if [ -e /usr/share/icons/hicolor/icon-theme.cache ]; then
   fi
 fi
 
+if ps acx | grep -q "dbus-daemon" ; then
+  if [ -x /etc/rc.d/rc.messagebus ]; then
+    /etc/rc.d/rc.messagebus reload
+  fi
+fi
+

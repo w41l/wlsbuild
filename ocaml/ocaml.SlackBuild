@@ -24,7 +24,7 @@
 # YOUR DATA IS DESTROYED, YOUR HOUSE BURNS DOWN OR YOUR DOG RUNS OFF.
 
 PRGNAM=ocaml
-VERSION=${VERSION:-3.12.0}
+VERSION=${VERSION:-3.12.1}
 BUILD=${BUILD:-1}
 TAG=${TAG:-_wls}
 NUMJOBS=${NUMJOBS:--j3}
@@ -38,7 +38,7 @@ if [ -z "$ARCH" ]; then
 fi
 
 CWD=$(pwd)
-WRK=${WRK:-$CWD/wlsbuild}
+WRK=${WRK:-/tmp/wlsbuild}
 PKG=$WRK/package-$PRGNAM
 OUTPUT=${OUTPUT:-/tmp}
 DOCS="Changes INSTALL LICENSE README README.win32 Upgrading VERSION"
@@ -59,8 +59,8 @@ fi
 
 set -e
 
-rm -rf $PKG
-mkdir -p $WRK $PKG $OUTPUT
+rm -rf $PKG $PKG-runtime
+mkdir -p $WRK $PKG $PKG-runtime $OUTPUT
 cd $WRK
 rm -rf $PRGNAM-$VERSION
 tar xvf $CWD/$PRGNAM-$VERSION.tar.bz2
@@ -102,25 +102,31 @@ cat $CWD/slack-desc > $PKG/install/slack-desc
 # Build ocaml runtime package
 mkdir -p ${PKG}-runtime/usr/bin
 cp -a $PKG/usr/bin/ocamlrun ${PKG}-runtime/usr/bin
-mkdir -p ${PKG}-runtime/usr/lib${LIBDIRSUFFIX}/ocaml
-cp -a $PKG/usr/lib${LIBDIRSUFFIX}/ocaml/*.cma ${PKG}-runtime/usr/lib${LIBDIRSUFFIX}/ocaml
-cp -a $PKG/usr/lib${LIBDIRSUFFIX}/ocaml/*.cmi ${PKG}-runtime/usr/lib${LIBDIRSUFFIX}/ocaml
-cp -a $PKG/usr/lib${LIBDIRSUFFIX}/ocaml/*.cmo ${PKG}-runtime/usr/lib${LIBDIRSUFFIX}/ocaml
-cp -a $PKG/usr/lib${LIBDIRSUFFIX}/ocaml/*.so ${PKG}-runtime/usr/lib${LIBDIRSUFFIX}/ocaml
-mkdir -p ${PKG}-runtime/usr/lib${LIBDIRSUFFIX}/ocaml/vmthreads
-cp -a $PKG/usr/lib${LIBDIRSUFFIX}/ocaml/vmthreads/*.cma ${PKG}-runtime/usr/lib${LIBDIRSUFFIX}/ocaml/vmthreads
-cp -a $PKG/usr/lib${LIBDIRSUFFIX}/ocaml/vmthreads/*.cmi ${PKG}-runtime/usr/lib${LIBDIRSUFFIX}/ocaml/vmthreads
-mkdir -p ${PKG}-runtime/usr/lib${LIBDIRSUFFIX}/ocaml/stublibs
-cp -a $PKG/usr/lib${LIBDIRSUFFIX}/ocaml/stublibs/*.so ${PKG}-runtime/usr/lib${LIBDIRSUFFIX}/ocaml/stublibs
-mkdir -p ${PKG}-runtime/usr/lib${LIBDIRSUFFIX}/ocaml/threads
-cp -a $PKG/usr/lib${LIBDIRSUFFIX}/ocaml/threads/*.cma ${PKG}-runtime/usr/lib${LIBDIRSUFFIX}/ocaml/threads
-cp -a $PKG/usr/lib${LIBDIRSUFFIX}/ocaml/threads/*.cmi ${PKG}-runtime/usr/lib${LIBDIRSUFFIX}/ocaml/threads
+( cd $PKG
+  for CMA in `find . -name "*.cma"`; do install -D -v $CMA $PKG-runtime/$CMA; done
+  for CMI in `find . -name "*.cmi"`; do install -D -v $CMI $PKG-runtime/$CMI; done
+  for CMO in `find . -name "*.cmo"`; do install -D -v $CMO $PKG-runtime/$CMO; done
+  for SO in `find . -name "*.so"`; do install -D -v $SO $PKG-runtime/$SO; done
+  # Remove unneeded directories from runtime
+  rm -rf $PKG-runtime/usr/lib${LIBDIRSUFFIX}/ocaml/caml
+  rm -rf $PKG-runtime/usr/lib${LIBDIRSUFFIX}/ocaml/camlp4
+  rm -rf $PKG-runtime/usr/lib${LIBDIRSUFFIX}/ocaml/camlp4/Camlp4Printers
+  rm -rf $PKG-runtime/usr/lib${LIBDIRSUFFIX}/ocaml/camlp4/Camlp4Filters
+  rm -rf $PKG-runtime/usr/lib${LIBDIRSUFFIX}/ocaml/camlp4/Camlp4Parsers
+  rm -rf $PKG-runtime/usr/lib${LIBDIRSUFFIX}/ocaml/camlp4/Camlp4Top
+  rm -rf $PKG-runtime/usr/lib${LIBDIRSUFFIX}/ocaml/ocamldoc
+  rm -rf $PKG-runtime/usr/lib${LIBDIRSUFFIX}/ocaml/ocamldoc/custom
+  rm -rf $PKG-runtime/usr/lib${LIBDIRSUFFIX}/ocaml/labltk
+  rm -rf $PKG-runtime/usr/lib${LIBDIRSUFFIX}/ocaml/ocamlbuild
+)
+
 # Adds some ocaml docs
 mkdir -p ${PKG}-runtime/usr/doc/$PRGNAM-runtime-$VERSION
 cp -a $DOCS ${PKG}-runtime/usr/doc/$PRGNAM-runtime-$VERSION
 cat $CWD/$PRGNAM.SlackBuild > ${PKG}-runtime/usr/doc/$PRGNAM-runtime-$VERSION/$PRGNAM.SlackBuild
 mkdir -p ${PKG}-runtime/install
 cat $CWD/slack-desc-runtime > ${PKG}-runtime/install/slack-desc
+
 # Creating the ocaml runtime package
 cd ${PKG}-runtime
 /sbin/makepkg -p -l y -c n $OUTPUT/$PRGNAM-runtime-$VERSION-$ARCH-$BUILD$TAG.${PKGTYPE:-tgz}
@@ -130,4 +136,4 @@ cd $PKG
 /sbin/makepkg -p -l y -c n $OUTPUT/$PRGNAM-$VERSION-$ARCH-$BUILD$TAG.${PKGTYPE:-tgz}
 
 echo "Cleaning up build directory"
-cd $CWD; rm -rf $WRK
+cd $WRK; rm -rf $PRGNAM-$VERSION $PKG $PKG-runtime

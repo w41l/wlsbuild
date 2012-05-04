@@ -25,9 +25,9 @@
 
 PRGNAM=mjpegtools
 VERSION=${VERSION:-1.9.0}
-BUILD=${BUILD:-2}
+BUILD=${BUILD:-3}
 TAG=${TAG:-_wls}
-NUMJOBS=${NUMJOBS:--j1}
+NUMJOBS=${NUMJOBS:--j3}
 
 if [ -z "$ARCH" ]; then
   case "$( uname -m )" in
@@ -38,8 +38,8 @@ if [ -z "$ARCH" ]; then
 fi
 
 CWD=$(pwd)
-TMP=${TMP:-/tmp/wls}
-PKG=$TMP/package-$PRGNAM
+WRK=${WRK:-/tmp/wlsbuild}
+PKG=$WRK/package-$PRGNAM
 OUTPUT=${OUTPUT:-/tmp}
 DOCS="AUTHORS BUGS ChangeLog CHANGES COPY* HINTS INSTALL* NEWS PLANS README* TODO"
 
@@ -60,14 +60,18 @@ fi
 set -e
 
 rm -rf $PKG
-mkdir -p $TMP $PKG $OUTPUT
-cd $TMP
+mkdir -p $WRK $PKG $OUTPUT
+cd $WRK
 rm -rf $PRGNAM-$VERSION
 tar xvf $CWD/$PRGNAM-${VERSION}.tar.gz
 cd $PRGNAM-$VERSION
 
 cat $CWD/$PRGNAM-${VERSION}-glibc-2.10.patch | patch -p1
 cat $CWD/$PRGNAM-${VERSION}-jpeg-7.patch | patch -p0
+cat $CWD/$PRGNAM-v4l-2.6.38.patch | patch -p1
+
+libtoolize --force
+autoreconf -i -f
 
 chown -R root:root .
 find . \
@@ -117,4 +121,4 @@ cd $PKG
 /sbin/makepkg -l y -c n $OUTPUT/$PRGNAM-$VERSION-$ARCH-$BUILD$TAG.${PKGTYPE:-tgz}
 
 echo "Cleaning up build directory"
-cd $TMP; rm -rf $PRGNAM-$VERSION $PKG
+cd $WRK; rm -rf $PRGNAM-$VERSION $PKG

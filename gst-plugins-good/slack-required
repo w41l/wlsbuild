@@ -1,10 +1,11 @@
 GConf
+ORBit2
+gst-plugins-base
+gstreamer
 libavc1394
 libdv
-libgnome-keyring
 libiec61883
-libsoup
-ORBit2
+libshout
 orc
 pulseaudio
 speex

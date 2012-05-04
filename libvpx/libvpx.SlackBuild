@@ -24,8 +24,8 @@
 # YOUR DATA IS DESTROYED, YOUR HOUSE BURNS DOWN OR YOUR DOG RUNS OFF.
 
 PRGNAM=libvpx
-VERSION=${VERSION:-0.9.6}
-BUILD=${BUILD:-1}
+VERSION=0.9.6
+BUILD=1
 TAG=${TAG:-_wls}
 NUMJOBS=${NUMJOBS:--j1}
 
@@ -38,7 +38,7 @@ if [ -z "$ARCH" ]; then
 fi
 
 CWD=$(pwd)
-TMP=${TMP:-/tmp/wls}
+TMP=${TMP:-/tmp/wlsbuild}
 PKG=$TMP/package-$PRGNAM
 OUTPUT=${OUTPUT:-/tmp}
 DOCS="AUTHORS CHANGELOG LICENSE PATENTS README"
@@ -84,6 +84,7 @@ CXXFLAGS="$SLKCFLAGS" \
   --disable-debug-libs \
   --disable-install-libs \
   --enable-postproc \
+  --enable-shared
 
 make $NUMJOBS
 make install DESTDIR=$PKG

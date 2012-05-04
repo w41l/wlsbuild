@@ -1,0 +1,19 @@
+# HOW TO EDIT THIS FILE:
+# The "handy ruler" below makes it easier to edit a package description.  Line
+# up the first '|' above the ':' following the base package name, and the '|' on
+# the right side marks the last column you can put a character in.  You must make
+# exactly 11 lines for the formatting to be correct.  It's also customary to
+# leave one space after the ':'.
+
+        |-----handy-ruler---------------------------------------------------|
+redshift: redshift (Screen Color Temperature Utility)
+redshift:
+redshift: Redshift adjusts the color temperature of your screen according to
+redshift: your surroundings. This may help your eyes hurt less if you are
+redshift: working in front of the screen at night.
+redshift:
+redshift: URL: http://jonls.dk/redshift/
+redshift:
+redshift:
+redshift:
+redshift: http://www.walecha.net/

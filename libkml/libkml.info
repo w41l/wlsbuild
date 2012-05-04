@@ -1,0 +1,7 @@
+PRGNAM="libkml"
+VERSION="1.2.0"
+HOMEPAGE="http://code.google.com/p/libkml/"
+DOWNLOAD="http://libkml.googlecode.com/files/libkml-1.2.0.tar.gz"
+SHA1SUM="3fa5acdc2b2185d7f0316d205002b7162f079894"
+DOWNLOAD_x86_64=""
+MD5SUM_x86_64=""

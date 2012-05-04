@@ -24,10 +24,10 @@
 # YOUR DATA IS DESTROYED, YOUR HOUSE BURNS DOWN OR YOUR DOG RUNS OFF.
 
 PRGNAM=libreoffice
-VERSION=${VERSION:-3.3.2}
-RCVERS=${RCVERS:-rc2}
+VERSION=3.5.2
+RCVERS="rc2"
 MAJORVER=$( echo $VERSION | sed "s/\(.*\)\.\(.*\)\.*/\1/" )
-BUILD=${BUILD:-1}
+BUILD=1
 TAG=${TAG:-_wls}
 NUMJOBS=${NUMJOBS:--j4}
 
@@ -40,37 +40,37 @@ if [ -z "$ARCH" ]; then
 fi
 
 CWD=$(pwd)
-TMP=${TMP:-/tmp/wls}
-PKG=$TMP/package-$PRGNAM
+WRK=${WRK:-/tmp/wlsbuild}
+PKG=$WRK/package-$PRGNAM
 OUTPUT=${OUTPUT:-/tmp}
 DOCS="AUTHORS ChangeLog COPY* MAINTAINERS NEWS README"
 
 if [ "$ARCH" = "i486" ]; then
   SLKCFLAGS="-O2 -pipe -march=i486 -mtune=i686"
   LIBDIRSUFFIX=""
-  DEBARCH="x86"
+  LOARCH="x86"
 elif [ "$ARCH" = "i686" ]; then
   SLKCFLAGS="-O2 -pipe -march=i686 -mtune=i686"
   LIBDIRSUFFIX=""
-  DEBARCH="x86"
+  LOARCH="x86"
 elif [ "$ARCH" = "x86_64" ]; then
   SLKCFLAGS="-O2 -pipe -fPIC"
   LIBDIRSUFFIX="64"
-  DEBARCH="x86-64"
+  LOARCH="x86-64"
 else
   SLKCFLAGS="-O2"
   LIBDIRSUFFIX=""
-  DEBARCH="x86"
+  LOARCH="x86"
 fi
 
 set -e
 
 rm -rf $PKG
-mkdir -p $TMP $PKG $OUTPUT
-cd $TMP
-rm -rf LibO_${VERSION}${RCVERS}_Linux_${DEBARCH}_install-deb_en-US
-tar xvf $CWD/LibO_${VERSION}_Linux_${DEBARCH}_install-deb_en-US.tar.gz
-cd LibO_${VERSION}${RCVERS}_Linux_${DEBARCH}_install-deb_en-US
+mkdir -p $WRK $PKG $OUTPUT
+cd $WRK
+rm -rf LibO_${VERSION}${RCVERS}_Linux_${LOARCH}_install-rpm_en-US
+tar xvf $CWD/LibO_${VERSION}_Linux_${LOARCH}_install-rpm_en-US.tar.gz
+cd LibO_${VERSION}${RCVERS}_Linux_${LOARCH}_install-rpm_en-US
 
 chown -R root:root .
 find . \
@@ -81,61 +81,61 @@ find . \
 
 echo "install libreoffice README and LICENSE"
 mkdir -p ${PKG}/usr/doc/${PRGNAM}-${VERSION}
-#mv -v licenses/* ${PKG}/usr/doc/${PRGNAM}-${VERSION}/
 mv -v readmes/* ${PKG}/usr/doc/${PRGNAM}-${VERSION}/
 
-echo "Unpacking deb packages"
-cd DEBS
-for i in `ls *.deb`; do
-    ar x $i
-    tar xvf data.tar.gz
-    rm data.tar.gz control.tar.gz
+echo "Unpacking rpm packages"
+cd RPMS
+for i in `ls -1 *.rpm`; do
+  rpm2cpio $i | cpio -idmv
 done
 
 echo "Install program files"
-mkdir -p ${PKG}/usr/lib${LIBDIRSUFFIX}
-mv -v opt/* ${PKG}/usr/lib${LIBDIRSUFFIX}/
-echo "Install desktop files"
+mv -v opt ${PKG}/
 mkdir -p ${PKG}/usr/share/applications
-mv -v ${PKG}/usr/lib${LIBDIRSUFFIX}/libreoffice/share/xdg/*.desktop ${PKG}/usr/share/applications/
-rm -rf ${PKG}/usr/lib${LIBDIRSUFFIX}/libreoffice/share/xdg
+mv -v ${PKG}/opt/libreoffice${MAJORVER}/share/xdg/*.desktop ${PKG}/usr/share/applications/
+rm -rf ${PKG}/opt/libreoffice${MAJORVER}/share/xdg
 echo "Creating binary symlinks"
 mkdir -p ${PKG}/usr/bin
 ( cd ${PKG}/usr/bin
-  ln -s ../lib$LIBDIRSUFFIX/libreoffice/program/soffice soffice
+  ln -sf /opt/libreoffice${MAJORVER}/program/soffice soffice
   for APP in base calc draw impress math padmin writer; do
-    ln -s /usr/lib${LIBDIRSUFFIX}/libreoffice/program/s${APP} lo${APP}
+    ln -sf /opt/libreoffice${MAJORVER}/program/s${APP} lo${APP}
   done
+)
+
+echo "Use system libstdc++ instead of the bundled one"
+( cd $PKG/opt/libreoffice${MAJORVER}/ure/lib;
+  OLD="`find /usr/lib${LIBDIRSUFFIX} -type l -name \"libstdc++.so.*\" | xargs basename`"
+  rm -f "$OLD";
+  ln -sf /usr/lib${LIBDIRSUFFIX}/${OLD} ${OLD};
 )
 
 echo "Unpacking desktop-integration packages"
 cd desktop-integration
-  ar xv libreoffice*.deb
-  tar xvf data.tar.gz
+  rpm2cpio libreoffice${MAJORVER}-freedesktop-menus-${MAJORVER}-202.noarch.rpm | cpio -idmv
   echo "Install icons and mime files"
   mkdir -p ${PKG}/usr/share
-  mv -v usr/share/icons ${PKG}/usr/share/
-  mv -v usr/share/mime ${PKG}/usr/share/
-  mv -v usr/share/mimelnk ${PKG}/usr/share/
+  rm -rf usr/share/applications
+  mv -v usr/share/* ${PKG}/usr/share
   mkdir -p ${PKG}/usr/bin
-  mv -v usr/bin/* ${PKG}/usr/bin/
-  sed -i "s,exec /opt,exec /usr/lib${LIBDIRSUFFIX},g" ${PKG}/usr/bin/libreoffice
-  sed -i "s,exec /opt,exec /usr/lib${LIBDIRSUFFIX},g" ${PKG}/usr/bin/libreoffice-printeradmin
-  chmod -v 755 ${PKG}/usr/bin/libreoffice*
+  mv -v usr/bin/* ${PKG}/usr/bin
+#   sed -i "s,exec /opt,exec /usr/lib${LIBDIRSUFFIX},g" ${PKG}/usr/bin/libreoffice
+#   sed -i "s,exec /opt,exec /usr/lib${LIBDIRSUFFIX},g" ${PKG}/usr/bin/libreoffice-printeradmin
+#   chmod -v 755 ${PKG}/usr/bin/libreoffice*
 cd ..
 
 chown -R root:root ${PKG}
 cd -
 
-find $PKG | xargs file | grep -e "executable" -e "shared object" | grep ELF \
-  | cut -f 1 -d : | xargs strip --strip-unneeded 2> /dev/null
+# find $PKG | xargs file | grep -e "executable" -e "shared object" | grep ELF \
+#   | cut -f 1 -d : | xargs strip --strip-unneeded 2> /dev/null
 
 mkdir -p $PKG/install
 cat $CWD/slack-desc > $PKG/install/slack-desc
-cat $CWD/doinst.sh >> $PKG/install/doinst.sh
+cat $CWD/doinst.sh > $PKG/install/doinst.sh
 
 cd $PKG
 /sbin/makepkg -p -l y -c n $OUTPUT/$PRGNAM-$VERSION-$ARCH-$BUILD$TAG.txz
 
-echo "Cleaning up $TMP";
-cd $TMP; rm -rf $PKG LibO_${VERSION}${RCVERS}_Linux_${DEBARCH}_install-deb_en-US;
+echo "Cleaning up $WRK";
+cd $WRK; rm -rf $PKG LibO_${VERSION}${RCVERS}_Linux_${LOARCH}_install-rpm_en-US

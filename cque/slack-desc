@@ -1,0 +1,19 @@
+# HOW TO EDIT THIS FILE:
+# The "handy ruler" below makes it easier to edit a package description.  Line
+# up the first '|' above the ':' following the base package name, and the '|'
+# on the right side marks the last column you can put a character in.  You must
+# make exactly 11 lines for the formatting to be correct.  It's also
+# customary to leave one space after the ':'.
+
+    |-----handy-ruler------------------------------------------------|
+cque: cque (Canon Printer Driver)
+cque:
+cque: CQue - Driver for Canon iR, CLC, LPB and MF laser devices (English).
+cque: CQue supports all current Canon iR, CLC, MF and LBP devices
+cque: both colour and monochrome models.
+cque: Supported printer languages include: PostScript, PCL5
+cque: and PXL or PCL6.
+cque:
+cque: URL: http://software.canon-europe.com/products/0010022.asp
+cque:
+cque: Packaged by Widya Walesa <walecha99@gmail.com>

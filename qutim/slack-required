@@ -1,0 +1,17 @@
+cxxlibs
+expat
+fontconfig
+freetype
+glib2
+libICE
+libpng
+libSM
+libX11
+libXau
+libxcb
+libXdmcp
+libXext
+libXrender
+qt
+util-linux
+zlib

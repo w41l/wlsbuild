@@ -1,0 +1,19 @@
+# HOW TO EDIT THIS FILE:
+# The "handy ruler" below makes it easier to edit a package description.  Line
+# up the first '|' above the ':' following the base package name, and the '|'
+# on the right side marks the last column you can put a character in.  You must
+# make exactly 11 lines for the formatting to be correct.  It's also
+# customary to leave one space after the ':'.
+
+   |-----handy-ruler----------------------------------------------------|
+gtg: gtg (Personal Organizer for GNOME)
+gtg:
+gtg: Getting Things GNOME! (GTG) is a personal organizer for the GNOME
+gtg: desktop environment inspired by the Getting Things Done (GTD)
+gtg: methodology. GTG is designed with flexibility, adaptability, and ease
+gtg: of use in mind so it can be used as more than just GTD software. GTG
+gtg: is intended to help you track everything you needto do and need to
+gtg: know, from small tasks to large projects.
+gtg: URL: https://gtg.fritalk.com
+gtg:
+gtg: http://www.walecha.net/

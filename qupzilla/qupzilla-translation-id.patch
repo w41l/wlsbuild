@@ -1,0 +1,10 @@
+--- translations.pri.orig	2012-02-22 11:38:58.213621035 +0700
++++ translations.pri	2012-02-22 11:39:22.241620413 +0700
+@@ -14,6 +14,7 @@
+                 $$PWD/translations/sr_BA.ts\
+                 $$PWD/translations/sr_RS.ts\
+                 $$PWD/translations/sv_SE.ts\
++                $$PWD/translations/id_ID.ts\
+ 
+ isEmpty(QMAKE_LRELEASE) {
+     win32|os2:QMAKE_LRELEASE = $$[QT_INSTALL_BINS]\\lrelease.exe

@@ -1,0 +1,4 @@
+libxfce4util
+perl-extutils-depends
+perl-extutils-pkgconfig
+xfce4-dev-tools

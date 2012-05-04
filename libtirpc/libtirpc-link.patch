@@ -1,0 +1,21 @@
+--- libtirpc-0.1.7/src/Makefile.am.orig	2007-05-17 20:08:05.298402000 +0200
++++ libtirpc-0.1.7/src/Makefile.am	2007-05-17 20:28:44.354794354 +0200
+@@ -11,7 +11,8 @@
+ # release number of your package. This is an abuse that only fosters
+ # misunderstanding of the purpose of library versions."
+ #
+-libtirpc_la_LDFLAGS = -lnsl -lpthread -version-info 1:10:0
++libtirpc_la_LDFLAGS = -version-info 1:10:0
++libtirpc_la_LIBADD = -lpthread
+ 
+ libtirpc_la_SOURCES = auth_none.c auth_unix.c authunix_prot.c bindresvport.c clnt_bcast.c \
+         clnt_dg.c clnt_generic.c clnt_perror.c clnt_raw.c clnt_simple.c \
+@@ -30,7 +30,7 @@
+ if GSS
+     libtirpc_la_SOURCES += auth_gss.c authgss_prot.c svc_auth_gss.c \
+ 		svc_auth_none.c
+-    libtirpc_la_LDFLAGS += $(GSSGLUE_LIBS)
++    libtirpc_la_LIBADD += $(GSSGLUE_LIBS)
+     libtirpc_la_CFLAGS = -DHAVE_RPCSEC_GSS $(GSSGLUE_CFLAGS)
+ endif
+ 

@@ -1,0 +1,7 @@
+glade3
+libxfce4ui
+libxfce4util
+perl-extutils-depends
+perl-extutils-pkgconfig
+perl-glib
+xfce4-dev-tools

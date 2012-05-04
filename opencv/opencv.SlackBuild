@@ -24,8 +24,8 @@
 # YOUR DATA IS DESTROYED, YOUR HOUSE BURNS DOWN OR YOUR DOG RUNS OFF.
 
 PRGNAM=opencv
-VERSION=${VERSION:-2.3.0}
-BUILD=${BUILD:-1}
+VERSION=2.3.1
+BUILD=1
 TAG=${TAG:-_wls}
 NUMJOBS=${NUMJOBS:--j4}
 
@@ -38,7 +38,7 @@ if [ -z "$ARCH" ]; then
 fi
 
 CWD=$(pwd)
-TMP=${TMP:-/tmp/wls}
+TMP=${TMP:-/tmp/wlsbuild}
 PKG=$TMP/package-$PRGNAM
 OUTPUT=${OUTPUT:-/tmp}
 DOCS="README"
@@ -63,7 +63,7 @@ rm -rf $PKG
 mkdir -p $TMP $PKG $OUTPUT
 cd $TMP
 rm -rf OpenCV-$VERSION
-tar xvf $CWD/OpenCV-${VERSION}rc.tar.bz2
+tar xvf $CWD/OpenCV-${VERSION}a.tar.bz2
 cd OpenCV-$VERSION
 
 chown -R root:root .
@@ -75,7 +75,7 @@ find . \
 
 mkdir -p build
 cd build
-  LDFLAGS=" -L/usr/lib${LIBDIRSUFFIX} -L/lib${LIBDIRSUFFIX} " \
+  LDFLAGS=" -L/usr/lib${LIBDIRSUFFIX} " \
   cmake .. \
     -DCMAKE_C_FLAGS="$SLKCFLAGS" \
     -DCMAKE_CXX_FLAGS="$SLKCFLAGS" \
@@ -102,9 +102,9 @@ find $PKG | xargs file | grep -e "executable" -e "shared object" | grep ELF \
   | cut -f 1 -d : | xargs strip --strip-unneeded 2> /dev/null || true
 
 mkdir -p $PKG/usr/doc/$PRGNAM-$VERSION
-mv $PKG/usr/share/opencv/doc/* $PKG/usr/doc/$PRGNAM-$VERSION/
-rm -rf $PKG/usr/share/opencv/doc
-ln -sf /usr/doc/$PRGNAM-$VERSION $PKG/usr/share/opencv/doc
+mv $PKG/usr/share/OpenCV/doc/* $PKG/usr/doc/$PRGNAM-$VERSION/
+rm -rf $PKG/usr/share/OpenCV/doc
+ln -sf /usr/doc/$PRGNAM-$VERSION $PKG/usr/share/OpenCV/doc
 cp -a $DOCS $PKG/usr/doc/$PRGNAM-$VERSION/
 cat $CWD/$PRGNAM.SlackBuild > $PKG/usr/doc/$PRGNAM-$VERSION/$PRGNAM.SlackBuild
 

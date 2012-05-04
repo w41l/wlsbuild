@@ -1,0 +1,2 @@
+/sbin/ldconfig
+

@@ -1,0 +1,82 @@
+#!/bin/sh
+
+# Start/stop/restart the avahi daemon:
+
+PATH=/sbin:/bin:/usr/sbin:/usr/bin:/usr/local/bin:/usr/local/sbin
+DESC="FastCGI Daemon"
+NAME="spawn-fcgi"
+DAEMON="/usr/bin/$NAME"
+FCGI_BIN="/usr/bin/php-cgi"
+FCGI_ADDR="127.0.0.1"
+#FCGI_PORT="9000"
+FCGI_DIR="/var/run/fcgi"
+FCGI_PID="/var/run/fcgi/fcgi.pid"
+FCGI_SOCK="fcgi.sock"
+SOCK_MODE="0777"
+FCGI_USER="nobody"
+FCGI_GROUP="nobody"
+FORK="2"
+#PHP_CHILD="5"
+#PHP_REQ="1000"
+
+fcgi_start()
+{
+  echo -en "Starting $DESC: \t"
+  if [ ! "$FCGI_PORT" = "" ]; then
+    export PHP_FCGI_CHILDREN=${PHP_CHILD}
+    export PHP_FCGI_MAX_REQUESTS=${PHP_REQ}
+    $DAEMON -u $FCGI_USER -g $FCGI_GROUP -a $FCGI_ADDR -p $FCGI_PORT -F $FORK -P $FCGI_PID -- $FCGI_BIN >/dev/null 2>&1
+  else
+    export PHP_FCGI_CHILDREN=${PHP_CHILD}
+    export PHP_FCGI_MAX_REQUESTS=${PHP_REQ}
+    $DAEMON -U $FCGI_USER -G $FCGI_GROUP -d $FCGI_DIR -s $FCGI_SOCK -M $SOCK_MODE -F $FORK -P $FCGI_PID -- $FCGI_BIN >/dev/null 2>&1
+  fi
+  echo "started"
+}
+
+fcgi_status()
+{
+  if ps acx | grep -q "php-cgi"; then
+    echo "$DESC is running as PID: "
+    if [ -f $FCGI_PID ]; then
+      cat $FCGI_PID
+    else
+      pgrep php-cgi
+    fi
+    echo
+  else
+    echo "$DESC is not running"
+  fi
+}
+
+fcgi_stop()
+{
+  echo -en "Stopping $DESC: \t"
+  if [ -f $FCGI_PID ]; then
+    kill `cat $FCGI_PID` >/dev/null
+    rm -f $FCGI_PID
+    sleep 3
+    echo "stopped";
+  else
+    echo "not running"
+  fi
+}
+
+case "$1" in
+'start')
+    fcgi_start
+  ;;
+'stop')
+  fcgi_stop
+  ;;
+'restart')
+  fcgi_stop
+  fcgi_start
+  ;;
+'status')
+  fcgi_status
+  ;;
+*)
+  echo "usage $0 start|stop|status|restart"
+esac
+

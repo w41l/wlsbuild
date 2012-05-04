@@ -1,0 +1,12 @@
+	        |-----handy-ruler------------------------------------------------------|
+python-mechanize: python-mechanize
+python-mechanize:
+python-mechanize: Stateful programmatic web browsing, after Andy Lester's Perl module
+python-mechanize: WWW::Mechanize. mechanize.Browser implements the urllib2.OpenerDirector
+python-mechanize: interface. Browser objects have state, including navigation history,
+python-mechanize: HTML form state, cookies, etc. The set of features and URL schemes
+python-mechanize: handled by Browser objects is configurable.
+python-mechanize:
+python-mechanize: URL: http://wwwsearch.sourceforge.net/mechanize/
+python-mechanize:
+python-mechanize: http://www.walecha.net/

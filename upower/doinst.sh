@@ -11,5 +11,5 @@ config() {
   # Otherwise, we leave the .new copy for the admin to consider...
 }
 
-config etc/dbus-1/system.d/org.freedesktop.UPower.conf.new
+#config etc/dbus-1/system.d/org.freedesktop.UPower.conf.new
 config etc/UPower/UPower.conf.new

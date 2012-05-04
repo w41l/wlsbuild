@@ -38,7 +38,7 @@ if [ -z "$ARCH" ]; then
 fi
 
 CWD=$(pwd)
-WRK=${WRK:-$CWD/wlsbuild}
+WRK=${WRK:-/tmp/wlsbuild}
 PKG=$WRK/package-$PRGNAM
 OUTPUT=${OUTPUT:-/tmp}
 DOCS="CREDITS* LICENSE* README*"
@@ -59,8 +59,8 @@ fi
 
 set -e
 
-rm -rf $PKG
-mkdir -p $WRK $PKG $OUTPUT
+rm -rf $PKG $PKG-runtime
+mkdir -p $WRK $PKG $PKG-runtime $OUTPUT
 cd $WRK
 rm -rf $PRGNAM-$VERSION
 tar xvf $CWD/$PRGNAM-$VERSION.tgz
@@ -127,12 +127,14 @@ cp -a -r $PKG/usr/lib${LIBDIRSUFFIX}/*.so ${PKG}-runtime/usr/lib${LIBDIRSUFFIX}
 mkdir -p ${PKG}-runtime/usr/lib${LIBDIRSUFFIX}/ocaml
 cp -a $PKG/usr/lib${LIBDIRSUFFIX}/ocaml/*.cma ${PKG}-runtime/usr/lib${LIBDIRSUFFIX}/ocaml
 cp -a $PKG/usr/lib${LIBDIRSUFFIX}/ocaml/*.cmi ${PKG}-runtime/usr/lib${LIBDIRSUFFIX}/ocaml
+
 # Adds some ocaml docs
 mkdir -p ${PKG}-runtime/usr/doc/$PRGNAM-runtime-$VERSION
 cp -a $DOCS ${PKG}-runtime/usr/doc/$PRGNAM-runtime-$VERSION
 cat $CWD/$PRGNAM.SlackBuild > ${PKG}-runtime/usr/doc/$PRGNAM-runtime-$VERSION/$PRGNAM.SlackBuild
 mkdir -p ${PKG}-runtime/install
 cat $CWD/slack-desc-runtime > ${PKG}-runtime/install/slack-desc
+
 # Creating the llvm runtime package
 cd ${PKG}-runtime
 /sbin/makepkg -p -l y -c n $OUTPUT/$PRGNAM-runtime-$VERSION-$ARCH-$BUILD$TAG.${PKGTYPE:-tgz}
@@ -142,4 +144,4 @@ cd $PKG
 /sbin/makepkg -p -l y -c n $OUTPUT/$PRGNAM-$VERSION-$ARCH-$BUILD$TAG.${PKGTYPE:-tgz}
 
 echo "Cleaning up build directory"
-cd $CWD; rm -rf $WRK
+cd $WRK; rm -rf $PRGNAM-$VERSION $PKG $PKG-runtime

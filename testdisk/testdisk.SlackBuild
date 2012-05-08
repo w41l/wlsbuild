@@ -24,8 +24,8 @@
 # YOUR DATA IS DESTROYED, YOUR HOUSE BURNS DOWN OR YOUR DOG RUNS OFF.
 
 PRGNAM=testdisk
-VERSION=${VERSION:-6.12}
-BUILD=${BUILD:-1}
+VERSION=6.13
+BUILD=1
 TAG=${TAG:-_wls}
 NUMJOBS=${NUMJOBS:--j3}
 
@@ -38,7 +38,7 @@ if [ -z "$ARCH" ]; then
 fi
 
 CWD=$(pwd)
-TMP=${TMP:-$CWD/wlsbuild}
+TMP=${TMP:-/tmp/wlsbuild}
 PKG=$TMP/package-$PRGNAM
 OUTPUT=${OUTPUT:-/tmp}
 DOCS="AUTHORS COPYING ChangeLog INFO INSTALL NEWS README THANKS"
@@ -98,8 +98,6 @@ mkdir -p $PKG/usr/doc/$PRGNAM-$VERSION
 mv $PKG/usr/share/doc/$PRGNAM-$VERSION/* $PKG/usr/doc/$PRGNAM-$VERSION/
 rm -rf $PKG/usr/share
 cp -a $DOCS $PKG/usr/doc/$PRGNAM-$VERSION
-unzip $CWD/$PRGNAM-doc-6.11.zip
-mv $PRGNAM-6.11/doc/* $PKG/usr/doc/$PRGNAM-$VERSION/html/
 cat $CWD/$PRGNAM.SlackBuild > $PKG/usr/doc/$PRGNAM-$VERSION/$PRGNAM.SlackBuild
 
 mkdir -p $PKG/install
@@ -109,4 +107,4 @@ cd $PKG
 /sbin/makepkg -l y -c n $OUTPUT/$PRGNAM-$VERSION-$ARCH-$BUILD$TAG.${PKGTYPE:-tgz}
 
 echo "Cleaning up build directory"
-cd $CWD ; rm -rf $TMP
+cd $CWD ; rm -rf $PRGNAM-$VERSION $PKG

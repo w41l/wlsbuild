@@ -24,7 +24,7 @@
 # YOUR DATA IS DESTROYED, YOUR HOUSE BURNS DOWN OR YOUR DOG RUNS OFF.
 
 PRGNAM=liferea
-VERSION=1.8.4
+VERSION=1.9.3
 BUILD=1
 TAG=${TAG:-_wls}
 NUMJOBS=${NUMJOBS:--j4}
@@ -85,7 +85,9 @@ CXXFLAGS="$SLKCFLAGS" \
   --localstatedir=/var --sharedstatedir=/var/lib \
   --disable-static --enable-shared \
   --disable-sm \
-  --disable-schemas-install
+  --disable-schemas-install \
+  --disable-libindicate \
+  --with-gtk=3.0
 
 make $NUMJOBS
 make install DESTDIR=$PKG

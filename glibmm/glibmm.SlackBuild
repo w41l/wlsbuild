@@ -102,7 +102,6 @@ cat $CWD/slack-required > $PKG/install/slack-required
 
 cd $PKG
 /sbin/makepkg -l y -c n $OUTPUT/$PRGNAM-$VERSION-$ARCH-$BUILD$TAG.${PKGTYPE:-tgz}
-/usr/bin/gpg --armor --detach-sign $OUTPUT/$PRGNAM-$VERSION-$ARCH-$BUILD$TAG.${PKGTYPE:-tgz}
 
 echo "Cleaning up build directory"
 cd $TMP; rm -rf $PRGNAM-$VERSION $PKG

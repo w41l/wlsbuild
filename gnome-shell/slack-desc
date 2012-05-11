@@ -1,0 +1,19 @@
+# HOW TO EDIT THIS FILE:
+# The "handy ruler" below makes it easier to edit a package description.  Line
+# up the first '|' above the ':' following the base package name, and the '|'
+# on the right side marks the last column you can put a character in.  You must
+# make exactly 11 lines for the formatting to be correct.  It's also
+# customary to leave one space after the ':'.
+
+           |-----handy-ruler------------------------------------------------------|
+gnome-shell: gnome-shell (GNOME shell)
+gnome-shell:
+gnome-shell: gnome-shell provides the core compositing user interface functions 
+gnome-shell: for the GNOME 3 desktop, like switching to windows and launching 
+gnome-shell: applications. GNOME Shell takes advantage of the capabilities of 
+gnome-shell: modern graphics hardware and introduces innovative user interface 
+gnome-shell: concepts to provide an attractive and easy-to-use experience.
+gnome-shell:
+gnome-shell:
+gnome-shell:
+gnome-shell:

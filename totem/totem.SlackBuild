@@ -24,8 +24,8 @@
 # YOUR DATA IS DESTROYED, YOUR HOUSE BURNS DOWN OR YOUR DOG RUNS OFF.
 
 PRGNAM=totem
-VERSION=${VERSION:-2.32.0}
-BUILD=${BUILD:-1}
+VERSION=3.0.1
+BUILD=1
 TAG=${TAG:-_wls}
 NUMJOBS=${NUMJOBS:--j4}
 
@@ -38,7 +38,7 @@ if [ -z "$ARCH" ]; then
 fi
 
 CWD=$(pwd)
-TMP=${TMP:-/tmp/wls}
+TMP=${TMP:-/tmp/wlsbuild}
 PKG=$TMP/package-$PRGNAM
 OUTPUT=${OUTPUT:-/tmp}
 DOCS="AUTHORS COPY* ChangeLog INSTALL NEWS README TODO"
@@ -88,10 +88,10 @@ CXXFLAGS="$SLKCFLAGS" \
   --disable-schemas-install \
   --disable-scrollkeeper \
   --disable-gtk-doc \
+  --disable-nautilus \
   --enable-python \
-  --enable-nautilus \
   --enable-easy-codec-installation=no \
-  --enable-browser-plugins=no \
+  --enable-browser-plugins=yes \
   --enable-gmp-plugin \
   --with-dbus=yes \
   --with-x=yes
@@ -118,7 +118,7 @@ cat $CWD/$PRGNAM.SlackBuild > $PKG/usr/doc/$PRGNAM-$VERSION/$PRGNAM.SlackBuild
 mkdir -p $PKG/install
 cat $CWD/slack-desc > $PKG/install/slack-desc
 cat $CWD/slack-required > $PKG/install/slack-required
-cat $CWD/doinst.sh >> $PKG/install/doinst.sh
+cat $CWD/doinst.sh > $PKG/install/doinst.sh
 
 cd $PKG
 /sbin/makepkg -l y -c n $OUTPUT/$PRGNAM-$VERSION-$ARCH-$BUILD$TAG.${PKGTYPE:-tgz}

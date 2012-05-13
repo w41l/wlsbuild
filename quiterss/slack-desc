@@ -1,0 +1,19 @@
+# HOW TO EDIT THIS FILE:
+# The "handy ruler" below makes it easier to edit a package description.  Line
+# up the first '|' above the ':' following the base package name, and the '|'
+# on the right side marks the last column you can put a character in.  You must
+# make exactly 11 lines for the formatting to be correct.  It's also
+# customary to leave one space after the ':'.
+
+        |-----handy-ruler-------------------------------------------------------|
+quiterss: quiterss (RSS/Atom feed reader)
+quiterss:
+quiterss: QuiteRSS is an easy to use application designed to help you keep track
+quiterss: of the latest news on your RSS feeds. It is quite fast and comfortable
+quiterss: to user.The program allows you to add as many RSS feed links as you
+quiterss: want. You can update the feeds manually.
+quiterss:
+quiterss: URL: http://code.google.com/p/quite-rss/
+quiterss:
+quiterss:
+quiterss:

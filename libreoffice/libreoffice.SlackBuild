@@ -24,7 +24,7 @@
 # YOUR DATA IS DESTROYED, YOUR HOUSE BURNS DOWN OR YOUR DOG RUNS OFF.
 
 PRGNAM=libreoffice
-VERSION=3.5.2
+VERSION=3.5.3
 RCVERS="rc2"
 MAJORVER=$( echo $VERSION | sed "s/\(.*\)\.\(.*\)\.*/\1/" )
 BUILD=1
@@ -107,12 +107,12 @@ echo "Use system libstdc++ instead of the bundled one"
 ( cd $PKG/opt/libreoffice${MAJORVER}/ure/lib;
   OLD="`find /usr/lib${LIBDIRSUFFIX} -type l -name \"libstdc++.so.*\" | xargs basename`"
   rm -f "$OLD";
-  ln -sf /usr/lib${LIBDIRSUFFIX}/${OLD} ${OLD};
+  ln -s /usr/lib${LIBDIRSUFFIX}/${OLD} ${OLD};
 )
 
 echo "Unpacking desktop-integration packages"
 cd desktop-integration
-  rpm2cpio libreoffice${MAJORVER}-freedesktop-menus-${MAJORVER}-202.noarch.rpm | cpio -idmv
+  rpm2cpio libreoffice${MAJORVER}-freedesktop-menus-${VERSION}-2.noarch.rpm | cpio -idmv
   echo "Install icons and mime files"
   mkdir -p ${PKG}/usr/share
   rm -rf usr/share/applications

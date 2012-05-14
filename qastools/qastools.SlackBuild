@@ -24,7 +24,7 @@
 # YOUR DATA IS DESTROYED, YOUR HOUSE BURNS DOWN OR YOUR DOG RUNS OFF.
 
 PRGNAM=qastools
-VERSION=0.16.1
+VERSION=0.17.2
 BUILD=1
 TAG=${TAG:-_wls}
 NUMJOBS=${NUMJOBS:--j4}
@@ -63,7 +63,7 @@ rm -rf $PKG
 mkdir -p $WRK $PKG $OUTPUT
 cd $WRK
 rm -rf ${PRGNAM}_${VERSION}
-tar xvf $CWD/${PRGNAM}_${VERSION}.tar.xz
+tar xvf $CWD/${PRGNAM}_${VERSION}.tar.?z*
 cd ${PRGNAM}_${VERSION}
 
 chown -R root:root .
@@ -82,7 +82,7 @@ cd build
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DLIB_SUFFIX=${LIBDIRSUFFIX}
 
-  make ${NUMJOBS} VERBOSE=1
+  make ${NUMJOBS}
   make install DESTDIR=$PKG
 cd -
 
@@ -98,7 +98,7 @@ cp -a ${DOCS} $PKG/usr/doc/$PRGNAM-$VERSION
 cat $CWD/$PRGNAM.SlackBuild > $PKG/usr/doc/$PRGNAM-$VERSION/$PRGNAM.SlackBuild
 
 mkdir -p $PKG/install
-cat $CWD/doinst.sh >> $PKG/install/doinst.sh
+cat $CWD/doinst.sh > $PKG/install/doinst.sh
 cat $CWD/slack-desc > $PKG/install/slack-desc
 
 cd $PKG

@@ -76,13 +76,10 @@ find . \
 mkdir build
 cd build
   cmake .. \
-    -DCMAKE_C_FLAGS="$SLKCFLAGS" \
-    -DCMAKE_CXX_FLAGS="$SLKCFLAGS" \
-    -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DLIB_SUFFIX=${LIBDIRSUFFIX}
 
-  make ${NUMJOBS}
+  make
   make install DESTDIR=$PKG
 cd -
 

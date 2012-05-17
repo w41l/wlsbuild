@@ -24,7 +24,7 @@
 # YOUR DATA IS DESTROYED, YOUR HOUSE BURNS DOWN OR YOUR DOG RUNS OFF.
 
 PRGNAM=flash-player-plugin
-MAJVER=11
+MAJVER=10
 BUILD=${BUILD:-1}
 TAG=${TAG:-_wls}
 NUMJOBS=${NUMJOBS:--j3}
@@ -65,7 +65,7 @@ cd $WRK
 rm -rf $PKG
 mkdir -p $PKG
 cd $PKG
-tar xvf $CWD/install_flash_player_${MAJVER}_linux.${ARCH}.tar.gz
+tar xvf $CWD/install_flash_player_${MAJVER}_linux.tar.gz
 
 chown -R root:root .
 find . \

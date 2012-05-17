@@ -1,0 +1,19 @@
+# HOW TO EDIT THIS FILE:
+# The "handy ruler" below makes it easier to edit a package description.  Line
+# up the first '|' above the ':' following the base package name, and the '|'
+# on the right side marks the last column you can put a character in.  You must
+# make exactly 11 lines for the formatting to be correct.  It's also
+# customary to leave one space after the ':'.
+
+          |-----handy-ruler------------------------------------------------------|
+qcomicbook: qcomicbook (Qt4 Comic/Manga Reader)
+qcomicbook:
+qcomicbook: QComicBook is a viewer for comic book archives (.cbr, .cbz and alike)
+qcomicbook: containing jpeg/png/xpm/gif/bmp images, which aims at speed,
+qcomicbook: convenience and ease of use. QComicBook was written in C++ and uses
+qcomicbook: the great Qt library. 
+qcomicbook:
+qcomicbook: URL: http://qcomicbook.org/index.html
+qcomicbook:
+qcomicbook:
+qcomicbook:

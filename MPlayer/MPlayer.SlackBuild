@@ -24,8 +24,8 @@
 # YOUR DATA IS DESTROYED, YOUR HOUSE BURNS DOWN OR YOUR DOG RUNS OFF.
 
 PRGNAM=MPlayer
-VERSION=20120322
-FFVERSION=70d5439
+VERSION=20120514
+FFVERSION=20120514
 BUILD=1
 TAG=${TAG:-_wls}
 NUMJOBS=${NUMJOBS:--j4}
@@ -64,7 +64,7 @@ rm -rf $PKG
 mkdir -p $WRK $PKG $OUTPUT
 cd $WRK
 rm -rf $PRGNAM-$VERSION
-tar xvf $CWD/$PRGNAM-$VERSION.tar.xz
+tar xvf $CWD/${PRGNAM}_nolibdvdcss-$VERSION.tar.?z*
 cd $PRGNAM-$VERSION
 
 # Remove internal codec, use externals
@@ -75,7 +75,7 @@ fi
 # Add FFMPEG $FFVERS or the same version with FFMPEG release version
 if [ ! -d ffmpeg ]; then
   rm -rf ffmpeg
-  tar xvf $CWD/ffmpeg-$FFVERSION.tar.xz
+  tar xvf $CWD/ffmpeg-$FFVERSION.tar.?z*
 fi
 
 chown -R root:root .

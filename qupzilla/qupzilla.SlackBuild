@@ -24,10 +24,10 @@
 # YOUR DATA IS DESTROYED, YOUR HOUSE BURNS DOWN OR YOUR DOG RUNS OFF.
 
 PRGNAM=qupzilla
-VERSION=1.2.0
+VERSION=20120524
 BUILD=1
 TAG=${TAG:-_wls}
-NUMJOBS=${NUMJOBS:--j4}
+NUMJOBS=${NUMJOBS:--j1}
 
 if [ -z "$ARCH" ]; then
   case "$( uname -m )" in
@@ -62,9 +62,9 @@ set -e
 rm -rf $PKG
 mkdir -p $WRK $PKG $OUTPUT
 cd $WRK
-rm -rf QupZilla-$VERSION
-tar xvf $CWD/QupZilla-${VERSION}.tar.?z*
-cd QupZilla-$VERSION
+rm -rf qupzilla-$VERSION
+tar xvf $CWD/qupzilla-${VERSION}.tar.?z*
+cd qupzilla-$VERSION
 
 chown -R root:root .
 find . \
@@ -79,7 +79,7 @@ qmake QupZilla.pro
 
 CFLAGS="$SLKCFLAGS" \
 CXXFLAGS="$SLKCFLAGS" \
-make -j3
+make ${NUMJOBS}
 
 # manually install the binaries
 mkdir -p $PKG/usr/bin
@@ -124,4 +124,4 @@ cd $PKG
 /sbin/makepkg -l y -c n $OUTPUT/$PRGNAM-$VERSION-$ARCH-$BUILD$TAG.${PKGTYPE:-tgz}
 
 echo "Cleaning up build directory"
-cd $WRK ; rm -rf $PKG QupZilla-$VERSION
+cd $WRK ; rm -rf $PKG qupzilla-$VERSION

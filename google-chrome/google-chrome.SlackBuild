@@ -30,7 +30,8 @@ case "$(uname -m)" in
   *) echo "Package for $(uname -m) architecture is not available." ; exit 1 ;;
 esac
 # Get the version from the Debian/Ubuntu .deb (thanks to Fred Richards):
-VERSION=$(ar p google-chrome-${RELEASE}_current_${DEBARCH}.deb control.tar.gz 2> /dev/null | tar zxO ./control 2> /dev/null | grep Version | awk '{print $2}' | cut -d- -f1)
+#VERSION=$(ar p google-chrome-${RELEASE}_current_${DEBARCH}.deb control.tar.gz 2> /dev/null | tar zxO ./control 2> /dev/null | grep Version | awk '{print $2}' | cut -d- -f1)
+VERSION=$(rpm --nosignature -qpi google-chrome-${RELEASE}_current_${DEBARCH}.rpm | grep "Version" | awk '{ print $3 }')
 BUILD=${BUILD:-1}
 TAG=${TAG:-_wls}
 
@@ -71,7 +72,8 @@ OUTPUT=${OUTPUT:-/tmp}
 rm -rf $PKG
 mkdir -p $WRK $PKG $OUTPUT
 cd $PKG
-ar p $CWD/google-chrome-${RELEASE}_current_${DEBARCH}.deb data.tar.lzma | lzma -d | tar xv || exit 1
+#ar p $CWD/google-chrome-${RELEASE}_current_${DEBARCH}.deb data.tar.lzma | lzma -d | tar xv || exit 1
+rpm2cpio $CWD/google-chrome-${RELEASE}_current_${DEBARCH}.rpm | cpio -ivd
 chown -R root:root .
 chmod -R u+w,go+r-w,a-s .
 

@@ -87,7 +87,7 @@ cd build
   -DLIB_SUFFIX=$LIBDIRSUFFIX \
   -DLIB_INSTALL_DIR=/usr/lib$LIBDIRSUFFIX
 
-  make $NUMJOBS
+  make
   make DESTDIR=$PKG install
 cd -
 

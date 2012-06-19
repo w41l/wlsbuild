@@ -1,8 +1,8 @@
 #!/bin/sh
 
-# Slackware build script for MPlayer
+# Slackware build script for juffed
 
-# Copyright 2010  Widya Walesa <walecha99@gmail.com>
+# Copyright 2012  Widya Walesa <walecha99@gmail.com>
 # All rights reserved.
 #
 # Redistribution and use of this script, with or without modification, is
@@ -23,12 +23,11 @@
 # ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. FURTHERMORE I AM NOT LIABLE IF
 # YOUR DATA IS DESTROYED, YOUR HOUSE BURNS DOWN OR YOUR DOG RUNS OFF.
 
-PRGNAM=MPlayer
-VERSION=1.1
-FFVERSION=20120514
+PRGNAM=juffed-plugins
+VERSION=0.8.1
 BUILD=1
 TAG=${TAG:-_wls}
-NUMJOBS=${NUMJOBS:--j4}
+NUMJOBS=${NUMJOBS:--j1}
 
 if [ -z "$ARCH" ]; then
   case "$( uname -m )" in
@@ -42,16 +41,16 @@ CWD=$(pwd)
 WRK=${WRK:-/tmp/wlsbuild}
 PKG=$WRK/package-$PRGNAM
 OUTPUT=${OUTPUT:-/tmp}
-DOCS="AUTHORS Changelog Copy* LICENSE README"
+DOCS="TODO"
 
 if [ "$ARCH" = "i486" ]; then
   SLKCFLAGS="-O2 -pipe -march=i486 -mtune=i686"
   LIBDIRSUFFIX=""
 elif [ "$ARCH" = "i686" ]; then
-  SLKCFLAGS="-O2 -pipe -march=i686 -mtune=i686"
+  SLKCFLAGS="-O2 -pipe -march=i686 -mtune=i686 -fPIC"
   LIBDIRSUFFIX=""
 elif [ "$ARCH" = "x86_64" ]; then
-  SLKCFLAGS="-O2 -m64 -pipe -fPIC"
+  SLKCFLAGS="-O2 -pipe -m64 -fPIC"
   LIBDIRSUFFIX="64"
 else
   SLKCFLAGS="-O2"
@@ -63,20 +62,9 @@ set -e
 rm -rf $PKG
 mkdir -p $WRK $PKG $OUTPUT
 cd $WRK
-rm -rf $PRGNAM-$VERSION
-tar xvf $CWD/${PRGNAM}-$VERSION.tar.xz
-cd $PRGNAM-$VERSION
-
-# Remove internal codec, use externals
-if [ -d libdvdcss ]; then
-  rm -rf libdvdcss
-fi
-
-# Add FFMPEG $FFVERS or the same version with FFMPEG release version
-if [ ! -d ffmpeg ]; then
-  rm -rf ffmpeg
-  tar xvf $CWD/ffmpeg-$FFVERSION.tar.?z*
-fi
+rm -rf ${PRGNAM}-${VERSION}
+tar xvf $CWD/${PRGNAM}_${VERSION}.tar.?z*
+cd ${PRGNAM}-${VERSION}
 
 chown -R root:root .
 find . \
@@ -85,76 +73,23 @@ find . \
  \( -perm 666 -o -perm 664 -o -perm 600 -o -perm 444 -o -perm 440 -o -perm 400 \) \
  -exec chmod 644 {} \;
 
-echo "$VERSION" > VERSION
-CODECSDIR="/usr/lib${LIBDIRSUFFIX}/codecs"
-LANGUAGES="en"
-./configure \
-  --prefix=/usr \
-  --libdir=/usr/lib${LIBDIRSUFFIX} \
-  --mandir=/usr/man \
-  --datadir=/usr/share/mplayer \
-  --confdir=/etc/mplayer \
-  --codecsdir=${CODECSDIR} \
-  --language="${LANGUAGES}" \
-  --disable-arts \
-  --disable-pulse \
-  --disable-gui \
-  --disable-mencoder \
-  --disable-dvdread-internal \
-  --disable-libdvdcss-internal \
-  --enable-menu \
-  --enable-x264 \
-  --enable-faac \
-  --enable-musepack \
-  --enable-runtime-cpudetection \
-  --cc=$ARCH-slackware-linux-gcc \
-  --host-cc=$ARCH-slackware-linux-gcc \
-  ${USE_VAAPI}
-
-echo "$VERSION" > VERSION
+qmake juffed-plugins.pro
 make
-# Build the html documentation (not all languages are available):
-# ( cd DOCS/xml
-#   for i in $(echo $LANGUAGES | tr , ' ') ; do
-#     [ -d $i ] && make html-single-$i ;
-#   done
-# )
-echo "$VERSION" > VERSION
-make install DESTDIR=$PKG
-
-# Prepare the configfile:
-mkdir -p $PKG/etc/mplayer
-cp etc/codecs.conf $PKG/etc/mplayer/codecs.conf.new
-cp etc/dvb-menu.conf $PKG/etc/mplayer/dvb-menu.conf.new
-cp etc/example.conf $PKG/etc/mplayer/mplayer.conf.new
-cp etc/input.conf $PKG/etc/mplayer/input.conf.new
-cp etc/menu.conf $PKG/etc/mplayer/menu.conf.new
-
-# Add codecs dir(?)
-mkdir -p $PKG/usr/lib${LIBDIRSUFFIX}/codecs
+make install INSTALL_ROOT=$PKG
 
 find $PKG | xargs file | grep -e "executable" -e "shared object" | grep ELF \
   | cut -f 1 -d : | xargs strip --strip-unneeded 2> /dev/null || true
 
-find $PKG/usr/man -type f -exec gzip -9 {} \;
-for i in $( find $PKG/usr/man -type l ) ; do ln -s $( readlink $i ).gz $i.gz ; rm $i ; done
-
 mkdir -p $PKG/usr/doc/$PRGNAM-$VERSION
-cp -a -r $DOCS $PKG/usr/doc/$PRGNAM-$VERSION/
-cp -r -p DOCS/HTML $PKG/usr/doc/$PRGNAM-$VERSION/
-cp -r -p DOCS/tech $PKG/usr/doc/$PRGNAM-$VERSION/
-cp -r -p TOOLS $PKG/usr/doc/$PRGNAM-$VERSION/
-#cat $CWD/$PRGNAM.html > $PKG/usr/doc/$PRGNAM-$VERSION/$PRGNAM.html
+cp -a ${DOCS} $PKG/usr/doc/$PRGNAM-$VERSION
 cat $CWD/$PRGNAM.SlackBuild > $PKG/usr/doc/$PRGNAM-$VERSION/$PRGNAM.SlackBuild
-find $PKG/usr/doc -type d -exec chmod -v 755 {} \;
 
 mkdir -p $PKG/install
 cat $CWD/slack-desc > $PKG/install/slack-desc
 cat $CWD/slack-required > $PKG/install/slack-required
-cat $CWD/doinst.sh > $PKG/install/doinst.sh
 
 cd $PKG
 /sbin/makepkg -l y -c n $OUTPUT/$PRGNAM-$VERSION-$ARCH-$BUILD$TAG.${PKGTYPE:-tgz}
 
 echo "Cleaning up build directory"
-cd $WRK; rm -rf $PRGNAM-$VERSION $PKG
+cd $WRK ; rm -rf $PKG ${PRGNAM}-${VERSION}

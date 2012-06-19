@@ -24,7 +24,7 @@
 # YOUR DATA IS DESTROYED, YOUR HOUSE BURNS DOWN OR YOUR DOG RUNS OFF.
 
 PRGNAM=qupzilla
-VERSION=20120524
+VERSION=20120619_321d1fb
 BUILD=1
 TAG=${TAG:-_wls}
 NUMJOBS=${NUMJOBS:--j1}
@@ -44,7 +44,7 @@ OUTPUT=${OUTPUT:-/tmp}
 DOCS="AUTHORS BUILDING COPYRIGHT FAQ GPLv3 README.md TODO"
 
 if [ "$ARCH" = "i486" ]; then
-  SLKCFLAGS="-O2 -pipe -march=i486 -mtune=i686 -fPIC"
+  SLKCFLAGS="-O2 -pipe -march=i486 -mtune=i686"
   LIBDIRSUFFIX=""
 elif [ "$ARCH" = "i686" ]; then
   SLKCFLAGS="-O2 -pipe -march=i686 -mtune=i686 -fPIC"
@@ -63,7 +63,7 @@ rm -rf $PKG
 mkdir -p $WRK $PKG $OUTPUT
 cd $WRK
 rm -rf qupzilla-$VERSION
-tar xvf $CWD/qupzilla-${VERSION}.tar.?z*
+tar xvf $CWD/qupzilla-${VERSION}.tar.xz
 cd qupzilla-$VERSION
 
 chown -R root:root .

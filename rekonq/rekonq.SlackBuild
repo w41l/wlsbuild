@@ -2,7 +2,7 @@
 
 # Slackware build script for rekonq
 
-# Copyright 2010 Widya Walesa <walecha99@gmail.com>
+# Copyright 2010  Widya Walesa <walecha99@gmail.com>
 # All rights reserved.
 #
 # Redistribution and use of this script, with or without modification, is
@@ -24,7 +24,7 @@
 # YOUR DATA IS DESTROYED, YOUR HOUSE BURNS DOWN OR YOUR DOG RUNS OFF.
 
 PRGNAM=rekonq
-VERSION=0.8.1
+VERSION=0.9.80
 BUILD=1
 TAG=${TAG:-_wls}
 NUMJOBS=${NUMJOBS:--j4}
@@ -44,7 +44,7 @@ OUTPUT=${OUTPUT:-/tmp}
 DOCS="AUTHORS ChangeLog COPY* INSTALL TODO"
 
 if [ "$ARCH" = "i486" ]; then
-  SLKCFLAGS="-O2 -pipe -march=i486 -mtune=i686 -fPIC"
+  SLKCFLAGS="-O2 -pipe -march=i486 -mtune=i686"
   LIBDIRSUFFIX=""
 elif [ "$ARCH" = "i686" ]; then
   SLKCFLAGS="-O2 -pipe -march=i686 -mtune=i686 -fPIC"
@@ -85,7 +85,7 @@ cd build
     -DMAN_INSTALL_DIR=/usr/man \
     -DSYSCONF_INSTALL_DIR=/etc
 
-  make ${NUMJOBS} VERBOSE=1
+  make VERBOSE=1
   make install DESTDIR=$PKG
 cd -
 
@@ -97,7 +97,7 @@ cp -a ${DOCS} $PKG/usr/doc/$PRGNAM-$VERSION
 cat $CWD/$PRGNAM.SlackBuild > $PKG/usr/doc/$PRGNAM-$VERSION/$PRGNAM.SlackBuild
 
 mkdir -p $PKG/install
-cat $CWD/doinst.sh >> $PKG/install/doinst.sh
+cat $CWD/doinst.sh > $PKG/install/doinst.sh
 cat $CWD/slack-desc > $PKG/install/slack-desc
 
 cd $PKG

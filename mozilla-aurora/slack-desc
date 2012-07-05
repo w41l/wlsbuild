@@ -1,0 +1,19 @@
+# HOW TO EDIT THIS FILE:
+# The "handy ruler" below makes it easier to edit a package description.  Line
+# up the first '|' above the ':' following the base package name, and the '|'
+# on the right side marks the last column you can put a character in.  You must
+# make exactly 11 lines for the formatting to be correct.  It's also
+# customary to leave one space after the ':'.
+
+              |-----handy-ruler------------------------------------------------------|
+mozilla-aurora: mozilla-aurora (Mozilla Firefox Web browser test)
+mozilla-aurora:
+mozilla-aurora: This project is a redesign of the Mozilla browser component written
+mozilla-aurora: using the XUL user interface language.  Firefox empowers you to
+mozilla-aurora: browse faster, more safely and more efficiently than with any other
+mozilla-aurora: browser.
+mozilla-aurora: WARNING: THIS IS A PRE-BETA TEST BROWSER!
+mozilla-aurora:
+mozilla-aurora: URL: http://www.mozilla.org/en-US/firefox/aurora/
+mozilla-aurora:
+mozilla-aurora: http://www.walecha.net/

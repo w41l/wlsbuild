@@ -24,7 +24,7 @@
 # YOUR DATA IS DESTROYED, YOUR HOUSE BURNS DOWN OR YOUR DOG RUNS OFF.
 
 PRGNAM=grub
-VERSION=1.99
+VERSION=2.00
 BUILD=1
 TAG=${TAG:-_wls}
 NUMJOBS=${NUMJOBS:--j4}
@@ -101,8 +101,8 @@ cat docs/grub.cfg > $PKG/usr/doc/$PRGNAM-$VERSION/grub.cfg
 # Install os-prober
 cd $TMP
 rm -rf os-prober
-tar xvf $CWD/os-prober_1.49.tar.gz
-cd os-prober
+tar xvf $CWD/os-prober_1.53.tar.gz
+cd os-prober-1.53
 
 chown -R root:root .
 find . \

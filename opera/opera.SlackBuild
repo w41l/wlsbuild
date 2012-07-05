@@ -2,7 +2,7 @@
 
 # Slackware build script for opera
 
-# Copyright 2011 Widya Walesa <walecha99@gmail.com>
+# Copyright 2011  Widya Walesa <walecha99@gmail.com>
 # All rights reserved.
 #
 # Redistribution and use of this script, with or without modification, is
@@ -24,8 +24,8 @@
 # YOUR DATA IS DESTROYED, YOUR HOUSE BURNS DOWN OR YOUR DOG RUNS OFF.
 
 PRGNAM=opera
-VERSION=11.60.1185
-SRCVERS=11.60-1185
+VERSION=12.00.1467
+SRCVERS=12.00-1467
 BUILD=1
 TAG="_wls"
 NUMJOBS="-j3"

@@ -1,0 +1,19 @@
+# HOW TO EDIT THIS FILE:
+# The "handy ruler" below makes it easier to edit a package description.  Line
+# up the first '|' above the ':' following the base package name, and the '|'
+# on the right side marks the last column you can put a character in.  You must
+# make exactly 11 lines for the formatting to be correct.  It's also
+# customary to leave one space after the ':'.
+
+         |-----handy-ruler------------------------------------------------------|
+kcm-grub2: kcm-grub2 (KDE4 Control Module for GRUB2)
+kcm-grub2:
+kcm-grub2: Smoothly integrated in KDE System Settings, it is the central place
+kcm-grub2: for managing your GRUB2 configuration. Supports many GRUB2
+kcm-grub2: configuration options
+kcm-grub2:
+kcm-grub2: URL: http://ksmanis.wordpress.com/projects/grub2-editor/
+kcm-grub2:
+kcm-grub2:
+kcm-grub2:
+kcm-grub2: http://www.walecha.net/

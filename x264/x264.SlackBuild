@@ -24,7 +24,7 @@
 # YOUR DATA IS DESTROYED, YOUR HOUSE BURNS DOWN OR YOUR DOG RUNS OFF.
 
 PRGNAM=x264
-VERSION=69a0443
+VERSION=35cf912
 BUILD=1
 TAG=${TAG:-_wls}
 NUMJOBS=${NUMJOBS:--j4}
@@ -63,8 +63,11 @@ rm -rf $PKG
 mkdir -p $TMP $PKG $OUTPUT
 cd $TMP
 rm -rf $PRGNAM-$VERSION
-tar xvf $CWD/$PRGNAM-$VERSION.tar.gz
+tar xvf $CWD/$PRGNAM-$VERSION.tar.xz
 cd $PRGNAM-$VERSION
+
+# Add YUV4MPEG filter
+bzip2 -dc $CWD/example.y4m.bz2 > example.y4m
 
 # Add shared gpac
 sed -i 's,-lgpac_static,-lgpac,g' configure

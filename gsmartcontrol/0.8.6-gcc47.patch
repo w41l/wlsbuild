@@ -1,0 +1,38 @@
+ src/gsc_text_window.h  |    4 ++--
+ src/libdebug/dstream.h |    1 +
+ 2 files changed, 3 insertions(+), 2 deletions(-)
+
+diff --git a/src/gsc_text_window.h b/src/gsc_text_window.h
+index d36250d..6516888 100644
+--- a/src/gsc_text_window.h
++++ b/src/gsc_text_window.h
+@@ -126,7 +126,7 @@ class GscTextWindow : public AppUIResWidget<GscTextWindow<InstanceSwitch>, Insta
+ 		// by default, delete_event calls hide().
+ 		bool on_delete_event_before(GdkEventAny* e)
+ 		{
+-			destroy(this);  // deletes this object and nullifies instance
++			this->destroy(this);  // deletes this object and nullifies instance
+ 			return true;  // event handled, don't call default virtual handler
+ 		}
+ 
+@@ -184,7 +184,7 @@ class GscTextWindow : public AppUIResWidget<GscTextWindow<InstanceSwitch>, Insta
+ 
+ 		void on_close_window_button_clicked()
+ 		{
+-			destroy(this);
++			this->destroy(this);
+ 		}
+ 
+ 
+diff --git a/src/libdebug/dstream.h b/src/libdebug/dstream.h
+index bb2a428..87d49bc 100644
+--- a/src/libdebug/dstream.h
++++ b/src/libdebug/dstream.h
+@@ -9,6 +9,7 @@
+ 
+ #include <ostream>  // std::ostream definition
+ #include <streambuf>  // std::streambuf definition
++#include <cstdio>
+ #include <string>
+ #include <sstream>
+ #include <vector>

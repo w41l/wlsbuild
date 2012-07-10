@@ -1,0 +1,10 @@
+--- kipi-plugins-1.9.0/printimages/wizard.cpp.orig	2012-07-10 12:21:29.616370168 +0700
++++ kipi-plugins-1.9.0/printimages/wizard.cpp	2012-07-10 12:21:53.129369409 +0700
+@@ -55,6 +55,7 @@
+ #include <kstandarddirs.h>
+ #include <kconfig.h>
+ #include <kdesktopfile.h>
++#include <kdialog.h>
+ 
+ // libkipi includes
+ 

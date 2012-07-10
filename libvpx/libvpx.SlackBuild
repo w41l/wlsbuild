@@ -66,17 +66,6 @@ rm -rf $PRGNAM-v$VERSION
 tar xvf $CWD/$PRGNAM-v$VERSION.tar.bz2
 cd $PRGNAM-v$VERSION
 
-# cat $CWD/$PRGNAM-$VERSION-clang_decoder_tmpl.txt.patch | patch -p1
-# cat $CWD/$PRGNAM-$VERSION-clang_denoising_sse2.c.patch | patch -p1
-# cat $CWD/$PRGNAM-$VERSION-clang_encoder_tmpl.c.patch | patch -p1
-# cat $CWD/$PRGNAM-$VERSION-clang_encoder_tmpl.txt.patch | patch -p1
-# cat $CWD/$PRGNAM-$VERSION-clang_firstpass.c.patch | patch -p1
-# cat $CWD/$PRGNAM-$VERSION-clang_postproc.c.patch | patch -p1
-# cat $CWD/$PRGNAM-$VERSION-clang_vp8_multi_resolution_encoder.c.patch | patch -p1
-# cat $CWD/$PRGNAM-$VERSION-clang_vp8_scalable_patterns.c.patch | patch -p1
-# cat $CWD/$PRGNAM-$VERSION-clang_vpxdec.c.patch | patch -p1
-# cat $CWD/$PRGNAM-$VERSION-clang_vpxenc.c.patch | patch -p1
-
 chown -R root:root .
 find . \
  \( -perm 777 -o -perm 775 -o -perm 711 -o -perm 555 -o -perm 511 \) \

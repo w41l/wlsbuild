@@ -114,10 +114,7 @@ chmod +x configure
   $wx_option \
   $x64_option
 
-# Fix shared library name
-# cat $CWD/$PRGNAM-$VERSION-soname.patch | patch -p1
-
-make ${NUMJOBS} # Parallel build seems to fail
+make # Parallel build seems to fail
 make install DESTDIR=$PKG
 make install-lib DESTDIR=$PKG
 

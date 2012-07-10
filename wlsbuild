@@ -14,7 +14,7 @@ xvidcore - clang
 libdc1394
 openjpeg - clang
 speex - clang
-libvpx
+libvpx - clang
 ## TESTING ##
 gpac - clang
 x264
@@ -358,3 +358,6 @@ egenix-mx-base
 pycurl
 gnome-python-desktop
 feedparser
+
+## WINE ##
+cabextract - clang

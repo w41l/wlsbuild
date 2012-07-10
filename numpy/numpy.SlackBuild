@@ -24,8 +24,8 @@
 # YOUR DATA IS DESTROYED, YOUR HOUSE BURNS DOWN OR YOUR DOG RUNS OFF.
 
 PRGNAM=numpy
-VERSION=${VERSION:-1.4.0}
-BUILD=${BUILD:-1}
+VERSION=1.6.2
+BUILD=1
 TAG=${TAG:-_wls}
 
 # Automatically determine the architecture we're building on:
@@ -39,7 +39,7 @@ if [ -z "$ARCH" ]; then
 fi
 
 CWD=$(pwd)
-TMP=${TMP:-/tmp/wls}
+TMP=${TMP:-/tmp/wlsbuild}
 PKG=$TMP/package-$PRGNAM
 OUTPUT=${OUTPUT:-/tmp}
 
@@ -62,13 +62,13 @@ set -e
 rm -rf $PKG
 mkdir -p $TMP $PKG $OUTPUT
 cd $TMP
-rm -rf $PRGNAM-1.3.0
-tar xvf $CWD/$PRGNAM-1.3.0.tar.gz
-cd $PRGNAM-1.3.0
+rm -rf $PRGNAM-$VERSION
+tar xvf $CWD/$PRGNAM-$VERSION.tar.gz
+cd $PRGNAM-$VERSION
 
-zcat $CWD/$PRGNAM-1.1.0-f2py.patch.gz | patch -p0
-zcat $CWD/$PRGNAM-1.3.0-fenv-freebsd.patch.gz | patch -p0
-zcat $CWD/$PRGNAM-1.4.0-python-2.7.patch.gz | patch -p0
+# zcat $CWD/$PRGNAM-1.1.0-f2py.patch.gz | patch -p0
+# zcat $CWD/$PRGNAM-1.3.0-fenv-freebsd.patch.gz | patch -p0
+# zcat $CWD/$PRGNAM-1.4.0-python-2.7.patch.gz | patch -p0
 
 # Fix permissions for building.
 chown -R root:root .
@@ -78,6 +78,7 @@ find . \
   \( -perm 666 -o -perm 664 -o -perm 600 -o -perm 444 -o -perm 440 -o -perm 400 \) \
   -exec chmod 644 {} \;
 
+CC="clang" CXX="clang++" \
 CFLAGS="$SLKCFLAGS" \
 CXXFLAGS="$SLKCFLAGS" \
 python setup.py build
@@ -101,4 +102,4 @@ cd $PKG
 /sbin/makepkg -l y -c n $OUTPUT/$PRGNAM-$VERSION-$ARCH-$BUILD$TAG.${PKGTYPE:-tgz}
 
 echo "Cleaning up build directory"
-cd $TMP; rm -rf $PRGNAM-1.3.0 $PKG
+cd $TMP; rm -rf $PRGNAM-$VERSION $PKG

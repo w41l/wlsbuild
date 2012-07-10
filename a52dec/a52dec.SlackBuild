@@ -73,6 +73,7 @@ find . \
  \( -perm 666 -o -perm 664 -o -perm 600 -o -perm 444 -o -perm 440 -o -perm 400 \) \
  -exec chmod 644 {} \;
 
+CC="clang" CXX="clang++" \
 CPPFLAGS="$SLKCFLAGS" \
 CFLAGS="$SLKCFLAGS" \
 CXXFLAGS="$SLKCFLAGS" \
@@ -91,7 +92,12 @@ CXXFLAGS="$SLKCFLAGS" \
   --disable-solaris-audio \
   --disable-al-audio
 
-make $NUMJOBS
+make
+
+CC="clang" CXX="clang++" \
+CPPFLAGS="$SLKCFLAGS" \
+CFLAGS="$SLKCFLAGS" \
+CXXFLAGS="$SLKCFLAGS" \
 make install DESTDIR=$PKG
 
 find $PKG | xargs file | grep -e "executable" -e "shared object" | grep ELF \

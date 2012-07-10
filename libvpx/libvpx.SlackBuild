@@ -24,7 +24,7 @@
 # YOUR DATA IS DESTROYED, YOUR HOUSE BURNS DOWN OR YOUR DOG RUNS OFF.
 
 PRGNAM=libvpx
-VERSION=0.9.6
+VERSION=1.1.0
 BUILD=1
 TAG=${TAG:-_wls}
 NUMJOBS=${NUMJOBS:--j1}
@@ -62,9 +62,20 @@ set -e
 rm -rf $PKG
 mkdir -p $TMP $PKG $OUTPUT
 cd $TMP
-rm -rf $PRGNAM-$VERSION
-tar xvf $CWD/$PRGNAM-$VERSION.tar.xz
-cd $PRGNAM-$VERSION
+rm -rf $PRGNAM-v$VERSION
+tar xvf $CWD/$PRGNAM-v$VERSION.tar.bz2
+cd $PRGNAM-v$VERSION
+
+# cat $CWD/$PRGNAM-$VERSION-clang_decoder_tmpl.txt.patch | patch -p1
+# cat $CWD/$PRGNAM-$VERSION-clang_denoising_sse2.c.patch | patch -p1
+# cat $CWD/$PRGNAM-$VERSION-clang_encoder_tmpl.c.patch | patch -p1
+# cat $CWD/$PRGNAM-$VERSION-clang_encoder_tmpl.txt.patch | patch -p1
+# cat $CWD/$PRGNAM-$VERSION-clang_firstpass.c.patch | patch -p1
+# cat $CWD/$PRGNAM-$VERSION-clang_postproc.c.patch | patch -p1
+# cat $CWD/$PRGNAM-$VERSION-clang_vp8_multi_resolution_encoder.c.patch | patch -p1
+# cat $CWD/$PRGNAM-$VERSION-clang_vp8_scalable_patterns.c.patch | patch -p1
+# cat $CWD/$PRGNAM-$VERSION-clang_vpxdec.c.patch | patch -p1
+# cat $CWD/$PRGNAM-$VERSION-clang_vpxenc.c.patch | patch -p1
 
 chown -R root:root .
 find . \
@@ -73,7 +84,7 @@ find . \
  \( -perm 666 -o -perm 664 -o -perm 600 -o -perm 444 -o -perm 440 -o -perm 400 \) \
  -exec chmod 644 {} \;
 
-
+CC="clang" CXX="clang++" \
 CFLAGS="$SLKCFLAGS" \
 CXXFLAGS="$SLKCFLAGS" \
 ./configure \
@@ -83,10 +94,16 @@ CXXFLAGS="$SLKCFLAGS" \
   --disable-install-srcs \
   --disable-debug-libs \
   --disable-install-libs \
+  --enable-vp8 \
+  --enable-runtime-cpu-detect \
   --enable-postproc \
   --enable-shared
 
-make $NUMJOBS
+make
+
+CC="clang" CXX="clang++" \
+CFLAGS="$SLKCFLAGS" \
+CXXFLAGS="$SLKCFLAGS" \
 make install DESTDIR=$PKG
 
 # The build system vor libvpx is not yet mature:
@@ -100,7 +117,7 @@ find $PKG | xargs file | grep -e "executable" -e "shared object" | grep ELF \
   | cut -f 1 -d : | xargs strip --strip-unneeded 2> /dev/null || true
 
 mkdir -p $PKG/usr/doc/$PRGNAM-$VERSION
-cp -r docs/html $PKG/usr/doc/$PRGNAM-$VERSION/
+# cp -r docs/html $PKG/usr/doc/$PRGNAM-$VERSION/
 cp -a $DOCS $PKG/usr/doc/$PRGNAM-$VERSION
 cat $CWD/$PRGNAM.SlackBuild > $PKG/usr/doc/$PRGNAM-$VERSION/$PRGNAM.SlackBuild
 
@@ -111,4 +128,4 @@ cd $PKG
 /sbin/makepkg -l y -c n $OUTPUT/$PRGNAM-$VERSION-$ARCH-$BUILD$TAG.${PKGTYPE:-tgz}
 
 echo "Cleaning up build directory"
-cd $TMP; rm -rf $PRGNAM-$VERSION $PKG
+cd $TMP; rm -rf $PRGNAM-v$VERSION $PKG

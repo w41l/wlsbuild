@@ -78,8 +78,8 @@ echo 'INSTALL(FILES ${libreplaygain_SOURCE_DIR}/include/replaygain/gain_analysis
 mkdir -p build
 cd build
 cmake .. \
+  -DCMAKE_C_COMPILER="/usr/bin/clang" \
   -DCMAKE_C_FLAGS:STRING="$SLKCFLAGS" \
-  -DCMAKE_CXX_FLAGS:STRING="$SLKCFLAGS" \
   -DCMAKE_BUILD_TYPE=Release \
   -DCMAKE_INSTALL_PREFIX=/usr \
   -DLIB_SUFFIX=$LIBDIRSUFFIX

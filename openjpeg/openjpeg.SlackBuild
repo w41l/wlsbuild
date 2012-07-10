@@ -24,7 +24,7 @@
 # YOUR DATA IS DESTROYED, YOUR HOUSE BURNS DOWN OR YOUR DOG RUNS OFF.
 
 PRGNAM=openjpeg
-VERSION=1.4
+VERSION=1.5.0
 BUILD=1
 TAG=${TAG:-_wls}
 NUMJOBS=${NUMJOBS:--j4}
@@ -62,15 +62,9 @@ set -e
 rm -rf $PKG
 mkdir -p $TMP $PKG $OUTPUT
 cd $TMP
-rm -rf openjpeg_v1_4_sources_r697
-tar xvf $CWD/openjpeg_v1_4_sources_r697.tgz
-cd openjpeg_v1_4_sources_r697
-
-# Patching
-cat $CWD/patches/${PRGNAM}-${VERSION}-cmake-stdbool.patch | patch -p1
-cat $CWD/patches/${PRGNAM}-${VERSION}-libpng15.patch | patch -p1
-cat $CWD/patches/${PRGNAM}-${VERSION}-linking.patch | patch -p1
-cat $CWD/patches/${PRGNAM}-${VERSION}-pkgconfig.patch | patch -p1
+rm -rf $PRGNAM-$VERSION
+tar xvf $CWD/$PRGNAM-$VERSION.tar.gz
+cd $PRGNAM-$VERSION
 
 chown -R root:root .
 find . \
@@ -82,23 +76,22 @@ find . \
 mkdir -p build
 cd build
   cmake .. \
+    -DCMAKE_C_COMPILER="/usr/bin/clang" \
     -DCMAKE_C_FLAGS="$SLKCFLAGS" \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DBUILD_SHARED_LIBS:BOOL=ON \
     -DCMAKE_BUILD_TYPE=Release \
     -DOPENJPEG_INSTALL_BIN_DIR=/usr/bin \
-    -DOPENJPEG_INSTALL_LIB_DIR=/usr/lib$LIBDIRSUFFIX \
+    -DOPENJPEG_INSTALL_LIB_DIR=/usr/lib$LIBDIRSUFFIX
 
   make $NUMJOBS
   make install DESTDIR=$PKG
 cd -
 
 # fix header
-#mkdir -p $PKG/usr/include
-#mv $PKG/openjpeg $PKG/usr/include
 ( cd $PKG/usr/include;
   rm -f openjpeg.h;
-  ln -s ${PRGNAM}-${VERSION}/openjpeg.h;
+  ln -sf openjpeg-*/openjpeg.h;
 )
 
 mv $PKG/usr/share/man $PKG/usr/
@@ -121,4 +114,4 @@ cd $PKG
 /sbin/makepkg -l y -c n $OUTPUT/$PRGNAM-$VERSION-$ARCH-$BUILD$TAG.${PKGTYPE:-tgz}
 
 echo "Cleaning up build directory"
-cd $TMP; rm -rf openjpeg_v1_4_sources_r697 $PKG
+cd $TMP; rm -rf $PRGNAM-$VERSION $PKG

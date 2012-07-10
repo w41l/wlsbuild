@@ -1,0 +1,11 @@
+--- gpac/modules/ffmpeg_in/Makefile.link	2012-04-13 03:26:08.000000000 +0000
++++ gpac/modules/ffmpeg_in/Makefile	2012-04-13 03:26:20.000000000 +0000
+@@ -24,7 +24,7 @@
+ 
+ #old ffmpeg lib
+ ifeq ($(CONFIG_FFMPEG_OLD), yes)
+-CFLAGS+=-DFFMPEG_OLD_HEADERS -I/usr/include
++CFLAGS+=-I/usr/include
+ else
+ LINKLIBS+=-lswscale
+ endif

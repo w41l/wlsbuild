@@ -107,8 +107,6 @@ LANGUAGES="en"
   --enable-faac \
   --enable-musepack \
   --enable-runtime-cpudetection \
-  --cc=$ARCH-slackware-linux-gcc \
-  --host-cc=$ARCH-slackware-linux-gcc \
   ${USE_VAAPI}
 
 echo "$VERSION" > VERSION

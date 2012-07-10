@@ -76,7 +76,7 @@ find . \
 echo "$VERSION" > VERSION
 ./configure \
     --arch=${ARCH} \
-    --host-cc=$ARCH-slackware-linux-gcc \
+    --cc=/usr/bin/clang \
     --prefix=/usr --libdir=/usr/lib$LIBDIRSUFFIX \
     --disable-static --enable-shared \
     --disable-debug --target-os=linux \
@@ -106,6 +106,7 @@ echo "$VERSION" > VERSION
 
 echo "$VERSION" > VERSION
 make
+
 make install DESTDIR=$PKG
 make install-man DESTDIR=$PKG
 

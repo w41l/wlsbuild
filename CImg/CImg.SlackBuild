@@ -24,8 +24,8 @@
 # YOUR DATA IS DESTROYED, YOUR HOUSE BURNS DOWN OR YOUR DOG RUNS OFF.
 
 PRGNAM=CImg
-VERSION=${VERSION:-1.4.9}
-BUILD=${BUILD:-1}
+VERSION=1.5.0
+BUILD=1
 TAG=${TAG:-_wls}
 NUMJOBS=${NUMJOBS:--j4}
 
@@ -39,7 +39,7 @@ if [ -z "$ARCH" ]; then
 fi
 
 CWD=$(pwd)
-TMP=${TMP:-/tmp/wls}
+TMP=${TMP:-/tmp/wlsbuild}
 PKG=$TMP/package-$PRGNAM
 OUTPUT=${OUTPUT:-/tmp}
 DOCS="INSTALL README"
@@ -88,8 +88,7 @@ cp -a -r -p CImg.h plugins $PKG/usr/include/CImg
 ( cd $PKG/usr/include/ ; ln -sf /usr/include/CImg/CImg.h CImg.h)
 
 mkdir -p $PKG/usr/share/CImg
-cp -a -r -p CImg.h resources html examples plugins CHANGES.txt README.txt \
-  $PKG/usr/share/CImg
+cp -a -r -p CImg.h resources html examples plugins *.txt $PKG/usr/share/CImg
 
 mkdir -p $PKG/usr/doc/$PRGNAM-$VERSION
 cp -a -p *.txt $PKG/usr/doc/$PRGNAM-$VERSION

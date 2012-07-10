@@ -84,7 +84,7 @@ GSM_MAJOR=`grep "GSM_MAJOR" inc/gsm.h | awk '{ print $3 }'`
 GSM_VERSION="${GSM_MAJOR}.${GSM_MINOR}.${GSM_PATCHLEVEL}"
 
 make CFLAGS="$SLKCFLAGS -c -DNeedFunctionPrototypes=1 -I./inc" \
-  LD="$ARCH-slackware-linux-gcc" AR="/usr/bin/ar" CC="$CHOST-gcc" \
+  LD="clang" CC="clang" \
   LDFLAGS="-Wl,-soname -Wl,libgsm.so.${GSM_VERSION}" \
   STRIP=":"
 
@@ -94,10 +94,14 @@ mkdir -p $PKG/usr/include/gsm
 mkdir -p $PKG/usr/man/man3
 mkdir -p $PKG/usr/man/man1
 
-make CFLAGS="$SLKCFLAGS" CXXFLAGS="$SLKCFLAGS" install \
-    INSTALL_ROOT=$PKG/usr \
-    GSM_INSTALL_INC=$PKG/usr/include/gsm \
-    GSM_INSTALL_LIB=$PKG/usr/lib$LIBDIRSUFFIX
+make CFLAGS="$SLKCFLAGS" CXXFLAGS="$SLKCFLAGS" \
+  LD="clang" CC="clang" \
+  LDFLAGS="-Wl,-soname -Wl,libgsm.so.${GSM_VERSION}" \
+  STRIP=":" \
+  INSTALL_ROOT=$PKG/usr \
+  GSM_INSTALL_INC=$PKG/usr/include/gsm \
+  GSM_INSTALL_LIB=$PKG/usr/lib$LIBDIRSUFFIX \
+  install
 
 cp -a -p lib/libgsm.so* $PKG/usr/lib$LIBDIRSUFFIX/
 

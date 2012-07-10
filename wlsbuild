@@ -1,54 +1,55 @@
 ## MULTIMEDIA LIBS ##
 mp4v2
-faac
-faad2
-orc
+faac - clang
+faad2 - clang
+orc - clang
 dirac
-schroedinger
-libgsm
-lame
-opencore-amr
+schroedinger - clang
+libgsm - clang
+lame - clang
+opencore-amr - clang
 ## TESTING ##
-a52dec
-xvidcore
+a52dec - clang
+xvidcore - clang
 libdc1394
-openjpeg
-speex
+openjpeg - clang
+speex - clang
 libvpx
 ## TESTING ##
-gpac
+gpac - clang
 x264
-numpy
+numpy - clang
 opencv
 frei0r
-ffmpeg
+ffmpeg - clang
 libdv
-libreplaygain
-libcue
-cuetools
-libmpcdec
-libmpeg2
-libass
-twolame
-libdca
-libdvdcss
+libreplaygain - clang
+libcue - clang
+cuetools - clang
+libmpcdec - clang
+libmpeg2 - clang
+libass - clang
+twolame - clang
+libdca - clang
+libdvdcss - clang
 #libdvdnav | use Slackware package
-libquicktime
+libquicktime - clang
 mjpegtools
-libiec61883
-libavc1394
-libcdaudio
+libiec61883 - clang
+libavc1394 - clang
+libcdaudio - clang
 live555
-wavegain
-mp3gain
-vorbisgain
-libkate
-rtmpdump
-libbluray
+#wavegain | removed, use Slackware wavpack
+mp3gain - clang
+vorbisgain - clang
+libkate - clang
+rtmpdump - clang
+libbluray - clang
 libmms
 libmodplug
-wildmidi
-mplayer2 | MPlayer
+#wildmidi | removed
+openal - clang
+MPlayer
 
 ## GENERAL LIBS ##
 #glib2 - use slackware package

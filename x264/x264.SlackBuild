@@ -97,6 +97,8 @@ find . \
   $PIC_OPT
 
 make $NUMJOBS
+
+CC="clang" CXX="clang++" \
 make install DESTDIR=$PKG
 
 find $PKG | xargs file | grep -e "executable" -e "shared object" | grep ELF \

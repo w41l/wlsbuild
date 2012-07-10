@@ -24,8 +24,8 @@
 # YOUR DATA IS DESTROYED, YOUR HOUSE BURNS DOWN OR YOUR DOG RUNS OFF.
 
 PRGNAM=wavegain
-VERSION=${VERSION:-1.2.8}
-BUILD=${BUILD:-2}
+VERSION=1.3.1
+BUILD=1
 TAG=${TAG:-_wls}
 NUMJOBS=${NUMJOBS:--j4}
 
@@ -38,7 +38,7 @@ if [ -z "$ARCH" ]; then
 fi
 
 CWD=$(pwd)
-TMP=${TMP:-/tmp/wls}
+TMP=${TMP:-/tmp/wlsbuild}
 PKG=$TMP/package-$PRGNAM
 OUTPUT=${OUTPUT:-/tmp}
 DOCS="COPY*"
@@ -66,6 +66,8 @@ rm -rf WaveGain-$VERSION
 unzip $CWD/$PRGNAM-${VERSION}srcs.zip
 cd WaveGain-$VERSION
 
+cat $CWD/CMakeLists.txt > CMakeLists.txt
+
 chown -R root:root .
 find . \
  \( -perm 777 -o -perm 775 -o -perm 711 -o -perm 555 -o -perm 511 \) \
@@ -73,10 +75,23 @@ find . \
  \( -perm 666 -o -perm 664 -o -perm 600 -o -perm 444 -o -perm 440 -o -perm 400 \) \
  -exec chmod 644 {} \;
 
-rm -f wavegain
-make -f Makefile.linux || exit 1
-mkdir -p $PKG/usr/bin
-install -Dm755 wavegain $PKG/usr/bin/wavegain || exit 1
+# rm -f wavegain
+# make -f Makefile.linux || exit 1
+# mkdir -p $PKG/usr/bin
+# install -Dm755 wavegain $PKG/usr/bin/wavegain || exit 1
+
+mkdir -p build
+cd build
+cmake .. \
+  -DCMAKE_C_COMPILER="/usr/bin/clang" \
+  -DCMAKE_C_FLAGS:STRING="$SLKCFLAGS" \
+  -DCMAKE_BUILD_TYPE=Release \
+  -DCMAKE_INSTALL_PREFIX=/usr
+
+make
+make install DESTDIR=$PKG
+cd -
+exit 1
 
 find $PKG | xargs file | grep -e "executable" -e "shared object" | grep ELF \
   | cut -f 1 -d : | xargs strip --strip-unneeded 2> /dev/null || true

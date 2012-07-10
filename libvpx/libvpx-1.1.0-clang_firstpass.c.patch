@@ -1,0 +1,16 @@
+X-Git-Url: http://git.chromium.org/gitweb/?p=webm%2Flibvpx.git;a=blobdiff_plain;f=vp8%2Fencoder%2Ffirstpass.c;h=36483d606a9a7442acb322b0ade3efda0e6d4cd4;hp=8de1a6a6fe47537375405e9af8a46b493d6dbaa3;hb=c8a88a7642f0f8a0e7599800441c7ba175469cf6;hpb=cd0bf0e40720e5d6924e319096160dd48362708f
+
+diff --git a/vp8/encoder/firstpass.c b/vp8/encoder/firstpass.c
+index 8de1a6a..36483d6 100644
+--- a/vp8/encoder/firstpass.c
++++ b/vp8/encoder/firstpass.c
+@@ -853,7 +853,8 @@ skip_motion_search:
+         else
+             recon_file = fopen(filename, "ab");
+ 
+-        if(fwrite(lst_yv12->buffer_alloc, lst_yv12->frame_size, 1, recon_file));
++        (void) fwrite(lst_yv12->buffer_alloc, lst_yv12->frame_size, 1,
++                      recon_file);
+         fclose(recon_file);
+     }
+ 

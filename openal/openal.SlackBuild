@@ -24,8 +24,8 @@
 # YOUR DATA IS DESTROYED, YOUR HOUSE BURNS DOWN OR YOUR DOG RUNS OFF.
 
 PRGNAM=openal
-VERSION=${VERSION:-1.13}
-BUILD=${BUILD:-1}
+VERSION=1.13
+BUILD=1
 TAG=${TAG:-_wls}
 NUMJOBS=${NUMJOBS:--j3}
 
@@ -38,7 +38,7 @@ if [ -z "$ARCH" ]; then
 fi
 
 CWD=$(pwd)
-TMP=${TMP:-$CWD/wlsbuild}
+TMP=${TMP:-/tmp/wlsbuild}
 PKG=$TMP/package-$PRGNAM
 OUTPUT=${OUTPUT:-/tmp}
 DOCS="COPY* README alsoftrc.sample"
@@ -76,13 +76,13 @@ find . \
 mkdir -p build
 cd build
   cmake .. \
+    -DCMAKE_C_COMPILER:PATH="/usr/bin/clang" \
     -DCMAKE_C_FLAGS:STRING="$SLKCFLAGS" \
-    -DCMAKE_CXX_FLAGS:STRING="$SLKCFLAGS" \
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_PREFIX:PATH=/usr \
-    -DLIB_SUFFIX=${LIBDIRSUFFIX} \
+    -DLIB_SUFFIX=${LIBDIRSUFFIX}
 
-  make $NUMJOBS
+  make
   make install DESTDIR=$PKG
 cd -
 

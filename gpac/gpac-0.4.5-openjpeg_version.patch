@@ -1,0 +1,11 @@
+--- gpac/modules/img_in/jp2_dec.c.orig	2012-07-09 20:45:15.854153021 +0700
++++ gpac/modules/img_in/jp2_dec.c	2012-07-09 20:49:13.368146854 +0700
+@@ -342,7 +342,7 @@
+
+ static const char *JP2_GetCodecName(GF_BaseDecoder *dec)
+ {
+-	return "OpenJPEG "OPENJPEG_VERSION ;
++	return "OpenJPEG";
+ }
+
+

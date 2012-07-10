@@ -1,0 +1,15 @@
+X-Git-Url: http://git.chromium.org/gitweb/?p=webm%2Flibvpx.git;a=blobdiff_plain;f=vp8%2Fcommon%2Fpostproc.c;h=a94ae00065099b9468628636d668a334ef3c57c1;hp=ccf6ad7dd3dfd3989fd1ab11fbb89d5fe1d97ebc;hb=2b10528adcc6586793b42ea7ed7e2f523895be9b;hpb=c8a88a7642f0f8a0e7599800441c7ba175469cf6
+
+diff --git a/vp8/common/postproc.c b/vp8/common/postproc.c
+index ccf6ad7..a94ae00 100644
+--- a/vp8/common/postproc.c
++++ b/vp8/common/postproc.c
+@@ -441,7 +441,7 @@ static void fillrd(struct postproc_state *state, int q, int a)
+ 
+         }
+ 
+-        for (next = next; next < 256; next++)
++        for (; next < 256; next++)
+             char_dist[next] = 0;
+ 
+     }

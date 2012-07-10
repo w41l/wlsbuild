@@ -1,0 +1,15 @@
+X-Git-Url: http://git.chromium.org/gitweb/?p=webm%2Flibvpx.git;a=blobdiff_plain;f=vp8%2Fencoder%2Fx86%2Fdenoising_sse2.c;h=ee6227f19e0a79cba03a563c01507072550b6ad0;hp=34ad91636ae6c43186e6e28204d5ab54d408223a;hb=0927a4113964f602773de1ac603ca284739c1b33;hpb=7fccab39b551a7c8ae58f22bdf3311746f768ee7
+
+diff --git a/vp8/encoder/x86/denoising_sse2.c b/vp8/encoder/x86/denoising_sse2.c
+index 34ad916..ee6227f 100644
+--- a/vp8/encoder/x86/denoising_sse2.c
++++ b/vp8/encoder/x86/denoising_sse2.c
+@@ -22,7 +22,7 @@ union sum_union {
+     short e[8];
+ };
+ 
+-inline int sum_vec_128i(__m128i vec)
++static inline int sum_vec_128i(__m128i vec)
+ {
+     union sum_union s = { .v = vec };
+     return s.e[0] + s.e[1] + s.e[2] + s.e[3] +

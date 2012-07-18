@@ -15,3 +15,6 @@
 *.deb
 *.rpm
 *.spec
+*.dat
+*.part
+*.tbz

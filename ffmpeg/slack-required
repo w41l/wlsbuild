@@ -1,8 +1,13 @@
 dirac
 faac
+frei0r
+gnutls
 lame
+libass
+libcdio
 libdc1394
 libgsm
+libmodplug
 libva
 opencore-amr
 openjpeg

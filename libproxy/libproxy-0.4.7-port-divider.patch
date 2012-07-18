@@ -1,0 +1,11 @@
+--- libproxy-0.4.7/libproxy/url.cpp	2012-07-16 21:41:46.910782667 +0700
++++ libproxy-0.4.7/libproxy/url.cpp.846	2012-07-16 21:42:02.936782251 +0700
+@@ -212,6 +212,8 @@
+ 				host_end = string::npos;
+ 		} else {
+ 			host_end = hier_part.find(':', host_start);
++                        if (path_start < host_end)
++                            host_end = path_start;
+ 		}
+ 
+ 		/* If not port, host ends where path starts */

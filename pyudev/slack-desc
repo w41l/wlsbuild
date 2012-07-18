@@ -13,7 +13,7 @@ pyudev: and service found in modern linux systems. It is available under the
 pyudev: same licence as the original library, which is the GNU LGPL 2.1
 pyudev: (see Licencing for details).
 pyudev:
-pyudev: URL: http://packages.python.org/pyudev
+pyudev: URL: http://pyudev.readthedocs.org/
 pyudev:
 pyudev:
 pyudev: Packager: Widya Walesa <http://www.walecha.net/>

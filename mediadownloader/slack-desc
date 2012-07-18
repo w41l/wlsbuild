@@ -1,0 +1,19 @@
+# HOW TO EDIT THIS FILE:
+# The "handy ruler" below makes it easier to edit a package description.  Line
+# up the first '|' above the ':' following the base package name, and the '|'
+# on the right side marks the last column you can put a character in.  You must
+# make exactly 11 lines for the formatting to be correct.  It's also
+# customary to leave one space after the ':'.
+
+               |-----handy-ruler-------------------------------------------------------|
+mediadownloader: mediadownloader (Qt Youtube Video Downloader)
+mediadownloader:
+mediadownloader: Mediadownloader is an opensource software that lets you search, watch
+mediadownloader: and download items with Google Image and YouTube. It grabs video
+mediadownloader: streams while browsing with firefox (only linux). Videos can be
+mediadownloader: converted automatically using ffmpeg.
+mediadownloader:
+mediadownloader: URL: http://marcobavagnoli.wordpress.com/about/
+mediadownloader:
+mediadownloader:
+mediadownloader: Packaged by: Widya Walesa

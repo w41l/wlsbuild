@@ -5,7 +5,9 @@ libdc1394
 libgsm
 libva
 opencore-amr
+openjpeg
 orc
+rtmp
 schroedinger
 speex
 x264

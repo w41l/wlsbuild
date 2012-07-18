@@ -1,0 +1,19 @@
+--- libproxy-0.4.7/libproxy/url.cpp	2012-07-16 21:33:23.147795714 +0700
++++ libproxy-0.4.7/libproxy/url.cpp.833	2012-07-16 21:40:32.071784606 +0700
+@@ -33,6 +33,7 @@
+ #include <cstdlib>    // For atoi()
+ #include <sys/stat.h> // For stat()
+ #include <algorithm> // For transform()
++#include <unistd.h>  // For read() close()
+
+ #ifdef WIN32
+ #include <io.h>
+@@ -446,7 +447,7 @@
+ 		/* Check for correct mime type and content length */
+ 		for (line = recvline(sock) ; line != "\r" && line != "" ; line = recvline(sock)) {
+ 			// Check for chunked encoding
+-			if (line.find("Content-Transfer-Encoding: chunked") == 0)
++			if (line.find("Content-Transfer-Encoding: chunked") == 0 || line.find("Transfer-Encoding: chunked") == 0)
+ 				chunked = true;
+
+ 			// Check for content length

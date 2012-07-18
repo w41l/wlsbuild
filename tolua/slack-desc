@@ -1,0 +1,19 @@
+# HOW TO EDIT THIS FILE:
+# The "handy ruler" below makes it easier to edit a package description.  Line
+# up the first '|' above the ':' following the base package name, and the '|'
+# on the right side marks the last column you can put a character in.  You must
+# make exactly 11 lines for the formatting to be correct.  It's also
+# customary to leave one space after the ':'.
+
+     |-----handy-ruler----------------------------------------------------|
+tolua: tolua (C/C++ Tool for Lua)
+tolua:
+tolua: tolua is a tool that greatly simplifies the integration of C/C++
+tolua: code with Lua. Based on a cleaned header file, tolua automatically
+tolua: generates the binding code to access C/C++ features from Lua. Using
+tolua: Lua API and tag method facilities, tolua maps C/C++ constants,
+tolua: external variables, functions, classes, and methods to Lua.
+tolua:
+tolua: URL: http://www.tecgraf.puc-rio.br/~celes/tolua/
+tolua:
+tolua: http://www.walecha.net/

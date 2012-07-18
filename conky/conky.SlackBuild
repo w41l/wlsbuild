@@ -24,7 +24,7 @@
 # YOUR DATA IS DESTROYED, YOUR HOUSE BURNS DOWN OR YOUR DOG RUNS OFF.
 
 PRGNAM=conky
-VERSION=1.8.1
+VERSION=1.9.0
 BUILD=1
 TAG="_wls"
 NUMJOBS="-j4"
@@ -73,7 +73,6 @@ find . \
  \( -perm 666 -o -perm 664 -o -perm 600 -o -perm 444 -o -perm 440 -o -perm 400 \) \
  -exec chmod 644 {} \;
 
-CPPFLAGS="$SLKCFLAGS" \
 CFLAGS="$SLKCFLAGS" \
 CXXFLAGS="$SLKCFLAGS" \
 ./configure \
@@ -88,9 +87,11 @@ CXXFLAGS="$SLKCFLAGS" \
   --disable-static --enable-shared \
   --enable-curl \
   --enable-rss \
-  --enable-wlan
+  --enable-wlan \
+  --enable-lua \
+  --enable-lua-cairo
 
-make $NUMJOBS
+make
 make install DESTDIR=$PKG
 
 # preserve old global config

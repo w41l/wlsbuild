@@ -24,7 +24,7 @@
 # YOUR DATA IS DESTROYED, YOUR HOUSE BURNS DOWN OR YOUR DOG RUNS OFF.
 
 PRGNAM=lua
-VERSION=5.1.4
+VERSION=5.1.5
 BUILD=1
 TAG=${TAG:-_wls}
 NUMJOBS=${NUMJOBS:--j4}
@@ -41,7 +41,7 @@ CWD=$(pwd)
 TMP=${TMP:-/tmp/wlsbuild}
 PKG=$TMP/package-$PRGNAM
 OUTPUT=${OUTPUT:-/tmp}
-DOCS="COPY* HISTORY INSTALL README"
+DOCS="README"
 
 if [ "$ARCH" = "i486" ]; then
   SLKCFLAGS="-O2 -pipe -march=i486 -mtune=i686"
@@ -73,42 +73,41 @@ find . \
  \( -perm 666 -o -perm 664 -o -perm 600 -o -perm 444 -o -perm 440 -o -perm 400 \) \
  -exec chmod 644 {} \;
 
+VER1="$(echo ${VERSION} | rev | cut -d . -f 2- | rev)"
 make linux \
   CFLAGS="$SLKCFLAGS \$(MYCFLAGS)" \
   INSTALL_TOP=/usr \
   INSTALL_BIN=/usr/bin \
   INSTALL_INC=/usr/include \
   INSTALL_LIB=/usr/lib$LIBDIRSUFFIX \
-  INSTALL_LMOD=/usr/share/lua/5.1 \
-  INSTALL_CMOD=/usr/lib$LIBDIRSUFFIX/lua/5.1 \
+  INSTALL_LMOD=/usr/share/lua/${VER1} \
+  INSTALL_CMOD=/usr/lib$LIBDIRSUFFIX/lua/${VER1} \
   INSTALL_MAN=/usr/man/man1
 
 make install linux \
+  CFLAGS="$SLKCFLAGS \$(MYCFLAGS)" \
   INSTALL_TOP=$PKG/usr \
   INSTALL_BIN=$PKG/usr/bin \
   INSTALL_INC=$PKG/usr/include \
   INSTALL_LIB=$PKG/usr/lib$LIBDIRSUFFIX \
-  INSTALL_LMOD=$PKG/usr/share/lua/5.1 \
-  INSTALL_CMOD=$PKG/usr/lib$LIBDIRSUFFIX/lua/5.1 \
+  INSTALL_LMOD=$PKG/usr/share/lua/${VER1} \
+  INSTALL_CMOD=$PKG/usr/lib$LIBDIRSUFFIX/lua/${VER1} \
   INSTALL_MAN=$PKG/usr/man/man1
 
 # Now let's build the shared library
 mkdir -p shared
 cd shared
   ar -x $PKG/usr/lib$LIBDIRSUFFIX/liblua.a
-  gcc -Wl,-E -ldl -lreadline -lhistory -lncurses -shared *.o -o liblua.so.5.1.4
-  cp -a liblua.so.5.1.4 $PKG/usr/lib$LIBDIRSUFFIX
-  ln -s liblua.so.5.1.4 $PKG/usr/lib$LIBDIRSUFFIX/liblua.so.5.1
-  ln -s liblua.so.5.1.4 $PKG/usr/lib$LIBDIRSUFFIX/liblua.so.5
-  ln -s liblua.so.5.1.4 $PKG/usr/lib$LIBDIRSUFFIX/liblua.so
+  echo "gcc $SLKCFLAGS -DLUA_USE_LINUX -Wl,-E -ldl -lreadline -lhistory -lncurses -shared *.o -o liblua.so"
+  gcc $SLKCFLAGS -DLUA_USE_LINUX -Wl,-E -ldl -lreadline -lhistory -lncurses -shared *.o -o liblua.so
+  install -m 0755 liblua.so $PKG/usr/lib$LIBDIRSUFFIX/liblua.so
 cd -
 
 # and install the pkgconfig file
 mkdir -p $PKG/usr/lib$LIBDIRSUFFIX/pkgconfig
-sed "s,@PREFIX@,/usr," $CWD/lua.pc > lua.pc.tmp
-sed -i "s,/lib,/lib$LIBDIRSUFFIX," lua.pc.tmp
-sed "s,@VERSION@,$VERSION," lua.pc.tmp > \
-  $PKG/usr/lib$LIBDIRSUFFIX/pkgconfig/lua.pc
+sed 's:/usr/local:/usr:g' etc/lua.pc > $PKG/usr/lib$LIBDIRSUFFIX/pkgconfig/lua.pc
+sed -i "s:/lib:/lib${LIBDIRSUFFIX}:g" $PKG/usr/lib$LIBDIRSUFFIX/pkgconfig/lua.pc
+sed -i 's:-L${libdir}::g' $PKG/usr/lib$LIBDIRSUFFIX/pkgconfig/lua.pc
 
 find $PKG | xargs file | grep -e "executable" -e "shared object" | grep ELF \
   | cut -f 1 -d : | xargs strip --strip-unneeded 2> /dev/null || true
@@ -118,6 +117,8 @@ for i in $( find $PKG/usr/man -type l ) ; do ln -s $( readlink $i ).gz $i.gz ; r
 
 mkdir -p $PKG/usr/doc/$PRGNAM-$VERSION
 cp -a $DOCS $PKG/usr/doc/$PRGNAM-$VERSION
+cp -a doc/* $PKG/usr/doc/$PRGNAM-$VERSION
+rm $PKG/usr/doc/$PRGNAM-$VERSION/*.1
 cat $CWD/$PRGNAM.SlackBuild > $PKG/usr/doc/$PRGNAM-$VERSION/$PRGNAM.SlackBuild
 
 mkdir -p $PKG/install

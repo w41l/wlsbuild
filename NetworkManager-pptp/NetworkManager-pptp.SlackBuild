@@ -24,7 +24,7 @@
 # YOUR DATA IS DESTROYED, YOUR HOUSE BURNS DOWN OR YOUR DOG RUNS OFF.
 
 PRGNAM=NetworkManager-pptp
-VERSION=0.9.2.0
+VERSION=0.9.4.0
 BUILD=1
 TAG="_wls"
 NUMJOBS="-j3"
@@ -90,7 +90,10 @@ CXXFLAGS="$SLKCFLAGS" \
   --disable-static --enable-shared \
   --with-pppd-plugin-dir=/usr/lib$LIBDIRSUFFIX/pppd/$PPPDVER
 
-make $NUMJOBS
+make
+
+CFLAGS="$SLKCFLAGS" \
+CXXFLAGS="$SLKCFLAGS" \
 make install DESTDIR=$PKG
 
 # Preserve system settings

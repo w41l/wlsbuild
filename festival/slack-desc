@@ -1,0 +1,19 @@
+# HOW TO EDIT THIS FILE:
+# The "handy ruler" below makes it easier to edit a package description.  Line
+# up the first '|' above the ':' following the base package name, and the '|' on
+# the right side marks the last column you can put a character in.  You must make
+# exactly 11 lines for the formatting to be correct.  It's also customary to
+# leave one space after the ':'.
+
+        |-----handy-ruler---------------------------------------------------|
+festival: festival (Speech Synthesis System)
+festival:
+festival: Festival offers a general framework for building speech synthesis
+festival: systems as well as including examples of various modules. As a
+festival: whole it offers full text to speech through a number APIs: from
+festival: shell level, though a Scheme command interpreter, as a C++ library,
+festival: and an Emacs interface.
+festival:
+festival: URL: http://www.cstr.ed.ac.uk/projects/festival/
+festival:
+festival: packaged by: Widya Walesa <walecha99@gmail.com>

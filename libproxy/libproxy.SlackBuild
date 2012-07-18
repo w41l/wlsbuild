@@ -24,7 +24,7 @@
 # YOUR DATA IS DESTROYED, YOUR HOUSE BURNS DOWN OR YOUR DOG RUNS OFF.
 
 PRGNAM=libproxy
-VERSION=0.4.6
+VERSION=0.4.7
 BUILD=1
 TAG=${TAG:-_wls}
 NUMJOBS=${NUMJOBS:--j4}
@@ -66,7 +66,8 @@ rm -rf $PRGNAM-$VERSION
 tar xvf $CWD/$PRGNAM-$VERSION.tar.gz
 cd $PRGNAM-$VERSION
 
-zcat $CWD/$PRGNAM-$VERSION-mozjs-link_directory.patch.gz | patch -p0
+cat $CWD/$PRGNAM-$VERSION-gcc47.patch | patch -p1
+cat $CWD/$PRGNAM-$VERSION-port-divider.patch | patch -p1
 
 chown -R root:root .
 find . \
@@ -85,7 +86,7 @@ cd build
   -DMODULE_INSTALL_DIR=/usr/lib${LIBDIRSUFFIX}/libproxy/${VERSION}/modules \
   -DPERL_VENDORINSTALL=yes
 
-  make ${NUMJOBS}
+  make
   make install DESTDIR=$PKG
 cd ..
 

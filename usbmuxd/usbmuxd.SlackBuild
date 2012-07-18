@@ -87,13 +87,16 @@ find . \
 mkdir build
 cd build
   cmake \
+    -DCMAKE_C_COMPILER="/usr/bin/clang" \
+    -DCMAKE_CXX_COMPILER="/usr/bin/clang++" \
     -DCMAKE_C_FLAGS="$SLKCFLAGS" \
     -DCMAKE_CXX_FLAGS="$SLKCFLAGS" \
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DLIB_SUFFIX=${LIBDIRSUFFIX} \
     ..
-  make ${NUMJOBS}
+
+  make VERBOSE=1
   make install DESTDIR=$PKG
 cd -
 
@@ -106,6 +109,7 @@ cat $CWD/$PRGNAM.SlackBuild > $PKG/usr/doc/$PRGNAM-$VERSION/$PRGNAM.SlackBuild
 
 mkdir -p $PKG/install
 cat $CWD/slack-desc > $PKG/install/slack-desc
+cat $CWD/slack-required > $PKG/install/slack-required
 
 cd $PKG
 /sbin/makepkg -l y -c n $OUTPUT/$PRGNAM-$VERSION-$ARCH-$BUILD$TAG.${PKGTYPE:-tgz}

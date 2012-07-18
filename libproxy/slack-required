@@ -1,2 +1,5 @@
 ORBit2
 GConf
+python
+kdelibs
+gtk+3

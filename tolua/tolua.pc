@@ -1,0 +1,12 @@
+prefix=@PREFIX@
+exec_prefix=${prefix}
+bindir=${prefix}/bin
+libdir=${prefix}/lib
+includedir=${prefix}/include/
+
+Name: Tolua
+Description: An Extensible Extension Language Tool
+Version: @VERSION@
+Requires: lua >= 5.2.0
+Libs: -L${libdir} -ltolua -llua -lm
+Cflags: -I${includedir}

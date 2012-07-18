@@ -24,38 +24,18 @@
 # YOUR DATA IS DESTROYED, YOUR HOUSE BURNS DOWN OR YOUR DOG RUNS OFF.
 
 PRGNAM=xvba-sdk
-VERSION=${VERSION:-0.74}
-BUILD=${BUILD:-1}
+VERSION=0.74.404001
+SRCVERS=0.74-404001
+BUILD=1
 TAG=${TAG:-_wls}
 NUMJOBS=${NUMJOBS:--j3}
-
-if [ -z "$ARCH" ]; then
-  case "$( uname -m )" in
-    i?86) ARCH=i486 ;;
-    arm*) ARCH=arm ;;
-       *) ARCH=$( uname -m ) ;;
-  esac
-fi
+ARCH="noarch"
 
 CWD=$(pwd)
-TMP=${TMP:-$CWD/wlsbuild}
+TMP=${TMP:-/tmp/wlsbuild}
 PKG=$TMP/package-$PRGNAM
 OUTPUT=${OUTPUT:-/tmp}
 DOCS="COPY*"
-
-if [ "$ARCH" = "i486" ]; then
-  SLKCFLAGS="-O2 -pipe -march=i486 -mtune=i686"
-  LIBDIRSUFFIX=""
-elif [ "$ARCH" = "i686" ]; then
-  SLKCFLAGS="-O2 -pipe -march=i686 -mtune=i686"
-  LIBDIRSUFFIX=""
-elif [ "$ARCH" = "x86_64" ]; then
-  SLKCFLAGS="-O2 -m64 -pipe -fPIC"
-  LIBDIRSUFFIX="64"
-else
-  SLKCFLAGS="-O2"
-  LIBDIRSUFFIX=""
-fi
 
 set -e
 
@@ -63,9 +43,9 @@ rm -rf $PKG
 mkdir -p $TMP $PKG $OUTPUT
 cd $TMP
 rm -rf $PRGNAM-$VERSION
-mkdir -p $PRGNAM-$VERSION
-cd $PRGNAM-$VERSION
-tar xvf $CWD/${PRGNAM}-${VERSION}-404001.tar.gz
+mkdir -p $PKG
+cd $PKG
+tar xvf $CWD/${PRGNAM}-${SRCVERS}.tar.gz
 
 chown -R root:root .
 find . \
@@ -75,10 +55,11 @@ find . \
  -exec chmod 644 {} \;
 
 mkdir -p $PKG/usr
-cp -r -p include $PKG/usr/
+mv include $PKG/usr/
 
 mkdir -p $PKG/usr/doc/$PRGNAM-$VERSION
-cp -a LICENSE README doc/* $PKG/usr/doc/$PRGNAM-$VERSION
+mv LICENSE README doc/* $PKG/usr/doc/$PRGNAM-$VERSION
+rm -r doc
 cat $CWD/$PRGNAM.SlackBuild > $PKG/usr/doc/$PRGNAM-$VERSION/$PRGNAM.SlackBuild
 
 mkdir -p $PKG/install
@@ -88,5 +69,4 @@ cd $PKG
 /sbin/makepkg -l y -c n $OUTPUT/$PRGNAM-$VERSION-$ARCH-$BUILD$TAG.${PKGTYPE:-tgz}
 
 echo "Cleaning up build directory"
-cd $CWD; rm -rf $TMP
-
+cd $CWD; rm -rf $PKG

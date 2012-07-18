@@ -1,0 +1,19 @@
+# HOW TO EDIT THIS FILE:
+# The "handy ruler" below makes it easier to edit a package description.  Line
+# up the first '|' above the ':' following the base package name, and the '|'
+# on the right side marks the last column you can put a character in.  You must
+# make exactly 11 lines for the formatting to be correct.  It's also
+# customary to leave one space after the ':'.
+
+        |-----handy-ruler----------------------------------------------------|
+luacairo: luacairo (Cairo Binding For Lua)
+luacairo:
+luacairo: This project aims to provide a binding to the cairo 2D graphics
+luacairo: library. The tolua++ binding generator was used to create the basic
+luacairo: binding. It is already possible to translate the basic tutorials
+luacairo: from C to Lua and output PNG files.
+luacairo:
+luacairo: URL: http://luacairo.luaforge.net/
+luacairo:
+luacairo:
+luacairo: http://www.walecha.net/

@@ -1,0 +1,11 @@
+prefix=@PREFIX@
+exec_prefix=/usr
+libdir=/usr/lib
+includedir=/usr/include/
+
+Name: Tolua++
+Description: An Extensible Extension Language Tool for C++
+Version: @VERSION@
+Requires: lua >= 5.0.0
+Libs: -L${libdir} -ltolua++ -ltolua++_static -llua
+Cflags: -I${includedir}

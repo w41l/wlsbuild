@@ -24,7 +24,7 @@
 # YOUR DATA IS DESTROYED, YOUR HOUSE BURNS DOWN OR YOUR DOG RUNS OFF.
 
 PRGNAM=ffmpeg
-VERSION=0.7.13
+VERSION=0.10.4
 BUILD=1
 TAG=${TAG:-_wls}
 NUMJOBS=${NUMJOBS:--j3}
@@ -63,7 +63,7 @@ rm -rf $PKG
 mkdir -p $WRK $PKG $OUTPUT
 cd $WRK
 rm -rf $PRGNAM-$VERSION
-tar xvf $CWD/$PRGNAM-$VERSION.tar.bz2
+tar xvf $CWD/$PRGNAM-$VERSION.tar.?z*
 cd $PRGNAM-$VERSION
 
 chown -R root:root .
@@ -76,7 +76,7 @@ find . \
 echo "$VERSION" > VERSION
 ./configure \
     --arch=${ARCH} \
-    --cc=/usr/bin/clang \
+    --cc=/usr/bin/gcc \
     --prefix=/usr --libdir=/usr/lib$LIBDIRSUFFIX \
     --disable-static --enable-shared \
     --disable-debug --target-os=linux \
@@ -102,7 +102,15 @@ echo "$VERSION" > VERSION
     --enable-libschroedinger \
     --enable-libgsm \
     --enable-libvpx \
-    --enable-libspeex
+    --enable-libspeex \
+    --enable-frei0r \
+    --enable-libcdio \
+    --enable-libopenjpeg \
+    --enable-librtmp \
+    --enable-libmodplug \
+    --enable-libass \
+    --enable-gnutls \
+    --enable-libv4l2 \
 
 echo "$VERSION" > VERSION
 make

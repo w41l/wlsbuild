@@ -21,7 +21,8 @@ x264
 numpy - clang
 opencv
 frei0r
-ffmpeg - clang
+rtmpdump - clang
+ffmpeg
 libdv
 libreplaygain - clang
 libcue - clang
@@ -43,7 +44,6 @@ live555
 mp3gain - clang
 vorbisgain - clang
 libkate - clang
-rtmpdump - clang
 libbluray - clang
 libmms
 libmodplug
@@ -66,14 +66,14 @@ GConf
 sg3_utils
 libatasmart
 udisks
-libdaemon
+libdaemon - clang
 avahi
 nss-mdns
 libproxy
-glib-networking
+glib-networking - clang
 libsoup
-libtasn1
-usbmuxd
+libtasn1 - clang
+usbmuxd - clang
 libimobiledevice
 ifuse
 upower
@@ -134,7 +134,7 @@ yelp
 gst-ffmpeg
 gst-plugins-ugly
 gst-plugins-bad
-gst-python
+gst-python - clang
 gst-plugins-gl
 pyxdg
 
@@ -361,3 +361,6 @@ feedparser
 
 ## WINE ##
 cabextract - clang
+
+geoclue
+redshift

@@ -24,7 +24,7 @@
 # YOUR DATA IS DESTROYED, YOUR HOUSE BURNS DOWN OR YOUR DOG RUNS OFF.
 
 PRGNAM=qupzilla
-VERSION=20120619_321d1fb
+VERSION=git.20120718.701130b
 BUILD=1
 TAG=${TAG:-_wls}
 NUMJOBS=${NUMJOBS:--j1}
@@ -83,30 +83,21 @@ make ${NUMJOBS}
 
 # manually install the binaries
 mkdir -p $PKG/usr/bin
-cp -p bin/qupzilla $PKG/usr/bin
+cp -a bin/qupzilla $PKG/usr/bin
 
 mkdir -p $PKG/usr/lib${LIBDIRSUFFIX}
 for F in `find . -name "libQupZilla.*"`; do
   cp -a $F $PKG/usr/lib${LIBDIRSUFFIX};
 done
 
-#install -m 755 -p bin/libqupzilla.so.1.1.8 \
-#  $PKG/usr/lib${LIBDIRSUFFIX}/libqupzilla.so.1.1.8
-#( cd $PKG/usr/lib${LIBDIRSUFFIX} ;
-#  ln -s libqupzilla.so.1.1.8 libqupzilla.so.1.1 ;
-#  ln -s libqupzilla.so.1.1.8 libqupzilla.so.1 ;
-#  ln -s libqupzilla.so.1.1.8 libqupzilla.so ;
-#)
 mkdir -p $PKG/usr/lib${LIBDIRSUFFIX}/qupzilla
-install -m 755 -p bin/plugins/libMouseGestures.so \
-  $PKG/usr/lib${LIBDIRSUFFIX}/qupzilla/libMouseGestures.so
-install -m 755 -p bin/plugins/libAccessKeysNavigation.so \
-  $PKG/usr/lib${LIBDIRSUFFIX}/qupzilla/libAccessKeysNavigation.so
+cp -a bin/plugins/*.so $PKG/usr/lib${LIBDIRSUFFIX}/qupzilla
 
 mkdir -p $PKG/usr/share/qupzilla
 cp -r bin/locale $PKG/usr/share/qupzilla
 cp -r bin/themes $PKG/usr/share/qupzilla
 cp -r linux/* $PKG/usr/share
+# done
 
 find $PKG | xargs file | grep -e "executable" -e "shared object" | grep ELF \
   | cut -f 1 -d : | xargs strip --strip-unneeded 2> /dev/null || true

@@ -24,8 +24,8 @@
 # YOUR DATA IS DESTROYED, YOUR HOUSE BURNS DOWN OR YOUR DOG RUNS OFF.
 
 PRGNAM=stellarium
-VERSION=${VERSION:-0.11.0}
-BUILD=${BUILD:-1}
+VERSION=0.11.3
+BUILD=1
 TAG=${TAG:-_wls}
 NUMJOBS=${NUMJOBS:--j3}
 
@@ -38,7 +38,7 @@ if [ -z "$ARCH" ]; then
 fi
 
 CWD=$(pwd)
-TMP=${TMP:-$CWD/wlsbuild}
+TMP=${TMP:-/tmp/wlsbuild}
 PKG=$TMP/package-$PRGNAM
 OUTPUT=${OUTPUT:-/tmp}
 DOCS="AUTHORS ChangeLog COPY* INSTALL README"
@@ -63,7 +63,7 @@ rm -rf $PKG
 mkdir -p $TMP $PKG $OUTPUT
 cd $TMP
 rm -rf $PRGNAM-$VERSION
-tar xvf $CWD/${PRGNAM}-${VERSION}.tar.gz
+tar xvf $CWD/${PRGNAM}-${VERSION}.tar.?z*
 cd $PRGNAM-$VERSION
 
 chown -R root:root .
@@ -81,12 +81,7 @@ cmake .. \
   -DCMAKE_BUILD_TYPE=RELEASE \
   -DCMAKE_INSTALL_PREFIX=/usr \
 
-  #-DMAN_INSTALL_DIR=/usr/man \
-  #-DSYSCONF_INSTALL_DIR=/etc \
-  #-DLIB_INSTALL_DIR:PATH=/usr/lib${LIBDIRSUFFIX} \
-  #-DLIB_SUFFIX=${LIBDIRSUFFIX}
-
-make $NUMJOBS
+make VERBOSE=1
 make install DESTDIR=$PKG
 cd -
 
@@ -110,7 +105,7 @@ cp -a ${DOCS} $PKG/usr/doc/$PRGNAM-$VERSION
 cat $CWD/$PRGNAM.SlackBuild > $PKG/usr/doc/$PRGNAM-$VERSION/$PRGNAM.SlackBuild
 
 mkdir -p $PKG/install
-cat $CWD/doinst.sh >> $PKG/install/doinst.sh
+cat $CWD/doinst.sh > $PKG/install/doinst.sh
 cat $CWD/slack-desc > $PKG/install/slack-desc
 cat $CWD/slack-required > $PKG/install/slack-required
 
@@ -118,4 +113,4 @@ cd $PKG
 /sbin/makepkg -l y -c n $OUTPUT/$PRGNAM-$VERSION-$ARCH-$BUILD$TAG.${PKGTYPE:-tgz}
 
 echo "Cleaning up build directory"
-cd $CWD; rm -rf $TMP
+cd $CWD; rm -rf $TMP/$PRGNAM-$VERSION $PKG

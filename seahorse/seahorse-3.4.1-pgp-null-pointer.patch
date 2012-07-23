@@ -1,0 +1,22 @@
+From 181b279d62991b3bab465bd4bacd5802fc79878a Mon Sep 17 00:00:00 2001
+From: Stef Walter <stefw@gnome.org>
+Date: Fri, 29 Jun 2012 13:42:09 +0000
+Subject: pgp: Fix use of null pointer in SeahorseGpgmeKeyring
+
+---
+diff --git a/pgp/seahorse-gpgme-keyring.c b/pgp/seahorse-gpgme-keyring.c
+index 579ab09..3e7fa43 100644
+--- a/pgp/seahorse-gpgme-keyring.c
++++ b/pgp/seahorse-gpgme-keyring.c
+@@ -837,7 +837,8 @@ seahorse_gpgme_keyring_dispose (GObject *object)
+ 	SeahorseGpgmeKeyring *self = SEAHORSE_GPGME_KEYRING (object);
+ 	GList *l;
+ 
+-	gtk_action_group_set_sensitive (self->pv->actions, TRUE);
++	if (self->pv->actions)
++		gtk_action_group_set_sensitive (self->pv->actions, TRUE);
+ 	g_hash_table_remove_all (self->pv->keys);
+ 
+ 	cancel_scheduled_refresh (self);
+--
+cgit v0.9.0.2

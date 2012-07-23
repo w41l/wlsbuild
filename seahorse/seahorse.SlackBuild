@@ -24,7 +24,7 @@
 # YOUR DATA IS DESTROYED, YOUR HOUSE BURNS DOWN OR YOUR DOG RUNS OFF.
 
 PRGNAM=seahorse
-VERSION=2.32.0
+VERSION=3.4.1
 BUILD=1
 TAG=${TAG:-_wls}
 NUMJOBS=${NUMJOBS:--j3}
@@ -63,8 +63,11 @@ rm -rf $PKG
 mkdir -p $WRK $PKG $OUTPUT
 cd $WRK
 rm -rf $PRGNAM-$VERSION
-tar xvf $CWD/$PRGNAM-$VERSION.tar.bz2
+tar xvf $CWD/$PRGNAM-$VERSION.tar.?z*
 cd $PRGNAM-$VERSION
+
+cat $CWD/$PRGNAM-$VERSION-pgp-null-pointer.patch | patch -p1
+cat $CWD/$PRGNAM-$VERSION-array-size.patch | patch -p2
 
 chown -R root:root .
 find . \
@@ -73,6 +76,7 @@ find . \
  \( -perm 666 -o -perm 664 -o -perm 600 -o -perm 444 -o -perm 440 -o -perm 400 \) \
  -exec chmod 644 {} \;
 
+CC="clang" CXX="clang++" \
 CFLAGS="$SLKCFLAGS" \
 CXXFLAGS="$SLKCFLAGS" \
 ./configure \
@@ -86,14 +90,13 @@ CXXFLAGS="$SLKCFLAGS" \
   --localstatedir=/var --sharedstatedir=/var/lib \
   --disable-static --enable-shared \
   --enable-nls \
-  --disable-gtk-doc \
-  --disable-schemas-install \
-  --disable-debug \
-  --disable-scrollkeeper \
-  --disable-update-mime-database \
-  --enable-introspection=no
+  --disable-debug
 
-make $NUMJOBS
+make
+
+CC="clang" CXX="clang++" \
+CFLAGS="$SLKCFLAGS" \
+CXXFLAGS="$SLKCFLAGS" \
 make install DESTDIR=$PKG
 
 find $PKG | xargs file | grep -e "executable" -e "shared object" | grep ELF \

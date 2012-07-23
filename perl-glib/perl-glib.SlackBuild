@@ -24,7 +24,7 @@
 # YOUR DATA IS DESTROYED, YOUR HOUSE BURNS DOWN OR YOUR DOG RUNS OFF.
 
 PRGNAM=perl-glib
-VERSION=1.242
+VERSION=1.261
 BUILD=1
 TAG=${TAG:-_wls}
 NUMJOBS=${NUMJOBS:--j4}
@@ -92,6 +92,7 @@ sed -i "s:/share/man:/man:g" Makefile
 make OPTIMIZE="$SLKCFLAGS" \
      CXXFLAGS="$SLKCFLAGS" \
      $MAKE_FLAGS &&
+
 make install_vendor DESTDIR=$PKG
 eval $(perl '-V:archlib')
 mv $PKG/$archlib/perllocal.pod $PKG/$archlib/$(echo ${MODULE// /_} | tr 'A-Z' 'a-z').pod

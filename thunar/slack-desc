@@ -1,0 +1,19 @@
+# HOW TO EDIT THIS FILE:
+# The "handy ruler" below makes it easier to edit a package description.  Line
+# up the first '|' above the ':' following the base package name, and the '|'
+# on the right side marks the last column you can put a character in.  You must
+# make exactly 11 lines for the formatting to be correct.  It's also
+# customary to leave one space after the ':'.
+
+      |-----handy-ruler------------------------------------------------|
+thunar: Thunar (XFCE File Manager)
+thunar:
+thunar: Thunar a file manager for the Xfce desktop environment which has
+thunar: been designed from the ground up to be fast and easy to use.
+thunar: It provides a clean, intuitive, and fully accessible user interface
+thunar: and does not include any confusing or useless options by default.
+thunar: Thunar is fast and responsive with good startup and folder load times.
+thunar:
+thunar: URL: http://www.xfce.org/
+thunar:
+thunar: http://www.walecha.net/

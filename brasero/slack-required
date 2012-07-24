@@ -1,6 +1,7 @@
 GConf
 libburn
 libcanberra
+libffi
 libgnome-keyring
 libisofs
 libproxy

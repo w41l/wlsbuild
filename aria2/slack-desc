@@ -1,0 +1,12 @@
+     |-----handy-ruler------------------------------------------------------|
+aria2: aria2 (CLI Download Manager)
+aria2:
+aria2: aria2 is a multi-protocol & multi-source, cross platform download
+aria2: utility. The supported protocols are HTTP(S), FTP, BitTorrent,
+aria2: Metalink. It can download a file from multiple sources/protocols and
+aria2: tries to utilize your maximum download bandwidth.
+aria2:
+aria2: URL: http://aria2.sourceforge.net/
+aria2:
+aria2:
+aria2: Packaged by: Widya Walesa <walecha99@gmail.com>

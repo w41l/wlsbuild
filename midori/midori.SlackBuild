@@ -24,7 +24,7 @@
 # YOUR DATA IS DESTROYED, YOUR HOUSE BURNS DOWN OR YOUR DOG RUNS OFF.
 
 PRGNAM=midori
-VERSION=0.4.6
+VERSION=f82a06a.git
 BUILD=1
 TAG=${TAG:-_wls}
 NUMJOBS=${NUMJOBS:--j3}
@@ -63,8 +63,9 @@ rm -rf $PKG
 mkdir -p $WRK $PKG $OUTPUT
 cd $WRK
 rm -rf $PRGNAM-$VERSION
-tar xvf $CWD/$PRGNAM-$VERSION.tar.bz2
+tar xvf $CWD/$PRGNAM-$VERSION.tar.?z*
 cd $PRGNAM-$VERSION
+
 chown -R root:root .
 find . \
  \( -perm 777 -o -perm 775 -o -perm 711 -o -perm 555 -o -perm 511 \) \
@@ -83,7 +84,11 @@ CXXFLAGS="$SLKCFLAGS" \
   --sysconfdir=/etc --docdir=/usr/doc/$PRGNAM-$VERSION \
   --localstatedir=/var --sharedstatedir=/var/lib \
   --disable-docs \
-  --enable-addons
+  --disable-granite \
+  --enable-addons \
+  --enable-libnotify \
+  --enable-unique \
+  --enable-gtk3
 
 ./waf build
 ./waf install --destdir=$PKG
@@ -102,7 +107,6 @@ cat $CWD/doinst.sh > $PKG/install/doinst.sh
 
 cd $PKG
 /sbin/makepkg -p -l y -c n $OUTPUT/$PRGNAM-$VERSION-$ARCH-$BUILD$TAG.${PKGTYPE:-tgz}
-/usr/bin/gpg --armor --detach-sign $OUTPUT/$PRGNAM-$VERSION-$ARCH-$BUILD$TAG.${PKGTYPE:-tgz}
 
 echo "Cleaning up build directory"
 cd $CWD ; rm -rf $WRK/$PRGNAM-$VERSION $PKG

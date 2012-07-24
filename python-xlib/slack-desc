@@ -15,5 +15,5 @@ python-xlib: do since X client programs communicate with the X server via the
 python-xlib: X protocol. The communication takes over TCP/IP, Unix sockets, or
 python-xlib: any other streaming network protocol.
 python-xlib:
-python-xlib: Homepage: http://python-xlib.sourceforge.net/ 
+python-xlib: URL: http://python-xlib.sourceforge.net/
 python-xlib:

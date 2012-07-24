@@ -1,8 +1,8 @@
 #!/bin/sh
 
-# Slackware build script for libevent
+# Slackware build script for comix
 
-# Copyright 2010  Widya Walesa <walecha99@gmail.com>
+# Copyright 2012  Widya Walesa <walecha99@gmail.com>
 # All rights reserved.
 #
 # Redistribution and use of this script, with or without modification, is
@@ -23,8 +23,8 @@
 # ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. FURTHERMORE I AM NOT LIABLE IF
 # YOUR DATA IS DESTROYED, YOUR HOUSE BURNS DOWN OR YOUR DOG RUNS OFF.
 
-PRGNAM=libevent
-VERSION=2.0.19
+PRGNAM=comix
+VERSION=4.0.4
 BUILD=1
 TAG=${TAG:-_wls}
 NUMJOBS=${NUMJOBS:--j3}
@@ -41,7 +41,7 @@ CWD=$(pwd)
 WRK=${WRK:-/tmp/wlsbuild}
 PKG=$WRK/package-$PRGNAM
 OUTPUT=${OUTPUT:-/tmp}
-DOCS="ChangeLog LICENSE README"
+DOCS="ChangeLog COPY* README"
 
 if [ "$ARCH" = "i486" ]; then
   SLKCFLAGS="-O2 -pipe -march=i486 -mtune=i686"
@@ -62,9 +62,9 @@ set -e
 rm -rf $PKG
 mkdir -p $WRK $PKG $OUTPUT
 cd $WRK
-rm -rf $PRGNAM-$VERSION-stable
-tar xvf $CWD/$PRGNAM-${VERSION}-stable.tar.gz
-cd $PRGNAM-${VERSION}-stable
+rm -rf $PRGNAM-$VERSION
+tar xvf $CWD/$PRGNAM-$VERSION.tar.?z*
+cd $PRGNAM-$VERSION
 
 chown -R root:root .
 find . \
@@ -73,26 +73,10 @@ find . \
  \( -perm 666 -o -perm 664 -o -perm 600 -o -perm 444 -o -perm 440 -o -perm 400 \) \
  -exec chmod 644 {} \;
 
-CC="clang" CXX="clang++" \
-CFLAGS="$SLKCFLAGS" \
-CXXFLAGS="$SLKCFLAGS" \
-./configure \
-  --build=$ARCH-slackware-linux --host=$ARCH-slackware-linux \
-  --program-prefix= --program-suffix= \
-  --prefix=/usr --exec-prefix=/usr \
-  --bindir=/usr/bin --sbindir=/usr/sbin \
-  --libdir=/usr/lib$LIBDIRSUFFIX --includedir=/usr/include \
-  --mandir=/usr/man --infodir=/usr/info \
-  --sysconfdir=/etc --docdir=/usr/doc/$PRGNAM-$VERSION \
-  --localstatedir=/var --sharedstatedir=/var/lib \
-  --disable-static --enable-shared
+mkdir -p $PKG/usr
+python install.py --dir $PKG/usr --no-mime install
 
-make
-
-CC="clang" CXX="clang++" \
-CFLAGS="$SLKCFLAGS" \
-CXXFLAGS="$SLKCFLAGS" \
-make DESTDIR=$PKG install
+mv $PKG/usr/share/man $PKG/usr/
 
 find $PKG | xargs file | grep -e "executable" -e "shared object" | grep ELF \
   | cut -f 1 -d : | xargs strip --strip-unneeded 2> /dev/null || true
@@ -103,9 +87,10 @@ cat $CWD/$PRGNAM.SlackBuild > $PKG/usr/doc/$PRGNAM-$VERSION/$PRGNAM.SlackBuild
 
 mkdir -p $PKG/install
 cat $CWD/slack-desc > $PKG/install/slack-desc
+cat $CWD/slack-required > $PKG/install/slack-required
 
 cd $PKG
-/sbin/makepkg -l y -c n $OUTPUT/$PRGNAM-$VERSION-$ARCH-$BUILD$TAG.${PKGTYPE:-tgz}
+/sbin/makepkg -p -l y -c n $OUTPUT/$PRGNAM-$VERSION-$ARCH-$BUILD$TAG.${PKGTYPE:-tgz}
 
 echo "Cleaning up build directory"
-cd $WRK; rm -rf $PRGNAM-${VERSION}-stable $PKG
+cd $WRK; rm -rf $PRGNAM-$VERSION $PKG

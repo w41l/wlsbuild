@@ -24,7 +24,7 @@
 # YOUR DATA IS DESTROYED, YOUR HOUSE BURNS DOWN OR YOUR DOG RUNS OFF.
 
 PRGNAM=icu4c
-VERSION=4.8.1
+VERSION=4.8.1.1
 BUILD=1
 TAG=${TAG:-_wls}
 NUMJOBS=${NUMJOBS:--j3}
@@ -63,7 +63,7 @@ rm -rf $PKG
 mkdir -p $TMP $PKG $OUTPUT
 cd $TMP
 rm -rf icu
-tar xvf $CWD/$PRGNAM-4_8_1-src.tgz
+tar xvf $CWD/$PRGNAM-4_8_1_1-src.tgz
 cd icu
 
 chown -R root:root .

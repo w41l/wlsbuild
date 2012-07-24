@@ -1,8 +1,8 @@
 #!/bin/sh
 
-# Slackware build script for libevent
+# Slackware build script for pygobject3
 
-# Copyright 2010  Widya Walesa <walecha99@gmail.com>
+# Copyright 2012  Widya Walesa <walecha99@gmail.com>
 # All rights reserved.
 #
 # Redistribution and use of this script, with or without modification, is
@@ -23,11 +23,11 @@
 # ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. FURTHERMORE I AM NOT LIABLE IF
 # YOUR DATA IS DESTROYED, YOUR HOUSE BURNS DOWN OR YOUR DOG RUNS OFF.
 
-PRGNAM=libevent
-VERSION=2.0.19
+PRGNAM=pygobject3
+VERSION=3.0.4
 BUILD=1
 TAG=${TAG:-_wls}
-NUMJOBS=${NUMJOBS:--j3}
+NUMJOBS=${NUMJOBS:--j4}
 
 if [ -z "$ARCH" ]; then
   case "$( uname -m )" in
@@ -38,10 +38,10 @@ if [ -z "$ARCH" ]; then
 fi
 
 CWD=$(pwd)
-WRK=${WRK:-/tmp/wlsbuild}
-PKG=$WRK/package-$PRGNAM
+TMP=${TMP:-/tmp/wlsbuild}
+PKG=$TMP/package-$PRGNAM
 OUTPUT=${OUTPUT:-/tmp}
-DOCS="ChangeLog LICENSE README"
+DOCS="AUTHORS COPYING ChangeLog ChangeLog.pre-2.18 INSTALL NEWS README"
 
 if [ "$ARCH" = "i486" ]; then
   SLKCFLAGS="-O2 -pipe -march=i486 -mtune=i686"
@@ -60,11 +60,11 @@ fi
 set -e
 
 rm -rf $PKG
-mkdir -p $WRK $PKG $OUTPUT
-cd $WRK
-rm -rf $PRGNAM-$VERSION-stable
-tar xvf $CWD/$PRGNAM-${VERSION}-stable.tar.gz
-cd $PRGNAM-${VERSION}-stable
+mkdir -p $TMP $PKG $OUTPUT
+cd $TMP
+rm -rf pygobject-$VERSION
+tar xvf $CWD/pygobject-$VERSION.tar.?z*
+cd pygobject-$VERSION
 
 chown -R root:root .
 find . \
@@ -73,7 +73,6 @@ find . \
  \( -perm 666 -o -perm 664 -o -perm 600 -o -perm 444 -o -perm 440 -o -perm 400 \) \
  -exec chmod 644 {} \;
 
-CC="clang" CXX="clang++" \
 CFLAGS="$SLKCFLAGS" \
 CXXFLAGS="$SLKCFLAGS" \
 ./configure \
@@ -87,11 +86,7 @@ CXXFLAGS="$SLKCFLAGS" \
   --localstatedir=/var --sharedstatedir=/var/lib \
   --disable-static --enable-shared
 
-make
-
-CC="clang" CXX="clang++" \
-CFLAGS="$SLKCFLAGS" \
-CXXFLAGS="$SLKCFLAGS" \
+make ${NUMJOBS}
 make DESTDIR=$PKG install
 
 find $PKG | xargs file | grep -e "executable" -e "shared object" | grep ELF \
@@ -103,9 +98,10 @@ cat $CWD/$PRGNAM.SlackBuild > $PKG/usr/doc/$PRGNAM-$VERSION/$PRGNAM.SlackBuild
 
 mkdir -p $PKG/install
 cat $CWD/slack-desc > $PKG/install/slack-desc
+cat $CWD/slack-required > $PKG/install/slack-required
 
 cd $PKG
-/sbin/makepkg -l y -c n $OUTPUT/$PRGNAM-$VERSION-$ARCH-$BUILD$TAG.${PKGTYPE:-tgz}
+/sbin/makepkg -p -l y -c n $OUTPUT/$PRGNAM-$VERSION-$ARCH-$BUILD$TAG.${PKGTYPE:-tgz}
 
 echo "Cleaning up build directory"
-cd $WRK; rm -rf $PRGNAM-${VERSION}-stable $PKG
+cd $TMP; rm -rf pygobject-$VERSION $PKG

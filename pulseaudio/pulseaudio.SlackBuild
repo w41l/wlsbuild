@@ -2,7 +2,7 @@
 
 # Slackware build script for pulseaudio
 
-# Copyright 2011  Widya Walesa <walecha99@gmail.com>
+# Copyright 2012  Widya Walesa <walecha99@gmail.com>
 # All rights reserved.
 #
 # Redistribution and use of this script, with or without modification, is
@@ -24,7 +24,7 @@
 # YOUR DATA IS DESTROYED, YOUR HOUSE BURNS DOWN OR YOUR DOG RUNS OFF.
 
 PRGNAM=pulseaudio
-VERSION=0.9.23
+VERSION=2.0
 BUILD=1
 TAG=${TAG:-_wls}
 NUMJOBS=${NUMJOBS:--j4}
@@ -41,7 +41,7 @@ CWD=$(pwd)
 TMP=${TMP:-/tmp/wlsbuild}
 PKG=$TMP/package-$PRGNAM
 OUTPUT=${OUTPUT:-/tmp}
-DOCS="ABOUT-NLS GPL LGPL LICENSE README"
+DOCS="ChangeLog GPL LGPL LICENSE README"
 
 if [ "$ARCH" = "i486" ]; then
   SLKCFLAGS="-O2 -pipe -march=i486 -mtune=i686"
@@ -70,7 +70,7 @@ rm -rf $PKG
 mkdir -p $TMP $PKG $OUTPUT
 cd $TMP
 rm -rf $PRGNAM-$VERSION
-tar xvf $CWD/$PRGNAM-$VERSION.tar.gz
+tar xvf $CWD/$PRGNAM-$VERSION.tar.?z*
 cd $PRGNAM-$VERSION
 
 chown -R root:root .
@@ -80,7 +80,6 @@ find . \
  \( -perm 666 -o -perm 664 -o -perm 600 -o -perm 444 -o -perm 440 -o -perm 400 \) \
  -exec chmod 644 {} \;
 
-CPPFLAGS="$SLKCFLAGS" \
 CFLAGS="$SLKCFLAGS" \
 CXXFLAGS="$SLKCFLAGS" \
 ./configure \
@@ -95,9 +94,12 @@ CXXFLAGS="$SLKCFLAGS" \
   --disable-static --enable-shared \
   --enable-avahi \
   --enable-udev \
-  --disable-hal
+  --disable-gtk2
 
 make $NUMJOBS
+
+CFLAGS="$SLKCFLAGS" \
+CXXFLAGS="$SLKCFLAGS" \
 make install DESTDIR=$PKG
 
 # Settings default ALSA asound.conf to use Pulseaudio.
@@ -106,6 +108,7 @@ install -m 644 -p -D $CWD/asound.conf $PKG/etc/asound.conf.new
 # Add run time path for pulse.
 mkdir -p $PKG/var/run/pulse
 mkdir -p $PKG/var/lib/pulse
+chown -R pulse:pulse $PKG/var/lib/pulse $PKG/var/run/pulse
 
 # Backup new configuration files.
 ( cd $PKG/etc/pulse
@@ -114,16 +117,11 @@ mkdir -p $PKG/var/lib/pulse
   done
 )
 
-# Create symlinks for Esound compat
-( cd $PKG/usr/bin
-  ln -sf /usr/bin/esd esdcompat
-)
-
 # Separate the pulseaudio autostart for GNOME and KDE
-mkdir -p $PKG/etc/xdg/{gnome,kde}/autostart
-mv $PKG/etc/xdg/autostart/pulseaudio.desktop $PKG/etc/xdg/gnome/autostart/
-mv $PKG/etc/xdg/autostart/pulseaudio-kde.desktop $PKG/etc/xdg/kde/autostart/
-rm -r $PKG/etc/xdg/autostart
+#mkdir -p $PKG/etc/{gnome,kde}/xdg/autostart
+#mv $PKG/etc/xdg/autostart/pulseaudio.desktop $PKG/etc/gnome/xdg/autostart/
+#mv $PKG/etc/xdg/autostart/pulseaudio-kde.desktop $PKG/etc/kde/xdg/autostart/
+#rm -r $PKG/etc/xdg/autostart
 
 find $PKG | xargs file | grep -e "executable" -e "shared object" | grep ELF \
   | cut -f 1 -d : | xargs strip --strip-unneeded 2> /dev/null || true

@@ -1,0 +1,10 @@
+--- json-c-0.10/Makefile.in.orig	2012-07-27 23:35:18.649266492 +0700
++++ json-c-0.10/Makefile.in	2012-07-27 23:36:52.251268404 +0700
+@@ -278,6 +278,7 @@
+ 	json_config.h \
+ 	json_inttypes.h \
+ 	json_object.h \
++	json_object_iterator.h \
+ 	json_object_private.h \
+ 	json_tokener.h \
+ 	json_util.h \

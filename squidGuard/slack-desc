@@ -1,0 +1,12 @@
+          |-----handy-ruler------------------------------------------------------|
+squidGuard: squidGuard (URL Redirector for Squid)
+squidGuard:
+squidGuard: SquidGuard is a URL redirector used to use blacklists with the proxy
+squidGuard: software Squid. There are two big advantages to squidguard: it is fast
+squidGuard: and it is free. SquidGuard is published under GNU Public License.
+squidGuard:
+squidGuard: URL: http://www.squidguard.org/
+squidGuard:
+squidGuard:
+squidGuard:
+squidGuard: Packaged by: Widya Walesa <walecha99@gmail.com>

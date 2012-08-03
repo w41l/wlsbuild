@@ -1,0 +1,42 @@
+
+<!-- saved from url=(0090)http://git.gnome.org/browse/gtk-engines/patch/?id=aff20b15489fb8143289e441fb32dccd417d0ded -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><style type="text/css"></style></head><body><pre style="word-wrap: break-word; white-space: pre-wrap;">From aff20b15489fb8143289e441fb32dccd417d0ded Mon Sep 17 00:00:00 2001
+From: Javier Jardón &lt;jjardon@gnome.org&gt;
+Date: Wed, 18 May 2011 11:53:39 +0000
+Subject: Use upstream gettext instead the glib one
+
+---
+diff --git a/autogen.sh b/autogen.sh
+index 0a11cae..eca71cd 100755
+--- a/autogen.sh
++++ b/autogen.sh
+@@ -64,6 +64,7 @@ if test -z "$*"; then
+ fi
+ 
+ libtoolize --force --copy
++autopoint --force
+ intltoolize --force --copy --automake
+ 
+ 
+diff --git a/configure.ac b/configure.ac
+index 5926eb4..f8c64e3 100644
+--- a/configure.ac
++++ b/configure.ac
+@@ -29,10 +29,13 @@ LT_INIT([disable-static win32-dll])
+ 
+ dnl Initialize intltool
+ IT_PROG_INTLTOOL([0.40.0])
++
++AM_GNU_GETTEXT_VERSION([0.17])
++AM_GNU_GETTEXT([external])
++
+ GETTEXT_PACKAGE=gtk3-engines
+ AC_SUBST([GETTEXT_PACKAGE])
+ AC_DEFINE_UNQUOTED([GETTEXT_PACKAGE],["$GETTEXT_PACKAGE"],[Gettext package])
+-AM_GLIB_GNU_GETTEXT
+ 
+ AC_ARG_ENABLE(all, 		[  --disable-all           skip all engines/themes by default], [defaultval=$enableval], 	[defaultval="yes"])
+ AC_ARG_ENABLE(clearlooks, 	[  --disable-clearlooks    skip ClearLooks engine/theme], 	[clearlooks=$enableval], 	[clearlooks="$defaultval"])
+--
+cgit v0.9.0.2
+</pre></body></html>

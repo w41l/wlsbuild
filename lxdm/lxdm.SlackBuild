@@ -2,7 +2,7 @@
 
 # Slackware build script for lxdm
 
-# Copyright 2011 Widya Walesa <walecha99@gmail.com>
+# Copyright 2012  Widya Walesa <walecha99@gmail.com>
 # All rights reserved.
 #
 # Redistribution and use of this script, with or without modification, is
@@ -24,10 +24,23 @@
 # YOUR DATA IS DESTROYED, YOUR HOUSE BURNS DOWN OR YOUR DOG RUNS OFF.
 
 PRGNAM=lxdm
-VERSION=0.4.1
+VERSION=20120708.ebbf7d7.git
 BUILD=1
 TAG=${TAG:-_wls}
 NUMJOBS=${NUMJOBS:--j4}
+
+if ! grep "^lxdm:" /etc/group >/dev/null 2>&1; then
+  echo "Please add group lxdm";
+  echo "/usr/sbin/groupadd -g 52 lxdm";
+  exit 1;
+fi
+
+if ! grep "^lxdm:" /etc/passwd >/dev/null 2>&1; then
+  echo "Please add user lxdm";
+  echo "/usr/sbin/useradd -u 52 -g lxdm -s /bin/false -c \"LXDE Display Manager daemon\" -d /var/lib/lxdm lxdm";
+  echo "/usr/sbin/usermod -g lxdm -G lxdm -s /bin/false lxdm";
+  exit 1;
+fi
 
 if [ -z "$ARCH" ]; then
   case "$( uname -m )" in
@@ -73,6 +86,8 @@ find . \
  \( -perm 666 -o -perm 664 -o -perm 600 -o -perm 444 -o -perm 440 -o -perm 400 \) \
  -exec chmod 644 {} \;
 
+./autogen.sh
+
 CC="clang" CXX="clang++" \
 CFLAGS="$SLKCFLAGS" \
 CXXFLAGS="$SLKCFLAGS" \
@@ -87,6 +102,10 @@ CXXFLAGS="$SLKCFLAGS" \
   --localstatedir=/var --sharedstatedir=/var/lib \
   --without-pam
 
+cat $CWD/greeter.ui.patch | patch -p0
+cat $CWD/lxdm.patch | patch -p0
+cat $CWD/Xsession.patch | patch -p0
+
 make $NUMJOBS V=1
 
 CC="clang" CXX="clang++" \
@@ -98,7 +117,13 @@ make install DESTDIR=$PKG
   ln -s lxdm.conf default.conf;
   rm lxdm.conf;
   cat $CWD/lxdm.conf.new > lxdm.conf.new;
+  chmod 640 lxdm.conf.new;
+  chown lxdm:lxdm lxdm.conf.new;
 )
+
+mkdir -p $PKG/var/lib/lxdm
+chown lxdm:lxdm $PKG/var/lib/lxdm
+chmod 750 $PKG/var/lib/lxdm
 
 find $PKG | xargs file | grep -e "executable" -e "shared object" | grep ELF \
   | cut -f 1 -d : | xargs strip --strip-unneeded 2> /dev/null || true

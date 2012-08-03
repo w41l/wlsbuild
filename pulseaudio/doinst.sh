@@ -16,3 +16,16 @@ config etc/pulse/client.conf.new
 config etc/pulse/daemon.conf.new
 config etc/pulse/default.pa.new
 config etc/pulse/system.pa.new
+
+if [ -h /usr/bin/esd ]; then
+  echo "Skipping creating esdcompat symlink"
+else
+  echo "Creating esdcompat symlink"
+  mv /usr/bin/esd /usr/bin/esd.pulsified
+  ln -sf /usr/bin/esdcompat /usr/bin/esd
+fi
+
+if [ -x /usr/bin/glib-compile-schemas ]; then
+  /usr/bin/glib-compile-schemas /usr/share/glib-2.0/schemas >/dev/null 2>&1
+fi
+

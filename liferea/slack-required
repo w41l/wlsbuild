@@ -1,4 +1,5 @@
 GConf
 json-glib
+libpeas
 libsoup
 webkitgtk

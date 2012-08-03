@@ -1,0 +1,19 @@
+# HOW TO EDIT THIS FILE:
+# The "handy ruler" below makes it easier to edit a package description.  Line
+# up the first '|' above the ':' following the base package name, and the '|'
+# on the right side marks the last column you can put a character in.  You must
+# make exactly 11 lines for the formatting to be correct.  It's also
+# customary to leave one space after the ':'.
+
+       |-----handy-ruler------------------------------------------------------|
+cantata: cantata (KDE Music Player Client)
+cantata:
+cantata: Cantata is a KDE4 client for the music player daemon (MPD).
+cantata: Originally started as a fork of QtMPC, the code is now very different.
+cantata: To be true to QtMPCs origins, Cantata can be compiled with KDE
+cantata: support, or as a pure Qt4 application
+cantata:
+cantata: http://code.google.com/p/cantata/
+cantata:
+cantata:
+cantata: Packager: Widya Walesa <http://www.walecha.net/>

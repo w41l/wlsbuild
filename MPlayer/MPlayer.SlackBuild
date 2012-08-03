@@ -29,8 +29,6 @@ FFVERSION=20120514
 BUILD=1
 TAG=${TAG:-_wls}
 NUMJOBS=${NUMJOBS:--j4}
-# Use VAAPI (libva) if available
-# USE_VAAPI="--enable-vaapi"
 
 if [ -z "$ARCH" ]; then
   case "$( uname -m )" in
@@ -99,7 +97,6 @@ LANGUAGES="en"
   --codecsdir=${CODECSDIR} \
   --language="${LANGUAGES}" \
   --disable-arts \
-  --disable-pulse \
   --disable-gui \
   --disable-mencoder \
   --disable-dvdread-internal \
@@ -108,9 +105,7 @@ LANGUAGES="en"
   --enable-x264 \
   --enable-faac \
   --enable-musepack \
-  --enable-runtime-cpudetection \
-
-#   ${USE_VAAPI}
+  --enable-runtime-cpudetection
 
 echo "$VERSION" > VERSION
 make

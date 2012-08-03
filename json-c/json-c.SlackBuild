@@ -24,7 +24,7 @@
 # YOUR DATA IS DESTROYED, YOUR HOUSE BURNS DOWN OR YOUR DOG RUNS OFF.
 
 PRGNAM=json-c
-VERSION=0.9
+VERSION=0.10
 BUILD=1
 TAG="_wls"
 NUMJOBS="-j4"
@@ -63,8 +63,10 @@ rm -rf $PKG
 mkdir -p $WRK $PKG $OUTPUT
 cd $WRK
 rm -rf $PRGNAM-$VERSION
-tar xvf $CWD/$PRGNAM-$VERSION.tar.gz
+tar xvf $CWD/$PRGNAM-$VERSION.tar.?z*
 cd $PRGNAM-$VERSION
+
+cat $CWD/$PRGNAM-$VERSION-add-missing-header.patch | patch -p1
 
 chown -R root:root .
 find . \
@@ -73,7 +75,6 @@ find . \
  \( -perm 666 -o -perm 664 -o -perm 600 -o -perm 444 -o -perm 440 -o -perm 400 \) \
  -exec chmod 644 {} \;
 
-CPPFLAGS="$SLKCFLAGS" \
 CFLAGS="$SLKCFLAGS" \
 CXXFLAGS="$SLKCFLAGS" \
 ./configure \
@@ -88,7 +89,13 @@ CXXFLAGS="$SLKCFLAGS" \
   --disable-static --enable-shared
 
 make $NUMJOBS
+
+CFLAGS="$SLKCFLAGS" \
+CXXFLAGS="$SLKCFLAGS" \
 make install DESTDIR=$PKG
+
+# Copying all headers to package
+
 
 find $PKG | xargs file | grep -e "executable" -e "shared object" | grep ELF \
   | cut -f 1 -d : | xargs strip --strip-unneeded 2> /dev/null || true

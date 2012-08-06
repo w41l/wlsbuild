@@ -1,0 +1,19 @@
+# HOW TO EDIT THIS FILE:
+# The "handy ruler" below makes it easier to edit a package description.  Line
+# up the first '|' above the ':' following the base package name, and the '|'
+# on the right side marks the last column you can put a character in.  You must
+# make exactly 11 lines for the formatting to be correct.  It's also
+# customary to leave one space after the ':'.
+
+                  |-----handy-ruler------------------------------------------------------|
+mate-file-archiver: mate-file-archiver
+mate-file-archiver:
+mate-file-archiver: Engrampa is an archive manager for the MATE environment.  This means
+mate-file-archiver: that you can create and modify archives; view the content of an archive;
+mate-file-archiver: view and modify a file contained in the archive; extract files from the
+mate-file-archiver: archive.
+mate-file-archiver:
+mate-file-archiver: URL: http://mate-desktop.org/
+mate-file-archiver:
+mate-file-archiver:
+mate-file-archiver:

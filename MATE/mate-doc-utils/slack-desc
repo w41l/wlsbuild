@@ -1,0 +1,12 @@
+              |-----handy-ruler------------------------------------------------------|
+mate-doc-utils: mate-doc-utils (mate Documentation Utilities)
+mate-doc-utils:
+mate-doc-utils: mate-doc-utils is a collection of documentation utilities for the
+mate-doc-utils: mate project.  Notably, it contains utilities for building
+mate-doc-utils: documentation and all auxiliary files in your source tree, and it
+mate-doc-utils: contains the DocBook XSLT stylesheets that were once distributed with
+mate-doc-utils: Yelp.
+mate-doc-utils:
+mate-doc-utils: URL: http://mate-desktop.org/
+mate-doc-utils:
+mate-doc-utils: Packaged by: Widya Walesa <walecha99@gmail.com>

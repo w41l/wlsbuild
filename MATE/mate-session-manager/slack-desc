@@ -1,0 +1,19 @@
+# HOW TO EDIT THIS FILE:
+# The "handy ruler" below makes it easier to edit a package description.  Line
+# up the first '|' above the ':' following the base package name, and the '|'
+# on the right side marks the last column you can put a character in.  You must
+# make exactly 11 lines for the formatting to be correct.  It's also
+# customary to leave one space after the ':'.
+
+                    |-----handy-ruler------------------------------------------------------|
+mate-session-manager: mate-session-manager (MATE Desktop Session)
+mate-session-manager:
+mate-session-manager: This package contains a session that can be started from a display
+mate-session-manager: manager such as MDM. It will load all necessary applications for a
+mate-session-manager: full-featured user session.
+mate-session-manager:
+mate-session-manager: URL: http://mate-session-manager.org/
+mate-session-manager:
+mate-session-manager:
+mate-session-manager:
+mate-session-manager:

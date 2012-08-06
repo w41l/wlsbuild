@@ -1,0 +1,19 @@
+# HOW TO EDIT THIS FILE:
+# The "handy ruler" below makes it easier to edit a package description.  Line
+# up the first '|' above the ':' following the base package name, and the '|'
+# on the right side marks the last column you can put a character in.  You must
+# make exactly 11 lines for the formatting to be correct.  It's also
+# customary to leave one space after the ':'.
+
+	  |-----handy-ruler-------------------------------------------------------|
+mate-corba: mate-corba (A CORBA ORB)
+mate-corba:
+mate-corba: ORBit2 is a high-performance CORBA (Common Object Request Broker
+mate-corba: Architecture) ORB (Object Request Broker). It allows programs to send
+mate-corba: requests and receive replies from other programs, regardless of the
+mate-corba: locations of the two programs. CORBA is an architecture that enables
+mate-corba: communication between program objects, regardless of the programming
+mate-corba: language they're written in or the operating system they run on.
+mate-corba: URL: http://mate-desktop.org/
+mate-corba:
+mate-corba: Packaged by Widya Walesa <walecha99@gmail.com>

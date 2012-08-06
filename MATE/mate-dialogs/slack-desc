@@ -1,0 +1,19 @@
+# HOW TO EDIT THIS FILE:
+# The "handy ruler" below makes it easier to edit a package description.  Line
+# up the first '|' above the ':' following the base package name, and the '|'
+# on the right side marks the last column you can put a character in.  You must
+# make exactly 11 lines for the formatting to be correct.  It's also
+# customary to leave one space after the ':'.
+
+            |-----handy-ruler------------------------------------------------------|
+mate-dialogs: mate-dialogs (MATE GTK+ Dialogs)
+mate-dialogs:
+mate-dialogs: mate-dialogs allows you to display GTK+ dialogs from shell scripts for
+mate-dialogs: MATE desktop (like zenity of GNOME).
+mate-dialogs:
+mate-dialogs: URL: http://mate-desktop.org/
+mate-dialogs:
+mate-dialogs:
+mate-dialogs:
+mate-dialogs:
+mate-dialogs:

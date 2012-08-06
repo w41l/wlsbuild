@@ -1,0 +1,19 @@
+# HOW TO EDIT THIS FILE:
+# The "handy ruler" below makes it easier to edit a package description.  Line
+# up the first '|' above the ':' following the base package name, and the '|'
+# on the right side marks the last column you can put a character in.  You must
+# make exactly 11 lines for the formatting to be correct.  It's also
+# customary to leave one space after the ':'.
+
+	      |-----handy-ruler------------------------------------------------------|
+libmatekeyring: MATE Keyring (a tool to handle security credentials)
+libmatekeyring:
+libmatekeyring: mate-keyring is a daemon in the session, similar to ssh-agent, and
+libmatekeyring: other applications can use it to store passwords and other sensitive
+libmatekeyring: information. This package contains libraries only.
+libmatekeyring:
+libmatekeyring: URL: http://mate-desktop.org/
+libmatekeyring:
+libmatekeyring:
+libmatekeyring:
+libmatekeyring:

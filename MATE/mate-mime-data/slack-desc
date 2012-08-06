@@ -1,0 +1,12 @@
+              |-----handy-ruler------------------------------------------------------|
+mate-mime-data: mate-mime-data (Mime types for mate)
+mate-mime-data:
+mate-mime-data: This package provides the base MIME and Application database for MATE.
+mate-mime-data: It is meant to be accessed through the MIME functions in MateVFS.
+mate-mime-data:
+mate-mime-data: URL: http://mate-desktop.org/
+mate-mime-data:
+mate-mime-data:
+mate-mime-data:
+mate-mime-data:
+mate-mime-data: Packaged by: Widya Walesa <walecha99@gmail.com>

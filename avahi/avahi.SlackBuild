@@ -103,7 +103,7 @@ CXXFLAGS="$SLKCFLAGS" \
   --with-avahi-group=avahi \
   --with-avahi-priv-access-group=netdev
 
-make
+make V=1
 
 CFLAGS="$SLKCFLAGS" \
 CXXFLAGS="$SLKCFLAGS" \

@@ -1,0 +1,11 @@
+libmatekbd
+libmatenotify
+mate-conf
+mate-corba
+mate-desktop
+mate-dialogs
+mate-file-manager
+mate-menus
+mate-polkit
+mate-settings-daemon
+mate-window-manager

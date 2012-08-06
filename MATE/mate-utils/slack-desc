@@ -1,0 +1,19 @@
+# HOW TO EDIT THIS FILE:
+# The "handy ruler" below makes it easier to edit a package description.  Line
+# up the first '|' above the ':' following the base package name, and the '|'
+# on the right side marks the last column you can put a character in.  You must
+# make exactly 11 lines for the formatting to be correct.  It's also
+# customary to leave one space after the ':'.
+
+          |-----handy-ruler------------------------------------------------------|
+mate-utils: mate-utils (MATE Utility)
+mate-utils:
+mate-utils: MATE Utilities for the MATE Desktop contains the following:
+mate-utils: * mate-system-log          [logview]
+mate-utils: * mate-search-tool         [gseachtool]
+mate-utils: * mate-dictionary          [mate-dictionary]
+mate-utils: * mate-screenshot          [mate-screenshot]
+mate-utils: * mate-disk-usage-analyzer [baobab]
+mate-utils:
+mate-utils: URL: https://github.com/mate-desktop/mate-utils
+mate-utils:

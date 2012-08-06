@@ -6,7 +6,7 @@
 # customary to leave one space after the ':'.
 
          |-----handy-ruler------------------------------------------------------|
-libunique: libunique (Single Instance Library)
+libunique: libunique (Single Instance Library Version 1)
 libunique:
 libunique: libunique is a library for writing single instance application. If
 libunique: you launch a single instance application twice, the second instance

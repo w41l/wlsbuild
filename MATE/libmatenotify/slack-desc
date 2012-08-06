@@ -1,0 +1,12 @@
+             |-----handy-ruler------------------------------------------------------|
+libmatenotify: libmatenotify (MATE Desktop Notification)
+libmatenotify:
+libmatenotify: A library that sends desktop notifications to a notification daemon, as
+libmatenotify: defined in the Desktop Notifications spec. These notifications can be
+libmatenotify: used to inform the user about an event or display some form of
+libmatenotify: information without getting in the user's way.
+libmatenotify:
+libmatenotify: URL: http://mate-desktop.org/
+libmatenotify:
+libmatenotify:
+libmatenotify: Packaged by: Widya Walesa <walecha99@gmail.com>

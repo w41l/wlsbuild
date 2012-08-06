@@ -1,0 +1,12 @@
+            |-----handy-ruler------------------------------------------------------|
+mate-keyring: mate-keyring (MATE Password Manager)
+mate-keyring:
+mate-keyring: mate-keyring is a program that keep password and other secrets for
+mate-keyring: users. It is run as a damon in the session, similar to ssh-agent, and
+mate-keyring: other applications locate it via an environment variable or a dbus.
+mate-keyring:
+mate-keyring: URL: http://mate-desktop.org/
+mate-keyring:
+mate-keyring:
+mate-keyring:
+mate-keyring: Packaged by: Widya Walesa <walecha99@gmail.com>

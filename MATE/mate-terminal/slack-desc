@@ -1,0 +1,19 @@
+# HOW TO EDIT THIS FILE:
+# The "handy ruler" below makes it easier to edit a package description.  Line
+# up the first '|' above the ':' following the base package name, and the '|'
+# on the right side marks the last column you can put a character in.  You must
+# make exactly 11 lines for the formatting to be correct.  It's also
+# customary to leave one space after the ':'.
+
+             |-----handy-ruler------------------------------------------------------|
+mate-terminal: mate-terminal (MATE Terminal Emulator)
+mate-terminal:
+mate-terminal: This is the MATE terminal emulator application.  mate-terminal is
+mate-terminal: only the shell (menubar, prefs dialog); the terminal emulation ("stuff
+mate-terminal: in the middle") comes from the VTE widget. Remember this when
+mate-terminal: report a bug. ;-)
+mate-terminal:
+mate-terminal: URL: http://mate-desktop.org/
+mate-terminal:
+mate-terminal:
+mate-terminal:

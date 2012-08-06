@@ -1,0 +1,19 @@
+# HOW TO EDIT THIS FILE:
+# The "handy ruler" below makes it easier to edit a package description.  Line
+# up the first '|' above the ':' following the base package name, and the '|'
+# on the right side marks the last column you can put a character in.  You must
+# make exactly 11 lines for the formatting to be correct.  It's also
+# customary to leave one space after the ':'.
+
+                 |-----handy-ruler------------------------------------------------------|
+mate-file-manager: mate-file-manager (MATE Desktop File Manager)
+mate-file-manager:
+mate-file-manager: Caja is the official file manager for the MATE desktop. It allows to
+mate-file-manager: browse directories, preview files and launch applications associated
+mate-file-manager: with them. It is also responsible for handling the icons on the MATE
+mate-file-manager: desktop. It works on local and remote filesystems.
+mate-file-manager:
+mate-file-manager: URL: http://mate-desktop.org/
+mate-file-manager:
+mate-file-manager:
+mate-file-manager:

@@ -1,0 +1,12 @@
+           |-----handy-ruler------------------------------------------------------|
+mate-polkit: mate-polkit (MATE PolicyKit Library)
+mate-polkit:
+mate-polkit: mate-polkit provides a D-Bus session bus service that is used to bring
+mate-polkit: up authentication dialogs used for obtaining privileges.
+mate-polkit:
+mate-polkit: URL: http://mate-desktop.org/
+mate-polkit:
+mate-polkit:
+mate-polkit:
+mate-polkit:
+mate-polkit:

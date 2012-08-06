@@ -1,0 +1,13 @@
+        |-----handy-ruler------------------------------------------------------|
+mate-conf: mate-conf (MATE Configuration Database)
+mate-conf:
+mate-conf: mate-conf is a configuration database system for storing application
+mate-conf: preferences. It supports default or mandatory settings set by the
+mate-conf: administrator, and changes to the database are instantly applied to
+mate-conf: all running applications. It is written for the MATE desktop but
+mate-conf: doesn't require it.
+mate-conf:
+mate-conf: URL: http://mate-desktop.org/
+mate-conf:
+mate-conf:
+mate-conf:

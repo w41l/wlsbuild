@@ -2,7 +2,7 @@
 
 # Slackware build script for yelp-xsl
 
-# Copyright 2011  Widya Walesa <walecha99@gmail.com>
+# Copyright 2011-2012  Widya Walesa <walecha99@gmail.com>
 # All rights reserved.
 #
 # Redistribution and use of this script, with or without modification, is
@@ -24,18 +24,11 @@
 # YOUR DATA IS DESTROYED, YOUR HOUSE BURNS DOWN OR YOUR DOG RUNS OFF.
 
 PRGNAM=yelp-xsl
-VERSION=2.31.6
+VERSION=3.4.2
 BUILD=1
 TAG=${TAG:-_wls}
 NUMJOBS=${NUMJOBS:--j4}
-
-if [ -z "$ARCH" ]; then
-  case "$( uname -m )" in
-    i?86) ARCH=i486 ;;
-    arm*) ARCH=arm ;;
-       *) ARCH=$( uname -m ) ;;
-  esac
-fi
+ARCH=noarch
 
 CWD=$(pwd)
 TMP=${TMP:-/tmp/wlsbuild}
@@ -63,7 +56,7 @@ rm -rf $PKG
 mkdir -p $TMP $PKG $OUTPUT
 cd $TMP
 rm -rf $PRGNAM-$VERSION
-tar xvf $CWD/$PRGNAM-$VERSION.tar.bz2
+tar xvf $CWD/$PRGNAM-$VERSION.tar.?z*
 cd $PRGNAM-$VERSION
 
 chown -R root:root .
@@ -87,10 +80,6 @@ CXXFLAGS="$SLKCFLAGS" \
 
 make $NUMJOBS
 make DESTDIR=$PKG install
-
-# fix pkgconfig dir
-mkdir -p $PKG/usr/lib${LIBDIRSUFFIX}
-mv $PKG/usr/share/pkgconfig $PKG/usr/lib${LIBDIRSUFFIX}/
 
 find $PKG | xargs file | grep -e "executable" -e "shared object" | grep ELF \
   | cut -f 1 -d : | xargs strip --strip-unneeded 2> /dev/null || true

@@ -1,0 +1,19 @@
+# HOW TO EDIT THIS FILE:
+# The "handy ruler" below makes it easier to edit a package description.  Line
+# up the first '|' above the ':' following the base package name, and the '|'
+# on the right side marks the last column you can put a character in.  You must
+# make exactly 11 lines for the formatting to be correct.  It's also
+# customary to leave one space after the ':'.
+
+                    |-----handy-ruler------------------------------------------------------|
+mate-document-viewer: mate-document-viewer (MATE Document Viewer)
+mate-document-viewer:
+mate-document-viewer: Atril is a document viewer capable of displaying multiple and single
+mate-document-viewer: page document formats like PDF and Postscript.
+mate-document-viewer: Atril is a fork of Evince. This software is licensed under the GPL
+mate-document-viewer:
+mate-document-viewer: URL: https://github.com/mate-desktop/mate-document-viewer
+mate-document-viewer:
+mate-document-viewer:
+mate-document-viewer:
+mate-document-viewer:

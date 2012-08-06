@@ -1,0 +1,19 @@
+# HOW TO EDIT THIS FILE:
+# The "handy ruler" below makes it easier to edit a package description.  Line
+# up the first '|' above the ':' following the base package name, and the '|'
+# on the right side marks the last column you can put a character in.  You must
+# make exactly 11 lines for the formatting to be correct.  It's also
+# customary to leave one space after the ':'.
+
+           |-----handy-ruler------------------------------------------------------|
+mate-common: mate-common (MATE Common Macros)
+mate-common:
+mate-common: This package contains several macros that assists in building
+mate-common: MATE Packages.  You may need this package if you plan on compiling
+mate-common: any MATE Package by hand.
+mate-common:
+mate-common: You can safely remove this package if you do not plan to develop
+mate-common: any MATE Applications.
+mate-common:
+mate-common: URL: http://mate-desktop.org/
+mate-common:

@@ -17,3 +17,4 @@ if [ -e /usr/share/icons/gnome/icon-theme.cache ]; then
     /usr/bin/gtk-update-icon-cache /usr/share/icons/gnome >/dev/null 2>&1
   fi
 fi
+

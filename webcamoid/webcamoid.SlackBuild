@@ -1,8 +1,8 @@
 #!/bin/sh
 
-# Slackware build script for awn
+# Slackware build script for webcamoid
 
-# Copyright 2011  Widya Walesa <walecha99@gmail.com>
+# Copyright 2012  Widya Walesa <walecha99@gmail.com>
 # All rights reserved.
 #
 # Redistribution and use of this script, with or without modification, is
@@ -23,25 +23,25 @@
 # ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. FURTHERMORE I AM NOT LIABLE IF
 # YOUR DATA IS DESTROYED, YOUR HOUSE BURNS DOWN OR YOUR DOG RUNS OFF.
 
-PRGNAM=awn
-VERSION=0.4.0
+PRGNAM=webcamoid
+VERSION=3.1.0_81e37fe
 BUILD=1
 TAG=${TAG:-_wls}
-NUMJOBS=${NUMJOBS:--j4}
 
+# Automatically determine the architecture we're building on:
 if [ -z "$ARCH" ]; then
   case "$( uname -m )" in
     i?86) ARCH=i486 ;;
     arm*) ARCH=arm ;;
+    # Unless $ARCH is already set, use uname -m for all other archs:
        *) ARCH=$( uname -m ) ;;
   esac
 fi
 
 CWD=$(pwd)
-TMP=${TMP:-/tmp/wlsbuild}
-PKG=$TMP/package-$PRGNAM
+WRK=${WRK:-/tmp/wlsbuild}
+PKG=$WRK/package-$PRGNAM
 OUTPUT=${OUTPUT:-/tmp}
-DOCS="AUTHORS COPYING COPYING.LIB ChangeLog INSTALL NEWS README TODO"
 
 if [ "$ARCH" = "i486" ]; then
   SLKCFLAGS="-O2 -pipe -march=i486 -mtune=i686"
@@ -60,11 +60,11 @@ fi
 set -e
 
 rm -rf $PKG
-mkdir -p $TMP $PKG $OUTPUT
-cd $TMP
-rm -rf avant-window-navigator-$VERSION
-tar xvf $CWD/avant-window-navigator-$VERSION.tar.gz
-cd avant-window-navigator-$VERSION
+mkdir -p $WRK $PKG $OUTPUT
+cd $WRK
+rm -rf $PRGNAM-$VERSION
+tar xvf $CWD/$PRGNAM-$VERSION.tar.xz
+cd $PRGNAM-$VERSION
 
 chown -R root:root .
 find . \
@@ -73,41 +73,26 @@ find . \
  \( -perm 666 -o -perm 664 -o -perm 600 -o -perm 444 -o -perm 440 -o -perm 400 \) \
  -exec chmod 644 {} \;
 
-./autogen.sh
 CFLAGS="$SLKCFLAGS" \
 CXXFLAGS="$SLKCFLAGS" \
-./configure \
-  --build=$ARCH-slackware-linux --host=$ARCH-slackware-linux \
-  --program-prefix= --program-suffix= \
-  --prefix=/usr --exec-prefix=/usr \
-  --bindir=/usr/bin --sbindir=/usr/sbin \
-  --libdir=/usr/lib$LIBDIRSUFFIX --includedir=/usr/include \
-  --mandir=/usr/man --infodir=/usr/info \
-  --sysconfdir=/etc --docdir=/usr/doc/$PRGNAM-$VERSION \
-  --localstatedir=/var --sharedstatedir=/var/lib \
-  --disable-static --enable-shared \
-  --disable-gtk-doc
+python setup.py build
+python setup.py install --root $PKG
 
-make $NUMJOBS
-make install DESTDIR=$PKG
+rm -rf $PKG/usr/share/licenses
 
 find $PKG | xargs file | grep -e "executable" -e "shared object" | grep ELF \
   | cut -f 1 -d : | xargs strip --strip-unneeded 2> /dev/null || true
 
 mkdir -p $PKG/usr/doc/$PRGNAM-$VERSION
-( cd $PKG/usr/doc/$PRGNAM-$VERSION ;
-  ln -sf /usr/share/gtk-doc/html/libawn html-libawn ;
-)
-cp -a $DOCS $PKG/usr/doc/$PRGNAM-$VERSION
+cp -a AUTHORS COPYING ChangeLog README.md THANKS $PKG/usr/doc/$PRGNAM-$VERSION
 cat $CWD/$PRGNAM.SlackBuild > $PKG/usr/doc/$PRGNAM-$VERSION/$PRGNAM.SlackBuild
 
 mkdir -p $PKG/install
 cat $CWD/slack-desc > $PKG/install/slack-desc
 cat $CWD/slack-required > $PKG/install/slack-required
-cat $CWD/doinst.sh > $PKG/install/doinst.sh
 
 cd $PKG
 /sbin/makepkg -l y -c n $OUTPUT/$PRGNAM-$VERSION-$ARCH-$BUILD$TAG.${PKGTYPE:-tgz}
 
 echo "Cleaning up build directory"
-cd $TMP; rm -rf avant-window-navigator-$VERSION $PKG
+cd $WRK ; rm -rf $PRGNAM-$VERSION $PKG

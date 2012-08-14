@@ -24,12 +24,12 @@
 # YOUR DATA IS DESTROYED, YOUR HOUSE BURNS DOWN OR YOUR DOG RUNS OFF.
 
 PRGNAM=libreoffice
-VERSION=3.5.4
-RCVERS="rc2"
+VERSION=3.6.0
+RCVERS=".4"
 MAJORVER=$( echo $VERSION | sed "s/\(.*\)\.\(.*\)\.*/\1/" )
 BUILD=1
 TAG=${TAG:-_wls}
-NUMJOBS=${NUMJOBS:--j4}
+DIST=${DIST:-deb}
 
 if [ -z "$ARCH" ]; then
   case "$( uname -m )" in
@@ -68,9 +68,9 @@ set -e
 rm -rf $PKG
 mkdir -p $WRK $PKG $OUTPUT
 cd $WRK
-rm -rf LibO_${VERSION}${RCVERS}_Linux_${LOARCH}_install-rpm_en-US
-tar xvf $CWD/LibO_${VERSION}_Linux_${LOARCH}_install-rpm_en-US.tar.gz
-cd LibO_${VERSION}${RCVERS}_Linux_${LOARCH}_install-rpm_en-US
+rm -rf LibO_${VERSION}${RCVERS}_Linux_${LOARCH}_install-${DIST}_en-US
+tar xvf $CWD/LibO_${VERSION}_Linux_${LOARCH}_install-${DIST}_en-US.tar.gz
+cd LibO_${VERSION}${RCVERS}_Linux_${LOARCH}_install-${DIST}_en-US
 
 chown -R root:root .
 find . \
@@ -83,11 +83,18 @@ echo "install libreoffice README and LICENSE"
 mkdir -p ${PKG}/usr/doc/${PRGNAM}-${VERSION}
 mv -v readmes/* ${PKG}/usr/doc/${PRGNAM}-${VERSION}/
 
-echo "Unpacking rpm packages"
-cd RPMS
-for i in `ls -1 *.rpm`; do
-  rpm2cpio $i | cpio -idmv
-done
+echo "Unpacking ${DIST} packages"
+if [ "${DIST}" = "deb" ]; then
+  cd DEBS
+  for i in `ls -1 *.deb`; do
+    ar p $i data.tar.gz | gzip -d | tar xv || exit 1
+  done
+else
+  cd RPMS
+  for i in `ls -1 *.rpm`; do
+    rpm2cpio $i | cpio -idmv || exit 1
+  done
+fi
 
 echo "Install program files"
 mv -v opt ${PKG}/
@@ -105,37 +112,35 @@ mkdir -p ${PKG}/usr/bin
 
 echo "Use system libstdc++ instead of the bundled one"
 ( cd $PKG/opt/libreoffice${MAJORVER}/ure/lib;
-  OLD="`find /usr/lib${LIBDIRSUFFIX} -type l -name \"libstdc++.so.*\" | xargs basename`"
-  rm -f "$OLD";
-  ln -s /usr/lib${LIBDIRSUFFIX}/${OLD} ${OLD};
+  for LIB in `ls -1 libstdc++.so.*`; do
+    rm -f ${LIB}; ln -sf /usr/lib${LIBDIRSUFFIX}/${LIB};
+  done
 )
 
 echo "Unpacking desktop-integration packages"
 cd desktop-integration
-  rpm2cpio libreoffice${MAJORVER}-freedesktop-menus-${VERSION}-2.noarch.rpm | cpio -idmv
+if [ "${DIST}" = "deb" ]; then
+  ar p libreoffice${MAJORVER}-*.deb data.tar.gz | gzip -d | tar xv || exit 1
+else
+  rpm2cpio libreoffice${MAJORVER}-freedesktop-menus-${VERSION}-2.noarch.rpm | cpio -idmv || exit 1
+fi
   echo "Install icons and mime files"
   mkdir -p ${PKG}/usr/share
   rm -rf usr/share/applications
   mv -v usr/share/* ${PKG}/usr/share
   mkdir -p ${PKG}/usr/bin
   mv -v usr/bin/* ${PKG}/usr/bin
-#   sed -i "s,exec /opt,exec /usr/lib${LIBDIRSUFFIX},g" ${PKG}/usr/bin/libreoffice
-#   sed -i "s,exec /opt,exec /usr/lib${LIBDIRSUFFIX},g" ${PKG}/usr/bin/libreoffice-printeradmin
-#   chmod -v 755 ${PKG}/usr/bin/libreoffice*
 cd ..
 
 chown -R root:root ${PKG}
 cd -
-
-# find $PKG | xargs file | grep -e "executable" -e "shared object" | grep ELF \
-#   | cut -f 1 -d : | xargs strip --strip-unneeded 2> /dev/null
 
 mkdir -p $PKG/install
 cat $CWD/slack-desc > $PKG/install/slack-desc
 cat $CWD/doinst.sh > $PKG/install/doinst.sh
 
 cd $PKG
-/sbin/makepkg -p -l y -c n $OUTPUT/$PRGNAM-$VERSION-$ARCH-$BUILD$TAG.txz
+/sbin/makepkg -p -l y -c n $OUTPUT/$PRGNAM-${VERSION}${RCVERS}-$ARCH-$BUILD$TAG.txz
 
 echo "Cleaning up $WRK";
-cd $WRK; rm -rf $PKG LibO_${VERSION}${RCVERS}_Linux_${LOARCH}_install-rpm_en-US
+cd $WRK; rm -rf $PKG LibO_${VERSION}${RCVERS}_Linux_${LOARCH}_install-${DIST}_en-US

@@ -2,7 +2,7 @@
 
 # Slackware build script for x264
 
-# Copyright 2010  Widya Walesa <walecha99@gmail.com>
+# Copyright 2010-2012  Widya Walesa <walecha99@gmail.com>
 # All rights reserved.
 #
 # Redistribution and use of this script, with or without modification, is
@@ -24,7 +24,7 @@
 # YOUR DATA IS DESTROYED, YOUR HOUSE BURNS DOWN OR YOUR DOG RUNS OFF.
 
 PRGNAM=x264
-VERSION=35cf912
+VERSION=20120721
 BUILD=1
 TAG=${TAG:-_wls}
 NUMJOBS=${NUMJOBS:--j4}
@@ -62,15 +62,15 @@ set -e
 rm -rf $PKG
 mkdir -p $TMP $PKG $OUTPUT
 cd $TMP
-rm -rf $PRGNAM-$VERSION
-tar xvf $CWD/$PRGNAM-$VERSION.tar.xz
-cd $PRGNAM-$VERSION
+rm -rf $PRGNAM-snapshot-$VERSION-2245-stable
+tar xvf $CWD/$PRGNAM-snapshot-$VERSION-2245-stable.tar.?z*
+cd $PRGNAM-snapshot-$VERSION-2245-stable
 
 # Add YUV4MPEG filter
 bzip2 -dc $CWD/example.y4m.bz2 > example.y4m
 
 # Add shared gpac
-sed -i 's,-lgpac_static,-lgpac,g' configure
+#sed -i 's,-lgpac_static,-lgpac,g' configure
 
 # x86_64 option
 if [ "$ARCH" = "x86_64" ]; then
@@ -96,9 +96,8 @@ find . \
   --extra-cflags="$SLKCFLAGS" \
   $PIC_OPT
 
-make $NUMJOBS
+make V=1
 
-CC="clang" CXX="clang++" \
 make install DESTDIR=$PKG
 
 find $PKG | xargs file | grep -e "executable" -e "shared object" | grep ELF \
@@ -115,4 +114,4 @@ cd $PKG
 /sbin/makepkg -l y -c n $OUTPUT/$PRGNAM-$VERSION-$ARCH-$BUILD$TAG.${PKGTYPE:-tgz}
 
 echo "Cleaning up build directory"
-cd $TMP; rm -rf $PRGNAM-$VERSION $PKG
+cd $TMP; rm -rf $PRGNAM-snapshot-$VERSION-2245-stable $PKG

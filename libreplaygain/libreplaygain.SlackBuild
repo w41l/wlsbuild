@@ -2,7 +2,7 @@
 
 # Slackware build script for libreplaygain
 
-# Copyright 2010  Widya Walesa <walecha99@gmail.com>
+# Copyright 2010-2012  Widya Walesa <walecha99@gmail.com>
 # All rights reserved.
 #
 # Redistribution and use of this script, with or without modification, is
@@ -77,15 +77,14 @@ echo 'INSTALL(FILES ${libreplaygain_SOURCE_DIR}/include/replaygain/gain_analysis
 
 mkdir -p build
 cd build
-cmake .. \
-  -DCMAKE_C_COMPILER="/usr/bin/clang" \
-  -DCMAKE_C_FLAGS:STRING="$SLKCFLAGS" \
-  -DCMAKE_BUILD_TYPE=Release \
-  -DCMAKE_INSTALL_PREFIX=/usr \
-  -DLIB_SUFFIX=$LIBDIRSUFFIX
+  cmake .. \
+    -DCMAKE_C_FLAGS:STRING="$SLKCFLAGS" \
+    -DCMAKE_BUILD_TYPE=Release \
+    -DCMAKE_INSTALL_PREFIX=/usr \
+    -DLIB_SUFFIX=$LIBDIRSUFFIX \
 
-make
-make install DESTDIR=$PKG
+  make VERBOSE=1
+  make install DESTDIR=$PKG
 cd -
 
 find $PKG | xargs file | grep -e "executable" -e "shared object" | grep ELF \

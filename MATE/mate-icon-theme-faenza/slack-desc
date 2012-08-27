@@ -1,0 +1,20 @@
+# HOW TO EDIT THIS FILE:
+# The "handy ruler" below makes it easier to edit a package description.  Line
+# up the first '|' above the ':' following the base package name, and the '|'
+# on the right side marks the last column you can put a character in.  You must
+# make exactly 11 lines for the formatting to be correct.  It's also
+# customary to leave one space after the ':'.
+
+                      |-----handy-ruler------------------------------------------------------|
+mate-icon-theme-faenza: mate-icon-theme-faenza (Faenza Icon Theme for MATE)
+mate-icon-theme-faenza:
+mate-icon-theme-faenza: This package contains the faenza icon theme used by the MATE desktop.
+mate-icon-theme-faenza: The icons are used in the panel menu, and in nautilus and other
+mate-icon-theme-faenza: applications, to represent the different applications, files,
+mate-icon-theme-faenza: directories, and devices.
+mate-icon-theme-faenza:
+mate-icon-theme-faenza: URL: http://mate-desktop.org/
+mate-icon-theme-faenza:
+mate-icon-theme-faenza:
+mate-icon-theme-faenza:
+mate-icon-theme-faenza:

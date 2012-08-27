@@ -2,7 +2,7 @@
 
 # Slackware build script for gtkglext
 
-# Copyright 2010  Widya Walesa <walecha99@gmail.com>
+# Copyright 2010-2012  Widya Walesa <walecha99@gmail.com>
 # All rights reserved.
 #
 # Redistribution and use of this script, with or without modification, is
@@ -68,9 +68,6 @@ cd $PRGNAM-$VERSION
 
 zcat $CWD/gtk2.20.patch.gz | patch -p1
 
-libtoolize --force
-autoreconf -ivsf
-
 chown -R root:root .
 find . \
  \( -perm 777 -o -perm 775 -o -perm 711 -o -perm 555 -o -perm 511 \) \
@@ -91,7 +88,7 @@ CXXFLAGS="$SLKCFLAGS" \
   --localstatedir=/var --sharedstatedir=/var/lib \
   --disable-static --enable-shared \
 
-make ${NUMJOBS}
+make V=1
 make DESTDIR=$PKG install
 
 find $PKG | xargs file | grep -e "executable" -e "shared object" | grep ELF \

@@ -2,7 +2,7 @@
 
 # Slackware build script for libgsm
 
-# Copyright 2010  Widya Walesa <walecha99@gmail.com>
+# Copyright 2010-2012  Widya Walesa <walecha99@gmail.com>
 # All rights reserved.
 #
 # Redistribution and use of this script, with or without modification, is
@@ -84,7 +84,6 @@ GSM_MAJOR=`grep "GSM_MAJOR" inc/gsm.h | awk '{ print $3 }'`
 GSM_VERSION="${GSM_MAJOR}.${GSM_MINOR}.${GSM_PATCHLEVEL}"
 
 make CFLAGS="$SLKCFLAGS -c -DNeedFunctionPrototypes=1 -I./inc" \
-  LD="clang" CC="clang" \
   LDFLAGS="-Wl,-soname -Wl,libgsm.so.${GSM_VERSION}" \
   STRIP=":"
 
@@ -95,7 +94,6 @@ mkdir -p $PKG/usr/man/man3
 mkdir -p $PKG/usr/man/man1
 
 make CFLAGS="$SLKCFLAGS" CXXFLAGS="$SLKCFLAGS" \
-  LD="clang" CC="clang" \
   LDFLAGS="-Wl,-soname -Wl,libgsm.so.${GSM_VERSION}" \
   STRIP=":" \
   INSTALL_ROOT=$PKG/usr \
@@ -106,7 +104,9 @@ make CFLAGS="$SLKCFLAGS" CXXFLAGS="$SLKCFLAGS" \
 cp -a -p lib/libgsm.so* $PKG/usr/lib$LIBDIRSUFFIX/
 
 # some apps look for this in /usr/include
-ln -s gsm/gsm.h $PKG/usr/include
+( cd $PKG/usr/include;
+  ln -sf gsm/gsm.h;
+)
 
 find $PKG | xargs file | grep -e "executable" -e "shared object" | grep ELF \
   | cut -f 1 -d : | xargs strip --strip-unneeded 2> /dev/null || true

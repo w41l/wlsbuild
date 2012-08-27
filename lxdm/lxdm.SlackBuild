@@ -88,7 +88,6 @@ find . \
 
 ./autogen.sh
 
-CC="clang" CXX="clang++" \
 CFLAGS="$SLKCFLAGS" \
 CXXFLAGS="$SLKCFLAGS" \
 ./configure \
@@ -100,7 +99,8 @@ CXXFLAGS="$SLKCFLAGS" \
   --mandir=/usr/man --infodir=/usr/info \
   --sysconfdir=/etc --docdir=/usr/doc/$PRGNAM-$VERSION \
   --localstatedir=/var --sharedstatedir=/var/lib \
-  --without-pam
+  --without-pam \
+  --enable-gtk3
 
 cat $CWD/greeter.ui.patch | patch -p0
 cat $CWD/lxdm.patch | patch -p0
@@ -108,7 +108,6 @@ cat $CWD/Xsession.patch | patch -p0
 
 make $NUMJOBS V=1
 
-CC="clang" CXX="clang++" \
 CFLAGS="$SLKCFLAGS" \
 CXXFLAGS="$SLKCFLAGS" \
 make install DESTDIR=$PKG

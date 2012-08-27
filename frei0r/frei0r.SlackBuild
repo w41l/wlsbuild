@@ -2,7 +2,7 @@
 
 # Slackware build script for frei0r
 
-# Copyright 2011  Widya Walesa <walecha99@gmail.com>
+# Copyright 2011-2012  Widya Walesa <walecha99@gmail.com>
 # All rights reserved.
 #
 # Redistribution and use of this script, with or without modification, is
@@ -86,7 +86,7 @@ CXXFLAGS="$SLKCFLAGS" \
   --localstatedir=/var --sharedstatedir=/var/lib \
   --disable-static --enable-shared
 
-make ${NUMJOBS}
+make V=1
 make DESTDIR=$PKG install
 
 rm -rf $PKG/usr/share

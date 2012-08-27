@@ -2,7 +2,7 @@
 
 # Slackware build script for a52dec
 
-# Copyright 2011 Widya Walesa <walecha99@gmail.com>
+# Copyright 2011-2012  Widya Walesa <walecha99@gmail.com>
 # All rights reserved.
 #
 # Redistribution and use of this script, with or without modification, is
@@ -73,8 +73,6 @@ find . \
  \( -perm 666 -o -perm 664 -o -perm 600 -o -perm 444 -o -perm 440 -o -perm 400 \) \
  -exec chmod 644 {} \;
 
-CC="clang" CXX="clang++" \
-CPPFLAGS="$SLKCFLAGS" \
 CFLAGS="$SLKCFLAGS" \
 CXXFLAGS="$SLKCFLAGS" \
 ./configure \
@@ -92,10 +90,8 @@ CXXFLAGS="$SLKCFLAGS" \
   --disable-solaris-audio \
   --disable-al-audio
 
-make
+make V=1
 
-CC="clang" CXX="clang++" \
-CPPFLAGS="$SLKCFLAGS" \
 CFLAGS="$SLKCFLAGS" \
 CXXFLAGS="$SLKCFLAGS" \
 make install DESTDIR=$PKG

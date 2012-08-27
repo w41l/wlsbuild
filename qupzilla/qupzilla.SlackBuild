@@ -2,7 +2,7 @@
 
 # Slackware build script for qupzilla
 
-# Copyright 2012 Widya Walesa <walecha99@gmail.com>
+# Copyright 2012  Widya Walesa <walecha99@gmail.com>
 # All rights reserved.
 #
 # Redistribution and use of this script, with or without modification, is
@@ -24,7 +24,7 @@
 # YOUR DATA IS DESTROYED, YOUR HOUSE BURNS DOWN OR YOUR DOG RUNS OFF.
 
 PRGNAM=qupzilla
-VERSION=git.20120718.701130b
+VERSION=20120814.3a2fb32
 BUILD=1
 TAG=${TAG:-_wls}
 NUMJOBS=${NUMJOBS:--j1}
@@ -62,9 +62,9 @@ set -e
 rm -rf $PKG
 mkdir -p $WRK $PKG $OUTPUT
 cd $WRK
-rm -rf qupzilla-$VERSION
-tar xvf $CWD/qupzilla-${VERSION}.tar.xz
-cd qupzilla-$VERSION
+rm -rf QupZilla-$VERSION
+tar xvf $CWD/QupZilla-${VERSION}.tar.xz
+cd QupZilla-$VERSION
 
 chown -R root:root .
 find . \
@@ -115,4 +115,4 @@ cd $PKG
 /sbin/makepkg -l y -c n $OUTPUT/$PRGNAM-$VERSION-$ARCH-$BUILD$TAG.${PKGTYPE:-tgz}
 
 echo "Cleaning up build directory"
-cd $WRK ; rm -rf $PKG qupzilla-$VERSION
+cd $WRK ; rm -rf $PKG QupZilla-$VERSION

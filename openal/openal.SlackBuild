@@ -2,7 +2,7 @@
 
 # Slackware build script for openal
 
-# Copyright 2011  Widya Walesa <walecha99@gmail.com>
+# Copyright 2011-2012  Widya Walesa <walecha99@gmail.com>
 # All rights reserved.
 #
 # Redistribution and use of this script, with or without modification, is
@@ -76,13 +76,12 @@ find . \
 mkdir -p build
 cd build
   cmake .. \
-    -DCMAKE_C_COMPILER:PATH="/usr/bin/clang" \
     -DCMAKE_C_FLAGS:STRING="$SLKCFLAGS" \
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_PREFIX:PATH=/usr \
-    -DLIB_SUFFIX=${LIBDIRSUFFIX}
+    -DLIB_SUFFIX=${LIBDIRSUFFIX} \
 
-  make
+  make VERBOSE=1
   make install DESTDIR=$PKG
 cd -
 

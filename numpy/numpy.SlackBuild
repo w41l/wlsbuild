@@ -2,7 +2,7 @@
 
 # Slackware build script for numpy
 
-# Copyright 2010  Widya Walesa <walecha99@gmail.com>
+# Copyright 2010-2012  Widya Walesa <walecha99@gmail.com>
 # All rights reserved.
 #
 # Redistribution and use of this script, with or without modification, is
@@ -66,10 +66,6 @@ rm -rf $PRGNAM-$VERSION
 tar xvf $CWD/$PRGNAM-$VERSION.tar.gz
 cd $PRGNAM-$VERSION
 
-# zcat $CWD/$PRGNAM-1.1.0-f2py.patch.gz | patch -p0
-# zcat $CWD/$PRGNAM-1.3.0-fenv-freebsd.patch.gz | patch -p0
-# zcat $CWD/$PRGNAM-1.4.0-python-2.7.patch.gz | patch -p0
-
 # Fix permissions for building.
 chown -R root:root .
 find . \
@@ -78,7 +74,6 @@ find . \
   \( -perm 666 -o -perm 664 -o -perm 600 -o -perm 444 -o -perm 440 -o -perm 400 \) \
   -exec chmod 644 {} \;
 
-CC="clang" CXX="clang++" \
 CFLAGS="$SLKCFLAGS" \
 CXXFLAGS="$SLKCFLAGS" \
 python setup.py build

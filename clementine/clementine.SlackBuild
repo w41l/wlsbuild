@@ -2,7 +2,7 @@
 
 # Slackware build script for clementine
 
-# Copyright 2010 Widya Walesa <walecha99@gmail.com>
+# Copyright 2010-2012  Widya Walesa <walecha99@gmail.com>
 # All rights reserved.
 #
 # Redistribution and use of this script, with or without modification, is
@@ -72,6 +72,13 @@ find . \
  -exec chmod 755 {} \; -o \
  \( -perm 666 -o -perm 664 -o -perm 600 -o -perm 444 -o -perm 440 -o -perm 400 \) \
  -exec chmod 644 {} \;
+
+# NOTE: if cmake complains that it can not find qscript-qt when in fact you
+# have it installed, this is likely because you are building inside a chroot.
+# To remedy the error, run the command "dbus-uuidgen --ensure"
+# and then re-start this SlackBuild :
+
+export QTSCRIPTS=/usr/lib${LIBDIRSUFFIX}/qt4/plugins/script
 
 mkdir build
 cd build

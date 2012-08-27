@@ -2,7 +2,7 @@
 
 # Slackware build script for gpac
 
-# Copyright 2010  Widya Walesa <walecha99@gmail.com>
+# Copyright 2010-2012  Widya Walesa <walecha99@gmail.com>
 # All rights reserved.
 #
 # Redistribution and use of this script, with or without modification, is
@@ -24,7 +24,7 @@
 # YOUR DATA IS DESTROYED, YOUR HOUSE BURNS DOWN OR YOUR DOG RUNS OFF.
 
 PRGNAM=gpac
-VERSION=0.4.5
+VERSION=0.5.0
 BUILD=1
 TAG=${TAG:-_wls}
 NUMJOBS=${NUMJOBS:--j1}
@@ -80,20 +80,6 @@ rm -rf $PRGNAM
 tar xvf $CWD/$PRGNAM-$VERSION.tar.gz
 cd $PRGNAM
 
-# Fix PNG infopp-null
-cat $CWD/libpng-infopp-null.patch | patch -p1
-# Fix for openjpeg version
-cat $CWD/$PRGNAM-$VERSION-openjpeg_version.patch | patch -p1
-# Fix encoding warnings
-cp -p Changelog Changelog.origine
-iconv -f ISO-8859-1 -t UTF8 Changelog.origine >  Changelog
-touch -r Changelog.origine Changelog
-rm -rf Changelog.origine
-cp -p doc/ipmpx_syntax.bt doc/ipmpx_syntax.bt.origine
-iconv -f ISO-8859-1 -t UTF8 doc/ipmpx_syntax.bt.origine >  doc/ipmpx_syntax.bt
-touch -r doc/ipmpx_syntax.bt.origine doc/ipmpx_syntax.bt
-rm -rf doc/ipmpx_syntax.bt.origine
-
 chown -R root:root .
 find . \
  \( -perm 777 -o -perm 775 -o -perm 711 -o -perm 555 -o -perm 511 \) \
@@ -103,18 +89,16 @@ find . \
 
 chmod +x configure
 ./configure \
-  --cc=clang \
   --prefix=/usr \
   --libdir=/usr/lib${LIBDIRSUFFIX} \
   --mandir=/usr/man \
   --extra-cflags="$SLKCFLAGS" \
-  --disable-opt \
-  --disable-ipv6 \
   --cpu=${ARCH} \
+  --disable-opt \
   $wx_option \
-  $x64_option
+  $x64_option \
 
-make # Parallel build seems to fail
+make V=1 # Parallel build seems to fail
 make install DESTDIR=$PKG
 make install-lib DESTDIR=$PKG
 

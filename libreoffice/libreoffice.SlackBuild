@@ -135,6 +135,11 @@ cd ..
 chown -R root:root ${PKG}
 cd -
 
+mkdir -p $PKG/usr/share/fonts/TTF
+mv  $PKG/opt/libreoffice${MAJORVER}/share/fonts/truetype/* \
+  $PKG/usr/share/fonts/TTF
+rm -rf $PKG/opt/libreoffice${MAJORVER}/share/fonts
+
 mkdir -p $PKG/install
 cat $CWD/slack-desc > $PKG/install/slack-desc
 cat $CWD/doinst.sh > $PKG/install/doinst.sh

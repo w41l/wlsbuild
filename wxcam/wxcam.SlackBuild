@@ -2,7 +2,7 @@
 
 # Slackware build script for wxcam
 
-# Copyright 2011  Widya Walesa <walecha99@gmail.com>
+# Copyright 2011-2012  Widya Walesa <walecha99@gmail.com>
 # All rights reserved.
 #
 # Redistribution and use of this script, with or without modification, is
@@ -39,7 +39,7 @@ if [ -z "$ARCH" ]; then
 fi
 
 CWD=$(pwd)
-TMP=${TMP:-/tmp/wls}
+TMP=${TMP:-/tmp/wlsbuild}
 PKG=$TMP/package-$PRGNAM
 OUTPUT=${OUTPUT:-/tmp}
 DOCS="AUTHORS ChangeLog COPY* INSTALL NEWS README"

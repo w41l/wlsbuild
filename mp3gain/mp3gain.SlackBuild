@@ -2,7 +2,7 @@
 
 # Slackware build script for mp3gain
 
-# Copyright 2010  Widya Walesa <walecha99@gmail.com>
+# Copyright 2010-2012  Widya Walesa <walecha99@gmail.com>
 # All rights reserved.
 #
 # Redistribution and use of this script, with or without modification, is
@@ -74,10 +74,9 @@ find . \
  \( -perm 666 -o -perm 664 -o -perm 600 -o -perm 444 -o -perm 440 -o -perm 400 \) \
  -exec chmod 644 {} \;
 
-CC="clang" CXX="clang++" \
 CFLAGS="$SLKCFLAGS" \
 CXXFLAGS="$SLKCFLAGS" \
-make
+make V=1
 
 install -D -m 755 -o root -g root mp3gain $PKG/usr/bin/mp3gain
 install -D -m 644 -o root -g root $CWD/$PRGNAM.1 $PKG/usr/man/man1/$PRGNAM.1

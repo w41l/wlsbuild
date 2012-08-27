@@ -1,94 +1,94 @@
 ## MULTIMEDIA LIBS ##
 mp4v2
-faac - clang
-faad2 - clang
-orc - clang
+faac
+faad2
+orc
 dirac
-schroedinger - clang
-libgsm - clang
-lame - clang
-opencore-amr - clang
+schroedinger
+libgsm
+lame
+opencore-amr
 ## TESTING ##
-a52dec - clang
-xvidcore - clang
+a52dec
+xvidcore
 libdc1394
-openjpeg - clang
-speex - clang
-libvpx - clang
+openjpeg
+speex
+libvpx
 ## TESTING ##
-gpac - clang
+gpac
 x264
-numpy - clang
+numpy
+gtkglext
 opencv
 frei0r
-rtmpdump - clang
+rtmpdump
+libass
+libmodplug
 ffmpeg
 libdv
-libreplaygain - clang
-libcue - clang
-cuetools - clang
-libmpcdec - clang
-libmpeg2 - clang
-libass - clang
-twolame - clang
-libdca - clang
-libdvdcss - clang
-#libdvdnav | use Slackware package
-libquicktime - clang
+libreplaygain
+libcue
+cuetools
+libmpcdec
+libmpeg2
+twolame
+libdca
+libdvdcss
+{libdvdnav} | use Slackware package
+libquicktime
 mjpegtools
-libiec61883 - clang
-libavc1394 - clang
-libcdaudio - clang
+libiec61883
+libavc1394
+libcdaudio
 live555
 #wavegain | removed, use Slackware wavpack
-mp3gain - clang
-vorbisgain - clang
-libkate - clang
-libbluray - clang
+mp3gain
+vorbisgain
+libkate
+libbluray
 libmms
-libmodplug
 #wildmidi | removed
-openal - clang
-MPlayer
+openal
 
 ## GENERAL LIBS ##
-#glib2 - use slackware package
-#gtk+2 - use slackware package
+{glib2}
+{gtk+2}
 setuptools
 unrar
 p7zip
-gsettings-desktop-schemas
+{gsettings-desktop-schemas}
 dconf
 libunique
-libgnome-keyring
-ORBit2
-GConf
-sg3_utils
-libatasmart
-udisks
-libdaemon - clang
+{libgnome-keyring}
+{GConf}
+{sg3_utils}
+{libatasmart}
+{udisks}
+libdaemon
 avahi
 nss-mdns
-libproxy
-glib-networking - clang
-libsoup
-libtasn1 - clang
+{libproxy}
+{glib-networking}
+{libsoup}
+{libtasn1}
 usbmuxd - clang
 libimobiledevice
 ifuse
-upower
-gnome-keyring
+{upower}
+{gnome-keyring}
 rarian
 gnome-desktop
 exempi
 nautilus
 json-c
 pulseaudio
-libcanberra
+{libcanberra}
+MPlayer
 notification-daemon
 alsa-plugins
 gnome-disk-utility
-gvfs
+{gvfs}
 lua
 gst-plugins-good - add GConf and pulseaudio support
 gnome-menus
@@ -127,7 +127,7 @@ gnome-power-manager
 gnome-control-center
 bug-buddy
 yelp-xsl
-icu4c
+{icu4c}
 webkit
 yelp
 

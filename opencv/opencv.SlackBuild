@@ -2,7 +2,7 @@
 
 # Slackware build script for opencv
 
-# Copyright 2010  Widya Walesa <walecha99@gmail.com>
+# Copyright 2010-2012  Widya Walesa <walecha99@gmail.com>
 # All rights reserved.
 #
 # Redistribution and use of this script, with or without modification, is
@@ -87,7 +87,7 @@ cd build
     -DWITH_XINE=ON \
     -DWITH_UNICAP=OFF
 
-  make $NUMJOBS
+  make VERBOSE=1
   make DESTDIR=$PKG install
 cd ..
 

@@ -2,7 +2,7 @@
 
 # Slackware build script for rtmpdump
 
-# Copyright 2010  Widya Walesa <walecha99@gmail.com>
+# Copyright 2010-2012  Widya Walesa <walecha99@gmail.com>
 # All rights reserved.
 #
 # Redistribution and use of this script, with or without modification, is
@@ -73,8 +73,8 @@ find . \
  \( -perm 666 -o -perm 664 -o -perm 600 -o -perm 444 -o -perm 440 -o -perm 400 \) \
  -exec chmod 644 {} \;
 
-make prefix=/usr libdir=/usr/lib$LIBDIRSUFFIX XCFLAGS="$SLKCFLAGS" CC="clang"
-make install DESTDIR=$PKG prefix=/usr libdir=/usr/lib$LIBDIRSUFFIX XCFLAGS="$SLKCFLAGS" CC="clang"
+make prefix=/usr libdir=/usr/lib$LIBDIRSUFFIX XCFLAGS="$SLKCFLAGS" V=1
+make install DESTDIR=$PKG prefix=/usr libdir=/usr/lib$LIBDIRSUFFIX XCFLAGS="$SLKCFLAGS"
 
 find $PKG | xargs file | grep -e "executable" -e "shared object" | grep ELF \
   | cut -f 1 -d : | xargs strip --strip-unneeded 2> /dev/null || true

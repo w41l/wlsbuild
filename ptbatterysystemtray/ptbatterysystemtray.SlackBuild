@@ -2,7 +2,7 @@
 
 # Slackware build script for ptbatterysystemtray
 
-# Copyright 2012 Widya Walesa <walecha99@gmail.com>
+# Copyright 2012  Widya Walesa <walecha99@gmail.com>
 # All rights reserved.
 #
 # Redistribution and use of this script, with or without modification, is
@@ -24,7 +24,7 @@
 # YOUR DATA IS DESTROYED, YOUR HOUSE BURNS DOWN OR YOUR DOG RUNS OFF.
 
 PRGNAM=ptbatterysystemtray
-VERSION=20110503_c08309d
+VERSION=20120430_a9a6f07
 BUILD=1
 TAG=${TAG:-_wls}
 NUMJOBS=${NUMJOBS:--j4}
@@ -74,7 +74,7 @@ find . \
  -exec chmod 644 {} \;
 
 mkdir -p $PKG/usr
-qmake INSTALL_PREFIX=$PKG/usr PtBatterySystemTray.pro
+qmake INSTALL_PREFIX=$PKG/usr ptbatterysystemtray.pro
 
 make INSTALL_PREFIX=$PKG/usr
 make INSTALL_PREFIX=$PKG/usr install
@@ -87,7 +87,7 @@ cp -a ${DOCS} $PKG/usr/doc/$PRGNAM-$VERSION
 cat $CWD/$PRGNAM.SlackBuild > $PKG/usr/doc/$PRGNAM-$VERSION/$PRGNAM.SlackBuild
 
 mkdir -p $PKG/install
-cat $CWD/doinst.sh >> $PKG/install/doinst.sh
+cat $CWD/doinst.sh > $PKG/install/doinst.sh
 cat $CWD/slack-desc > $PKG/install/slack-desc
 
 cd $PKG

@@ -2,7 +2,7 @@
 
 # Slackware build script for qlipper
 
-# Copyright 2011 Widya Walesa <walecha99@gmail.com>
+# Copyright 2011-2012  Widya Walesa <walecha99@gmail.com>
 # All rights reserved.
 #
 # Redistribution and use of this script, with or without modification, is
@@ -24,7 +24,7 @@
 # YOUR DATA IS DESTROYED, YOUR HOUSE BURNS DOWN OR YOUR DOG RUNS OFF.
 
 PRGNAM=qlipper
-VERSION=1.7
+VERSION=2.0.1
 BUILD=1
 TAG=${TAG:-_wls}
 NUMJOBS=${NUMJOBS:--j4}
@@ -41,7 +41,7 @@ CWD=$(pwd)
 WRK=${WRK:-/tmp/wlsbuild}
 PKG=$WRK/package-$PRGNAM
 OUTPUT=${OUTPUT:-/tmp}
-DOCS="README.txt"
+DOCS="COPYING README"
 
 if [ "$ARCH" = "i486" ]; then
   SLKCFLAGS="-O2 -pipe -march=i486 -mtune=i686 -fPIC"
@@ -73,13 +73,17 @@ find . \
  \( -perm 666 -o -perm 664 -o -perm 600 -o -perm 444 -o -perm 440 -o -perm 400 \) \
  -exec chmod 644 {} \;
 
-qmake qclip.pro
-sed -i 's/-strip//g' Makefile
-sed -i 's/strip//g' Makefile
-sed -i 's|/usr/local|$(PREFIX)|g' Makefile
-make PREFIX=/usr
-make install INSTALL_ROOT=$PKG PREFIX=/usr
-kill -9 `pgrep qlipper`
+mkdir build
+cd build
+  cmake .. \
+    -DCMAKE_C_FLAGS="$SLKCFLAGS" \
+    -DCMAKE_CXX_FLAGS="$SLKCFLAGS" \
+    -DCMAKE_BUILD_TYPE=Release \
+    -DCMAKE_INSTALL_PREFIX=/usr \
+
+  make ${NUMJOBS} VERBOSE=1
+  make install DESTDIR=$PKG
+cd -
 
 find $PKG | xargs file | grep -e "executable" -e "shared object" | grep ELF \
   | cut -f 1 -d : | xargs strip --strip-unneeded 2> /dev/null || true

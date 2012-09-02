@@ -101,6 +101,7 @@ LANGUAGES="en"
   --disable-mencoder \
   --disable-dvdread-internal \
   --disable-libdvdcss-internal \
+  --disable-pulse \
   --enable-menu \
   --enable-x264 \
   --enable-faac \

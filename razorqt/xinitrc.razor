@@ -10,7 +10,7 @@ sysmodmap=/usr/@LIBDIR@/X11/xinit/.Xmodmap
 # default session settings
 RAZOR_SESSION_SETTINGS=""
 
-export XDG_CONFIG_DIRS=/etc/xdg:/etc/razorqt/xdg
+export XDG_CONFIG_DIRS=/etc/xdg:/etc/razor/xdg
 
 # Merge in defaults and keymaps
 if [ -f $sysresources ]; then
@@ -37,4 +37,4 @@ if [ -z "${XDG_SESSION_COOKIE}" -a -x /usr/bin/ck-launch-session ]; then
 fi;
 
 # Start the window manager
-exec $RAZOR_SESSION_SETTINGS $CK_SESSION razor-session
+exec $RAZOR_SESSION_SETTINGS $CK_SESSION startrazor

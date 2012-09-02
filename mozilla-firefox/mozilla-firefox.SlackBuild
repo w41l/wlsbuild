@@ -1,8 +1,8 @@
 #!/bin/sh
 
-# Slackware build script for gnome-media
+# Slackware build script for mozilla-firefox
 
-# Copyright 2010  Widya Walesa <walecha99@gmail.com>
+# Copyright 2012  Widya Walesa <walecha99@gmail.com>
 # All rights reserved.
 #
 # Redistribution and use of this script, with or without modification, is
@@ -23,8 +23,8 @@
 # ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. FURTHERMORE I AM NOT LIABLE IF
 # YOUR DATA IS DESTROYED, YOUR HOUSE BURNS DOWN OR YOUR DOG RUNS OFF.
 
-PRGNAM=gnome-media
-VERSION=2.32.0
+PRGNAM=mozilla-firefox
+VERSION=15.0
 BUILD=1
 TAG=${TAG:-_wls}
 NUMJOBS=${NUMJOBS:--j4}
@@ -33,6 +33,7 @@ if [ -z "$ARCH" ]; then
   case "$( uname -m )" in
     i?86) ARCH=i486 ;;
     arm*) ARCH=arm ;;
+    # Unless $ARCH is already set, use uname -m for all other archs:
        *) ARCH=$( uname -m ) ;;
   esac
 fi
@@ -41,30 +42,24 @@ CWD=$(pwd)
 TMP=${TMP:-/tmp/wlsbuild}
 PKG=$TMP/package-$PRGNAM
 OUTPUT=${OUTPUT:-/tmp}
-DOCS="AUTHORS COPY* ChangeLog.pre-2-26 INSTALL MAINTAINERS NEWS README"
 
-if [ "$ARCH" = "i486" ]; then
-  SLKCFLAGS="-O2 -pipe -march=i486 -mtune=i686"
-  LIBDIRSUFFIX=""
-elif [ "$ARCH" = "i686" ]; then
-  SLKCFLAGS="-O2 -pipe -march=i686 -mtune=i686"
-  LIBDIRSUFFIX=""
-elif [ "$ARCH" = "x86_64" ]; then
-  SLKCFLAGS="-O2 -m64 -pipe -fPIC"
-  LIBDIRSUFFIX="64"
-else
-  SLKCFLAGS="-O2"
-  LIBDIRSUFFIX=""
-fi
+case "$(uname -m)" in
+  i?86) ARCH="i686" ; LIBDIRSUFFIX="" ;;
+  x86_64) ARCH="x86_64" ; LIBDIRSUFFIX="64" ;;
+  *) echo "Package for $(uname -m) architecture is not available." ; exit 1 ;;
+esac
 
 set -e
 
 rm -rf $PKG
 mkdir -p $TMP $PKG $OUTPUT
 cd $TMP
-rm -rf $PRGNAM-$VERSION
-tar xvf $CWD/$PRGNAM-$VERSION.tar.bz2
-cd $PRGNAM-$VERSION
+mkdir -p $PKG/opt
+cd $PKG/opt
+
+rm -rf firefox
+tar xvf $CWD/firefox-${VERSION}.tar.bz2
+cd firefox
 
 chown -R root:root .
 find . \
@@ -73,42 +68,25 @@ find . \
  \( -perm 666 -o -perm 664 -o -perm 600 -o -perm 444 -o -perm 440 -o -perm 400 \) \
  -exec chmod 644 {} \;
 
-CFLAGS="$SLKCFLAGS" \
-CXXFLAGS="$SLKCFLAGS" \
-./configure \
-  --build=$ARCH-slackware-linux --host=$ARCH-slackware-linux \
-  --program-prefix= --program-suffix= \
-  --prefix=/usr --exec-prefix=/usr \
-  --bindir=/usr/bin --sbindir=/usr/sbin \
-  --libdir=/usr/lib$LIBDIRSUFFIX --includedir=/usr/include \
-  --mandir=/usr/man --infodir=/usr/info \
-  --sysconfdir=/etc --docdir=/usr/doc/$PRGNAM-$VERSION \
-  --localstatedir=/var --sharedstatedir=/var/lib \
-  --disable-static --enable-shared \
-  --disable-schemas-install \
-  --disable-scrollkeeper \
-  --enable-pulseaudio
+cd $PKG
+mkdir -p usr/bin
+ln -sf /opt/firefox/firefox usr/bin/firefox
 
-make $NUMJOBS
-make DESTDIR=$PKG install
+mkdir -p usr/share/applications
+cat $CWD/$PRGNAM.desktop > usr/share/applications/$PRGNAM.desktop
 
-mkdir -p $PKG/etc/gnome
-mv $PKG/etc/xdg $PKG/etc/gnome/
-
-find $PKG | xargs file | grep -e "executable" -e "shared object" | grep ELF \
-  | cut -f 1 -d : | xargs strip --strip-unneeded 2> /dev/null || true
+mkdir -p usr/share/pixmaps
+install -o root -g root -m 644 $CWD/firefox.png usr/share/pixmaps/firefox.png
 
 mkdir -p $PKG/usr/doc/$PRGNAM-$VERSION
-cp -a $DOCS $PKG/usr/doc/$PRGNAM-$VERSION
 cat $CWD/$PRGNAM.SlackBuild > $PKG/usr/doc/$PRGNAM-$VERSION/$PRGNAM.SlackBuild
 
 mkdir -p $PKG/install
 cat $CWD/slack-desc > $PKG/install/slack-desc
-cat $CWD/slack-required > $PKG/install/slack-required
 cat $CWD/doinst.sh > $PKG/install/doinst.sh
 
 cd $PKG
 /sbin/makepkg -l y -c n $OUTPUT/$PRGNAM-$VERSION-$ARCH-$BUILD$TAG.${PKGTYPE:-tgz}
 
 echo "Cleaning up build directory"
-cd $TMP; rm -rf $PRGNAM-$VERSION $PKG
+cd $TMP ; rm -rf firefox $PKG

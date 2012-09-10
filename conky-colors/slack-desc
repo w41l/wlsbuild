@@ -1,0 +1,19 @@
+# HOW TO EDIT THIS FILE:
+# The "handy ruler" below makes it easier to edit a package description.  Line
+# up the first '|' above the ':' following the base package name, and the '|' on
+# the right side marks the last column you can put a character in.  You must make
+# exactly 11 lines for the formatting to be correct.  It's also customary to
+# leave one space after the ':'.
+
+            |-----handy-ruler---------------------------------------------------|
+conky-colors: conky-colors
+conky-colors:
+conky-colors: Conky is a free, light-weight system monitor for X, that displays
+conky-colors: any information on your desktop. CONKY-colors is an easier way to
+conky-colors: configure Conky.
+conky-colors:
+conky-colors: URL: http://helmuthdu.deviantart.com/art/CONKY-COLORS-244793180?
+conky-colors:
+conky-colors:
+conky-colors:
+conky-colors: packaged by: Widya Walesa <walecha99@gmail.com>

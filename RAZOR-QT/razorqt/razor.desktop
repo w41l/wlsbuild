@@ -1,8 +1,8 @@
 [Desktop Entry]
 Encoding=UTF-8
 Type=XSession
-Exec=razor-session
-TryExec=razor-session
+Exec=/etc/X11/xinit/xinitrc.razor
+TryExec=/etc/X11/xinit/xinitrc.razor
 Name=Razor Desktop
 Comment=Qt4 Desktop
 

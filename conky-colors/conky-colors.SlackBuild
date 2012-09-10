@@ -1,6 +1,6 @@
 #!/bin/sh
 
-# Slackware build script for protobuf
+# Slackware build script for conky-colors
 
 # Copyright 2012  Widya Walesa <walecha99@gmail.com>
 # All rights reserved.
@@ -23,11 +23,11 @@
 # ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. FURTHERMORE I AM NOT LIABLE IF
 # YOUR DATA IS DESTROYED, YOUR HOUSE BURNS DOWN OR YOUR DOG RUNS OFF.
 
-PRGNAM=protobuf
-VERSION=2.4.1
+PRGNAM=conky-colors
+VERSION=8.1.1
 BUILD=1
-TAG=${TAG:-_wls}
-NUMJOBS=${NUMJOBS:--j4}
+TAG="_wls"
+NUMJOBS="-j4"
 
 if [ -z "$ARCH" ]; then
   case "$( uname -m )" in
@@ -41,7 +41,7 @@ CWD=$(pwd)
 WRK=${WRK:-/tmp/wlsbuild}
 PKG=$WRK/package-$PRGNAM
 OUTPUT=${OUTPUT:-/tmp}
-DOCS="CHANGES.txt CONTRIBUTORS.txt COPYING.txt INSTALL.txt README.txt"
+DOCS="AUTHORS ChangeLog COPY* README"
 
 if [ "$ARCH" = "i486" ]; then
   SLKCFLAGS="-O2 -pipe -march=i486 -mtune=i686"
@@ -50,7 +50,7 @@ elif [ "$ARCH" = "i686" ]; then
   SLKCFLAGS="-O2 -pipe -march=i686 -mtune=i686"
   LIBDIRSUFFIX=""
 elif [ "$ARCH" = "x86_64" ]; then
-  SLKCFLAGS="-O2 -pipe -m64 -fPIC"
+  SLKCFLAGS="-O2 -m64 -pipe -fPIC"
   LIBDIRSUFFIX="64"
 else
   SLKCFLAGS="-O2"
@@ -63,7 +63,7 @@ rm -rf $PKG
 mkdir -p $WRK $PKG $OUTPUT
 cd $WRK
 rm -rf $PRGNAM-$VERSION
-tar xvf $CWD/$PRGNAM-$VERSION.tar.bz2
+tar xvf $CWD/$PRGNAM-$VERSION.tar.xz
 cd $PRGNAM-$VERSION
 
 chown -R root:root .
@@ -75,19 +75,23 @@ find . \
 
 CFLAGS="$SLKCFLAGS" \
 CXXFLAGS="$SLKCFLAGS" \
-./configure \
-  --build=$ARCH-slackware-linux --host=$ARCH-slackware-linux \
-  --program-prefix= --program-suffix= \
-  --prefix=/usr --exec-prefix=/usr \
-  --bindir=/usr/bin --sbindir=/usr/sbin \
-  --libdir=/usr/lib$LIBDIRSUFFIX --includedir=/usr/include \
-  --mandir=/usr/man --infodir=/usr/info \
-  --sysconfdir=/etc --docdir=/usr/doc/$PRGNAM-$VERSION \
-  --localstatedir=/var --sharedstatedir=/var/lib \
-  --disable-static --enable-shared \
-
 make V=1
+
+CFLAGS="$SLKCFLAGS" \
+CXXFLAGS="$SLKCFLAGS" \
 make install DESTDIR=$PKG
+
+( cd $PKG/usr/bin;
+  rm ct;
+  ln -sf /usr/share/conkycolors/bin/conkyTask ct;
+)
+
+mkdir -p $PKG/usr/share/fonts/freefonts
+mv $PKG/usr/share/fonts/*.ttf $PKG/usr/share/fonts/freefonts
+chmod 644 $PKG/usr/share/fonts/freefonts/*
+
+find $PKG/usr/share/conkycolors/icons -type f -exec chmod 644 {} \;
+find $PKG/usr/share/conkycolors/templates -type f -exec chmod 644 {} \;
 
 find $PKG | xargs file | grep -e "executable" -e "shared object" | grep ELF \
   | cut -f 1 -d : | xargs strip --strip-unneeded 2> /dev/null || true

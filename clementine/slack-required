@@ -8,6 +8,7 @@ libva
 opencore-amr
 openjpeg
 orc
+protobuf
 qjson
 schroedinger
 speex

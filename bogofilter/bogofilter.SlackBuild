@@ -2,7 +2,7 @@
 
 # Slackware build script for bogofilter
 
-# Copyright 2010  Widya Walesa <walecha99@gmail.com>
+# Copyright 2010-2012  Widya Walesa <walecha99@gmail.com>
 # All rights reserved.
 #
 # Redistribution and use of this script, with or without modification, is
@@ -84,10 +84,12 @@ CXXFLAGS="$SLKCFLAGS" \
   --sysconfdir=/etc --docdir=/usr/doc/$PRGNAM-$VERSION \
   --localstatedir=/var --sharedstatedir=/var/lib
 
-make ${NUMJOBS}
+CFLAGS="$SLKCFLAGS" \
+CXXFLAGS="$SLKCFLAGS" \
+make V=1
 make DESTDIR=$PKG install
 
-mv $PKG/etc/bogofilter.cf.example $PKG/etc/bogofilter.cf.new
+cp $PKG/etc/bogofilter.cf.example $PKG/etc/bogofilter.cf.new
 
 find $PKG | xargs file | grep -e "executable" -e "shared object" | grep ELF \
   | cut -f 1 -d : | xargs strip --strip-unneeded 2> /dev/null || true

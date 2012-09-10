@@ -1,0 +1,19 @@
+# HOW TO EDIT THIS FILE:
+# The "handy ruler" below makes it easier to edit a package description.  Line
+# up the first '|' above the ':' following the base package name, and the '|' on
+# the right side marks the last column you can put a character in.  You must make
+# exactly 11 lines for the formatting to be correct.  It's also customary to
+# leave one space after the ':'.
+
+            |-----handy-ruler---------------------------------------------------|
+libmpdclient: libmpdclient (Music Player Daemon Client Library)
+libmpdclient:
+libmpdclient: libmpdclient is a stable, documented, asynchronous API library for
+libmpdclient: interfacing the Music Player Daemon in the C, C++, and Objective C
+libmpdclient: languages.
+libmpdclient:
+libmpdclient: URL: http://mpd.wikia.com/wiki/Music_Player_Daemon_Wiki
+libmpdclient:
+libmpdclient:
+libmpdclient:
+libmpdclient: packaged by: Widya Walesa <walecha99@gmail.com>

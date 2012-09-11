@@ -24,7 +24,7 @@
 # YOUR DATA IS DESTROYED, YOUR HOUSE BURNS DOWN OR YOUR DOG RUNS OFF.
 
 PRGNAM=kipi-plugins
-VERSION=2.8.0_5a219358
+VERSION=2.9.0
 BUILD=1
 TAG=${TAG:-_wls}
 NUMJOBS=${NUMJOBS:--j4}
@@ -78,12 +78,12 @@ find . \
 # To remedy the error, run the command "dbus-uuidgen --ensure"
 # and then re-start this SlackBuild :
 
-export QTSCRIPTS=/usr/lib${LIBDIRSUFFIX}/qt4/plugins/script
+export QTSCRIPTS=/usr/lib${LIBDIRSUFFIX}/qt/plugins/script
 
 mkdir -p build
 cd build
   LDFLAGS=" -L/usr/lib${LIBDIRSUFFIX} -L/lib${LIBDIRSUFFIX}" \
-  cmake .. \
+  cmake \
   -DCMAKE_C_FLAGS="$SLKCFLAGS" \
   -DCMAKE_CXX_FLAGS="$SLKCFLAGS" \
   -DCMAKE_BUILD_TYPE="Release" \
@@ -92,9 +92,10 @@ cd build
   -DINSTALL_DOC_DIR=doc/$PRGNAM-$VERSION \
   -DBUILD_SHARED_LIBS=ON \
   -DLIB_SUFFIX=$LIBDIRSUFFIX \
-  -DLIB_INSTALL_DIR=/usr/lib$LIBDIRSUFFIX
+  -DLIB_INSTALL_DIR=/usr/lib$LIBDIRSUFFIX \
+  ..
 
-  make
+  make VERBOSE=1
   make DESTDIR=$PKG install
 cd -
 

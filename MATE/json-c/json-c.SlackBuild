@@ -25,7 +25,7 @@
 
 PRGNAM=json-c
 VERSION=0.10
-BUILD=1
+BUILD=2
 TAG="_wls"
 NUMJOBS="-j4"
 
@@ -88,14 +88,11 @@ CXXFLAGS="$SLKCFLAGS" \
   --localstatedir=/var --sharedstatedir=/var/lib \
   --disable-static --enable-shared
 
-make $NUMJOBS
+make V=1
 
 CFLAGS="$SLKCFLAGS" \
 CXXFLAGS="$SLKCFLAGS" \
 make install DESTDIR=$PKG
-
-# Copying all headers to package
-
 
 find $PKG | xargs file | grep -e "executable" -e "shared object" | grep ELF \
   | cut -f 1 -d : | xargs strip --strip-unneeded 2> /dev/null || true

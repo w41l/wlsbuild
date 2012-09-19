@@ -1,37 +1,43 @@
 #!/bin/sh
-
-########################################################################
-##  Merge in defaults and keymaps                                     ##
-########################################################################
-
+#
+# xinitrc MATE Desktop Session script.
+#
 userresources=$HOME/.Xresources
 usermodmap=$HOME/.Xmodmap
 sysresources=/etc/X11/xinit/.Xresources
 sysmodmap=/etc/X11/xinit/.Xmodmap
 
+# default session settings
+MATE_SESSION_SETTINGS=""
+
+export XDG_CONFIG_DIRS=/etc/xdg
+
+# Merge in defaults and keymaps
 if [ -f $sysresources ]; then
-    /usr/bin/xrdb -merge $sysresources
+    xrdb -merge $sysresources
 fi
-
 if [ -f $sysmodmap ]; then
-    /usr/bin/xmodmap $sysmodmap
+    xmodmap $sysmodmap
 fi
-
 if [ -f $userresources ]; then
-    /usr/bin/xrdb -merge $userresources
+    xrdb -merge $userresources
 fi
-
 if [ -f $usermodmap ]; then
-    /usr/bin/xmodmap $usermodmap
+    xmodmap $usermodmap
 fi
 
-########################################################################
+#######################################################################
 ##  Start MATE Desktop Environment                                    ##
 ########################################################################
+# Use ssh-agent if available
+if [ -x /usr/bin/ssh-agent ]; then
+  MATE_SESSION_SETTINGS="$MATE_SESSION_SETTINGS /usr/bin/ssh-agent"
+fi;
 
-if [ -z "$DESKTOP_SESSION" -a -x /usr/bin/ck-launch-session ]; then
-  exec ck-launch-session dbus-launch --exit-with-session /usr/bin/mate-session
-else
-  exec dbus-launch --exit-with-session /usr/bin/mate-session
-fi
+# Use ConsoleKit if available
+if [ -z "${XDG_SESSION_COOKIE}" -a -x /usr/bin/ck-launch-session ]; then
+  CK_SESSION="/usr/bin/ck-launch-session"
+fi;
 
+# Start the desktop manager
+exec $MATE_SESSION_SETTINGS $CK_SESSION mate-session

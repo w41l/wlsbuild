@@ -2,7 +2,4 @@ clutter
 clutter-gtk
 cogl
 json-glib
-libgnome-keyring
-libsoup
-mesa
 vala

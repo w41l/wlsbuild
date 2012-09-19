@@ -1,6 +1,6 @@
 #!/bin/sh
 
-# Slackware build script for pulseaudio
+# Slackware build script for gtk-vnc
 
 # Copyright 2012  Widya Walesa <walecha99@gmail.com>
 # All rights reserved.
@@ -23,8 +23,8 @@
 # ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. FURTHERMORE I AM NOT LIABLE IF
 # YOUR DATA IS DESTROYED, YOUR HOUSE BURNS DOWN OR YOUR DOG RUNS OFF.
 
-PRGNAM=pulseaudio
-VERSION=2.0
+PRGNAM=gtk-vnc
+VERSION=0.5.1
 BUILD=1
 TAG=${TAG:-_wls}
 NUMJOBS=${NUMJOBS:--j4}
@@ -38,19 +38,19 @@ if [ -z "$ARCH" ]; then
 fi
 
 CWD=$(pwd)
-TMP=${TMP:-/tmp/wlsbuild}
-PKG=$TMP/package-$PRGNAM
+WRK=${WRK:-/tmp/wlsbuild}
+PKG=$WRK/package-$PRGNAM
 OUTPUT=${OUTPUT:-/tmp}
-DOCS="ChangeLog GPL LGPL LICENSE README"
+DOCS="AUTHORS COPYING.LIB ChangeLog INSTALL NEWS README"
 
 if [ "$ARCH" = "i486" ]; then
-  SLKCFLAGS="-O2 -pipe -march=i486 -mtune=i686"
+  SLKCFLAGS="-O2 -march=i486 -mtune=i686"
   LIBDIRSUFFIX=""
 elif [ "$ARCH" = "i686" ]; then
-  SLKCFLAGS="-O2 -pipe -march=i686 -mtune=i686"
+  SLKCFLAGS="-O2 -march=i686 -mtune=i686"
   LIBDIRSUFFIX=""
 elif [ "$ARCH" = "x86_64" ]; then
-  SLKCFLAGS="-O2 -m64 -pipe -fPIC"
+  SLKCFLAGS="-O2 -fPIC"
   LIBDIRSUFFIX="64"
 else
   SLKCFLAGS="-O2"
@@ -59,16 +59,9 @@ fi
 
 set -e
 
-if ! grep "^pulse:" /etc/passwd >/dev/null 2>&1; then
-  echo "Please add pulse user and group:";
-  echo "/usr/sbin/groupadd -g 53 pulse";
-  echo "/usr/sbin/useradd -u 53 -g 53 -s /bin/false -d /dev/null pulse";
-  exit 1;
-fi;
-
 rm -rf $PKG
-mkdir -p $TMP $PKG $OUTPUT
-cd $TMP
+mkdir -p $WRK $PKG $OUTPUT
+cd $WRK
 rm -rf $PRGNAM-$VERSION
 tar xvf $CWD/$PRGNAM-$VERSION.tar.?z*
 cd $PRGNAM-$VERSION
@@ -89,39 +82,16 @@ CXXFLAGS="$SLKCFLAGS" \
   --bindir=/usr/bin --sbindir=/usr/sbin \
   --libdir=/usr/lib$LIBDIRSUFFIX --includedir=/usr/include \
   --mandir=/usr/man --infodir=/usr/info \
-  --sysconfdir=/etc \
+  --sysconfdir=/etc --docdir=/usr/doc/$PRGNAM-$VERSION \
   --localstatedir=/var --sharedstatedir=/var/lib \
   --disable-static --enable-shared \
-  --enable-avahi \
-  --enable-udev \
-  --disable-gtk2
+  --with-gtk=3.0 \
 
-make $NUMJOBS
+make V=1
 
 CFLAGS="$SLKCFLAGS" \
 CXXFLAGS="$SLKCFLAGS" \
 make install DESTDIR=$PKG
-
-# Settings default ALSA asound.conf to use Pulseaudio.
-install -m 644 -p -D $CWD/asound.conf $PKG/etc/asound.conf.new
-
-# Add run time path for pulse.
-mkdir -p $PKG/var/run/pulse
-mkdir -p $PKG/var/lib/pulse
-chown -R pulse:pulse $PKG/var/lib/pulse $PKG/var/run/pulse
-
-# Backup new configuration files.
-( cd $PKG/etc/pulse
-  for config in client.conf daemon.conf default.pa system.pa; do
-    mv $config $config.new
-  done
-)
-
-# Separate the pulseaudio autostart for GNOME and KDE
-#mkdir -p $PKG/etc/{gnome,kde}/xdg/autostart
-#mv $PKG/etc/xdg/autostart/pulseaudio.desktop $PKG/etc/gnome/xdg/autostart/
-#mv $PKG/etc/xdg/autostart/pulseaudio-kde.desktop $PKG/etc/kde/xdg/autostart/
-#rm -r $PKG/etc/xdg/autostart
 
 find $PKG | xargs file | grep -e "executable" -e "shared object" | grep ELF \
   | cut -f 1 -d : | xargs strip --strip-unneeded 2> /dev/null || true
@@ -136,10 +106,9 @@ cat $CWD/$PRGNAM.SlackBuild > $PKG/usr/doc/$PRGNAM-$VERSION/$PRGNAM.SlackBuild
 mkdir -p $PKG/install
 cat $CWD/slack-desc > $PKG/install/slack-desc
 cat $CWD/slack-required > $PKG/install/slack-required
-cat $CWD/doinst.sh > $PKG/install/doinst.sh
 
 cd $PKG
 /sbin/makepkg -l y -c n $OUTPUT/$PRGNAM-$VERSION-$ARCH-$BUILD$TAG.${PKGTYPE:-tgz}
 
 echo "Cleaning up build directory"
-cd $TMP; rm -rf $PRGNAM-$VERSION $PKG
+cd $WRK; rm -rf $PRGNAM-$VERSION $PKG

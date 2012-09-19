@@ -1,6 +1,3 @@
 claws-mail
-clutter
-clutter-gtk
-cogl
-libchamplain
+liboauth
 libgdata

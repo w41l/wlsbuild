@@ -2,7 +2,7 @@
 
 # Slackware build script for libreoffice
 
-# Copyright 2010  Widya Walesa <walecha99@gmail.com>
+# Copyright 2010-2012  Widya Walesa <walecha99@gmail.com>
 # All rights reserved.
 #
 # Redistribution and use of this script, with or without modification, is
@@ -24,8 +24,8 @@
 # YOUR DATA IS DESTROYED, YOUR HOUSE BURNS DOWN OR YOUR DOG RUNS OFF.
 
 PRGNAM=libreoffice
-VERSION=3.6.0
-RCVERS=".4"
+VERSION=3.6.1
+RCVERS=".2"
 MAJORVER=$( echo $VERSION | sed "s/\(.*\)\.\(.*\)\.*/\1/" )
 BUILD=1
 TAG=${TAG:-_wls}
@@ -68,7 +68,7 @@ set -e
 rm -rf $PKG
 mkdir -p $WRK $PKG $OUTPUT
 cd $WRK
-rm -rf LibO_${VERSION}${RCVERS}_Linux_${LOARCH}_install-${DIST}_en-US
+rm -rf LibO_*
 tar xvf $CWD/LibO_${VERSION}_Linux_${LOARCH}_install-${DIST}_en-US.tar.gz
 cd LibO_${VERSION}${RCVERS}_Linux_${LOARCH}_install-${DIST}_en-US
 
@@ -110,11 +110,38 @@ mkdir -p ${PKG}/usr/bin
   done
 )
 
-echo "Use system libstdc++ instead of the bundled one"
+echo "Use system libs instead of the bundled one"
 ( cd $PKG/opt/libreoffice${MAJORVER}/ure/lib;
-  for LIB in `ls -1 libstdc++.so.*`; do
-    rm -f ${LIB}; ln -sf /usr/lib${LIBDIRSUFFIX}/${LIB};
-  done
+  rm -f libstdc++.so.6*;
+  rm -f libgcc_s.so.1*;
+
+  cd $PKG/opt/libreoffice${MAJORVER}/program;
+  rm -f libfreebl3.so*;
+  rm -f libneon.so*;
+  rm -f libnspr4.so*;
+  rm -f libnss3.so*;
+  rm -f libnssckbi.so*;
+  rm -f libnssdbm3.so*;
+  rm -f libnssutil3.so*;
+  rm -f libplc4.so*;
+  rm -f libplds4.so*;
+  rm -f libsmime3.so*;
+  rm -f libsoftokn3.so*;
+  rm -f libsqlite3.so*;
+  rm -f libssl3.so*;
+  rm -f libcairo.so*;
+  rm -f libcurl.so*;
+  rm -f libicudata.so*;
+  rm -f libicui18n.so*;
+  rm -f libicule.so*;
+  rm -f libicuuc.so*;
+  rm -f liblcms2.so*;
+  rm -f libpixman-1.so*;
+  rm -f libxslt.so*;
+
+  #for LIB in `ls -1 libstdc++.so.*`; do
+    #rm -f ${LIB}; ln -sf /usr/lib${LIBDIRSUFFIX}/${LIB};
+  #done
 )
 
 echo "Unpacking desktop-integration packages"
@@ -142,10 +169,11 @@ rm -rf $PKG/opt/libreoffice${MAJORVER}/share/fonts
 
 mkdir -p $PKG/install
 cat $CWD/slack-desc > $PKG/install/slack-desc
+cat $CWD/slack-required > $PKG/install/slack-required
 cat $CWD/doinst.sh > $PKG/install/doinst.sh
 
 cd $PKG
 /sbin/makepkg -p -l y -c n $OUTPUT/$PRGNAM-${VERSION}${RCVERS}-$ARCH-$BUILD$TAG.txz
 
 echo "Cleaning up $WRK";
-cd $WRK; rm -rf $PKG LibO_${VERSION}${RCVERS}_Linux_${LOARCH}_install-${DIST}_en-US
+cd $WRK; rm -rf $PKG LibO_*

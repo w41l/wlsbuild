@@ -1,8 +1,8 @@
 #!/bin/sh
 
-# Slackware build script for gobject-introspection
+# Slackware build script for avidemux
 
-# Copyright 2010  Widya Walesa <walecha99@gmail.com>
+# Copyright 2010-2012  Widya Walesa <walecha99@gmail.com>
 # All rights reserved.
 #
 # Redistribution and use of this script, with or without modification, is
@@ -23,11 +23,15 @@
 # ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. FURTHERMORE I AM NOT LIABLE IF
 # YOUR DATA IS DESTROYED, YOUR HOUSE BURNS DOWN OR YOUR DOG RUNS OFF.
 
-PRGNAM=gobject-introspection
-VERSION=0.9.12
+PRGNAM=avidemux
+VERSION=2.6.0
 BUILD=1
 TAG=${TAG:-_wls}
 NUMJOBS=${NUMJOBS:--j4}
+
+# Please check this one. If you're using GTK-based desktop, turn off this switch
+# using: USE_QT="NO"
+USE_QT="YES"
 
 if [ -z "$ARCH" ]; then
   case "$( uname -m )" in
@@ -38,10 +42,10 @@ if [ -z "$ARCH" ]; then
 fi
 
 CWD=$(pwd)
-TMP=${TMP:-/tmp/wlsbuild}
-PKG=$TMP/package-$PRGNAM
+WRK=${WRK:-/tmp/wlsbuild}
+PKG=$WRK/package-$PRGNAM
 OUTPUT=${OUTPUT:-/tmp}
-DOCS="AUTHORS ChangeLog COPY* NEWS README TODO"
+DOCS="AUTHORS COPYING License.txt README"
 
 if [ "$ARCH" = "i486" ]; then
   SLKCFLAGS="-O2 -pipe -march=i486 -mtune=i686"
@@ -50,7 +54,7 @@ elif [ "$ARCH" = "i686" ]; then
   SLKCFLAGS="-O2 -pipe -march=i686 -mtune=i686"
   LIBDIRSUFFIX=""
 elif [ "$ARCH" = "x86_64" ]; then
-  SLKCFLAGS="-O2 -m64 -pipe -fPIC"
+  SLKCFLAGS="-O2 -pipe -m64 -fPIC"
   LIBDIRSUFFIX="64"
 else
   SLKCFLAGS="-O2"
@@ -60,11 +64,11 @@ fi
 set -e
 
 rm -rf $PKG
-mkdir -p $TMP $PKG $OUTPUT
-cd $TMP
-rm -rf $PRGNAM-$VERSION
-tar xvf $CWD/$PRGNAM-$VERSION.tar.bz2
-cd $PRGNAM-$VERSION
+mkdir -p $WRK $PKG $OUTPUT
+cd $WRK
+rm -rf avidemux_${VERSION}
+tar xvf $CWD/avidemux_${VERSION}.tar.gz
+cd avidemux_${VERSION}
 
 chown -R root:root .
 find . \
@@ -73,21 +77,33 @@ find . \
  \( -perm 666 -o -perm 664 -o -perm 600 -o -perm 444 -o -perm 440 -o -perm 400 \) \
  -exec chmod 644 {} \;
 
-CFLAGS="$SLKCFLAGS" \
-CXXFLAGS="$SLKCFLAGS" \
-./configure \
-  --build=$ARCH-slackware-linux --host=$ARCH-slackware-linux \
-  --program-prefix= --program-suffix= \
-  --prefix=/usr --exec-prefix=/usr \
-  --bindir=/usr/bin --sbindir=/usr/sbin \
-  --libdir=/usr/lib$LIBDIRSUFFIX --includedir=/usr/include \
-  --mandir=/usr/man --infodir=/usr/info \
-  --sysconfdir=/etc --docdir=/usr/doc/$PRGNAM-$VERSION \
-  --localstatedir=/var --sharedstatedir=/var/lib \
-  --disable-static --enable-shared \
+/bin/sh bootStrap.bash --tgz
 
-make
-make install DESTDIR=$PKG
+# Install avidemux binary
+cd $PKG
+for P in `ls -1 $WRK/avidemux_${VERSION}/debs/avidemux3-*.tar.gz`; do
+  tar xf $P;
+  cp -r -p avidemux3-*/* .;
+  rm -rf avidemux3-*;
+done
+cd $WRK/avidemux_${VERSION}
+
+# Copying icon
+mkdir -p $PKG/usr/share/pixmaps
+cp -a $CWD/avidemux_icon.png $PKG/usr/share/pixmaps/avidemux.png
+
+# Copying desktop menu
+mkdir -p $PKG/usr/share/applications
+if [ "$USE_QT" = "YES" ]; then
+  sed 's,Exec=avidemux3_gtk,Exec=avidemux3_qt4,g' $CWD/avidemux3.desktop \
+    > $PKG/usr/share/applications/avidemux3.desktop
+elif [ "$USE_QT" = "NO" ]; then
+  cat $CWD/avidemux3.desktop > $PKG/usr/share/applications/avidemux3.desktop
+fi
+
+# Install man page
+mkdir -p $PKG/usr/man/man1
+cp -a man/avidemux.1 $PKG/usr/man/man1
 
 find $PKG | xargs file | grep -e "executable" -e "shared object" | grep ELF \
   | cut -f 1 -d : | xargs strip --strip-unneeded 2> /dev/null || true
@@ -96,17 +112,15 @@ find $PKG/usr/man -type f -exec gzip -9 {} \;
 for i in $( find $PKG/usr/man -type l ) ; do ln -s $( readlink $i ).gz $i.gz ; rm $i ; done
 
 mkdir -p $PKG/usr/doc/$PRGNAM-$VERSION
-( cd $PKG/usr/doc/$PRGNAM-$VERSION ;
-  ln -sf /usr/share/gtk-doc/html/gi html-gi ;
-)
 cp -a $DOCS $PKG/usr/doc/$PRGNAM-$VERSION
 cat $CWD/$PRGNAM.SlackBuild > $PKG/usr/doc/$PRGNAM-$VERSION/$PRGNAM.SlackBuild
 
 mkdir -p $PKG/install
 cat $CWD/slack-desc > $PKG/install/slack-desc
+cat $CWD/doinst.sh > $PKG/install/doinst.sh
 
 cd $PKG
 /sbin/makepkg -l y -c n $OUTPUT/$PRGNAM-$VERSION-$ARCH-$BUILD$TAG.${PKGTYPE:-tgz}
 
 echo "Cleaning up build directory"
-cd $TMP; rm -rf $PRGNAM-$VERSION $PKG
+cd $WRK ; rm -rf avidemux_${VERSION} $PKG

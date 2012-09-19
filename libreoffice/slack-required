@@ -1,0 +1,11 @@
+cairo
+cxxlibs
+curl
+gcc
+icu4c
+lcms2
+libxslt
+mozilla-nss | seamonkey-solibs
+neon
+pixman
+sqlite

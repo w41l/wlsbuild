@@ -25,7 +25,7 @@
 
 PRGNAM=gpac
 VERSION=0.5.0
-BUILD=1
+BUILD=2
 TAG=${TAG:-_wls}
 NUMJOBS=${NUMJOBS:--j1}
 WX_SUPPORT="no"
@@ -39,8 +39,8 @@ if [ -z "$ARCH" ]; then
 fi
 
 CWD=$(pwd)
-TMP=${TMP:-/tmp/wlsbuild}
-PKG=$TMP/package-$PRGNAM
+WRK=${WRK:-/tmp/wlsbuild}
+PKG=$WRK/package-$PRGNAM
 OUTPUT=${OUTPUT:-/tmp}
 DOCS="AUTHORS COPYING BUGS Changelog INSTALLME README TODO doc/configuration.html"
 
@@ -74,8 +74,8 @@ fi
 set -e
 
 rm -rf $PKG
-mkdir -p $TMP $PKG $OUTPUT
-cd $TMP
+mkdir -p $WRK $PKG $OUTPUT
+cd $WRK
 rm -rf $PRGNAM
 tar xvf $CWD/$PRGNAM-$VERSION.tar.gz
 cd $PRGNAM
@@ -90,7 +90,7 @@ find . \
 chmod +x configure
 ./configure \
   --prefix=/usr \
-  --libdir=/usr/lib${LIBDIRSUFFIX} \
+  --libdir=/lib${LIBDIRSUFFIX} \
   --mandir=/usr/man \
   --extra-cflags="$SLKCFLAGS" \
   --cpu=${ARCH} \
@@ -101,6 +101,9 @@ chmod +x configure
 make V=1 # Parallel build seems to fail
 make install DESTDIR=$PKG
 make install-lib DESTDIR=$PKG
+
+# Fix library install path
+# mv $PKG/usr/usr/lib${LIBDIRSUFFIX}/* $PKG/usr/lib${LIBDIRSUFFIX}
 
 find $PKG | xargs file | grep -e "executable" -e "shared object" | grep ELF \
   | cut -f 1 -d : | xargs strip --strip-unneeded 2> /dev/null || true
@@ -120,4 +123,4 @@ cd $PKG
 /sbin/makepkg -l y -c n $OUTPUT/$PRGNAM-$VERSION-$ARCH-$BUILD$TAG.${PKGTYPE:-tgz}
 
 echo "Cleaning up build directory"
-cd $TMP; rm -rf $PRGNAM $PKG
+cd $WRK; rm -rf $PRGNAM $PKG

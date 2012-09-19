@@ -24,14 +24,19 @@
 # YOUR DATA IS DESTROYED, YOUR HOUSE BURNS DOWN OR YOUR DOG RUNS OFF.
 
 PRGNAM=claws-mail-extra-plugins
-VERSION=3.8.0
+VERSION=3.8.1
 BUILD=1
 TAG=${TAG:-_wls}
 NUMJOBS=${NUMJOBS:--j4}
 PLUGINS="acpi_notifier address_keeper archive att_remover attachwarner
- bsfilter_plugin clamd fancy fetchinfo-plugin gdata_plugin geolocation_plugin
- gtkhtml2_viewer mailmbox newmail notification_plugin perl_plugin python_plugin
- rssyl spam_report tnef_parse vcalendar"
+ bsfilter_plugin clamd fetchinfo-plugin gdata_plugin gtkhtml2_viewer
+ mailmbox newmail notification_plugin perl_plugin python_plugin rssyl
+ spam_report tnef_parse vcalendar"
+
+#PLUGINS="acpi_notifier address_keeper archive att_remover attachwarner
+# bsfilter_plugin clamd fancy fetchinfo-plugin gdata_plugin geolocation_plugin
+# gtkhtml2_viewer mailmbox newmail notification_plugin perl_plugin python_plugin
+# rssyl spam_report tnef_parse vcalendar"
 
 if [ -z "$ARCH" ]; then
   case "$( uname -m )" in
@@ -42,8 +47,8 @@ if [ -z "$ARCH" ]; then
 fi
 
 CWD=$(pwd)
-TMP=${TMP:-/tmp/wlsbuild}
-PKG=$TMP/package-$PRGNAM
+WRK=${WRK:-/tmp/wlsbuild}
+PKG=$WRK/package-$PRGNAM
 OUTPUT=${OUTPUT:-/tmp}
 DOCS="ABOUT-NLS AUTHORS COPYING ChangeLog INSTALL NEWS README TODO"
 
@@ -64,8 +69,8 @@ fi
 set -e
 
 rm -rf $PKG
-mkdir -p $TMP $PKG $OUTPUT
-cd $TMP
+mkdir -p $WRK $PKG $OUTPUT
+cd $WRK
 rm -rf $PRGNAM-$VERSION
 tar xvf $CWD/$PRGNAM-$VERSION.tar.bz2
 cd $PRGNAM-$VERSION
@@ -78,7 +83,8 @@ find . \
  -exec chmod 644 {} \;
 
 for D in $PLUGINS; do
-  cd $D-*
+  cd $D-* || exit 1
+  echo "Building plugin: $(basename `pwd`)"
   CFLAGS="$SLKCFLAGS" \
   CXXFLAGS="$SLKCFLAGS" \
   ./configure \
@@ -90,17 +96,18 @@ for D in $PLUGINS; do
     --mandir=/usr/man --infodir=/usr/info \
     --sysconfdir=/etc --docdir=/usr/doc/$PRGNAM-$VERSION \
     --localstatedir=/var --sharedstatedir=/var/lib \
-    --disable-static --enable-shared
+    --disable-static --enable-shared \
+    || exit 1
 
-  make $NUMJOBS
-  make DESTDIR=$PKG install
-  mkdir -p $PKG/usr/doc/$PRGNAM-$VERSION/$D
+  make V=1 || exit 1
+  make DESTDIR=$PKG install || exit 1
+  mkdir -p $PKG/usr/doc/$PRGNAM-$VERSION/$D || exit 1
   for F in $DOCS; do
     if test -f $F; then
-      cp -a $F $PKG/usr/doc/$PRGNAM-$VERSION/$D
+      cp -a $F $PKG/usr/doc/$PRGNAM-$VERSION/$D || exit 1
     fi
   done
-  cd $TMP/$PRGNAM-$VERSION;
+  cd $WRK/$PRGNAM-$VERSION;
 done
 
 find $PKG | xargs file | grep -e "executable" -e "shared object" | grep ELF \
@@ -118,4 +125,4 @@ cd $PKG
 /sbin/makepkg -l y -c n $OUTPUT/$PRGNAM-$VERSION-$ARCH-$BUILD$TAG.${PKGTYPE:-tgz}
 
 echo "Cleaning up build directory"
-cd $TMP; rm -rf $PRGNAM-$VERSION $PKG
+cd $WRK; rm -rf $PRGNAM-$VERSION $PKG

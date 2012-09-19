@@ -25,7 +25,7 @@
 
 PRGNAM=mate-session-manager
 VERSION=1.4.0
-BUILD=1
+BUILD=2
 TAG=${TAG:-_wls}
 NUMJOBS=${NUMJOBS:--j4}
 
@@ -38,8 +38,8 @@ if [ -z "$ARCH" ]; then
 fi
 
 CWD=$(pwd)
-TMP=${TMP:-/tmp/wlsbuild}
-PKG=$TMP/package-$PRGNAM
+WRK=${WRK:-/tmp/wlsbuild}
+PKG=$WRK/package-$PRGNAM
 OUTPUT=${OUTPUT:-/tmp}
 DOCS="AUTHORS COPYING ChangeLog HACKING INSTALL MAINTAINERS NEWS README"
 
@@ -60,8 +60,8 @@ fi
 set -e
 
 rm -rf $PKG
-mkdir -p $TMP $PKG $OUTPUT
-cd $TMP
+mkdir -p $WRK $PKG $OUTPUT
+cd $WRK
 rm -rf $PRGNAM-$VERSION
 tar xvf $CWD/$PRGNAM-$VERSION.tar.?z*
 cd $PRGNAM-$VERSION
@@ -85,8 +85,7 @@ CXXFLAGS="$SLKCFLAGS" \
   --sysconfdir=/etc --docdir=/usr/doc/$PRGNAM-$VERSION \
   --localstatedir=/var --sharedstatedir=/var/lib \
   --disable-static --enable-shared \
-  --disable-schemas-install \
-  --enable-maintainer-mode=no
+  --disable-schemas-install
 
 make V=1
 
@@ -97,6 +96,10 @@ make install DESTDIR=$PKG
 mkdir -p $PKG/etc/X11/xinit
 cat $CWD/xinitrc.mate > $PKG/etc/X11/xinit/xinitrc.mate
 chmod 755 $PKG/etc/X11/xinit/xinitrc.mate
+
+mkdir -p $PKG/usr/share/xsessions
+cat $CWD/mate.desktop > $PKG/usr/share/xsessions/mate.desktop
+chmod 644 $PKG/usr/share/xsessions/mate.desktop
 
 find $PKG | xargs file | grep -e "executable" -e "shared object" | grep ELF \
   | cut -f 1 -d : | xargs strip --strip-unneeded 2> /dev/null || true
@@ -117,4 +120,4 @@ cd $PKG
 /sbin/makepkg -l y -c n $OUTPUT/$PRGNAM-$VERSION-$ARCH-$BUILD$TAG.${PKGTYPE:-tgz}
 
 echo "Cleaning up build directory"
-cd $TMP; rm -rf $PRGNAM-$VERSION $PKG
+cd $WRK; rm -rf $PRGNAM-$VERSION $PKG

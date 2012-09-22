@@ -1,0 +1,19 @@
+# HOW TO EDIT THIS FILE:
+# The "handy ruler" below makes it easier to edit a package description.  Line
+# up the first '|' above the ':' following the base package name, and the '|'
+# on the right side marks the last column you can put a character in.  You must
+# make exactly 11 lines for the formatting to be correct.  It's also
+# customary to leave one space after the ':'.
+
+    |-----handy-ruler-----------------------------------------------------|
+mtop: mtop (MySQL Query Monitor)
+mtop:
+mtop: mtop (MySQL top) monitors a MySQL database showing the queries which
+mtop: are taking the most amount of time to complete. Features include
+mtop: 'zooming' in on a process to show the complete query and 'explaining'
+mtop: the query optimizer information.
+mtop:
+mtop: URL: http://mtop.sourceforge.net/
+mtop:
+mtop:
+mtop: Packaged by Widya Walesa <walecha99@gmail.com>

@@ -136,6 +136,10 @@ CXXFLAGS="$SLKCFLAGS" \
 make V=1
 make install DESTDIR=$PKG
 
+# Add nginx to logrotate
+mkdir -p $PKG/etc/logrotate.d
+cat $CWD/nginx.logrotate > $PKG/etc/logrotate.d/nginx
+
 mkdir -p $PKG/usr/man/man8
 cp man/nginx.8 $PKG/usr/man/man8
 

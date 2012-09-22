@@ -24,7 +24,7 @@
 # YOUR DATA IS DESTROYED, YOUR HOUSE BURNS DOWN OR YOUR DOG RUNS OFF.
 
 PRGNAM=qupzilla
-VERSION=1.3.1_3c70ebc
+VERSION=1.3.5
 BUILD=1
 TAG=${TAG:-_wls}
 NUMJOBS=${NUMJOBS:--j1}
@@ -115,5 +115,5 @@ cat $CWD/slack-required > $PKG/install/slack-required
 cd $PKG
 /sbin/makepkg -l y -c n $OUTPUT/$PRGNAM-$VERSION-$ARCH-$BUILD$TAG.${PKGTYPE:-tgz}
 
-#echo "Cleaning up build directory"
-#cd $WRK ; rm -rf $PKG QupZilla-$VERSION
+echo "Cleaning up build directory"
+cd $WRK ; rm -rf $PKG QupZilla-$VERSION

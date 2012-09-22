@@ -1,8 +1,8 @@
 #!/bin/sh
 
-# Slackware build script for razorqt
+# Slackware build script for mtop
 
-# Copyright 2011-2012  Widya Walesa <walecha99@gmail.com>
+# Copyright 2012  Widya Walesa <walecha99@gmail.com>
 # All rights reserved.
 #
 # Redistribution and use of this script, with or without modification, is
@@ -23,8 +23,8 @@
 # ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. FURTHERMORE I AM NOT LIABLE IF
 # YOUR DATA IS DESTROYED, YOUR HOUSE BURNS DOWN OR YOUR DOG RUNS OFF.
 
-PRGNAM=razorqt
-VERSION=0.4.99_20120920
+PRGNAM=mtop
+VERSION=0.6.6
 BUILD=1
 TAG=${TAG:-_wls}
 NUMJOBS=${NUMJOBS:--j4}
@@ -41,16 +41,16 @@ CWD=$(pwd)
 WRK=${WRK:-/tmp/wlsbuild}
 PKG=$WRK/package-$PRGNAM
 OUTPUT=${OUTPUT:-/tmp}
-DOCS="README"
+DOCS="COPYING ChangeLog README README.devel mkill.html mtop.html"
 
 if [ "$ARCH" = "i486" ]; then
   SLKCFLAGS="-O2 -pipe -march=i486 -mtune=i686"
   LIBDIRSUFFIX=""
 elif [ "$ARCH" = "i686" ]; then
-  SLKCFLAGS="-O2 -pipe -march=i686 -mtune=i686 -fPIC"
+  SLKCFLAGS="-O2 -pipe -march=i686 -mtune=i686"
   LIBDIRSUFFIX=""
 elif [ "$ARCH" = "x86_64" ]; then
-  SLKCFLAGS="-O2 -pipe -m64 -fPIC"
+  SLKCFLAGS="-O2 -m64 -pipe -fPIC"
   LIBDIRSUFFIX="64"
 else
   SLKCFLAGS="-O2"
@@ -62,9 +62,9 @@ set -e
 rm -rf $PKG
 mkdir -p $WRK $PKG $OUTPUT
 cd $WRK
-rm -rf $PRGNAM-$VERSION
-tar xvf $CWD/${PRGNAM}-${VERSION}.tar.?z*
-cd $PRGNAM-$VERSION
+rm -rf mtop-$VERSION
+tar xvf $CWD/mtop-$VERSION.tar.gz
+cd mtop-$VERSION
 
 chown -R root:root .
 find . \
@@ -73,42 +73,47 @@ find . \
  \( -perm 666 -o -perm 664 -o -perm 600 -o -perm 444 -o -perm 440 -o -perm 400 \) \
  -exec chmod 644 {} \;
 
-mkdir build
-cd build
-  cmake .. \
-    -DCMAKE_C_FLAGS="$SLKCFLAGS" \
-    -DCMAKE_CXX_FLAGS="$SLKCFLAGS" \
-    -DCMAKE_INSTALL_PREFIX=/usr \
-    -DLIB_SUFFIX=${LIBDIRSUFFIX} \
+PERL_ARCH=$(perl -v | grep This | cut -d' ' -f 7)
+PERL_VERSION=$(perl -v | grep This | cut -d' ' -f4 | cut -dv -f2)
+# Set a perl include path so we don't have to spam the build machine
+while read pf; do
+  PERL5LIB=${PERL5LIB:+$PERL5LIB:}$pf
+done << EOPERL5LIB
+$PKG/usr/lib${LIBDIRSUFFIX}/perl5
+$PKG/usr/lib${LIBDIRSUFFIX}/perl5/vendor_perl
+$PKG/usr/lib${LIBDIRSUFFIX}/perl5/vendor_perl/$PERL_VERSION/$PERL_ARCH
+EOPERL5LIB
+export PERL5LIB
 
-  make VERBOSE=1
-  make install DESTDIR=$PKG
-cd -
+perl Makefile.PL --prefix=/usr
+# Fix for manpages
+sed -i "s:/share/man:/man:g" Makefile
+# Build
+make OPTIMIZE="$SLKCFLAGS" \
+     CXXFLAGS="$SLKCFLAGS" \
+     $MAKE_FLAGS &&
+make install_vendor DESTDIR=$PKG
+eval $(perl '-V:archlib')
+mv $PKG/$archlib/perllocal.pod $PKG/$archlib/$(echo ${MODULE// /_} | tr 'A-Z' 'a-z').pod
 
-mkdir -p $PKG/etc/razor/xdg
-mv $PKG/etc/xdg/menus $PKG/etc/razor/xdg/
-
-mkdir -p $PKG/etc/X11/xinit
-cat $CWD/xinitrc.razor > $PKG/etc/X11/xinit/xinitrc.razor
-chmod +x $PKG/etc/X11/xinit/xinitrc.razor
-
-mkdir -p $PKG/usr/share/xsessions
-cat $CWD/razor.desktop > $PKG/usr/share/xsessions/razor.desktop
+# Remove empty directories
+find $PKG/usr -depth -type d -empty -exec rm -rf {} \;
 
 find $PKG | xargs file | grep -e "executable" -e "shared object" | grep ELF \
   | cut -f 1 -d : | xargs strip --strip-unneeded 2> /dev/null || true
 
+find $PKG/usr/man -type f -exec gzip -9 {} \;
+for i in $( find $PKG/usr/man -type l ) ; do ln -s $( readlink $i ).gz $i.gz ; rm $i ; done
+
 mkdir -p $PKG/usr/doc/$PRGNAM-$VERSION
-cp -a ${DOCS} $PKG/usr/doc/$PRGNAM-$VERSION
+cp -a $DOCS $PKG/usr/doc/$PRGNAM-$VERSION
 cat $CWD/$PRGNAM.SlackBuild > $PKG/usr/doc/$PRGNAM-$VERSION/$PRGNAM.SlackBuild
 
 mkdir -p $PKG/install
-cat $CWD/doinst.sh > $PKG/install/doinst.sh
 cat $CWD/slack-desc > $PKG/install/slack-desc
-cat $CWD/slack-required > $PKG/install/slack-required
 
 cd $PKG
 /sbin/makepkg -l y -c n $OUTPUT/$PRGNAM-$VERSION-$ARCH-$BUILD$TAG.${PKGTYPE:-tgz}
 
 echo "Cleaning up build directory"
-cd $WRK ; rm -rf $PKG $PRGNAM-$VERSION
+cd $WRK; rm -rf mtop-$VERSION $PKG

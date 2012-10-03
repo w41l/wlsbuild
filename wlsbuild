@@ -25,6 +25,7 @@ frei0r
 rtmpdump
 libass
 libmodplug
+libbluray
 ffmpeg
 libdv
 libreplaygain
@@ -46,7 +47,6 @@ live555
 mp3gain
 vorbisgain
 libkate
-libbluray
 libmms
 #wildmidi | removed
 openal

@@ -1,0 +1,19 @@
+# HOW TO EDIT THIS FILE:
+# The "handy ruler" below makes it easier to edit a package description.  Line
+# up the first '|' above the ':' following the base package name, and the '|'
+# on the right side marks the last column you can put a character in.  You must
+# make exactly 11 lines for the formatting to be correct.  It's also
+# customary to leave one space after the ':'.
+
+      |-----handy-ruler------------------------------------------------------|
+vlc-qt: vlc-qt (Qt4 Videolan VLC Library)
+vlc-qt:
+vlc-qt: VLC-Qt is a free library used to connect Qt and libvlc libraries.
+vlc-qt: It contains core classes for main media playback and also some GUI
+vlc-qt: classes for faster media player developement.
+vlc-qt: VLC-Qt is free (libre) software.
+vlc-qt:
+vlc-qt: URL: https://github.com/ntadej/vlc-qt
+vlc-qt:
+vlc-qt:
+vlc-qt:

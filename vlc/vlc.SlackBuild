@@ -25,7 +25,7 @@
 
 PRGNAM=vlc
 VERSION=2.0.3
-BUILD=1
+BUILD=2
 TAG=${TAG:-_wls}
 NUMJOBS=${NUMJOBS:--j4}
 

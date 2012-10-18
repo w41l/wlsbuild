@@ -1,0 +1,11 @@
+--- a/src/zvbi.c	2006-06-10 07:42:40.000000000 +0700
++++ b/src/zvbi.c	2012-10-18 13:32:50.980469149 +0700
+@@ -25,7 +25,7 @@
+ #include <gnome.h>
+ #include <gdk-pixbuf/gdk-pixbuf.h>
+ #include <libgnomevfs/gnome-vfs.h>
+-#include <glib/gmessages.h>
++#include <glib.h>
+ #include <pthread.h>
+ #include <ctype.h>
+ #include <time.h>

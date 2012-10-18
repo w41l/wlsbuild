@@ -1,0 +1,30 @@
+--- a/common/common.h	2012-06-11 03:35:07.000000000 +0700
++++ b/common/common.h	2012-10-18 10:23:36.877058409 +0700
+@@ -21,6 +21,12 @@
+ #ifndef __COMMON_H__
+ #define __COMMON_H__
+ 
++// Many of the standard C++ library include files have been edited to no longer
++// include <unistd.h> to remove namespace pollution. We include it here.
++#if defined(__GNUC__) && __GNUC__ == 4 && __GNUC_MINOR__ == 7 && __GNUC_PATCHLEVEL__ >= 0
++#include <unistd.h>
++#endif
++
+ #include <glibmm.h>
+ 
+ void replace_text(Glib::ustring& text, const Glib::ustring& from, const Glib::ustring& to);
+--- a/server/thread.h	2012-06-11 03:35:07.000000000 +0700
++++ b/server/thread.h	2012-10-18 10:23:25.340055663 +0700
+@@ -21,6 +21,12 @@
+ #ifndef __THREAD_H__
+ #define __THREAD_H__
+ 
++// Many of the standard C++ library include files have been edited to no longer
++// include <unistd.h> to remove namespace pollution. We include it here.
++#if defined(__GNUC__) && __GNUC__ == 4 && __GNUC_MINOR__ == 7 && __GNUC_PATCHLEVEL__ >= 0
++#include <unistd.h>
++#endif
++
+ #include <glibmm.h>
+ 
+ class Thread

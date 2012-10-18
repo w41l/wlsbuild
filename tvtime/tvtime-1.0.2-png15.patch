@@ -1,0 +1,11 @@
+diff -up tvtime-1.0.2/src/pngoutput.c.png15 tvtime-1.0.2/src/pngoutput.c
+--- tvtime-1.0.2/src/pngoutput.c.png15	2012-03-05 14:51:38.832067205 -0500
++++ tvtime-1.0.2/src/pngoutput.c	2012-03-05 14:51:48.717958869 -0500
+@@ -19,6 +19,7 @@
+ #include <stdio.h>
+ #include <stdlib.h>
+ #include <png.h>
++#include <zlib.h>
+ #include "pngoutput.h"
+ 
+ struct pngoutput_s

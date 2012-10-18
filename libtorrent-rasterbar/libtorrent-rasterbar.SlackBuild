@@ -24,7 +24,7 @@
 # YOUR DATA IS DESTROYED, YOUR HOUSE BURNS DOWN OR YOUR DOG RUNS OFF.
 
 PRGNAM=libtorrent-rasterbar
-VERSION=0.16.0
+VERSION=0.16.4
 BUILD=1
 TAG="_wls"
 NUMJOBS="-j3"
@@ -93,7 +93,7 @@ CXXFLAGS="$SLKCFLAGS" \
   --with-boost-system=boost_system \
   --with-boost-python=boost_python
 
-make
+make V=1
 make install DESTDIR=$PKG
 
 find $PKG | xargs file | grep -e "executable" -e "shared object" | grep ELF \
@@ -110,7 +110,6 @@ cat $CWD/slack-required > $PKG/install/slack-required
 
 cd $PKG
 /sbin/makepkg -l y -c n $OUTPUT/$PRGNAM-$VERSION-$ARCH-$BUILD$TAG.${PKGTYPE:-tgz}
-/usr/bin/gpg --armor --detach-sign $OUTPUT/$PRGNAM-$VERSION-$ARCH-$BUILD$TAG.${PKGTYPE:-tgz}
 
 echo "Cleaning up build directory"
 cd $WRK; rm -rf $PRGNAM-$VERSION $PKG

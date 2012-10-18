@@ -51,7 +51,7 @@ cd $WRK
 rm -rf $PKG
 mkdir -p $PKG
 cd $PKG
-tar xvf $CWD/install_flash_player_${MAJVER}_linux.${ARCH}.tar.gz
+tar xvf $CWD/install_flash_player_${MAJVER}_linux_${ARCH}.tar.gz
 
 chown -R root:root .
 find . \

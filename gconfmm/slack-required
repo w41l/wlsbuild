@@ -1,9 +1,2 @@
-GConf
-ORBit2
-cxxlibs
-dbus
-dbus-glib
-gcc
-glib2
 glibmm
 libsigc++

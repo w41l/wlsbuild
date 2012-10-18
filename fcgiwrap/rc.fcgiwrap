@@ -1,0 +1,68 @@
+#!/bin/sh
+
+# Start/stop/restart the fcgiwrap:
+
+PATH=/sbin:/bin:/usr/sbin:/usr/bin:/usr/local/bin:/usr/local/sbin
+NAME="fcgiwrap"
+DAEMON="/usr/sbin/$NAME"
+PID="/var/run/$NAME.pid"
+SOCKNUM=1
+SOCKURL="unix:/tmp/$NAME.sock"
+USER="nobody"
+GROUP="nobody"
+
+fcgiwrap_start()
+{
+  if [ -x $DAEMON ]; then
+      echo -en "Starting $NAME: \t"
+      $DAEMON -c $SOCKNUM -s $SOCKURL &
+      pidof $NAME > $PID
+      chown $USER:$GROUP $(echo $SOCKURL | cut -d : -f 2)
+      chmod 755 $(echo $SOCKURL | cut -d : -f 2)
+      echo "started"
+  else
+    echo "failed"
+  fi
+}
+
+fcgiwrap_status()
+{
+  echo -en "$NAME is running as PID: "
+  if [ -e $PID ]; then
+    cat $PID
+  else
+    echo "$NAME is not running"
+  fi
+}
+
+fcgiwrap_stop()
+{
+  echo -en "Stopping $NAME: \t"
+  if [ -e $PID ]; then
+    kill `cat $PID`
+    sleep 2
+    rm -f $(echo $SOCKURL | cut -d : -f 2)
+    rm -f $PID
+    echo "stopped";
+  else
+    echo "not running"
+  fi
+}
+
+case "$1" in
+'start')
+    fcgiwrap_start
+  ;;
+'stop')
+  fcgiwrap_stop
+  ;;
+'restart')
+  fcgiwrap_stop
+  fcgiwrap_start
+  ;;
+'status')
+  fcgiwrap_status
+  ;;
+*)
+  echo "usage $0 start|stop|status|restart"
+esac

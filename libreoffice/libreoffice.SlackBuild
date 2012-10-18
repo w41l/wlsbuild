@@ -24,12 +24,13 @@
 # YOUR DATA IS DESTROYED, YOUR HOUSE BURNS DOWN OR YOUR DOG RUNS OFF.
 
 PRGNAM=libreoffice
-VERSION=3.6.1
+VERSION=3.6.2
 RCVERS=".2"
 MAJORVER=$( echo $VERSION | sed "s/\(.*\)\.\(.*\)\.*/\1/" )
 BUILD=1
 TAG=${TAG:-_wls}
 DIST=${DIST:-deb}
+LANGPACK=${LANGPACK:-id}
 
 if [ -z "$ARCH" ]; then
   case "$( uname -m )" in
@@ -138,10 +139,6 @@ echo "Use system libs instead of the bundled one"
   rm -f liblcms2.so*;
   rm -f libpixman-1.so*;
   rm -f libxslt.so*;
-
-  #for LIB in `ls -1 libstdc++.so.*`; do
-    #rm -f ${LIB}; ln -sf /usr/lib${LIBDIRSUFFIX}/${LIB};
-  #done
 )
 
 echo "Unpacking desktop-integration packages"
@@ -157,6 +154,22 @@ fi
   mv -v usr/share/* ${PKG}/usr/share
   mkdir -p ${PKG}/usr/bin
   mv -v usr/bin/* ${PKG}/usr/bin
+cd ..
+
+echo "Unpacking language packages"
+tar xvf $CWD/LibO_${VERSION}_Linux_${LOARCH}_langpack-${DIST}_${LANGPACK}.tar.gz
+cd LibO_${VERSION}${RCVERS}_Linux_${LOARCH}_langpack-${DIST}_${LANGPACK}
+if [ "${DIST}" = "deb" ]; then
+  cd DEBS
+  for i in `ls -1 *.deb`; do
+    ar p $i data.tar.gz | gzip -d | tar xv || exit 1
+  done
+else
+  cd RPMS
+  for i in `ls -1 *.rpm`; do
+    rpm2cpio $i | cpio -idmv || exit 1
+  done
+fi
 cd ..
 
 chown -R root:root ${PKG}

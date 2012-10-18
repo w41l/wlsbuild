@@ -1,0 +1,12 @@
+	|-----handy-ruler------------------------------------------------------|
+fcgiwrap: fcgiwrap
+fcgiwrap:
+fcgiwrap: fcgiwrap is a simple server for running CGI applications over FastCGI.
+fcgiwrap: It hopes to provide clean CGI support to Nginx (and other web servers
+fcgiwrap: that may need it).
+fcgiwrap:
+fcgiwrap: URL: http://nginx.localdomain.pl/wiki/FcgiWrap
+fcgiwrap:
+fcgiwrap:
+fcgiwrap:
+fcgiwrap: http://www.walecha.net/

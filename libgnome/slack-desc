@@ -1,0 +1,19 @@
+# HOW TO EDIT THIS FILE:
+# The "handy ruler" below makes it easier to edit a package description.  Line
+# up the first '|' above the ':' following the base package name, and the '|'
+# on the right side marks the last column you can put a character in.  You must
+# make exactly 11 lines for the formatting to be correct.  It's also
+# customary to leave one space after the ':'.
+
+        |-----handy-ruler------------------------------------------------------|
+libgnome: libgnome (Core GNOME Routines Library)
+libgnome:
+libgnome: libgnome is the library that provides access to the non-X11 dependent
+libgnome: parts of the GNOME framework, and is one of the core libraries for
+libgnome: GNOME. It is dependent on GTK+2 and the GNOME Object Activation
+libgnome: Framework (Bonobo).
+libgnome:
+libgnome:
+libgnome:
+libgnome:
+libgnome: http://www.walecha.net/

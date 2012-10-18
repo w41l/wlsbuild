@@ -1,0 +1,35 @@
+diff -up tvtime-1.0.2/src/xcommon.c.icon tvtime-1.0.2/src/xcommon.c
+--- tvtime-1.0.2/src/xcommon.c.icon	2012-08-06 12:24:23.872622342 +0200
++++ tvtime-1.0.2/src/xcommon.c	2012-08-06 12:25:16.693807486 +0200
+@@ -207,7 +207,7 @@ static const char *tvtime_icon =
+ "                                "
+ "                                " ;
+ 
+-static void load_icon( uint32_t *data )
++static void load_icon( long *data )
+ {
+     int i;
+ 
+@@ -226,10 +226,10 @@ static void load_icon( uint32_t *data )
+         icon_colours[ '-' ] = 0xff007f7f;
+     }
+ 
+-    *data++ = 32;
+-    *data++ = 32;
++    *data++ = 32L;
++    *data++ = 32L;
+     for( i = 0; i < 32 * 32; i++ ) {
+-        *data++ = icon_colours[ (int) tvtime_icon[ i ] ];
++        *data++ = (long) icon_colours[ (int) tvtime_icon[ i ] ];
+     }
+ }
+ 
+@@ -1004,7 +1004,7 @@ int xcommon_open_display( const char *us
+ 
+     /* Set the icon on the window. */
+     {
+-        uint32_t *data = malloc( 1026 * 4 );
++        long *data = malloc( 1026 * sizeof(long) );
+         if( data ) {
+             load_icon( data );
+             XChangeProperty( display, wm_window, net_wm_icon, cardinal, 32,

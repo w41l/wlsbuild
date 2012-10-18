@@ -1,5 +1,4 @@
 #!/bin/sh
-# $XConsortium: xinitrc.cpp,v 1.4 91/08/22 11:41:34 rws Exp $
 
 userresources=$HOME/.Xresources
 usermodmap=$HOME/.Xmodmap
@@ -26,7 +25,7 @@ fi
 
 # Use ssh-agent if available
 if [ -x /usr/bin/ssh-agent ]; then
-  GNOME_SESSION_SETTINGS="$GNOME_SESSION_SETTINGS /usr/bin/ssh-agent"
+  LXDE_SESSION_SETTINGS="/usr/bin/ssh-agent"
 fi;
 
 # Use ConsoleKit if available
@@ -35,4 +34,4 @@ if [ -x /usr/bin/ck-launch-session ]; then
 fi;
 
 # Start the window manager:
-$CK_SESSION startlxde
+exec $CK_SESSION $LXDE_SESSION_SETTINGS startlxde

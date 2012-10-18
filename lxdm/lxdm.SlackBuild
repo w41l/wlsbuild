@@ -24,8 +24,8 @@
 # YOUR DATA IS DESTROYED, YOUR HOUSE BURNS DOWN OR YOUR DOG RUNS OFF.
 
 PRGNAM=lxdm
-VERSION=20120708.ebbf7d7.git
-BUILD=1
+VERSION=0.4.1
+BUILD=2
 TAG=${TAG:-_wls}
 NUMJOBS=${NUMJOBS:--j4}
 
@@ -38,7 +38,7 @@ fi
 if ! grep "^lxdm:" /etc/passwd >/dev/null 2>&1; then
   echo "Please add user lxdm";
   echo "/usr/sbin/useradd -u 52 -g lxdm -s /bin/false -c \"LXDE Display Manager daemon\" -d /var/lib/lxdm lxdm";
-  echo "/usr/sbin/usermod -g lxdm -G lxdm -s /bin/false lxdm";
+  #echo "/usr/sbin/usermod -g lxdm -G lxdm -s /bin/false lxdm";
   exit 1;
 fi
 
@@ -51,8 +51,8 @@ if [ -z "$ARCH" ]; then
 fi
 
 CWD=$(pwd)
-TMP=${TMP:-/tmp/wlsbuild}
-PKG=$TMP/package-$PRGNAM
+WRK=${WRK:-/tmp/wlsbuild}
+PKG=$WRK/package-$PRGNAM
 OUTPUT=${OUTPUT:-/tmp}
 DOCS="AUTHORS COPYING ChangeLog INSTALL NEWS README TODO"
 
@@ -73,8 +73,8 @@ fi
 set -e
 
 rm -rf $PKG
-mkdir -p $TMP $PKG $OUTPUT
-cd $TMP
+mkdir -p $WRK $PKG $OUTPUT
+cd $WRK
 rm -rf $PRGNAM-$VERSION
 tar xvf $CWD/$PRGNAM-$VERSION.tar.?z*
 cd $PRGNAM-$VERSION
@@ -86,7 +86,7 @@ find . \
  \( -perm 666 -o -perm 664 -o -perm 600 -o -perm 444 -o -perm 440 -o -perm 400 \) \
  -exec chmod 644 {} \;
 
-./autogen.sh
+#./autogen.sh
 
 CFLAGS="$SLKCFLAGS" \
 CXXFLAGS="$SLKCFLAGS" \
@@ -102,14 +102,12 @@ CXXFLAGS="$SLKCFLAGS" \
   --without-pam \
   --enable-gtk3
 
-cat $CWD/greeter.ui.patch | patch -p0
-cat $CWD/lxdm.patch | patch -p0
-cat $CWD/Xsession.patch | patch -p0
-
 make $NUMJOBS V=1
 
-CFLAGS="$SLKCFLAGS" \
-CXXFLAGS="$SLKCFLAGS" \
+cat $CWD/greeter.ui.patch | patch -p0
+cat $CWD/lxdm.patch | patch -p0
+cat $CWD/Xsession.patch | patch -p1
+
 make install DESTDIR=$PKG
 
 ( cd $PKG/etc/lxdm;
@@ -139,4 +137,4 @@ cd $PKG
 /sbin/makepkg -l y -c n $OUTPUT/$PRGNAM-$VERSION-$ARCH-$BUILD$TAG.${PKGTYPE:-tgz}
 
 echo "Cleaning up build directory"
-cd $TMP; rm -rf $PRGNAM-$VERSION $PKG
+cd $WRK; rm -rf $PRGNAM-$VERSION $PKG

@@ -1,9 +1,9 @@
---- data/Xsession.orig	2010-01-31 20:48:08.695677408 -0200
-+++ data/Xsession	2010-01-31 20:47:48.260223292 -0200
+--- a/data/Xsession	2011-07-29 20:42:33.000000000 +0700
++++ b/data/Xsession	2012-10-18 17:48:22.364247819 +0700
 @@ -2,6 +2,11 @@
-
+ 
  # use bash for "exec -l", howto run login shell by /bin/sh ?
-
+ 
 +[[ -f /etc/profile ]] && . /etc/profile
 +[[ -f "$HOME/.profile" ]] && . "$HOME/.profile"
 +[[ -f /etc/xprofile ]] && . /etc/xprofile
@@ -12,3 +12,16 @@
  if [ $# -eq 1 -a -n "$1" ]; then
  	LXSESSION=$1
  else
+@@ -36,11 +41,6 @@
+ 	if [ -x /etc/lxdm/xinitrc ]; then
+ 		. /etc/lxdm/xinitrc
+ 	fi
+-	if ! [ -z "$XDG_SESSION_COOKIE" ]; then
+-		CK_XINIT_SESSION=
+-	elif [ -x /usr/bin/ck-launch-session ]; then
+-		CK_XINIT_SESSION="/usr/bin/ck-launch-session"
+-	fi
+-	exec -l $SHELL -c "$CK_XINIT_SESSION \"$LXSESSION\""
++	exec -l $SHELL -c "$LXSESSION"
+ fi
+ 

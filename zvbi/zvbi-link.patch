@@ -1,0 +1,10 @@
+--- zvbi-0.2.33/src/Makefile.am.orig	2008-02-19 01:35:14.000000000 +0100
++++ zvbi-0.2.33/src/Makefile.am	2011-11-06 21:08:18.708431447 +0100
+@@ -118,6 +118,7 @@
+ 	misc.c \
+ 	proxy-client.c \
+ 	proxy-msg.c
++libzvbi_chains_la_LIBADD = -ldl
+ 
+ if MAINTAINER_MODE
+ 

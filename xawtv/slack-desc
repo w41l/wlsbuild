@@ -1,0 +1,12 @@
+     |-----handy-ruler------------------------------------------------------|
+xawtv: xawtv (Video4Linux TV application)
+xawtv:
+xawtv: xawtv is an X Window System application for watching TV with your Linux
+xawtv: computer.  It supports video4linux devices (for example bttv cards,
+xawtv: various USB webcams, and more). It uses the Athena widgets.
+xawtv:
+xawtv: URL: http://gnome.org/projects/xawtv/
+xawtv:
+xawtv:
+xawtv:
+xawtv: Packaged by Widya Walesa <walecha99@gmail.com>

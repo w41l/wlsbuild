@@ -1,0 +1,11 @@
+--- zvbi-0.2.32/contrib/Makefile.am.orig	2008-08-17 11:35:11.000000000 +0200
++++ zvbi-0.2.32/contrib/Makefile.am	2008-08-27 17:07:34.990113358 +0200
+@@ -19,7 +19,7 @@
+ 	README
+ 
+ AM_CPPFLAGS = \
+-	-I$(top_srcdir) \
++	-I$(top_srcdir)/src \
+ 	$(X_CFLAGS) \
+ 	-D_REENTRANT \
+ 	-D_GNU_SOURCE

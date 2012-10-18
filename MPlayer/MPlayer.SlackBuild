@@ -26,7 +26,7 @@
 PRGNAM=MPlayer
 VERSION=1.1
 FFVERSION=20120514
-BUILD=1
+BUILD=2
 TAG=${TAG:-_wls}
 NUMJOBS=${NUMJOBS:--j4}
 
@@ -102,6 +102,7 @@ LANGUAGES="en"
   --disable-dvdread-internal \
   --disable-libdvdcss-internal \
   --disable-pulse \
+  --disable-mp3lib \
   --enable-menu \
   --enable-x264 \
   --enable-faac \

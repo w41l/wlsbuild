@@ -24,7 +24,7 @@
 # YOUR DATA IS DESTROYED, YOUR HOUSE BURNS DOWN OR YOUR DOG RUNS OFF.
 
 PRGNAM=razorqt
-VERSION=0.4.99_20120923
+VERSION=0.5.0
 BUILD=1
 TAG=${TAG:-_wls}
 NUMJOBS=${NUMJOBS:--j4}
@@ -79,21 +79,23 @@ cd build
     -DCMAKE_C_FLAGS="$SLKCFLAGS" \
     -DCMAKE_CXX_FLAGS="$SLKCFLAGS" \
     -DCMAKE_INSTALL_PREFIX=/usr \
-    -DLIB_SUFFIX=${LIBDIRSUFFIX} \
+    -DLIB_SUFFIX=${LIBDIRSUFFIX}
 
   make VERBOSE=1
   make install DESTDIR=$PKG
 cd -
 
-mkdir -p $PKG/etc/razor/xdg
-mv $PKG/etc/xdg/menus $PKG/etc/razor/xdg/
+mkdir -p $PKG/etc/razorqt/xdg
+mv $PKG/etc/xdg/menus $PKG/etc/razorqt/xdg/
 
 mkdir -p $PKG/etc/X11/xinit
-cat $CWD/xinitrc.razor > $PKG/etc/X11/xinit/xinitrc.razor
-chmod +x $PKG/etc/X11/xinit/xinitrc.razor
+cat $CWD/xinitrc.razorqt > $PKG/etc/X11/xinit/xinitrc.razorqt
+chmod +x $PKG/etc/X11/xinit/xinitrc.razorqt
 
-mkdir -p $PKG/usr/share/xsessions
-cat $CWD/razor.desktop > $PKG/usr/share/xsessions/razor.desktop
+mkdir -p $PKG/etc/profile.d
+cat $CWD/razorqt.sh > $PKG/etc/profile.d/razorqt.sh
+cat $CWD/razorqt.csh > $PKG/etc/profile.d/razorqt.csh
+chmod +x $PKG/etc/profile.d/razorqt.*
 
 find $PKG | xargs file | grep -e "executable" -e "shared object" | grep ELF \
   | cut -f 1 -d : | xargs strip --strip-unneeded 2> /dev/null || true
@@ -103,7 +105,6 @@ cp -a ${DOCS} $PKG/usr/doc/$PRGNAM-$VERSION
 cat $CWD/$PRGNAM.SlackBuild > $PKG/usr/doc/$PRGNAM-$VERSION/$PRGNAM.SlackBuild
 
 mkdir -p $PKG/install
-cat $CWD/doinst.sh > $PKG/install/doinst.sh
 cat $CWD/slack-desc > $PKG/install/slack-desc
 cat $CWD/slack-required > $PKG/install/slack-required
 

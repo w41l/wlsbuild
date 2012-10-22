@@ -1,0 +1,19 @@
+# HOW TO EDIT THIS FILE:
+# The "handy ruler" below makes it easier to edit a package description.  Line
+# up the first '|' above the ':' following the base package name, and the '|' on
+# the right side marks the last column you can put a character in.  You must make
+# exactly 11 lines for the formatting to be correct.  It's also customary to
+# leave one space after the ':'.
+
+   |-----handy-ruler---------------------------------------------------|
+ktv: ktv
+ktv:
+ktv: an analog tv viewer which uses mplayer and is written in c++ with
+ktv: the Qt4 framework. It is released under the GPLv2 license.
+ktv:
+ktv: URL: http://jerous.thimhallan.org/static//ktv/
+ktv:
+ktv:
+ktv:
+ktv:
+ktv: packaged by: Widya Walesa <walecha99@gmail.com>

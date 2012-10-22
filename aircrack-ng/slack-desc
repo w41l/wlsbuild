@@ -1,0 +1,19 @@
+# HOW TO EDIT THIS FILE:
+# The "handy ruler" below makes it easier to edit a package description.  Line
+# up the first '|' above the ':' following the base package name, and the '|' on
+# the right side marks the last column you can put a character in.  You must make
+# exactly 11 lines for the formatting to be correct.  It's also customary to
+# leave one space after the ':'.
+
+           |-----handy-ruler---------------------------------------------------|
+aircrack-ng: aircrack-ng (Wireless sniffer and key cracker)
+aircrack-ng:
+aircrack-ng: aircrack-ng is a set of tools for auditing wireless networks. It's
+aircrack-ng: an enhanced/reborn version of aircrack. It consists of airodump-ng
+aircrack-ng: (an 802.11 packet capture program), aireplay-ng (an 802.11 packet
+aircrack-ng: injection program), aircrack (static WEP and WPA-PSK cracking),
+aircrack-ng: airdecap-ng (decrypts WEP/WPA capture files), and some tools to
+aircrack-ng: handle capture files (merge, convert, etc.).
+aircrack-ng: URL: http://www.aircrack-ng.org/
+aircrack-ng:
+aircrack-ng: packaged by: Widya Walesa <walecha99@gmail.com>

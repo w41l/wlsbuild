@@ -1,0 +1,19 @@
+# HOW TO EDIT THIS FILE:
+# The "handy ruler" below makes it easier to edit a package description.  Line
+# up the first '|' above the ':' following the base package name, and the '|' on
+# the right side marks the last column you can put a character in.  You must make
+# exactly 11 lines for the formatting to be correct.  It's also customary to
+# leave one space after the ':'.
+
+             |-----handy-ruler---------------------------------------------------|
+gnome-mplayer: gnome-mplayer (GNOME MPlayer GUI)
+gnome-mplayer:
+gnome-mplayer: A GTK2/GTK3 interface to MPlayer. The power of MPlayer combined with
+gnome-mplayer: a friendly interface for your desktop; You can play all your
+gnome-mplayer: multimedia (audio, video, CD, DVDs, and VCDs, streams etc.), organize,
+gnome-mplayer: sort and create playlists, take screenshots while playing videos,
+gnome-mplayer: be notified about media changes.
+gnome-mplayer:
+gnome-mplayer: URL: http://code.google.com/p/gnome-mplayer/
+gnome-mplayer:
+gnome-mplayer: packaged by: Widya Walesa <walecha99@gmail.com>

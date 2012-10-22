@@ -1,6 +1,6 @@
 #!/bin/sh
 
-# Slackware build script for xawtv
+# Slackware build script for reaver
 
 # Copyright 2012  Widya Walesa <walecha99@gmail.com>
 # All rights reserved.
@@ -23,11 +23,11 @@
 # ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. FURTHERMORE I AM NOT LIABLE IF
 # YOUR DATA IS DESTROYED, YOUR HOUSE BURNS DOWN OR YOUR DOG RUNS OFF.
 
-PRGNAM=xawtv
-VERSION=3.102
-BUILD=2
-TAG=${TAG:-_wls}
-NUMJOBS=${NUMJOBS:--j4}
+PRGNAM=reaver
+VERSION=1.4
+BUILD=1
+TAG="_wls"
+NUMJOBS="-j4"
 
 if [ -z "$ARCH" ]; then
   case "$( uname -m )" in
@@ -41,7 +41,7 @@ CWD=$(pwd)
 WRK=${WRK:-/tmp/wlsbuild}
 PKG=$WRK/package-$PRGNAM
 OUTPUT=${OUTPUT:-/tmp}
-DOCS="COPYING Changes MAKEDEV.v4l README README.bttv README.lirc README.network README.recording README.translate README.xfree4 TODO"
+DOCS="docs/LICENSE docs/README*"
 
 if [ "$ARCH" = "i486" ]; then
   SLKCFLAGS="-O2 -pipe -march=i486 -mtune=i686"
@@ -50,7 +50,7 @@ elif [ "$ARCH" = "i686" ]; then
   SLKCFLAGS="-O2 -pipe -march=i686 -mtune=i686"
   LIBDIRSUFFIX=""
 elif [ "$ARCH" = "x86_64" ]; then
-  SLKCFLAGS="-O2 -pipe -m64 -fPIC"
+  SLKCFLAGS="-O2 -m64 -pipe -fPIC"
   LIBDIRSUFFIX="64"
 else
   SLKCFLAGS="-O2"
@@ -63,7 +63,7 @@ rm -rf $PKG
 mkdir -p $WRK $PKG $OUTPUT
 cd $WRK
 rm -rf $PRGNAM-$VERSION
-tar xvf $CWD/$PRGNAM-$VERSION.tar.bz2
+tar xvf $CWD/$PRGNAM-$VERSION.tar.gz
 cd $PRGNAM-$VERSION
 
 chown -R root:root .
@@ -73,8 +73,7 @@ find . \
  \( -perm 666 -o -perm 664 -o -perm 600 -o -perm 444 -o -perm 440 -o -perm 400 \) \
  -exec chmod 644 {} \;
 
-./autogen.sh
-make distclean
+cd src
 
 CFLAGS="$SLKCFLAGS" \
 CXXFLAGS="$SLKCFLAGS" \
@@ -86,10 +85,30 @@ CXXFLAGS="$SLKCFLAGS" \
   --libdir=/usr/lib$LIBDIRSUFFIX --includedir=/usr/include \
   --mandir=/usr/man --infodir=/usr/info \
   --sysconfdir=/etc --docdir=/usr/doc/$PRGNAM-$VERSION \
-  --localstatedir=/var --sharedstatedir=/var/lib
+  --localstatedir=/var --sharedstatedir=/var/lib \
 
 make V=1
-make install DESTDIR=$PKG
+
+rm -f $PKG/usr/bin/reaver $PKG/usr/bin/wash $PKG/usr/bin/walsh
+if [ ! -d $PKG/etc/reaver ]; then
+    mkdir -p $PKG/etc/reaver;
+fi
+if [ ! -e $PKG/etc/reaver/reaver.db ]; then
+    cp reaver.db $PKG/etc/reaver/reaver.db && chmod -R a+rw $PKG/etc/reaver;
+fi
+if [ -e wash ]; then
+    mkdir -p $PKG/usr/bin;
+    cp wash $PKG/usr/bin/wash;
+fi
+if [ -e reaver ]; then
+    mkdir -p $PKG/usr/bin;
+    cp reaver $PKG/usr/bin/reaver;
+fi
+
+cd -
+
+mkdir -p $PKG/usr/man/man1
+cp docs/reaver.1.gz $PKG/usr/man/man1
 
 find $PKG | xargs file | grep -e "executable" -e "shared object" | grep ELF \
   | cut -f 1 -d : | xargs strip --strip-unneeded 2> /dev/null || true
@@ -103,8 +122,6 @@ cat $CWD/$PRGNAM.SlackBuild > $PKG/usr/doc/$PRGNAM-$VERSION/$PRGNAM.SlackBuild
 
 mkdir -p $PKG/install
 cat $CWD/slack-desc > $PKG/install/slack-desc
-cat $CWD/slack-required > $PKG/install/slack-required
-cat $CWD/doinst.sh > $PKG/install/doinst.sh
 
 cd $PKG
 /sbin/makepkg -l y -c n $OUTPUT/$PRGNAM-$VERSION-$ARCH-$BUILD$TAG.${PKGTYPE:-tgz}

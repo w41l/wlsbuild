@@ -1,6 +1,6 @@
 #!/bin/sh
 
-# Slackware build script for xawtv
+# Slackware build script for ktv
 
 # Copyright 2012  Widya Walesa <walecha99@gmail.com>
 # All rights reserved.
@@ -23,11 +23,11 @@
 # ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. FURTHERMORE I AM NOT LIABLE IF
 # YOUR DATA IS DESTROYED, YOUR HOUSE BURNS DOWN OR YOUR DOG RUNS OFF.
 
-PRGNAM=xawtv
-VERSION=3.102
-BUILD=2
+PRGNAM=ktv
+VERSION=c88b561
+BUILD=1
 TAG=${TAG:-_wls}
-NUMJOBS=${NUMJOBS:--j4}
+NUMJOBS=${NUMJOBS:--j1}
 
 if [ -z "$ARCH" ]; then
   case "$( uname -m )" in
@@ -41,13 +41,13 @@ CWD=$(pwd)
 WRK=${WRK:-/tmp/wlsbuild}
 PKG=$WRK/package-$PRGNAM
 OUTPUT=${OUTPUT:-/tmp}
-DOCS="COPYING Changes MAKEDEV.v4l README README.bttv README.lirc README.network README.recording README.translate README.xfree4 TODO"
+DOCS="input.conf"
 
 if [ "$ARCH" = "i486" ]; then
   SLKCFLAGS="-O2 -pipe -march=i486 -mtune=i686"
   LIBDIRSUFFIX=""
 elif [ "$ARCH" = "i686" ]; then
-  SLKCFLAGS="-O2 -pipe -march=i686 -mtune=i686"
+  SLKCFLAGS="-O2 -pipe -march=i686 -mtune=i686 -fPIC"
   LIBDIRSUFFIX=""
 elif [ "$ARCH" = "x86_64" ]; then
   SLKCFLAGS="-O2 -pipe -m64 -fPIC"
@@ -63,8 +63,10 @@ rm -rf $PKG
 mkdir -p $WRK $PKG $OUTPUT
 cd $WRK
 rm -rf $PRGNAM-$VERSION
-tar xvf $CWD/$PRGNAM-$VERSION.tar.bz2
+tar xvf $CWD/$PRGNAM-$VERSION.tar.xz
 cd $PRGNAM-$VERSION
+
+cat $CWD/$PRGNAM-gcc-4.7.patch | patch -p1
 
 chown -R root:root .
 find . \
@@ -73,41 +75,38 @@ find . \
  \( -perm 666 -o -perm 664 -o -perm 600 -o -perm 444 -o -perm 440 -o -perm 400 \) \
  -exec chmod 644 {} \;
 
-./autogen.sh
-make distclean
-
+mkdir -p $PKG/usr
 CFLAGS="$SLKCFLAGS" \
 CXXFLAGS="$SLKCFLAGS" \
-./configure \
-  --build=$ARCH-slackware-linux --host=$ARCH-slackware-linux \
-  --program-prefix= --program-suffix= \
-  --prefix=/usr --exec-prefix=/usr \
-  --bindir=/usr/bin --sbindir=/usr/sbin \
-  --libdir=/usr/lib$LIBDIRSUFFIX --includedir=/usr/include \
-  --mandir=/usr/man --infodir=/usr/info \
-  --sysconfdir=/etc --docdir=/usr/doc/$PRGNAM-$VERSION \
-  --localstatedir=/var --sharedstatedir=/var/lib
+qmake ktv.pro PREFIX=/usr INSTALL_PREFIX=$PKG/usr
 
-make V=1
-make install DESTDIR=$PKG
+make PREFIX=/usr INSTALL_PREFIX=$PKG/usr
+
+# manually install the binaries
+mkdir -p $PKG/usr/bin
+cp -a bin/ktv $PKG/usr/bin
+
+mkdir -p $PKG/usr/share/applications
+cat $CWD/ktv.desktop  > $PKG/usr/share/applications/ktv.desktop
+
+mkdir -p $PKG/usr/share/icons/hicolor
+cp -r $CWD/icons/* $PKG/usr/share/icons/hicolor
+# done
 
 find $PKG | xargs file | grep -e "executable" -e "shared object" | grep ELF \
   | cut -f 1 -d : | xargs strip --strip-unneeded 2> /dev/null || true
 
-find $PKG/usr/man -type f -exec gzip -9 {} \;
-for i in $( find $PKG/usr/man -type l ) ; do ln -s $( readlink $i ).gz $i.gz ; rm $i ; done
-
 mkdir -p $PKG/usr/doc/$PRGNAM-$VERSION
-cp -a $DOCS $PKG/usr/doc/$PRGNAM-$VERSION
+cp -a ${DOCS} $PKG/usr/doc/$PRGNAM-$VERSION
 cat $CWD/$PRGNAM.SlackBuild > $PKG/usr/doc/$PRGNAM-$VERSION/$PRGNAM.SlackBuild
 
 mkdir -p $PKG/install
+cat $CWD/doinst.sh > $PKG/install/doinst.sh
 cat $CWD/slack-desc > $PKG/install/slack-desc
 cat $CWD/slack-required > $PKG/install/slack-required
-cat $CWD/doinst.sh > $PKG/install/doinst.sh
 
 cd $PKG
 /sbin/makepkg -l y -c n $OUTPUT/$PRGNAM-$VERSION-$ARCH-$BUILD$TAG.${PKGTYPE:-tgz}
 
 echo "Cleaning up build directory"
-cd $WRK; rm -rf $PRGNAM-$VERSION $PKG
+cd $WRK ; rm -rf $PKG $PRGNAM-$VERSION

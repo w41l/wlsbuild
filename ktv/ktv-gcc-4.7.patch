@@ -1,0 +1,15 @@
+diff -Naur a/src/ktv.h b/src/ktv.h
+--- a/src/ktv.h	2012-10-20 14:34:15.064388064 +0700
++++ b/src/ktv.h	2012-10-20 14:35:59.879421063 +0700
+@@ -5,6 +5,11 @@
+ #include <QtCore/QTimer>
+ #include <QtGui/QListWidgetItem>
+ 
++// Many of the standard C++ library include files have been edited to no longer
++// include <unistd.h> to remove namespace pollution. We include it here.
++#if defined(__GNUC__) && __GNUC__ == 4 && __GNUC_MINOR__ == 7 && __GNUC_PATCHLEVEL__ >= 0
++#include <unistd.h>
++#endif
+ 
+ class KTV;
+ namespace scheduler {

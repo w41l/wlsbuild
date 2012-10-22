@@ -1,0 +1,9 @@
+[Desktop Entry]
+Name=Qt TV
+Comment=Watching television using MPlayer
+Exec=ktv
+Icon=freetuxtv
+Terminal=false
+Type=Application
+Categories=AudioVideo;
+

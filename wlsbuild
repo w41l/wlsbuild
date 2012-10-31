@@ -72,7 +72,7 @@ nss-mdns
 {glib-networking}
 {libsoup}
 {libtasn1}
-usbmuxd - clang
+usbmuxd
 libimobiledevice
 ifuse
 {upower}
@@ -115,12 +115,13 @@ glade3
 gnome-media
 libgnomekbd
 gnome-settings-daemon
-libtop
+libgtop
 {pygtk}
 pyorbit
 libgnomeui
 gnome-python
 gnome-applets
+cinnamon
 pam
 gnome-screensaver
 gnome-power-manager

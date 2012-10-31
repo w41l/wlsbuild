@@ -1,0 +1,5 @@
+clutter
+clutter-gtk
+cogl
+json-glib
+zenity

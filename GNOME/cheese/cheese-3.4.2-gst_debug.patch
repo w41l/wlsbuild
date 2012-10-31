@@ -1,0 +1,50 @@
+diff -Naur a/libcheese/cheese-camera.c b/libcheese/cheese-camera.c
+--- a/libcheese/cheese-camera.c	2012-05-15 01:50:44.000000000 +0700
++++ b/libcheese/cheese-camera.c	2012-10-30 15:54:29.236216819 +0700
+@@ -1231,10 +1231,8 @@
+ {
+   GObjectClass *object_class = G_OBJECT_CLASS (klass);
+ 
+-  if (cheese_camera_cat == NULL)
+-    GST_DEBUG_CATEGORY_INIT (cheese_camera_cat,
+-                             "cheese-camera",
+-                             0, "Cheese Camera");
++  GST_DEBUG_CATEGORY_INIT (cheese_camera_cat,
++                          "cheese-camera", 0, "Cheese Camera");
+ 
+   object_class->finalize     = cheese_camera_finalize;
+   object_class->get_property = cheese_camera_get_property;
+diff -Naur a/libcheese/cheese-camera-device.c b/libcheese/cheese-camera-device.c
+--- a/libcheese/cheese-camera-device.c	2012-03-20 17:46:57.000000000 +0700
++++ b/libcheese/cheese-camera-device.c	2012-10-30 15:56:07.397264549 +0700
+@@ -523,10 +523,9 @@
+ {
+   GObjectClass *object_class = G_OBJECT_CLASS (klass);
+ 
+-  if (cheese_camera_device_cat == NULL)
+-    GST_DEBUG_CATEGORY_INIT (cheese_camera_device_cat,
+-                             "cheese-camera-device",
+-                             0, "Cheese Camera Device");
++  GST_DEBUG_CATEGORY_INIT (cheese_camera_device_cat,
++                          "cheese-camera-device",
++                           0, "Cheese Camera Device");
+ 
+   object_class->finalize     = cheese_camera_device_finalize;
+   object_class->get_property = cheese_camera_device_get_property;
+diff -Naur a/libcheese/cheese-camera-device-monitor.c b/libcheese/cheese-camera-device-monitor.c
+--- a/libcheese/cheese-camera-device-monitor.c	2012-03-20 17:46:57.000000000 +0700
++++ b/libcheese/cheese-camera-device-monitor.c	2012-10-30 15:57:30.595311164 +0700
+@@ -387,10 +387,9 @@
+ {
+   GObjectClass *object_class = G_OBJECT_CLASS (klass);
+ 
+-  if (cheese_device_monitor_cat == NULL)
+-    GST_DEBUG_CATEGORY_INIT (cheese_device_monitor_cat,
+-                             "cheese-device-monitor",
+-                             0, "Cheese Camera Device Monitor");
++  GST_DEBUG_CATEGORY_INIT (cheese_device_monitor_cat,
++                           "cheese-device-monitor",
++                           0, "Cheese Camera Device Monitor");
+ 
+   object_class->finalize = cheese_camera_device_monitor_finalize;
+ 

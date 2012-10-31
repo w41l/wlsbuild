@@ -1,0 +1,20 @@
+# HOW TO EDIT THIS FILE:
+# The "handy ruler" below makes it easier to edit a package description.  Line
+# up the first '|' above the ':' following the base package name, and the '|'
+# on the right side marks the last column you can put a character in.  You must
+# make exactly 11 lines for the formatting to be correct.  It's also
+# customary to leave one space after the ':'.
+
+              |-----handy-ruler------------------------------------------------------|
+gnome-terminal: gnome-terminal (GNOME Terminal Emulator)
+gnome-terminal:
+gnome-terminal: GNOME Terminal is a terminal emulation application that you can use 
+gnome-terminal: to access a UNIX shell in the GNOME environment, and run any
+gnome-terminal: application that is designed to run on VT102, VT220, and xterm
+gnome-terminal: terminals. GNOME Terminal features the ability to use multiple 
+gnome-terminal: terminals in a single window with tabs and multiple profiles support.
+gnome-terminal:
+gnome-terminal:
+gnome-terminal:
+gnome-terminal: Packaged by Widya Walesa <walecha99@gmail.com>
+

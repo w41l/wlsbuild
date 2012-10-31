@@ -21,10 +21,21 @@ if [ -f $usermodmap ]; then
     xmodmap $usermodmap
 fi
 
-# Use ConsoleKit if available
-if [ -z "${XDG_SESSION_COOKIE}" -a -x /usr/bin/ck-launch-session ]; then
-  CK_SESSION="/usr/bin/ck-launch-session"
+RAZORQT_SESSION_SETTINGS=
+
+# Use ssh-agent if available
+if [ -x /usr/bin/ssh-agent ]; then
+  RAZORQT_SESSION_SETTINGS="$RAZORQT_SESSION_SETTINGS /usr/bin/ssh-agent"
 fi;
 
-# Start the window manager
-exec $CK_SESSION startrazor
+# Use dbus-launch if available
+if [ -x /usr/bin/dbus-launch ]; then
+  RAZORQT_SESSION_SETTINGS="$RAZORQT_SESSION_SETTINGS /usr/bin/dbus-launch --exit-with-session"
+fi;
+
+# Use ConsoleKit if available
+if [ -z "${XDG_SESSION_COOKIE}" -a -x /usr/bin/ck-launch-session ]; then
+  /usr/bin/ck-launch-session $RAZORQT_SESSION_SETTINGS /usr/bin/startrazor
+else
+  $RAZORQT_SESSION_SETTINGS /usr/bin/startrazor
+fi;

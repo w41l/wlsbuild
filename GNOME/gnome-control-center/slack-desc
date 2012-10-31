@@ -1,0 +1,19 @@
+# HOW TO EDIT THIS FILE:
+# The "handy ruler" below makes it easier to edit a package description.  Line
+# up the first '|' above the ':' following the base package name, and the '|'
+# on the right side marks the last column you can put a character in.  You must
+# make exactly 11 lines for the formatting to be correct.  It's also
+# customary to leave one space after the ':'.
+
+                    |-----handy-ruler------------------------------------------------------|
+gnome-control-center: gnome-control-center (GNOME Control Panel)
+gnome-control-center:
+gnome-control-center: The GNOME Control Center is a configuration tool for easily setting
+gnome-control-center: your GNOME environment.  It allows you to configure various parts of
+gnome-control-center: your system using a collection of tools called "capplets". These
+gnome-control-center: capplets may be associated with the core set of GNOME applications or
+gnome-control-center: other applications for which the developers have written capplets.
+gnome-control-center:
+gnome-control-center:
+gnome-control-center:
+gnome-control-center: Packaged by Widya Walesa <walecha99@gmail.com>

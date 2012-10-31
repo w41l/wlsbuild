@@ -89,9 +89,6 @@ CXXFLAGS="$SLKCFLAGS" \
   --enable-introspection
 
 make V=1
-
-CFLAGS="$SLKCFLAGS" \
-CXXFLAGS="$SLKCFLAGS" \
 make DESTDIR=$PKG install
 
 find $PKG | xargs file | grep -e "executable" -e "shared object" | grep ELF \

@@ -1,0 +1,63 @@
+#!/bin/sh
+#
+# GNOME SlackBuild xinitrc GNOME Session script.
+#
+# Changelog:
+#
+#  Added seahorse-agent again, found in seahorse-plugins. (2010-04-10) stevek
+#  Removed seahorse-agent, now in /etc/gnome/xdg/autostart (2009-30-07) stevek
+#  Added ConsoleKit support (2008-10-30) stevek
+#  Remove unneeded user started dbus session (2008-03-28) stevek
+#  Add export to XDG_CONFIG_DIRS (2008-03-19) stevek
+#  Inital version (2008-01-17) stevek
+#
+
+userresources=$HOME/.Xresources
+usermodmap=$HOME/.Xmodmap
+sysresources=/usr/lib/X11/xinit/.Xresources
+sysmodmap=/usr/lib/X11/xinit/.Xmodmap
+
+# default session settings
+GNOME_SESSION_SETTINGS=""
+
+# We keep the GNOME menu templates separate from KDE so the two
+# don't interfere with each other. This path may be extended to
+# include the KDE menu path /etc/kde/xdg if the user wishes.
+#export XDG_CONFIG_DIRS=/etc/xdg:/etc/gnome/xdg
+
+# Merge in defaults and keymaps
+if [ -f $sysresources ]; then
+    xrdb -merge $sysresources
+fi
+if [ -f $sysmodmap ]; then
+    xmodmap $sysmodmap
+fi
+if [ -f $userresources ]; then
+    xrdb -merge $userresources
+fi
+if [ -f $usermodmap ]; then
+    xmodmap $usermodmap
+fi
+
+# Use ssh-agent if available
+if [ -x /usr/bin/ssh-agent ]; then
+  GNOME_SESSION_SETTINGS="$GNOME_SESSION_SETTINGS /usr/bin/ssh-agent"
+fi;
+
+# Use seahorse-agent if available from seahorse-plugins
+if [ -x /usr/bin/seahorse-agent ]; then
+  GNOME_SESSION_SETTINGS="$GNOME_SESSION_SETTINGS /usr/bin/seahorse-agent --execute"
+fi;
+
+# Use dbus-launch if available
+if [ -x /usr/bin/dbus-launch ]; then
+  GNOME_SESSION_SETTINGS="$GNOME_SESSION_SETTINGS /usr/bin/dbus-launch --exit-with-session"
+fi;
+
+# Use ConsoleKit if available
+if [ -z "${XDG_SESSION_COOKIE}" -a -x /usr/bin/ck-launch-session ]; then
+  CK_SESSION="/usr/bin/ck-launch-session"
+fi;
+
+# Start the window manager
+exec $GNOME_SESSION_SETTINGS $CK_SESSION gnome-session --session cinnamon

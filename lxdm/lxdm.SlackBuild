@@ -24,8 +24,8 @@
 # YOUR DATA IS DESTROYED, YOUR HOUSE BURNS DOWN OR YOUR DOG RUNS OFF.
 
 PRGNAM=lxdm
-VERSION=0.4.1
-BUILD=2
+VERSION=20121024
+BUILD=1
 TAG=${TAG:-_wls}
 NUMJOBS=${NUMJOBS:--j4}
 
@@ -38,7 +38,6 @@ fi
 if ! grep "^lxdm:" /etc/passwd >/dev/null 2>&1; then
   echo "Please add user lxdm";
   echo "/usr/sbin/useradd -u 52 -g lxdm -s /bin/false -c \"LXDE Display Manager daemon\" -d /var/lib/lxdm lxdm";
-  #echo "/usr/sbin/usermod -g lxdm -G lxdm -s /bin/false lxdm";
   exit 1;
 fi
 
@@ -86,7 +85,7 @@ find . \
  \( -perm 666 -o -perm 664 -o -perm 600 -o -perm 444 -o -perm 440 -o -perm 400 \) \
  -exec chmod 644 {} \;
 
-#./autogen.sh
+./autogen.sh
 
 CFLAGS="$SLKCFLAGS" \
 CXXFLAGS="$SLKCFLAGS" \
@@ -104,9 +103,9 @@ CXXFLAGS="$SLKCFLAGS" \
 
 make $NUMJOBS V=1
 
-cat $CWD/greeter.ui.patch | patch -p0
-cat $CWD/lxdm.patch | patch -p0
-cat $CWD/Xsession.patch | patch -p1
+#cat $CWD/greeter.ui.patch | patch -p0
+#cat $CWD/lxdm.patch | patch -p0
+#cat $CWD/Xsession.patch | patch -p1
 
 make install DESTDIR=$PKG
 

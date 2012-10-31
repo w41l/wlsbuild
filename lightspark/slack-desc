@@ -1,0 +1,19 @@
+# HOW TO EDIT THIS FILE:
+# The "handy ruler" below makes it easier to edit a package description.  Line
+# up the first '|' above the ':' following the base package name, and the '|'
+# on the right side marks the last column you can put a character in.  You must
+# make exactly 11 lines for the formatting to be correct.  It's also
+# customary to leave one space after the ':'.
+
+          |-----handy-ruler------------------------------------------------------|
+lightspark: lightspark (Flash Player Plugin)
+lightspark:
+lightspark: Lightspark is a modern, free, open-source flash player implementation.
+lightspark: Lightspark features:
+lightspark: * JIT compilation of Actionscript to native x86 bytecode using LLVM
+lightspark: * Hardware accelerated rendering using OpenGL Shaders (GLSL)
+lightspark: * Very good and robust support for current-generation Actionscript 3
+lightspark: * A new, clean, codebase exploiting multithreading and optimized for
+lightspark: modern hardware. Designed from scratch after the official Flash
+lightspark: documentation was released.
+lightspark: URL: https://launchpad.net/lightspark

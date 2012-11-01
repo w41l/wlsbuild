@@ -1,23 +1,23 @@
-[FROM SLACKWARE]
-{glib2}
-{gtk+2}
-{gsettings-desktop-schemas}
-{libgnome-keyring}
-{GConf}
-{sg3_utils}
-{libatasmart}
-{udisks}
-{libproxy}
-{glib-networking}
-{libsoup}
-{libtasn1}
-{upower}
-{gnome-keyring}
-{libcanberra}
-{gvfs}
-{seamonkey} (Only for building, use seamonkey-solibs for runtime)
-{pygtk}
-{icu4c}
+[PROVIDED BY SLACKWARE]
+glib2
+gtk+2
+gsettings-desktop-schemas
+libgnome-keyring
+GConf
+sg3_utils
+libatasmart
+udisks
+libproxy
+glib-networking
+libsoup
+libtasn1
+upower
+gnome-keyring
+libcanberra
+gvfs
+seamonkey (Only for building, use seamonkey-solibs for runtime)
+pygtk
+icu4c
 
 [BUILD TOOLKIT] (can be removed after GNOME3 building finished)
 setuptools
@@ -117,6 +117,7 @@ evince
 gthumb
 gnome-power-manager
 epiphany
+epiphany-extensions
 gmtk
 gnome-mplayer
 glade3

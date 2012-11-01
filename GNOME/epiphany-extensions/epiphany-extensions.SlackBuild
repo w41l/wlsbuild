@@ -1,6 +1,6 @@
 #!/bin/sh
 
-# Slackware build script for epiphany
+# Slackware build script for epiphany-extensions
 
 # Copyright 2011-2012  Widya Walesa <walecha99@gmail.com>
 # All rights reserved.
@@ -23,8 +23,8 @@
 # ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. FURTHERMORE I AM NOT LIABLE IF
 # YOUR DATA IS DESTROYED, YOUR HOUSE BURNS DOWN OR YOUR DOG RUNS OFF.
 
-PRGNAM=epiphany
-VERSION=3.4.3
+PRGNAM=epiphany-extensions
+VERSION=3.4.0
 BUILD=1
 TAG=${TAG:-_wls}
 NUMJOBS=${NUMJOBS:--j1}
@@ -41,7 +41,9 @@ CWD=$(pwd)
 WRK=${WRK:-/tmp/wlsbuild}
 PKG=$WRK/package-$PRGNAM
 OUTPUT=${OUTPUT:-/tmp}
-DOCS="AUTHORS ChangeLog COPY* HACKING MAINTAINERS NEWS README TODO"
+DOCS="AUTHORS COPYING* ChangeLog HACKING NEWS README TODO"
+
+EXTS="actions,adblock,auto-reload,certificates,error-viewer,extensions-manager-ui,gestures,greasemonkey,html5tube,java-console,livehttpheaders,page-info,push-scroller,rss,sample,select-stylesheet,smart-bookmarks,soup-fly,tab-states"
 
 if [ "$ARCH" = "i486" ]; then
   SLKCFLAGS="-O2 -pipe -march=i486 -mtune=i686"
@@ -84,19 +86,14 @@ CXXFLAGS="$SLKCFLAGS" \
   --sysconfdir=/etc --docdir=/usr/doc/$PRGNAM-$VERSION \
   --localstatedir=/var --sharedstatedir=/var/lib \
   --disable-static --enable-shared \
-  --disable-gtk-doc \
-  --disable-schemas-install \
   --disable-schemas-compile \
-  --with-extensions=all \
+  --with-extensions="${EXTS}" \
 
 make V=1
 make install DESTDIR=$PKG
 
 find $PKG | xargs file | grep -e "executable" -e "shared object" | grep ELF \
   | cut -f 1 -d : | xargs strip --strip-unneeded 2> /dev/null || true
-
-find $PKG/usr/man -type f -exec gzip -9 {} \;
-for i in $( find $PKG/usr/man -type l ) ; do ln -s $( readlink $i ).gz $i.gz ; rm $i ; done
 
 mkdir -p $PKG/usr/doc/$PRGNAM-$VERSION
 cp -a $DOCS $PKG/usr/doc/$PRGNAM-$VERSION

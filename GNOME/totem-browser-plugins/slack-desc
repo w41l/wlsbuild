@@ -1,0 +1,12 @@
+                     |-----handy-ruler------------------------------------------------------|
+totem-browser-plugins: totem-browser-plugins (Totem Mozilla Plugins)
+totem-browser-plugins:
+totem-browser-plugins: The Totem package contains the official movie player of the GNOME
+totem-browser-plugins: Desktop Environment based on GStreamer.
+totem-browser-plugins:
+totem-browser-plugins: This package contains only the Mozilla browser plugins.
+totem-browser-plugins:
+totem-browser-plugins:
+totem-browser-plugins:
+totem-browser-plugins:
+totem-browser-plugins: Packaged by Widya Walesa <walecha99@gmail.com>

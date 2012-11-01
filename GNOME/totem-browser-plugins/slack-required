@@ -1,14 +1,11 @@
-brasero
+clutter
 clutter-gst
 clutter-gtk
-clutter
 cogl
-gnome-mime-data
-gnome-settings-daemon
 gst-plugins-bad
+json-glib
 libpeas
-libunique
 mx
 nautilus
-pylint
+totem
 totem-pl-parser

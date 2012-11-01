@@ -12,14 +12,8 @@ config() {
   # Otherwise, we leave the .new copy for the admin to consider...
 }
 
-config etc/avahi/avahi-daemon.conf.new
-config etc/avahi/hosts.new
-config etc/avahi/avahi-autoipd.action.new
-config etc/avahi/avahi-dnsconfd.action.new
-config etc/avahi/services/ssh.service.new
-config etc/avahi/services/sftp-ssh.service.new
-config etc/rc.d/rc.avahidaemon.new
-config etc/rc.d/rc.avahidnsconfd.new
+config etc/gnashrc.new
+config etc/gnashpluginrc.new
 
 if [ -x /usr/bin/update-desktop-database ]; then
   /usr/bin/update-desktop-database -q /usr/share/applications >/dev/null 2>&1

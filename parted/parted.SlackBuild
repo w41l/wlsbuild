@@ -1,8 +1,8 @@
 #!/bin/sh
 
-# Slackware build script for ffmpeg
+# Slackware build script for gparted
 
-# Copyright 2010-2012  Widya Walesa <walecha99@gmail.com>
+# Copyright 2012  Widya Walesa <walecha99@gmail.com>
 # All rights reserved.
 #
 # Redistribution and use of this script, with or without modification, is
@@ -23,11 +23,11 @@
 # ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. FURTHERMORE I AM NOT LIABLE IF
 # YOUR DATA IS DESTROYED, YOUR HOUSE BURNS DOWN OR YOUR DOG RUNS OFF.
 
-PRGNAM=ffmpeg
-VERSION=0.11.2
+PRGNAM=parted
+VERSION=3.1
 BUILD=1
 TAG=${TAG:-_wls}
-NUMJOBS=${NUMJOBS:--j3}
+NUMJOBS=${NUMJOBS:--j4}
 
 if [ -z "$ARCH" ]; then
   case "$( uname -m )" in
@@ -41,7 +41,7 @@ CWD=$(pwd)
 WRK=${WRK:-/tmp/wlsbuild}
 PKG=$WRK/package-$PRGNAM
 OUTPUT=${OUTPUT:-/tmp}
-DOCS="COPY* CREDITS Changelog INSTALL LICENSE MAINTAINERS README RELEASE VERSION"
+DOCS="AUTHORS COPYING ChangeLog INSTALL NEWS README"
 
 if [ "$ARCH" = "i486" ]; then
   SLKCFLAGS="-O2 -pipe -march=i486 -mtune=i686"
@@ -63,7 +63,7 @@ rm -rf $PKG
 mkdir -p $WRK $PKG $OUTPUT
 cd $WRK
 rm -rf $PRGNAM-$VERSION
-tar xvf $CWD/$PRGNAM-$VERSION.tar.?z*
+tar xvf $CWD/$PRGNAM-$VERSION.tar.xz
 cd $PRGNAM-$VERSION
 chown -R root:root .
 find . \
@@ -72,57 +72,21 @@ find . \
  \( -perm 666 -o -perm 664 -o -perm 600 -o -perm 444 -o -perm 440 -o -perm 400 \) \
  -exec chmod 644 {} \;
 
-echo "$VERSION" > VERSION
+CFLAGS="$SLKCFLAGS" \
+CXXFLAGS="$SLKCFLAGS" \
 ./configure \
-    --arch=${ARCH} \
-    --prefix=/usr --libdir=/usr/lib$LIBDIRSUFFIX \
-    --disable-static --enable-shared \
-    --disable-debug --target-os=linux \
-    --shlibdir=/usr/lib$LIBDIRSUFFIX \
-    --mandir=/usr/man \
-    --enable-runtime-cpudetect \
-    --enable-gpl \
-    --enable-version3 \
-    --enable-nonfree \
-    --enable-pthreads \
-    --enable-x11grab \
-    --enable-libopencore-amrnb \
-    --enable-libopencore-amrwb \
-    --enable-libdc1394 \
-    --enable-libfaac \
-    --enable-zlib \
-    --enable-libmp3lame \
-    --enable-libtheora \
-    --enable-libvorbis \
-    --enable-libx264 \
-    --enable-libxvid \
-    --enable-libschroedinger \
-    --enable-libgsm \
-    --enable-libvpx \
-    --enable-libspeex \
-    --enable-frei0r \
-    --enable-libcdio \
-    --enable-libopenjpeg \
-    --enable-librtmp \
-    --enable-libmodplug \
-    --enable-libass \
-    --enable-gnutls \
-    --enable-libv4l2 \
-    --enable-libass \
-    --enable-libfreetype \
-    --enable-openssl \
+  --build=$ARCH-slackware-linux --host=$ARCH-slackware-linux \
+  --program-prefix= --program-suffix= \
+  --prefix=/usr --exec-prefix=/usr \
+  --bindir=/usr/bin --sbindir=/usr/sbin \
+  --libdir=/usr/lib$LIBDIRSUFFIX --includedir=/usr/include \
+  --mandir=/usr/man --infodir=/usr/info \
+  --sysconfdir=/etc --docdir=/usr/doc/$PRGNAM-$VERSION \
+  --localstatedir=/var --sharedstatedir=/var/lib \
+  --disable-static --enable-shared \
 
-#    --enable-libdirac \
-#    --enable-libcaca \
-#    --enable-libbluray \
-#    --enable-fontconfig \
-#    --enable-libiec61883 \
-
-echo "$VERSION" > VERSION
 make V=1
-
 make install DESTDIR=$PKG
-make install-man DESTDIR=$PKG
 
 find $PKG | xargs file | grep -e "executable" -e "shared object" | grep ELF \
   | cut -f 1 -d : | xargs strip --strip-unneeded 2> /dev/null || true
@@ -130,19 +94,20 @@ find $PKG | xargs file | grep -e "executable" -e "shared object" | grep ELF \
 find $PKG/usr/man -type f -exec gzip -9 {} \;
 for i in $( find $PKG/usr/man -type l ) ; do ln -s $( readlink $i ).gz $i.gz ; rm $i ; done
 
+rm -rf $PKG/usr/info/dir;
+find $PKG/usr/info -type f -exec gzip -9 {} \;
+for i in $( find $PKG/usr/info -type l ) ; do ln -s $( readlink $i ).gz $i.gz ; rm $i ; done
+
 mkdir -p $PKG/usr/doc/$PRGNAM-$VERSION
 cp -a $DOCS $PKG/usr/doc/$PRGNAM-$VERSION
-cp -a -r doc $PKG/usr/doc/$PRGNAM-$VERSION/
-rm $PKG/usr/doc/$PRGNAM-$VERSION/*.1
 cat $CWD/$PRGNAM.SlackBuild > $PKG/usr/doc/$PRGNAM-$VERSION/$PRGNAM.SlackBuild
 
 mkdir -p $PKG/install
 cat $CWD/slack-desc > $PKG/install/slack-desc
-cat $CWD/slack-required > $PKG/install/slack-required
+cat $CWD/doinst.sh > $PKG/install/doinst.sh
 
 cd $PKG
 /sbin/makepkg -l y -c n $OUTPUT/$PRGNAM-$VERSION-$ARCH-$BUILD$TAG.txz
 
 echo "Cleaning up build directory"
-cd $WRK; rm -rf $PRGNAM-$VERSION $PKG
-
+cd $WRK ; rm -rf $PRGNAM-$VERSION $PKG

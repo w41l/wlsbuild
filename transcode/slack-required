@@ -1,4 +1,11 @@
-libcdio
-libxml2
-popt
-zlib
+a52dec
+faac
+ffmpeg
+lame
+libdvdread
+libdv
+libmpeg2
+libquicktime
+mjpegtools
+xvidcore
+x264

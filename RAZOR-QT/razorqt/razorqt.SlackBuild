@@ -86,8 +86,8 @@ cd build
   make install DESTDIR=$PKG
 cd -
 
-mkdir -p $PKG/etc/razorqt/xdg
-mv $PKG/etc/xdg $PKG/etc/razorqt/
+#mkdir -p $PKG/etc/razorqt/xdg
+#mv $PKG/etc/xdg $PKG/etc/razorqt/
 
 mkdir -p $PKG/etc/X11/xinit
 cat $CWD/xinitrc.razorqt > $PKG/etc/X11/xinit/xinitrc.razorqt

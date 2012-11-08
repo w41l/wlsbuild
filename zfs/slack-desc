@@ -11,7 +11,7 @@ zfs:
 zfs: The zfs package contains kernel modules and support utilities for
 zfs: the zfs file system.
 zfs:
-zfs: URL: https://github.com/zfsonlinux/
+zfs: URL: http://zfsonlinux.org/
 zfs:
 zfs:
 zfs:

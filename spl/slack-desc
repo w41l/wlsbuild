@@ -13,7 +13,7 @@ spl: primatives in the linux kernel. These include, but are not limited
 spl: to: atomic, condvar, debug, error, memory, kobject, kstat, mutex,
 spl: rwlock, taskq, thread, time, and vnode APIs. Also the spl utils.
 spl:
-spl: URL: https://github.com/zfsonlinux/
+spl: URL: http://zfsonlinux.org/
 spl:
 spl:
 spl: packaged by: Widya Walesa <walecha99@gmail.com>

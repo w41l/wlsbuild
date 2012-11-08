@@ -13,7 +13,7 @@ gtk-qtcurve-engine: applications to use QtCurve widget styles. Aimed primarily a
 gtk-qtcurve-engine: this plugin provides a way to unify the look and feel of the Linux
 gtk-qtcurve-engine: desktop.
 gtk-qtcurve-engine:
-gtk-qtcurve-engine:
+gtk-qtcurve-engine: URL: http://kde-look.org/content/show.php?content=40492
 gtk-qtcurve-engine:
 gtk-qtcurve-engine:
 gtk-qtcurve-engine: Packaged by Widya Walesa <walecha99@gmail.com>

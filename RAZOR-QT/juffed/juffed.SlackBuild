@@ -62,9 +62,9 @@ set -e
 rm -rf $PKG
 mkdir -p $WRK $PKG $OUTPUT
 cd $WRK
-rm -rf ${PRGNAM}-${VERSION}
+rm -rf $PRGNAM-$VERSION
 tar xvf $CWD/${PRGNAM}_${VERSION}.tar.?z*
-cd ${PRGNAM}-${VERSION}
+cd $PRGNAM-$VERSION
 
 chown -R root:root .
 find . \
@@ -81,7 +81,7 @@ cd build
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_PREFIX=/usr
 
-  make ${NUMJOBS}
+  make V=1
   make install DESTDIR=$PKG
 cd -
 
@@ -98,7 +98,7 @@ cat $CWD/slack-desc > $PKG/install/slack-desc
 cat $CWD/slack-required > $PKG/install/slack-required
 
 cd $PKG
-/sbin/makepkg -l y -c n $OUTPUT/$PRGNAM-$VERSION-$ARCH-$BUILD$TAG.${PKGTYPE:-tgz}
+/sbin/makepkg -l y -c n $OUTPUT/$PRGNAM-$VERSION-$ARCH-$BUILD$TAG.txz
 
 echo "Cleaning up build directory"
-cd $WRK ; rm -rf $PKG ${PRGNAM}-${VERSION}
+cd $WRK ; rm -rf $PKG $PRGNAM-$VERSION

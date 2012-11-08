@@ -1,0 +1,19 @@
+# HOW TO EDIT THIS FILE:
+# The "handy ruler" below makes it easier to edit a package description.  Line
+# up the first '|' above the ':' following the base package name, and the '|'
+# on the right side marks the last column you can put a character in.  You must
+# make exactly 11 lines for the formatting to be correct.  It's also
+# customary to leave one space after the ':'.
+
+                 |-----handy-ruler------------------------------------------------------|
+redshift-plasmoid: redshift-plasmoid (KDE4 Redshift Plasmoid)
+redshift-plasmoid:
+redshift-plasmoid: Redshift plasmoid provides a configuration interface and allows to
+redshift-plasmoid: start/stop Redshift daemon either manually or automatically based on
+redshift-plasmoid: the current activity.
+redshift-plasmoid: See Redshift website for more detailed info about redshift
+redshift-plasmoid: <http://jonls.dk/redshift/>.
+redshift-plasmoid:
+redshift-plasmoid: URL: https://github.com/simgunz/redshift-plasmoid
+redshift-plasmoid:
+redshift-plasmoid: Packaged by Widya Walesa <walecha99@gmail.com>

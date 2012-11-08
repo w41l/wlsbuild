@@ -1,0 +1,19 @@
+# HOW TO EDIT THIS FILE:
+# The "handy ruler" below makes it easier to edit a package description.  Line
+# up the first '|' above the ':' following the base package name, and the '|' on
+# the right side marks the last column you can put a character in.  You must make
+# exactly 11 lines for the formatting to be correct.  It's also customary to
+# leave one space after the ':'.
+
+   |-----handy-ruler---------------------------------------------------|
+zfs: zfs (Solaris ZFS Kernel Modules)
+zfs:
+zfs: The zfs package contains kernel modules and support utilities for
+zfs: the zfs file system.
+zfs:
+zfs: URL: https://github.com/zfsonlinux/
+zfs:
+zfs:
+zfs:
+zfs:
+zfs: packaged by: Widya Walesa <walecha99@gmail.com>

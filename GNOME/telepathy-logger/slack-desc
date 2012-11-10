@@ -12,7 +12,7 @@ telepathy-logger: telepathy-logger is a headless observer client that logs infor
 telepathy-logger: received by the Telepathy framework. It features pluggable backends
 telepathy-logger: to log different sorts of messages, in different formats.
 telepathy-logger:
-telepathy-logger:
+telepathy-logger: URL: http://telepathy.freedesktop.org/
 telepathy-logger:
 telepathy-logger:
 telepathy-logger:

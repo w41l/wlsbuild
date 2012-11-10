@@ -14,6 +14,6 @@ python-isodate: date/time representations mentioned in the standard. If somethin
 python-isodate: not mentioned there, then it is treated as non existent, and not as an
 python-isodate: allowed option.
 python-isodate:
-python-isodate: URL: http://cheeseshop.python.org/pypi/isodate
+python-isodate: URL: http://pypi.python.org/pypi/isodate/
 python-isodate:
 python-isodate: Packaged by Widya Walesa <walecha99@gmail.com>

@@ -28,7 +28,7 @@ rarian
 libgee
 vala
 dconf
-libunique3
+libunique
 libdaemon
 avahi
 nss-mdns
@@ -42,6 +42,7 @@ json-glib
 gst-plugins-good - add GConf and pulseaudio support
 libwnck3 (Renamed to libwnck3 because slackware already have libwnck v2)
 libnice
+gst-python
 farstream
 telepathy-glib
 telepathy-logger

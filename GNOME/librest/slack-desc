@@ -5,12 +5,12 @@
 # make exactly 11 lines for the formatting to be correct.  It's also
 # customary to leave one space after the ':'.
 
-	   |-----handy-ruler------------------------------------------------------|
+       |-----handy-ruler------------------------------------------------------|
 librest: librest
 librest:
 librest: a library to access 'RESTful' web services - stable Debian version
 librest:
-librest: URL: http://moblin.org/projects/librest/
+librest: URL: http://git.gnome.org/browse/librest
 librest:
 librest:
 librest:

@@ -33,7 +33,7 @@ if [ -x /usr/bin/dbus-launch ]; then
   RAZORQT_SESSION_SETTINGS="$RAZORQT_SESSION_SETTINGS /usr/bin/dbus-launch --exit-with-session"
 fi;
 
-# Use ConsoleKit if available
+# Start Razor-Qt
 if [ -z "${XDG_SESSION_COOKIE}" -a -x /usr/bin/ck-launch-session ]; then
   /usr/bin/ck-launch-session $RAZORQT_SESSION_SETTINGS /usr/bin/startrazor
 else

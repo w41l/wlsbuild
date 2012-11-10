@@ -14,6 +14,6 @@ python-rdflib: can be backed by any one of a number of Store implementations.
 python-rdflib: The core rdflib includes store implementations for in memory storage
 python-rdflib: and persistent storage on top of the Berkeley DB.
 python-rdflib:
-python-rdflib: URL: http://rdflib.net/
+python-rdflib: URL: http://pypi.python.org/pypi/rdflib/
 python-rdflib:
 python-rdflib: Packaged by Widya Walesa <walecha99@gmail.com>

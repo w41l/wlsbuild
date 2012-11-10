@@ -88,14 +88,18 @@ CXXFLAGS="$SLKCFLAGS" \
   --enable-pthread-support \
   --enable-hdb-openldap-module \
   --with-hdbdir=/var/lib \
-  --enable-kcm \
-  --enable-pthread-support \
-  --with-x \
-  --with-gnu-ld \
   --with-openldap=/usr \
+  --with-openldap-lib=/usr/lib$LIBDIRSUFFIX \
+  --with-openldap-include=/usr/include \
   --with-openssl=/usr \
+  --with-openssl-lib=/usr/lib$LIBDIRSUFFIX \
+  --with-openssl-include=/usr/include \
   --with-sqlite3=/usr \
+  --with-sqlite3-lib=/usr/lib$LIBDIRSUFFIX \
+  --with-sqlite3-include=/usr/include \
   --with-readline=/usr \
+  --with-readline-lib=/usr/lib$LIBDIRSUFFIX \
+  --with-readline-include=/usr/include \
   --with-ipv6 \
   --without-hesiod
 

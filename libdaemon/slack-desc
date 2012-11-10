@@ -1,4 +1,4 @@
-		  |-----handy-ruler------------------------------------------------------|
+         |-----handy-ruler------------------------------------------------------|
 libdaemon: libdaemon (UNIX daemon library)
 libdaemon:
 libdaemon: libdaemon is a lightweight C library that eases the writing of UNIX
@@ -7,6 +7,6 @@ libdaemon: procedure of a process, syslog() for simpler and compatible log
 libdaemon: output to Syslog or STDERR, serializing UNIX signals into a pipe for
 libdaemon: usage with select() or poll(), and subprocesses with STDOUT and
 libdaemon: STDERR redirected to syslog.
-libdaemon:
+libdaemon: URL: http://0pointer.de/lennart/projects/libdaemon/
 libdaemon:
 libdaemon: Packaged by: Widya Walesa <walecha99@gmail.com>

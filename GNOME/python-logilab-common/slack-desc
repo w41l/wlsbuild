@@ -11,7 +11,7 @@ python-logilab-common:
 python-logilab-common: This package contains some modules used by differents Logilab's
 python-logilab-common: projects. It is released under the GNU Lesser General Public License.
 python-logilab-common:
-python-logilab-common: URL: http://www.logilab.org/project/logilab-common
+python-logilab-common: URL: http://pypi.python.org/pypi/logilab-common/
 python-logilab-common:
 python-logilab-common:
 python-logilab-common:

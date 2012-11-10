@@ -11,7 +11,7 @@ python-logilab-astng:
 python-logilab-astng: The aim of this module is to provide a common base representation of
 python-logilab-astng: python source code for projects such as pychecker, pyreverse, pylint.
 python-logilab-astng:
-python-logilab-astng: URL: http://www.logilab.org/project/logilab-astng
+python-logilab-astng: URL: http://pypi.python.org/pypi/logilab-astng/
 python-logilab-astng:
 python-logilab-astng:
 python-logilab-astng:

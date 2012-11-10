@@ -25,7 +25,7 @@
 
 PRGNAM=oxygen-fonts
 VERSION=2974e15
-BUILD=1
+BUILD=2
 TAG="_wls"
 NUMJOBS="-j4"
 

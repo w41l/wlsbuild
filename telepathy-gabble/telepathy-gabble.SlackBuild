@@ -85,7 +85,6 @@ CXXFLAGS="$SLKCFLAGS" \
   --localstatedir=/var --sharedstatedir=/var/lib \
   --disable-static --enable-shared \
   --disable-gtk-doc \
-  --with-ca-certificates=/etc/ssl/certs/ca-certificates.crt \
 
 make V=1
 make install DESTDIR=$PKG

@@ -21,7 +21,15 @@ pygtk
 icu4c
 [/ALREADY PROVIDED BY SLACKWARE]
 
+[BUILD TOOLKIT] (can be removed after GNOME3 building finished)
+setuptools
+gnome-common
+libgee
+vala
+[/BUILD TOOLKIT] (can be removed after GNOME3 building finished)
+
 [EXTERNAL LIBS]
+rarian
 libdaemon
 avahi
 nss-mdns
@@ -34,37 +42,30 @@ alsa-plugins
 json-glib
 gst-plugins-good - add GConf and pulseaudio support
 gst-python
+liboauth
+python-isodate
+python-rdflib
+xapian-core
+heimdal-libraries
+libnice
 farstream
 telepathy-glib
 telepathy-logger
 telepathy-farstream
 telepathy-mission-control
+telepathy-gabble
 geoclue
 webkitgtk
 [/EXTERNAL LIBS]
-
-[BUILD TOOLKIT] (can be removed after GNOME3 building finished)
-setuptools
-gnome-common
-rarian
-libgee
-vala
-[/BUILD TOOLKIT] (can be removed after GNOME3 building finished)
 
 [GNOME LIBS]
 dconf
 libdbusmenu
 libunique
 libwnck3 (Renamed to libwnck3 because slackware already have libwnck v2)
-libnice
 librest
-python-isodate
-python-rdflib
-xapian-core
 zeitgeist
-liboauth
 libgdata
-heimdal-libraries
 cogl
 clutter
 clutter-gtk
@@ -129,6 +130,11 @@ brasero
 file-roller
 evince
 gthumb
+python-logilab-common
+python-logilab-astng
+pylint
+totem-pl-parser
+totem
 gnome-power-manager
 epiphany
 epiphany-extensions

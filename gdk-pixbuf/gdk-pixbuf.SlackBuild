@@ -134,7 +134,7 @@ sed -e "s,@BINARCH@,${BINARCH},g" -e "s,@SLKLIBDIR@,lib${LIBDIRSUFFIX},g" \
   $CWD/doinst.sh >> $PKG/install/doinst.sh
 
 cd $PKG
-/sbin/makepkg -l y -c n $OUTPUT/$PRGNAM-$VERSION-$ARCH-$BUILD$TAG.${PKGTYPE:-tgz}
+/sbin/makepkg -l y -c n $OUTPUT/$PRGNAM-$VERSION-$ARCH-$BUILD$TAG.txz
 
 echo "Cleaning up build directory"
 rm -rf $TMP/$PRGNAM-$VERSION $PKG

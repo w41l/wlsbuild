@@ -13,7 +13,7 @@ json-c: to easily construct JSON objects in C, output them as JSON formatted
 json-c: strings and parse JSON formatted strings back into the C
 json-c: representation of JSON objects.
 json-c:
-json-c: URL: http://oss.metaparadigm.com/json-c/
+json-c:
 json-c:
 json-c:
 json-c: packaged by: Widya Walesa <walecha99@gmail.com>

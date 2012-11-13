@@ -14,6 +14,6 @@ farstream: On one side it offers a generic API that makes it possible to write
 farstream: plugins for different streaming protocols, on the other side it offers
 farstream: an API for clients to use those plugins.
 farstream:
-farstream: URL: http://www.freedesktop.org/wiki/Software/Farstream
+farstream:
 farstream:
 farstream: Packaged by Widya Walesa <walecha99@gmail.com>

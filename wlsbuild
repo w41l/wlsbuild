@@ -26,6 +26,7 @@ rtmpdump
 libass
 libmodplug
 libbluray
+openal
 ffmpeg
 libdv
 libreplaygain
@@ -49,7 +50,8 @@ vorbisgain
 libkate
 libmms
 #wildmidi | removed
-openal
+MPlayer
+
 
 ## GENERAL LIBS ##
 {glib2}
@@ -84,7 +86,6 @@ nautilus
 json-c
 pulseaudio
 {libcanberra}
-MPlayer
 notification-daemon
 alsa-plugins
 gnome-disk-utility
@@ -129,7 +130,7 @@ gnome-control-center
 bug-buddy
 yelp-xsl
 {icu4c}
-webkit
+webkitgtk
 yelp
 
 gst-ffmpeg

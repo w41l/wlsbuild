@@ -5,15 +5,15 @@
 # exactly 11 lines for the formatting to be correct.  It's also customary to
 # leave one space after the ':'.
 
-     |-----handy-ruler------------------------------------------------------|
+      |-----handy-ruler------------------------------------------------------|
 colord: colord (color services daemon)
-colord: 
-colord: colord is a system service that makes it easy to manage, install 
-colord: and generate color profiles to accurately color manage input and 
-colord: output devices. 
-colord: 
-colord: 
-colord: 
-colord: 
-colord: 
-colord: 
+colord:
+colord: colord is a system service that makes it easy to manage, install
+colord: and generate color profiles to accurately color manage input and
+colord: output devices.
+colord:
+colord:
+colord:
+colord:
+colord:
+colord: http://www.walecha.net/

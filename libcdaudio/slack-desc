@@ -13,7 +13,7 @@ libcdaudio: wrapper functions to audio CD drives and CDDB and CDIndex database
 libcdaudio: access. cdcd is a commandline CD player using libcdaudio's CDDB
 libcdaudio: and CDIndex functions.
 libcdaudio:
-libcdaudio: URL: http://libcdaudio.sourceforge.net/
+libcdaudio:
 libcdaudio:
 libcdaudio:
 libcdaudio: Packaged by Widya Walesa <walecha99@gmail.com>

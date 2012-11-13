@@ -14,6 +14,6 @@ liboauth: OAuth specifications and offers high-level functionality built on
 liboauth: top to sign requests or verify signatures using either NSS or OpenSSL
 liboauth: for calculating the hash/signatures.
 liboauth:
-liboauth: URL: http://liboauth.sourceforge.net/
+liboauth:
 liboauth:
 liboauth: packaged by: Widya Walesa <walecha99@gmail.com>

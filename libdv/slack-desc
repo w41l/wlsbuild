@@ -14,6 +14,6 @@ libdv: that support the IEEE 1394 (aka FireWire or i.Link) interface. libdv
 libdv: was developed according to the official standards for DV video, IEC
 libdv: 61834 and SMPTE 314M.
 libdv:
-libdv: URL: http://libdv.sourceforge.net/
+libdv:
 libdv:
 libdv: Packaged by: Widya Walesa <walecha99@gmail.com>

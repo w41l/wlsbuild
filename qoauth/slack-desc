@@ -11,7 +11,7 @@ qoauth:
 qoauth: QOAuth is an attempt to support interaction with OAuth-powered network
 qoauth: services in a Qt way, i.e. simply, clearly and efficiently.
 qoauth:
-qoauth: URL: http://github.com/ayoy/qoauth
+qoauth:
 qoauth:
 qoauth:
 qoauth:

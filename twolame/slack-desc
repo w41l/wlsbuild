@@ -14,6 +14,6 @@ twolame: LAME (a MPEG Layer 3 encoder). The frontend takes very similar
 twolame: command line options to LAME, and the backend library has a very
 twolame: similar API to LAME.
 twolame:
-twolame: URL: http://www.twolame.org/
+twolame:
 twolame:
 twolame: Packaged by: Widya Walesa <walecha99@gmail.com>

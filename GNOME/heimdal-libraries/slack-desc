@@ -16,4 +16,4 @@ heimdal-libraries: as such as login and ftp/ftpd , telnet/telnetd and administra
 heimdal-libraries: utilities such as ``klist'' and ``kadmin''. krb and GSSAPI libs.
 heimdal-libraries: This package only contains the libraries and headers.
 heimdal-libraries:
-heimdal-libraries: URL: http://www.h5l.org/
+heimdal-libraries: http://www.walecha.net

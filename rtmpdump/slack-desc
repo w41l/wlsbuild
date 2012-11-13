@@ -5,7 +5,7 @@ rtmpdump: rtmpdump is a toolkit for RTMP streams. All forms of RTMP are
 rtmpdump: supported, including rtmp://, rtmpt://, rtmpe://, rtmpte://,
 rtmpdump: and rtmps://.
 rtmpdump:
-rtmpdump: URL: http://rtmpdump.mplayerhq.hu/
+rtmpdump:
 rtmpdump:
 rtmpdump:
 rtmpdump:

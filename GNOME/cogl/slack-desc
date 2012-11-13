@@ -13,7 +13,7 @@ cogl: draw pretty pictures. The API departs from the flat state machine
 cogl: style of OpenGL and is designed to make it easy to write orthogonal
 cogl: components that can render without stepping on each others toes.
 cogl:
-cogl: URL: http://wiki.clutter-project.org/wiki/Cogl
+cogl:
 cogl:
 cogl:
 cogl: Packaged by: Widya Walesa <walecha99@gmail.com>

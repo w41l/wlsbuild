@@ -12,7 +12,7 @@ qtfm: qtFM is a small, lightweight file manager for Linux desktops based on
 qtfm: pure Qt and works great with minimal desktop environments like Openbox
 qtfm: or Razor-Qt.
 qtfm:
-qtfm: URL: http://www.qtfm.org/
+qtfm:
 qtfm:
 qtfm:
 qtfm:

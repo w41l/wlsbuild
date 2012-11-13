@@ -5,7 +5,7 @@ accountsservice: The accountsservice project provides a set of D-Bus interfaces 
 accountsservice: querying and manipulating user account information and an implementation
 accountsservice: of these interfaces, based on the useradd, usermod and userdel commands.
 accountsservice:
-accountsservice: URL: http://cgit.freedesktop.org/accountsservice/
+accountsservice:
 accountsservice:
 accountsservice:
 accountsservice:

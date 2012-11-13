@@ -13,7 +13,7 @@ qjson: integer, real number, string, an ordered sequence of value, and a
 qjson: collection of name/value pairs.QJson is a qt-based library that maps
 qjson: JSON data to QVariant objects.
 qjson:
-qjson: URL: http://qjson.sourceforge.net/
+qjson:
 qjson:
 qjson:
 qjson: Packaged by Widya Walesa <walecha99@gmail.com>

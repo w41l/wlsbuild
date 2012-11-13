@@ -1,0 +1,7 @@
+URL = http://mplayerhq.hu/
+SRC_1 = http://mplayerhq.hu/MPlayer/releases/MPlayer-1.1.tar.xz
+MD5_1 = ac7bf1cfedc1c5c24bfc83107eefb1d9
+SHA1_1= 913a4bbeab7cbb515c2f43ad39bc83071b2efd75
+SRC_2 = http://git.videolan.org/?p=ffmpeg.git;a=snapshot;h=b06903e6c56d2e08c3b79f67a1e81e24e90c60ac;sf=tgz
+MD5_2 = a948bc9066198eef18be77ef3db707d7
+SHA1_2= f7e482977eb4edbec62af648795a61beabe55bdc

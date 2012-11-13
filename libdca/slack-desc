@@ -10,10 +10,10 @@ libdca: libdca (free DTS Coherent Acoustics decoder)
 libdca:
 libdca: libdca is a free library for decoding DTS Coherent Acoustics streams.
 libdca: The code is written by Gildas Bazin and was based on the a52dec
-libdca: project.  libdca: The DTS Coherent Acoustics standard is used in a 
-libdca: variety of applications, including DVD, DTS audio CD, and radio 
+libdca: project.  libdca: The DTS Coherent Acoustics standard is used in a
+libdca: variety of applications, including DVD, DTS audio CD, and radio
 libdca: broadcasting.  It includes libdts.
 libdca: It is released under the terms of the GPL license.
-libdca: 
-libdca: Homepage: http://www.videolan.org/developers/libdca.html
-libdca: 
+libdca:
+libdca:
+libdca:

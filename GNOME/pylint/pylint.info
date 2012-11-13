@@ -1,0 +1,4 @@
+URL = http://www.logilab.org/project/pylint
+SRC = http://pypi.python.org/packages/source/p/pylint/pylint-0.26.0.tar.gz
+MD5 = f396314b60bd62cd9f8e771890364ac9
+SHA1= f84b283d4fa4e5a3a605862e347135e75e0ef754

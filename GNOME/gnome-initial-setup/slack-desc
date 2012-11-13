@@ -1,0 +1,12 @@
+                   |-----handy-ruler------------------------------------------------------|
+gnome-initial-setup: gnome-initial-setup (GNOMEOS Post Install Setup)
+gnome-initial-setup:
+gnome-initial-setup: After acquiring or installing a new system there are a few essential
+gnome-initial-setup: things to set up before use. gnome-initial-setup aims to provide
+gnome-initial-setup: a simple, easy, and safe way to prepare a new system.
+gnome-initial-setup:
+gnome-initial-setup: https://live.gnome.org/GnomeOS/Design/Whiteboards/InitialSetup
+gnome-initial-setup:
+gnome-initial-setup:
+gnome-initial-setup:
+gnome-initial-setup: http://www.walecha.net/

@@ -2,7 +2,7 @@
 
 # Slackware build script for DevIL
 
-# Copyright 2011  Widya Walesa <walecha99@gmail.com>
+# Copyright 2011-2012  Widya Walesa <walecha99@gmail.com>
 # All rights reserved.
 #
 # Redistribution and use of this script, with or without modification, is
@@ -24,8 +24,8 @@
 # YOUR DATA IS DESTROYED, YOUR HOUSE BURNS DOWN OR YOUR DOG RUNS OFF.
 
 PRGNAM=DevIL
-VERSION=${VERSION:-1.7.8}
-BUILD=${BUILD:-1}
+VERSION=1.7.8
+BUILD=1
 TAG=${TAG:-_wls}
 NUMJOBS=${NUMJOBS:--j3}
 
@@ -38,8 +38,8 @@ if [ -z "$ARCH" ]; then
 fi
 
 CWD=$(pwd)
-TMP=${TMP:-$CWD/wlsbuild}
-PKG=$TMP/package-$PRGNAM
+WRK=${WRK:-$CWD/wlsbuild}
+PKG=$WRK/package-$PRGNAM
 OUTPUT=${OUTPUT:-/tmp}
 DOCS="AUTHORS ChangeLog COPY* CREDITS INSTALL Libraries.txt NEWS README README.unix TODO"
 
@@ -60,8 +60,8 @@ fi
 set -e
 
 rm -rf $PKG
-mkdir -p $TMP $PKG $OUTPUT
-cd $TMP
+mkdir -p $WRK $PKG $OUTPUT
+cd $WRK
 rm -rf devil-$VERSION
 tar xvf $CWD/$PRGNAM-$VERSION.tar.gz
 cd devil-$VERSION
@@ -94,7 +94,7 @@ CXXFLAGS="$SLKCFLAGS" \
   --enable-ILU=yes \
   --enable-ILUT=yes
 
-make $NUMJOBS
+make
 make install DESTDIR=$PKG
 
 find $PKG | xargs file | grep -e "executable" -e "shared object" | grep ELF \
@@ -113,7 +113,7 @@ cat $CWD/slack-desc > $PKG/install/slack-desc
 cat $CWD/doinst.sh > $PKG/install/doinst.sh
 
 cd $PKG
-/sbin/makepkg -l y -c n $OUTPUT/$PRGNAM-$VERSION-$ARCH-$BUILD$TAG.${PKGTYPE:-tgz}
+/sbin/makepkg -l y -c n $OUTPUT/$PRGNAM-$VERSION-$ARCH-$BUILD$TAG.txz
 
 echo "Cleaning up build directory"
-cd $CWD; rm -rf $TMP
+cd $CWD; rm -rf $WRK

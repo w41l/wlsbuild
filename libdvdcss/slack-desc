@@ -14,6 +14,6 @@ libdvdcss: and most DVD players such as VLC because of its portability and
 libdvdcss: because, unlike similar libraries, it does not require your DVD
 libdvdcss: drive to be region locked.
 libdvdcss:
-libdvdcss: URL: http://developers.videolan.org/libdvdcss/
+libdvdcss:
 libdvdcss:
 libdvdcss: Packaged by: Widya Walesa <walecha99@gmail.com>

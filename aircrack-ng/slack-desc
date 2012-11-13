@@ -14,6 +14,6 @@ aircrack-ng: (an 802.11 packet capture program), aireplay-ng (an 802.11 packet
 aircrack-ng: injection program), aircrack (static WEP and WPA-PSK cracking),
 aircrack-ng: airdecap-ng (decrypts WEP/WPA capture files), and some tools to
 aircrack-ng: handle capture files (merge, convert, etc.).
-aircrack-ng: URL: http://www.aircrack-ng.org/
+aircrack-ng:
 aircrack-ng:
 aircrack-ng: packaged by: Widya Walesa <walecha99@gmail.com>

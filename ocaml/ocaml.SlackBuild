@@ -129,11 +129,11 @@ cat $CWD/slack-desc-runtime > ${PKG}-runtime/install/slack-desc
 
 # Creating the ocaml runtime package
 cd ${PKG}-runtime
-/sbin/makepkg -p -l y -c n $OUTPUT/$PRGNAM-runtime-$VERSION-$ARCH-$BUILD$TAG.${PKGTYPE:-tgz}
+/sbin/makepkg -p -l y -c n $OUTPUT/$PRGNAM-runtime-$VERSION-$ARCH-$BUILD$TAG.txz
 
 # Back build ocaml package
 cd $PKG
-/sbin/makepkg -p -l y -c n $OUTPUT/$PRGNAM-$VERSION-$ARCH-$BUILD$TAG.${PKGTYPE:-tgz}
+/sbin/makepkg -p -l y -c n $OUTPUT/$PRGNAM-$VERSION-$ARCH-$BUILD$TAG.txz
 
 echo "Cleaning up build directory"
 cd $WRK; rm -rf $PRGNAM-$VERSION $PKG $PKG-runtime

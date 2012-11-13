@@ -13,7 +13,7 @@ agg: library, written in industrially standard C++. AGG doesn't depend
 agg: on any graphic API or technology.
 agg:
 agg:
-agg: URL: http://www.antigrain.com/
+agg:
 agg:
 agg:
 agg: packaged by: Widya Walesa <walecha99@gmail.com>

@@ -6,7 +6,7 @@ cairo-dock-plugins: desktop comparable to Mac OS X's Dock. It is compatible with
 cairo-dock-plugins: Compiz, Metacity+xcompmgr and probably KDE since Kwin now manage
 cairo-dock-plugins: composite display.
 cairo-dock-plugins:
-cairo-dock-plugins: URL: https://launchpad.net/cairo-dock-plug-ins
+cairo-dock-plugins:
 cairo-dock-plugins:
 cairo-dock-plugins:
 cairo-dock-plugins: Packaged by Widya Walesa <walecha99@gmail.com>

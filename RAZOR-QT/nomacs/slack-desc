@@ -14,6 +14,6 @@ nomacs: able to handle the most common image formats. Additionally it is possibl
 nomacs: to synchronize multiple viewers. A synchronization of viewers running on
 nomacs: the same computer or via LAN is possible. It allows to compare images and
 nomacs: spot the differences (e.g. schemes of architects to show the progress).
-nomacs: URL: http://www.nomacs.org/
+nomacs:
 nomacs:
 nomacs: http://www.walecha.net/

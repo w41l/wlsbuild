@@ -25,7 +25,7 @@
 
 PRGNAM=kipi-plugins
 VERSION=2.9.0
-BUILD=2
+BUILD=3
 TAG=${TAG:-_wls}
 NUMJOBS=${NUMJOBS:--j4}
 
@@ -62,9 +62,9 @@ set -e
 rm -rf $PKG
 mkdir -p $WRK $PKG $OUTPUT
 cd $WRK
-rm -rf $PRGNAM-$VERSION
+rm -rf $PRGNAM
 tar xvf $CWD/$PRGNAM-$VERSION.tar.?z*
-cd $PRGNAM-$VERSION
+cd $PRGNAM
 
 chown -R root:root .
 find . \
@@ -82,7 +82,7 @@ export QTSCRIPTS=/usr/lib${LIBDIRSUFFIX}/qt/plugins/script
 
 mkdir -p build
 cd build
-  LDFLAGS=" -L/usr/lib${LIBDIRSUFFIX} -L/lib${LIBDIRSUFFIX}" \
+  LDFLAGS=" -L/usr/lib${LIBDIRSUFFIX}" \
   cmake \
   -DCMAKE_C_FLAGS="$SLKCFLAGS" \
   -DCMAKE_CXX_FLAGS="$SLKCFLAGS" \
@@ -113,4 +113,4 @@ cd $PKG
 /sbin/makepkg -l y -c n $OUTPUT/$PRGNAM-$VERSION-$ARCH-$BUILD$TAG.txz
 
 echo "Cleaning up build directory"
-cd $WRK; rm -rf $PRGNAM-$VERSION $PKG
+cd $WRK; rm -rf $PRGNAM $PKG

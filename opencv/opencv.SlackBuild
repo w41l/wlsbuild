@@ -24,7 +24,7 @@
 # YOUR DATA IS DESTROYED, YOUR HOUSE BURNS DOWN OR YOUR DOG RUNS OFF.
 
 PRGNAM=opencv
-VERSION=2.4.2
+VERSION=2.4.3
 BUILD=1
 TAG=${TAG:-_wls}
 NUMJOBS=${NUMJOBS:--j1}
@@ -38,8 +38,8 @@ if [ -z "$ARCH" ]; then
 fi
 
 CWD=$(pwd)
-TMP=${TMP:-/tmp/wlsbuild}
-PKG=$TMP/package-$PRGNAM
+WRK=${WRK:-/tmp/wlsbuild}
+PKG=$WRK/package-$PRGNAM
 OUTPUT=${OUTPUT:-/tmp}
 DOCS="README"
 
@@ -60,10 +60,10 @@ fi
 set -e
 
 rm -rf $PKG
-mkdir -p $TMP $PKG $OUTPUT
-cd $TMP
+mkdir -p $WRK $PKG $OUTPUT
+cd $WRK
 rm -rf OpenCV-$VERSION
-tar xvf $CWD/OpenCV-${VERSION}.tar.bz2
+tar xvf $CWD/OpenCV-$VERSION.tar.bz2
 cd OpenCV-$VERSION
 
 chown -R root:root .
@@ -77,8 +77,6 @@ mkdir -p build
 cd build
   LDFLAGS=" -L/usr/lib${LIBDIRSUFFIX} " \
   cmake .. \
-    -DCMAKE_C_COMPILER="/usr/bin/gcc" \
-    -DCMAKE_CXX_COMPILER="/usr/bin/g++" \
     -DCMAKE_C_FLAGS="$SLKCFLAGS" \
     -DCMAKE_CXX_FLAGS="$SLKCFLAGS" \
     -DCMAKE_BUILD_TYPE=Release \
@@ -115,7 +113,7 @@ cat $CWD/slack-desc > $PKG/install/slack-desc
 cat $CWD/slack-required > $PKG/install/slack-required
 
 cd $PKG
-/sbin/makepkg -l y -c n $OUTPUT/$PRGNAM-$VERSION-$ARCH-$BUILD$TAG.${PKGTYPE:-tgz}
+/sbin/makepkg -l y -c n $OUTPUT/$PRGNAM-$VERSION-$ARCH-$BUILD$TAG.txz
 
 echo "Cleaning up build directory"
-cd $TMP; rm -rf OpenCV-$VERSION $PKG
+cd $WRK; rm -rf OpenCV-$VERSION $PKG

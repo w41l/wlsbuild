@@ -13,7 +13,7 @@ mjpegtools: editting, playback, and compression to MPEG of MJPEG video. Edit,
 mjpegtools: play and compression software is hardware independent. Capture
 mjpegtools: supports MJPEG hardware (such as Buz, nd Miro DC10+).
 mjpegtools:
-mjpegtools: URL: http://mjpeg.sourceforge.net/
+mjpegtools:
 mjpegtools:
 mjpegtools:
 mjpegtools: Packaged by: Widya Walesa <walecha99@gmail.com>

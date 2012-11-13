@@ -15,6 +15,6 @@ libunique: libunique makes it easy to write this kind of applications, by provid
 libunique: a base class, taking care of all the IPC machinery needed to send
 libunique: messages to a running instance, and also handling the startup
 libunique: notification side.
-libunique: URL: http://live.gnome.org/LibUnique
+libunique:
 libunique:
 libunique: Packaged by: Widya Walesa <walecha99@gmail.com>

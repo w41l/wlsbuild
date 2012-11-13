@@ -72,6 +72,7 @@ find . \
  \( -perm 666 -o -perm 664 -o -perm 600 -o -perm 444 -o -perm 440 -o -perm 400 \) \
  -exec chmod 644 {} \;
 
+LDFLAGS="-L/usr/lib${LIBDIRSUFFIX}" \
 CFLAGS="$SLKCFLAGS" \
 CXXFLAGS="$SLKCFLAGS" \
 ./configure \
@@ -92,11 +93,13 @@ CXXFLAGS="$SLKCFLAGS" \
   --enable-smime=yes \
   --with-openldap \
   --with-krb5=/usr \
+  --with-krb5-libs=$(pkg-config --variable=libdir heimdal-gssapi) \
+  --with-krb5-includes=$(pkg-config --variable=includedir heimdal-gssapi) \
   --with-libdb=/usr \
-  --with-nspr-includes=/usr/include/seamonkey/nspr \
-  --with-nspr-libs=/usr/lib${LIBDIRSUFFIX}/seamonkey \
-  --with-nss-includes=/usr/include/seamonkey/nss \
-  --with-nss-libs=/usr/lib${LIBDIRSUFFIX}/seamonkey
+  --with-nspr-includes=$(pkg-config --variable=includedir nspr) \
+  --with-nspr-libs=$(pkg-config --variable=libdir nss) \
+  --with-nss-includes=$(pkg-config --variable=includedir nss) \
+  --with-nss-libs=$(pkg-config --variable=libdir nss)
 
 make V=1
 make install DESTDIR=$PKG

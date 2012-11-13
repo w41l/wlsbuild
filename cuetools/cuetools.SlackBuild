@@ -39,8 +39,8 @@ if [ -z "$ARCH" ]; then
 fi
 
 CWD=$(pwd)
-TMP=${TMP:-/tmp/wlsbuild}
-PKG=$TMP/package-$PRGNAM
+WRK=${WRK:-/tmp/wlsbuild}
+PKG=$WRK/package-$PRGNAM
 OUTPUT=${OUTPUT:-/tmp}
 DOCS="AUTHORS ChangeLog COPY* INSTALL NEWS README TODO"
 
@@ -61,8 +61,8 @@ fi
 set -e
 
 rm -rf $PKG
-mkdir -p $TMP $PKG $OUTPUT
-cd $TMP
+mkdir -p $WRK $PKG $OUTPUT
+cd $WRK
 rm -rf ${PRGNAM}-${SRCVERSION}
 tar xvf $CWD/${PRGNAM}-${SRCVERSION}.tar.gz
 cd ${PRGNAM}-${SRCVERSION}
@@ -95,9 +95,6 @@ CXXFLAGS="$SLKCFLAGS" \
   --disable-static --enable-shared
 
 make V=1
-
-CFLAGS="$SLKCFLAGS" \
-CXXFLAGS="$SLKCFLAGS" \
 make install DESTDIR=$PKG
 
 mkdir -p $PKG/usr/include/cuetools
@@ -119,7 +116,7 @@ mkdir -p $PKG/install
 cat $CWD/slack-desc > $PKG/install/slack-desc
 
 cd $PKG
-/sbin/makepkg -l y -c n $OUTPUT/$PRGNAM-$VERSION-$ARCH-$BUILD$TAG.${PKGTYPE:-tgz}
+/sbin/makepkg -l y -c n $OUTPUT/$PRGNAM-$VERSION-$ARCH-$BUILD$TAG.txz
 
 echo "Cleaning up build directory"
-cd $TMP; rm -rf ${PRGNAM}-${SRCVERSION} $PKG
+cd $WRK; rm -rf ${PRGNAM}-${SRCVERSION} $PKG

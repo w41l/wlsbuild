@@ -12,7 +12,7 @@ libmms: LibMMS aims to be common mms:// and mmsh:// (Microsoft streaming
 libmms: protocols) parsing library, licensed on LGPL, and thus usable by
 libmms: many projects that don't use GPL.
 libmms:
-libmms: URL: http://sourceforge.net/projects/libmms
+libmms:
 libmms:
 libmms:
 libmms:

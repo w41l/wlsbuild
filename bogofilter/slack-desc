@@ -6,7 +6,7 @@ bogofilter: (non-spam) by a statistical analysis of the message's header and
 bogofilter: content (body). The program is able to learn from the user's
 bogofilter: classifications and corrections.
 bogofilter:
-bogofilter: URL: http://bogofilter.sourceforge.net/
+bogofilter:
 bogofilter:
 bogofilter:
 bogofilter: Packaged by: Widya Walesa <walecha99@gmail.com>

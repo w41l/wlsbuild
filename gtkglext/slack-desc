@@ -12,7 +12,7 @@ gtkglext: GtkGLExt is an OpenGL extension to GTK+. It provides additional GDK
 gtkglext: objects which support OpenGL rendering in GTK+, and GtkWidget API
 gtkglext: add-ons to make GTK+ widgets OpenGL-capable.
 gtkglext:
-gtkglext: URL: http://projects.gnome.org/gtkglext/
+gtkglext:
 gtkglext:
 gtkglext:
 gtkglext:

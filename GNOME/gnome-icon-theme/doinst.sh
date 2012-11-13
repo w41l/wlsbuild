@@ -1,5 +1,9 @@
-# update gnome icon cache
-if [ -e usr/share/icons/gnome/icon-theme.cache ]; then
-    rm usr/share/icons/gnome/icon-theme.cache
+if [ -e /usr/share/icons/hicolor/icon-theme.cache ]; then
+  if [ -x /usr/bin/gtk-update-icon-cache ]; then
+    /usr/bin/gtk-update-icon-cache /usr/share/icons/hicolor >/dev/null 2>&1
+  fi
 fi
-usr/bin/gtk-update-icon-cache -f -q usr/share/icons/gnome 2>/dev/null 1>/dev/null
+
+if [ -x /usr/bin/glib-compile-schemas ]; then
+  /usr/bin/glib-compile-schemas /usr/share/glib-2.0/schemas >/dev/null 2>&1
+fi

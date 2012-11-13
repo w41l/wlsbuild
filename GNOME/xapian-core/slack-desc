@@ -13,7 +13,7 @@ xapian-core: add advanced indexing and search facilities to their own applicatio
 xapian-core: It supports the Probabilistic Information Retrieval model and also
 xapian-core: supports a rich set of boolean query operators.
 xapian-core:
-xapian-core: URL: http://xapian.org/
+xapian-core:
 xapian-core:
 xapian-core:
 xapian-core: Packaged by Widya Walesa <walecha99@gmail.com>

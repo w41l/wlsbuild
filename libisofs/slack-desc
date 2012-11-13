@@ -12,7 +12,7 @@ libisofs: libisofs is the library to pack up hard disk files and directories int
 libisofs: a ISO 9660 disk image. This may then be brought to CD via libburn.
 libisofs: libisofs is to be the foundation of our upcoming mkisofs emulation.
 libisofs:
-libisofs: URL: http://libburnia-project.org/wiki/Libisofs
+libisofs:
 libisofs:
 libisofs:
 libisofs: Packaged by: Widya Walesa <walecha99@gmail.com>

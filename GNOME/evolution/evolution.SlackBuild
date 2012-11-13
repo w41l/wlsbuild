@@ -2,7 +2,7 @@
 
 # Slackware build script for evolution
 
-# Copyright 2011  Widya Walesa <walecha99@gmail.com>
+# Copyright 2011-2012  Widya Walesa <walecha99@gmail.com>
 # All rights reserved.
 #
 # Redistribution and use of this script, with or without modification, is
@@ -24,8 +24,8 @@
 # YOUR DATA IS DESTROYED, YOUR HOUSE BURNS DOWN OR YOUR DOG RUNS OFF.
 
 PRGNAM=evolution
-VERSION=${VERSION:-2.32.3}
-BUILD=${BUILD:-1}
+VERSION=3.4.4
+BUILD=1
 TAG=${TAG:-_wls}
 NUMJOBS=${NUMJOBS:--j1}
 
@@ -38,8 +38,8 @@ if [ -z "$ARCH" ]; then
 fi
 
 CWD=$(pwd)
-TMP=${TMP:-/tmp/wls}
-PKG=$TMP/package-$PRGNAM
+WRK=${WRK:-/tmp/wlsbuild}
+PKG=$WRK/package-$PRGNAM
 OUTPUT=${OUTPUT:-/tmp}
 DOCS="AUTHORS COPY* ChangeLog HACKING MAINTAINERS NEWS* README"
 
@@ -65,16 +65,11 @@ fi
 set -e
 
 rm -rf $PKG
-mkdir -p $TMP $PKG $OUTPUT
-cd $TMP
+mkdir -p $WRK $PKG $OUTPUT
+cd $WRK
 rm -rf $PRGNAM-$VERSION
-tar xvf $CWD/$PRGNAM-$VERSION.tar.bz2
+tar xvf $CWD/$PRGNAM-$VERSION.tar.?z*
 cd $PRGNAM-$VERSION
-
-cat $CWD/evolution-2.32.0-wrong-lafile-usage.patch | patch -p1
-cat $CWD/evolution-2.32.1-libnotify-0.7.patch | patch -p0
-cat $CWD/evolution-2.32.2-mime-handler.patch | patch -p1
-cat $CWD/evolution-2.32.2-smime-fix.patch | patch -p0
 
 chown -R root:root .
 find . \
@@ -82,10 +77,6 @@ find . \
  -exec chmod 755 {} \; -o \
  \( -perm 666 -o -perm 664 -o -perm 600 -o -perm 444 -o -perm 440 -o -perm 400 \) \
  -exec chmod 644 {} \;
-
-# Fix compilation flags crazyness
-sed -e 's/-D.*_DISABLE_DEPRECATED//' -i configure.ac configure || exit 1
-intltoolize --force --copy --automake
 
 CFLAGS="$SLKCFLAGS" \
 CXXFLAGS="$SLKCFLAGS" \
@@ -103,12 +94,13 @@ CXXFLAGS="$SLKCFLAGS" \
   --disable-gtk-doc \
   --disable-nm \
   --disable-schemas-install \
+  --disable-schemas-compile \
   --with-krb5=$(pkg-config --variable=prefix heimdal-gssapi) \
   --enable-nss=yes \
   --enable-smime=yes \
-  --with-nspr-includes=$(pkg-config --variable=includedir nspr)/nspr \
+  --with-nspr-includes=$(pkg-config --variable=includedir nspr) \
   --with-nspr-libs=$(pkg-config --variable=libdir nss) \
-  --with-nss-includes=$(pkg-config --variable=includedir nss)/nss \
+  --with-nss-includes=$(pkg-config --variable=includedir nss) \
   --with-nss-libs=$(pkg-config --variable=libdir nss) \
   --with-openldap=/usr \
   --enable-plugins=all
@@ -130,10 +122,10 @@ cat $CWD/$PRGNAM.SlackBuild > $PKG/usr/doc/$PRGNAM-$VERSION/$PRGNAM.SlackBuild
 mkdir -p $PKG/install
 cat $CWD/slack-desc > $PKG/install/slack-desc
 cat $CWD/slack-required > $PKG/install/slack-required
-cat $CWD/doinst.sh >> $PKG/install/doinst.sh
+cat $CWD/doinst.sh > $PKG/install/doinst.sh
 
 cd $PKG
-/sbin/makepkg -l y -c n $OUTPUT/$PRGNAM-$VERSION-$ARCH-$BUILD$TAG.${PKGTYPE:-tgz}
+/sbin/makepkg -l y -c n $OUTPUT/$PRGNAM-$VERSION-$ARCH-$BUILD$TAG.txz
 
 echo "Cleaning up build directory"
-cd $TMP; rm -rf $PRGNAM-$VERSION $PKG
+cd $WRK; rm -rf $PRGNAM-$VERSION $PKG

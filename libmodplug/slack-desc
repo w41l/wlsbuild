@@ -5,14 +5,14 @@
 # exactly 11 lines for the formatting to be correct.  It's also customary to
 # leave one space after the ':'.
 
-		  |-----handy-ruler---------------------------------------------------|
+          |-----handy-ruler---------------------------------------------------|
 libmodplug: libmodplug
 libmodplug:
 libmodplug: Modplug-XMMS is a library (libmodplug) and input-plugin for XMMS
 libmodplug: which plays mod-like music formats. It is based on code by Olivier
 libmodplug: Lapicque in MODPLug - http://www.modplug.com/.
 libmodplug:
-libmodplug: URL: http://modplug-xmms.sourceforge.net/
+libmodplug:
 libmodplug:
 libmodplug:
 libmodplug:

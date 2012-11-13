@@ -22,9 +22,9 @@ icu4c
 [BUILD TOOLKIT] (can be removed after GNOME3 building finished)
 setuptools
 gnome-common
+rarian
 
 [LIBS]
-rarian
 libgee
 vala
 dconf
@@ -68,6 +68,7 @@ libwacom
 geoclue
 webkitgtk
 cantarell-fonts
+pygobject3
 
 [GNOME BASE]
 gnome-mime-data
@@ -92,11 +93,14 @@ gnome-bluetooth
 gnome-video-effects
 cheese
 empathy
-gtk-engines
-gnome-themes
+gtk3-engines
+gnome-icon-theme
+gnome-icon-theme-symbolic
+gnome-themes-standard
 gnome-backgrounds
 notification-daemon
 gnome-settings-daemon
+libgtop
 gnome-control-center
 gnome-session
 gnome-shell

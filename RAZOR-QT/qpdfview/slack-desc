@@ -11,7 +11,7 @@ qpdfview:
 qpdfview: qpdfview is a tabbed pdf viewer based on poppler with printing support
 qpdfview: from cups. It is an excellent alternative to Okular and Evince.
 qpdfview:
-qpdfview: URL: https://launchpad.net/qpdfview
+qpdfview:
 qpdfview:
 qpdfview:
 qpdfview:

@@ -13,7 +13,7 @@ libquicktime: UNIX systems. Video CODECs supported by this library are OpenDivX,
 libquicktime: JPEG Photo, PNG, RGB, YUV 4:2:2, and YUV 4:2:0 compression. Supported
 libquicktime: audio CODECs are Ogg Vorbis, IMA4, ulaw, and any linear PCM format.
 libquicktime:
-libquicktime: URL: http://libquicktime.sourceforge.net/
+libquicktime:
 libquicktime:
 libquicktime:
 libquicktime: Packaged by: Widya Walesa <walecha99@gmail.com>

@@ -1,11 +1,4 @@
-PRGNAM="libimobiledevice"
-VERSION="1.0.4"
-HOMEPAGE="http://www.libimobiledevice.org/"
-DOWNLOAD="http://www.libimobiledevice.org/downloads/libimobiledevice-1.0.4.tar.bz2"
-MD5SUM="dbf62f2fddaa87558b6f1ebc76abb549"
-DOWNLOAD_x86_64=""
-MD5SUM_x86_64=""
-MAINTAINER="Widya Walesa"
-EMAIL="walecha99@gmail.com"
-APPROVED=""
-REQUIRED="usbmuxd libplist"
+URL = http://www.libimobiledevice.org/
+SRC = http://www.libimobiledevice.org/downloads/libimobiledevice-1.0.7.tar.bz2
+MD5 = 995e6cbc288d17d9c3b7edfcb228bfcc
+SHA1= 0e8aad59da842ea3c667c642236cc28a945005bc

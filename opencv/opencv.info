@@ -1,11 +1,4 @@
-PRGNAM="opencv"
-VERSION="2.2.0"
-HOMEPAGE="http://opencv.willowgarage.com/wiki/"
-DOWNLOAD="http://sourceforge.net/projects/opencvlibrary/files/opencv-unix/2.2/OpenCV-2.2.0.tar.bz2"
-MD5SUM="122c9ac793a46854ef2819fedbbd6b1b"
-DOWNLOAD_x86_64=""
-MD5SUM_x86_64=""
-MAINTAINER="Widya Walesa"
-EMAIL="walecha99@gmail.com"
-APPROVED=""
-REQUIRED="ffmpeg openjpeg"
+URL = http://opencv.willowgarage.com/wiki/
+SRC = http://sourceforge.net/projects/opencvlibrary/files/opencv-unix/2.4.3/OpenCV-2.4.3.tar.bz2
+MD5 = c0a5af4ff9d0d540684c0bf00ef35dbe
+SHA1= 982be2c3e52dfc3e9d14692c60bc856b2b766be2

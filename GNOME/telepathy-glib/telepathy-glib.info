@@ -1,0 +1,4 @@
+URL = http://telepathy.freedesktop.org/wiki/Telepathy%20GLib
+SRC = http://telepathy.freedesktop.org/releases/telepathy-glib/telepathy-glib-0.18.2.tar.gz
+MD5 = 034ec8e4c3a60d4ba1da67952ef3ee2f
+SHA1= a2e65bc77138c0762784f9b26d9defbfe565c659

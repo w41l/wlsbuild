@@ -14,6 +14,6 @@ dirac: interlaced. It uses wavelets, motion compensation and arithmetic
 dirac: coding and aims to be competitive with other state of the art
 dirac: codecs.
 dirac:
-dirac: URL: http://diracvideo.org/
+dirac:
 dirac:
 dirac: Packaged by Widya Walesa <walecha99@gmail.com>

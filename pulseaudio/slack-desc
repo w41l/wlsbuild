@@ -13,7 +13,7 @@ pulseaudio: like operating systems and Microsoft Windows. It is intended to
 pulseaudio: be an improved drop-in replacement for the Enlightened Sound
 pulseaudio: Daemon (ESOUND).
 pulseaudio:
-pulseaudio: URL: http://www.pulseaudio.org/
+pulseaudio:
 pulseaudio:
 pulseaudio:
 pulseaudio: http://www.walecha.net/

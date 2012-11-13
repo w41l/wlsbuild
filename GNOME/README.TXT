@@ -133,3 +133,6 @@ gnome-screensaver
 yelp-xsl
 yelp
 pyxdg
+at-spi2-core
+at-spi2-atk
+orca

@@ -1,8 +1,3 @@
-at-spi
-brltty
-gnome-speech
-gnome-mag
-gnome-python
-liblouis
-pycairo
-pyorbit
+at-spi2-atk
+at-spi2-core
+pygobject3

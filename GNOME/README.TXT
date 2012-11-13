@@ -1,4 +1,4 @@
-[PROVIDED BY SLACKWARE]
+[ALREADY PROVIDED BY SLACKWARE]
 glib2
 gtk+2
 gsettings-desktop-schemas
@@ -18,16 +18,19 @@ gvfs
 seamonkey (Only for building, use seamonkey-solibs for runtime)
 pygtk
 icu4c
+[ALREADY PROVIDED BY SLACKWARE]
 
 [BUILD TOOLKIT] (can be removed after GNOME3 building finished)
 setuptools
 gnome-common
 rarian
-
-[LIBS]
 libgee
 vala
+[BUILD TOOLKIT] (can be removed after GNOME3 building finished)
+
+[LIBS]
 dconf
+libdbusmenu
 libunique
 libdaemon
 avahi
@@ -69,6 +72,7 @@ geoclue
 webkitgtk
 cantarell-fonts
 pygobject3
+[LIBS]
 
 [GNOME BASE]
 gnome-mime-data
@@ -106,6 +110,7 @@ gnome-session
 gnome-shell
 muffin
 cinnamon
+[GNOME BASE]
 
 [GNOME APPS - OPTIONAL]
 gnome-terminal

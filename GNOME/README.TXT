@@ -3,6 +3,7 @@ glib2
 gtk+2
 gsettings-desktop-schemas
 libgnome-keyring
+gnome-keyring
 GConf
 sg3_utils
 libatasmart
@@ -18,20 +19,9 @@ gvfs
 seamonkey (Only for building, use seamonkey-solibs for runtime)
 pygtk
 icu4c
-[ALREADY PROVIDED BY SLACKWARE]
+[/ALREADY PROVIDED BY SLACKWARE]
 
-[BUILD TOOLKIT] (can be removed after GNOME3 building finished)
-setuptools
-gnome-common
-rarian
-libgee
-vala
-[BUILD TOOLKIT] (can be removed after GNOME3 building finished)
-
-[LIBS]
-dconf
-libdbusmenu
-libunique
+[EXTERNAL LIBS]
 libdaemon
 avahi
 nss-mdns
@@ -43,14 +33,30 @@ pulseaudio
 alsa-plugins
 json-glib
 gst-plugins-good - add GConf and pulseaudio support
-libwnck3 (Renamed to libwnck3 because slackware already have libwnck v2)
-libnice
 gst-python
 farstream
 telepathy-glib
 telepathy-logger
 telepathy-farstream
 telepathy-mission-control
+geoclue
+webkitgtk
+[/EXTERNAL LIBS]
+
+[BUILD TOOLKIT] (can be removed after GNOME3 building finished)
+setuptools
+gnome-common
+rarian
+libgee
+vala
+[/BUILD TOOLKIT] (can be removed after GNOME3 building finished)
+
+[GNOME LIBS]
+dconf
+libdbusmenu
+libunique
+libwnck3 (Renamed to libwnck3 because slackware already have libwnck v2)
+libnice
 librest
 python-isodate
 python-rdflib
@@ -68,11 +74,9 @@ mx
 libgusb
 colord
 libwacom
-geoclue
-webkitgtk
 cantarell-fonts
 pygobject3
-[LIBS]
+[/GNOME LIBS]
 
 [GNOME BASE]
 gnome-mime-data
@@ -110,7 +114,7 @@ gnome-session
 gnome-shell
 muffin
 cinnamon
-[GNOME BASE]
+[/GNOME BASE]
 
 [GNOME APPS - OPTIONAL]
 gnome-terminal

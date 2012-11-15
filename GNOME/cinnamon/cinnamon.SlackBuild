@@ -25,7 +25,7 @@
 
 PRGNAM=cinnamon
 VERSION=1.6.6
-BUILD=4
+BUILD=1
 TAG=${TAG:-_wls}
 NUMJOBS=${NUMJOBS:--j4}
 
@@ -66,8 +66,6 @@ rm -rf Cinnamon-$VERSION
 tar xvf $CWD/Cinnamon-$VERSION.tar.?z*
 cd Cinnamon-$VERSION
 
-cat $CWD/$PRGNAM-1.6.4-gsd-DateTimeMechanism.patch | patch -p1
-
 chown -R root:root .
 find . \
  \( -perm 777 -o -perm 775 -o -perm 711 -o -perm 555 -o -perm 511 \) \
@@ -75,9 +73,11 @@ find . \
  \( -perm 666 -o -perm 664 -o -perm 600 -o -perm 444 -o -perm 440 -o -perm 400 \) \
  -exec chmod 644 {} \;
 
-CFLAGS="$SLKCFLAGS $(pkg-config --cflags clutter-1.0 gtk+-x11-3.0 gjs-1.0) -I/usr/include/mutter" \
-CPPFLAGS="$SLKCFLAGS $(pkg-config --cflags clutter-1.0 gtk+-x11-3.0 gjs-1.0) -I/usr/include/mutter" \
-LDFLAGS="$(pkg-config --libs clutter-1.0 gtk+-x11-3.0 gjs-1.0)" \
+# $(pkg-config --cflags clutter-1.0 gtk+-x11-3.0 gjs-1.0) -I/usr/include/mutter
+
+LDFLAGS=" -L/usr/lib${LIBDIRSUFFIX}" \
+CFLAGS="$SLKCFLAGS" \
+CPPFLAGS="$SLKCFLAGS" \
 ./autogen.sh \
   --build=$ARCH-slackware-linux --host=$ARCH-slackware-linux \
   --program-prefix= --program-suffix= \

@@ -15,6 +15,7 @@ gnome-session
 gnome-themes
 json-c
 json-glib
+lxml
 muffin
 mutter
 pulseaudio

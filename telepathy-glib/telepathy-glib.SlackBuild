@@ -85,7 +85,6 @@ CXXFLAGS="$SLKCFLAGS" \
   --localstatedir=/var --sharedstatedir=/var/lib \
   --disable-static --enable-shared \
   --enable-introspection=yes \
-  --enable-vala-bindings \
 
 make V=1
 make install DESTDIR=$PKG

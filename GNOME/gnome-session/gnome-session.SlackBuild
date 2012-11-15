@@ -88,7 +88,7 @@ CXXFLAGS="$SLKCFLAGS" \
   --disable-docbook-docs \
   --disable-schemas-compile
 
-make V=1
+make
 make DESTDIR=$PKG install
 
 # Add xinitrc script for gnome

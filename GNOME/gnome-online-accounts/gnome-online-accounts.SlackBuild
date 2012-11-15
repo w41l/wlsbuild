@@ -85,8 +85,14 @@ CXXFLAGS="$SLKCFLAGS" \
   --localstatedir=/var --sharedstatedir=/var/lib \
   --disable-static --enable-shared \
   --disable-gtk-doc \
+  --enable-introspection=yes \
+  --enable-google \
+  --enable-twitter \
+  --enable-yahoo \
+  --enable-facebook \
+  --enable-windows-live \
 
-make V=1
+make
 make install DESTDIR=$PKG
 
 find $PKG | xargs file | grep -e "executable" -e "shared object" | grep ELF \

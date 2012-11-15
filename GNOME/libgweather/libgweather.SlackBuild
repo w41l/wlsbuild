@@ -88,7 +88,7 @@ CXXFLAGS="$SLKCFLAGS" \
   --disable-gtk-doc \
   --enable-locations-compression \
 
-make V=1
+make
 make install DESTDIR=$PKG
 
 find $PKG | xargs file | grep -e "executable" -e "shared object" | grep ELF \

@@ -87,7 +87,7 @@ CXXFLAGS="$SLKCFLAGS" \
   --disable-static --enable-shared \
   --disable-debug \
 
-make V=1
+make
 make install DESTDIR=$PKG
 
 mkdir -p $PKG/etc/gnome

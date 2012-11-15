@@ -85,9 +85,11 @@ CXXFLAGS="$SLKCFLAGS" \
   --localstatedir=/var --sharedstatedir=/var/lib \
   --disable-static --enable-shared \
   --disable-gtk-doc \
+  --disable-scrollkeeper \
+  --enable-introspection=yes \
   --with-gnome-distributor="Widya Walesa (http://www.walecha.net/)"
 
-make V=1
+make
 make install DESTDIR=$PKG
 
 find $PKG | xargs file | grep -e "executable" -e "shared object" | grep ELF \

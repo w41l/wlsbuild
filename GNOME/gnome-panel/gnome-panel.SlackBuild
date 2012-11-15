@@ -86,9 +86,15 @@ CXXFLAGS="$SLKCFLAGS" \
   --localstatedir=/var --sharedstatedir=/var/lib \
   --disable-static --enable-shared \
   --disable-schemas-install \
-  --disable-scrollkeeper
+  --disable-schemas-compile \
+  --disable-scrollkeeper \
+  --enable-telepathy-glib \
+  --enable-eds \
+  --enable-network-manager \
+  --enable-introspection=yes \
+  --with-in-process-applets=all \
 
-make V=1
+make
 make install DESTDIR=$PKG
 
 find $PKG | xargs file | grep -e "executable" -e "shared object" | grep ELF \

@@ -1,7 +1,15 @@
 [ALREADY PROVIDED BY SLACKWARE]
 glib2
 gtk+2
+gtk+3
+gstreamer
+gst-plugins-base
+polkit
+polkit-gnome
+gobject-introspection
+pygobject
 gsettings-desktop-schemas
+libwnck
 libgnome-keyring
 gnome-keyring
 GConf
@@ -19,16 +27,17 @@ gvfs
 seamonkey (Only for building, use seamonkey-solibs for runtime)
 pygtk
 icu4c
+gnome-icon-theme
+mozilla-nss
+js185
+gucharmap
 [/ALREADY PROVIDED BY SLACKWARE]
 
 [BUILD TOOLKIT] (can be removed after GNOME3 building finished)
-setuptools
-gnome-common
-libgee
-vala
 [/BUILD TOOLKIT] (can be removed after GNOME3 building finished)
 
 [EXTERNAL LIBS]
+setuptools
 rarian
 libdaemon
 avahi
@@ -37,9 +46,16 @@ usbmuxd
 libimobiledevice
 ifuse
 json-c
+speex
 pulseaudio
+a52dec
 alsa-plugins
-json-glib
+orc
+libiec61883
+libdc1394
+libavc1394
+libdv
+libshout
 gst-plugins-good - add GConf and pulseaudio support
 gst-python
 liboauth
@@ -48,17 +64,20 @@ python-rdflib
 xapian-core
 heimdal-libraries
 libnice
-farstream
 telepathy-glib
 telepathy-logger
-telepathy-farstream
 telepathy-mission-control
+farstream
+telepathy-farstream
 telepathy-gabble
 geoclue
 webkitgtk
+itstool
 [/EXTERNAL LIBS]
 
 [GNOME LIBS]
+gnome-common
+json-glib
 dconf
 libdbusmenu
 libunique
@@ -77,6 +96,8 @@ colord
 libwacom
 cantarell-fonts
 pygobject3
+gjs
+libgee
 [/GNOME LIBS]
 
 [GNOME BASE]
@@ -87,13 +108,13 @@ zenity
 mutter
 metacity
 libgweather
-gnome-panel
 libgnomekbd
 gnome-online-accounts
 evolution-data-server
 folks
 accountsservice
 caribou
+gnome-panel
 gnome-python
 exempi
 nautilus
@@ -102,38 +123,39 @@ gnome-bluetooth
 gnome-video-effects
 cheese
 empathy
+gtk-engines
 gtk3-engines
-gnome-icon-theme
+gtk-murrine-engine
+gtk-unico-engine
 gnome-icon-theme-symbolic
 gnome-themes-standard
 gnome-backgrounds
 notification-daemon
-gnome-settings-daemon
 libgtop
+gnome-settings-daemon
+gnome-applets
 gnome-control-center
-gnome-session
 gnome-shell
-muffin
-cinnamon
+gnome-session
 [/GNOME BASE]
 
 [GNOME APPS - OPTIONAL]
+{vte} (Note: If you want you can upgrade it to match GNOME 3.4)
 gnome-terminal
-libpeas
-gtksourceview
-gedit
-gnome-disk-utility
+file-roller
 libburn
 libisofs
 libisoburn
+totem-pl-parser
 brasero
-file-roller
 evince
 gthumb
+libpeas
+gtksourceview
+gedit
 python-logilab-common
 python-logilab-astng
 pylint
-totem-pl-parser
 totem
 gnome-power-manager
 epiphany
@@ -142,7 +164,7 @@ gmtk
 gnome-mplayer
 glade3
 gnome-media
-gnome-applets
+gnome-disk-utility
 pam (Only for gnome-screensaver and GDM)
 gnome-screensaver
 yelp-xsl
@@ -151,3 +173,6 @@ pyxdg
 at-spi2-core
 at-spi2-atk
 orca
+muffin
+cinnamon
+vala

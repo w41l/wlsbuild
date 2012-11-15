@@ -88,12 +88,10 @@ CXXFLAGS="$SLKCFLAGS" \
   --disable-gtk-doc \
   --disable-debug \
   --disable-schemas-install \
-  --enable-orc \
+  --enable-pulse \
+  --enable-orc
 
-make V=1
-
-CFLAGS="$SLKCFLAGS" \
-CXXFLAGS="$SLKCFLAGS" \
+make
 make DESTDIR=$PKG install
 
 find $PKG | xargs file | grep -e "executable" -e "shared object" | grep ELF \

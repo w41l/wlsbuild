@@ -1,3 +1,5 @@
 if ps acx | grep -q "dbus-daemon" ; then
-    etc/rc.d/rc.messagebus reload
+    if [ -x /etc/rc.d/rc.messagebus ]; then
+	/etc/rc.d/rc.messagebus reload
+    fi
 fi

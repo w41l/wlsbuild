@@ -38,8 +38,8 @@ if [ -z "$ARCH" ]; then
 fi
 
 CWD=$(pwd)
-TMP=${TMP:-/tmp/wlsbuild}
-PKG=$TMP/package-$PRGNAM
+WRK=${WRK:-/tmp/wlsbuild}
+PKG=$WRK/package-$PRGNAM
 OUTPUT=${OUTPUT:-/tmp}
 DOCS="ChangeLog GPL LGPL LICENSE README"
 
@@ -67,8 +67,8 @@ if ! grep "^pulse:" /etc/passwd >/dev/null 2>&1; then
 fi;
 
 rm -rf $PKG
-mkdir -p $TMP $PKG $OUTPUT
-cd $TMP
+mkdir -p $WRK $PKG $OUTPUT
+cd $WRK
 rm -rf $PRGNAM-$VERSION
 tar xvf $CWD/$PRGNAM-$VERSION.tar.?z*
 cd $PRGNAM-$VERSION
@@ -92,14 +92,12 @@ CXXFLAGS="$SLKCFLAGS" \
   --sysconfdir=/etc \
   --localstatedir=/var --sharedstatedir=/var/lib \
   --disable-static --enable-shared \
+  --disable-gtk2 \
   --enable-avahi \
   --enable-udev \
-  --disable-gtk2
+  --with-speex=yes
 
-make V=1
-
-CFLAGS="$SLKCFLAGS" \
-CXXFLAGS="$SLKCFLAGS" \
+make
 make install DESTDIR=$PKG
 
 # Settings default ALSA asound.conf to use Pulseaudio.
@@ -116,12 +114,6 @@ chown -R pulse:pulse $PKG/var/lib/pulse $PKG/var/run/pulse
     mv $config $config.new
   done
 )
-
-# Separate the pulseaudio autostart for GNOME and KDE
-#mkdir -p $PKG/etc/{gnome,kde}/xdg/autostart
-#mv $PKG/etc/xdg/autostart/pulseaudio.desktop $PKG/etc/gnome/xdg/autostart/
-#mv $PKG/etc/xdg/autostart/pulseaudio-kde.desktop $PKG/etc/kde/xdg/autostart/
-#rm -r $PKG/etc/xdg/autostart
 
 find $PKG | xargs file | grep -e "executable" -e "shared object" | grep ELF \
   | cut -f 1 -d : | xargs strip --strip-unneeded 2> /dev/null || true
@@ -142,4 +134,4 @@ cd $PKG
 /sbin/makepkg -l y -c n $OUTPUT/$PRGNAM-$VERSION-$ARCH-$BUILD$TAG.txz
 
 echo "Cleaning up build directory"
-cd $TMP; rm -rf $PRGNAM-$VERSION $PKG
+cd $WRK; rm -rf $PRGNAM-$VERSION $PKG

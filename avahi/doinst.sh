@@ -34,3 +34,9 @@ if [ -e /usr/share/icons/hicolor/icon-theme.cache ]; then
     /usr/bin/gtk-update-icon-cache -f -t /usr/share/icons/hicolor >/dev/null 2>&1
   fi
 fi
+
+if ps acx | grep -q "dbus-daemon"; then
+    if [ -x /etc/rc.d/rc.messagebus ]; then
+	/etc/rc.d/rc.messagebus reload
+    fi
+fi

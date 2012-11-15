@@ -13,7 +13,7 @@ itstool: files, using rules from the W3C Internationalization Tag Set
 itstool: (ITS) to determine what to translate and how to separate it into
 itstool: PO file messages.
 itstool:
-itstool: URL: http://itstool.org/
+itstool:
 itstool:
 itstool:
 itstool: Packaged by: Widya Walesa <walecha99@gmail.com>

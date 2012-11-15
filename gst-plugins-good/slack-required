@@ -1,11 +1,3 @@
-GConf
-ORBit2
-gst-plugins-base
-gstreamer
-libavc1394
-libdv
-libiec61883
-libshout
 orc
 pulseaudio
 speex

@@ -1,12 +1,3 @@
-dirac
-faac
-ffmpeg
-lame
-libgsm
-opencore-amr
-orc
+a52dec
 pulseaudio
-schroedinger
 speex
-x264
-xvidcore

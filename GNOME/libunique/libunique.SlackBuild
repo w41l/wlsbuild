@@ -88,7 +88,7 @@ CXXFLAGS="$SLKCFLAGS" \
   --disable-debug \
   --enable-maintainer-flags=no
 
-make V=1
+make
 make install-strip DESTDIR=$PKG
 
 find $PKG | xargs file | grep -e "executable" -e "shared object" | grep ELF \

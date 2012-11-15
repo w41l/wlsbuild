@@ -88,9 +88,10 @@ CXXFLAGS="$SLKCFLAGS" \
   --disable-scrollkeeper \
   --disable-deprecated \
   --disable-debug \
-  --enable-libopenraw
+  --enable-libopenraw \
+  --enable-introspection=yes \
 
-make V=1
+make
 make install DESTDIR=$PKG
 
 find $PKG | xargs file | grep -e "executable" -e "shared object" | grep ELF \

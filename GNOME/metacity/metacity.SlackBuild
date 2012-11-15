@@ -90,9 +90,9 @@ CXXFLAGS="$SLKCFLAGS" \
   --enable-startup-notification \
   --enable-xsync \
   --enable-render \
-  --enable-compositor
+  --enable-compositor \
 
-make V=1
+make
 make install DESTDIR=$PKG
 
 find $PKG | xargs file | grep -e "executable" -e "shared object" | grep ELF \

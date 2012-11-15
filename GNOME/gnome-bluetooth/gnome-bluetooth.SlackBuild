@@ -87,9 +87,10 @@ CXXFLAGS="$SLKCFLAGS" \
   --disable-schemas-compile \
   --disable-gtk-doc \
   --disable-scrollkeeper \
-  --enable-nautilus-sendto=yes
+  --enable-nautilus-sendto=yes \
+  --enable-introspection=yes \
 
-make V=1
+make
 make install DESTDIR=$PKG
 
 mkdir -p $PKG/etc/gnome

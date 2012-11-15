@@ -87,9 +87,10 @@ CXXFLAGS="$SLKCFLAGS" \
   --disable-static --enable-shared \
   --disable-search \
   --enable-libburnia \
-  --enable-preview
+  --enable-preview \
+  --enable-introspection=yes \
 
-make V=1
+make
 make DESTDIR=$PKG install
 
 find $PKG | xargs file | grep -e "executable" -e "shared object" | grep ELF \

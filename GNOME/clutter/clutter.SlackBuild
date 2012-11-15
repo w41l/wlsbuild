@@ -87,7 +87,7 @@ CXXFLAGS="$SLKCFLAGS" \
   --disable-static --enable-shared \
   --enable-docs=no \
 
-make V=1
+make
 make DESTDIR=$PKG install
 
 find $PKG | xargs file | grep -e "executable" -e "shared object" | grep ELF \

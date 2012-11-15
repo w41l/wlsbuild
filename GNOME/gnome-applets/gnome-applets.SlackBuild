@@ -85,15 +85,9 @@ CXXFLAGS="$SLKCFLAGS" \
   --localstatedir=/var --sharedstatedir=/var/lib \
   --disable-static --enable-shared \
   --disable-schemas-install \
+  --disable-scrollkeeper \
 
-#  --disable-networkmanager \
-#  --enable-frequency-selector=yes \
-#  --enable-ipv6 \
-#  --enable-mixer-applet \
-#  --enable-polkit \
-#  --without-hal
-
-make V=1
+make
 make install DESTDIR=$PKG
 
 mkdir -p $PKG/etc/gnome

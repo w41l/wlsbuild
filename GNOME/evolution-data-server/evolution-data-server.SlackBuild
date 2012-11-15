@@ -88,7 +88,6 @@ CXXFLAGS="$SLKCFLAGS" \
   --disable-schemas-compile \
   --disable-schemas-install \
   --enable-introspection=yes \
-  --enable-vala-bindings \
   --enable-ipv6 \
   --enable-smime=yes \
   --with-openldap \
@@ -101,7 +100,7 @@ CXXFLAGS="$SLKCFLAGS" \
   --with-nss-includes=$(pkg-config --variable=includedir nss) \
   --with-nss-libs=$(pkg-config --variable=libdir nss)
 
-make V=1
+make
 make install DESTDIR=$PKG
 
 find $PKG | xargs file | grep -e "executable" -e "shared object" | grep ELF \

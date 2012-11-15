@@ -88,9 +88,10 @@ CXXFLAGS="$SLKCFLAGS" \
   --disable-update-mimedb \
   --disable-packagekit \
   --disable-gtk-doc \
-  --disable-debug
+  --disable-debug \
+  --enable-introspection=yes \
 
-make V=1
+make
 make install DESTDIR=$PKG
 
 mkdir -p $PKG/etc/gnome

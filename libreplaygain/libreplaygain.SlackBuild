@@ -83,7 +83,7 @@ cd build
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DLIB_SUFFIX=$LIBDIRSUFFIX \
 
-  make VERBOSE=1
+  make
   make install DESTDIR=$PKG
 cd -
 

@@ -13,7 +13,7 @@ opencv: functions for real time computer vision. OpenCV is released under a
 opencv: BSD license, it is free for both academic and commercial use.
 opencv: The library has >500 optimized algorithms.
 opencv:
-opencv: URL: http://opencv.willowgarage.com/wiki/Welcome
+opencv:
 opencv:
 opencv:
 opencv: Packaged by Widya Walesa <walecha99@gmail.com>

@@ -90,7 +90,7 @@ CXXFLAGS="$SLKCFLAGS" \
   --disable-debug \
   --enable-decoder
 
-make V=1
+make
 make install DESTDIR=$PKG
 
 find $PKG | xargs file | grep -e "executable" -e "shared object" | grep ELF \

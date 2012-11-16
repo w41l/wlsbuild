@@ -85,7 +85,7 @@ cd build
     -DWITH_XINE=ON \
     -DWITH_UNICAP=OFF
 
-  make VERBOSE=1
+  make
   make DESTDIR=$PKG install
 cd ..
 

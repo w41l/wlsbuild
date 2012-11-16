@@ -25,7 +25,7 @@
 
 PRGNAM=x264
 VERSION=20120721
-BUILD=2
+BUILD=1
 TAG=${TAG:-_wls}
 NUMJOBS=${NUMJOBS:--j4}
 
@@ -69,9 +69,6 @@ cd $PRGNAM-snapshot-$VERSION-2245-stable
 # Add YUV4MPEG filter
 bzip2 -dc $CWD/example.y4m.bz2 > example.y4m
 
-# Add shared gpac
-#sed -i 's,-lgpac_static,-lgpac,g' configure
-
 # x86_64 option
 if [ "$ARCH" = "x86_64" ]; then
     PIC_OPT="--enable-pic"
@@ -96,8 +93,7 @@ find . \
   --extra-cflags="$SLKCFLAGS" \
   $PIC_OPT
 
-make V=1
-
+make
 make install DESTDIR=$PKG
 
 find $PKG | xargs file | grep -e "executable" -e "shared object" | grep ELF \

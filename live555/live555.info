@@ -1,4 +1,4 @@
 URL = http://www.live555.com/liveMedia/
-SRC = http://www.walecha.net/sites/default/files/live.2012.08.20.tar.gz
-MD5 = 0504355e4bb7fa5e2c02c098eb5421b6
-SHA1= 776a339640b81800264d843dbdb433792df90a05
+SRC = https://live555sourcecontrol.googlecode.com/files/live.2011.12.23.tar.gz
+MD5 = a7993e7baa4cfa56985b74219e00dff5
+SHA1= 665b7542da1f719b929d51842f39474ef340d9f6

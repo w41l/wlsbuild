@@ -2,14 +2,13 @@ a52dec
 dirac
 faac
 faad2
-lame
 libass
 libbluray
 libdca
 libdv
 libdvdnav
 libgsm
-libva
+live555
 openal
 opencore-amr
 openjpeg
@@ -17,7 +16,6 @@ orc
 rtmpdump
 schroedinger
 speex
-twolame
 unrar
 x264
 xvidcore

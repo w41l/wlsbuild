@@ -86,7 +86,7 @@ CXXFLAGS="$SLKCFLAGS" \
   --localstatedir=/var --sharedstatedir=/var/lib \
   --disable-static --enable-shared \
   --disable-avcodec \
-  --with-speex=lib
+  --with-speex=lib \
 
 make
 make install DESTDIR=$PKG

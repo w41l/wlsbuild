@@ -48,7 +48,6 @@ ifuse
 json-c
 speex
 pulseaudio
-a52dec
 alsa-plugins
 orc
 libiec61883

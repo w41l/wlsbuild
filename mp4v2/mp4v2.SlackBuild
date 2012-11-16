@@ -25,7 +25,7 @@
 
 PRGNAM=mp4v2
 VERSION=2.0.0
-BUILD=2
+BUILD=1
 TAG=${TAG:-_wls}
 NUMJOBS=${NUMJOBS:--j4}
 
@@ -88,7 +88,7 @@ CXXFLAGS="$SLKCFLAGS" \
   --disable-debug \
   --disable-optimize
 
-make V=1
+make
 make install DESTDIR=$PKG
 
 find $PKG | xargs file | grep -e "executable" -e "shared object" | grep ELF \

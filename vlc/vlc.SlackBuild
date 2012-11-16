@@ -24,8 +24,8 @@
 # YOUR DATA IS DESTROYED, YOUR HOUSE BURNS DOWN OR YOUR DOG RUNS OFF.
 
 PRGNAM=vlc
-VERSION=2.0.3
-BUILD=2
+VERSION=2.0.4
+BUILD=1
 TAG=${TAG:-_wls}
 NUMJOBS=${NUMJOBS:--j4}
 
@@ -73,8 +73,8 @@ find . \
  \( -perm 666 -o -perm 664 -o -perm 600 -o -perm 444 -o -perm 440 -o -perm 400 \) \
  -exec chmod 644 {} \;
 
-CFLAGS="$SLKCFLAGS" \
-CXXFLAGS="$SLKCFLAGS" \
+CFLAGS="$SLKCFLAGS -I/usr/include/liveMedia" \
+CXXFLAGS="$SLKCFLAGS -I/usr/include/liveMedia" \
 ./configure \
   --build=$ARCH-slackware-linux --host=$ARCH-slackware-linux \
   --program-prefix= --program-suffix= \
@@ -85,6 +85,10 @@ CXXFLAGS="$SLKCFLAGS" \
   --sysconfdir=/etc --docdir=/usr/doc/$PRGNAM-$VERSION \
   --localstatedir=/var --sharedstatedir=/var/lib \
   --disable-static --enable-shared \
+  --disable-pulse \
+  --disable-oss \
+  --disable-jack \
+  --disable-debug
   --enable-libproxy \
   --enable-lua \
   --enable-live555 \
@@ -99,10 +103,6 @@ CXXFLAGS="$SLKCFLAGS" \
   --enable-schroedinger \
   --enable-x264 \
   --enable-upnp \
-  --disable-pulse \
-  --disable-oss \
-  --disable-jack \
-  --disable-debug
 
 make V=1
 make DESTDIR=$PKG install

@@ -1,59 +1,52 @@
 ## MULTIMEDIA LIBS ##
+orc
+a52dec
+libiec61883
+libavc1394
+libdc1394
+libdv
+speex
 mp4v2
 faac
 faad2
-orc
 dirac
 schroedinger
 libgsm
 lame
 opencore-amr
-## TESTING ##
-a52dec
 xvidcore
-libdc1394
 openjpeg
-speex
 libvpx
-## TESTING ##
 gpac
 x264
 numpy
-gtkglext
 opencv
 frei0r
 rtmpdump
 libass
 libmodplug
 libbluray
-openal
 ffmpeg
-libdv
-libreplaygain
-libcue
-cuetools
-libmpcdec
-libmpeg2
-twolame
+--libreplaygain
+--mp3gain
+--vorbisgain
+--libmpeg2
+--libcue
+--cuetools
+--libcdaudio
+--libmpcdec
+--twolame
+openal
+a52dec
 libdca
 libdvdcss
-{libdvdnav} | use Slackware package
-libquicktime
-mjpegtools
-libiec61883
-libavc1394
-libcdaudio
+libdvdnav
 live555
-#wavegain | removed, use Slackware wavpack
-mp3gain
-vorbisgain
-libkate
 libmms
-#wildmidi | removed
-MPlayer
+--MPlayer (Replaced with mplayer2)
 
 
-## GENERAL LIBS ##
+## GNOME2 GENERAL LIBS ##
 {glib2}
 {gtk+2}
 setuptools
@@ -140,18 +133,7 @@ gst-python - clang
 gst-plugins-gl
 pyxdg
 
-## GNOME LIBS ##
-## GNOME3 LIBS ##
-#libsexy
-#sexy-python
-#cogl
-#clutter
-#clutter-gtk
-#clutter-gst
-#gnome-common
-
-## GNOME BASE ##
-## GNOME APPS ##
+## GNOME2 APPS ##
 #gnome-doc-utils
 alacarte
 pyorbit
@@ -291,6 +273,7 @@ gparted
 ipmitool
 
 ## KDE/QT APPS ##
+libkate
 umplayer | smplayer
 kio_afc
 qjson
@@ -303,6 +286,9 @@ ftgl
 goom2
 projectM
 seamonkey
+libquicktime
+mjpegtools
+libmpeg2
 vlc
 soundkonverter
 clementine

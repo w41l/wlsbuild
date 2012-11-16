@@ -84,7 +84,7 @@ cd build
     -DOPENJPEG_INSTALL_BIN_DIR=/usr/bin \
     -DOPENJPEG_INSTALL_LIB_DIR=/usr/lib$LIBDIRSUFFIX
 
-  make VERBOSE=1
+  make
   make install DESTDIR=$PKG
 cd -
 

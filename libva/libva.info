@@ -1,0 +1,6 @@
+URL = http://freedesktop.org/wiki/Software/vaapi
+SRC = http://www.freedesktop.org/software/vaapi/releases/libva/libva-1.1.0.tar.bz2
+MD5 = 51bb3b8de1de14ea036f68ef5065a932
+SHA1= af6e912ea86a6378992f5783390ab9cb8e5cadf9
+
+

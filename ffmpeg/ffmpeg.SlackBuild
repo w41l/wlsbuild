@@ -25,7 +25,7 @@
 
 PRGNAM=ffmpeg
 VERSION=0.11.2
-BUILD=2
+BUILD=1
 TAG=${TAG:-_wls}
 NUMJOBS=${NUMJOBS:--j3}
 
@@ -119,7 +119,7 @@ echo "$VERSION" > VERSION
 #    --enable-libiec61883 \
 
 echo "$VERSION" > VERSION
-make V=1
+make
 
 make install DESTDIR=$PKG
 make install-man DESTDIR=$PKG

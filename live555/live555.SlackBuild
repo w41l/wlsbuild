@@ -24,7 +24,7 @@
 # YOUR DATA IS DESTROYED, YOUR HOUSE BURNS DOWN OR YOUR DOG RUNS OFF.
 
 PRGNAM=live555
-VERSION=2012.08.20
+VERSION=2011.12.23
 BUILD=1
 TAG=${TAG:-_wls}
 NUMJOBS=${NUMJOBS:--j4}
@@ -84,14 +84,17 @@ find . -name "Makefile" -exec ./fix-makefile {} \;
 make V=1
 
 # Install header files
-mkdir -p $PKG/usr/include/UsageEnvironment
-mv UsageEnvironment/include/* $PKG/usr/include/UsageEnvironment
+mkdir -p $PKG/usr/include/liveMedia
+mv UsageEnvironment/include/* $PKG/usr/include/liveMedia/
+ln -sf /usr/include/liveMedia $PKG/usr/include/UsageEnvironment
 rm -r UsageEnvironment/include
-mkdir -p $PKG/usr/include/BasicUsageEnvironment
-mv BasicUsageEnvironment/include/* $PKG/usr/include/BasicUsageEnvironment
+mkdir -p $PKG/usr/include/liveMedia
+mv BasicUsageEnvironment/include/* $PKG/usr/include/liveMedia/
+ln -sf /usr/include/liveMedia $PKG/usr/include/BasicUsageEnvironment
 rm -r BasicUsageEnvironment/include
-mkdir -p $PKG/usr/include/groupsock
-mv groupsock/include/* $PKG/usr/include/groupsock
+mkdir -p $PKG/usr/include/liveMedia
+ln -sf /usr/include/liveMedia $PKG/usr/include/groupsock
+mv groupsock/include/* $PKG/usr/include/liveMedia
 rm -r groupsock/include
 mkdir -p $PKG/usr/include/liveMedia
 mv liveMedia/include/* $PKG/usr/include/liveMedia

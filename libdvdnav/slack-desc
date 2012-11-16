@@ -14,6 +14,6 @@ libdvdnav: interactive DVD games. All this functionality is provided through a
 libdvdnav: simple API which provides the DVD playback as a single logical
 libdvdnav: stream of blocks, intermitted by special dvdnav events to report
 libdvdnav: certain conditions.
-libdvdnav: URL: http://www.mplayerhq.hu/MPlayer/releases/dvdnav/
+libdvdnav:
 libdvdnav:
 libdvdnav: packaged by: Widya Walesa <walecha99@gmail.com>

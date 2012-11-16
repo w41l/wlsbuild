@@ -85,9 +85,9 @@ CXXFLAGS="$SLKCFLAGS" \
   --enable-vp8 \
   --enable-runtime-cpu-detect \
   --enable-postproc \
-  --enable-shared
+  --enable-shared \
 
-make V=1
+make
 make install DESTDIR=$PKG
 
 # The build system vor libvpx is not yet mature:

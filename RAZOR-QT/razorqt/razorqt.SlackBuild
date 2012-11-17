@@ -63,8 +63,12 @@ rm -rf $PKG
 mkdir -p $WRK $PKG $OUTPUT
 cd $WRK
 rm -rf $PRGNAM-$VERSION
-tar xvf $CWD/${PRGNAM}-${VERSION}.tar.?z*
+tar xvf $CWD/$PRGNAM-$VERSION.tar.?z*
 cd $PRGNAM-$VERSION
+
+# Fix razorqt directory spam on config update from 0.4 to 0.5.
+# Razor-qt 0.5 using ~/.config/razor instead of ~/.razor
+#cat $CWD/$PRGNAM-0.5-confupdate.patch | patch -p1
 
 chown -R root:root .
 find . \
@@ -82,7 +86,7 @@ cd build
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DLIB_SUFFIX=${LIBDIRSUFFIX} \
 
-  make VERBOSE=1
+  make
   make install DESTDIR=$PKG
 cd -
 

@@ -63,8 +63,9 @@ rm -rf $PKG
 mkdir -p $WRK $PKG $OUTPUT
 cd $WRK
 rm -rf $PRGNAM-$VERSION
+mkdir -p $PRGNAM-$VERSION
 cd $PRGNAM-$VERSION
-tar xvf $CWD/$PRGNAM-$VERSION-source.zip
+unzip $CWD/$PRGNAM-$VERSION-source.zip
 
 chown -R root:root .
 find . \

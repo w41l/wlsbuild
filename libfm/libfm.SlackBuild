@@ -25,7 +25,7 @@
 
 PRGNAM=libfm
 VERSION=1.1.0
-BUILD=1
+BUILD=2
 TAG="_wls"
 NUMJOBS="-j4"
 
@@ -88,9 +88,9 @@ CXXFLAGS="$SLKCFLAGS" \
   --disable-static --enable-shared \
   --disable-gtk-doc \
   --enable-udisks \
-  --with-gnu-ld
+  --with-gtk=3 \
 
-make V=1
+make
 make install DESTDIR=$PKG
 
 find $PKG | xargs file | grep -e "executable" -e "shared object" | grep ELF \

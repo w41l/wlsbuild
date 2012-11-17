@@ -26,25 +26,31 @@ rtmpdump
 libass
 libmodplug
 libbluray
-ffmpeg
---libreplaygain
---mp3gain
---vorbisgain
---libmpeg2
---libcue
---cuetools
---libcdaudio
---libmpcdec
---twolame
 openal
-a52dec
+# libva driver - pick one
+libva | VAAPI library
+libva-intel-driver | for intel gpu only
+libva-vdpau-driver | for nvidia or via gpu only
+xvba-video | for amd catalyst/fglrx gpu only
+# end of libva driver
+ffmpeg
+--libreplaygain | not used
+--mp3gain | not used
+--vorbisgain | not used
+--libmpeg2 | not used
+--libcue | not used
+--cuetools | not used
+--libcdaudio | not used
+--libmpcdec | not used
+--twolame | not used
 libdca
 libdvdcss
 libdvdnav
 live555
 libmms
+libmpcdec
 --MPlayer (Replaced with mplayer2)
-
+mplayer2
 
 ## GNOME2 GENERAL LIBS ##
 {glib2}

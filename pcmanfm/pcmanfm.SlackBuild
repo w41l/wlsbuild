@@ -85,6 +85,7 @@ CXXFLAGS="$SLKCFLAGS" \
   --mandir=/usr/man --infodir=/usr/info \
   --sysconfdir=/etc --docdir=/usr/doc/$PRGNAM-$VERSION \
   --localstatedir=/var --sharedstatedir=/var/lib \
+  --with-gtk=3 \
 
 make V=1
 make install DESTDIR=$PKG

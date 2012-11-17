@@ -1,0 +1,29 @@
+--- a/razorqt-confupdate/updates/razor-0.5/razor-0.5.upd	2012-10-23 09:17:43.000000000 +0700
++++ b/razorqt-confupdate/updates/razor-0.5/razor-0.5.upd	2012-11-16 12:32:50.880861364 +0700
+@@ -1,21 +1,21 @@
+ Id=razor_0.4.1-0.5.0
+ 
+-File=~/.razor/session.conf,razor/session.conf
++File=${HOME}/.razor/session.conf
+ Options=copy
+ Script=sesion_modules
+ 
+-File=~/.razor/desktop.conf,razor/desktop.conf
++File=${HOME}/.razor/desktop.conf
+ Options=copy
+ Script=desktop-041-050.py,python
+ 
+-File=~/.razor/razor.conf,razor/razor.conf
++File=${HOME}/.razor/razor.conf
+ Options=copy
+ AllKeys
+ 
+-File=~/.razor/razor-runner.conf,razor/razor-runner.conf
++File=${HOME}/.razor/razor-runner.conf
+ Options=copy
+ AllKeys
+ 
+-File=~/.razor/razor-panel/panel.conf,razor/razor-panel/panel.conf
++File=${HOME}/.razor/razor-panel/panel.conf
+ Options=copy
+ AllKeys

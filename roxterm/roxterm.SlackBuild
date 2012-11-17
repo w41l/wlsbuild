@@ -81,8 +81,7 @@ python mscript.py configure \
   --sysconfdir=/etc \
   --mandir=/usr/man \
   --docdir=/usr/doc/$PRGNAM-$VERSION \
-  --disable-gtk3 \
-  --disable-sm \
+  --disable-gtk3
 
 python mscript.py build
 python mscript.py install --destdir=$PKG

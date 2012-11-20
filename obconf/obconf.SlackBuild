@@ -24,7 +24,8 @@
 # YOUR DATA IS DESTROYED, YOUR HOUSE BURNS DOWN OR YOUR DOG RUNS OFF.
 
 PRGNAM=obconf
-VERSION=cfde287
+VERSION=20121007_cfde287
+SRCVERS=cfde28714e55f76c817d050b0d008123e029aa18
 BUILD=1
 TAG="_wls"
 NUMJOBS="-j4"
@@ -62,12 +63,14 @@ set -e
 rm -rf $PKG
 mkdir -p $WRK $PKG $OUTPUT
 cd $WRK
-rm -rf $PRGNAM-$VERSION
-tar xvf $CWD/$PRGNAM-$VERSION.tar.?z*
-cd $PRGNAM-$VERSION
+rm -rf $PRGNAM*
+tar xvf $CWD/$PRGNAM-$SRCVERS.tar.?z*
+cd $PRGNAM*
 
-cat $CWD/$PRGNAM-openbox-3.5-fix.patch | patch -p1
-./bootstrap
+if [ -e ./bootstrap ]; then
+  echo "Source $PRGNAM is from git repo, running bootstrap"
+  ./bootstrap
+fi
 
 chown -R root:root .
 find . \
@@ -89,7 +92,7 @@ CXXFLAGS="$SLKCFLAGS" \
   --sysconfdir=/etc --docdir=/usr/doc/$PRGNAM-$VERSION \
   --localstatedir=/var --sharedstatedir=/var/lib
 
-make V=1
+make
 make install DESTDIR=$PKG
 
 find $PKG | xargs file | grep -e "executable" -e "shared object" | grep ELF \
@@ -108,4 +111,4 @@ cd $PKG
 /sbin/makepkg -l y -c n $OUTPUT/$PRGNAM-$VERSION-$ARCH-$BUILD$TAG.txz
 
 echo "Cleaning up build directory"
-cd $WRK; rm -rf $PRGNAM-$VERSION $PKG
+cd $WRK; rm -rf $PRGNAM* $PKG

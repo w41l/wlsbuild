@@ -1,4 +1,4 @@
 URL = http://openbox.org/
-SRC = http://openbox.org/dist/openbox/openbox-3.5.0.tar.gz
-MD5 = 00441b53cf14c03566c8e82643544ff9
-SHA1= 3c3b8d2bc4f4e229871254e92d6b18639be00302
+SRC = http://git.openbox.org/?p=dana/openbox.git;a=snapshot;h=782b2864b1cc5ffab426dfb784a973576a98de18;sf=tgz
+MD5 = 81624df41674d8f100bd9ec1bef451c5
+SHA1= 2e3d5796d5213f13fb8df6580122de3fbaa1fda1

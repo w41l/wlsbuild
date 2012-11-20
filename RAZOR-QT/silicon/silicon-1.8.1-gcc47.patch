@@ -1,0 +1,10 @@
+--- silicon-1.8.1-src/Silicon/qtsingleapplication/qtlocalpeer.cpp.orig	2012-11-17 19:53:33.415455510 +0700
++++ silicon-1.8.1-src/Silicon/qtsingleapplication/qtlocalpeer.cpp	2012-11-17 19:54:34.397472493 +0700
+@@ -57,6 +57,7 @@
+ #endif
+ #if defined(Q_OS_UNIX)
+ #include <time.h>
++#include <unistd.h>
+ #endif
+ 
+ namespace QtLP_Private {

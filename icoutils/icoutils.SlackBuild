@@ -24,8 +24,8 @@
 # YOUR DATA IS DESTROYED, YOUR HOUSE BURNS DOWN OR YOUR DOG RUNS OFF.
 
 PRGNAM=icoutils
-VERSION=${VERSION:-0.29.1}
-BUILD=${BUILD:-1}
+VERSION=0.30.0
+BUILD=1
 TAG=${TAG:-_wls}
 NUMJOBS=${NUMJOBS:--j4}
 
@@ -38,8 +38,8 @@ if [ -z "$ARCH" ]; then
 fi
 
 CWD=$(pwd)
-TMP=${TMP:-/tmp/wlsbuild}
-PKG=$TMP/package-$PRGNAM
+WRK=${WRK:-/tmp/wlsbuild}
+PKG=$WRK/package-$PRGNAM
 OUTPUT=${OUTPUT:-/tmp}
 DOCS="ABOUT-NLS AUTHORS COPYING ChangeLog INSTALL NEWS README TODO"
 
@@ -60,8 +60,8 @@ fi
 set -e
 
 rm -rf $PKG
-mkdir -p $TMP $PKG $OUTPUT
-cd $TMP
+mkdir -p $WRK $PKG $OUTPUT
+cd $WRK
 rm -rf $PRGNAM-$VERSION
 tar xvf $CWD/$PRGNAM-$VERSION.tar.bz2
 cd $PRGNAM-$VERSION
@@ -86,7 +86,7 @@ CXXFLAGS="$SLKCFLAGS" \
   --sysconfdir=/etc \
   --localstatedir=/var --sharedstatedir=/var/lib
 
-make $NUMJOBS
+make
 make install DESTDIR=$PKG
 
 find $PKG | xargs file | grep -e "executable" -e "shared object" | grep ELF \
@@ -106,4 +106,4 @@ cd $PKG
 /sbin/makepkg -l y -c n $OUTPUT/$PRGNAM-$VERSION-$ARCH-$BUILD$TAG.txz
 
 echo "Cleaning up build directory"
-cd $TMP; rm -rf $PRGNAM-$VERSION $PKG
+cd $WRK; rm -rf $PRGNAM-$VERSION $PKG

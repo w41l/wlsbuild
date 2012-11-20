@@ -13,7 +13,7 @@ icoutils: images in Microsoft Windows icon and cursor files. These files
 icoutils: usually have the extension .ico or .cur, but they can also be
 icoutils: embedded in executables or libraries (.dll-files).
 icoutils:
-icoutils: URL: http://www.nongnu.org/icoutils/
+icoutils:
 icoutils:
 icoutils:
 icoutils: packaged by: Widya Walesa <walecha99@gmail.com>

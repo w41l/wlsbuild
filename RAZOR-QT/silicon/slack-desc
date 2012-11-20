@@ -6,14 +6,14 @@
 # leave one space after the ':'.
 
        |-----handy-ruler---------------------------------------------------|
-fuseiso: FuseISO
-fuseiso:
-fuseiso: FuseISO is a FUSE module to mount ISO filesystem images (.iso,
-fuseiso: .nrg, .bin, .mdf and .img files). It currently support plain
-fuseiso: ISO9660 Level 1 and 2, Rock Ridge, Joliet, and zisofs.
-fuseiso:
-fuseiso:
-fuseiso:
-fuseiso:
-fuseiso:
-fuseiso: http://www.walecha.net/
+silicon: Silicon (Disc Burning Utility)
+silicon:
+silicon: Silicon Empire is set of tools to Burn, Copy, Backup, Manage and ...
+silicon: your optical discs like CDs, DVDs and Blu-Rays. When you start
+silicon: working with silicon Empire Just feels everything done easily and
+silicon: quickly with high quality.
+silicon:
+silicon:
+silicon:
+silicon:
+silicon: http://www.walecha.net/

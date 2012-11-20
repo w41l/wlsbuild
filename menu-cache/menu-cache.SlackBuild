@@ -24,7 +24,7 @@
 # YOUR DATA IS DESTROYED, YOUR HOUSE BURNS DOWN OR YOUR DOG RUNS OFF.
 
 PRGNAM=menu-cache
-VERSION=0.3.3
+VERSION=0.4.1
 BUILD=1
 TAG="_wls"
 NUMJOBS="-j4"
@@ -63,7 +63,7 @@ rm -rf $PKG
 mkdir -p $WRK $PKG $OUTPUT
 cd $WRK
 rm -rf $PRGNAM-$VERSION
-tar xvf $CWD/$PRGNAM-$VERSION.tar.gz
+tar xvf $CWD/$PRGNAM-$VERSION.tar.?z*
 cd $PRGNAM-$VERSION
 
 chown -R root:root .
@@ -86,7 +86,7 @@ CXXFLAGS="$SLKCFLAGS" \
   --localstatedir=/var --sharedstatedir=/var/lib \
   --disable-static --enable-shared \
 
-make V=1
+make
 make install DESTDIR=$PKG
 
 find $PKG | xargs file | grep -e "executable" -e "shared object" | grep ELF \

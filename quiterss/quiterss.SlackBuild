@@ -74,7 +74,7 @@ find . \
  -exec chmod 644 {} \;
 
 qmake QuiteRSS.pro
-make V=1
+make
 make INSTALL_ROOT=$PKG install
 
 find $PKG | xargs file | grep -e "executable" -e "shared object" | grep ELF \
@@ -87,7 +87,6 @@ cat $CWD/$PRGNAM.SlackBuild > $PKG/usr/doc/$PRGNAM-$VERSION/$PRGNAM.SlackBuild
 mkdir -p $PKG/install
 cat $CWD/doinst.sh > $PKG/install/doinst.sh
 cat $CWD/slack-desc > $PKG/install/slack-desc
-cat $CWD/slack-required > $PKG/install/slack-required
 
 cd $PKG
 /sbin/makepkg -l y -c n $OUTPUT/$PRGNAM-$VERSION-$ARCH-$BUILD$TAG.txz

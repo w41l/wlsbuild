@@ -14,6 +14,6 @@ pcmanfm: searching utility, fast load of large directories, File association
 pcmanfm: support (Default application), Thumbnail for image files, Bookmarks
 pcmanfm: support, correct handling of non-UTF-8 encoded filenames and more.
 pcmanfm:
-pcmanfm: URL: http://www.lxde.org/
+pcmanfm:
 pcmanfm:
 pcmanfm: Packaged by: Widya Walesa <walecha99@gmail.com>

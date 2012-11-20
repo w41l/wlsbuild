@@ -10,7 +10,7 @@ libfm: libfm (LXDE Filemanager Library)
 libfm:
 libfm: Library for creating files manager.
 libfm:
-libfm: URL: http://www.lxde.org/
+libfm:
 libfm:
 libfm:
 libfm:

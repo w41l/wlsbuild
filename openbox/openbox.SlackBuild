@@ -24,7 +24,8 @@
 # YOUR DATA IS DESTROYED, YOUR HOUSE BURNS DOWN OR YOUR DOG RUNS OFF.
 
 PRGNAM=openbox
-VERSION=3.5.0
+VERSION=20121007_782b286
+SRCVERS=782b2864b1cc5ffab426dfb784a973576a98de18
 BUILD=1
 TAG="_wls"
 NUMJOBS="-j4"
@@ -63,7 +64,7 @@ rm -rf $PKG
 mkdir -p $WRK $PKG $OUTPUT
 cd $WRK
 rm -rf $PRGNAM*
-tar xvf $CWD/$PRGNAM-$VERSION.tar.?z*
+tar xvf $CWD/$PRGNAM-$SRCVERS.tar.?z*
 cd $PRGNAM*
 
 chown -R root:root .
@@ -72,6 +73,11 @@ find . \
  -exec chmod 755 {} \; -o \
  \( -perm 666 -o -perm 664 -o -perm 600 -o -perm 444 -o -perm 440 -o -perm 400 \) \
  -exec chmod 644 {} \;
+
+if [ -e ./bootstrap ]; then
+  echo "$PRGNAM source is from git, running bootstrap"
+  ./bootstrap
+fi
 
 CFLAGS="$SLKCFLAGS" \
 CXXFLAGS="$SLKCFLAGS" \

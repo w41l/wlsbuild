@@ -29,8 +29,9 @@ BUILD=1
 TAG=${TAG:-_wls}
 NUMJOBS=${NUMJOBS:--j4}
 
-# Uncomment this line if you want to use GTK2 GUI
-#GTKGUI="--enable-gui"
+# Change this line below if you want to disable GTK2 GUI
+GTKGUI="--enable-gui"
+#GTKGUI="--disable-gui"
 
 if [ -z "$ARCH" ]; then
   case "$( uname -m )" in

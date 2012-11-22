@@ -24,12 +24,12 @@
 # YOUR DATA IS DESTROYED, YOUR HOUSE BURNS DOWN OR YOUR DOG RUNS OFF.
 
 PRGNAM=libreoffice
-VERSION=3.6.2
+VERSION=3.6.3
 RCVERS=".2"
 MAJORVER=$( echo $VERSION | sed "s/\(.*\)\.\(.*\)\.*/\1/" )
 BUILD=1
 TAG=${TAG:-_wls}
-DIST=${DIST:-deb}
+DIST=${DIST:-rpm}
 LANGPACK=${LANGPACK:-id}
 
 if [ -z "$ARCH" ]; then
@@ -182,7 +182,6 @@ rm -rf $PKG/opt/libreoffice${MAJORVER}/share/fonts
 
 mkdir -p $PKG/install
 cat $CWD/slack-desc > $PKG/install/slack-desc
-cat $CWD/slack-required > $PKG/install/slack-required
 cat $CWD/doinst.sh > $PKG/install/doinst.sh
 
 cd $PKG

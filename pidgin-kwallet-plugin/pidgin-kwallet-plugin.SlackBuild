@@ -2,7 +2,7 @@
 
 # Slackware build script for pidgin-kwallet-plugin
 
-# Copyright 2010  Widya Walesa <walecha99@gmail.com>
+# Copyright 2010-2012  Widya Walesa <walecha99@gmail.com>
 # All rights reserved.
 #
 # Redistribution and use of this script, with or without modification, is
@@ -24,8 +24,8 @@
 # YOUR DATA IS DESTROYED, YOUR HOUSE BURNS DOWN OR YOUR DOG RUNS OFF.
 
 PRGNAM=pidgin-kwallet-plugin
-VERSION=${VERSION:-1.1.0}
-BUILD=${BUILD:-3}
+VERSION=1.1.0
+BUILD=1
 TAG=${TAG:-_wls}
 NUMJOBS=${NUMJOBS:--j4}
 
@@ -38,8 +38,8 @@ if [ -z "$ARCH" ]; then
 fi
 
 CWD=$(pwd)
-TMP=${TMP:-/tmp/wls}
-PKG=$TMP/package-$PRGNAM
+WRK=${WRK:-/tmp/wlsbuild}
+PKG=$WRK/package-$PRGNAM
 OUTPUT=${OUTPUT:-/tmp}
 DOCS="AUTHORS ChangeLog COPY* README TODO"
 
@@ -60,10 +60,10 @@ fi
 set -e
 
 rm -rf $PKG
-mkdir -p $TMP $PKG $OUTPUT
-cd $TMP
+mkdir -p $WRK $PKG $OUTPUT
+cd $WRK
 rm -rf PidginKWallet-$VERSION
-tar xvf $CWD/PidginKWallet-${VERSION}.tar.bz2
+tar xvf $CWD/PidginKWallet-$VERSION.tar.bz2
 cd PidginKWallet-$VERSION
 
 chown -R root:root .
@@ -80,9 +80,9 @@ cd build
     -DCMAKE_CXX_FLAGS="$SLKCFLAGS" \
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_PREFIX=$(kde4-config --prefix) \
-    -DLIB_SUFFIX=${LIBDIRSUFFIX} \
     ..
-  make ${NUMJOBS}
+
+  make
   make install DESTDIR=$PKG
 cd -
 
@@ -100,4 +100,4 @@ cd $PKG
 /sbin/makepkg -l y -c n $OUTPUT/$PRGNAM-$VERSION-$ARCH-$BUILD$TAG.txz
 
 echo "Cleaning up build directory"
-rm -rf $TMP/PidginKWallet-$VERSION $PKG
+cd $WRK; rm -rf PidginKWallet-$VERSION $PKG

@@ -15,5 +15,5 @@ pidgin-kwallet-plugin: the KDE wallet. It is activated via the 'Tools/KWallet/En
 pidgin-kwallet-plugin: menu item. You will need to call this each time you change an account's
 pidgin-kwallet-plugin: password.
 pidgin-kwallet-plugin:
-pidgin-kwallet-plugin: URL: http://kde-apps.org/content/show.php/Pidgin+KWallet+Plugin?content=127136
 pidgin-kwallet-plugin:
+pidgin-kwallet-plugin: http://www.walecha.net/

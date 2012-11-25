@@ -1,0 +1,4 @@
+URL = http://libevent.org/
+SRC = https://github.com/downloads/libevent/libevent/libevent-2.0.21-stable.tar.gz
+MD5 = b2405cc9ebf264aa47ff615d9de527a2
+SHA1= 3e6674772eb77de24908c6267c698146420ab699

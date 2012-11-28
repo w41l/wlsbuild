@@ -90,7 +90,7 @@ CXXFLAGS="$SLKCFLAGS" \
   --disable-gtk-doc \
   --disable-debug \
 
-make V=1
+make
 
 AMRNB_CFLAGS="-I/usr/include/opencore-amrnb" \
 AMRWB_CFLAGS="-I/usr/include/opencore-amrwb" \

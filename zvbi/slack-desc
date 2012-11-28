@@ -13,7 +13,7 @@ zvbi: devices, to demodulate raw to sliced VBI data, and to interpret the
 zvbi: data of several popular services. It has been written for the Zapping
 zvbi: TV viewer.
 zvbi:
-zvbi: URL: http://zapping.sourceforge.net/
+zvbi:
 zvbi:
 zvbi:
 zvbi: http://www.walecha.net/

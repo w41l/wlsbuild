@@ -1,9 +1,0 @@
-curl
-cxxlibs
-cyrus-sasl
-db44
-expat
-libidn
-openldap-client
-openssl | openssl-solibs
-zlib

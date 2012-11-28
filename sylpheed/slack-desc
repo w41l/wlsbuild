@@ -1,0 +1,19 @@
+# HOW TO EDIT THIS FILE:
+# The "handy ruler" below makes it easier to edit a package description.  Line
+# up the first '|' above the ':' following the base package name, and the '|'
+# on the right side marks the last column you can put a character in.  You must
+# make exactly 11 lines for the formatting to be correct.  It's also
+# customary to leave one space after the ':'.
+
+        |-----handy-ruler----------------------------------------------------|
+sylpheed: sylpheed (GTK+2 Email Client)
+sylpheed:
+sylpheed: Sylpheed is a simple, lightweight but featureful, and easy-to-use
+sylpheed: e-mail client. Sylpheed provides intuitive user-interface.
+sylpheed: Sylpheed is also designed for keyboard-oriented operation,
+sylpheed: so Sylpheed can be widely used from beginners to power users.
+sylpheed: Sylpheed runs on many systems such as Windows, Linux, BSD, Mac OS X
+sylpheed: and other Unix-like systems. Sylpheed uses GTK+ GUI toolkit.
+sylpheed:
+sylpheed:
+sylpheed: Packaged by: Widya Walesa <walecha99@gmail.com>

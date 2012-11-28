@@ -2,7 +2,7 @@
 
 # Slackware build script for q4wine
 
-# Copyright 2011 Widya Walesa <walecha99@gmail.com>
+# Copyright 2011-2012  Widya Walesa <walecha99@gmail.com>
 # All rights reserved.
 #
 # Redistribution and use of this script, with or without modification, is
@@ -25,6 +25,7 @@
 
 PRGNAM=q4wine
 VERSION=0.999
+RCVERS=rc8
 BUILD=1
 TAG=${TAG:-_wls}
 NUMJOBS=${NUMJOBS:--j3}
@@ -63,8 +64,8 @@ rm -rf $PKG
 mkdir -p $WRK $PKG $OUTPUT
 cd $WRK
 rm -rf $PRGNAM-$VERSION*
-tar xvf $CWD/$PRGNAM-$VERSION-rc8.tar.?z*
-cd $PRGNAM-$VERSION-rc8
+tar xvf $CWD/$PRGNAM-$VERSION-$RCVERS.tar.?z*
+cd $PRGNAM-$VERSION-$RCVERS
 
 chown -R root:root .
 find . \
@@ -84,23 +85,23 @@ cd build
     -DMANPAGE_ENTRY_PATH=/usr/man \
     -DUSE_GZIP="ON"
 
-  make ${NUMJOBS}
+  make
   make install DESTDIR=$PKG
 cd -
 
 find $PKG | xargs file | grep -e "executable" -e "shared object" | grep ELF \
   | cut -f 1 -d : | xargs strip --strip-unneeded 2> /dev/null || true
 
-mkdir -p $PKG/usr/doc/$PRGNAM-$VERSION
-cp -a $DOCS $PKG/usr/doc/$PRGNAM-$VERSION
-cat $CWD/$PRGNAM.SlackBuild > $PKG/usr/doc/$PRGNAM-$VERSION/$PRGNAM.SlackBuild
+mkdir -p $PKG/usr/doc/$PRGNAM-$VERSION.$RCVERS
+cp -a $DOCS $PKG/usr/doc/$PRGNAM-$VERSION.$RCVERS
+cat $CWD/$PRGNAM.SlackBuild > $PKG/usr/doc/$PRGNAM-$VERSION.$RCVERS/$PRGNAM.SlackBuild
 
 mkdir -p $PKG/install
 cat $CWD/slack-desc > $PKG/install/slack-desc
-cat $CWD/doinst.sh >> $PKG/install/doinst.sh
+cat $CWD/doinst.sh > $PKG/install/doinst.sh
 
 cd $PKG
-/sbin/makepkg -p -l y -c n $OUTPUT/$PRGNAM-$VERSION-$ARCH-$BUILD$TAG.txz
+/sbin/makepkg -p -l y -c n $OUTPUT/$PRGNAM-$VERSION.$RCVERS-$ARCH-$BUILD$TAG.txz
 
 echo "Cleaning up build directory"
 cd $WRK; rm -rf $PRGNAM-$VERSION* $PKG

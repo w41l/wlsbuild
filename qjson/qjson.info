@@ -1,4 +1,4 @@
 URL = http://qjson.sourceforge.net/
-SRC = http://sourceforge.net/projects/qjson/files/qjson/0.7.1/qjson-0.7.1.tar.bz2/download
-MD5 = 5a833ad606c164ed8aa69f0873366ace
-SHA1= 19bbef24132b238e99744bb35194c6dadece98f9
+SRC = http://sourceforge.net/projects/qjson/files/qjson/0.8.0/qjson-0.8.0.tar.bz2/download
+MD5 = 92e5ab423db2249fe4c25665b6b1bccd
+SHA1= 6a571194d24aed23f36642f5d24d97f6b1080d4a

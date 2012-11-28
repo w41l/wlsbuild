@@ -5,7 +5,7 @@
 # make exactly 11 lines for the formatting to be correct.  It's also
 # customary to leave one space after the ':'.
 
-		|-----handy-ruler------------------------------------------------------|
+        |-----handy-ruler------------------------------------------------------|
 smplayer: SMPlayer (Qt GUI for MPlayer)
 smplayer:
 smplayer: SMPlayer intends to be a complete front-end for MPlayer, from basic
@@ -15,5 +15,5 @@ smplayer: the ability to remember the state of a played file, so when you play
 smplayer: it later it will resume at the same point and with the same settings.
 smplayer: smplayer is developed with the Qt toolkit, so it's multi-platform.
 smplayer:
-smplayer: URL: http://smplayer.sourceforge.net/
 smplayer:
+smplayer: http://www.walecha.net/

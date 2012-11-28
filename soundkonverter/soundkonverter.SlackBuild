@@ -79,12 +79,8 @@ cmake .. \
   -DCMAKE_CXX_FLAGS:STRING="${SLKCFLAGS}" \
   -DCMAKE_BUILD_TYPE=release \
   -DCMAKE_INSTALL_PREFIX=$(kde4-config --prefix) \
-  -DMAN_INSTALL_DIR=/usr/man \
-  -DSYSCONF_INSTALL_DIR=/etc \
-  -DLIB_INSTALL_DIR:PATH=/usr/lib${LIBDIRSUFFIX} \
-  -DLIB_SUFFIX=${LIBDIRSUFFIX}
 
-make $NUMJOBS
+make
 make install DESTDIR=$PKG
 cd ..
 

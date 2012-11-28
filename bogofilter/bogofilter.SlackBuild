@@ -84,7 +84,7 @@ CXXFLAGS="$SLKCFLAGS" \
   --sysconfdir=/etc --docdir=/usr/doc/$PRGNAM-$VERSION \
   --localstatedir=/var --sharedstatedir=/var/lib
 
-make V=1
+make
 make DESTDIR=$PKG install
 
 cp $PKG/etc/bogofilter.cf.example $PKG/etc/bogofilter.cf.new

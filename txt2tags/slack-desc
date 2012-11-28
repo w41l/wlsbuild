@@ -13,7 +13,7 @@ txt2tags: minimal markup as **bold** and //italic// and converts it to the
 txt2tags: following formats: HTML, XHTML, SGML, LaTeX, Lout, Man page, wiki
 txt2tags: Google Code wiki, MoinMoin, MagicPoint, PageMaker and plantext.
 txt2tags:
-txt2tags: URL: http://www.txt2tags.org/
+txt2tags:
 txt2tags:
 txt2tags:
 txt2tags: http://www.walecha.net/

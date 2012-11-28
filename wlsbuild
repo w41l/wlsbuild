@@ -34,14 +34,15 @@ libva-vdpau-driver | for nvidia or via gpu only
 xvba-video | for amd catalyst/fglrx gpu only
 # end of libva driver
 ffmpeg
---libreplaygain | not used
---mp3gain | not used
---vorbisgain | not used
---libmpeg2 | not used
---libcue | not used
---cuetools | not used
---libcdaudio | not used
---libmpcdec | not used
+libquicktime
+mjpegtools
+libmpeg2
+libreplaygain
+mp3gain
+vorbisgain
+libcue
+cuetools
+libcdaudio
 --twolame | not used
 libdca
 libdvdcss
@@ -49,8 +50,16 @@ libdvdnav
 live555
 libmms
 libmpcdec
+zvbi
 --MPlayer (Replaced with mplayer2)
 mplayer2
+
+gst-ffmpeg
+gst-plugins-ugly
+gst-plugins-bad
+gst-python
+gst-plugins-gl
+pyxdg
 
 ## GNOME2 GENERAL LIBS ##
 {glib2}
@@ -131,13 +140,6 @@ yelp-xsl
 {icu4c}
 webkitgtk
 yelp
-
-gst-ffmpeg
-gst-plugins-ugly
-gst-plugins-bad
-gst-python - clang
-gst-plugins-gl
-pyxdg
 
 ## GNOME2 APPS ##
 #gnome-doc-utils
@@ -292,9 +294,6 @@ ftgl
 goom2
 projectM
 seamonkey
-libquicktime
-mjpegtools
-libmpeg2
 vlc
 soundkonverter
 clementine

@@ -1,4 +1,4 @@
 URL = http://rekonq.kde.org/
-SRC = http://sourceforge.net/projects/rekonq/files/1.0/rekonq-1.3.tar.bz2?download
-MD5 = aeed67e546bf83006a09944d6bb8e920
-SHA1= fc4cd5b490a531a12c25310624337a2400dc594d
+SRC = http://sourceforge.net/projects/rekonq/files/2.0/rekonq-1.80.tar.bz2/download
+MD5 = b0ad02d88caf81cd0598366848a1610d
+SHA1= 4b732daa0914f5cd6ed6a26a35633b9a6696a94c

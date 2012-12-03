@@ -2,7 +2,7 @@
 
 # Slackware build script for mesa
 
-# Copyright 2011  Widya Walesa <walecha99@gmail.com>
+# Copyright 2011-2012  Widya Walesa <walecha99@gmail.com>
 # All rights reserved.
 #
 # Redistribution and use of this script, with or without modification, is
@@ -24,16 +24,14 @@
 # YOUR DATA IS DESTROYED, YOUR HOUSE BURNS DOWN OR YOUR DOG RUNS OFF.
 
 PRGNAM=mesa
-VERSION=7.11.2
-GLUTVERSION=7.11.2
-DEMOVERSION=8.0.1
+VERSION=9.0.1
 BUILD=1
 TAG=${TAG:-_wls}
 NUMJOBS=${NUMJOBS:--j4}
 
 # Be sure this list is up-to-date:
-DRI_DRIVERS="i810,i915,i965,mach64,mga,nouveau,r128,r200,r300,r600,radeon,savage,swrast,tdfx,unichrome"
-GALLIUM_DRIVERS="i915,i965,nouveau,r300,r600,svga,swrast"
+DRI_DRIVERS="i915,i965,nouveau,r200,radeon,swrast"
+GALLIUM_DRIVERS="nouveau,r300,r600,svga,swrast"
 
 if [ -z "$ARCH" ]; then
   case "$( uname -m )" in
@@ -63,17 +61,10 @@ fi
 rm -rf $PKG
 mkdir -p $WRK $PKG
 cd $WRK
-rm -rf Mesa-${VERSION}
-tar xvf $CWD/MesaLib-${VERSION}.tar.?z* || exit 1
+rm -rf Mesa-$VERSION
+tar xvf $CWD/MesaLib-$VERSION.tar.?z* || exit 1
 
-# If MesaLib came from git, we might already have GLUT.
-if [ ! -d Mesa-${VERSION}/src/glut/glx ]; then
-  tar xvf $CWD/MesaGLUT-${GLUTVERSION}.tar.?z* || exit 1
-fi
-
-cd Mesa-${VERSION}
-
-# Make sure ownerships and permissions are sane:
+cd Mesa-$VERSION
 chown -R root:root .
 find . \
   \( -perm 777 -o -perm 775 -o -perm 711 -o -perm 555 -o -perm 511 \) \
@@ -82,7 +73,7 @@ find . \
   -exec chmod 644 {} \;
 
 # Apply patches from git (and maybe elsewhere):
-#cat $CWD/patches/wayland-egl-0.1.diff | patch -p1
+cat $CWD/patches/MesaLib-9.0.1-add_xdemos-4.patch | patch -p1
 # Patches obtained by:
 #   git checkout origin/7.9
 #   git format-patch 67aeab0b77fb6be864088e69ea74a010b6543fa1..
@@ -90,60 +81,55 @@ find . \
 #  for patch in $CWD/patches/*.gz ; do
 #    zcat $patch | patch -p1 || exit 1 ;
 #  done
-#  autoreconf -fi
 #fi
+autoreconf -fi
 
 CFLAGS="$SLKCFLAGS" \
 CXXFLAGS="$SLKCFLAGS" \
-CPPFLAGS="$SLKCFLAGS" \
 ./configure \
   --build=$ARCH-slackware-linux \
   --host=$ARCH-slackware-linux \
   --prefix=/usr \
   --sysconfdir=/etc \
   --includedir=/usr/include \
-  --libdir=/usr/lib${LIBDIRSUFFIX} \
+  --libdir=/usr/lib$LIBDIRSUFFIX \
   --mandir=/usr/man \
   --docdir=/usr/doc/mesa-$VERSION \
   --enable-opengl \
+  --enable-openvg \
   --enable-gles1 \
   --enable-gles2 \
   --enable-egl \
   --enable-xorg \
+  --enable-gbm \
+  --enable-glx-tls \
+  --enable-xa \
+  --enable-texture-float \
+  --enable-gallium-gbm \
   --enable-gallium-llvm \
   --enable-shared-glapi \
-  --enable-gbm \
+  --enable-gallium-egl \
   --enable-gl-osmesa \
-  --enable-shared-dricore \
-  --enable-xcb \
-  --with-driver=dri \
-  --with-x \
-  --with-egl-platforms='x11,drm' \
-  --with-dri-driverdir=/usr/lib${LIBDIRSUFFIX}/xorg/modules/dri \
+  --with-egl-platforms="drm,x11" \
+  --with-dri-driverdir=/usr/lib$LIBDIRSUFFIX/xorg/modules/dri \
   --with-dri-drivers="$DRI_DRIVERS" \
   --with-gallium-drivers="$GALLIUM_DRIVERS"
 
-#  --enable-dri \
-#  --enable-glx \
-#  --enable-osmesa \
-#  --with-egl-platforms='x11,wayland,drm' \
-#  --enable-glx-tls \
-
-make ${NUMJOBS} || exit 1
+make
 make install DESTDIR=$PKG || exit 1
 
-# Strip binaries:
+cd xdemos
+make DEMOS_PREFIX=/usr
+make install DESTDIR=$PKG || exit 1
+cd -
+
+mv $PKG/usr/share/man $PKG/usr/
+
 find $PKG | xargs file | grep -e "executable" -e "shared object" | grep ELF \
   | cut -f 1 -d : | xargs strip --strip-unneeded 2> /dev/null
 
 find $PKG/usr/man -type f -exec gzip -9 {} \;
 for i in $( find $PKG/usr/man -type l ) ; do ln -s $( readlink $i ).gz $i.gz ; rm $i ; done
-
-# Compress info files, if any:
-if [ -d $PKG/usr/info ]; then
-  rm -f $PKG/usr/info/dir
-  gzip -9 $PKG/usr/info/*
-fi
 
 mkdir -p $PKG/usr/doc/Mesa-$VERSION/html
 cp -a \
@@ -157,7 +143,7 @@ mkdir -p $PKG/install
 cat $CWD/slack-desc > $PKG/install/slack-desc
 
 cd $PKG
-/sbin/makepkg -l y -c n $OUTPUT/${PRGNAM}-$VERSION-$ARCH-${BUILD}${TAG}.txz
+/sbin/makepkg -l y -c n $OUTPUT/$PRGNAM-$VERSION-$ARCH-$BUILD$TAG.txz
 
 echo "Cleaning up build directory"
 cd $WRK; rm -rf Mesa-$VERSION $PKG

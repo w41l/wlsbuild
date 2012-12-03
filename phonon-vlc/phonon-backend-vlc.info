@@ -1,0 +1,4 @@
+URL = https://projects.kde.org/projects/kdesupport/phonon/phonon-vlc
+SRC = http://mirrors.isc.org/pub/kde/stable/phonon/phonon-backend-vlc/0.6.0/src/phonon-backend-vlc-0.6.0.tar.xz
+MD5 = 13c7adb90f62cb568d17bc9ced9406e9
+SHA1= f66a70cd27ad49dc98eb6526d0566cfe0802774b

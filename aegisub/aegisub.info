@@ -1,7 +1,4 @@
-PRGNAM="aegisub"
-VERSION="2.1.8"
-HOMEPAGE="http://www.aegisub.org/"
-DOWNLOAD="ftp://ftp.aegisub.org/pub/releases/aegisub-2.1.8.tar.gz"
-MD5SUM="04438f9c237618d225d3654cded3d4bb"
-DOWNLOAD_x86_64=""
-MD5SUM_x86_64=""
+URL = http://www.aegisub.org/
+SRC = http://ftp.aegisub.org/pub/releases/aegisub-3.0.2.tar.xz
+MD5 = d3817d493d0f2f1ee9c5a8e0a58d591e
+SHA1= d5d9edc629619b8a9464b22589d743a5e86fe7fe

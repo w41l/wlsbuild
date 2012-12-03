@@ -149,6 +149,10 @@ make install DESTDIR=$PKG
 
 mv $PKG/etc/qemu/target-x86_64.conf $PKG/etc/qemu/target-x86_64.conf.new
 
+# Add udev rule for qemu
+mkdir -p $PKG/etc/udev/rules.d
+cat $CWD/65-kvm.rules > $PKG/etc/udev/rules.d/65-kvm.rules
+
 find $PKG | xargs file | grep -e "executable" -e "shared object" | grep ELF \
   | cut -f 1 -d : | xargs strip --strip-unneeded 2> /dev/null || true
 

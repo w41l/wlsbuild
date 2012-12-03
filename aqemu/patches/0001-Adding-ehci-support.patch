@@ -1,0 +1,47 @@
+From 64ac4e1bba30889b24dcb44b0a4b5f55d45c0bd8 Mon Sep 17 00:00:00 2001
+From: Erik-Jan <ej.lfs@xs4all.nl>
+Date: Tue, 10 Apr 2012 23:28:00 +0200
+Subject: [PATCH 1/2] Adding ehci-support
+
+---
+ VM.cpp |   15 +++++++++++++++
+ 1 file changed, 15 insertions(+)
+
+diff --git a/VM.cpp b/VM.cpp
+index 7a0626e..7001d27 100644
+--- a/VM.cpp
++++ b/VM.cpp
+@@ -6128,6 +6128,7 @@ QStringList Virtual_Machine::Build_QEMU_Args()
+ 	{
+ 		if( USB_Ports.count() > 0 )
+ 		{
++			bool usb_ehci_arg_added = false;
+ 			Args << "-usb";
+ 			
+ 			if( Build_QEMU_Args_for_Tab_Info == false ) System_Info::Update_Host_USB();
+@@ -6178,8 +6179,22 @@ QStringList Virtual_Machine::Build_QEMU_Args()
+ 							AQError( "QStringList Virtual_Machine::Build_QEMU_Args()",
+ 									 "USB busAddrList.count() != 2" );
+ 						}
++						else if( current_USB_Device.Get_Speed().toInt() >= 480 )
++						{
++							AQDebug( "QStringList Virtual_Machine::Build_QEMU_Args()",
++									QString( "USB speed >= 480, adding ehci USB device %1:%2").arg( busAddrList[0] ).arg( busAddrList[1] ) );
++							if( ! usb_ehci_arg_added )
++							{
++								// Only needed once
++								Args << "-device" << "usb-ehci,id=ehci";
++								usb_ehci_arg_added = true;
++							}
++							Args << "-device" << QString( "usb-host,bus=ehci.0,hostbus=%1,hostaddr=%2" ).arg( busAddrList[0] ).arg( busAddrList[1] );
++						}
+ 						else
+ 						{
++							AQDebug( "QStringList Virtual_Machine::Build_QEMU_Args()",
++									QString( "USB speed < 480, adding ohci USB device %1:%2").arg( busAddrList[0] ).arg( busAddrList[1] ) );
+ 							Args << "-device" << QString( "usb-host,hostbus=%1,hostaddr=%2" ).arg( busAddrList[0] ).arg( busAddrList[1] );
+ 						}
+ 					}
+-- 
+1.7.10
+

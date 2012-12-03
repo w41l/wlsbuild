@@ -1,0 +1,43 @@
+diff --git a/Device_Manager_Widget.cpp b/Device_Manager_Widget.cpp
+index 671930a..e043afa 100644
+--- a/Device_Manager_Widget.cpp
++++ b/Device_Manager_Widget.cpp
+@@ -64,6 +64,10 @@ Device_Manager_Widget::Device_Manager_Widget( QWidget *parent )
+ 
+ Device_Manager_Widget::~Device_Manager_Widget()
+ {
++	if( HDA_Info != NULL ) delete HDA_Info;
++	if( HDB_Info != NULL ) delete HDB_Info;
++	if( HDC_Info != NULL ) delete HDC_Info;
++	if( HDD_Info != NULL ) delete HDD_Info;
+ 	if( pw != NULL ) delete pw;
+ 	if( Context_Menu != NULL ) delete Context_Menu;
+ }
+diff --git a/Properties_Window.cpp b/Properties_Window.cpp
+index bed5f9f..99c29a1 100644
+--- a/Properties_Window.cpp
++++ b/Properties_Window.cpp
+@@ -47,6 +47,11 @@ Properties_Window::Properties_Window( QWidget *parent )
+ 			 this, SLOT(on_Button_Update_Info_clicked()) );
+ }
+ 
++Properties_Window::~Properties_Window()
++{
++	if( HDD_Info != NULL ) delete HDD_Info;
++}
++
+ const VM_Storage_Device &Properties_Window::Get_Floppy()
+ {
+ 	PW_Storage.Set_Enabled( true );
+diff --git a/Properties_Window.h b/Properties_Window.h
+index e7bba7e..e653314 100644
+--- a/Properties_Window.h
++++ b/Properties_Window.h
+@@ -33,6 +33,7 @@ class Properties_Window: public QDialog
+ 
+ 	public:
+ 		Properties_Window( QWidget *parent = 0 );
++		~Properties_Window();
+ 		
+ 		const VM_Storage_Device &Get_Floppy();
+ 		const VM_Storage_Device &Get_CD_ROM();

@@ -1,0 +1,19 @@
+# HOW TO EDIT THIS FILE:
+# The "handy ruler" below makes it easier to edit a package description.  Line
+# up the first '|' above the ':' following the base package name, and the '|'
+# on the right side marks the last column you can put a character in.  You must
+# make exactly 11 lines for the formatting to be correct.  It's also
+# customary to leave one space after the ':'.
+
+          |-----handy-ruler------------------------------------------------------|
+unetbootin: unetbootin (Universal Netboot Installer)
+unetbootin:
+unetbootin: UNetbootin allows you to create bootable Live USB drives for Ubuntu,
+unetbootin: Fedora, and other Linux distributions without burning a CD. It runs on
+unetbootin: Windows, Linux, and Mac OS X. You can either let UNetbootin download
+unetbootin: one of the many distributions supported out-of-the-box for you, or
+unetbootin: supply your own Linux .iso file.
+unetbootin:
+unetbootin:
+unetbootin:
+unetbootin: Packaged by: Widya Walesa <walecha99@gmail.com>

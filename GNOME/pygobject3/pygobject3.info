@@ -1,4 +1,4 @@
-URL = http://git.gnome.org/browse/pygobject/
-SRC = http://kambing.ui.ac.id/gnome/sources/pygobject/3.2/pygobject-3.2.2.tar.xz
-MD5 = f895f1ec37f60c2ba528c2d760bcb69e
-SHA1= b34405357d69412657904775a207a4a8357a934d
+URL=http://git.gnome.org/browse/pygobject/
+SRC=http://kambing.ui.ac.id/gnome/sources/pygobject/3.2/pygobject-3.2.2.tar.xz
+MD5=f895f1ec37f60c2ba528c2d760bcb69e
+SHA1=b34405357d69412657904775a207a4a8357a934d

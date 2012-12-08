@@ -1,0 +1,19 @@
+# HOW TO EDIT THIS FILE:
+# The "handy ruler" below makes it easier to edit a package description.  Line
+# up the first '|' above the ':' following the base package name, and the '|' on
+# the right side marks the last column you can put a character in.  You must make
+# exactly 11 lines for the formatting to be correct.  It's also customary to
+# leave one space after the ':'.
+
+                      |-----handy-ruler------------------------------------------------------|
+kde-plasma-alsa-volume: kde-plasma-alsa-olume (KDE Plasmoids)
+kde-plasma-alsa-volume:
+kde-plasma-alsa-volume: Plasmoid controls alsa devices by mouse. You can add plasmoid to panel
+kde-plasma-alsa-volume: (both vertical && horisontal) or to workspace. You must install
+kde-plasma-alsa-volume: python-alsaaudio or similar in your distributive.
+kde-plasma-alsa-volume:
+kde-plasma-alsa-volume: URL: http://kde-look.org/content/show.php?action=content&content=138990
+kde-plasma-alsa-volume:
+kde-plasma-alsa-volume:
+kde-plasma-alsa-volume:
+kde-plasma-alsa-volume:

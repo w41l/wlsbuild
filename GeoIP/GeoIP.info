@@ -1,4 +1,4 @@
-URL = http://www.maxmind.com/
-SRC = http://www.maxmind.com/download/geoip/api/c/GeoIP-1.4.8.tar.gz
-MD5 = 05b7300435336231b556df5ab36f326d
-SHA1= 7bafb9918e3c35a6ccc71bb14945245d45c4b796
+URL=http://www.maxmind.com/
+SRC=http://www.maxmind.com/download/geoip/api/c/GeoIP-1.4.8.tar.gz
+MD5=05b7300435336231b556df5ab36f326d
+SHA1=7bafb9918e3c35a6ccc71bb14945245d45c4b796

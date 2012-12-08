@@ -1,4 +1,4 @@
-URL = http://telepathy.freedesktop.org/wiki/Mission%20Control
-SRC = http://telepathy.freedesktop.org/releases/telepathy-mission-control/telepathy-mission-control-5.12.3.tar.gz
-MD5 = 54b59ed2d756eb5ce95cdf437208e65e
-SHA1= c44bada02a4d1424524f9c2610c94044182c0b8d
+URL=http://telepathy.freedesktop.org/wiki/Mission%20Control
+SRC=http://telepathy.freedesktop.org/releases/telepathy-mission-control/telepathy-mission-control-5.12.3.tar.gz
+MD5=54b59ed2d756eb5ce95cdf437208e65e
+SHA1=c44bada02a4d1424524f9c2610c94044182c0b8d

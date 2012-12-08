@@ -1,4 +1,4 @@
-URL = http://git.gnome.org/browse/gnome-session/
-SRC = http://kambing.ui.ac.id/gnome/sources/gnome-session/3.4/gnome-session-3.4.2.1.tar.xz
-MD5 = 7254bcc8e1e493cbf2a27e4f3cbe966b
-SHA1= 18870d115e60f9e2e1e097b934138cc2c749c4bd
+URL=http://git.gnome.org/browse/gnome-session/
+SRC=http://kambing.ui.ac.id/gnome/sources/gnome-session/3.4/gnome-session-3.4.2.1.tar.xz
+MD5=7254bcc8e1e493cbf2a27e4f3cbe966b
+SHA1=18870d115e60f9e2e1e097b934138cc2c749c4bd

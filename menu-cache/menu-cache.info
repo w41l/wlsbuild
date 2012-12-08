@@ -1,4 +1,4 @@
-URL = http://lxde.org/
-SRC = http://sourceforge.net/projects/lxde/files/menu-cache/menu-cache%200.4.1/menu-cache-0.4.1.tar.gz/download
-MD5 = 20fed982f5d8e6ec8a56a5b48894ecf0
-SHA1= ca79049f9cab6d5099a8ab03584dc44bdc35a7c4
+URL=http://lxde.org/
+SRC=http://sourceforge.net/projects/lxde/files/menu-cache/menu-cache%200.4.1/menu-cache-0.4.1.tar.gz
+MD5=20fed982f5d8e6ec8a56a5b48894ecf0
+SHA1=ca79049f9cab6d5099a8ab03584dc44bdc35a7c4

@@ -1,4 +1,4 @@
-URL = http://liboauth.sourceforge.net/
-SRC = http://sourceforge.net/projects/liboauth/files/liboauth-1.0.0.tar.gz/download
-MD5 = fea6cfb9f65f4d448f8afabc936ee1a3
-SHA1= cc936a440084f159cc46dab9018f1353f8bee80a
+URL=http://liboauth.sourceforge.net/
+SRC=http://sourceforge.net/projects/liboauth/files/liboauth-1.0.0.tar.gz
+MD5=fea6cfb9f65f4d448f8afabc936ee1a3
+SHA1=cc936a440084f159cc46dab9018f1353f8bee80a

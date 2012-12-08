@@ -1,4 +1,4 @@
-URL = http://git.gnome.org/browse/nautilus-open-terminal/
-SRC = http://kambing.ui.ac.id/gnome/sources/nautilus-open-terminal/0.19/nautilus-open-terminal-0.19.tar.bz2
-MD5 = bbfe4958dfd43e4f31bf1d4a29e79cfe
-SHA1= 172e0999e767dd2847f10a1886de9ad36aada45b
+URL=http://git.gnome.org/browse/nautilus-open-terminal/
+SRC=http://kambing.ui.ac.id/gnome/sources/nautilus-open-terminal/0.19/nautilus-open-terminal-0.19.tar.bz2
+MD5=bbfe4958dfd43e4f31bf1d4a29e79cfe
+SHA1=172e0999e767dd2847f10a1886de9ad36aada45b

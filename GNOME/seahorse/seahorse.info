@@ -1,4 +1,4 @@
-URL = http://git.gnome.org/browse/seahorse/
-SRC = http://kambing.ui.ac.id/gnome/sources/seahorse/3.4/seahorse-3.4.1.tar.xz
-MD5 = 0d5215a1b6d5747afe0909f4d91f53b9
-SHA1= 877ad155b469c70dbe97982cba2fb0eb2d872924
+URL=http://git.gnome.org/browse/seahorse/
+SRC=http://kambing.ui.ac.id/gnome/sources/seahorse/3.4/seahorse-3.4.1.tar.xz
+MD5=0d5215a1b6d5747afe0909f4d91f53b9
+SHA1=877ad155b469c70dbe97982cba2fb0eb2d872924

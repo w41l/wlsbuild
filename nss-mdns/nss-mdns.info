@@ -1,4 +1,4 @@
-URL = http://0pointer.de/lennart/projects/nss-mdns/
-SRC = http://0pointer.de/lennart/projects/nss-mdns/nss-mdns-0.10.tar.gz
-MD5 = 03938f17646efbb50aa70ba5f99f51d7
-SHA1= d8610950b8b209e29129a70765449b820bcda1a0
+URL=http://0pointer.de/lennart/projects/nss-mdns/
+SRC=http://0pointer.de/lennart/projects/nss-mdns/nss-mdns-0.10.tar.gz
+MD5=03938f17646efbb50aa70ba5f99f51d7
+SHA1=d8610950b8b209e29129a70765449b820bcda1a0

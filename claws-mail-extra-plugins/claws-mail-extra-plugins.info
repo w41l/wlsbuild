@@ -1,4 +1,4 @@
-URL = http://www.claws-mail.org/
-SRC = http://sourceforge.net/projects/sylpheed-claws/files/extra plugins/3.9.0/claws-mail-extra-plugins-3.9.0.tar.bz2/download
-MD5 = e82431243a6643bcc5520df78908240c
-SHA1= c83f584f8aca8918e9d5b4c91565490567764e49
+URL=http://www.claws-mail.org/
+SRC=http://sourceforge.net/projects/sylpheed-claws/files/extraplugins/3.9.0/claws-mail-extra-plugins-3.9.0.tar.bz2
+MD5=e82431243a6643bcc5520df78908240c
+SHA1=c83f584f8aca8918e9d5b4c91565490567764e49

@@ -1,4 +1,4 @@
-URL = http://wiki.qemu.org/Main_Page
-SRC = http://fossies.org/unix/misc/qemu-1.2.1.tar.xz
-MD5 = 3d88b8e15f09be570a90bea67d713346
-SHA1= 60a13f5bb635b3c00f3e3a6a0a1e7b57f5c0124b
+URL=http://wiki.qemu.org/Main_Page
+SRC=http://fossies.org/unix/misc/qemu-1.2.1.tar.xz
+MD5=3d88b8e15f09be570a90bea67d713346
+SHA1=60a13f5bb635b3c00f3e3a6a0a1e7b57f5c0124b

@@ -1,4 +1,4 @@
-URL = http://www.dyne.org/software/frei0r/
-SRC = http://files.dyne.org/frei0r/releases/frei0r-plugins-1.3.tar.gz
-MD5 = c0a5af4ff9d0d540684c0bf00ef35dbe
-SHA1= 982be2c3e52dfc3e9d14692c60bc856b2b766be2
+URL=http://www.dyne.org/software/frei0r/
+SRC=http://files.dyne.org/frei0r/releases/frei0r-plugins-1.3.tar.gz
+MD5=c0a5af4ff9d0d540684c0bf00ef35dbe
+SHA1=982be2c3e52dfc3e9d14692c60bc856b2b766be2

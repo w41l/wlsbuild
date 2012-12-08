@@ -1,4 +1,4 @@
-URL = http://git.gnome.org/browse/libchamplain/
-SRC = http://kambing.ui.ac.id/gnome/sources/libchamplain/0.12/libchamplain-0.12.3.tar.xz
-MD5 = f0d63225c2efa8b367ebf205fa40862a
-SHA1= 5499fd874e2e438cf698cb258275226bc00b340b
+URL=http://git.gnome.org/browse/libchamplain/
+SRC=http://kambing.ui.ac.id/gnome/sources/libchamplain/0.12/libchamplain-0.12.3.tar.xz
+MD5=f0d63225c2efa8b367ebf205fa40862a
+SHA1=5499fd874e2e438cf698cb258275226bc00b340b

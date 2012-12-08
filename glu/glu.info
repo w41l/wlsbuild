@@ -1,4 +1,4 @@
-URL = http://www.mesa3d.org/
-SRC = ftp://ftp.freedesktop.org/pub/mesa/glu/glu-9.0.0.tar.bz2
-MD5 = be9249132ff49275461cf92039083030
-SHA1= c2814bbaf1e60e28a75ec80f4646047c0da742bd
+URL=http://www.mesa3d.org/
+SRC=ftp://ftp.freedesktop.org/pub/mesa/glu/glu-9.0.0.tar.bz2
+MD5=be9249132ff49275461cf92039083030
+SHA1=c2814bbaf1e60e28a75ec80f4646047c0da742bd

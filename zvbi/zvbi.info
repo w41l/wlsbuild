@@ -1,4 +1,4 @@
-URL = http://zapping.sourceforge.net/
-SRC = http://sourceforge.net/projects/zapping/files/zvbi/0.2.33/zvbi-0.2.33.tar.bz2/download
-MD5 = 1741a6045c3eedfb611d645f2da69ac8
-SHA1= 0e32cb71357dc629305dd15027bc76533fcb69a3
+URL=http://zapping.sourceforge.net/
+SRC=http://sourceforge.net/projects/zapping/files/zvbi/0.2.33/zvbi-0.2.33.tar.bz2
+MD5=1741a6045c3eedfb611d645f2da69ac8
+SHA1=0e32cb71357dc629305dd15027bc76533fcb69a3

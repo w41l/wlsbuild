@@ -1,4 +1,4 @@
-URL = http://www.qupzilla.com/
-SRC = https://github.com/downloads/QupZilla/qupzilla/QupZilla-1.3.5.tar.gz
-MD5 = b2ecf689d45af384c4557895dc43f4da
-SHA1= 310e3323e2d46a058b2aa2bb1d5cfb83a7aa853b
+URL=http://www.qupzilla.com/
+SRC=https://github.com/downloads/QupZilla/qupzilla/QupZilla-1.3.5.tar.gz
+MD5=b2ecf689d45af384c4557895dc43f4da
+SHA1=310e3323e2d46a058b2aa2bb1d5cfb83a7aa853b

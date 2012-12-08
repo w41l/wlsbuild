@@ -1,4 +1,4 @@
-URL = http://git.gnome.org/browse/gnome-shell/
-SRC = http://kambing.ui.ac.id/gnome/sources/gnome-shell/3.4/gnome-shell-3.4.2.tar.xz
-MD5 = d1125998a0a89d625eef5e16bd774ef5
-SHA1= 40d892f850bef23f6e98485c03922acc29e011ea
+URL=http://git.gnome.org/browse/gnome-shell/
+SRC=http://kambing.ui.ac.id/gnome/sources/gnome-shell/3.4/gnome-shell-3.4.2.tar.xz
+MD5=d1125998a0a89d625eef5e16bd774ef5
+SHA1=40d892f850bef23f6e98485c03922acc29e011ea

@@ -1,4 +1,4 @@
-URL = http://www.pulseaudio.org/
-SRC = http://freedesktop.org/software/pulseaudio/releases/pulseaudio-2.0.tar.xz
-MD5 = 9bbde657c353fe675c3b693054175a8e
-SHA1= a999d2cd8044651c8bd610079bb74eab808484bf
+URL=http://www.pulseaudio.org/
+SRC=http://freedesktop.org/software/pulseaudio/releases/pulseaudio-2.0.tar.xz
+MD5=9bbde657c353fe675c3b693054175a8e
+SHA1=a999d2cd8044651c8bd610079bb74eab808484bf

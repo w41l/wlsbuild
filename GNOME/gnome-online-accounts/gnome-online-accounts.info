@@ -1,4 +1,4 @@
-URL = http://git.gnome.org/browse/gnome-online-accounts/
-SRC = http://kambing.ui.ac.id/gnome/sources/gnome-online-accounts/3.4/gnome-online-accounts-3.4.2.tar.xz
-MD5 = adb39a6ba7661fff915297ebb800ec09
-SHA1= 8ee51db9d71eeb88949323fb7e864018e00b8ae9
+URL=http://git.gnome.org/browse/gnome-online-accounts/
+SRC=http://kambing.ui.ac.id/gnome/sources/gnome-online-accounts/3.4/gnome-online-accounts-3.4.2.tar.xz
+MD5=adb39a6ba7661fff915297ebb800ec09
+SHA1=8ee51db9d71eeb88949323fb7e864018e00b8ae9

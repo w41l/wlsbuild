@@ -1,4 +1,4 @@
-URL = http://modplug-xmms.sourceforge.net/
-SRC = http://sourceforge.net/projects/modplug-xmms/files/libmodplug/0.8.8.4/libmodplug-0.8.8.4.tar.gz/download
-MD5 = fddc3c704c5489de2a3cf0fedfec59db
-SHA1= df4deffe542b501070ccb0aee37d875ebb0c9e22
+URL=http://modplug-xmms.sourceforge.net/
+SRC=http://sourceforge.net/projects/modplug-xmms/files/libmodplug/0.8.8.4/libmodplug-0.8.8.4.tar.gz
+MD5=fddc3c704c5489de2a3cf0fedfec59db
+SHA1=df4deffe542b501070ccb0aee37d875ebb0c9e22

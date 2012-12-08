@@ -73,7 +73,12 @@ find . \
  \( -perm 666 -o -perm 664 -o -perm 600 -o -perm 444 -o -perm 440 -o -perm 400 \) \
  -exec chmod 644 {} \;
 
-qmake QuiteRSS.pro
+qmake \
+  PREFIX=/usr \
+  LRELEASE=/usr/bin/lrelease \
+  LIB_DIR=/usr/lib${LIBDIRSUFFIX} \
+  QuiteRSS.pro
+
 make
 make INSTALL_ROOT=$PKG install
 

@@ -1,4 +1,4 @@
-URL = http://www.wxwidgets.org/
-SRC = http://sourceforge.net/projects/wxwindows/files/2.9.4/wxWidgets-2.9.4.tar.bz2/download
-MD5 = f1348f740a569ce2945512d5b0e70e87
-SHA1= 5a34ddf19d37c741f74652ee847df9568a8b81e1
+URL=http://www.wxwidgets.org/
+SRC=http://sourceforge.net/projects/wxwindows/files/2.9.4/wxWidgets-2.9.4.tar.bz2
+MD5=f1348f740a569ce2945512d5b0e70e87
+SHA1=5a34ddf19d37c741f74652ee847df9568a8b81e1

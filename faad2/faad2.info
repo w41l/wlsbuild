@@ -1,4 +1,4 @@
-URL = http://www.audiocoding.com/
-SRC = http://sourceforge.net/projects/faac/files/faad2-src/faad2-2.7/faad2-2.7.tar.bz2
-MD5 = 4c332fa23febc0e4648064685a3d4332
-SHA1= b0e80481d27ae9faf9e46c8c8dfb617a0adb91b5
+URL=http://www.audiocoding.com/
+SRC=http://sourceforge.net/projects/faac/files/faad2-src/faad2-2.7/faad2-2.7.tar.bz2
+MD5=4c332fa23febc0e4648064685a3d4332
+SHA1=b0e80481d27ae9faf9e46c8c8dfb617a0adb91b5

@@ -1,4 +1,4 @@
-URL = http://www.geany.org/
-SRC = http://download.geany.org/geany-1.22.tar.bz2
-MD5 = 0672077fe83e2a739aa0eaca426aacf0
-SHA1= 0a659cff6e46d38cc659516bb9e2a655d0f124ba
+URL=http://www.geany.org/
+SRC=http://download.geany.org/geany-1.22.tar.bz2
+MD5=0672077fe83e2a739aa0eaca426aacf0
+SHA1=0a659cff6e46d38cc659516bb9e2a655d0f124ba

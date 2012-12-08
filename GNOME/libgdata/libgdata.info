@@ -1,4 +1,4 @@
-URL = http://git.gnome.org/browse/libgdata/
-SRC = http://kambing.ui.ac.id/gnome/sources/libgdata/0.12/libgdata-0.12.0.tar.xz
-MD5 = ccf0bd3da08a9e86acf704ef71fb73d6
-SHA1= 0ce0a6982eb78c54f288dc0b0f15890d87320f26
+URL=http://git.gnome.org/browse/libgdata/
+SRC=http://kambing.ui.ac.id/gnome/sources/libgdata/0.12/libgdata-0.12.0.tar.xz
+MD5=ccf0bd3da08a9e86acf704ef71fb73d6
+SHA1=0ce0a6982eb78c54f288dc0b0f15890d87320f26

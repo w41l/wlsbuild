@@ -1,4 +1,4 @@
-URL = http://git.gnome.org/browse/vala/
-SRC = http://kambing.ui.ac.id/gnome/sources/vala/0.16/vala-0.16.1.tar.xz
-MD5 = a270330532ae7770ca64d9f2faff4a2d
-SHA1= c77b6faee661289996a325dc99adac53f3f6ab69
+URL=http://git.gnome.org/browse/vala/
+SRC=http://kambing.ui.ac.id/gnome/sources/vala/0.16/vala-0.16.1.tar.xz
+MD5=a270330532ae7770ca64d9f2faff4a2d
+SHA1=c77b6faee661289996a325dc99adac53f3f6ab69

@@ -1,4 +1,4 @@
-URL = http://www.clementine-player.org/
-SRC = http://clementine-player.googlecode.com/files/clementine-1.1.0.tar.gz
-MD5 = 28e4afb822388bd337a761db8f86febf
-SHA1= f8d3e9c8f54ac488323ab5a629c9accbe256378e
+URL=http://www.clementine-player.org/
+SRC=http://clementine-player.googlecode.com/files/clementine-1.1.0.tar.gz
+MD5=28e4afb822388bd337a761db8f86febf
+SHA1=f8d3e9c8f54ac488323ab5a629c9accbe256378e

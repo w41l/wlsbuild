@@ -1,4 +1,4 @@
-URL = http://opencv.willowgarage.com/wiki/
-SRC = http://sourceforge.net/projects/opencvlibrary/files/opencv-unix/2.4.3/OpenCV-2.4.3.tar.bz2
-MD5 = c0a5af4ff9d0d540684c0bf00ef35dbe
-SHA1= 982be2c3e52dfc3e9d14692c60bc856b2b766be2
+URL=http://opencv.willowgarage.com/wiki/
+SRC=http://sourceforge.net/projects/opencvlibrary/files/opencv-unix/2.4.3/OpenCV-2.4.3.tar.bz2
+MD5=c0a5af4ff9d0d540684c0bf00ef35dbe
+SHA1=982be2c3e52dfc3e9d14692c60bc856b2b766be2

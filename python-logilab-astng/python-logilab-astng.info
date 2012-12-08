@@ -1,4 +1,4 @@
-URL = http://www.logilab.org/project/logilab-astng
-SRC = http://pypi.python.org/packages/source/l/logilab-astng/logilab-astng-0.24.1.tar.gz
-MD5 = ddaf66e4d85714d9c47a46d4bed406de
-SHA1= 5edc6baeccdc14a2db1d3d6c4bde5769bfe20dae
+URL=http://www.logilab.org/project/logilab-astng
+SRC=http://pypi.python.org/packages/source/l/logilab-astng/logilab-astng-0.24.1.tar.gz
+MD5=ddaf66e4d85714d9c47a46d4bed406de
+SHA1=5edc6baeccdc14a2db1d3d6c4bde5769bfe20dae

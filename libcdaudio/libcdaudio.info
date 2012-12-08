@@ -1,4 +1,4 @@
-URL = http://libcdaudio.sourceforge.net/
-SRC = http://sourceforge.net/projects/libcdaudio/files/libcdaudio/0.99.12p2/libcdaudio-0.99.12p2.tar.gz/download
-MD5 = 15de3830b751818a54a42899bd3ae72c
-SHA1= 1ae52f858c1a5ac9ced8eb7165620372b2a17035
+URL=http://libcdaudio.sourceforge.net/
+SRC=http://sourceforge.net/projects/libcdaudio/files/libcdaudio/0.99.12p2/libcdaudio-0.99.12p2.tar.gz
+MD5=15de3830b751818a54a42899bd3ae72c
+SHA1=1ae52f858c1a5ac9ced8eb7165620372b2a17035

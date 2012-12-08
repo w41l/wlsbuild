@@ -1,4 +1,4 @@
-URL = http://openbox.org/
-SRC = http://git.openbox.org/?p=dana/obconf.git;a=snapshot;h=cfde28714e55f76c817d050b0d008123e029aa18;sf=tgz
-MD5 = 5e0847802f772eff27a86e897aca659a
-SHA1= 5ee37bdd6948682a794dd4ac6dd75865ba1dd007
+URL=http://openbox.org/
+SRC=http://git.openbox.org/?p=dana/obconf.git;a=snapshot;h=cfde28714e55f76c817d050b0d008123e029aa18;sf=tgz
+MD5=5e0847802f772eff27a86e897aca659a
+SHA1=5ee37bdd6948682a794dd4ac6dd75865ba1dd007

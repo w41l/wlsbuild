@@ -1,4 +1,4 @@
-URL = http://git.gnome.org/browse/gnome-initial-setup/
-SRC = http://kambing.ui.ac.id/gnome/sources/gnome-initial-setup/0.2/gnome-initial-setup-0.2.tar.xz
-MD5 = a8bb68e09e0ab64500858c6e93a84ae9
-SHA1= 9ab89424eb498795af88fc1aea087c49988d0b7a
+URL=http://git.gnome.org/browse/gnome-initial-setup/
+SRC=http://kambing.ui.ac.id/gnome/sources/gnome-initial-setup/0.2/gnome-initial-setup-0.2.tar.xz
+MD5=a8bb68e09e0ab64500858c6e93a84ae9
+SHA1=9ab89424eb498795af88fc1aea087c49988d0b7a

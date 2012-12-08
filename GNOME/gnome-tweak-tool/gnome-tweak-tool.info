@@ -1,4 +1,4 @@
-URL = http://git.gnome.org/browse/gnome-tweak-tool/
-SRC = http://kambing.ui.ac.id/gnome/sources/gnome-tweak-tool/3.4/gnome-themes-3.4.0.1.tar.xz
-MD5 = f1abe010c2b2235cb86718134c0219ce
-SHA1= f36134505d7f2a734fee80980c3384247aa2e994
+URL=http://git.gnome.org/browse/gnome-tweak-tool/
+SRC=http://kambing.ui.ac.id/gnome/sources/gnome-tweak-tool/3.4/gnome-themes-3.4.0.1.tar.xz
+MD5=f1abe010c2b2235cb86718134c0219ce
+SHA1=f36134505d7f2a734fee80980c3384247aa2e994

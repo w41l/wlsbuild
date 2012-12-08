@@ -1,4 +1,4 @@
-URL = http://telepathy.freedesktop.org/wiki/Components
-SRC = http://telepathy.freedesktop.org/releases/telepathy-haze/telepathy-haze-0.6.0.tar.gz
-MD5 = 622e0b2f7ff4050a29f907f2ef0f039c
-SHA1= 98dd2f2796ae04192533ff8df5af116c54a11e05
+URL=http://telepathy.freedesktop.org/wiki/Components
+SRC=http://telepathy.freedesktop.org/releases/telepathy-haze/telepathy-haze-0.6.0.tar.gz
+MD5=622e0b2f7ff4050a29f907f2ef0f039c
+SHA1=98dd2f2796ae04192533ff8df5af116c54a11e05

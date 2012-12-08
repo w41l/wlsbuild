@@ -1,4 +1,4 @@
-URL = https://www.libreoffice.org/
-SRC = http://download.documentfoundation.org/libreoffice/stable/3.6.3/rpm/x86/LibO_3.6.3_Linux_x86_install-rpm_en-US.tar.gz
-MD5 = a013f2aac1ced15a81f98e063aa23931
-SHA1= 44afeb48df27fc67642527db0182008407ace847
+URL=https://www.libreoffice.org/
+SRC=http://download.documentfoundation.org/libreoffice/stable/3.6.3/rpm/x86/LibO_3.6.3_Linux_x86_install-rpm_en-US.tar.gz
+MD5=a013f2aac1ced15a81f98e063aa23931
+SHA1=44afeb48df27fc67642527db0182008407ace847

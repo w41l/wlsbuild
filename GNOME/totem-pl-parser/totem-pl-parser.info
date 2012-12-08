@@ -1,4 +1,4 @@
-URL = http://git.gnome.org/browse/totem-pl-parser/
-SRC = http://kambing.ui.ac.id/gnome/sources/totem-pl-parser/3.4/totem-pl-parser-3.4.3.tar.xz
-MD5 = cebd115e267ef3d377370512122e34c9
-SHA1= 167adb4657684fc971a1105ce6e823e0ea0931b7
+URL=http://git.gnome.org/browse/totem-pl-parser/
+SRC=http://kambing.ui.ac.id/gnome/sources/totem-pl-parser/3.4/totem-pl-parser-3.4.3.tar.xz
+MD5=cebd115e267ef3d377370512122e34c9
+SHA1=167adb4657684fc971a1105ce6e823e0ea0931b7

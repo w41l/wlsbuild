@@ -1,4 +1,4 @@
-URL = http://telepathy.freedesktop.org/wiki/Logger
-SRC = http://telepathy.freedesktop.org/releases/telepathy-logger/telepathy-logger-0.4.0.tar.bz2
-MD5 = 0b891b860c7f3a01926f5cc22fd26120
-SHA1= a343aae54e46f69900c5358200cb058c064783bd
+URL=http://telepathy.freedesktop.org/wiki/Logger
+SRC=http://telepathy.freedesktop.org/releases/telepathy-logger/telepathy-logger-0.4.0.tar.bz2
+MD5=0b891b860c7f3a01926f5cc22fd26120
+SHA1=a343aae54e46f69900c5358200cb058c064783bd

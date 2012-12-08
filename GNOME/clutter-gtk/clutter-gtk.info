@@ -1,4 +1,4 @@
-URL = http://www.clutter-project.org
-SRC = http://kambing.ui.ac.id/gnome/sources/clutter-gtk/1.3/clutter-gtk-1.3.2.tar.xz
-MD5 = 7f2925e975c14e130d6ce18e6e0c7b0d
-SHA1= dfa2ed9e424ed9f24eed986221ad5fadabc0b58f
+URL=http://www.clutter-project.org
+SRC=http://kambing.ui.ac.id/gnome/sources/clutter-gtk/1.3/clutter-gtk-1.3.2.tar.xz
+MD5=7f2925e975c14e130d6ce18e6e0c7b0d
+SHA1=dfa2ed9e424ed9f24eed986221ad5fadabc0b58f

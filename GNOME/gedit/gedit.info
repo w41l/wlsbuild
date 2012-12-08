@@ -1,4 +1,4 @@
-URL = http://git.gnome.org/browse/gedit/
-SRC = http://kambing.ui.ac.id/gnome/sources/gedit/3.4/gedit-3.4.2.tar.xz
-MD5 = 1f3e9f255fc16609ca8598a82da18cff
-SHA1= 3f961f5ae3334a815776384de16f7c07a397efeb
+URL=http://git.gnome.org/browse/gedit/
+SRC=http://kambing.ui.ac.id/gnome/sources/gedit/3.4/gedit-3.4.2.tar.xz
+MD5=1f3e9f255fc16609ca8598a82da18cff
+SHA1=3f961f5ae3334a815776384de16f7c07a397efeb

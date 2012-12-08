@@ -80,10 +80,8 @@ cd build
     -DCMAKE_CXX_FLAGS="$SLKCFLAGS" \
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_PREFIX=$(kde4-config --prefix) \
-    -DLIB_SUFFIX=${LIBDIRSUFFIX} \
-    -DLIB_INSTALL_DIR=/usr/lib$LIBDIRSUFFIX \
 
-  make VERBOSE=1
+  make
   make install DESTDIR=$PKG
 cd -
 

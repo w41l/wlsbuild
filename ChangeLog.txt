@@ -1,239 +1,1319 @@
-Sun Mar 13 18:50:11 WIT 2011
-  * google-chrome-10.0.648.127_r76697-x86_64-2_wls.txz: rebuilt
-    Move the google-chrome files to /usr/lib64/google/chrome from /opt.
-  * bombono-dvd-1.0.1-x86_64-2_wls.txz: rebuilt
-  * scons-2.0.1-x86_64-3_wls.txz: rebuilt
-  * gtkpod-1.0.0-x86_64-2_wls.txz: added
+   Mon Dec 17 00:09:59 2012 +0700
 
-Sat Mar 12 12:37:26 WIT 2011
-  * vlc-1.1.7-x86_64-5_wls.txz: rebuilt
-  * pidgin-kwallet-plugin-1.1.0-x86_64-3_wls.txz: rebuilt
-  * projectM-2.0.1-x86_64-2_wls.txz: rebuilt
-  * goom2-2k4.0-x86_64-2_wls.txz: rebuilt
-  * ftgl-2.1.3-x86_64-2_wls.txz: rebuilt
-  * libdvbpsi-0.1.7-x86_64-2_wls.txz: rebuilt
-  * libshout-2.2.2-x86_64-2_wls.txz: rebuilt
-  * libupnp-1.6.10-x86_64-3_wls.txz: rebuilt
-  * libva-0.32.0-x86_64-2_wls.txz: rebuilt
-  * lua-5.1.4-x86_64-2_wls.txz: rebuilt
-  * soundkonverter-0.9.94rc2-x86_64-2_wls.txz: rebuilt
-  * choqok-1.0-x86_64-2_wls.txz: rebuilt
-  * qoauth-1.0.1-x86_64-2_wls.txz: rebuilt
-  * clementine-0.6-x86_64-2_wls.txz: rebuilt
-  * libimobiledevice-1.0.4-x86_64-2_wls.txz: rebuilt
-  * usbmuxd-1.0.6-x86_64-2_wls.txz: rebuilt
-  * dvdauthor-0.7.0-x86_64-2_wls.txz: rebuilt
-  * transcode-1.1.5-x86_64-2_wls.txz: rebuilt
-  * vcdimager-0.7.23-x86_64-2_wls.txz: rebuilt
-  * kipi-plugins-1.9.0-x86_64-2_wls.txz: rebuilt
-  * qjson-0.7.1-x86_64-2_wls.txz: rebuilt
-  * gst-ffmpeg-0.10.11-x86_64-2_wls.txz: rebuilt
-  * gst-python-0.10.21-x86_64-2_wls.txz: rebuilt
-  * gst-plugins-gl-0.10.2-x86_64-1_wls.txz: added
+    * Choqok: Updated SlackBuild script.
+    * GNOME: Moved to its own tree.
 
-Fri Mar 11 23:39:40 WIT 2011
-  * gst-plugins-bad-0.10.21-x86_64-2_wls.txz: rebuilt
-  * wildmidi-0.2.3.4-x86_64-1_wls.txz: added
-    Added to have more audio format in gst-plugins-bad.
-  * opencv-2.2.0-x86_64-2_wls.txz: rebuilt
-  * libmodplug-0.8.8.1-x86_64-2_wls.txz: rebuilt
-  * libmms-0.4-x86_64-1_wls.txz: added
-    Added to have more audio format in gst-plugins-bad.
-  * gst-plugins-ugly-0.10.17-x86_64-2_wls.txz: rebuilt
-  * smplayer-0.6.9-x86_64-2_wls.txz: rebuilt
-  * MPlayer-1.0rc4-x86_64-1_wls.txz: upgraded
-    Upgraded to latest RC release with additional bluray playback support.
-  * libmpcdec-1.2.6-x86_64-1_wls.txz: added
-    Added to replace musepack. MPlayer still using the old API.
-  * musepack-r435-x86_64-2_wls.txz: removed
-    Replaced with libmpcdec. Can not be used by MPlayer.
-  * libbluray-b33b0fc_20110223git-x86_64-1_wls.txz: added
-    Add bluray playback support to MPlayer.
-  * rtmpdump-2.3-x86_64-2_wls.txz: rebuilt
-  * libkate-0.3.8-x86_64-3_wls.txz: rebuilt
-  * vorbisgain-0.37-x86_64-2_wls.txz: rebuilt
-  * mp3gain-1.5.2-x86_64-2_wls.txz: rebuilt
-  * wavegain-1.2.8-x86_64-2_wls.txz: rebuilt
-  * live555-2011.03.05-x86_64-1_wls.txz: upgraded
-  * libcdaudio-0.99.12p2-x86_64-2_wls.txz: rebuilt
-  * libavc1394-0.5.4-x86_64-1_wls.txz: upgraded
-  * libiec61883-1.2.0-x86_64-2_wls.txz: rebuilt
-  * mjpegtools-1.9.0-x86_64-2_wls.txz: rebuilt
-  * libquicktime-1.2.2-x86_64-1_wls.txz: upgraded
-  * libdvdnav-4.1.3-x86_64-2_wls.txz: rebuilt
-  * libdvdcss-1.2.10-x86_64-2_wls.txz: rebuilt
-  * libdca-0.0.5-x86_64-2_wls.txz: rebuilt
-  * twolame-0.3.13-x86_64-1_wls.txz: upgraded
-    After two years of hiatus, twolame released the its new version.
-  * libass-0.9.11-x86_64-2_wls.txz: rebuilt
-  * libmpeg2-0.5.1-x86_64-2_wls.txz: rebuilt
-  * cuetools-1.4.0_r305-x86_64-2_wls.txz: rebuilt
-  * libcue-1.4.0-x86_64-2_wls.txz: rebuilt
-  * libreplaygain-r453-x86_64-2_wls.txz: rebuilt
-  * libdv-1.0.0-x86_64-2_wls.txz: rebuilt
-  * a52dec-0.7.4-x86_64-2_wls.txz: rebuilt
-  * ffmpeg-0.6.1-x86_64-4_wls.txz: rebuilt
-  * speex-1.2rc1-x86_64-2_wls.txz: rebuilt
-  * libvpx-0.9.6-x86_64-1_wls.txz: upgraded
-  * openjpeg-1.4-x86_64-1_wls.txz: upgraded
-  * libdc1394-2.1.3-x86_64-1_wls.txz: upgraded
-  * xvidcore-1.2.2-x86_64-2_wls.txz: rebuilt
-  * x264-20101023-x86_64-1_wls.txz: upgraded
-  * gpac-0.4.5-x86_64-2_wls.txz: rebuilt
-  * opencore-amr-0.1.2-x86_64-2_wls.txz: rebuilt
-  * lame-3.98.4-x86_64-2_wls.txz: rebuilt
-  * libgsm-1.0.13-x86_64-2_wls.txz: rebuilt
-  * schroedinger-1.0.10-x86_64-2_wls.txz: rebuilt
-  * dirac-1.0.2-x86_64-2_wls.txz: rebuilt
-  * orc-0.4.11-x86_64-1_wls.txz: upgraded
-  * p7zip-9.13-x86_64-2_wls.txz: rebuilt
-  * unrar-3.9.10-x86_64-2_wls.txz: rebuilt
-  * faad2-2.7-x86_64-2_wls.txz: rebuilt
-  * faac-1.28-x86_64-2_wls.txz: rebuilt
-  * mp4v2-1.9.1-x86_64-2_wls.txz: rebuilt
-  * grub-1.98-x86_64-2_wls.txz: rebuilt
-  * gtk-equinox-engine-1.30.2-x86_64-2_wls.txz: rebuilt
-  * gtk-murrine-engine-0.98.1.1-x86_64-2_wls.txz: rebuilt
-  * gtk-engines-2.20.2-x86_64-2_wls.txz: rebuilt
+   Sun Dec 16 19:08:46 2012 +0700
 
-Thu Mar 10 19:52:54 WIT 2011
-  * gtk-qtcurve-engine-1.8.4-x86_64-2_wls.txz: rebuilt
-  * oxygen-gtk-1.0.2-x86_64-2_wls.txz: rebuilt
-  * geany-0.20-x86_64-2_wls.txz: rebuilt
-  * network-manager-applet-0.8.2-x86_64-3_wls.txz: rebuilt
-  * ModemManager-0.4-x86_64-2_wls.txz: rebuilt
-  * NetworkManager-vpnc-0.8.2-x86_64-2_wls.txz: rebuilt
-  * NetworkManager-pptp-0.8.2-x86_64-2_wls.txz: rebuilt
-  * NetworkManager-openvpn-0.8.2-x86_64-2_wls.txz: rebuilt
-  * NetworkManager-openconnect-0.8.2-x86_64-2_wls.txz: rebuilt
-  * NetworkManager-0.8.2-x86_64-3_wls.txz: rebuilt
-  * libxml++-2.33.2-x86_64-2_wls.txz: rebuilt
-  * gtkmm-2.24.0-x86_64-2_wls.txz: rebuilt
-  * atkmm-2.22.2-x86_64-2_wls.txz: rebuilt
-  * pangomm-2.27.1-x86_64-2_wls.txz: rebuilt
-  * cairomm-1.9.8-x86_64-2_wls.txz: rebuilt
-  * glibmm-2.25.5-x86_64-2_wls.txz: rebuilt
-  * libsigc++-2.2.8-x86_64-2_wls.txz: rebuilt
-  * rarian-0.8.1-x86_64-2_wls.txz: rebuilt
-  * gnome-vfs-2.24.4-x86_64-2_wls.txz: rebuilt
-  * gnome-mime-data-2.18.0-x86_64-2_wls.txz: rebuilt
-  * gvfs-1.7.2-x86_64-2_wls.txz: rebuilt
-  * gnome-keyring-2.32.1-x86_64-3_wls.txz: rebuilt
-  * libtasn1-2.8-x86_64-3_wls.txz: rebuilt
-  * libsoup-2.32.2-x86_64-2_wls.txz: rebuilt
-  * libproxy-0.4.6-x86_64-3_wls.txz: rebuilt
-  * libproxy-0.4.6-x86_64-3_wls.txz: rebuilt
-  * libgnome-keyring-2.32.0-x86_64-3_wls.txz: rebuilt
-  * nss-mdns-0.10-x86_64-3_wls.txz: rebuilt
-  * GConf-2.32.1-x86_64-2_wls.txz: rebuilt
-  * gsettings-desktop-schemas-0.1.5-x86_64-2_wls.txz: rebuilt
-  * ORBit2-2.14.19-x86_64-2_wls.txz: rebuilt
-  * avahi-0.6.28-x86_64-3_wls.txz: rebuilt
-  * libdaemon-0.14-x86_64-3_wls.txz: rebuilt
+    * flash-player-plugin: Upgraded to 11.2.202.258.
+    * kipi-plugins: Testing version 3.x.
+    * kwebkitpart: Added version 1.3.1.
+    * libebml: Updated SlackBuild script, added .info file.
+    * libmatroska: Updated SlackBuild script, added .info file.
+    * mkvtoolnix: Upgraded to 5.9.0. Added .info file.
+    * nginx: Upgraded to 1.2.5.
+    * quiterss: Upgraded to 0.11.0.
+    * rekonq: Upgraded to 1.82.
+    * wlsenv: Updated build environment.
 
-Wed Mar  9 23:04:19 WIT 2011
-  * NetworkManager-0.8.2-x86_64-3_wls.txz: rebuilt
-    Fix user proxy search as libproxy wasn't built against NetworkManager and
-    NetworkManager was built after libproxy was installed.
-  * google-chrome-10.0.648.127_r76697-x86_64-1_wls.txz: added
+   Sun Dec 9 16:11:15 2012 +0700
 
-Sun Mar  6 21:27:35 WIT 2011
-  * MPlayer-1.0rc20101218-x86_64-2_wls.txz: rebuilt
-  * ffmpeg-0.6.1-x86_64-2_wls.txz: rebuilt
-  * libebml-1.2.0-x86_64-1_wls.txz: upgraded
-  * libmatroska-1.1.0-x86_64-1_wls.txz: upgraded
-  * vlc-1.1.7-x86_64-4_wls.txz: rebuilt
-    Add NP Plugin patch for building against Seamonkey 2.1b2, so the plugin
-    could be working again in Firefox 4.0 beta.
+    * rekonq: Updated SlackBuild script. No /usr/share/doc.
+    * wlsenv: Updated build environment.
 
-Sun Mar  6 14:46:28 WIT 2011
-  * kipi-plugins-1.9.0-x86_64-1_wls.txz: upgraded
-  * libreoffice-3.3.1-x86_64-1_wls.txz: upgraded
-  * vlc-1.1.7-x86_64-3_wls.txz: rebuilt
-    Disable VLC Mozilla plugin as it makes Firefox crashed.
+   Sun Dec 9 01:04:58 2012 +0700
 
-Sat Mar  5 19:10:25 WIT 2011
-  * gc-7.1-x86_64-1_wls.txz: added
-  * inkscape-0.48.1-x86_64-1_wls.txz: added
-  * vlc-1.1.7-x86_64-2_wls.txz: rebuilt
+    Removing all blank space in .info files. Fix sourceforge download URL.
+    Fix schroedinger.info entries.
 
-Thu Mar  3 14:22:20 WIT 2011
-  * kmediafactory-r625-x86_64-1_wls.txz: tested
+   Tue Dec 4 16:04:43 2012 +0700
 
-Wed Mar  2 23:36:48 WIT 2011
-  * atkmm-2.22.2-x86_64-1_wls.txz: added
-  * bombono-dvd-1.0.1-x86_64-1_wls.txz: added
-  * cairomm-1.9.8-x86_64-1_wls.txz:: added
-  * dvdauthor-0.7.0-x86_64-1_wls.txz: added
-  * glibmm-2.25.5-x86_64-1_wls.txz: added
-  * gtkmm-2.24.0-x86_64-1_wls.txz: added
-  * libsigc++-2.2.8-x86_64-1_wls.txz: added
-  * libxml++-2.33.2-x86_64-1_wls.txz: added
-  * pangomm-2.27.1-x86_64-1_wls.txz: added
-  * pidgin-kwallet-plugin-1.1.0-x86_64-2_wls.txz: rebuilt
-  * scons-2.0.1-x86_64-1_wls.txz: added
-  * transcode-1.1.5-x86_64-1_wls.txz: added
-  * vcdimager-0.7.23-x86_64-1_wls.txz: added
+    * unetbootin: Added version 581.
+    * unrar: Upgraded to 4.2.4. Add .info file.
 
-Tue Mar  1 13:41:09 WIT 2011
-  * GConf-2.32.1-x86_64-1_wls.txz: upgraded
-  * gvfs-1.7.2-x86_64-1_wls.txz: upgraded
-  * libsoup-2.32.2-x86_64-1_wls.txz: upgraded
-  * rekonq-0.6.85-x86_64-1_wls.txz: upgraded
+   Mon Dec 3 20:01:49 2012 +0700
 
-Mon Feb 28 16:07:47 WIT 2011
-  * dia-0.9.7-x86_64-1_wls.txz: added
+    * qemu: Add udev rules to configuring /dev/kvm when kvm module were loaded.
 
-Thu Feb 24 16:58:45 WIT 2011
-  * usbmuxd-1.0.6-x86_64-1_wls.txz: added
-  * libimobiledevice-1.0.4-x86_64-1_wls.txz: added
-  * clementine-0.6-x86_64-1_wls.txz: added
+   Mon Dec 3 14:33:24 2012 +0700
 
-Thu Feb 24 08:50:11 WIT 2011
-  * liferea-1.6.5-x86_64-1_wls.txz: added
-  * rekonq-0.6.80-x86_64-1_wls.txz: added
+    * aqemu: Updated SlackBuild script. Add patches from aqemu git repo to fix
+        building on recent libraries.
 
-Tue Feb 22 07:39:59 WIT 2011
-  * GConf-2.32.0-x86_64-1_wls.txz: rebuilt
-  * NetworkManager-0.8.2-x86_64-2_wls.txz: rebuilt
-  * ORBit2-2.14.19-x86_64-1_wls.txz: rebuilt
-  * avahi-0.6.28-x86_64-2_wls.txz: rebuilt
-  * ftgl-2.1.3-x86_64-1_wls.txz: added
-  * gnome-keyring-2.32.1-x86_64-2_wls.txz: rebuilt
-  * gnome-mime-data-2.18.0-x86_64-1_wls.txz: added
-  * gnome-vfs-2.24.4-x86_64-1_wls.txz: added
-  * goom2-2k4.0-x86_64-1_wls: added
-  * gsettings-desktop-schemas-0.1.5-x86_64-1_wls.txz: upgraded
-  * icu4c-4.6-x86_64-2_wls.txz: rebuilt
-  * kipi-plugins-1.7.0-x86_64-2_wls.txz: rebuilt
-  * libbonobo: removed
-  * libcanberra: removed
-  * libdaemon-0.14-x86_64-2_wls.txz: rebuilt
-  * libdvbpsi-0.1.7-x86_64-1_wls.txz: added
-  * libgnome: removed
-  * libgnomecanvas: removed
-  * libgnome-keyring-2.32.0-x86_64-2_wls.txz: rebuilt
-  * libkate-0.3.8-x86_64-2_wls.txz: rebuilt
-  * libmodplug-0.8.8.1-x86_64-1_wls.txz: added
-  * libproxy-0.4.6-x86_64-2_wls.txz: rebuilt
-  * libshout-2.2.2-x86_64-1_wls.txz: added
-  * libsoup-2.32.0-x86_64-1_wls.txz: rebuilt
-  * libtasn1-2.8-x86_64-2_wls.txz: rebuilt
-  * libunique-1.1.6-x86_64-2_wls.txz: rebuilt
-  * libupnp-1.6.10-x86_64-2_wls.txz: rebuilt
-  * libva-0.32.0-x86_64-1_wls.txz: added
-  * lua-5.1.4-x86_64-1_wls.txz: added
-  * midori-0.3.2-x86_64-1_wls.txz: upgraded
-  * network-manager-applet-0.8.2-x86_64-2_wls.txz: rebuilt
-  * nss-mdns-0.10-x86_64-2_wls.txz: rebuilt
-  * numpy-1.4.0-x86_64-1_wls.txz: added
-  * opencv-2.2.0-x86_64-2_wls.txz: rebuilt
-  * phonon-vlc-20101214-x86_64-1_wls.txz: added
-  * projectM-2.0.1-x86_64-1_wls.txz: added
-  * pywebkitgtk-1.1.8-x86_64-2_wls.txz: rebuilt
-  * pyxdg-0.19-x86_64-2_wls.txz: rebuilt
-  * rarian-0.8.1-x86_64-1_wls.txz: added
-  * seahorse-2.32.0-x86_64-1_wls.txz: added
-  * vlc-1.1.7-x86_64-1_wls.txz: upgraded
-  * webkitgtk-1.2.7-x86_64-2_wls.txz: rebuilt
-  * wxGTK: removed
+   Mon Dec 3 12:34:37 2012 +0700
+
+    * aegisub: Upgraded to 3.0.2. Add .info file. Change slack-required entry
+        wxGTK to wxWidgets.
+    * claws-mail: Added back.
+    * claws-mail-extra-plugins: Added back.
+    * glu: Added version 9.0.0. Splitted from mesa from upstream.
+    * libetpan: Added back.
+    * limoo: Added version 1.3. Qt/QML picture viewer.
+    * mesa-demos: Updated SlackBuild.
+    * mesa: Upgraded to 9.0.1. Added patch to build xdemos program. Removed
+        unneeded files/directory.
+    * phonon-vlc: Added .info file.
+    * qemu: Upgraded to 1.2.1. Added .info file.
+    * rekonq: Upgraded to 1.80 (rekonq2 beta).
+    * smplayer: Updated SlackBuild script.
+    * trojita: Added back.
+
+   Wed Nov 28 20:43:50 2012 +0700
+
+    * bogofilter: Updated SlackBuild script.
+    * claws-mail: Removed.
+    * claws-mail-extra-plugins: Removed.
+    * clementine: Upgraded to version 1.1.1. Add .info.
+    * cuetools: Updated SlackBuild script.
+    * fish: Add version git HEAD cf1ldle.
+    * geany: Updated SlackBuild script. Add .info.
+    * gsl: Updated SlackBuild script. Add .info.
+    * gst-ffmpeg: Updated SlackBuild script.
+    * gst-plugins-bad: Updated SlackBuild script. Add zvbi to slack-required.
+    * gst-plugins-ugly: Updated SlackBuild script.
+    * libcdaudio: Updated SlackBuild script.
+    * libetpan: Removed.
+    * libmpeg2: Updated SlackBuild script.
+    * lua: Updated SlackBuild script. Add .info.
+    * protobuf: Updated SlackBuild script. Add .info.
+    * pytube: Removed.
+    * q4wine: Updated SlackBuild script. Add .info.
+    * qjson: Upgraded to version 0.8.0. Add .info.
+    * realtek-wifi: Added version 0006.0514.2012. Provided driver for latest
+        realtek wireless card.
+    * smplayer: Upgraded to version 0.8.2.1. Add .info.
+    * soundkonverter: Updated SlackBuild script. Add .info.
+    * sylpheed: Added version 3.3.0.
+    * trojita: Removed.
+    * txt2tags: Updated SlackBuild script. Add .info.
+    * wlsbuild: Updated.
+    * wxGTK: Removed. Replaced with wxWidgets.
+    * wxPython: Removed. Replaced with wxWidgets.
+    * wxWidgets: Added version 2.9.4. Replaced wxGTK and wxPython.
+    * yarock: Added version 0.0.59.
+    * zvbi: Updated SlackBuild script. Add .info.
+
+   Sun Nov 25 22:14:59 2012 +0700
+
+    * flash-player-plugin: Upgraded to 11.2.202.251.
+    * libevent: Upgraded to 2.0.21.
+    * pidgin-kwallet-plugin: Updated SlackBuild.
+    * tor: Upgraded to 0.2.3.25.
+
+   Thu Nov 22 20:15:51 2012 +0700
+
+    Updated libreoffice and redhsift-plasmoid. Add .info file.
+
+   Tue Nov 20 21:20:23 2012 +0700
+
+    Updated .gitignore to ignore $FILE.tar*
+
+   Tue Nov 20 21:15:18 2012 +0700
+
+    New packages:
+     - silicon (CD/DVD Burner Utility)
+     - TEA Text editor
+     - iozone filesystem benchmark utility
+     - sakura virtual terminal emulator
+    
+    Upgraded packages:
+     - icoutils
+     - menu-cache
+     - openbox
+     - wine
+
+   Sat Nov 17 17:04:52 2012 +0700
+
+    Moved LibRaw to subdir RAZOR-QT. Updated libfm SlackBuild.
+
+   Fri Nov 16 09:50:09 2012 +0700
+
+    Upgraded multimedia packages:
+    * Updated FFMPEG and it's dependencies.
+    * Replacing MPlayer with mplayer2.
+    * Updated VAAPI and related packages.
+
+   Thu Nov 15 16:32:12 2012 +0700
+
+    Update Cinnamon slack-required, added lxml as cinnamon dependency.
+
+   Thu Nov 15 15:13:36 2012 +0700
+
+    Updated all GNOME 3.4 build scripts. Reorganizing all packages based on
+    the origin of the source. In other words from GNOME repository or not.
+
+   Tue Nov 13 18:12:21 2012 +0700
+
+    Moved non-GNOME origin packages from subdirectory GNOME to ROOT.
+
+   Tue Nov 13 15:13:16 2012 +0700
+
+    * GNOME/README.TXT: Updated build order.
+    * GNOME/liboauth: Moved to GNOME.
+    * GNOME/rarian: Moved to GNOME.
+    * WLSBUILD: Removed unneeded files/directories.
+
+   Tue Nov 13 14:14:41 2012 +0700
+
+    Removed unneeded files/directories.
+
+   Tue Nov 13 14:06:18 2012 +0700
+
+    * GNOME/README.TXT: Add libdbusmenu. Moved libgee and vala to BUILD
+        TOOLKIT section.
+    * WLSBUILD: Removed unneeded files/directories.
+    * libdbusmenu: Added version 0.6.2.
+
+   Tue Nov 13 13:13:51 2012 +0700
+
+    * GNOME/README.TXT: Added at-spi2-core, at-spi2-atk, orca.
+    * GNOME/cinnamon: Removed unneeded patch.
+    * GNOME/orca: Added version 3.4.2.
+    * GNOME/seahorse: Updated SlackBuild script.
+
+   Tue Nov 13 12:45:42 2012 +0700
+
+    * GNOME: Removed unneeded files/directories.
+    * GNOME/at-spi2-atk: Added version 2.4.0.
+    * GNOME/at-spi2-core: Added version 2.4.2.
+    * GNOME/seahorse: Updated SlackBuild.
+
+   Tue Nov 13 12:08:13 2012 +0700
+
+    Add $PRGNAM.info file to ease tracking program source tarball/archive
+    (still not finish). Change default makepkg generated package to .txz.
+    Cleaning up SlackBuild script. Removing staled packages.
+    * 0ad: Updated SlackBuild script.
+    * 0ad-data: Updated SlackBuild script.
+    * CImg: Updated SlackBuild script.
+    * DevIL: Updated SlackBuild script.
+    * GNOME/alacarte: Moved to GNOME.
+    * GNOME/caribou: Add pygobject3 to slack-required.
+    * GNOME/cinnamon: Upgraded to 1.6.6.
+    * GNOME/evolution-data-server: Updated SlackBuild script. Add LDFLAGS to
+        configure to fix building on multilib. Thanks to Molavi Arman.
+    * GNOME/heimdal-libraries: Updated SlackBuild script. Add LDFLAGS to
+        configure to fix building on multilib. Thanks to Molavi Arman.
+    * GNOME/gnome-common: Upgraded to 3.4.0.1.
+    * GNOME/gnome-icon-theme-symbolic: Added version 3.4.0. Thanks to Molavi
+        Arman for noticing it.
+    * GNOME/gnome-icon-theme: Added version 3.4.0. Replacing Slackware package.
+    * GNOME/gnome-initial-setup: Added version 0.2. Not needed.
+    * GNOME/gnome-themes-standard: Added version 3.4.2. Replacing old
+        gnome-themes package.
+    * GNOME/libgdata: Moved to GNOME.
+    * GNOME/nautilus-open-terminal: Added version 0.19.
+    * GNOME/pygobject3: Downgraded to 3.2.2.
+    * GNOME/telepathy-gabble: Upgraded to 0.16.4.
+    * GeoIP: Updated SlackBuild script.
+    * gst-plugins-good: Moved to ROOT. Considered as general libs.
+    * MPlayer: Upgraded FFMPEG version to git b06903e or 0.11.2.
+    * RAZOR-QT/nomacs: Updated SlackBuild script.
+    * RAZOR-QT/qupzilla: Moved to RAZOR-QT.
+    * aria2: Upgraded to 1.15.2.
+    * ffmpeg: Rebuild.
+    * geoclue: Upgraded to 0.12.99.
+    * gst-plugins-bad: Rebuild.
+    * GNOME/gtk3-engines: Moved to GNOME.
+    * kipi-plugins: Rebuild.
+    * libass: Upgraded to 0.10.1.
+    * libbluray: Upgraded to 0.2.3.
+    * libdc1394: Upgraded to 2.2.0.
+    * libmms: Upgraded to 0.6.2.
+    * libmodplug: Uprgaded to 0.8.8.4.
+    * liboauth: Upgraded to 1.0.0.
+    * libreplaygain: Upgraded to r475.
+    * mjpegtools: Rebuild.
+    * openal: Upgraded to git 40ea4f4.
+    * opencv: Upgraded to 2.4.3.
+    * openjpeg: Upgraded to 1.5.1.
+    * pyxdg: Upgraded to 0.24.
+    * rekonq: Upgraded to 1.3.
+    * x264: Rebuild.
+
+   Sat Nov 10 23:57:16 2012 +0700
+
+    * GNOME/README.TXT: Updated build order/list. Thanks to Molavi Arman.
+    * GNOME/dconf: Updated SlackBuild script.
+    * GNOME/heimdal-libraries: Updated SlackBuild script and slack-desc.
+        Fix building on multilib system. Thanks to Molavi Arman.
+    * GNOME/librest: Fix URL on slack-desc.
+    * GNOME/python-isodate: Fix URL on slack-desc.
+    * GNOME/python-logilab-astng: Fix URL on slack-desc.
+    * GNOME/python-logilab-common: Fix URL on slack-desc.
+    * GNOME/python-rdflib: Fix URL on slack-desc.
+    * GNOME/telepathy-gabble: Fix URL on slack-desc.
+    * GNOME/telepathy-glib: Fix URL on slack-desc.
+    * GNOME/telepathy-haze: Fix URL on slack-desc.
+    * GNOME/telepathy-logger: Fix URL on slack-desc.
+    * GNOME/telepathy-mission-control: Fix URL on slack-desc.
+    * RAZOR-QT/razorqt: Updated SlackBuild script. Moved razorqt menus to
+        /etc/razorqt/xdg/menus. Fix xinitrc.razorqt
+    * a52dec: Updated SlackBuild script.
+    * faac: Updated SlackBuild script.
+    * libdaemon: Add URL to slack-desc.
+    * mp4v2: Updated SlackBuild script.
+    * oxygen-fonts: Updated SlackBuild script. Use regular oxygen-mono.
+
+   Thu Nov 8 08:40:53 2012 +0700
+
+    * spl: Updated slack-desc.
+    * zfs: Updated slack-desc.
+
+   Thu Nov 8 08:38:01 2012 +0700
+
+    * 0ad: Updated doinst.sh.
+    * LibRaw: Upgraded to version 0.14.7.
+    * QtCurve-KDE4: Added version 1.8.14.
+    * juffed-plugins: Updated SlackBuild script.
+    * juffed: Updated SlackBuild script.
+    * nomacs: Upgraded to version 0.4.0. Moved to RAZOR-QT.
+    * qpdfview: Added version 0.3.5.
+    * qtfm: Upgraded to version 5.5. Moved to RAZOR-QT.
+    * aircrack-ng: Updated SlackBuild script.
+    * gtk-qtcurve-engine: Upgraded to version 1.8.15.
+    * kipi-plugins: Updated SlackBuild script and slack-desc.
+    * libfm: Upgraded to version 1.1.0.
+    * menu-cache: Updated SlackBuild script.
+    * newbreeze: Added version 1.0.1. Testing.
+    * oxygen-fonts: Added version git 2974e15.
+    * pcmanfm: Upgraded to version 1.1.0. Removed unneeded files/directory.
+    * python-lockfile: Added version 0.9.1.
+    * redshift-plasmoid: Added version 0.4.4.
+    * roxterm: Added version 2.6.5. Need python-lockfile.
+    * smplayer: Upgraded to version 0.8.1.
+    * spl: Added version 0.6.0rc11. Testing.
+    * zfs: Added version 0.6.0rc11. Testing.
+
+   Mon Nov 5 09:36:08 2012 +0700
+
+    * gcalctool: Upgraded to version 6.4.2.1.
+    * alsa-plugins: Moved to ROOT tree as general library.
+    * json-c: Moved to ROOT tree as general library.
+    * pulseaudio:  Moved to ROOT tree as general library.
+    * razorqt: Updated SlackBuild script.
+    * clementine: Upgraded to version 1.1.0.
+    * farsight2: Removed. Replaced by farstream.
+    * ffmpeg: Updated SlackBuild script.
+    * galculator: Upgraded to version 2.0.
+    * geany: Updated SlackBuild script.
+    * gparted: Upgraded to version 0.14.0.
+    * ksshaskpass: Added version 0.5.3.
+    * libquicktime: Updated SlackBuild script.
+    * oxygen-gtk3: Upgraded to version 1.1.1.
+    * parted: Added version 3.1. Testing.
+    * pavucontrol: Updated SlackBuild script.
+    * pekwm: Updated SlackBuild script. Not working with razorqt.
+    * qtparted: Added version 0.6.0. Testing, unstable.
+    * transcode: Upgraded to version 1.1.7. Add patches to fix build with
+        new ffmpeg API. Add subtitleripper as additional tool.
+
+   Thu Nov 1 18:20:20 2012 +0700
+
+    Updated .gitignore for fonts dir. Just skip the files not the fonts directory.
+
+   Thu Nov 1 18:14:40 2012 +0700
+
+    Updated .gitignore to ignore all font files. Not all of the font binaries are licensed in GPL. Please download or provide your fonts by yourself.
+
+   Thu Nov 1 17:44:49 2012 +0700
+
+    * ALL: Removing unneeded files and directories.
+    * GNOME: Updated README.TXT.
+    * brasero: Updated slack-required.
+    * cheese: Updated doinst.sh.
+    * epiphany-extensions: Upgraded to version 3.4.3.
+    * epiphany: Updated SlackBuild script and doinst.sh.
+    * gnome-disk-utility: Updated slack-required.
+    * gnome-power-manager: Updated slack-required.
+    * pylint: Added version 0.26.0. Needed by totem.
+    * python-logilab-astng: Added version 0.24.1. Needed by pylint.
+    * python-logilab-common: Added version 0.58.1. Needed by pylint.
+    * telepathy-haze: Upgraded to version 0.6.0.
+    * totem-browser-plugins: Tested version 3.4.3. Actually it's just
+        a different packaging method from totem package which only contain
+        the browser plugin libraries.
+    * totem-pl-parser: Upgraded to version 3.4.3. Patched to fix
+        g_clear_pointer() issue with Slackware glib2.
+    * totem: Upgraded to version 3.4.3.
+    * yelp-tools: Added version 3.4.1.
+    * yelp-xsl: Updated SlackBuild script.
+    * yelp: Updated SlackBuild, slack-required and doinst.sh.
+    * avahi: Updated doinst.sh.
+    * gnash: Updated SlackBuild and doinst.sh. Added patch to fix bug
+        CVE-2012-1175-1.
+    * liferea: Updated SlackBuild, slack-required, and doinst.sh.
+
+   Wed Oct 31 23:44:53 2012 +0700
+
+    * GNOME: Add GNOME 3.4. Moved all GNOME related packages to subdirectory
+        GNOME.
+    * accountsservice: Added version 0.6.25.
+    * brasero: Upgraded to version 3.4.1.
+    * cantarell-fonts: Added version 0.0.8.
+    * caribou: Added version 0.4.4.
+    * cheese: Upgraded to version 3.4.2. Patched to fix building on Slackware.
+    * cinnamon: Added version 1.6.4. Patched to fix gnome-settings-daemon
+        DateTimeMechanism.
+    * clutter-gst: Upgraded to version 1.6.0.
+    * clutter-gtk: Upgraded to version 1.3.2.
+    * clutter: Upgraded to version 1.10.8.
+    * cogl: Upgraded to version 1.10.4.
+    * colord: Added version 0.1.24.
+    * dconf: Upgraded to version 0.12.1.
+    * empathy: Upgraded to version 3.4.2.3. Patched to fix building on
+        Slackware.
+    * epiphany-extensions: Upgraded to version 3.4.3.
+    * epiphany: Upgraded to version 3.4.3.
+    * evince: Upgraded to version 3.4.0.
+    * evolution-data-server: Upgraded to version 3.4.4.
+    * exempi: Upgraded to version 2.2.0.
+    * farstream: Added version 0.1.2. Replacing farsight2 package.
+    * file-roller: Upgraded to version 3.4.2.
+    * folks: Added version 0.6.9.
+    * gedit-plugins: Upgraded to version 3.4.0.
+    * gedit: Upgraded to version 3.4.2.
+    * gnome-applets: Upgraded to version 3.4.1.
+    * gnome-backgrounds: Upgraded to version 3.4.2.
+    * gnome-bluetooth: Added version 3.4.2.
+    * gnome-common: Added version 2.34.0.
+    * gnome-control-center: Upgraded to version 3.4.2.
+    * gnome-desktop: Upgraded to version 3.4.2.
+    * gnome-disk-utility: Upgraded to version 3.4.1.
+    * gnome-icon-theme: Use Slackware package.
+    * gnome-menus: Upgraded to version 3.4.2.
+    * gnome-mime-data: Upgraded to version 2.18.0.
+    * gnome-mplayer: Added version 1.0.6.
+    * gnome-online-accounts: Added version 3.4.2.
+    * gnome-panel: Upgraded to version 3.4.2.1.
+    * gnome-power-manager: Upgraded to version 3.4.0.
+    * gnome-python: Upgraded to version 2.28.1.
+    * gnome-screenshot: Added version 3.4.1.
+    * gnome-session: Upgraded to version 3.4.2.1.
+    * gnome-settings-daemon: Upgraded to version 3.4.2.
+    * gnome-shell-extensions: Added version 3.4.0.
+    * gnome-shell: Added version 3.4.2.
+    * gnome-system-monitor: Upgraded to version 3.4.1.
+    * gnome-terminal: Upgraded to version 3.4.1.1.
+    * gnome-themes: Added version 3.0.0.
+    * gnome-tweak-tool: Upgraded to version 3.4.0.1.
+    * gnome-video-effects: Added version 0.4.0.
+    * gthumb: Added version 3.0.2.
+    * gtksourceview: Upgraded to version 3.4.2.
+    * heimdal-libraries: Upgraded to version 1.5.2.
+    * libchamplain: Upgraded to version 0.12.3.
+    * libgee: Added version 0.6.6.
+    * libgnomekbd: Upgraded to version 3.4.0.2.
+    * libgtop: Upgraded to version 2.28.4.
+    * libgusb: Added version 0.1.3.
+    * libgweather: Upgraded to version 3.4.1.
+    * libnice: Upgraded to version 0.1.2.
+    * libpeas: Upgraded to version 1.4.0.
+    * librest: Upgraded to version 0.7.90.
+    * libunique: Upgraded to version 3.0.2.
+    * libwacom: Added version 0.6.
+    * libwnck3: Added version 3.4.3. Use different name so it can be installed
+        alongside native Slackware libwnck package.
+    * metacity: Upgraded to version 2.34.13.
+    * muffin: Added version 1.1.2.
+    * mutter: Added version 3.4.1.
+    * mx: Added version 1.4.7.
+    * nautilus-sendto: Added version 3.0.3.
+    * nautilus: Upgraded to version 3.4.2.
+    * notification-daemon: Upgraded to version 0.7.6.
+    * pygobject3: Upgraded to version 3.4.1.1.
+    * python-isodate: Added version 0.4.8.
+    * python-rdflib: Added version 3.2.3.
+    * telepathy-farstream: Added version 0.4.0.
+    * telepathy-gabble: Added version 0.16.3.
+    * telepathy-glib: Upgraded to version 0.18.2.
+    * telepathy-logger: Upgraded to version 0.4.0.
+    * telepathy-mission-control: Added version 5.12.3.
+    * vala: Upgraded to version 0.16.1.
+    * vte: Upgraded to version 0.34.1. Replacing Slackware package.
+    * xapian-core: Added version 1.2.12.
+    * zeitgeist: Added version 0.9.0.1.
+    * zenity: Upgraded to version 3.4.0.
+    * razorqt: Upgraded to version 0.5.1. Remove ptbatterysystemtray from
+        slack-required. Fix xinitrc.razorqt.
+    * a52dec: Updated SlackBuild script.
+    * agg: Added version 2.5. Needed by gnash.
+    * egenix-mx-base: Upgraded to version 3.2.4.
+    * ffmpeg: Upgraded to version 0.11.2. Use the same version of MPlayer's
+        ffmpeg.
+    * gnash: Tested version 0.8.10.
+    * graphviz: Added version 2.28.0.
+    * gtk-murrine-engine: Updated SlackBuild script.
+    * json-glib: Updated SlackBuild script.
+    * libburn: Upgraded to version 1.2.4.
+    * libisoburn: Upgraded to version 1.2.4.
+    * libisofs: Upgraded to version 1.2.4.
+    * libquicktime: Rebuild. Updated SlackBuild script.
+    * libtiff: Added version 4.0.3. Replacing Slackware package.
+    * libxml++: Updated SlackBuild script.
+    * lightspark: Tested version 0.7.0. Unstable.
+    * lxdm: Upgraded to version 20121024 git.
+    * midori: Upgraded to version 0.4.7.
+    * obconf: Upgraded to version cfde287 git.
+    * openbox: Updated SlackBuild script.
+    * quiteess: Upgraded to version 0.10.3.
+    * skype: Tested version 4.0.0.8. Not working on Qt 4.8.2.
+    * webkitgtk: Upgraded to version 1.8.3.
+    * wlsbuild: Updated build order/list.
+
+   Mon Oct 22 12:04:46 2012 +0700
+
+    * ktv: Added version c88b561. Add patch to fix build using gcc 4.7.x.
+    * lxsplit: Updated SlackBuild.
+    * reaver: Added version 1.4.
+    * xawtv: Updated SlackBuild. Require zvbi to enable channel scanning.
+
+   Thu Oct 18 23:07:05 2012 +0700
+
+    * MPlayer: Update build script.
+    * ORBit2: Added version 2.14.19. Needed by some GNOME2 packages.
+    * ptbatterysystemtray: Upgraded to 1.0.0rc2. Not used in razorqt 0.5.0.
+    * razorqt: Upgraded to 0.5.0. Fix environment handling and renaming init
+        script to razorqt instead razor.
+    * clementine: Upgraded to git 20121001_07abe82.
+    * fcgi: Added version 2.4.0. Needed to run Perl/CGI based script on nginx.
+    * fcgiwrap: Added version 1.0.3. Needed to run Perl/CGI based script on nginx.
+    * flash-player-plugin: Updated build script.
+    * gconfmm: Added version 2.28.3. Needed by some GNOME2 packages.
+    * gnome-common: Added version 2.34.0. Needed to build some GNOME2 packages.
+    * gnome-mime-data: Added version 2.18.0. Needed by some GNOME2 packages.
+    * gnome-vfs: Added version 2.24.4. Needed by some GNOME2 packages.
+    * hotot: Upgraded to git version 9c8c8a2.
+    * libbonobo: Updated build script. Needed by some GNOME2 packages.
+    * libbonoboui: Updated build script. Needed by some GNOME2 packages.
+    * libgnome: Added version 2.32.1. Needed by some GNOME2 package.
+    * libgnomecanvas: Updated build script. Needed by some GNOME2 package.
+    * libgnomeui: Added version 2.24.5. Needed by some GNOME2 packages.
+    * libreoffice: Upgraded to 3.6.2.2. Fix build script.
+    * libtorrent-rasterbar: Upgraded to 0.16.4.
+    * libxml++: Upgraded to 2.34.2. Needed by some GNOME2 packages.
+    * lxdm: Upgraded to 0.4.1. Fix init script.
+    * me-tv: Added version 1.4.0.10.
+    * qbittorrent: Upgraded to 3.0.5.
+    * rekonq: Upgraded to 1.2.
+    * tvtime: Added version 1.0.2. Use some patches from Fedora.
+    * xawtv: Added version 3.102.
+    * zapping: Tested version 0.10cvs6. Not working.
+    * zvbi: Added version 0.2.33.
+
+   Sat Oct 6 00:58:31 2012 +0700
+
+    * alsa-plugins: Rebuilt. Add patch to use ffmpeg 1.0 API.
+    * clementine: Updated SlackBuild script.
+    * gpac: Removed ffmpeg from slack-required.
+    * gst-ffmpeg: Rebuilt.
+    * gst-libav: Testing version 1.0.0.
+    * vlc: Rebuilt. Using ffmpeg 1.0.
+    * wine: Upgraded to version 1.5.14.
+
+   Thu Oct 4 06:46:13 2012 +0700
+
+    * ffmpeg: Upgraded to 1.0. Add libbluray to slack-required.
+    * libquicktime: Rebuilt using ffmpeg-1.0.
+    * tano: Added version 1.0.3.
+    * vlc-qt: Added version 0.6.2. Needed by tano.
+    * wlsbuild: Updated build order.
+
+   Wed Sep 26 12:44:09 2012 +0700
+
+    * razorqt: Upgraded to version 0.4.99_20120923. Still hoping for 0.5.0.
+    * hotot: Upgraded to version git HEAD d3b01b5.
+    * imlib2: Added version 1.4.4. Used by wbar.
+    * libfm: Upgraded to version 1.0.1. Added vala to slack-required.
+    * menu-cache: Upgraded to version 0.3.3.
+    * pcmanfm: Upgraded to version 1.0.1.
+    * pekwm: Added version 0.1.15. Currently in testing stage.
+    * tor: Upgraded to version 0.2.2.39.
+    * vala: Updated SlackBuild script.
+    * wbar: Added version 2.3.4. Still in testing stage.
+
+   Sat Sep 22 23:01:58 2012 +0700
+
+    * razorqt: Upgraded to version 0.4.99_20120920.
+    * mtop: Added version 0.6.6. Need perl-curses.
+    * nginx: Updated build script. Add logrotate entry for nginx.
+    * perl-curses: Added version 1.28. Used by mtop.
+    * qupzilla: Upgraded to version 1.3.5.
+
+   Wed Sep 19 09:40:59 2012 +0700
+
+    * alsa-plugins: Move it to MATE.
+    * avidemux: Added version 2.6.0.
+    * avidemux2: Removed. Use avidemux instead.
+    * claws-mail-extra-plugins: Upgraded to version3.8.1. Remove clutter,
+        clutter-gtk, cogl, and libchamplain from dependency. Add liboauth as
+        dependency.
+    * claws-mail: Upgraded to version 3.8.1.
+    * clutter-gtk: Upgraded to version 1.3.2.
+    * clutter: Upgraded to version 1.10.8.
+    * cogl: Upgraded to version 1.10.4.
+    * conky: Rebuilt.
+    * ftgl: Updated SlackBuild.
+    * gobject-introspection: Removed. Use Slackware package.
+    * goom2: Updated SlackBuild script.
+    * gpac: Rebuilt. Fix library installation path.
+    * gst-plugins-good: Move it to MATE.
+    * gtk-vnc: Added version 0.5.1 to MATE. Need pulseaudio.
+    * itstool: Rebuilt.
+    * json-c: Move it to MATE.
+    * json-glib: Updated SlackBuild script.
+    * libchamplain: Upgraded to version 0.12.3.
+    * libdvbpsi: Updated SlackBuild script.
+    * libetpan: Upgraded to version 1.1.
+    * libgdata: Upgraded to version 0.12.0.
+    * liboauth: Upgraded to version 0.9.7.
+    * libreoffice: Upgraded to version 3.6.1.2. Removing some bundled libraries
+        and use Slackware libraries. Add slack-required.
+    * libupnp: Updated SlackBuild script.
+    * lua: Rebuilt. Updated SlackBuild script.
+    * luacairo: Rebuilt. Updated SlackBuild script.
+    * mate-session-manager: Rebuilt. Fix xinitrc.mate and using it on
+       mate.desktop xsessions entry.
+    * nginx: Upgraded to version 1.2.3.
+    * openbox: Updated SlackBuild script.
+    * p7zip: Updated SlackBuild script.
+    * projectM: Updated SlackBuild script.
+    * pulseaudio: Move it to MATE.
+    * qcomicbook: Rebuilt. Updated SlackBuild script. Add slack-required.
+    * razorqt: Upgraded to 0.4.99_30597d.
+    * scons: Rebuilt. Updated SlackBuild script.
+    * tolua++: Rebuilt. Updated SlackBuild script.
+    * vinagre: Added version 3.4.2 to MATE.
+    * vino: Added version 3.4.2 to MATE.
+
+   Tue Sep 11 17:27:26 2012 +0700
+
+    * kipi-plugins: Upgraded to version 2.9.0.
+
+   Mon Sep 10 15:20:46 2012 +0700
+
+    Moving all Razor-Qt desktop related packages to RAZOR-QT directory.
+    * razorqt: Upgraded to 0.4.99_de93de9. Fix xinitrc.razor and use it on
+        menu razor.desktop.
+    * bogofilter: Updated build script.
+    * clementine: Upgraded to git version 1.0.1_782bfd3. Add protobuf to
+        slack-required.
+    * conky-colors: Added version 8.1.1. Depends on conky.
+    * kadu: Added version 0.12.2. Depends on libgadu and libmpdclient.
+    * libgadu: Added version 1.11.2.
+    * libmpdclient: Added version 2.7.
+    * phonon-vlc: Upgraded to version 0.6.0. Depends on vlc.
+    * protobuf: Updated build script.
+    * trojita: Testing git version 20120901_97ba426.
+    * vlc: Updated build script. Removing unneeded files.
+    * yarock: Testing version 0.058. Great GUI, but very unstable.
+
+   Sun Sep 2 23:32:37 2012 +0700
+
+    * MPlayer: Rebuilt. Disable pulseaudio support.
+    * flash-player-plugins: Updated to 11.2.202.238.
+    * GNOME: Removing unneeded files and folders.
+    * libstatsgrab: Added version 0.17. Needed by razorqt.
+    * mozilla-firefox: Added. Just for testing unstable version.
+    * ptbatterysystemtray: Upgraded to version 20120430_a9a6f07.
+    * qastools: Updated SlackBuild.
+    * qlipper: Upgraded to version 2.0.1.
+    * quiterss: Upgraded to version 0.10.1.
+    * qupzilla: Upgraded to version 2012.08.30.
+    * qxkb: Rebuilt.
+    * razorqt: Upgraded to version 20120830_5f1a071. Updated razorqt xinitrc.
+    * rekonq: Upgraded to version 1.1.
+
+   Mon Aug 27 21:48:09 2012 +0700
+
+    Rebuild almost all packages due to Slackware 14.0 RC3 release.
+    * mate-icon-theme-faenza: Added.
+    * MPlayer: Rebuild.
+    * a52dec: Rebuild.
+    * amarok: Added for the test version only.
+    * bleachbit: Added version 0.9.3.
+    * clementine: Rebuild.
+    * cuetools: Rebuild.
+    * dirac: Rebuild.
+    * faac: Rebuild. Use GCC.
+    * faad2: Rebuild. Use GCC.
+    * ffmpeg: Rebuild.
+    * freefonts: Added version 1.0. My own free fonts packages.
+    * frei0r: Rebuild.
+    * gnome-utils: Removed.
+    * gpac: Upgraded to version 0.5.0. Use GCC. Remove unneeded patches.
+    * gsmartcontrol: Upgraded to version 0.8.7.
+    * gst-ffmpeg: Rebuild.
+    * gst-plugins-bad: Rebuild.
+    * gst-plugins-gl: Rebuild.
+    * gst-plugins-good: Rebuild.
+    * gst-plugins-ugly: Rebuild.
+    * gst-python: Rebuild.
+    * gtkglext: Rebuild.
+    * kipi-plugins: Upgraded to version 2.8.0 git 5a219358. Remove unneeded
+        patches.
+    * lame: Rebuild. Use GCC.
+    * libass: Rebuild. Use GCC.
+    * libbluray: Rebuild. Use GCC.
+    * libcdaudio: Rebuild. Use GCC.
+    * libcue: Rebuild. Use GCC.
+    * libdc1394: Rebuild.
+    * libdca: Rebuild.
+    * libdv: Rebuild.
+    * libdvdcss: Rebuild.
+    * libgsm: Rebuild. Fix header symlink.
+    * libiec61883: Rebuild.
+    * libkate: Rebuild.
+    * libmms: Rebuild.
+    * libmodplug: Rebuild.
+    * libmpcdec: Rebuild.
+    * libquicktime: Rebuild. Use GCC.
+    * libreoffice: Rebuild. Move fonts to /usr/share/fonts. Updated doinst.sh.
+    * libreplaygain: Rebuild.
+    * libunique3: Rebuild.
+    * libvpx: Rebuild.
+    * liferea: Upgraded to version 20120730 git 3d1191fc.
+    * live555: Upgraded to version 2012.08.20.
+    * lxdm: Rebuild. Use GCC.
+    * mjpegtools: Rebuild.
+    * mp3gain: Rebuild.
+    * mp4v2: Rebuild.
+    * msttcorefonts: Added version 1.3.
+    * numpy: Rebuild. Use GCC.
+    * openal: Rebuild. Use GCC.
+    * opencore-amr: Rebuild. Use GCC.
+    * opencv: Rebuild.
+    * openjpeg: Rebuild.
+    * orc: Rebuild. Use GCC.
+    * qupzilla: Upgraded to version 20120814 git 3a2fb32.
+    * rekonq: Rebuild.
+    * rtmpdump: Rebuild. Use GCC.
+    * schroedinger: Rebuild. Use GCC.
+    * speex: Rebuild. Use GCC.
+    * synaptiks: Rebuild.
+    * twolame: Rebuild. Use GCC.
+    * vlc: Upgraded to version 2.0.3.
+    * vorbisgain: Rebuild. Use GCC.
+    * wlsbuild: Reorder packages build list. Use {} tag to distinguish native
+        Slackware packages.
+    * wxcam: Rebuild.
+    * x264: Upgraded to version 20120721. Use GCC.
+    * xvidcore: Rebuild. Use GCC.
+    * yakuake: Rebuild.
+    * zsync: Added version 0.6.2.
+
+   Tue Aug 14 17:54:41 2012 +0700
+
+    * awn: Removed. Build failed.
+    * awn-extras: Removed. Build failed.
+    * cairo-dock: Upgraded to version 3.0.2. Using gtk+3.
+    * cairo-dock-plugins: Upgraded to version 3.0.2. Using gtk+3.
+    * libdesktop-agnostic: Removed. Only needed by awn.
+    * libreoffice: Upgraded to version 3.6.0.4. Switched to deb tarball.
+    * oxygen-gtk3: Added version 1.1.0. To have consistent look on GTK+2 and
+        GTK+3 apps.
+    * transmission: Upgraded to 2.61. Build using gcc.
+    * webcamoid: Added version 3.1.0_81e37fe. But the plasmoid is more
+        interesting.
+
+   Mon Aug 6 20:47:27 2012 +0700
+
+    * GNOME: Removed, replaced with MATE.
+    * GConf: Removed. Already in Slackware tree.
+    * MATE Desktop: Added version 1.4.1. Build using gcc.
+    * XFCE Desktop: Relocated to its own subdirectory. Right now in dormant
+        state because Slackware already providing XFCE 4.10.
+    * avahi: Rebuilt.
+    * exempi: Upgraded to 2.2.0. Used by Caja (MATE file manager).
+    * icu4c: Add info as it already provided by Slacware.
+    * itstool: Rebuilt using ARCH=noarch.
+    * libdaemon: Rebuilt using gcc.
+    * libgtop: Upgraded to 2.28.4. Used by MATE System Monitor.
+    * libunique: Rebuilt. Splitted into two package. This one is for libunique-1.0.
+        Used by MATE Desktop.
+    * libunique3: Added. Used for building libunique-3.0.
+    * pulseaudio: Rebuilt. Removing ORBit2 from slack-required as Slackware has
+        also removing it.
+    * rarian: Rebuilt. Used by MATE Desktop.
+    * tor: Upgraded to 0.2.2.37.
+    * vidalia: Upgraded to 0.2.20.
+    * yelp-xsl: Upgraded to 3.4.2, but unusable.
+    * yelp: Upgraded to 3.4.2, but unusable.
+
+   Sat Aug 4 03:39:37 2012 +0700
+
+    * MPlayer: Rebuilt. Enable pulseaudio support.
+    * alsa-plugins: Rebuilt. Add pulseaudio support.
+    * atkmm: Rebuilt.
+    * cairomm: Rebuilt.
+    * cantata: Added version 0.8.2. Still crashed on use.
+    * clementine: Rebuilt. Add slack-required files.
+    * fuseiso: Rebuilt.
+    * gjs: Upgraded to 1.32.0.
+    * glibmm: Upgraded to 2.32.1.
+    * gnome-themes: Upgraded to 3.0.0.
+    * gst-plugins-gl: Rebuilt using clang.
+    * gthumb: Upgraded to 3.0.1.
+    * gtk-engines: Rebuilt. Add patch for building against glib 2.32.
+    * gtk3-engines: Added version 2.91.1. Add patch for building against
+        glib 2.32.
+    * gtkmm: Rebuilt.
+    * gtkmm3: Added version 3.4.0.
+    * icoutils: Rebuilt.
+    * ipmitool: Rebuilt.
+    * json-c: Upgraded to 0.10. Add patch to fix missing header.
+    * json-glib: Upgraded to 0.15.2. Enable introspection. Build using clang.
+    * kipi-plugins: Upgraded to 2.8.0_git407da9d.
+    * libdvdnav: Rebuilt using clang.
+    * libopenraw: Rebuilt.
+    * libpeas: Added version 1.4.0. Need gjs.
+    * libshout: Rebuilt using clang.
+    * liferea: Upgraded to git 20120711. Need libpeas.
+    * lxdm: Upgraded to git 20120708_ebbf7d7. Add patch to fix Xsession
+        selection. Built using clang.
+    * mpd: Added version 0.17. Built using clang.
+    * nss-mdns: Rebuilt.
+    * pangomm: Rebuilt.
+    * pavucontrol: Added version 1.0. Need pulseaudio and gtkmm3.
+    * pulseaudio: Upgraded to 2.0.
+    * python-mpd2: Added version 0.4.3. Need mpd.
+    * q4wine: Upgraded to 0.999. Add cabextract, fuseiso, and icoutils to
+        slack-required.
+    * sonata: Added version 1.6.2.1. Need mpd and python-mpd2.
+    * soundkonverter: Upgraded to 1.6.3.
+    * squidGuard: Added version 1.4.
+    * vala: Revert to 0.14.2.
+
+   Tue Jul 24 21:43:02 2012 +0700
+
+    * aria2: Added version 1.15.1. Use by uget.
+    * brasero: Upgraded to 3.4.1.
+    * comix: Added version 4.0.4.
+    * evince: Upgraded to 3.4.0.
+    * gc: Upgraded to 7.2.
+    * granite: Added but not failed to build.
+    * hotot: Added version git c44d741. Need pygobject3.
+    * icu4c: Upgraded to 4.8.1.1. Needed by webkitgtk.
+    * libevent: Upgraded to 2.0.19.
+    * libgee: Upgraded to 0.7.2.
+    * midori: Upgraded to git f82a06a. Can not use Mozilla flashplayer plugin.
+    * pygobject3: Added version 3.0.4. Needed by hotot.
+    * python-xlib: Rebuilt. Use by hotot.
+    * pywebkitgtk: Add info for failed to built.
+    * transmission: Upgraded to 2.60. Needed libevent.
+    * uget: Upgraded to 1.8.2.
+    * vala: Upgraded to 0.16.1.
+    * webkitgtk: Upgraded to 1.8.1. Enable webkit2 and gtk+3.
+    * wine: Upgraded to 1.5.9.
+
+   Mon Jul 23 10:58:03 2012 +0700
+
+    Rebuilding XFCE 4.10 with most of the packages were built using CLANG.
+    * Terminal: Renamed to xfce4-terminal.
+    * Thunar: Renamed to thunar.
+    * exo: Rebuilt using clang. Add gvfs as dependency (still not clear)
+    * file-roller: Upgraded to version 3.4.2. Removed GConf schemas installs
+        scripts. Disabled nautilus, so more portable.
+    * garcon: Rebuilt using clang.
+    * gcalctool: Upgraded to version 6.4.2.1. Built using clang. Add itstool
+        as build dependency.
+    * geany: Upgraded to version 1.22.
+    * glade3: Upgraded to version 3.8.2. Built using clang.
+    * gnome-disk-utility: Upgraded to version 3.0.2. Remove nautilus from
+        slack-required.
+    * gtk-engines: Staled. Failed to built with gtk+2-2.24.10.
+    * gtk-unico-engine: Upgraded to version 1.0.2. Used as main gtk-engine for
+        gtk+3.
+    * gtk-xfce-engine: Rebuilt using clang.
+    * gvfs: Upgraded to version 1.12.3. Remove AFC CFLAGS and LIBS, unable to
+        built AFC support. Add glib-compile-schemas in doinst.sh.
+    * itstool: Added version 1.2.0. Needed to build file-roller.
+    * libunique: Upgraded to version 3.0.2. Enable gobject introspection as
+        slackware-current support it now.
+    * libxfce4ui: Rebuilt using clang.
+    * libxfce4util: Rebuilt using clang.
+    * libxfcegui4: Rebuilt using clang.
+    * lxdm: Testing version 20120708.ebbf7d7.git.
+    * network-manager-applet: Upgraded to version 0.9.4.1. Built using clang.
+    * orage: Rebuilt using clang. Add glib-compile-schemas in doinst.sh.
+    * perl-extutils-pkgconfig: Upgraded to version 1.13.
+    * perl-glib: Upgraded to version 1.261.
+    * seahorse: Upgraded to version 3.4.1. Built using clang. Add patches to
+        fix pgp null pointer and negative array size. Remove GConf schemas
+        from doinst.sh, replaced with glib-compile-schemas. Remove old files.
+    * thunar-archive-plugin: Rebuilt using clang.
+    * thunar-volman: Rebuilt using clang. Add gvfs and thunar to
+        slack-required.
+    * thunar: Renamed from Thunar. Rebuilt using clang. Add gvfs to
+        slack-required.
+    * tumbler: Rebuilt using clang.
+    * viewnoir: Upgraded to version 1.3. Built using clang.
+    * xarchiver: Stalled. Failed to build using glib2-2.32.3.
+    * xfce4-appfinder: Rebuilt using clang.
+    * xfce4-dev-tools: Rebuilt.
+    * xfce4-mixer: Rebuilt using clang.
+    * xfce4-notifyd: Rebuilt using clang.
+    * xfce4-panel: Rebuilt using clang.
+    * xfce4-power-manager: Rebuilt.
+    * xfce4-screenshooter: Upgraded to version 1.8.1. Built using clang.
+    * xfce4-session: Rebuilt using clang.
+    * xfce4-settings: Rebuilt using clang.
+    * xfce4-taskmanager: Rebuilt using clang.
+    * xfce4-terminal: Renamed from Terminal. Built using clang.
+    * xfconf: Rebuilt using clang.
+    * xfdesktop: Rebuilt using clang.
+    * xfwm4: Rebuilt using clang.
+
+   Sat Jul 21 18:04:20 2012 +0700
+
+    * rekonq: Upgraded to 1.0.
+
+   Fri Jul 20 13:02:50 2012 +0700
+
+    * quiterss: Upgraded to 0.10.0.
+
+   Wed Jul 18 21:07:47 2012 +0700
+
+    * qupzilla: Upgraded using git 2012-07-18 701130b. Removing unneeded files.
+    * stellarium: Upgraded to 0.11.3
+
+   Wed Jul 18 13:42:09 2012 +0700
+
+    * numpy: Add numpy.info.
+    * qgit: Rebuilt. Add qgit.desktop, qgit.png, and qgit.info.
+
+   Wed Jul 18 11:15:13 2012 +0700
+
+    Updating .gitignore
+
+   Wed Jul 18 11:14:03 2012 +0700
+
+    Updating .gitignore
+
+   Wed Jul 18 11:13:08 2012 +0700
+
+    Updating .gitignore
+
+   Wed Jul 18 11:11:31 2012 +0700
+
+    Updating .gitignore
+
+   Wed Jul 18 10:34:11 2012 +0700
+
+    Removing packages which is already provided by Slackware and unneeded packages
+
+   Wed Jul 18 09:37:39 2012 +0700
+
+    Added usage warning to README.
+
+   Wed Jul 18 09:20:03 2012 +0700
+
+    * ffmpeg: Fix slack-required entries.
+
+   Wed Jul 18 08:12:29 2012 +0700
+
+    Slackware-current has included gtk+3 and gobject-introspection. As a result
+    all GNOME related packages can be upgraded using GNOME3 sources.
+    * MPlayer: Rebuilt.
+    * NetworkManager-openvpn: Upgraded to 0.9.4.0.
+    * NetworkManager-pptp: Upgraded to 0.9.4.0.
+    * PIL: Upgraded to 1.1.6. Add python to slack-required.
+    * avahi: Upgraded to 0.6.31. Add python to slack-required.
+    * beautifulsoup4: Upgraded to 4.1.1. Add python to slack-required.
+    * conky: Upgraded to 1.9.0. Add cairo and tolua++ to slack-required.
+    * cssutils: Upgraded to 0.9.10b1. Add python to slack-required.
+    * dconf: Upgraded to 0.12.1.
+    * dnspython: Upgraded to 1.10.0. Add python to slack-required.
+    * festival: Added version 2.1. Add patch to fix building with gcc 4.7.x.
+    * ffmpeg: Upgraded to 0.10.4. Add support for frei0r, gnutls, libass, libcdio,
+        libmodplug, openjpeg, and rtmp.
+    * gcr: Added version 3.4.1. Needed by gnome-keyring. Need libtasn1.
+    * geoclue: Rebuilt. Add libgnome-keyring and libsoup to slack-required.
+    * glib-networking: Upgraded to 2.32.3.
+    * gnome-keyring: Upgraded to 3.4.1. Add gcr to slack-required.
+    * gsettings-desktop-schemas: Upgraded to 3.4.2.
+    * gst-ffmpeg: Rebuilt. Add patch to fix building with gcc 4.7.1.
+    * gst-plugins-bad: Upgraded to 0.10.23.
+    * gst-plugins-ugly: Upgraded to 0.10.19.
+    * gst-python: Rebuilt. Add python to slack-required.
+    * html5lib: Rebuilt. Add python to slack-required.
+    * ifuse: Upgraded to 1.1.2.
+    * kde-baseapps: Testing kde-baseapps git version.
+    * libdaemon: Rebuilt.
+    * libgnome-keyring: Upgraded to 3.4.1.
+    * libimobiledevice: Upgraded to 1.0.7. Add python and swig to slack-required.
+    * libproxy: Upgraded to 0.4.7. Add patch to fix building with gcc 4.7.x and
+        fix port divider string. Add python and gtk+3 to slack-required.
+    * libsoup: Upgraded to 2.38.1.
+    * libtasn1: Rebuilt.
+    * lua: Upgraded to 5.1.5.
+    * luacairo: Added version 0.8. Add support for cairo in lua.
+    * lxml: Upgraded to 2.3.4. Add python and setuptools to slack-required.
+    * mediadownloader: Added version 1.5.2.
+    * mutagen: Rebuilt. Add python and setuptools to slack-required.
+    * pyalsaaudio: Rebuilt. Add python and setuptools to slack-required.
+    * pyargparse: Rebuilt. Add python and setuptools to slack-required.
+    * python-dateutil: Upgraded to 2.1. Add python and setuptools to
+        slack-required.
+    * python-mechanize: Rebuilt. Add python and setuptools to slack-required.
+    * python-xlib: Rebuilt. Add python and setuptools to slack-required.
+    * pyudev: Upgraded to 0.15. Add python and setuptools to slack-required.
+    * pyxdg: Upgraded to 0.20. Add python and setuptools to slack-required.
+    * qcomicbook: Upgraded to 0.9.0.
+    * redshift: Rebuilt. Add python and setuptools to slack-required.
+    * rekonq: Upgraded to 0.9.90.
+    * scons: Rebuilt. Add python to slack-required.
+    * synaptiks: Rebuilt. Add python and setuptools to slack-required.
+    * tolua++: Added version 1.0.93. Needed by conky.
+    * tolua: Testing version 5.2.0 using lua 5.2.0.
+    * usbmuxd: Rebuilt.
+    * xvba-sdk: Added version 0.74.404001. Needed by xvba-video.
+    * xvba-video: Added version 0.8.0. Add xvba-sdk to slack-required.
+
+   Tue Jul 10 14:23:52 2012 +0700
+
+    * kipi-plugins: Rebuilt. Added patch to fix build error on gcc 4.7.x
+    * qjson: Rebuilt.
+
+   Tue Jul 10 10:38:59 2012 +0700
+
+    Typo and cosmetics fix.
+
+   Tue Jul 10 09:51:56 2012 +0700
+
+    Testing Clang as C/C++ compiler instead of GCC. Some package still using
+    GCC because of libc++/libstdc++ dependency issue. This issue will be fixed in
+    the next release of Clang (Clang 3.1).
+    * CImg: Upgraded to 1.5.0.
+    * MPlayer: Rebuilt. Remove wavegain from dependency.
+    * a52dec: Rebuilt using clang.
+    * cabextract: Rebuilt using clang.
+    * cuetools: Rebuilt using clang.
+    * dirac: Rebuilt using gcc.
+    * faac: Rebuilt using clang. Removing mp4v2 from dependency and using faac's
+        internal mpeg4ip/mp4v2 codec because mp4v2 version 2.0.0 is not compatible
+        with this ancient faac codes.
+    * faad2: Rebuilt using clang.
+    * ffmpeg: Rebuilt using clang.
+    * frei0r: Rebuilt using gcc.
+    * google-chrome: Upgraded to 20.0.1132.47. Using debian package.
+    * gpac: Rebuilt using clang. Add patches for libpng and openjpeg 1.5.0.
+    * lame: Rebuilt using clang.
+    * libass: Rebuilt using clang.
+    * libavc1394: Rebuilt using clang.
+    * libbluray: Rebuilt using clang.
+    * libcdaudio: Rebuilt using clang.
+    * libcue: Rebuilt using clang.
+    * libdc1394: Rebuilt using gcc.
+    * libdca: Rebuilt using clang.
+    * libdv: Rebuilt gcc.
+    * libdvdcss: Rebuilt using clang.
+    * libgsm: Rebuilt using clang.
+    * libiec61883: Rebuilt using clang.
+    * libkate: Rebuilt using clang.
+    * libmms: Rebuilt using gcc.
+    * libmodplug: Rebuilt using gcc.
+    * libmpcdec: Rebuilt using clang.
+    * libmpeg2: Rebuilt using clang.
+    * libquicktime: Upgraded to 1.2.4. Built using clang.
+    * libreplaygain: Rebuilt using clang.
+    * libvpx: Upgraded to 1.1.0. Built using clang.
+    * live555: Upgraded to 2012.07.06. Built using gcc.
+    * mjpegtools: Upgraded to 2.0.0. Added patchto fix building using gcc-4.7.x.
+    * mp3gain: Rebuilt using clang.
+    * mp4v2: Rebuilt using gcc.
+    * numpy: Upgraded to 1.6.2. Built using clang.
+    * openal: Rebuilt using clang.
+    * opencore-amr: Rebuilt using clang.
+    * opencv: Upgraded to 2.4.2. Built using gcc. Remove ffmpeg from dependency.
+    * openjpeg: Upgraded to 1.5.0. Built using clang.
+    * orc: Rebuilt using clang.
+    * rtmpdump: Rebuilt using clang.
+    * schroedinger: Rebuilt using clang.
+    * speex: Rebuilt using clang.
+    * twolame: Rebuilt using clang.
+    * vorbisgain: Rebuilt using clang.
+    * wavegain: Removed. Unable to build using newer glibc.
+    * x264: Rebuilt using gcc.
+    * xvidcore: Rebuilt using clang.
+
+   Thu Jul 5 19:22:47 2012 +0700
+
+    * ffmpeg: Upgraded to 7.13.
+    * grub: Upgraded to 2.00.
+    * gsmartcontrol: Added version 0.8.6. Require hwinfo.
+    * hwinfo: Added version 19.1. Require libx86emu.
+    * kcm-grub2: Added version 0.5.8. Testing usage in Slackware.
+    * libass: Upgraded to 0.10.0.
+    * libbluray: Upgraded to 0.2.2.
+    * libdvdcss: Upgraded to 1.2.12.
+    * libkate: Upgraded to 0.4.1.
+    * libx86emu: Added version 1.3.
+    * mkvtoolnix: Upgraded to 5.6.0. Require libebml and libmatroska.
+    * mozilla-aurora: Added version 15.0a2. Testing usage in Slackware.
+    * opera: Upgraded to 12.00.1467.
+    * vlc: Upgraded to 2.0.2.
+    * x264: Upgraded to 35cf912. Added YUV4MPEG filter data.
+    * xvidcore: Upgraded to 1.3.2.
+
+   Wed Jun 20 00:54:51 2012 +0700
+
+    * MPlayer: Upgraded to version 1.0.
+    * flash-player-plugin: Upgraded to version 11.2.202.236.
+    * google-chrome: Upgraded to version 19.0.1084.56.
+    * juffed-plugins: Added version 0.8.1.
+    * kipi-plugins: Updated kipi-plugins.SlackBuild.
+    * libreoffice: Upgraded to version 3.5.4.
+    * qupzilla: Upgraded to version git 20120619_321d1fb.
+    * rekonq: Upgraded to version 0.9.80 (1.0 beta).
+    * wine: Upgraded to version 1.5.5.
+    +----------------+
+
+   Sat Jun 2 09:17:11 2012 +0700
+
+    * quiterss: Upgraded to 0.9.1.
+    * qupzilla: Upgraded to git date 20120524.
+
+   Wed May 23 20:40:15 2012 +0700
+
+    * MPlayer: Upgraded.
+    * smplayer: Upgraded.
+
+   Thu May 17 16:09:00 2012 +0700
+
+    * andromeda: Updated.
+    * flash-player-plugin: Upgraded.
+    * midori: Upgraded.
+    * qastools: Updated.
+    * qcomicbook: Added.
+    * qtermwidget: Updated.
+
+   Mon May 14 13:13:00 2012 +0700
+
+    * qastools: Upgraded.
+
+   Sun May 13 21:36:29 2012 +0700
+
+    * MPlayer: Rebuilt. Using slackware's libffi from gcc-java package.
+        Removing unneeded files.
+    * andromeda: Upgraded.
+    * juffed: Added. Text editor for Qt Desktop.
+    * libjreen: Added. Dependency for qutim.
+    * obconf: Updated.
+    * qutim: Upgraded.
+
+   Sun May 13 15:52:33 2012 +0700
+
+    * LibRaw: Upgraded.
+    * andromeda: Upgraded.
+    * nomacs: Upgraded.
+    * openbox: Upgraded.
+    * qterminal: Upgraded. Add slack-required to track deps.
+    * qtermwidget: Upgraded.
+    * quiterss: Added. This is the most convenient RSS/Feed reader for Qt.
+    * qutim: Upgraded.
+    * razorqt: Upgraded. Add patch from AUR to fix build error. Add openbox
+        as dependency.
+
+   Sun May 13 14:07:56 2012 +0700
+
+    * andromeda: Upgraded.
+    * libreoffice: Upgraded.
+    * paramiko: Added. Needed by mysql-workbench.
+    * pexpect: Added. Needed by mysql-workbench.
+    * pyalsaaudio: Updated.
+    * pycrypto: Upgraded.
+    * razorqt: Upgraded.
+
+   Fri May 11 18:22:49 2012 +0700
+
+    qt: Removed.
+
+   Fri May 11 18:10:01 2012 +0700
+
+    Removing some unused directory and files. Removing GPG key generation
+    line from the SlackBuild. Make it more general.
+
+   Tue May 8 08:12:52 2012 +0700
+
+    testdisk: Upgraded.
+    Repository: Removing unneeded files and directories.
+
+   Fri May 4 07:28:43 2012 +0700
+
+    Fri May  4 07:29:13 WIT 2012
+    Cleaning up bunch of unused directory and files, adding some new
+    packages.
+
+   Wed Sep 21 15:04:58 2011 +0700
+
+    ok.
+
+   Wed Sep 21 15:02:56 2011 +0700
+
+    ok.
+
+   Sat Apr 2 11:10:13 2011 +0700
+
+    Removing some packages which is already provided by Slackware. Upgrading some packages to new version. Added anjuta/libanjuta, libgda, glade3, and perl-gettext.
+    
+    * aqemu: Updated.
+    * audacious-plugins: Removed.
+    * audacious: Removed.
+    * autogen: Upgraded.
+    * avidemux2: Updated.
+    * clementine: Upgraded.
+    * gdl: Upgraded.
+    * gtk-qtcurve-engine: Upgraded.
+    * gtkpod: Updated.
+    * gtksourceview: Upgraded.
+    * gvfs: Upgraded.
+    * ipmitool: Updated.
+    * kio_afc: Rebuilt.
+    * libimobiledevice: Upgraded.
+    * usbmuxd: Rebuilt.
+    * vala: Upgraded.
+    * vlc: Upgraded.
+    * wlsbuild: Update build orded.
+    * anjuta: Added.
+    * glade3: Added.
+    * libgda: Added.
+    * perl-gettext: Added.
+
+Merge: 8f5b79b 0e2f04c
+   Tue Mar 29 11:24:34 2011 +0700
+
+    Merge branch 'master' of ssh://app.paudni.kemdiknas.go.id/home/walecha/Public/wallbuild/
+
+   Tue Mar 29 10:56:51 2011 +0700
+
+    Fix build and install script for:
+    
+    * easytag: Updated.
+        Fix cleaning up directory function.
+    * evince: Updated.
+        Fix cleaning up directory function.
+        Fix icon cache update function.
+    * libreoffice: Upgraded.
+        Upgraded libreoffice to version 3.3.2.
+    * libunique: Updated.
+        Fix cleaning up directory function.
+    * vlc: Upgraded.
+        Upgraded vlc to version 1.1.8.
+        Removing unneeded patch and directories.
+        Rename patch incrementally.
+        Fix build and install script.
+
+   Tue Mar 29 10:56:51 2011 +0700
+
+    Fix build and install script for:
+    
+    * easytag: Updated.
+        Fix cleaning up directory function.
+    * evince: Updated.
+        Fix cleaning up directory function.
+        Fix icon cache update function.
+    * libreoffice: Upgraded.
+        Upgraded libreoffice to version 3.3.2.
+    * libunique: Updated.
+        Fix cleaning up directory function.
+
+   Mon Mar 28 12:09:14 2011 +0700
+
+    GConf/doinst.sh
+        Removing unneeded command on doinst.sh script.
+
+   Wed Mar 23 21:37:38 2011 +0700
+
+    meld-1.5.1: Added
+
+   Wed Mar 23 20:56:03 2011 +0700
+
+    Upgrading NetworkManager, NetworkManager-openvpn, NetworkManager-pptp,
+    NetworkManager-vpnc, ModemManager, network-manager-applet to 0.9 beta 2.
+
+   Sun Mar 20 13:26:53 2011 +0700
+
+    Rebuilt oxygen-gtk package.
+
+   Sat Mar 19 22:10:45 2011 +0700
+
+    Updating unrar, p7zip, aqemu, ifuse. Add kio_afc.
+
+   Fri Mar 18 21:21:12 2011 +0700
+
+    Fri Mar 18 21:22:12 WIT 2011
+    Add several packages including clementine, dvdauthor, transcode, mjpegtools,
+    gpac, libbluray, and bombono-dvd. Removing old non-required packages or already
+    provided by Slackware. Updating some packages using new version.
+
+   Tue Oct 26 18:21:47 2010 +0700
+
+    Tue Oct 26 18:03:59 WIT 2010
+    GConf: Updated.
+    MPlayer: Updated.
+    ModemManager: Rebuilt.
+    NetworkManager-openconnect: Rebuilt.
+    NetworkManager-openvpn: Rebuilt.
+    NetworkManager-pptp: Rebuilt.
+    NetworkManager-vpnc: Rebuilt.
+    NetworkManager: Rebuilt.
+    ORBit2: Updated.
+    a52dec: Updated.
+    audiere: Added.
+    avahi: Rebuilt.
+    cheese: Updated.
+    choqok: Updated.
+    cuberok: Added.
+    cuetools: Rebuilt.
+    dconf: Added.
+    dirac: Rebuilt.
+    faac: Rebuilt.
+    faad2: Rebuilt.
+    farsight2: Rebuilt.
+    ffmpeg: Rebuilt.
+    gc: Updated.
+    gdk-pixbuf: Added.
+    gtk+2: Updated.
+    geany: Rebuilt.
+    gecko-mediaplayer: Rebuilt.
+    gir-repository: Updated.
+    glib2: Updated.
+    gnome-common: Rebuilt.
+    gnome-doc-utils: Rebuilt.
+    gnome-icon-theme: Updated.
+    gnome-keyring: Updated.
+    gnome-mime-data: Updated.
+    gnome-python: Updated.
+    gnome-vfs: Updated.
+    gobject-introspection: Updated.
+    grub: Rebuilt.
+
+   Tue Oct 19 14:46:00 2010 +0700
+
+    Tue Oct 19 14:46:05 WIT 2010
+    DeviceKit: Removed.
+    DeviceKit-power: Removed.
+    couchdb: Removed.
+    desktopcouch: Removed.
+    egenix-mx-base: Removed.
+    erlang-otp: Removed.
+    f-spot: Removed.
+    gwibber: Removed.
+    libdesktop-agnostic: Removed.
+    libgoogle-data-mono: Removed.
+    mozilla-firefox: Removed.
+    mx: Removed.
+    webkit-sharp: Removed.
+
+   Tue Oct 19 14:37:48 2010 +0700
+
+    Tue Oct 19 14:37:51 WIT 2010
+    xnoise: Removed.
+    xnoise-plugins-core: Removed.
+
+   Tue Oct 19 14:33:33 2010 +0700
+
+    Tue Oct 19 14:35:02 WIT 2010
+    Add new git repository here, as external drives are more portable and easier to
+    managed. So all of the main additional softwares will be keep in here.

@@ -1,6 +1,6 @@
 #!/bin/sh
 
-# Slackware build script for quiterss
+# Slackware build script for kwebkitpart
 
 # Copyright 2012  Widya Walesa <walecha99@gmail.com>
 # All rights reserved.
@@ -23,8 +23,9 @@
 # ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. FURTHERMORE I AM NOT LIABLE IF
 # YOUR DATA IS DESTROYED, YOUR HOUSE BURNS DOWN OR YOUR DOG RUNS OFF.
 
-PRGNAM=quiterss
-VERSION=0.11.0
+PRGNAM=kwebkitpart
+VERSION=1.3.1
+GITVERS=3b4a550
 BUILD=1
 TAG=${TAG:-_wls}
 NUMJOBS=${NUMJOBS:--j4}
@@ -41,7 +42,7 @@ CWD=$(pwd)
 WRK=${WRK:-/tmp/wlsbuild}
 PKG=$WRK/package-$PRGNAM
 OUTPUT=${OUTPUT:-/tmp}
-DOCS="COPYING HISTORY_EN HISTORY_RU"
+DOCS="COPYING.LIB README TODO"
 
 if [ "$ARCH" = "i486" ]; then
   SLKCFLAGS="-O2 -pipe -march=i486 -mtune=i686"
@@ -62,9 +63,9 @@ set -e
 rm -rf $PKG
 mkdir -p $WRK $PKG $OUTPUT
 cd $WRK
-rm -rf QuiteRSS-$VERSION-src
-tar xvf $CWD/QuiteRSS-$VERSION-src.tar.?z*
-cd QuiteRSS-$VERSION-src
+rm -rf $PRGNAM
+tar xvf $CWD/$PRGNAM-$GITVERS.tar.?z*
+cd $PRGNAM
 
 chown -R root:root .
 find . \
@@ -73,28 +74,33 @@ find . \
  \( -perm 666 -o -perm 664 -o -perm 600 -o -perm 444 -o -perm 440 -o -perm 400 \) \
  -exec chmod 644 {} \;
 
-qmake \
-  PREFIX=/usr \
-  LRELEASE=/usr/bin/lrelease \
-  LIB_DIR=/usr/lib${LIBDIRSUFFIX} \
-  QuiteRSS.pro
+mkdir build
+cd build
+  cmake .. \
+    -DCMAKE_C_FLAGS="$SLKCFLAGS" \
+    -DCMAKE_CXX_FLAGS="$SLKCFLAGS" \
+    -DCMAKE_BUILD_TYPE=Release \
+    -DCMAKE_INSTALL_PREFIX=$(kde4-config --prefix) \
+    -DLIB_SUFFIX=${LIBDIRSUFFIX} \
 
-make
-make INSTALL_ROOT=$PKG install
+  make
+  make install DESTDIR=$PKG
+cd -
 
 find $PKG | xargs file | grep -e "executable" -e "shared object" | grep ELF \
   | cut -f 1 -d : | xargs strip --strip-unneeded 2> /dev/null || true
 
 mkdir -p $PKG/usr/doc/$PRGNAM-$VERSION
-cp -a ${DOCS} $PKG/usr/doc/$PRGNAM-$VERSION
+cp -a $DOCS $PKG/usr/doc/$PRGNAM-$VERSION
 cat $CWD/$PRGNAM.SlackBuild > $PKG/usr/doc/$PRGNAM-$VERSION/$PRGNAM.SlackBuild
 
 mkdir -p $PKG/install
 cat $CWD/doinst.sh > $PKG/install/doinst.sh
 cat $CWD/slack-desc > $PKG/install/slack-desc
+cat $CWD/slack-required > $PKG/install/slack-required
 
 cd $PKG
 /sbin/makepkg -l y -c n $OUTPUT/$PRGNAM-$VERSION-$ARCH-$BUILD$TAG.txz
 
 echo "Cleaning up build directory"
-cd $WRK ; rm -rf $PKG QuiteRSS-$VERSION-src
+cd $WRK ; rm -rf $PKG $PRGNAM

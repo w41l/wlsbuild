@@ -5,5 +5,5 @@ export NUMJOBS="-j3"
 export PKGTYPE="txz"
 #export BUILD=1
 export OUTPUT="/home/walecha/tmp/pkg"
-export TMP="/tmp/wlsbuild"
-export WRK="/tmp/wlsbuild"
+export TMP="/usr/src/wlsbuild"
+export WRK="/usr/src/wlsbuild"

@@ -24,7 +24,7 @@
 # YOUR DATA IS DESTROYED, YOUR HOUSE BURNS DOWN OR YOUR DOG RUNS OFF.
 
 PRGNAM=nginx
-VERSION=1.2.3
+VERSION=1.2.5
 BUILD=1
 TAG=${TAG:-_wls}
 NUMJOBS=${NUMJOBS:--j3}
@@ -59,16 +59,6 @@ fi
 
 set -e
 
-# if ! grep "^nginx:" /etc/group >/dev/null ; then
-#   echo "Add nginx group: /usr/sbin/groupadd -g 248 nginx"
-#   exit 1
-# fi
-#
-# if ! grep "^nginx:" /etc/passwd >/dev/null ; then
-#   echo "Add nginx user: /usr/sbin/useradd -g 248 -u 248 -s /bin/false -d /var/lib/nginx nginx"
-#   exit 1
-# fi
-
 rm -rf $PKG
 mkdir -p $WRK $PKG $OUTPUT
 cd $WRK
@@ -84,10 +74,10 @@ find . \
  -exec chmod 644 {} \;
 
 EXTRA_MODS="
---with-http_flv_module \
 --with-http_ssl_module \
 --with-http_gzip_static_module \
 "
+# --with-http_flv_module \
 # --with-http_mp4_module \
 # --with-http_random_index_module \
 # --with-http_secure_link_module \
@@ -133,7 +123,7 @@ CXXFLAGS="$SLKCFLAGS" \
   $EXTRA_MODS \
   $MAIL_MOD \
 
-make V=1
+make
 make install DESTDIR=$PKG
 
 # Add nginx to logrotate

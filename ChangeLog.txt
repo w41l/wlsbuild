@@ -1,9 +1,25 @@
-   Mon Dec 17 00:09:59 2012 +0700
+commit 02e04d94a019da5223886f59a47bdf46fa0b83a6
+Author: Widya Walesa <walecha99@gmail.com>
+Date:   Sat Dec 22 11:34:05 2012 +0700
+
+    * pidgin-kwallet-plugin: Updated .info.
+
+commit cc4e3b578de151ad35e99c328c5bebeb3c75b65c
+Author: Widya Walesa <walecha99@gmail.com>
+Date:   Mon Dec 17 00:15:40 2012 +0700
+
+    +------------+
+
+commit 2de3889277102b8f4c2e8fe7a3495f7018c86dce
+Author: Widya Walesa <walecha99@gmail.com>
+Date:   Mon Dec 17 00:09:59 2012 +0700
 
     * Choqok: Updated SlackBuild script.
     * GNOME: Moved to its own tree.
 
-   Sun Dec 16 19:08:46 2012 +0700
+commit 1368a5411a53d4313a0f85852e33354f0b5676af
+Author: Widya Walesa <walecha99@gmail.com>
+Date:   Sun Dec 16 19:08:46 2012 +0700
 
     * flash-player-plugin: Upgraded to 11.2.202.258.
     * kipi-plugins: Testing version 3.x.
@@ -16,31 +32,43 @@
     * rekonq: Upgraded to 1.82.
     * wlsenv: Updated build environment.
 
-   Sun Dec 9 16:11:15 2012 +0700
+commit 3dcd4c5535021ef6b7717cddf6eaeada4ed4258c
+Author: Widya Walesa <walecha99@gmail.com>
+Date:   Sun Dec 9 16:11:15 2012 +0700
 
     * rekonq: Updated SlackBuild script. No /usr/share/doc.
     * wlsenv: Updated build environment.
 
-   Sun Dec 9 01:04:58 2012 +0700
+commit 610f8cf3f2249ab9221fa983fd9d13d9bddeb8cb
+Author: Widya Walesa <walecha99@gmail.com>
+Date:   Sun Dec 9 01:04:58 2012 +0700
 
     Removing all blank space in .info files. Fix sourceforge download URL.
     Fix schroedinger.info entries.
 
-   Tue Dec 4 16:04:43 2012 +0700
+commit 8f1d11ab684f6199ff4b0107696894f352a2c597
+Author: Widya Walesa <walecha99@gmail.com>
+Date:   Tue Dec 4 16:04:43 2012 +0700
 
     * unetbootin: Added version 581.
     * unrar: Upgraded to 4.2.4. Add .info file.
 
-   Mon Dec 3 20:01:49 2012 +0700
+commit e3c9e8b43a5247509c27f5d187e37fa62ef4739d
+Author: Widya Walesa <walecha99@gmail.com>
+Date:   Mon Dec 3 20:01:49 2012 +0700
 
     * qemu: Add udev rules to configuring /dev/kvm when kvm module were loaded.
 
-   Mon Dec 3 14:33:24 2012 +0700
+commit c3e5544687278d5f6f2aa47411409ee3cb4bc312
+Author: Widya Walesa <walecha99@gmail.com>
+Date:   Mon Dec 3 14:33:24 2012 +0700
 
     * aqemu: Updated SlackBuild script. Add patches from aqemu git repo to fix
         building on recent libraries.
 
-   Mon Dec 3 12:34:37 2012 +0700
+commit 454bac9e59d5ddf28d6ad0d517cb22242045a323
+Author: Widya Walesa <walecha99@gmail.com>
+Date:   Mon Dec 3 12:34:37 2012 +0700
 
     * aegisub: Upgraded to 3.0.2. Add .info file. Change slack-required entry
         wxGTK to wxWidgets.
@@ -58,7 +86,9 @@
     * smplayer: Updated SlackBuild script.
     * trojita: Added back.
 
-   Wed Nov 28 20:43:50 2012 +0700
+commit 9986dd534ed012928f7f22e523a99b7ab417fef7
+Author: w41l <walecha99@gmail.com>
+Date:   Wed Nov 28 20:43:50 2012 +0700
 
     * bogofilter: Updated SlackBuild script.
     * claws-mail: Removed.
@@ -93,22 +123,30 @@
     * yarock: Added version 0.0.59.
     * zvbi: Updated SlackBuild script. Add .info.
 
-   Sun Nov 25 22:14:59 2012 +0700
+commit 11775d3016619bd42e45d8c12532c0034e4f3f99
+Author: w41l <walecha99@gmail.com>
+Date:   Sun Nov 25 22:14:59 2012 +0700
 
     * flash-player-plugin: Upgraded to 11.2.202.251.
     * libevent: Upgraded to 2.0.21.
     * pidgin-kwallet-plugin: Updated SlackBuild.
     * tor: Upgraded to 0.2.3.25.
 
-   Thu Nov 22 20:15:51 2012 +0700
+commit 422b7d0ab32dd3f914d9f3a163bd98f923945dd0
+Author: w41l <walecha99@gmail.com>
+Date:   Thu Nov 22 20:15:51 2012 +0700
 
     Updated libreoffice and redhsift-plasmoid. Add .info file.
 
-   Tue Nov 20 21:20:23 2012 +0700
+commit 6cf1a039f98cc6e57c1b4d726d7f851165658efb
+Author: w41l <walecha99@gmail.com>
+Date:   Tue Nov 20 21:20:23 2012 +0700
 
     Updated .gitignore to ignore $FILE.tar*
 
-   Tue Nov 20 21:15:18 2012 +0700
+commit 91b6b02b2ac9eaf944ead9e4d0d370d00ef3387e
+Author: w41l <walecha99@gmail.com>
+Date:   Tue Nov 20 21:15:18 2012 +0700
 
     New packages:
      - silicon (CD/DVD Burner Utility)
@@ -122,63 +160,85 @@
      - openbox
      - wine
 
-   Sat Nov 17 17:04:52 2012 +0700
+commit 616eb823ac23ad12bb5f37a50f2597623e29dcea
+Author: w41l <walecha99@gmail.com>
+Date:   Sat Nov 17 17:04:52 2012 +0700
 
     Moved LibRaw to subdir RAZOR-QT. Updated libfm SlackBuild.
 
-   Fri Nov 16 09:50:09 2012 +0700
+commit 92f675c5d7b6d4f5c998550b27d2245e220ef03b
+Author: w41l <walecha99@gmail.com>
+Date:   Fri Nov 16 09:50:09 2012 +0700
 
     Upgraded multimedia packages:
     * Updated FFMPEG and it's dependencies.
     * Replacing MPlayer with mplayer2.
     * Updated VAAPI and related packages.
 
-   Thu Nov 15 16:32:12 2012 +0700
+commit 498c02ed8590e169c7b9eaf677ee6ef09307d710
+Author: w41l <walecha99@gmail.com>
+Date:   Thu Nov 15 16:32:12 2012 +0700
 
     Update Cinnamon slack-required, added lxml as cinnamon dependency.
 
-   Thu Nov 15 15:13:36 2012 +0700
+commit 3c6003e208db931b5c3abbbc3602000bf6133664
+Author: w41l <walecha99@gmail.com>
+Date:   Thu Nov 15 15:13:36 2012 +0700
 
     Updated all GNOME 3.4 build scripts. Reorganizing all packages based on
     the origin of the source. In other words from GNOME repository or not.
 
-   Tue Nov 13 18:12:21 2012 +0700
+commit 7a4e715699601fc15ede95dde7a4fb5d08963d18
+Author: w41l <walecha99@gmail.com>
+Date:   Tue Nov 13 18:12:21 2012 +0700
 
     Moved non-GNOME origin packages from subdirectory GNOME to ROOT.
 
-   Tue Nov 13 15:13:16 2012 +0700
+commit 9e687cdd3e86fce12b77bf4c89f90f4cc82e9779
+Author: w41l <walecha99@gmail.com>
+Date:   Tue Nov 13 15:13:16 2012 +0700
 
     * GNOME/README.TXT: Updated build order.
     * GNOME/liboauth: Moved to GNOME.
     * GNOME/rarian: Moved to GNOME.
     * WLSBUILD: Removed unneeded files/directories.
 
-   Tue Nov 13 14:14:41 2012 +0700
+commit 84696c250f522f10a28c3973b7c6657f05e6a7be
+Author: w41l <walecha99@gmail.com>
+Date:   Tue Nov 13 14:14:41 2012 +0700
 
     Removed unneeded files/directories.
 
-   Tue Nov 13 14:06:18 2012 +0700
+commit 216ea1d99aacb2a116f59697b10076838ded1e24
+Author: w41l <walecha99@gmail.com>
+Date:   Tue Nov 13 14:06:18 2012 +0700
 
     * GNOME/README.TXT: Add libdbusmenu. Moved libgee and vala to BUILD
         TOOLKIT section.
     * WLSBUILD: Removed unneeded files/directories.
     * libdbusmenu: Added version 0.6.2.
 
-   Tue Nov 13 13:13:51 2012 +0700
+commit 23ea25a74f19ff9deab2442ac32149a33c4a15d2
+Author: w41l <walecha99@gmail.com>
+Date:   Tue Nov 13 13:13:51 2012 +0700
 
     * GNOME/README.TXT: Added at-spi2-core, at-spi2-atk, orca.
     * GNOME/cinnamon: Removed unneeded patch.
     * GNOME/orca: Added version 3.4.2.
     * GNOME/seahorse: Updated SlackBuild script.
 
-   Tue Nov 13 12:45:42 2012 +0700
+commit 18942e811314f2b8029c124da3c65535ba00a646
+Author: w41l <walecha99@gmail.com>
+Date:   Tue Nov 13 12:45:42 2012 +0700
 
     * GNOME: Removed unneeded files/directories.
     * GNOME/at-spi2-atk: Added version 2.4.0.
     * GNOME/at-spi2-core: Added version 2.4.2.
     * GNOME/seahorse: Updated SlackBuild.
 
-   Tue Nov 13 12:08:13 2012 +0700
+commit 7c699dc1911c1bbedd35f7609d4f14415e4ba1d8
+Author: w41l <walecha99@gmail.com>
+Date:   Tue Nov 13 12:08:13 2012 +0700
 
     Add $PRGNAM.info file to ease tracking program source tarball/archive
     (still not finish). Change default makepkg generated package to .txz.
@@ -231,7 +291,9 @@
     * rekonq: Upgraded to 1.3.
     * x264: Rebuild.
 
-   Sat Nov 10 23:57:16 2012 +0700
+commit 5ddeafa981c8bd6abd6fe2613761ab91a2a0846f
+Author: w41l <walecha99@gmail.com>
+Date:   Sat Nov 10 23:57:16 2012 +0700
 
     * GNOME/README.TXT: Updated build order/list. Thanks to Molavi Arman.
     * GNOME/dconf: Updated SlackBuild script.
@@ -255,12 +317,16 @@
     * mp4v2: Updated SlackBuild script.
     * oxygen-fonts: Updated SlackBuild script. Use regular oxygen-mono.
 
-   Thu Nov 8 08:40:53 2012 +0700
+commit f9a5f09eeead55b5193d52df2b5bfb2303c044ea
+Author: w41l <walecha99@gmail.com>
+Date:   Thu Nov 8 08:40:53 2012 +0700
 
     * spl: Updated slack-desc.
     * zfs: Updated slack-desc.
 
-   Thu Nov 8 08:38:01 2012 +0700
+commit 850d6f26bd5b2672a14cce6bada0566263c62422
+Author: w41l <walecha99@gmail.com>
+Date:   Thu Nov 8 08:38:01 2012 +0700
 
     * 0ad: Updated doinst.sh.
     * LibRaw: Upgraded to version 0.14.7.
@@ -285,7 +351,9 @@
     * spl: Added version 0.6.0rc11. Testing.
     * zfs: Added version 0.6.0rc11. Testing.
 
-   Mon Nov 5 09:36:08 2012 +0700
+commit 449e6d8346220abe439578cd1bffe85f17a3ba57
+Author: w41l <walecha99@gmail.com>
+Date:   Mon Nov 5 09:36:08 2012 +0700
 
     * gcalctool: Upgraded to version 6.4.2.1.
     * alsa-plugins: Moved to ROOT tree as general library.
@@ -308,15 +376,21 @@
     * transcode: Upgraded to version 1.1.7. Add patches to fix build with
         new ffmpeg API. Add subtitleripper as additional tool.
 
-   Thu Nov 1 18:20:20 2012 +0700
+commit 1110a97f724e331e89d3c2576c27bd7a52733ee3
+Author: w41l <walecha99@gmail.com>
+Date:   Thu Nov 1 18:20:20 2012 +0700
 
     Updated .gitignore for fonts dir. Just skip the files not the fonts directory.
 
-   Thu Nov 1 18:14:40 2012 +0700
+commit 71504b2e34a62b334c7bfc5b5d998425f162b24d
+Author: w41l <walecha99@gmail.com>
+Date:   Thu Nov 1 18:14:40 2012 +0700
 
     Updated .gitignore to ignore all font files. Not all of the font binaries are licensed in GPL. Please download or provide your fonts by yourself.
 
-   Thu Nov 1 17:44:49 2012 +0700
+commit 240327c762fd1d0465e3740fcf1b4467c38bbd2f
+Author: w41l <walecha99@gmail.com>
+Date:   Thu Nov 1 17:44:49 2012 +0700
 
     * ALL: Removing unneeded files and directories.
     * GNOME: Updated README.TXT.
@@ -344,7 +418,9 @@
         CVE-2012-1175-1.
     * liferea: Updated SlackBuild, slack-required, and doinst.sh.
 
-   Wed Oct 31 23:44:53 2012 +0700
+commit aed08dfe9884e1f10e48eb9bbf18744f7280a050
+Author: w41l <walecha99@gmail.com>
+Date:   Wed Oct 31 23:44:53 2012 +0700
 
     * GNOME: Add GNOME 3.4. Moved all GNOME related packages to subdirectory
         GNOME.
@@ -461,14 +537,18 @@
     * webkitgtk: Upgraded to version 1.8.3.
     * wlsbuild: Updated build order/list.
 
-   Mon Oct 22 12:04:46 2012 +0700
+commit d479b0cf33c54173ce32253d1f000c45cc19e428
+Author: Widya Walesa <walecha99@gmail.com>
+Date:   Mon Oct 22 12:04:46 2012 +0700
 
     * ktv: Added version c88b561. Add patch to fix build using gcc 4.7.x.
     * lxsplit: Updated SlackBuild.
     * reaver: Added version 1.4.
     * xawtv: Updated SlackBuild. Require zvbi to enable channel scanning.
 
-   Thu Oct 18 23:07:05 2012 +0700
+commit 264f01e67c8e3d438525e98f20b252cad779f5d5
+Author: Widya Walesa <walecha99@gmail.com>
+Date:   Thu Oct 18 23:07:05 2012 +0700
 
     * MPlayer: Update build script.
     * ORBit2: Added version 2.14.19. Needed by some GNOME2 packages.
@@ -501,7 +581,9 @@
     * zapping: Tested version 0.10cvs6. Not working.
     * zvbi: Added version 0.2.33.
 
-   Sat Oct 6 00:58:31 2012 +0700
+commit 7b45161fb068eb2fdfe21639a5e641d9b7b3f687
+Author: Widya Walesa <walecha99@gmail.com>
+Date:   Sat Oct 6 00:58:31 2012 +0700
 
     * alsa-plugins: Rebuilt. Add patch to use ffmpeg 1.0 API.
     * clementine: Updated SlackBuild script.
@@ -511,7 +593,9 @@
     * vlc: Rebuilt. Using ffmpeg 1.0.
     * wine: Upgraded to version 1.5.14.
 
-   Thu Oct 4 06:46:13 2012 +0700
+commit da8784a675f02042967874bfc1e3476428a4695f
+Author: Widya Walesa <walecha99@gmail.com>
+Date:   Thu Oct 4 06:46:13 2012 +0700
 
     * ffmpeg: Upgraded to 1.0. Add libbluray to slack-required.
     * libquicktime: Rebuilt using ffmpeg-1.0.
@@ -519,7 +603,9 @@
     * vlc-qt: Added version 0.6.2. Needed by tano.
     * wlsbuild: Updated build order.
 
-   Wed Sep 26 12:44:09 2012 +0700
+commit 1f4ecb43482c92494e52b7b449fdbaacc4e4bb68
+Author: Widya Walesa <walecha99@gmail.com>
+Date:   Wed Sep 26 12:44:09 2012 +0700
 
     * razorqt: Upgraded to version 0.4.99_20120923. Still hoping for 0.5.0.
     * hotot: Upgraded to version git HEAD d3b01b5.
@@ -532,7 +618,9 @@
     * vala: Updated SlackBuild script.
     * wbar: Added version 2.3.4. Still in testing stage.
 
-   Sat Sep 22 23:01:58 2012 +0700
+commit b6933c07a3942cdc030b382717fee3db52cb6e4b
+Author: Widya Walesa <walecha99@gmail.com>
+Date:   Sat Sep 22 23:01:58 2012 +0700
 
     * razorqt: Upgraded to version 0.4.99_20120920.
     * mtop: Added version 0.6.6. Need perl-curses.
@@ -540,7 +628,9 @@
     * perl-curses: Added version 1.28. Used by mtop.
     * qupzilla: Upgraded to version 1.3.5.
 
-   Wed Sep 19 09:40:59 2012 +0700
+commit dc877ea7b3e6954eee1f50830e1b90b8c42bb20d
+Author: Widya Walesa <walecha99@gmail.com>
+Date:   Wed Sep 19 09:40:59 2012 +0700
 
     * alsa-plugins: Move it to MATE.
     * avidemux: Added version 2.6.0.
@@ -586,11 +676,15 @@
     * vinagre: Added version 3.4.2 to MATE.
     * vino: Added version 3.4.2 to MATE.
 
-   Tue Sep 11 17:27:26 2012 +0700
+commit 0caea8c77c8e9f517055419e3bc9305766151f79
+Author: w41l <walecha99@gmail.com>
+Date:   Tue Sep 11 17:27:26 2012 +0700
 
     * kipi-plugins: Upgraded to version 2.9.0.
 
-   Mon Sep 10 15:20:46 2012 +0700
+commit 2bc31bab50b1eeac88a5c75b1dd8e6be0801abac
+Author: w41l <walecha99@gmail.com>
+Date:   Mon Sep 10 15:20:46 2012 +0700
 
     Moving all Razor-Qt desktop related packages to RAZOR-QT directory.
     * razorqt: Upgraded to 0.4.99_de93de9. Fix xinitrc.razor and use it on
@@ -608,7 +702,9 @@
     * vlc: Updated build script. Removing unneeded files.
     * yarock: Testing version 0.058. Great GUI, but very unstable.
 
-   Sun Sep 2 23:32:37 2012 +0700
+commit 0e0b12a4fcc52f60ac2dcdad363164ea41a263c6
+Author: w41l <walecha99@gmail.com>
+Date:   Sun Sep 2 23:32:37 2012 +0700
 
     * MPlayer: Rebuilt. Disable pulseaudio support.
     * flash-player-plugins: Updated to 11.2.202.238.
@@ -624,7 +720,9 @@
     * razorqt: Upgraded to version 20120830_5f1a071. Updated razorqt xinitrc.
     * rekonq: Upgraded to version 1.1.
 
-   Mon Aug 27 21:48:09 2012 +0700
+commit d047ef2eeb710adbb1715c1c28a203ab9a77baa6
+Author: w41l <walecha99@gmail.com>
+Date:   Mon Aug 27 21:48:09 2012 +0700
 
     Rebuild almost all packages due to Slackware 14.0 RC3 release.
     * mate-icon-theme-faenza: Added.
@@ -702,7 +800,9 @@
     * yakuake: Rebuild.
     * zsync: Added version 0.6.2.
 
-   Tue Aug 14 17:54:41 2012 +0700
+commit fc9726c986cf05d0dcb0d3569af72d58856e84be
+Author: w41l <walecha99@gmail.com>
+Date:   Tue Aug 14 17:54:41 2012 +0700
 
     * awn: Removed. Build failed.
     * awn-extras: Removed. Build failed.
@@ -716,7 +816,9 @@
     * webcamoid: Added version 3.1.0_81e37fe. But the plasmoid is more
         interesting.
 
-   Mon Aug 6 20:47:27 2012 +0700
+commit 050171f4294d70508bd1ec69784d4b487bd22018
+Author: Widya Walesa <walecha99@gmail.com>
+Date:   Mon Aug 6 20:47:27 2012 +0700
 
     * GNOME: Removed, replaced with MATE.
     * GConf: Removed. Already in Slackware tree.
@@ -740,7 +842,9 @@
     * yelp-xsl: Upgraded to 3.4.2, but unusable.
     * yelp: Upgraded to 3.4.2, but unusable.
 
-   Sat Aug 4 03:39:37 2012 +0700
+commit 04886464c1e449fb68bf1b821613875b2e1f875c
+Author: Widya Walesa <walecha99@gmail.com>
+Date:   Sat Aug 4 03:39:37 2012 +0700
 
     * MPlayer: Rebuilt. Enable pulseaudio support.
     * alsa-plugins: Rebuilt. Add pulseaudio support.
@@ -784,7 +888,9 @@
     * squidGuard: Added version 1.4.
     * vala: Revert to 0.14.2.
 
-   Tue Jul 24 21:43:02 2012 +0700
+commit 651e6fadc15b7a2f06485c6dc97d4c6467ea422b
+Author: w41l <walecha99@gmail.com>
+Date:   Tue Jul 24 21:43:02 2012 +0700
 
     * aria2: Added version 1.15.1. Use by uget.
     * brasero: Upgraded to 3.4.1.
@@ -806,7 +912,9 @@
     * webkitgtk: Upgraded to 1.8.1. Enable webkit2 and gtk+3.
     * wine: Upgraded to 1.5.9.
 
-   Mon Jul 23 10:58:03 2012 +0700
+commit 2818bac23d5d03f4c1819b3da3e1a2a02ee7c332
+Author: w41l <walecha99@gmail.com>
+Date:   Mon Jul 23 10:58:03 2012 +0700
 
     Rebuilding XFCE 4.10 with most of the packages were built using CLANG.
     * Terminal: Renamed to xfce4-terminal.
@@ -864,53 +972,77 @@
     * xfdesktop: Rebuilt using clang.
     * xfwm4: Rebuilt using clang.
 
-   Sat Jul 21 18:04:20 2012 +0700
+commit c4fa8e0d10f7b590d50b5a5234d42fc01fa9ddd7
+Author: w41l <walecha99@gmail.com>
+Date:   Sat Jul 21 18:04:20 2012 +0700
 
     * rekonq: Upgraded to 1.0.
 
-   Fri Jul 20 13:02:50 2012 +0700
+commit 1e698719c558c5247376cd8a9c2ec35188bc22fd
+Author: Widya Walesa <walecha99@gmail.com>
+Date:   Fri Jul 20 13:02:50 2012 +0700
 
     * quiterss: Upgraded to 0.10.0.
 
-   Wed Jul 18 21:07:47 2012 +0700
+commit 5b6e7c28b4abc80ac7d8f0d5b58d68f2ba82c067
+Author: Widya Walesa <walecha99@gmail.com>
+Date:   Wed Jul 18 21:07:47 2012 +0700
 
     * qupzilla: Upgraded using git 2012-07-18 701130b. Removing unneeded files.
     * stellarium: Upgraded to 0.11.3
 
-   Wed Jul 18 13:42:09 2012 +0700
+commit ea08805bf2932aaf3d7069d71567c009e56c5226
+Author: Widya Walesa <walecha99@gmail.com>
+Date:   Wed Jul 18 13:42:09 2012 +0700
 
     * numpy: Add numpy.info.
     * qgit: Rebuilt. Add qgit.desktop, qgit.png, and qgit.info.
 
-   Wed Jul 18 11:15:13 2012 +0700
+commit 8ba25f5ba27071ae4f97a496980e006c7ecdf819
+Author: Widya Walesa <walecha99@gmail.com>
+Date:   Wed Jul 18 11:15:13 2012 +0700
 
     Updating .gitignore
 
-   Wed Jul 18 11:14:03 2012 +0700
+commit 54aad3336fb663072ef865d4ddab4510e49cc737
+Author: Widya Walesa <walecha99@gmail.com>
+Date:   Wed Jul 18 11:14:03 2012 +0700
 
     Updating .gitignore
 
-   Wed Jul 18 11:13:08 2012 +0700
+commit 2e2e77fae3149e025e3ab1f4e432c03ebac2c998
+Author: Widya Walesa <walecha99@gmail.com>
+Date:   Wed Jul 18 11:13:08 2012 +0700
 
     Updating .gitignore
 
-   Wed Jul 18 11:11:31 2012 +0700
+commit 013541608ef572e9e18133f199f4511b42d59da4
+Author: Widya Walesa <walecha99@gmail.com>
+Date:   Wed Jul 18 11:11:31 2012 +0700
 
     Updating .gitignore
 
-   Wed Jul 18 10:34:11 2012 +0700
+commit 27c71798e76fc5dde0deff7cf10c1e5cdf571da1
+Author: Widya Walesa <walecha99@gmail.com>
+Date:   Wed Jul 18 10:34:11 2012 +0700
 
     Removing packages which is already provided by Slackware and unneeded packages
 
-   Wed Jul 18 09:37:39 2012 +0700
+commit a71d11240cd7d27d3a24f7595c89edb3de59846a
+Author: w41l <walecha99@gmail.com>
+Date:   Wed Jul 18 09:37:39 2012 +0700
 
     Added usage warning to README.
 
-   Wed Jul 18 09:20:03 2012 +0700
+commit 3676d18d925484edca9a871d084627de61a2fd73
+Author: w41l <walecha99@gmail.com>
+Date:   Wed Jul 18 09:20:03 2012 +0700
 
     * ffmpeg: Fix slack-required entries.
 
-   Wed Jul 18 08:12:29 2012 +0700
+commit 497d56b947f082aa37bf76ebb361b6ab329cfc39
+Author: w41l <walecha99@gmail.com>
+Date:   Wed Jul 18 08:12:29 2012 +0700
 
     Slackware-current has included gtk+3 and gobject-introspection. As a result
     all GNOME related packages can be upgraded using GNOME3 sources.
@@ -970,16 +1102,22 @@
     * xvba-sdk: Added version 0.74.404001. Needed by xvba-video.
     * xvba-video: Added version 0.8.0. Add xvba-sdk to slack-required.
 
-   Tue Jul 10 14:23:52 2012 +0700
+commit e86617af98db6af943782af76ecb29138c2d1323
+Author: w41l <walecha99@gmail.com>
+Date:   Tue Jul 10 14:23:52 2012 +0700
 
     * kipi-plugins: Rebuilt. Added patch to fix build error on gcc 4.7.x
     * qjson: Rebuilt.
 
-   Tue Jul 10 10:38:59 2012 +0700
+commit 0df24e197828284c2f8a861f1f8d3d9862b93599
+Author: w41l <walecha99@gmail.com>
+Date:   Tue Jul 10 10:38:59 2012 +0700
 
     Typo and cosmetics fix.
 
-   Tue Jul 10 09:51:56 2012 +0700
+commit 06c02106112612c699eed27e599f77b788e803ef
+Author: w41l <walecha99@gmail.com>
+Date:   Tue Jul 10 09:51:56 2012 +0700
 
     Testing Clang as C/C++ compiler instead of GCC. Some package still using
     GCC because of libc++/libstdc++ dependency issue. This issue will be fixed in
@@ -1037,7 +1175,9 @@
     * x264: Rebuilt using gcc.
     * xvidcore: Rebuilt using clang.
 
-   Thu Jul 5 19:22:47 2012 +0700
+commit 6a29e406368baa3fcb5a28fcaea4caaa9519858e
+Author: w41l <walecha99@gmail.com>
+Date:   Thu Jul 5 19:22:47 2012 +0700
 
     * ffmpeg: Upgraded to 7.13.
     * grub: Upgraded to 2.00.
@@ -1056,7 +1196,9 @@
     * x264: Upgraded to 35cf912. Added YUV4MPEG filter data.
     * xvidcore: Upgraded to 1.3.2.
 
-   Wed Jun 20 00:54:51 2012 +0700
+commit 1b5ca0954ee86c6efd5ef32f3e95cd45f1bff28c
+Author: w41l <walecha99@gmail.com>
+Date:   Wed Jun 20 00:54:51 2012 +0700
 
     * MPlayer: Upgraded to version 1.0.
     * flash-player-plugin: Upgraded to version 11.2.202.236.
@@ -1069,17 +1211,23 @@
     * wine: Upgraded to version 1.5.5.
     +----------------+
 
-   Sat Jun 2 09:17:11 2012 +0700
+commit 4c4797c779c57118f81d96cf6ac6007d8ef9f25a
+Author: w41l <walecha99@gmail.com>
+Date:   Sat Jun 2 09:17:11 2012 +0700
 
     * quiterss: Upgraded to 0.9.1.
     * qupzilla: Upgraded to git date 20120524.
 
-   Wed May 23 20:40:15 2012 +0700
+commit f2ca18279015e9a3e26c4e0ae11550d9f6652738
+Author: w41l <walecha99@gmail.com>
+Date:   Wed May 23 20:40:15 2012 +0700
 
     * MPlayer: Upgraded.
     * smplayer: Upgraded.
 
-   Thu May 17 16:09:00 2012 +0700
+commit ba3c9dd393ea5a4c269ef0c9ccba2e49914562bb
+Author: Widya Walesa <walecha99@gmail.com>
+Date:   Thu May 17 16:09:00 2012 +0700
 
     * andromeda: Updated.
     * flash-player-plugin: Upgraded.
@@ -1088,11 +1236,15 @@
     * qcomicbook: Added.
     * qtermwidget: Updated.
 
-   Mon May 14 13:13:00 2012 +0700
+commit b5527ef4e05e8dce5d89c16d3bcb018c908558fc
+Author: Widya Walesa <walecha99@gmail.com>
+Date:   Mon May 14 13:13:00 2012 +0700
 
     * qastools: Upgraded.
 
-   Sun May 13 21:36:29 2012 +0700
+commit 0205662a6c2abbedc6736dffe2651ec25386cad4
+Author: Widya Walesa <walecha99@gmail.com>
+Date:   Sun May 13 21:36:29 2012 +0700
 
     * MPlayer: Rebuilt. Using slackware's libffi from gcc-java package.
         Removing unneeded files.
@@ -1102,7 +1254,9 @@
     * obconf: Updated.
     * qutim: Upgraded.
 
-   Sun May 13 15:52:33 2012 +0700
+commit 11be0789336732a13531c9dd5e9f3b903594971a
+Author: Widya Walesa <walecha99@gmail.com>
+Date:   Sun May 13 15:52:33 2012 +0700
 
     * LibRaw: Upgraded.
     * andromeda: Upgraded.
@@ -1115,7 +1269,9 @@
     * razorqt: Upgraded. Add patch from AUR to fix build error. Add openbox
         as dependency.
 
-   Sun May 13 14:07:56 2012 +0700
+commit 30003f2ff5e0d13193f8686bb28cbdb575dbbea7
+Author: Widya Walesa <walecha99@gmail.com>
+Date:   Sun May 13 14:07:56 2012 +0700
 
     * andromeda: Upgraded.
     * libreoffice: Upgraded.
@@ -1125,35 +1281,49 @@
     * pycrypto: Upgraded.
     * razorqt: Upgraded.
 
-   Fri May 11 18:22:49 2012 +0700
+commit c469267246488b498b5b799f7ae6ebaf8ca105ba
+Author: Widya Walesa <walecha@f0x-ict.paudni.kemdikbud.go.id>
+Date:   Fri May 11 18:22:49 2012 +0700
 
     qt: Removed.
 
-   Fri May 11 18:10:01 2012 +0700
+commit 7d8701f956c514d619a059fb81f84c813649e4f9
+Author: Widya Walesa <walecha@f0x-ict.paudni.kemdikbud.go.id>
+Date:   Fri May 11 18:10:01 2012 +0700
 
     Removing some unused directory and files. Removing GPG key generation
     line from the SlackBuild. Make it more general.
 
-   Tue May 8 08:12:52 2012 +0700
+commit 0d6e74b5a34c402e2caf60d62230ac71b192037d
+Author: Widya Walesa <walecha@f0x-ict.paudni.kemdikbud.go.id>
+Date:   Tue May 8 08:12:52 2012 +0700
 
     testdisk: Upgraded.
     Repository: Removing unneeded files and directories.
 
-   Fri May 4 07:28:43 2012 +0700
+commit 923761e1c8100e20678e4bf9d1725d4242dcdbd0
+Author: Widya Walesa <walecha@f0x-ict.paudni.kemdiknas.go.id>
+Date:   Fri May 4 07:28:43 2012 +0700
 
     Fri May  4 07:29:13 WIT 2012
     Cleaning up bunch of unused directory and files, adding some new
     packages.
 
-   Wed Sep 21 15:04:58 2011 +0700
+commit 6c9f2161ae5a3a469bedd9239f59c3c8991ca422
+Author: Widya Walesa <walecha99@gmail.com>
+Date:   Wed Sep 21 15:04:58 2011 +0700
 
     ok.
 
-   Wed Sep 21 15:02:56 2011 +0700
+commit 54e0659ce57a325df1ca430f3a8a88b04d8fcbc7
+Author: Widya Walesa <walecha99@gmail.com>
+Date:   Wed Sep 21 15:02:56 2011 +0700
 
     ok.
 
-   Sat Apr 2 11:10:13 2011 +0700
+commit 2acede66b166976da8106239def0a172df5ceb24
+Author: Widya Walesa <walecha99@gmail.com>
+Date:   Sat Apr 2 11:10:13 2011 +0700
 
     Removing some packages which is already provided by Slackware. Upgrading some packages to new version. Added anjuta/libanjuta, libgda, glade3, and perl-gettext.
     
@@ -1180,12 +1350,16 @@
     * libgda: Added.
     * perl-gettext: Added.
 
+commit ce0c2ee274846cc8e229ae86ef36104e78eef692
 Merge: 8f5b79b 0e2f04c
-   Tue Mar 29 11:24:34 2011 +0700
+Author: Widya Walesa <walecha99@gmail.com>
+Date:   Tue Mar 29 11:24:34 2011 +0700
 
     Merge branch 'master' of ssh://app.paudni.kemdiknas.go.id/home/walecha/Public/wallbuild/
 
-   Tue Mar 29 10:56:51 2011 +0700
+commit 8f5b79b651152b8ccf2899466edd43bafb988808
+Author: Widya Walesa <walecha99@gmail.com>
+Date:   Tue Mar 29 10:56:51 2011 +0700
 
     Fix build and install script for:
     
@@ -1204,7 +1378,9 @@ Merge: 8f5b79b 0e2f04c
         Rename patch incrementally.
         Fix build and install script.
 
-   Tue Mar 29 10:56:51 2011 +0700
+commit 0e2f04cc006ee520ed8a93b0d31fb949e968090e
+Author: Widya Walesa <walecha99@gmail.com>
+Date:   Tue Mar 29 10:56:51 2011 +0700
 
     Fix build and install script for:
     
@@ -1218,36 +1394,50 @@ Merge: 8f5b79b 0e2f04c
     * libunique: Updated.
         Fix cleaning up directory function.
 
-   Mon Mar 28 12:09:14 2011 +0700
+commit 9548672ecb251b37b71f06f2e3638c3584fd62ec
+Author: Widya Walesa <walecha99@gmail.com>
+Date:   Mon Mar 28 12:09:14 2011 +0700
 
     GConf/doinst.sh
         Removing unneeded command on doinst.sh script.
 
-   Wed Mar 23 21:37:38 2011 +0700
+commit 6dfbd8fbcf6d3aeeb4ec3df21991e7546236455b
+Author: Widya Walesa <walecha99@gmail.com>
+Date:   Wed Mar 23 21:37:38 2011 +0700
 
     meld-1.5.1: Added
 
-   Wed Mar 23 20:56:03 2011 +0700
+commit a13a9de9532ec4d3cdf1cef5712f5eacb1401d69
+Author: Widya Walesa <walecha99@gmail.com>
+Date:   Wed Mar 23 20:56:03 2011 +0700
 
     Upgrading NetworkManager, NetworkManager-openvpn, NetworkManager-pptp,
     NetworkManager-vpnc, ModemManager, network-manager-applet to 0.9 beta 2.
 
-   Sun Mar 20 13:26:53 2011 +0700
+commit 793c779e7be15a929e40c7f43f0a1994b198f731
+Author: Widya Walesa <walecha99@gmail.com>
+Date:   Sun Mar 20 13:26:53 2011 +0700
 
     Rebuilt oxygen-gtk package.
 
-   Sat Mar 19 22:10:45 2011 +0700
+commit 49658eefe464e5d59077f3c544e50deb7f1ae66c
+Author: Widya Walesa <walecha99@gmail.com>
+Date:   Sat Mar 19 22:10:45 2011 +0700
 
     Updating unrar, p7zip, aqemu, ifuse. Add kio_afc.
 
-   Fri Mar 18 21:21:12 2011 +0700
+commit b06c4df82cd4418c441e6cd5eabc194056c5c84b
+Author: Widya Walesa <walecha@f0x-qemu.cklg.or.id>
+Date:   Fri Mar 18 21:21:12 2011 +0700
 
     Fri Mar 18 21:22:12 WIT 2011
     Add several packages including clementine, dvdauthor, transcode, mjpegtools,
     gpac, libbluray, and bombono-dvd. Removing old non-required packages or already
     provided by Slackware. Updating some packages using new version.
 
-   Tue Oct 26 18:21:47 2010 +0700
+commit f040e6146165ae6bc1c59e32eb9e51a7c3146002
+Author: Widya Walesa <walecha@ict21.pnfi.kemdiknas.go.id>
+Date:   Tue Oct 26 18:21:47 2010 +0700
 
     Tue Oct 26 18:03:59 WIT 2010
     GConf: Updated.
@@ -1289,7 +1479,9 @@ Merge: 8f5b79b 0e2f04c
     gobject-introspection: Updated.
     grub: Rebuilt.
 
-   Tue Oct 19 14:46:00 2010 +0700
+commit c4c5f77be26aaf7f39903759728997d7f5c2d2e3
+Author: Widya Walesa <walecha@ict21.pnfi.kemdiknas.go.id>
+Date:   Tue Oct 19 14:46:00 2010 +0700
 
     Tue Oct 19 14:46:05 WIT 2010
     DeviceKit: Removed.
@@ -1306,13 +1498,17 @@ Merge: 8f5b79b 0e2f04c
     mx: Removed.
     webkit-sharp: Removed.
 
-   Tue Oct 19 14:37:48 2010 +0700
+commit 0303e44348ef8812e61b02d8b60d2366b9b699ec
+Author: Widya Walesa <walecha@ict21.pnfi.kemdiknas.go.id>
+Date:   Tue Oct 19 14:37:48 2010 +0700
 
     Tue Oct 19 14:37:51 WIT 2010
     xnoise: Removed.
     xnoise-plugins-core: Removed.
 
-   Tue Oct 19 14:33:33 2010 +0700
+commit cc67b788092744e99c0509c86029213bccbaa2f9
+Author: Widya Walesa <walecha@ict21.pnfi.kemdiknas.go.id>
+Date:   Tue Oct 19 14:33:33 2010 +0700
 
     Tue Oct 19 14:35:02 WIT 2010
     Add new git repository here, as external drives are more portable and easier to

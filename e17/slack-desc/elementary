@@ -1,0 +1,19 @@
+# HOW TO EDIT THIS FILE:
+# The "handy ruler" below makes it easier to edit a package description.  Line
+# up the first '|' above the ':' following the base package name, and the '|' on
+# the right side marks the last column you can put a character in.  You must make
+# exactly 11 lines for the formatting to be correct.  It's also customary to
+# leave one space after the ':'.
+
+          |-----handy-ruler------------------------------------------------------|
+elementary: elementary (E17 Library)
+elementary:
+elementary: Elementary is a widget toolkit and EFL wrapper and convenience library
+elementary: to make it easy to build applications and tools with UI's with less
+elementary: code, as well as being able to still dig down layers. Let's begin with
+elementary: a hello world example. This assumes you have managed to install
+elementary: Elementary by now and are wondering where to get started with using it.
+elementary:
+elementary: URL: http://www.enlightenment.org/p.php?p=home
+elementary:
+elementary: http://www.walecha.net/

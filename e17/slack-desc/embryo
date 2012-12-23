@@ -1,0 +1,19 @@
+# HOW TO EDIT THIS FILE:
+# The "handy ruler" below makes it easier to edit a package description.  Line
+# up the first '|' above the ':' following the base package name, and the '|' on
+# the right side marks the last column you can put a character in.  You must make
+# exactly 11 lines for the formatting to be correct.  It's also customary to
+# leave one space after the ':'.
+
+      |-----handy-ruler------------------------------------------------------|
+embryo: embryo (E17 Library)
+embryo:
+embryo: Embryo is a tiny library designed to interpret limited Small programs
+embryo: compiled by the included compiler, embryo_cc. It is mostly a cleaned
+embryo: up and smaller version of the original Small abstract machine. The
+embryo: compiler is mostly untouched.
+embryo:
+embryo: URL: http://www.enlightenment.org/p.php?p=home
+embryo:
+embryo:
+embryo: http://www.walecha.net/

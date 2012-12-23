@@ -1,0 +1,21 @@
+./configure \
+  --build=$ARCH-slackware-linux \
+  --host=$ARCH-slackware-linux \
+  --program-prefix= --program-suffix= \
+  --prefix=/usr --exec-prefix=/usr \
+  --bindir=/usr/bin --sbindir=/usr/sbin \
+  --libdir=/usr/lib$LIBDIRSUFFIX --includedir=/usr/include \
+  --mandir=/usr/man --infodir=/usr/info \
+  --sysconfdir=/etc --docdir=/usr/doc/$MODS-$MODVERSION \
+  --localstatedir=/var --sharedstatedir=/var/lib \
+  --disable-static --enable-shared \
+  --enable-ecore-con \
+  --enable-ecore-ipc \
+  --enable-ecore-file \
+  --enable-ecore-input \
+  --enable-ecore-input-evas \
+  --enable-ecore-x \
+  --enable-ecore-evas \
+  --enable-ecore-evas-software-buffer \
+  --enable-ecore-evas-software-x11 \
+  --enable-ecore-evas-opengl-x11 \

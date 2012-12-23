@@ -24,7 +24,7 @@
 # YOUR DATA IS DESTROYED, YOUR HOUSE BURNS DOWN OR YOUR DOG RUNS OFF.
 
 PRGNAM=libxkbcommon
-VERSION=20120322_3d67sfc
+VERSION=0.2.0
 BUILD=1
 TAG=${TAG:-_wls}
 
@@ -63,7 +63,7 @@ rm -rf $PKG
 mkdir -p $WRK $PKG
 cd $WRK
 rm -rf $PRGNAM-$VERSION
-tar xvf $CWD/${PRGNAM}-$VERSION.tar.?z* || exit 1
+tar xvf $CWD/$PRGNAM-$VERSION.tar.?z* || exit 1
 cd $PRGNAM-$VERSION
 
 # Make sure ownerships and permissions are sane:
@@ -76,14 +76,20 @@ find . \
 
 # Configure:
 CFLAGS="$SLKCFLAGS" \
-./autogen.sh \
+./configure \
   --prefix=/usr \
   --libdir=/usr/lib${LIBDIRSUFFIX} \
-  --build=$ARCH-slackware-linux
+  --build=$ARCH-slackware-linux \
+  --disable-static --enable-shared \
 
 # Build and install:
 make $NUMJOBS || make || exit 1
 make install DESTDIR=$PKG || exit 1
+
+# No /usr/share/doc
+mkdir -p $PKG/usr/doc/$PRGNAM-$VERSION
+mv $PKG/usr/share/doc/libxkbcommon/* $PKG/usr/doc/$PRGNAM-$VERSION
+rm -rf $PKG/usr/share
 
 # Strip binaries:
 find $PKG | xargs file | grep -e "executable" -e "shared object" | grep ELF \
@@ -113,7 +119,7 @@ if [ -d $PKG/usr/info ]; then
 fi
 
 # Add a documentation directory:
-mkdir -p $PKG/usr/doc/${PRGNAM}-$VERSION
+mkdir -p $PKG/usr/doc/$PRGNAM-$VERSION
 cp -a $DOCS $PKG/usr/doc/$PRGNAM-$VERSION
 
 mkdir -p $PKG/install
@@ -124,4 +130,3 @@ cd $PKG
 
 echo "Cleaning up build directory"
 cd $WRK; rm -rf $PRGNAM-$VERSION $PKG
-

@@ -1,0 +1,19 @@
+# HOW TO EDIT THIS FILE:
+# The "handy ruler" below makes it easier to edit a package description.  Line
+# up the first '|' above the ':' following the base package name, and the '|' on
+# the right side marks the last column you can put a character in.  You must make
+# exactly 11 lines for the formatting to be correct.  It's also customary to
+# leave one space after the ':'.
+
+   |-----handy-ruler------------------------------------------------------|
+eio: eio (E17 Library)
+eio:
+eio: Eio integrates with EFL (Ecore, Eina) to provide efficient filesystem
+eio: Input/Output? (I/O). It use the best techniques to achieve such purpose,
+eio: like using at-variants, splice, properly handling errors and doing it
+eio: in an asynchronous fashion by means of worker threads. Whenever you
+eio: need to list a directory, copy, move or delete files, Eio will do that
+eio: task better than you'd achieve with naive implementations, and it is
+eio: easy to use.
+eio: URL: http://www.enlightenment.org/p.php?p=home
+eio: http://www.walecha.net/

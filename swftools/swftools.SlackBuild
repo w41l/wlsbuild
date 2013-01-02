@@ -1,8 +1,8 @@
 #!/bin/sh
 
-# Slackware build script for dvdauthor
+# Slackware build script for swftools
 
-# Copyright 2010-2013  Widya Walesa <walecha99@gmail.com>
+# Copyright 2011-2012  Widya Walesa <walecha99@gmail.com>
 # All rights reserved.
 #
 # Redistribution and use of this script, with or without modification, is
@@ -23,11 +23,11 @@
 # ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. FURTHERMORE I AM NOT LIABLE IF
 # YOUR DATA IS DESTROYED, YOUR HOUSE BURNS DOWN OR YOUR DOG RUNS OFF.
 
-PRGNAM=dvdauthor
-VERSION=0.7.1
+PRGNAM=swftools
+VERSION=20121015
 BUILD=1
-TAG=${TAG:-_wls}
-NUMJOBS=${NUMJOBS:--j4}
+TAG="_wls"
+NUMJOBS="-j4"
 
 if [ -z "$ARCH" ]; then
   case "$( uname -m )" in
@@ -41,7 +41,7 @@ CWD=$(pwd)
 WRK=${WRK:-/tmp/wlsbuild}
 PKG=$WRK/package-$PRGNAM
 OUTPUT=${OUTPUT:-/tmp}
-DOCS="AUTHORS COPYING ChangeLog INSTALL NEWS README TODO"
+DOCS="AUTHORS ChangeLog COPY* INSTALL"
 
 if [ "$ARCH" = "i486" ]; then
   SLKCFLAGS="-O2 -pipe -march=i486 -mtune=i686"
@@ -60,11 +60,11 @@ fi
 set -e
 
 rm -rf $PKG
-mkdir -p $WRK $PKG $OUTPUT
+mkdir -p $WRK $PKG/usr $OUTPUT
 cd $WRK
-rm -rf $PRGNAM
-tar xvf $CWD/$PRGNAM-$VERSION.tar.gz
-cd $PRGNAM
+rm -rf $PRGNAM-*
+tar xvf $CWD/$PRGNAM-*.tar.gz
+cd $PRGNAM-*
 
 chown -R root:root .
 find . \
@@ -81,12 +81,20 @@ CXXFLAGS="$SLKCFLAGS" \
   --prefix=/usr --exec-prefix=/usr \
   --bindir=/usr/bin --sbindir=/usr/sbin \
   --libdir=/usr/lib$LIBDIRSUFFIX --includedir=/usr/include \
-  --mandir=/usr/man --infodir=/usr/info \
-  --sysconfdir=/etc --docdir=/usr/doc/$PRGNAM-$VERSION \
-  --localstatedir=/var --sharedstatedir=/var/lib
+  --localstatedir=/var --sharedstatedir=/var/lib \
+  --disable-debug \
 
 make
-make install DESTDIR=$PKG
+make prefix=$PKG/usr install
+
+# No /usr/share/man
+mv $PKG/usr/share/man $PKG/usr/
+
+# Fix symlinks
+( cd $PKG/usr/share/swftools/swfs;
+  rm -f default_loader.swf; ln -sf tessel_loader.swf default_loader.swf;
+  rm -f default_viewer.swf; ln -sf simple_viewer.swf default_viewer.swf;
+)
 
 find $PKG | xargs file | grep -e "executable" -e "shared object" | grep ELF \
   | cut -f 1 -d : | xargs strip --strip-unneeded 2> /dev/null || true
@@ -105,4 +113,4 @@ cd $PKG
 /sbin/makepkg -l y -c n $OUTPUT/$PRGNAM-$VERSION-$ARCH-$BUILD$TAG.txz
 
 echo "Cleaning up build directory"
-cd $WRK; rm -rf $PRGNAM $PKG
+cd $WRK; rm -rf $PRGNAM-* $PKG

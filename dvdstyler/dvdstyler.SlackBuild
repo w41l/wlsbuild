@@ -1,8 +1,8 @@
 #!/bin/sh
 
-# Slackware build script for dvdauthor
+# Slackware build script for dvdstyler
 
-# Copyright 2010-2013  Widya Walesa <walecha99@gmail.com>
+# Copyright 2013  Widya Walesa <walecha99@gmail.com>
 # All rights reserved.
 #
 # Redistribution and use of this script, with or without modification, is
@@ -23,8 +23,8 @@
 # ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. FURTHERMORE I AM NOT LIABLE IF
 # YOUR DATA IS DESTROYED, YOUR HOUSE BURNS DOWN OR YOUR DOG RUNS OFF.
 
-PRGNAM=dvdauthor
-VERSION=0.7.1
+PRGNAM=dvdstyler
+VERSION=2.3.5
 BUILD=1
 TAG=${TAG:-_wls}
 NUMJOBS=${NUMJOBS:--j4}
@@ -41,7 +41,7 @@ CWD=$(pwd)
 WRK=${WRK:-/tmp/wlsbuild}
 PKG=$WRK/package-$PRGNAM
 OUTPUT=${OUTPUT:-/tmp}
-DOCS="AUTHORS COPYING ChangeLog INSTALL NEWS README TODO"
+DOCS="AUTHORS COPYING ChangeLog INSTALL README TODO"
 
 if [ "$ARCH" = "i486" ]; then
   SLKCFLAGS="-O2 -pipe -march=i486 -mtune=i686"
@@ -62,9 +62,9 @@ set -e
 rm -rf $PKG
 mkdir -p $WRK $PKG $OUTPUT
 cd $WRK
-rm -rf $PRGNAM
-tar xvf $CWD/$PRGNAM-$VERSION.tar.gz
-cd $PRGNAM
+rm -rf DVDStyler-$VERSION
+tar xvf $CWD/DVDStyler-$VERSION.tar.?z*
+cd DVDStyler-$VERSION
 
 chown -R root:root .
 find . \
@@ -83,7 +83,8 @@ CXXFLAGS="$SLKCFLAGS" \
   --libdir=/usr/lib$LIBDIRSUFFIX --includedir=/usr/include \
   --mandir=/usr/man --infodir=/usr/info \
   --sysconfdir=/etc --docdir=/usr/doc/$PRGNAM-$VERSION \
-  --localstatedir=/var --sharedstatedir=/var/lib
+  --localstatedir=/var --sharedstatedir=/var/lib \
+  --disable-debug
 
 make
 make install DESTDIR=$PKG
@@ -100,9 +101,10 @@ cat $CWD/$PRGNAM.SlackBuild > $PKG/usr/doc/$PRGNAM-$VERSION/$PRGNAM.SlackBuild
 
 mkdir -p $PKG/install
 cat $CWD/slack-desc > $PKG/install/slack-desc
+cat $CWD/slack-required > $PKG/install/slack-required
 
 cd $PKG
 /sbin/makepkg -l y -c n $OUTPUT/$PRGNAM-$VERSION-$ARCH-$BUILD$TAG.txz
 
 echo "Cleaning up build directory"
-cd $WRK; rm -rf $PRGNAM $PKG
+cd $WRK; rm -rf DVDStyler-$VERSION $PKG

@@ -1,0 +1,19 @@
+# HOW TO EDIT THIS FILE:
+# The "handy ruler" below makes it easier to edit a package description.  Line
+# up the first '|' above the ':' following the base package name, and the '|' on
+# the right side marks the last column you can put a character in.  You must make
+# exactly 11 lines for the formatting to be correct.  It's also customary to
+# leave one space after the ':'.
+
+        |-----handy-ruler---------------------------------------------------|
+swftools: swftools (SWF Tools)
+swftools:
+swftools: SWFTools is a collection of utilities for working with Adobe Flash
+swftools: files (SWF files). The tool collection includes programs for
+swftools: reading SWF files, combining them, and creating them from other
+swftools: content (like images, sound files, videos or sourcecode). SWFTools
+swftools: is released under the GPL. 
+swftools:
+swftools:
+swftools:
+swftools: packaged by: Widya Walesa <walecha99@gmail.com>

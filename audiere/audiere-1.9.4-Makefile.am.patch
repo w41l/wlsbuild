@@ -1,7 +1,0 @@
---- audiere-1.9.4.orig/Makefile.am	2006-02-13 22:57:01.000000000 -0600
-+++ audiere-1.9.4/Makefile.am	2006-06-18 19:05:14.018285289 -0500
-@@ -1,3 +1,4 @@
-+AUTOMAKE_OPTIONS = foreign
- SUBDIRS = doc src examples test
- 
- # this is from glib's Makefile.am

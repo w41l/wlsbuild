@@ -1,3 +1,42 @@
+commit 651676aaefb9ebe37b3ab6bedeec5981da38c202
+Author: w41l <walecha99@gmail.com>
+Date:   Wed Jan 2 19:39:03 2013 +0700
+
+    * libstatgrab: Updated SlackBuild.
+    * qupzilla: Updated SlackBuild.
+    * razorqt: Removing old, unneeded patches.
+    * bombono-dvd: Upgraded to 1.2.1.
+    * dvdauthor: Upgraded to 0.7.1.
+    * dvdstyler: Added version 2.3.5.
+    * e17: Renamed to enlightenment.
+    * enlightenment: Use enlightenment instead of e17.
+    * rekonq: Upgraded to 2.0.
+    * smplayer: Upgraded to 0.8.3.
+    * swftools: Added version 20121015.
+    * wxsvg: Added version 1.1.9. Needed by dvdstyler.
+    * wlsbuild: Removing old, deprecated packages.
+
+commit af6d2bf5ab9601275d7465dcdc8a461ef96ae74d
+Author: w41l <walecha99@gmail.com>
+Date:   Sun Dec 23 19:04:30 2012 +0700
+
+    * e17: Add guidance into src directory.
+
+commit 77f73871ab82bd849db4fc04223778cb00f69691
+Author: w41l <walecha99@gmail.com>
+Date:   Sun Dec 23 18:59:58 2012 +0700
+
+    * e17: Moved e17 packages into one build tree, but still build every e17
+        modules separately using single SlackBuild script, e17.SlackBuild.
+    * libxkbcommon: Upgraded to version 0.2.0. Add .info file.
+    * wxcam: Updated SlackBuild and add .info file.
+
+commit c80f3c0751b1104ad873b61bf80ed8b10cb979c8
+Author: Widya Walesa <walecha99@gmail.com>
+Date:   Sat Dec 22 11:41:28 2012 +0700
+
+    +-------------+
+
 commit 02e04d94a019da5223886f59a47bdf46fa0b83a6
 Author: Widya Walesa <walecha99@gmail.com>
 Date:   Sat Dec 22 11:34:05 2012 +0700

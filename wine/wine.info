@@ -1,4 +1,4 @@
 URL=http://www.winehq.org/
-SRC=http://mirrors.ibiblio.org/wine/source/1.5/wine-1.5.17.tar.bz2
-MD5=d68214e863c057d77ff2fef7226ecb9b
-SHA1=adf2d702dfdff5996aad4f87e70875b975a6b25a
+SRC=http://sourceforge.net/projects/wine/files/Source/wine-1.5.21.tar.bz2/download
+MD5=0ebfc492bf22f22bff27af04c92fd9d2
+SHA1=4b0efcab84019af6b408adf3d579a945d1787914

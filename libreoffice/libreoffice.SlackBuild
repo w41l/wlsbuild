@@ -2,7 +2,7 @@
 
 # Slackware build script for libreoffice
 
-# Copyright 2010-2012  Widya Walesa <walecha99@gmail.com>
+# Copyright 2010-2013  Widya Walesa <walecha99@gmail.com>
 # All rights reserved.
 #
 # Redistribution and use of this script, with or without modification, is
@@ -24,8 +24,8 @@
 # YOUR DATA IS DESTROYED, YOUR HOUSE BURNS DOWN OR YOUR DOG RUNS OFF.
 
 PRGNAM=libreoffice
-VERSION=3.6.3
-RCVERS=".2"
+VERSION=4.0.0
+RCVERS=".1"
 MAJORVER=$( echo $VERSION | sed "s/\(.*\)\.\(.*\)\.*/\1/" )
 BUILD=1
 TAG=${TAG:-_wls}
@@ -69,9 +69,9 @@ set -e
 rm -rf $PKG
 mkdir -p $WRK $PKG $OUTPUT
 cd $WRK
-rm -rf LibO_*
-tar xvf $CWD/LibO_${VERSION}_Linux_${LOARCH}_install-${DIST}_en-US.tar.gz
-cd LibO_${VERSION}${RCVERS}_Linux_${LOARCH}_install-${DIST}_en-US
+rm -rf LibreOffice_*
+tar xvf $CWD/LibreOffice_${VERSION}${RCVERS}_Linux_${LOARCH}_${DIST}.tar.gz
+cd LibreOffice_${VERSION}${RCVERS}_Linux_${LOARCH}_${DIST}
 
 chown -R root:root .
 find . \
@@ -146,7 +146,7 @@ cd desktop-integration
 if [ "${DIST}" = "deb" ]; then
   ar p libreoffice${MAJORVER}-*.deb data.tar.gz | gzip -d | tar xv || exit 1
 else
-  rpm2cpio libreoffice${MAJORVER}-freedesktop-menus-${VERSION}-2.noarch.rpm | cpio -idmv || exit 1
+  rpm2cpio libreoffice${MAJORVER}-freedesktop-menus-*.rpm | cpio -idmv || exit 1
 fi
   echo "Install icons and mime files"
   mkdir -p ${PKG}/usr/share
@@ -157,8 +157,8 @@ fi
 cd ..
 
 echo "Unpacking language packages"
-tar xvf $CWD/LibO_${VERSION}_Linux_${LOARCH}_langpack-${DIST}_${LANGPACK}.tar.gz
-cd LibO_${VERSION}${RCVERS}_Linux_${LOARCH}_langpack-${DIST}_${LANGPACK}
+tar xvf $CWD/LibreOffice_${VERSION}${RCVERS}_Linux_${LOARCH}_${DIST}_langpack_${LANGPACK}.tar.gz
+cd LibreOffice_${VERSION}${RCVERS}_Linux_${LOARCH}_${DIST}_langpack_${LANGPACK}
 if [ "${DIST}" = "deb" ]; then
   cd DEBS
   for i in `ls -1 *.deb`; do
@@ -188,4 +188,4 @@ cd $PKG
 /sbin/makepkg -p -l y -c n $OUTPUT/$PRGNAM-${VERSION}${RCVERS}-$ARCH-$BUILD$TAG.txz
 
 echo "Cleaning up $WRK";
-cd $WRK; rm -rf $PKG LibO_*
+cd $WRK; rm -rf $PKG LibreOffice_*

@@ -1,0 +1,19 @@
+# HOW TO EDIT THIS FILE:
+# The "handy ruler" below makes it easier to edit a package description.  Line
+# up the first '|' above the ':' following the base package name, and the '|' on
+# the right side marks the last column you can put a character in.  You must make
+# exactly 11 lines for the formatting to be correct.  It's also customary to
+# leave one space after the ':'.
+
+  |-----handy-ruler---------------------------------------------------|
+wv: wv (MS Word Library)
+wv:
+wv: wv is a library which allows access to Microsoft Word files. It can
+wv: load and parse Word 2000, 97, 95 and 6 file formats. (These are the
+wv: file formats known internally as Word 9, 8, 7 and 6.) There is some
+wv: support for reading earlier formats as well: Word 2 docs are
+wv: converted to plaintext.
+wv:
+wv:
+wv:
+wv: packaged by: Widya Walesa <walecha99@gmail.com>

@@ -1,0 +1,12 @@
+--- gstreamermm-0.10.9.1/gstreamer/gstreamermm/wrap.cc.orig	2013-01-05 16:13:25.610877312 +0700
++++ gstreamermm-0.10.9.1/gstreamer/gstreamermm/wrap.cc	2013-01-05 16:14:30.878893403 +0700
+@@ -20,8 +20,7 @@
+  * Software Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
+  */
+
+-#include <glib/gtypes.h>
+-#include <glib/gmacros.h>
++#include <glib.h>
+
+ #include <vector>
+ #include <gstreamermm/miniobject.h>

@@ -1,0 +1,11 @@
+--- a/src/olestream.h	2013-01-21 21:08:03.414095127 +0700
++++ b/src/olestream.h	2013-01-21 21:08:19.267094716 +0700
+@@ -23,7 +23,7 @@
+ #include "global.h"  // U8,... typedefs
+ #include <stack>
+
+-#include <glib/giochannel.h> // GSeekType
++#include <glib.h> // GSeekType
+
+ namespace wvWare {
+

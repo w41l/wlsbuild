@@ -57,11 +57,9 @@ else
   LIBDIRSUFFIX=""
 fi
 
-# Check for wxGTK
+# Check for GUI ToolKit wxWidgets or Qt
 if [ -x /usr/bin/wx-config ]; then
   WITH_GUI="--enable-gui --enable-wxwidgets"
-else
-  WITH_GUI=""
 fi
 
 set -e
@@ -93,7 +91,7 @@ CXXFLAGS="$SLKCFLAGS" \
   --sysconfdir=/etc --docdir=/usr/doc/$PRGNAM-$VERSION \
   --localstatedir=/var \
   --with-boost \
-  ${WITH_GUI}
+  ${WITH_GUI} \
 
 ./drake pkgdatadir=/usr/doc/$PRGNAM-$VERSION
 ./drake pkgdatadir=/usr/doc/$PRGNAM-$VERSION install DESTDIR=$PKG

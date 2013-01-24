@@ -1,0 +1,12 @@
+./configure \
+  --prefix=/usr \
+  --sysconfdir=/etc \
+  --disable-static \
+  --enable-shared \
+  --enable-introspection=yes \
+  --enable-plugins="openwriter hancom applix eml paint freetranslation \
+                    collab pdb clarisworks loadbindings wikipedia opml \
+                    hrtext kword garble urldict wml s5 babelfish mif \
+                    iscii presentation wmf bmp t602 google gimp latex \
+                    opendocument gdict openxml pdf xslfo sdw passepartout \
+                    docbook rsvg mht epub mswrite"

@@ -1,0 +1,19 @@
+# HOW TO EDIT THIS FILE:
+# The "handy ruler" below makes it easier to edit a package description.  Line
+# up the first '|' above the ':' following the base package name, and the '|'
+# on the right side marks the last column you can put a character in.  You must
+# make exactly 11 lines for the formatting to be correct.  It's also
+# customary to leave one space after the ':'.
+
+   |-----handy-ruler------------------------------------------------------|
+wv2: wv2 (MSWord Library)
+wv2:
+wv2: wv is a library which allows access to Microsoft Word files. It can
+wv2: load and parse Word 2000, 97, 95 and 6 file formats. (These are the
+wv2: file formats known internally as Word 9, 8, 7 and 6.) There is some
+wv2: support for reading earlier formats as well: Word 2 docs are
+wv2: converted to plaintext.
+wv2:
+wv2: URL: http://wvware.sourceforge.net/
+wv2:
+wv2: Packaged by Widya Walesa <walecha99@gmail.com>

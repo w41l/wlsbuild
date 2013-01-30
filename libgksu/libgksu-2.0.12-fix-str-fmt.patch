@@ -1,0 +1,29 @@
+--- a/libgksu/libgksu.c.str	2009-06-29 19:48:24.000000000 +0200
++++ b/libgksu/libgksu.c	2010-08-03 07:26:12.000000000 +0200
+@@ -1276,7 +1276,7 @@
+   context->dir = g_strdup (mkdtemp(template));
+   if (!context->dir)
+     {
+-      fprintf (stderr, strerror(errno));
++      fprintf (stderr, "%s", strerror(errno));
+       return FALSE;
+     }
+
+@@ -2245,7 +2245,7 @@
+ 					  " %s"), converted_str, "gksu: waiting");
+ 	      g_free (converted_str);
+
+-	      g_set_error (error, gksu_quark, GKSU_ERROR_HELPER, emsg);
++	      g_set_error ("%s", error, gksu_quark, GKSU_ERROR_HELPER, emsg);
+ 	      g_free (emsg);
+
+ 	      if (context->debug)
+@@ -2881,7 +2881,7 @@
+ 	}
+     }
+
+-  fprintf(stderr, child_stderr);
++  fprintf(stderr, "%s", child_stderr);
+   g_free(child_stderr);
+
+   /* if error is set we have found an error condition */

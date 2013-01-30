@@ -1,4 +1,4 @@
 URL=http://nginx.org/
-SRC=http://nginx.org/download/nginx-1.2.5.tar.gz
-MD5=4f5a55187a3d45fa37d99d07ddd90800
-SHA1=c36feaadbaad6938b02f4038c2d68cab10907f59
+SRC=http://nginx.org/download/nginx-1.2.6.tar.gz
+MD5=1350d26eb9b66364d9143fb3c4366ab6
+SHA1=432059b668e3f018eab61f99c7cc727db88464e8

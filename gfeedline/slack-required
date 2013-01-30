@@ -1,0 +1,8 @@
+BeautifulSoup
+pygobject3
+python-dateutil
+python-distutils-extra
+setuptools
+six
+twisted
+zope.interface

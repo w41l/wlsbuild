@@ -1,8 +1,8 @@
 #!/bin/sh
 
-# Slackware build script for oxygen-gtk3
+# Slackware build script for qupzilla
 
-# Copyright 2012  Widya Walesa <walecha99@gmail.com>
+# Copyright 2012-2013  Widya Walesa <walecha99@gmail.com>
 # All rights reserved.
 #
 # Redistribution and use of this script, with or without modification, is
@@ -23,11 +23,11 @@
 # ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. FURTHERMORE I AM NOT LIABLE IF
 # YOUR DATA IS DESTROYED, YOUR HOUSE BURNS DOWN OR YOUR DOG RUNS OFF.
 
-PRGNAM=oxygen-gtk3
-VERSION=1.1.1
+PRGNAM=qupzilla
+VERSION=20130220
 BUILD=1
 TAG=${TAG:-_wls}
-NUMJOBS=${NUMJOBS:--j4}
+NUMJOBS=${NUMJOBS:--j1}
 
 if [ -z "$ARCH" ]; then
   case "$( uname -m )" in
@@ -41,7 +41,7 @@ CWD=$(pwd)
 WRK=${WRK:-/tmp/wlsbuild}
 PKG=$WRK/package-$PRGNAM
 OUTPUT=${OUTPUT:-/tmp}
-DOCS="AUTHORS COPYING INSTALL README TODO"
+DOCS="AUTHORS BUILDING CHANGELOG COPYRIGHT FAQ GPLv3 README.md"
 
 if [ "$ARCH" = "i486" ]; then
   SLKCFLAGS="-O2 -pipe -march=i486 -mtune=i686"
@@ -62,9 +62,9 @@ set -e
 rm -rf $PKG
 mkdir -p $WRK $PKG $OUTPUT
 cd $WRK
-rm -rf $PRGNAM-$VERSION
-tar xvf $CWD/${PRGNAM}-${VERSION}.tar.bz2
-cd $PRGNAM-$VERSION
+rm -rf QupZilla-$VERSION
+tar xvf $CWD/QupZilla-$VERSION.tar.?z*
+cd QupZilla-$VERSION
 
 chown -R root:root .
 find . \
@@ -73,31 +73,46 @@ find . \
  \( -perm 666 -o -perm 664 -o -perm 600 -o -perm 444 -o -perm 440 -o -perm 400 \) \
  -exec chmod 644 {} \;
 
-mkdir build
-cd build
-  cmake .. \
-    -DCMAKE_C_FLAGS="$SLKCFLAGS" \
-    -DCMAKE_CXX_FLAGS="$SLKCFLAGS" \
-    -DCMAKE_BUILD_TYPE=Release \
-    -DCMAKE_INSTALL_PREFIX=/usr \
-    -DLIB_SUFFIX=${LIBDIRSUFFIX}
+mkdir -p $PKG/usr
+CFLAGS="$SLKCFLAGS" \
+CXXFLAGS="$SLKCFLAGS" \
+qmake QupZilla.pro PREFIX=/usr INSTALL_PREFIX=$PKG/usr
 
-  make
-  make install DESTDIR=$PKG
-cd -
+CFLAGS="$SLKCFLAGS" \
+CXXFLAGS="$SLKCFLAGS" \
+make PREFIX=/usr INSTALL_PREFIX=$PKG/usr
+
+# manually install the binaries
+mkdir -p $PKG/usr/bin
+cp -a bin/qupzilla $PKG/usr/bin
+
+mkdir -p $PKG/usr/lib${LIBDIRSUFFIX}
+for F in `find . -name "libQupZilla.*"`; do
+  cp -a $F $PKG/usr/lib${LIBDIRSUFFIX};
+done
+
+mkdir -p $PKG/usr/lib${LIBDIRSUFFIX}/qupzilla
+cp -a bin/plugins/*.so $PKG/usr/lib${LIBDIRSUFFIX}/qupzilla
+
+mkdir -p $PKG/usr/share/qupzilla
+cp -r bin/locale $PKG/usr/share/qupzilla
+cp -r bin/themes $PKG/usr/share/qupzilla
+cp -r linux/* $PKG/usr/share
+# done
 
 find $PKG | xargs file | grep -e "executable" -e "shared object" | grep ELF \
   | cut -f 1 -d : | xargs strip --strip-unneeded 2> /dev/null || true
 
 mkdir -p $PKG/usr/doc/$PRGNAM-$VERSION
-cp -a ${DOCS} $PKG/usr/doc/$PRGNAM-$VERSION
+cp -a $DOCS $PKG/usr/doc/$PRGNAM-$VERSION
 cat $CWD/$PRGNAM.SlackBuild > $PKG/usr/doc/$PRGNAM-$VERSION/$PRGNAM.SlackBuild
 
 mkdir -p $PKG/install
+cat $CWD/doinst.sh > $PKG/install/doinst.sh
 cat $CWD/slack-desc > $PKG/install/slack-desc
 
 cd $PKG
 /sbin/makepkg -l y -c n $OUTPUT/$PRGNAM-$VERSION-$ARCH-$BUILD$TAG.txz
 
 echo "Cleaning up build directory"
-cd $WRK ; rm -rf $PKG $PRGNAM-$VERSION
+cd $WRK ; rm -rf $PKG QupZilla-$VERSION

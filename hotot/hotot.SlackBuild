@@ -80,7 +80,8 @@ cd build
     -DCMAKE_CXX_FLAGS="$SLKCFLAGS" \
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_PREFIX=/usr \
-    -DWITH_GIR=ON \
+    -DWITH_GIR=OFF \
+    -DWITH_QT=ON \
 
   make
   make install DESTDIR=$PKG

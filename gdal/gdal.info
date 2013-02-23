@@ -1,7 +1,4 @@
-PRGNAM="gdal"
-VERSION="1.8.1"
-HOMEPAGE="http://www.gdal.org/"
-DOWNLOAD="http://download.osgeo.org/gdal/gdal-1.8.1.tar.gz"
-MD5SUM="b32269893afc9dc9eced45e74e4c6bb4"
-DOWNLOAD_x86_64=""
-MD5SUM_x86_64=""
+URL=http://www.gdal.org/
+SRC=http://download.osgeo.org/gdal/gdal-1.9.2.tar.gz
+MD5=3f39db89f4710269b3a8bf94178e07aa
+SHA1=7eda6a4d735b8d6903740e0acdd702b43515e351

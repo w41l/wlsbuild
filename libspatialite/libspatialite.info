@@ -1,7 +1,4 @@
-PRGNAM="libspatialite"
-VERSION="2.3.1"
-HOMEPAGE="http://www.gaia-gis.it/spatialite/index.html"
-DOWNLOAD="http://www.gaia-gis.it/spatialite/libspatialite-amalgamation-2.3.1.tar.gz"
-MD5SUM="3e1b15a55a0bd511e6437fdb604a10b1"
-DOWNLOAD_x86_64=""
-MD5SUM_x86_64=""
+URL=http://www.gaia-gis.it/spatialite/index.html
+SRC=http://www.gaia-gis.it/gaia-sins/libspatialite-sources/libspatialite-4.0.0.tar.gz
+MD5=8040ce4e39913e7d284675c0f15d270d
+SHA1=3d20fcabcc5a951e7863d33b6b6ef3f78dbf006d

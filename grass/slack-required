@@ -1,5 +1,6 @@
-bsd-xdr
 gdal
 geos
 gsl
+mariadb
+lapack
 proj

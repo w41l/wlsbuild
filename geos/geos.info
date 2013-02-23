@@ -1,7 +1,4 @@
-PRGNAM="geos"
-VERSION="3.3.1"
-HOMEPAGE="http://trac.osgeo.org/geos/"
-DOWNLOAD="http://download.osgeo.org/geos/geos-3.3.1.tar.bz2"
-MD5SUM="b1ceefe205c9ee520b99f2b072c345f7"
-DOWNLOAD_x86_64=""
-MD5SUM_x86_64=""
+URL=http://trac.osgeo.org/geos/
+SRC=http://download.osgeo.org/geos/geos-3.3.7.tar.bz2
+MD5=95ab996d22672b067d92c7dee2170460
+SHA1=d62c6f86ba854f319feaa5d957bebb8b6bed10a3

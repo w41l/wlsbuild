@@ -2,7 +2,7 @@
 
 # Slackware build script for qgis
 
-# Copyright 2011  Widya Walesa <walecha99@gmail.com>
+# Copyright 2011-2013  Widya Walesa <walecha99@gmail.com>
 # All rights reserved.
 #
 # Redistribution and use of this script, with or without modification, is
@@ -24,10 +24,9 @@
 # YOUR DATA IS DESTROYED, YOUR HOUSE BURNS DOWN OR YOUR DOG RUNS OFF.
 
 PRGNAM=qgis
-VERSION=1.7.2
+VERSION=1.8.0
 BUILD=1
 TAG="_wls"
-NUMJOBS="-j3"
 
 if [ -z "$ARCH" ]; then
   case "$( uname -m )" in
@@ -63,7 +62,7 @@ rm -rf $PKG
 mkdir -p $WRK $PKG $OUTPUT
 cd $WRK
 rm -rf $PRGNAM-$VERSION
-tar xvf $CWD/${PRGNAM}-${VERSION}.tar.bz2
+tar xvf $CWD/$PRGNAM-$VERSION.tar.bz2
 cd $PRGNAM-$VERSION
 
 chown -R root:root .
@@ -86,8 +85,7 @@ cd build
     -DSYSCONF_INSTALL_DIR=/etc
     -DQGIS_LIB_SUBDIR=lib${LIBDIRSUFFIX} \
     -DQGIS_PLUGIN_SUBDIR=lib${LIBDIRSUFFIX}/qgis \
-
-#   -DGRASS_PREFIX=/usr/lib${LIBDIRSUFFIX}/grass
+    -DGRASS_PREFIX=/usr/lib${LIBDIRSUFFIX}/grass \
 
   make
   make install DESTDIR=$PKG
@@ -110,15 +108,16 @@ find $PKG/usr/man -type f -exec gzip -9 {} \;
 for i in $( find $PKG/usr/man -type l ) ; do ln -s $( readlink $i ).gz $i.gz ; rm $i ; done
 
 mkdir -p $PKG/usr/doc/$PRGNAM-$VERSION
-cp -a ${DOCS} $PKG/usr/doc/$PRGNAM-$VERSION
+cp -a $DOCS $PKG/usr/doc/$PRGNAM-$VERSION
 cat $CWD/$PRGNAM.SlackBuild > $PKG/usr/doc/$PRGNAM-$VERSION/$PRGNAM.SlackBuild
 
 mkdir -p $PKG/install
-cat $CWD/doinst.sh >> $PKG/install/doinst.sh
+cat $CWD/doinst.sh > $PKG/install/doinst.sh
 cat $CWD/slack-desc > $PKG/install/slack-desc
+cat $CWD/slack-required > $PKG/install/slack-required
 
 cd $PKG
 /sbin/makepkg -l y -c n $OUTPUT/$PRGNAM-$VERSION-$ARCH-$BUILD$TAG.txz
 
-# echo "Cleaning up build directory"
-# cd $WRK ; rm -rf $PKG $PRGNAM-$VERSION
+echo "Cleaning up build directory"
+cd $WRK ; rm -rf $PKG $PRGNAM-$VERSION

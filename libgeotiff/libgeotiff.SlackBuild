@@ -2,7 +2,7 @@
 
 # Slackware build script for libgeotiff
 
-# Copyright 2011  Widya Walesa <walecha99@gmail.com>
+# Copyright 2011-2013  Widya Walesa <walecha99@gmail.com>
 # All rights reserved.
 #
 # Redistribution and use of this script, with or without modification, is
@@ -24,7 +24,7 @@
 # YOUR DATA IS DESTROYED, YOUR HOUSE BURNS DOWN OR YOUR DOG RUNS OFF.
 
 PRGNAM=libgeotiff
-VERSION=1.3.0
+VERSION=1.4.0
 BUILD=1
 TAG="_wls"
 NUMJOBS="-j3"
@@ -84,16 +84,12 @@ CXXFLAGS="$SLKCFLAGS" \
   --sysconfdir=/etc \
   --localstatedir=/var --sharedstatedir=/var/lib \
   --disable-static --enable-shared \
-  --with-proj-include=/usr/include \
-  --with-proj-lib=/usr/lib${LIBDIRSUFFIX} \
-  --with-geos-include=/usr/include \
-  --with-geos-lib=/usr/lib${LIBDIRSUFFIX} \
   --with-zip=yes \
   --with-zlib=yes \
   --with-libz=yes \
   --with-jpeg=yes \
   --with-libtiff=/usr \
-  --with-proj=yes
+  --with-proj=yes \
 
 make
 make install DESTDIR=$PKG
@@ -101,12 +97,16 @@ make install DESTDIR=$PKG
 find $PKG | xargs file | grep -e "executable" -e "shared object" | grep ELF \
   | cut -f 1 -d : | xargs strip --strip-unneeded 2> /dev/null || true
 
+find $PKG/usr/man -type f -exec gzip -9 {} \;
+for i in $( find $PKG/usr/man -type l ) ; do ln -s $( readlink $i ).gz $i.gz ; rm $i ; done
+
 mkdir -p $PKG/usr/doc/$PRGNAM-$VERSION
 cp -a $DOCS $PKG/usr/doc/$PRGNAM-$VERSION
 cat $CWD/$PRGNAM.SlackBuild > $PKG/usr/doc/$PRGNAM-$VERSION/$PRGNAM.SlackBuild
 
 mkdir -p $PKG/install
 cat $CWD/slack-desc > $PKG/install/slack-desc
+cat $CWD/slack-required > $PKG/install/slack-required
 
 cd $PKG
 /sbin/makepkg -l y -c n $OUTPUT/$PRGNAM-$VERSION-$ARCH-$BUILD$TAG.txz

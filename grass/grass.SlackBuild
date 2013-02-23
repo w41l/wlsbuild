@@ -2,7 +2,7 @@
 
 # Slackware build script for grass
 
-# Copyright 2011 Widya Walesa <walecha99@gmail.com>
+# Copyright 2011-2013  Widya Walesa <walecha99@gmail.com>
 # All rights reserved.
 #
 # Redistribution and use of this script, with or without modification, is
@@ -24,7 +24,7 @@
 # YOUR DATA IS DESTROYED, YOUR HOUSE BURNS DOWN OR YOUR DOG RUNS OFF.
 
 PRGNAM=grass
-VERSION=6.4.1
+VERSION=6.4.2
 BUILD=1
 TAG="_wls"
 NUMJOBS="-j3"
@@ -41,7 +41,7 @@ CWD=$(pwd)
 WRK=${WRK:-/tmp/wlsbuild}
 PKG=$WRK/package-$PRGNAM
 OUTPUT=${OUTPUT:-/tmp}
-DOCS="AUTHORS CHANGES COPYING ChangeLog_6.4.1.gz GPL.TXT INSTALL README REQUIREMENTS.html SUBMITTING SUBMITTING_DOCS SUBMITTING_PYTHON SUBMITTING_SCRIPTS SUBMITTING_TCLTK TODO"
+DOCS="AUTHORS CHANGES COPYING ChangeLog_6.4.2.gz GPL.TXT INSTALL README REQUIREMENTS.html SUBMITTING SUBMITTING_DOCS SUBMITTING_PYTHON SUBMITTING_SCRIPTS SUBMITTING_TCLTK TODO"
 
 if [ "$ARCH" = "i486" ]; then
   SLKCFLAGS="-O2 -pipe -march=i486 -mtune=i686"
@@ -66,7 +66,7 @@ rm -rf $PRGNAM-$VERSION
 tar xvf $CWD/$PRGNAM-$VERSION.tar.gz
 cd $PRGNAM-$VERSION
 
-cat $CWD/$PRGNAM-$VERSION-use.libtirpc.patch | patch -p1
+cat $CWD/$PRGNAM-6.4.1-use.libtirpc.patch | patch -p1
 autoconf -i
 
 chown -R root:root .
@@ -80,15 +80,13 @@ CFLAGS="$SLKCFLAGS" \
 CXXFLAGS="$SLKCFLAGS" \
 LDFLAGS=" -ldl -lncurses" \
 ./configure \
-  --build=$CHOST --host=$CHOST \
+  --build=$ARCH-slackware-linux --host=$ARCH-slackware-linux \
   --prefix=/opt \
   --libdir=/usr/lib${LIBDIRSUFFIX} \
   --mandir=/usr/man \
   --enable-shared \
   --enable-largefile \
   --with-cxx \
-  --with-ffmpeg \
-  --with-ffmpeg-includes="/usr/include/libavcodec /usr/include/libavformat /usr/include/libswscale" \
   --with-mysql \
   --with-mysql-includes=/usr/include/mysql \
   --with-mysql-libs=/usr/lib${LIBDIRSUFFIX}/mysql \
@@ -96,7 +94,7 @@ LDFLAGS=" -ldl -lncurses" \
   --with-freetype \
   --with-freetype-includes=/usr/include/freetype2 \
   --with-geos=/usr/bin/geos-config \
-  --with-python=/usr/bin/python2.6-config \
+  --with-python=/usr/bin/python2-config \
   --with-gdal=/usr/bin/gdal-config \
   --with-sqlite \
   --with-wxwidgets=/usr/bin/wx-config \
@@ -114,9 +112,8 @@ LDFLAGS=" -ldl -lncurses" \
   --with-lapack-libs=/usr/lib${LIBDIRSUFFIX} \
   --with-pthread \
   --without-readline \
-  --without-postgres
-
-# FFINCL="/usr/include/libavcodec /usr/include/libavformat /usr/include/libswscale" \
+  --without-postgres \
+  --without-ffmpeg \
 
 make
 mkdir -p ${PKG}/opt/grass64 ${PKG}/usr/bin
@@ -136,9 +133,6 @@ install -D -m755 ${CWD}/grass.sh ${PKG}/etc/profile.d/grass.sh
 # install some freedesktop.org compatibility
 install -D -m644 ${CWD}/grass.desktop ${PKG}/usr/share/applications/grass.desktop
 install -D -m644 ${CWD}/grass.png ${PKG}/usr/share/pixmaps/grass.png
-
-# create a symlink for version work around
-# ln -sf /opt/grass64 ${PKG}/opt/grass
 
 find $PKG | xargs file | grep -e "executable" -e "shared object" | grep ELF \
   | cut -f 1 -d : | xargs strip --strip-unneeded 2> /dev/null || true

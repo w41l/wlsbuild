@@ -2,7 +2,7 @@
 
 # Slackware build script for libspatialite
 
-# Copyright 2011  Widya Walesa <walecha99@gmail.com>
+# Copyright 2011-2013  Widya Walesa <walecha99@gmail.com>
 # All rights reserved.
 #
 # Redistribution and use of this script, with or without modification, is
@@ -24,7 +24,7 @@
 # YOUR DATA IS DESTROYED, YOUR HOUSE BURNS DOWN OR YOUR DOG RUNS OFF.
 
 PRGNAM=libspatialite
-VERSION=2.3.1
+VERSION=4.0.0
 BUILD=1
 TAG="_wls"
 NUMJOBS="-j3"
@@ -62,9 +62,10 @@ set -e
 rm -rf $PKG
 mkdir -p $WRK $PKG $OUTPUT
 cd $WRK
-rm -rf $PRGNAM-amalgamation-$VERSION
-tar xvf $CWD/$PRGNAM-amalgamation-$VERSION.tar.gz
-cd $PRGNAM-amalgamation-$VERSION
+rm -rf $PRGNAM-$VERSION
+tar xvf $CWD/$PRGNAM-$VERSION.tar.gz
+cd $PRGNAM-$VERSION
+
 chown -R root:root .
 find . \
  \( -perm 777 -o -perm 775 -o -perm 711 -o -perm 555 -o -perm 511 \) \
@@ -81,13 +82,9 @@ CXXFLAGS="$SLKCFLAGS" \
   --bindir=/usr/bin --sbindir=/usr/sbin \
   --libdir=/usr/lib$LIBDIRSUFFIX --includedir=/usr/include \
   --mandir=/usr/man --infodir=/usr/info \
-  --sysconfdir=/etc \
+  --sysconfdir=/etc --docdir=/usr/doc/$PRGNAM-$VERSION \
   --localstatedir=/var --sharedstatedir=/var/lib \
   --disable-static --enable-shared \
-  --with-proj-include=/usr/include \
-  --with-proj-lib=/usr/lib${LIBDIRSUFFIX} \
-  --with-geos-include=/usr/include \
-  --with-geos-lib=/usr/lib${LIBDIRSUFFIX}
 
 make
 make install DESTDIR=$PKG
@@ -107,4 +104,4 @@ cd $PKG
 /sbin/makepkg -l y -c n $OUTPUT/$PRGNAM-$VERSION-$ARCH-$BUILD$TAG.txz
 
 echo "Cleaning up build directory"
-cd $WRK; rm -rf $PRGNAM-amalgamation-$VERSION $PKG
+cd $WRK; rm -rf $PRGNAM-$VERSION $PKG

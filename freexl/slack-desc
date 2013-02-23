@@ -1,0 +1,19 @@
+# HOW TO EDIT THIS FILE:
+# The "handy ruler" below makes it easier to edit a package description.  Line
+# up the first '|' above the ':' following the base package name, and the '|' on
+# the right side marks the last column you can put a character in.  You must make
+# exactly 11 lines for the formatting to be correct.  It's also customary to
+# leave one space after the ':'.
+
+      |-----handy-ruler---------------------------------------------------|
+freexl: freexl (Free Microsoft Excel Library)
+freexl:
+freexl: FreeXL is a simple library intended for extracting the contents
+freexl: and some metadata from Microsoft Excel (.xls) format files. It
+freexl: makes no attempt to extract GUI-related formatting
+freexl: or formulas/charts/etc
+freexl:
+freexl: URL: http://www.gaia-gis.it/gaia-sins/index.html
+freexl:
+freexl:
+freexl: packaged by: Widya Walesa <walecha99@gmail.com>

@@ -79,12 +79,12 @@ mkdir -p $PKG/etc/dbus-1/system.d
 install -m 644 skype.conf $PKG/etc/dbus-1/system.d/skype.conf
 mkdir -p $PKG/usr/share/applications
 install -m 644 skype.desktop $PKG/usr/share/applications/skype.desktop
-mkdir -p $PKG/usr/share/icons/16x16/apps
-install -m 644 icons/SkypeBlue_16x16.png $PKG/usr/share/icons/16x16/apps/skype.png
-mkdir -p $PKG/usr/share/icons/32x32/apps
-install -m 644 icons/SkypeBlue_32x32.png $PKG/usr/share/icons/32x32/apps/skype.png
-mkdir -p $PKG/usr/share/icons/48x48/apps
-install -m 644 icons/SkypeBlue_48x48.png $PKG/usr/share/icons/48x48/apps/skype.png
+mkdir -p $PKG/usr/share/icons/hicolor/16x16/apps
+install -m 644 icons/SkypeBlue_16x16.png $PKG/usr/share/icons/hicolor/16x16/apps/skype.png
+mkdir -p $PKG/usr/share/icons/hicolor/32x32/apps
+install -m 644 icons/SkypeBlue_32x32.png $PKG/usr/share/icons/hicolor/32x32/apps/skype.png
+mkdir -p $PKG/usr/share/icons/hicolor/48x48/apps
+install -m 644 icons/SkypeBlue_48x48.png $PKG/usr/share/icons/hicolor/48x48/apps/skype.png
 mkdir -p $PKG/usr/share/skype
 cp -r avatars $PKG/usr/share/skype/
 cp -r lang $PKG/usr/share/skype/

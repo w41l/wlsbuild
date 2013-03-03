@@ -1,0 +1,7 @@
+URL=https://developer.nvidia.com/cg-toolkit
+SRC_32=http://developer.download.nvidia.com/cg/Cg_3.1/Cg-3.1_April2012_x86.tgz
+SRC_64=http://developer.download.nvidia.com/cg/Cg_3.1/Cg-3.1_April2012_x86_64.tgz
+MD5_32=9a9fc5108154808f3b10eafa54df1c74
+MD5_64=
+SHA1_32=b0cdbcacd85716a80a90b7c65b817b6931df9d5b
+SHA1_64=

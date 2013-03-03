@@ -24,10 +24,9 @@
 # YOUR DATA IS DESTROYED, YOUR HOUSE BURNS DOWN OR YOUR DOG RUNS OFF.
 
 PRGNAM=quiterss
-VERSION=0.12.1
+VERSION=0.12.2
 BUILD=1
 TAG=${TAG:-_wls}
-NUMJOBS=${NUMJOBS:--j4}
 
 if [ -z "$ARCH" ]; then
   case "$( uname -m )" in

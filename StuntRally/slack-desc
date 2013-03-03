@@ -1,0 +1,19 @@
+# HOW TO EDIT THIS FILE:
+# The "handy ruler" below makes it easier to edit a package description.  Line
+# up the first '|' above the ':' following the base package name, and the '|' on
+# the right side marks the last column you can put a character in.  You must make
+# exactly 11 lines for the formatting to be correct.  It's also customary to
+# leave one space after the ':'.
+
+          |-----handy-ruler------------------------------------------------------|
+StuntRally: StuntRally (3D Racing Game)
+StuntRally:
+StuntRally: Car simulation is done by VDrift a great game by itself, also using
+StuntRally: bullet. Rendering is done by OGRE, trees/grass by PagedGeometry,
+StuntRally: Gui by MyGUI. The road is based on a 3D spline and it's fully
+StuntRally: customizable in editor.
+StuntRally:
+StuntRally: URL: http://code.google.com/p/vdrift-ogre/
+StuntRally:
+StuntRally:
+StuntRally:

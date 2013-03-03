@@ -1,4 +1,4 @@
 URL=https://projects.kde.org/projects/playground/artwork/oxygen-fonts
-SRC=http://quickgit.kde.org/?p=oxygen-fonts.git&a=snapshot&h=56896fa5a7dfcbb0fbf0ea454e4dca905a0cf320
-MD5=9e99571aa60f3436eab966ef1d9977b3
-SHA1=6eda0009a4e1c20fb9321cda70be701f86f40353
+SRC=http://quickgit.kde.org/?p=oxygen-fonts.git&a=snapshot&h=a25fc6966140278ca7935e48102aeee990efbf10&fmt=tbz2
+MD5=ddfa5ee21489530dec797e0124c2a2ce
+SHA1=5cbd4967a2fe1df4562020f67f9074eb8f66a8c5

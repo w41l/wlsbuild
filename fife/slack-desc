@@ -1,0 +1,19 @@
+# HOW TO EDIT THIS FILE:
+# The "handy ruler" below makes it easier to edit a package description.  Line
+# up the first '|' above the ':' following the base package name, and the '|'
+# on the right side marks the last column you can put a character in.  You must
+# make exactly 11 lines for the formatting to be correct.  It's also
+# customary to leave one space after the ':'.
+
+    |-----handy-ruler----------------------------------------------------|
+fife: FIFE (Flexible Isometric Free Engine)
+fife:
+fife: FIFE is a cross platform 2D game creation framework written in C++
+fife: with Python bindings. It's designed to be flexible enough to support
+fife: a wide variety of 2D game types but specializes in 2D isometric type
+fife: views.
+fife:
+fife: URL: http://www.fifengine.net/
+fife:
+fife:
+fife: http://www.walecha.net/

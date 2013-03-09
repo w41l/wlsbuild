@@ -2,7 +2,7 @@
 
 # Slackware build script for nvtt
 
-# Copyright 2011 Widya Walesa <walecha99@gmail.com>
+# Copyright 2011-2013  Widya Walesa <walecha99@gmail.com>
 # All rights reserved.
 #
 # Redistribution and use of this script, with or without modification, is
@@ -63,16 +63,23 @@ rm -rf $PKG
 mkdir -p $WRK $PKG $OUTPUT
 cd $WRK
 rm -rf nvidia-texture-tools
-tar xvf $CWD/nvidia-texture-tools-${VERSION}-1.tar.gz
+tar xvf $CWD/nvidia-texture-tools-$VERSION-1.tar.gz
 cd nvidia-texture-tools
 
-cat $CWD/r1156.patch | patch -p2
-cat $CWD/r1157.patch | patch -p2
-#cat $CWD/r1172.patch | patch -p2
-#cat $CWD/rpath.patch | patch -p2
-cat $CWD/issue139.patch | patch -p1
-cat $CWD/png-api.patch | patch -p1
-cat $CWD/openexr.patch | patch -p0
+cat $CWD/patches/r1156.patch | patch -p2 -b
+cat $CWD/patches/r1157.patch | patch -p2 -b
+cat $CWD/patches/r1172.patch | patch -p2 -b
+cat $CWD/patches/r1172-CompressRGB.cpp.patch | patch -p0 -b
+cat $CWD/patches/r907.patch | patch -p0 -b
+cat $CWD/patches/r1025.patch | patch -p0 -b
+cat $CWD/patches/issue139.patch | patch -p1 -b
+cat $CWD/patches/png-api.patch | patch -p1
+cat $CWD/patches/gcc47-unistd.patch | patch -p1
+cat $CWD/patches/cmake-freebsd.patch | patch -p0
+cat $CWD/patches/cmake-devflags.patch | patch -p0
+# cat $CWD/patches/rpath.patch | patch -p2 -b
+cat $CWD/patches/issue176.patch | patch -p1
+# cat $CWD/patches/issue176-Debug.cpp.patch | patch -p1 --verbose
 
 chown -R root:root .
 find . \
@@ -84,13 +91,28 @@ find . \
 mkdir -p build
 cd build
 cmake .. \
-    -DCMAKE_INSTALL_PREFIX=/usr \
-    -DNVTT_SHARED=1 \
     -DCMAKE_BUILD_TYPE=Release \
-    -G "Unix Makefiles"
+    -DCMAKE_INSTALL_PREFIX=/usr \
+    -DBINDIR=bin \
+    -DLIBDIR=lib${LIBDIRSUFFIX} \
+    -DNVTT_SHARED=1 \
+    -G "Unix Makefiles" \
+    -DGLUT=1 \
+    -DGLEW=1 \
+    -DCG=1 \
+    -DCUDA=0 \
+    -DOPENEXR=0 \
+
 make
 make install DESTDIR=$PKG
 cd -
+
+( cd $PKG/usr/lib$LIBDIRSUFFIX;
+  mv libnvcore.so libnvcore.so.$VERSION; ln -s libnvcore.so.$VERSION libnvcore.so;
+  mv libnvmath.so libnvmath.so.$VERSION; ln -s libnvmath.so.$VERSION libnvmath.so;
+  mv libnvimage.so libnvimage.so.$VERSION; ln -s libnvimage.so.$VERSION libnvimage.so;
+  mv libnvtt.so libnvtt.so.$VERSION; ln -s libnvtt.so.$VERSION libnvt.so;
+)
 
 find $PKG | xargs file | grep -e "executable" -e "shared object" | grep ELF \
   | cut -f 1 -d : | xargs strip --strip-unneeded 2> /dev/null || true

@@ -1,0 +1,10 @@
+[Desktop Entry]
+Name=Speed Dreams 2
+Comment=The Open Racing Car Simulator
+Exec=/usr/games/speed-dreams-2
+Icon=/usr/share/games/speed-dreams-2/data/icons/icon.png
+Terminal=false
+Type=Application
+Encoding=UTF-8
+Categories=Game;Simulation;
+

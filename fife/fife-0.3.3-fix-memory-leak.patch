@@ -1,0 +1,29 @@
+--- ./engine/core/eventchannel/eventchannel.i.orig	2013-01-03 21:42:16.041324952 +0000
++++ ./engine/core/eventchannel/eventchannel.i	2013-01-03 21:44:34.871329004 +0000
+@@ -58,7 +58,7 @@
+ 		virtual int32_t getTimeStamp() const;
+ 		virtual std::string getDebugString() const;
+ 		virtual const std::string& getName() const;
+-		virtual ~IEvent() {}
++		virtual ~Event() {}
+ 	private:
+ 		Event();
+ 	};
+@@ -70,7 +70,7 @@
+ 		virtual bool isControlPressed() const;
+ 		virtual bool isMetaPressed() const;
+ 		virtual bool isShiftPressed() const;
+-		virtual ~IInputEvent() {}
++		virtual ~InputEvent() {}
+ 	private:
+ 		InputEvent();
+ 	};
+@@ -153,7 +153,7 @@
+ 		virtual int32_t getY() const;
+ 		virtual MouseEventType getType() const;
+ 		virtual MouseButtonType getButton() const;
+-		virtual ~IMouseEvent();
++		virtual ~MouseEvent();
+ 	private:
+ 		MouseEvent();
+ 	};

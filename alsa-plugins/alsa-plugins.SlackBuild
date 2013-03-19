@@ -24,7 +24,7 @@
 # YOUR DATA IS DESTROYED, YOUR HOUSE BURNS DOWN OR YOUR DOG RUNS OFF.
 
 PRGNAM=alsa-plugins
-VERSION=1.0.26
+VERSION=$(ls $PRGNAM-*.tar.?z* | rev | cut -d - -f 1 | cut -d . -f 3- | rev)
 BUILD=1
 TAG=${TAG:-_wls}
 NUMJOBS=${NUMJOBS:--j4}

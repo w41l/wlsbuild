@@ -63,8 +63,8 @@ rm -rf $PKG
 mkdir -p $WRK $PKG $OUTPUT
 cd $WRK
 rm -rf $PRGNAM-$VERSION-stable
-tar xvf $CWD/$PRGNAM-${VERSION}-stable.tar.gz
-cd $PRGNAM-${VERSION}-stable
+tar xvf $CWD/$PRGNAM-$VERSION-stable.tar.gz
+cd $PRGNAM-$VERSION-stable
 
 chown -R root:root .
 find . \
@@ -103,4 +103,4 @@ cd $PKG
 /sbin/makepkg -l y -c n $OUTPUT/$PRGNAM-$VERSION-$ARCH-$BUILD$TAG.txz
 
 echo "Cleaning up build directory"
-cd $WRK; rm -rf $PRGNAM-${VERSION}-stable $PKG
+cd $WRK; rm -rf $PRGNAM-$VERSION-stable $PKG

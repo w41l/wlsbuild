@@ -1,0 +1,19 @@
+# HOW TO EDIT THIS FILE:
+# The "handy ruler" below makes it easier to edit a package description.  Line
+# up the first '|' above the ':' following the base package name, and the '|'
+# on the right side marks the last column you can put a character in.  You must
+# make exactly 11 lines for the formatting to be correct.  It's also
+# customary to leave one space after the ':'.
+
+    |-----handy-ruler------------------------------------------------------|
+sddm: sddm (QML based X11 display manager)
+sddm:
+sddm: SDDM is a modern display manager for X11 aiming to be fast, simple and
+sddm: beatiful. It uses modern technologies like QtQuick, which in turn gives
+sddm: the designer the ability to create smooth, animated user interfaces.
+sddm:
+sddm: URL: https://github.com/sddm/sddm
+sddm:
+sddm:
+sddm:
+sddm:

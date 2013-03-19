@@ -111,7 +111,7 @@ cd -
   mv libnvcore.so libnvcore.so.$VERSION; ln -s libnvcore.so.$VERSION libnvcore.so;
   mv libnvmath.so libnvmath.so.$VERSION; ln -s libnvmath.so.$VERSION libnvmath.so;
   mv libnvimage.so libnvimage.so.$VERSION; ln -s libnvimage.so.$VERSION libnvimage.so;
-  mv libnvtt.so libnvtt.so.$VERSION; ln -s libnvtt.so.$VERSION libnvt.so;
+  mv libnvtt.so libnvtt.so.$VERSION; ln -s libnvtt.so.$VERSION libnvtt.so;
 )
 
 find $PKG | xargs file | grep -e "executable" -e "shared object" | grep ELF \

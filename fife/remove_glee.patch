@@ -1,0 +1,39 @@
+Description: use packaged version of glee
+Author: Anton Gladky <gladky.anton@gmail.com>
+Last-Update: 2012-10-24
+
+--- a/engine/core/video/opengl/fife_opengl.h
++++ b/engine/core/video/opengl/fife_opengl.h
+@@ -25,7 +25,7 @@
+ // Standard C++ library includes
+ 
+ // 3rd party library includes
+-#include "ext/glee/GLee.h"
++#include <GL/GLee.h>
+ 
+ // GLee.h includes windows.h when on a windows platform
+ // In winnt.h (which is included from windows.h) DELETE
+--- a/build/linux2-config.py
++++ b/build/linux2-config.py
+@@ -93,7 +93,7 @@
+ 	return libs
+ 
+ def getOptionalLibs(opengl):
+-	libs = [('tinyxml', 'tinyxml.h')]
++	libs = [('tinyxml', 'tinyxml.h'), ('glee', 'GLee.h')]
+ 	
+ 	return libs
+ 	
+--- a/engine/core/ext/glee/GLee.cpp
++++ b/engine/core/ext/glee/GLee.cpp
+@@ -1,3 +1,4 @@
++#if 0
+ /***************************************************************************
+ *
+ * GLee.c
+@@ -18168,3 +18169,5 @@
+     __GLeeExtList_clean(&extensionNames);
+     return GL_TRUE;
+ }
++
++#endif 

@@ -39,7 +39,7 @@ if [ -z "$ARCH" ]; then
   esac
 fi
 
-NUMJOBS=${NUMJOBS:--j4}
+NUMJOBS=${NUMJOBS:--j1}
 
 if [ "$ARCH" = "i386" ]; then
   SLKCFLAGS="-O2 -march=i386 -mcpu=i686"
@@ -59,13 +59,13 @@ else
 fi
 
 CWD=$(pwd)
-TMP=${TMP:-/tmp/wlsbuild}
-PKG=$TMP/package-$PKGNAM
+WRK=${WRK:-/tmp/wlsbuild}
+PKG=$WRK/package-$PKGNAM
 
 rm -rf $PKG
-mkdir -p $TMP $PKG
+mkdir -p $WRK $PKG
 
-cd $TMP
+cd $WRK
 rm -rf $SRCNAM-$VERSION
 tar xvf $CWD/$SRCNAM-$VERSION.tar.?z* || exit 1
 cd $SRCNAM-$VERSION || exit 1
@@ -76,10 +76,10 @@ tar xvf $CWD/pam-redhat-$PAMRHVER.tar.?z* || exit 1
 mv pam-redhat-$PAMRHVER/{CHANGELOG*,COPYING*,README*} .
 mv pam-redhat-$PAMRHVER/* modules
 zcat $CWD/patches/pam-1.0.90-redhat-modules.patch.gz | patch -p1 --verbose || exit 1
-zcat $CWD/patches/pam-1.0.91-std-noclose.patch.gz | patch -p1 --verbose || exit 1
+# zcat $CWD/patches/pam-1.0.91-std-noclose.patch.gz | patch -p1 --verbose || exit 1
 zcat $CWD/patches/pam-1.1.0-notally.patch.gz | patch -p1 --verbose || exit 1
 zcat $CWD/patches/pam-1.1.1-faillock.patch.gz | patch -p1 --verbose || exit 1
-zcat $CWD/patches/pam-1.1.2-noflex.patch.gz | patch -p1 --verbose || exit 1
+# zcat $CWD/patches/pam-1.1.2-noflex.patch.gz | patch -p1 --verbose || exit 1
 zcat $CWD/patches/pam-1.1.3-faillock-screensaver.patch.gz | patch -p1 --verbose || exit 1
 zcat $CWD/patches/pam-1.1.3-nouserenv.patch.gz | patch -p1 --verbose || exit 1
 
@@ -117,12 +117,22 @@ CXXFLAGS="$SLKCFLAGS" \
   --disable-selinux \
   --build=$ARCH-slackware-linux || exit 1
 
+cat $CWD/patches/pam_namespace-build-1.1.6.patch | patch -p0
+# cat $CWD/patches/pam_unix2-glibc216.patch | patch -p1
 make $NUMJOBS || make || exit 1
 make install DESTDIR=$PKG || exit 1
 
 # this is a pam helper, that can only be called from pam
 chown root:shadow $PKG/usr/sbin/unix_chkpwd
 chmod g+s $PKG/usr/sbin/unix_chkpwd
+
+# fix some missing symlinks from old pam for compatibility
+( cd $PKG/usr/lib${LIBDIRSUFFIX}/security;
+  ln -s pam_unix.so pam_unix_acct.so;
+  ln -s pam_unix.so pam_unix_auth.so;
+  ln -s pam_unix.so pam_unix_passwd.so;
+  ln -s pam_unix.so pam_unix_session.so;
+)
 
 # Strip binaries:
 ( cd $PKG
@@ -171,4 +181,4 @@ cd $PKG
 /sbin/makepkg -l y -c n /tmp/$PKGNAM-$VERSION-$ARCH-$BUILD$TAG.txz
 
 echo "Clearing build directory"
-cd $TMP ; rm -rf SRCNAM-$VERSION $PKG
+cd $WRK ; rm -rf SRCNAM-$VERSION $PKG

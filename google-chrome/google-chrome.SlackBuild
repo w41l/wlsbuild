@@ -26,12 +26,12 @@ PKGNAM=google-chrome
 RELEASE=${RELEASE:-stable}    # stable, beta, or unstable
 case "$(uname -m)" in
   i?86) DEBARCH="i386" ; LIBDIRSUFFIX="" ; ARCH=i386 ;;
-  x86_64) DEBARCH="amd64" ; LIBDIRSUFFIX="64" ; ARCH=x86_64 ;;
+  x86_64) DEBARCH="amd64"; LIBDIRSUFFIX="64" ; ARCH=x86_64 ;;
   *) echo "Package for $(uname -m) architecture is not available." ; exit 1 ;;
 esac
 # Get the version from the Debian/Ubuntu .deb (thanks to Fred Richards):
-VERSION=$(ar p google-chrome-${RELEASE}_current_${DEBARCH}.deb control.tar.gz 2> /dev/null | tar zxO ./control 2> /dev/null | grep Version | awk '{print $2}' | cut -d- -f1)
-#VERSION=$(rpm --nosignature -qpi google-chrome-${RELEASE}_current_${DEBARCH}.rpm | grep "Version" | awk '{ print $3 }')
+#VERSION=$(ar p google-chrome-${RELEASE}_current_${DEBARCH}.deb control.tar.gz 2> /dev/null | tar zxO ./control 2> /dev/null | grep Version | awk '{print $2}' | cut -d- -f1)
+VERSION=$(rpm --nosignature -qpi google-chrome-${RELEASE}_current_${ARCH}.rpm | grep "Version" | awk '{ print $3 }')
 BUILD=${BUILD:-1}
 TAG=${TAG:-_wls}
 
@@ -44,25 +44,25 @@ EOF
   exit 1
 fi
 
-if ! /bin/ls google-chrome-*.deb 1> /dev/null 2> /dev/null ; then
-  cat << EOF
-
-This is a script to repackage a Debian/Ubuntu Google Chrome .deb package
-for Slackware.  Run this script in the same directory as one of these
-binary packages:
-
-  google-chrome-stable_current_amd64.deb  (for 64-bit x86_64)
-  google-chrome-stable_current_i386.deb   (for 32-bit x86)
-
-Download it from here:
-https://dl.google.com/linux/direct/google-chrome-stable_current_i386.deb
-
-This will create a Slackware .txz package.  Install it with installpkg
-or use upgradepkg to upgrade from a previous version.
-
-EOF
-  exit 1
-fi
+# if ! /bin/ls google-chrome-*.deb 1> /dev/null 2> /dev/null ; then
+#   cat << EOF
+# 
+# This is a script to repackage a Debian/Ubuntu Google Chrome .deb package
+# for Slackware.  Run this script in the same directory as one of these
+# binary packages:
+# 
+#   google-chrome-stable_current_amd64.deb  (for 64-bit x86_64)
+#   google-chrome-stable_current_i386.deb   (for 32-bit x86)
+# 
+# Download it from here:
+# https://dl.google.com/linux/direct/google-chrome-stable_current_i386.deb
+# 
+# This will create a Slackware .txz package.  Install it with installpkg
+# or use upgradepkg to upgrade from a previous version.
+# 
+# EOF
+#   exit 1
+# fi
 
 CWD=$(pwd)
 WRK=${WRK:-/tmp/wlsbuild}
@@ -72,8 +72,8 @@ OUTPUT=${OUTPUT:-/tmp}
 rm -rf $PKG
 mkdir -p $WRK $PKG $OUTPUT
 cd $PKG
-ar p $CWD/google-chrome-${RELEASE}_current_${DEBARCH}.deb data.tar.lzma | lzma -d | tar xv || exit 1
-# rpm2cpio $CWD/google-chrome-${RELEASE}_current_${DEBARCH}.rpm | cpio -ivd
+# ar p $CWD/google-chrome-${RELEASE}_current_${DEBARCH}.deb data.tar.lzma | lzma -d | tar xv || exit 1
+rpm2cpio $CWD/google-chrome-${RELEASE}_current_${ARCH}.rpm | cpio -ivd
 chown -R root:root .
 chmod -R u+w,go+r-w,a-s .
 

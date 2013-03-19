@@ -24,8 +24,8 @@
 # YOUR DATA IS DESTROYED, YOUR HOUSE BURNS DOWN OR YOUR DOG RUNS OFF.
 
 PRGNAM=unknown-horizons
-VERSION=2013.1
-BUILD=2
+VERSION=2013.1b
+BUILD=1
 TAG=${TAG:-_wls}
 DOCS="README doc/*"
 
@@ -77,13 +77,20 @@ find . \
 CFLAGS="$SLKCFLAGS" \
 CXXFLAGS="$SLKCFLAGS" \
 python setup.py build
-python setup.py install --root $PKG
+python setup.py install --root=$PKG --prefix=/usr
 
-for RES in 24x24 32x32 48x48 64x64; do
-  mkdir -p $PKG/usr/share/icons/hicolor/$RES/apps;
-  cp $CWD/unknown-horizons-$RES.png \
-    $PKG/usr/share/icons/hicolor/$RES/apps/unknownhorizons.png;
-done
+rm $PKG/usr/share/pixmaps/$PRGNAM.xpm
+install -D -m 0644 content/gfx/uh.svg \
+    $PKG/usr/share/icons/hicolor/scalable/apps/$PRGNAM.svg
+
+# -- we require use system pyenet
+find $PKG -name "*enet.so" -type f -print -delete
+# -- remove *egg-info
+find $PKG -type f -name "*.egg-info" -print -delete
+# -- needs a fix
+if [ -d $PKG/usr/share/$PRGNAM/content/lang/ ]; then
+   rm -r $PKG/usr/share/$PRGNAM/content/lang
+fi
 
 find $PKG | xargs file | grep -e "executable" -e "shared object" | grep ELF \
   | cut -f 1 -d : | xargs strip --strip-unneeded 2> /dev/null || true

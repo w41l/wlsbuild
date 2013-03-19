@@ -1,0 +1,11 @@
+--- configure.in
++++ configure.in
+@@ -77,7 +77,7 @@
+ {
+   OPENGL="yes"
+   GUICHAN_EXTRADIRS="$GUICHAN_EXTRADIRS opengl"
+-  GL_LIBS="`pkg-config --libs gl`"
++  GL_LIBS="-lGL"
+   AC_SUBST(GL_LIBS)
+ }
+ 

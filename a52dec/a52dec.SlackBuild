@@ -24,7 +24,7 @@
 # YOUR DATA IS DESTROYED, YOUR HOUSE BURNS DOWN OR YOUR DOG RUNS OFF.
 
 PRGNAM=a52dec
-VERSION=0.7.4
+VERSION=$(ls $PRGNAM-*.tar.?z* | rev | cut -d - -f 1 | cut -d . -f 3- | rev)
 BUILD=2
 TAG="_wls"
 NUMJOBS="-j4"

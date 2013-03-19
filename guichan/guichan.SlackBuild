@@ -25,9 +25,9 @@
 
 PRGNAM=guichan
 VERSION=0.8.2
-BUILD=1
+BUILD=3
 TAG="_wls"
-NUMJOBS="-j4"
+NUMJOBS="-j1"
 
 if [ -z "$ARCH" ]; then
   case "$( uname -m )" in
@@ -66,12 +66,18 @@ rm -rf $PRGNAM-$VERSION
 tar xvf $CWD/$PRGNAM-$VERSION.tar.gz
 cd $PRGNAM-$VERSION
 
+cat $CWD/libguichan-0_8_1-1-0.8.1-missing_DTNEEDED.patch | patch -p0
+cat $CWD/libguichan-0_8_1-1-0.8.1-10_3.patch | patch -p0
+cat $CWD/$PRGNAM-upstream-90c8966.patch | patch -p1
+
 chown -R root:root .
 find . \
  \( -perm 777 -o -perm 775 -o -perm 711 -o -perm 555 -o -perm 511 \) \
  -exec chmod 755 {} \; -o \
  \( -perm 666 -o -perm 664 -o -perm 600 -o -perm 444 -o -perm 440 -o -perm 400 \) \
  -exec chmod 644 {} \;
+
+autoreconf -ivsf
 
 CFLAGS="$SLKCFLAGS" \
 CXXFLAGS="$SLKCFLAGS" \
@@ -84,9 +90,13 @@ CXXFLAGS="$SLKCFLAGS" \
   --mandir=/usr/man --infodir=/usr/info \
   --sysconfdir=/etc --docdir=/usr/doc/$PRGNAM-$VERSION \
   --localstatedir=/var --sharedstatedir=/var/lib \
-  --disable-static --enable-shared \
+  --disable-static \
+  --enable-opengl \
+  --enable-sdlimage \
+  --enable-allegro \
+  --enable-sdl \
 
-make
+make $NUMJOBS
 make install DESTDIR=$PKG
 
 find $PKG | xargs file | grep -e "executable" -e "shared object" | grep ELF \
@@ -98,6 +108,7 @@ cat $CWD/$PRGNAM.SlackBuild > $PKG/usr/doc/$PRGNAM-$VERSION/$PRGNAM.SlackBuild
 
 mkdir -p $PKG/install
 cat $CWD/slack-desc > $PKG/install/slack-desc
+cat $CWD/slack-required > $PKG/install/slack-required
 
 cd $PKG
 /sbin/makepkg -l y -c n $OUTPUT/$PRGNAM-$VERSION-$ARCH-$BUILD$TAG.txz

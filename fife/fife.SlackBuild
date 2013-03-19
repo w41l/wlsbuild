@@ -24,10 +24,10 @@
 # YOUR DATA IS DESTROYED, YOUR HOUSE BURNS DOWN OR YOUR DOG RUNS OFF.
 
 PRGNAM=fife
-VERSION=0.3.4
-BUILD=2
+VERSION=$(ls ${PRGNAM}*.tar.?z* | rev | cut -d _ -f 1 | cut -d . -f 3- | rev)
+BUILD=4
 TAG=${TAG:-_wls}
-NUMJOBS=${NUMJOBS:--j4}
+NUMJOBS=${NUMJOBS:--j1}
 
 if [ -z "$ARCH" ]; then
   case "$( uname -m )" in
@@ -45,12 +45,15 @@ DOCS="AUTHORS CHANGES COPYING INSTALL README"
 
 if [ "$ARCH" = "i486" ]; then
   SLKCFLAGS="-O2 -pipe -march=i486 -mtune=i686"
+#   SLKCFLAGS="-O0 -g -pipe -march=i486 -mtune=i686"
   LIBDIRSUFFIX=""
 elif [ "$ARCH" = "i686" ]; then
   SLKCFLAGS="-O2 -pipe -march=i686 -mtune=i686"
+#   SLKCFLAGS="-O0 -g -pipe -march=i486 -mtune=i686"
   LIBDIRSUFFIX=""
 elif [ "$ARCH" = "x86_64" ]; then
   SLKCFLAGS="-O2 -pipe -m64 -fPIC"
+#   SLKCFLAGS="-O0 -g -pipe -march=i486 -mtune=i686"
   LIBDIRSUFFIX="64"
 else
   SLKCFLAGS="-O2"
@@ -73,24 +76,30 @@ find . \
  \( -perm 666 -o -perm 664 -o -perm 600 -o -perm 444 -o -perm 440 -o -perm 400 \) \
  -exec chmod 644 {} \;
 
-scons \
-  CFLAGS="$SLKCFLAGS" \
-  CXXFLAGS="$SLKCFLAGS" \
-  DESTDIR="$PKG" \
-  --enable-rend-camzone \
-  --enable-rend-grid \
-  --prefix=/usr \
-  --lib-dir=/usr/lib$LIBDIRSUFFIX \
-  install-all
+PYPREFIX=$(python -c "from distutils.sysconfig import get_python_lib; print(get_python_lib())")
 
-# mv misplaced files
-mkdir -p $PKG/usr/lib$LIBDIRSUFFIX
-mv /usr/lib$LIBDIRSUFFIX/libfife.* $PKG/usr/lib$LIBDIRSUFFIX/
+CFLAGS="$SLKCFLAGS" \
+CXXFLAGS="$SLKCFLAGS" \
+scons DESTDIR="$PKG" $NUMJOBS \
+  --prefix=/usr --lib-dir=/usr/lib${LIBDIRSUFFIX} --python-prefix=$PYPREFIX \
+  fife-shared fife-python
+
+CFLAGS="$SLKCFLAGS" \
+CXXFLAGS="$SLKCFLAGS" \
+scons DESTDIR="$PKG" $NUMJOBS \
+  --prefix=/usr --lib-dir=/usr/lib${LIBDIRSUFFIX} --python-prefix=$PYPREFIX \
+  install-shared --install-sandbox=$PKG
+
+CFLAGS="$SLKCFLAGS" \
+CXXFLAGS="$SLKCFLAGS" \
+scons DESTDIR="$PKG" $NUMJOBS \
+  --prefix=/usr --lib-dir=/usr/lib${LIBDIRSUFFIX} --python-prefix=$PYPREFIX \
+  install-python
+
 ( cd $PKG/usr/lib$LIBDIRSUFFIX;
-  ln -s libfife.so.${VERSION} libfife.so; )
-
-# Remove static library
-rm -f $PKG/usr/lib$LIBDIRSUFFIX/libfife.a
+  ln -s libfife.so.0.?.? libfife.so.0;
+  ln -s libfife.so.0.?.? libfife.so;
+)
 
 find $PKG | xargs file | grep -e "executable" -e "shared object" | grep ELF \
   | cut -f 1 -d : | xargs strip --strip-unneeded 2> /dev/null || true

@@ -1,0 +1,14 @@
+--- fife_0.3.4/SConstruct.orig	2013-03-15 00:29:13.840608718 +0700
++++ fife_0.3.4/SConstruct	2013-03-15 00:38:22.880619784 +0700
+@@ -196,9 +196,9 @@
+ 
+ libdir = GetOption('lib-dir')
+ if libdir is None:
+-	libdir = os.path.join(prefix, 'lib')
++	libdir = env['DESTDIR'] + prefix + lib
+ else:
+-	libdir = os.path.join(prefix, libdir)
++	libdir = env['DESTDIR'] + libdir
+ 	
+ env['LIBDIR'] = libdir
+ 

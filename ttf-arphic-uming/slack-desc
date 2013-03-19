@@ -1,0 +1,19 @@
+# HOW TO EDIT THIS FILE:
+# The "handy ruler" below makes it easier to edit a package description.  Line
+# up the first '|' above the ':' following the base package name, and the '|' on
+# the right side marks the last column you can put a character in.  You must make
+# exactly 11 lines for the formatting to be correct.  It's also customary to
+# leave one space after the ':'.
+
+                |-----handy-ruler---------------------------------------------------|
+ttf-arphic-uming: ttf-arphic-uming
+ttf-arphic-uming:
+ttf-arphic-uming: This font was taken from the from the TrueType fonts generously
+ttf-arphic-uming: released by Arphic Technologies Taiwan under the Arphic Public License.
+ttf-arphic-uming: It was modified with Fontforge by Arne Goetje <arne@linux.org.tw> to
+ttf-arphic-uming: contain both Big5 and GB2312 charsets plus some european characters.
+ttf-arphic-uming:
+ttf-arphic-uming: URL: http://www.freedesktop.org/wiki/Software/CJKUnifonts/
+ttf-arphic-uming:
+ttf-arphic-uming:
+ttf-arphic-uming: packaged by: Widya Walesa <walecha99@gmail.com>

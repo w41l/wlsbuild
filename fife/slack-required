@@ -1,5 +1,7 @@
 OpenAL
 SDL_image
 SDL_ttf
+allegro
 guichan
 scons
+tinyxml

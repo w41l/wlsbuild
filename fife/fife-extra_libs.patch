@@ -1,0 +1,12 @@
+--- fife_0.3.3r3/SConstruct.orig	2012-10-02 19:57:59.549527301 +0200
++++ fife_0.3.3r3/SConstruct	2012-10-02 20:01:12.347434259 +0200
+@@ -301,6 +301,9 @@
+ 		for h in required_headers:
+ 			conf.CheckHeader(h)
+ 
++# should be pulled by the libs which use that
++env.AppendUnique(LIBS = ["X11", "z"])
++
+ #**************************************************************************
+ #set variables based on command line and environment options
+ #**************************************************************************

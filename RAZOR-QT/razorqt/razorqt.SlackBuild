@@ -2,7 +2,7 @@
 
 # Slackware build script for razorqt
 
-# Copyright 2011-2012  Widya Walesa <walecha99@gmail.com>
+# Copyright 2011-2013  Widya Walesa <walecha99@gmail.com>
 # All rights reserved.
 #
 # Redistribution and use of this script, with or without modification, is
@@ -24,10 +24,10 @@
 # YOUR DATA IS DESTROYED, YOUR HOUSE BURNS DOWN OR YOUR DOG RUNS OFF.
 
 PRGNAM=razorqt
-VERSION=20121228
+VERSION=0.5.2
 BUILD=1
 TAG=${TAG:-_wls}
-NUMJOBS=${NUMJOBS:--j4}
+NUMJOBS=${NUMJOBS:--j1}
 
 if [ -z "$ARCH" ]; then
   case "$( uname -m )" in
@@ -82,7 +82,7 @@ cd build
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DLIB_SUFFIX=${LIBDIRSUFFIX} \
 
-  make
+  make $NUMJOBS
   make install DESTDIR=$PKG
 cd -
 
@@ -96,7 +96,7 @@ chmod +x $PKG/etc/X11/xinit/xinitrc.razorqt
 mkdir -p $PKG/etc/profile.d
 cat $CWD/razorqt.sh > $PKG/etc/profile.d/razorqt.sh
 cat $CWD/razorqt.csh > $PKG/etc/profile.d/razorqt.csh
-chmod 644 $PKG/etc/profile.d/razorqt.*
+chmod 755 $PKG/etc/profile.d/razorqt.*
 
 find $PKG | xargs file | grep -e "executable" -e "shared object" | grep ELF \
   | cut -f 1 -d : | xargs strip --strip-unneeded 2> /dev/null || true

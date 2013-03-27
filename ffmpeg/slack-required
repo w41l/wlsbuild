@@ -2,7 +2,6 @@ a52dec
 dirac
 faac
 frei0r
-gnutls
 lame
 libass
 libbluray
@@ -12,7 +11,7 @@ libdv
 libgsm
 libmodplug
 libva
-openal
+OpenAL
 opencore-amr
 openjpeg
 orc

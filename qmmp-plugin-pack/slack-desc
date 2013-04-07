@@ -1,0 +1,19 @@
+# HOW TO EDIT THIS FILE:
+# The "handy ruler" below makes it easier to edit a package description.  Line
+# up the first '|' above the ':' following the base package name, and the '|'
+# on the right side marks the last column you can put a character in.  You must
+# make exactly 11 lines for the formatting to be correct.  It's also
+# customary to leave one space after the ':'.
+
+                |-----handy-ruler------------------------------------------------------|
+qmmp-plugin-pack: qmmp-plugin-pack (QMMP Additional Plugins)
+qmmp-plugin-pack:
+qmmp-plugin-pack: QMMP is a media player for the Linux desktop environment.
+qmmp-plugin-pack:
+qmmp-plugin-pack: This package contains additional plugins for QMMP.
+qmmp-plugin-pack:
+qmmp-plugin-pack: URL: http://qmmp.ylsoftware.com/
+qmmp-plugin-pack:
+qmmp-plugin-pack:
+qmmp-plugin-pack:
+qmmp-plugin-pack: Packaged by: Widya Walesa

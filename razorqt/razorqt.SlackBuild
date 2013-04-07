@@ -1,8 +1,8 @@
 #!/bin/sh
 
-# Slackware build script for supertuxkart
+# Slackware build script for razorqt
 
-# Copyright 2013  Widya Walesa <walecha99@gmail.com>
+# Copyright 2011-2013  Widya Walesa <walecha99@gmail.com>
 # All rights reserved.
 #
 # Redistribution and use of this script, with or without modification, is
@@ -23,11 +23,11 @@
 # ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. FURTHERMORE I AM NOT LIABLE IF
 # YOUR DATA IS DESTROYED, YOUR HOUSE BURNS DOWN OR YOUR DOG RUNS OFF.
 
-PRGNAM=supertuxkart
-VERSION=0.8
-BUILD=2
-TAG="_wls"
-NUMJOBS="-j1"
+PRGNAM=razorqt
+VERSION=0.5.2
+BUILD=1
+TAG=${TAG:-_wls}
+NUMJOBS=${NUMJOBS:--j1}
 
 if [ -z "$ARCH" ]; then
   case "$( uname -m )" in
@@ -41,13 +41,13 @@ CWD=$(pwd)
 WRK=${WRK:-/tmp/wlsbuild}
 PKG=$WRK/package-$PRGNAM
 OUTPUT=${OUTPUT:-/tmp}
-DOCS="AUTHORS CHANGES COPYING ChangeLog INSTALL README SVN-CONFIG TODO"
+DOCS="README"
 
 if [ "$ARCH" = "i486" ]; then
   SLKCFLAGS="-O2 -pipe -march=i486 -mtune=i686 -pthread"
   LIBDIRSUFFIX=""
 elif [ "$ARCH" = "i686" ]; then
-  SLKCFLAGS="-O2 -pipe -march=i686 -mtune=i686 -pthread"
+  SLKCFLAGS="-O2 -pipe -march=i686 -mtune=i686 -fPIC -pthread"
   LIBDIRSUFFIX=""
 elif [ "$ARCH" = "x86_64" ]; then
   SLKCFLAGS="-O2 -pipe -m64 -fPIC -pthread"
@@ -62,9 +62,9 @@ set -e
 rm -rf $PKG
 mkdir -p $WRK $PKG $OUTPUT
 cd $WRK
-rm -rf SuperTuxKart-$VERSION
-tar xvf $CWD/$PRGNAM-$VERSION-src.tar.bz2
-cd SuperTuxKart-$VERSION
+rm -rf $PRGNAM-$VERSION
+tar xvf $CWD/$PRGNAM-$VERSION.tar.?z*
+cd $PRGNAM-$VERSION
 chown -R root:root .
 find . \
  \( -perm 777 -o -perm 775 -o -perm 711 -o -perm 555 -o -perm 511 \) \
@@ -72,45 +72,33 @@ find . \
  \( -perm 666 -o -perm 664 -o -perm 600 -o -perm 444 -o -perm 440 -o -perm 400 \) \
  -exec chmod 644 {} \;
 
-# The Makefile's don't respect directory variables given to configure.
-# Let's fix that with a few other additional cleanups.
-patch -p1 < $CWD/translations.patch
-sed -i 's|\/games|\/bin|g' data/${PRGNAM}_desktop.template
-for i in $(find . -name "Makefile.*"); do
-  sed -i \
-    -e "/^bindir/s|games|bin|g" \
-    -e "/^pkgdatadir/s|=.*\/po|= \@localedir\@|" \
-    -e 's|\/games\/|\/|g' $i
-done
-
-# Use internal irrlicht static library
-cd lib/irrlicht/source/Irrlicht
-NDEBUG=1 make
-cd ../../../../
-
 mkdir build
 cd build
-  cmake \
+  cmake .. \
     -DCMAKE_C_FLAGS="$SLKCFLAGS" \
     -DCMAKE_CXX_FLAGS="$SLKCFLAGS" \
-    -DCMAKE_SHARED_LINKER_FLAGS="-lpthread" \
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_PREFIX=/usr \
-    ..
+    -DLIB_SUFFIX=${LIBDIRSUFFIX} \
 
   make VERBOSE=1 $NUMJOBS
   make install DESTDIR=$PKG
-cd ..
+cd -
+
+mkdir -p $PKG/etc/razorqt/xdg
+mv $PKG/etc/xdg/menus $PKG/etc/razorqt/xdg/
+
+mkdir -p $PKG/etc/X11/xinit
+cat $CWD/xinitrc.razorqt > $PKG/etc/X11/xinit/xinitrc.razorqt
+chmod +x $PKG/etc/X11/xinit/xinitrc.razorqt
+
+mkdir -p $PKG/etc/profile.d
+cat $CWD/razorqt.sh > $PKG/etc/profile.d/razorqt.sh
+cat $CWD/razorqt.csh > $PKG/etc/profile.d/razorqt.csh
+chmod 755 $PKG/etc/profile.d/razorqt.*
 
 find $PKG | xargs file | grep -e "executable" -e "shared object" | grep ELF \
   | cut -f 1 -d : | xargs strip --strip-unneeded 2> /dev/null || true
-
-mkdir -p $PKG/usr/man/man6
-gzip -9c $CWD/$PRGNAM.6 > $PKG/usr/man/man6/$PRGNAM.6.gz
-
-# Remove directories/files.
-rm -rf $PKG/usr/share/doc
-rm -f $PKG/usr/share/locale/{*.po,*.pot}
 
 mkdir -p $PKG/usr/doc/$PRGNAM-$VERSION
 cp -a $DOCS $PKG/usr/doc/$PRGNAM-$VERSION
@@ -119,10 +107,9 @@ cat $CWD/$PRGNAM.SlackBuild > $PKG/usr/doc/$PRGNAM-$VERSION/$PRGNAM.SlackBuild
 mkdir -p $PKG/install
 cat $CWD/slack-desc > $PKG/install/slack-desc
 cat $CWD/slack-required > $PKG/install/slack-required
-cat $CWD/doinst.sh > $PKG/install/doinst.sh
 
 cd $PKG
-/sbin/makepkg -l y -c n $OUTPUT/$PRGNAM-$VERSION-$ARCH-$BUILD$TAG.${PKGTYPE:-txz}
+/sbin/makepkg -l y -c n $OUTPUT/$PRGNAM-$VERSION-$ARCH-$BUILD$TAG.txz
 
 echo "Cleaning up build directory"
-cd $WRK; rm -rf SuperTuxKart-$VERSION $PKG
+cd $WRK ; rm -rf $PKG $PRGNAM-$VERSION

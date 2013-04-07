@@ -24,9 +24,10 @@
 # YOUR DATA IS DESTROYED, YOUR HOUSE BURNS DOWN OR YOUR DOG RUNS OFF.
 
 PRGNAM=kipi-plugins
-VERSION=ac5cf40
+VERSION=3.1.0
 BUILD=1
 TAG=${TAG:-_wls}
+NUMJOBS=${NUMJOBS:--j1}
 
 if [ -z "$ARCH" ]; then
   case "$( uname -m )" in
@@ -43,16 +44,16 @@ OUTPUT=${OUTPUT:-/tmp}
 DOCS="AUTHORS ChangeLog COPY* HACKING INSTALL NEWS README TODO"
 
 if [ "$ARCH" = "i486" ]; then
-  SLKCFLAGS="-O2 -pipe -march=i486 -mtune=i686"
+  SLKCFLAGS="-O2 -pipe -march=i486 -mtune=i686 -pthread"
   LIBDIRSUFFIX=""
 elif [ "$ARCH" = "i686" ]; then
-  SLKCFLAGS="-O2 -pipe -march=i686 -mtune=i686"
+  SLKCFLAGS="-O2 -pipe -march=i686 -mtune=i686 -pthread"
   LIBDIRSUFFIX=""
 elif [ "$ARCH" = "x86_64" ]; then
-  SLKCFLAGS="-O2 -m64 -pipe -fPIC"
+  SLKCFLAGS="-O2 -pipe -m64 -fPIC -pthread"
   LIBDIRSUFFIX="64"
 else
-  SLKCFLAGS="-O2"
+  SLKCFLAGS="-O2 -pthread"
   LIBDIRSUFFIX=""
 fi
 
@@ -61,9 +62,11 @@ set -e
 rm -rf $PKG
 mkdir -p $WRK $PKG $OUTPUT
 cd $WRK
-rm -rf $PRGNAM
-tar xvf $CWD/$PRGNAM-$VERSION.tar.?z*
-cd $PRGNAM
+rm -rf digikam-$VERSION
+tar xvf $CWD/digikam-$VERSION.tar.?z*
+cd digikam-$VERSION/extra/$PRGNAM
+
+cat $CWD/$PRGNAM-3.0.0-options.patch | patch -p3
 
 chown -R root:root .
 find . \
@@ -71,6 +74,19 @@ find . \
  -exec chmod 755 {} \; -o \
  \( -perm 666 -o -perm 664 -o -perm 600 -o -perm 444 -o -perm 440 -o -perm 400 \) \
  -exec chmod 644 {} \;
+
+# prepare the handbook
+mv "../../doc/$PRGNAM" "doc" || exit 1
+if use handbook; then
+    echo "add_subdirectory( doc )" >> CMakeLists.txt
+fi
+
+# prepare the translations
+mv "../../po" po || exit 1
+find po -name "*.po" -and -not -name "kipiplugin*.po" -exec rm {} +
+echo "find_package(Msgfmt REQUIRED)" >> CMakeLists.txt || die
+echo "find_package(Gettext REQUIRED)" >> CMakeLists.txt || die
+echo "add_subdirectory( po )" >> CMakeLists.txt
 
 # NOTE: if cmake complains that it can not find qscript-qt when in fact you
 # have it installed, this is likely because you are building inside a chroot.
@@ -81,10 +97,11 @@ export QTSCRIPTS=/usr/lib${LIBDIRSUFFIX}/qt/plugins/script
 
 mkdir -p build
 cd build
-  LDFLAGS=" -L/usr/lib${LIBDIRSUFFIX}" \
+  LDFLAGS=" -L/usr/lib${LIBDIRSUFFIX} " \
   cmake \
   -DCMAKE_C_FLAGS="$SLKCFLAGS" \
   -DCMAKE_CXX_FLAGS="$SLKCFLAGS" \
+  -DCMAKE_SHARED_LINKER_FLAGS=" -lpthread " \
   -DCMAKE_BUILD_TYPE="Release" \
   -DCMAKE_INSTALL_PREFIX=/usr \
   -DINSTALL_MAN_DIR=man \
@@ -94,7 +111,7 @@ cd build
   -DLIB_INSTALL_DIR=/usr/lib$LIBDIRSUFFIX \
   ..
 
-  make
+  make VERBOSE=1 $NUMJOBS
   make DESTDIR=$PKG install
 cd -
 
@@ -112,4 +129,4 @@ cd $PKG
 /sbin/makepkg -l y -c n $OUTPUT/$PRGNAM-$VERSION-$ARCH-$BUILD$TAG.txz
 
 echo "Cleaning up build directory"
-cd $WRK; rm -rf $PRGNAM $PKG
+cd $WRK; rm -rf digikam-$VERSION $PKG

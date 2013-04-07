@@ -27,7 +27,7 @@ PRGNAM=hotot
 VERSION=0.9.8.10
 BUILD=1
 TAG=${TAG:-_wls}
-NUMJOBS=${NUMJOBS:--j4}
+NUMJOBS=${NUMJOBS:--j1}
 
 if [ -z "$ARCH" ]; then
   case "$( uname -m )" in
@@ -44,16 +44,16 @@ OUTPUT=${OUTPUT:-/tmp}
 DOCS="ChangeLog LGPL-license.txt README.md SPONSERS TranslationStatus"
 
 if [ "$ARCH" = "i486" ]; then
-  SLKCFLAGS="-O2 -pipe -march=i486 -mtune=i686"
+  SLKCFLAGS="-O2 -pipe -march=i486 -mtune=i686 -pthread"
   LIBDIRSUFFIX=""
 elif [ "$ARCH" = "i686" ]; then
-  SLKCFLAGS="-O2 -pipe -march=i686 -mtune=i686 -fPIC"
+  SLKCFLAGS="-O2 -pipe -march=i686 -mtune=i686 -fPIC -pthread"
   LIBDIRSUFFIX=""
 elif [ "$ARCH" = "x86_64" ]; then
-  SLKCFLAGS="-O2 -pipe -m64 -fPIC"
+  SLKCFLAGS="-O2 -pipe -m64 -fPIC -pthread"
   LIBDIRSUFFIX="64"
 else
-  SLKCFLAGS="-O2"
+  SLKCFLAGS="-O2 -pthread"
   LIBDIRSUFFIX=""
 fi
 
@@ -78,12 +78,13 @@ cd build
   cmake .. \
     -DCMAKE_C_FLAGS="$SLKCFLAGS" \
     -DCMAKE_CXX_FLAGS="$SLKCFLAGS" \
+    -DCMAKE_SHARED_LINKER_FLAGS="-lpthread" \
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DWITH_GIR=OFF \
     -DWITH_QT=ON \
 
-  make
+  make VERBOSE=1 $NUMJOBS
   make install DESTDIR=$PKG
 cd -
 

@@ -1,4 +1,4 @@
 URL=http://www.digikam.org/
-SRC=http://quickgit.kde.org/?p=kipi-plugins.git&a=snapshot&h=ac5cf40cfd58ac63d72458ae3126fdc633787829
-MD5=b45be9e3a5a2362c2d680727820597fa
-SHA1=b12ca9bd80ece6e78e30abd81a4162fa9463421e
+SRC=http://download.kde.org/stable/digikam/digikam-3.1.0.tar.bz2
+MD5=b51de5ae2fc0a4b0aa97b1c43d83ee30
+SHA1=f4ce304acdf10e859ab8f70ce9d53a05d92d4fbd

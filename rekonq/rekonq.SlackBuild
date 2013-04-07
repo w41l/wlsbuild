@@ -25,7 +25,7 @@
 
 PRGNAM=rekonq
 VERSION=$(ls $PRGNAM-*.tar.?z* | rev | cut -d - -f 1 | cut -d . -f 3- | rev)
-BUILD=1
+BUILD=2
 TAG=${TAG:-_wls}
 NUMJOBS=${NUMJOBS:--j1}
 
@@ -75,8 +75,9 @@ find . \
 mkdir build
 cd build
   cmake .. \
-    -DCMAKE_C_FLAGS="$SLKCFLAGS" \
-    -DCMAKE_CXX_FLAGS="$SLKCFLAGS" \
+    -DCMAKE_C_FLAGS="$SLKCFLAGS -pthread" \
+    -DCMAKE_CXX_FLAGS="$SLKCFLAGS -pthread" \
+    -DCMAKE_SHARED_LINKER_FLAGS="-lpthread" \
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_PREFIX=$(kde4-config --prefix) \
     -DLIB_SUFFIX=${LIBDIRSUFFIX} \
@@ -84,7 +85,7 @@ cd build
     -DMAN_INSTALL_DIR=/usr/man \
     -DSYSCONF_INSTALL_DIR=/etc \
 
-  make $NUMJOBS
+  make VERBOSE=1 $NUMJOBS
   make install DESTDIR=$PKG
 cd -
 

@@ -1,8 +1,8 @@
 #!/bin/sh
 
-# Slackware build script for razorqt
+# Slackware build script for qmmp-plugin-pack
 
-# Copyright 2011-2013  Widya Walesa <walecha99@gmail.com>
+# Copyright 2010-2013  Widya Walesa <walecha99@gmail.com>
 # All rights reserved.
 #
 # Redistribution and use of this script, with or without modification, is
@@ -23,8 +23,8 @@
 # ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. FURTHERMORE I AM NOT LIABLE IF
 # YOUR DATA IS DESTROYED, YOUR HOUSE BURNS DOWN OR YOUR DOG RUNS OFF.
 
-PRGNAM=razorqt
-VERSION=0.5.2
+PRGNAM=qmmp-plugin-pack
+VERSION=$(ls $PRGNAM-*.tar.?z* | rev | cut -d - -f 1 | cut -d . -f 3- | rev)
 BUILD=1
 TAG=${TAG:-_wls}
 NUMJOBS=${NUMJOBS:--j1}
@@ -41,16 +41,16 @@ CWD=$(pwd)
 WRK=${WRK:-/tmp/wlsbuild}
 PKG=$WRK/package-$PRGNAM
 OUTPUT=${OUTPUT:-/tmp}
-DOCS="README"
+DOCS="AUTHORS COPYING ChangeLog* README* TODO"
 
 if [ "$ARCH" = "i486" ]; then
   SLKCFLAGS="-O2 -pipe -march=i486 -mtune=i686"
   LIBDIRSUFFIX=""
 elif [ "$ARCH" = "i686" ]; then
-  SLKCFLAGS="-O2 -pipe -march=i686 -mtune=i686 -fPIC"
+  SLKCFLAGS="-O2 -pipe -march=i686 -mtune=i686"
   LIBDIRSUFFIX=""
 elif [ "$ARCH" = "x86_64" ]; then
-  SLKCFLAGS="-O2 -pipe -m64 -fPIC"
+  SLKCFLAGS="-O2 -m64 -pipe -fPIC"
   LIBDIRSUFFIX="64"
 else
   SLKCFLAGS="-O2"
@@ -65,7 +65,6 @@ cd $WRK
 rm -rf $PRGNAM-$VERSION
 tar xvf $CWD/$PRGNAM-$VERSION.tar.?z*
 cd $PRGNAM-$VERSION
-
 chown -R root:root .
 find . \
  \( -perm 777 -o -perm 775 -o -perm 711 -o -perm 555 -o -perm 511 \) \
@@ -73,30 +72,18 @@ find . \
  \( -perm 666 -o -perm 664 -o -perm 600 -o -perm 444 -o -perm 440 -o -perm 400 \) \
  -exec chmod 644 {} \;
 
-mkdir build
+mkdir -p build
 cd build
-  cmake .. \
-    -DCMAKE_C_FLAGS="$SLKCFLAGS" \
-    -DCMAKE_CXX_FLAGS="$SLKCFLAGS" \
-    -DCMAKE_BUILD_TYPE=Release \
-    -DCMAKE_INSTALL_PREFIX=/usr \
-    -DLIB_SUFFIX=${LIBDIRSUFFIX} \
+cmake .. \
+  -DCMAKE_C_FLAGS:STRING="${SLKCFLAGS}" \
+  -DCMAKE_CXX_FLAGS:STRING="${SLKCFLAGS}" \
+  -DCMAKE_BUILD_TYPE=RELEASE \
+  -DCMAKE_INSTALL_PREFIX=/usr \
+  -DLIB_SUFFIX=${LIBDIRSUFFIX} \
 
-  make $NUMJOBS
-  make install DESTDIR=$PKG
-cd -
-
-mkdir -p $PKG/etc/razorqt/xdg
-mv $PKG/etc/xdg/menus $PKG/etc/razorqt/xdg/
-
-mkdir -p $PKG/etc/X11/xinit
-cat $CWD/xinitrc.razorqt > $PKG/etc/X11/xinit/xinitrc.razorqt
-chmod +x $PKG/etc/X11/xinit/xinitrc.razorqt
-
-mkdir -p $PKG/etc/profile.d
-cat $CWD/razorqt.sh > $PKG/etc/profile.d/razorqt.sh
-cat $CWD/razorqt.csh > $PKG/etc/profile.d/razorqt.csh
-chmod 755 $PKG/etc/profile.d/razorqt.*
+make $NUMJOBS
+make install DESTDIR=$PKG
+cd ..
 
 find $PKG | xargs file | grep -e "executable" -e "shared object" | grep ELF \
   | cut -f 1 -d : | xargs strip --strip-unneeded 2> /dev/null || true
@@ -113,4 +100,4 @@ cd $PKG
 /sbin/makepkg -l y -c n $OUTPUT/$PRGNAM-$VERSION-$ARCH-$BUILD$TAG.txz
 
 echo "Cleaning up build directory"
-cd $WRK ; rm -rf $PKG $PRGNAM-$VERSION
+cd $WRK ; rm -rf $PRGNAM-$VERSION $PKG

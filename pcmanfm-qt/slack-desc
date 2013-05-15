@@ -1,0 +1,19 @@
+# HOW TO EDIT THIS FILE:
+# The "handy ruler" below makes it easier to edit a package description.  Line
+# up the first '|' above the ':' following the base package name, and the '|'
+# on the right side marks the last column you can put a character in.  You must
+# make exactly 11 lines for the formatting to be correct.  It's also
+# customary to leave one space after the ':'.
+
+          |-----handy-ruler----------------------------------------------------|
+pcmanfm-qt: pcmanfm-qt (LXDE File Manager Using Qt)
+pcmanfm-qt:
+pcmanfm-qt: Fast and lightweight file manager with features like Drag & Drop
+pcmanfm-qt: support, tabbed browsing (Similiar to Firefox), Built-in file
+pcmanfm-qt: searching utility, fast load of large directories, File association
+pcmanfm-qt: support (Default application), Thumbnail for image files, Bookmarks
+pcmanfm-qt: support, correct handling of non-UTF-8 encoded filenames and more.
+pcmanfm-qt:
+pcmanfm-qt: This one is using Qt instead of GTK.
+pcmanfm-qt:
+pcmanfm-qt: Packaged by: Widya Walesa <walecha99@gmail.com>

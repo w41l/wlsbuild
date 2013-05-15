@@ -1,0 +1,19 @@
+# HOW TO EDIT THIS FILE:
+# The "handy ruler" below makes it easier to edit a package description.  Line
+# up the first '|' above the ':' following the base package name, and the '|'
+# on the right side marks the last column you can put a character in.  You must
+# make exactly 11 lines for the formatting to be correct.  It's also
+# customary to leave one space after the ':'.
+
+              |-----handy-ruler----------------------------------------------------|
+py-mysql2pgsql: py-mysql2pgsql (MySQL To PostgreSQL Python Converter)
+py-mysql2pgsql:
+py-mysql2pgsql: This tool allows you to take data from an MySQL server (only tested
+py-mysql2pgsql: on 5.x) and write a PostgresSQL compatable (8.2 or higher) dump
+py-mysql2pgsql: file or pipe it directly into your running PostgreSQL server
+py-mysql2pgsql: (8.2 or higher).
+py-mysql2pgsql:
+py-mysql2pgsql: URL: https://github.com/philipsoutham/py-mysql2pgsql
+py-mysql2pgsql:
+py-mysql2pgsql:
+py-mysql2pgsql:

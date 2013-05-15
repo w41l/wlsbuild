@@ -24,10 +24,10 @@
 # YOUR DATA IS DESTROYED, YOUR HOUSE BURNS DOWN OR YOUR DOG RUNS OFF.
 
 PRGNAM=ocsync
-VERSION=0.70.4
+VERSION=0.70.7
 BUILD=1
 TAG=${TAG:-_wls}
-NUMJOBS=${NUMJOBS:--j4}
+NUMJOBS=${NUMJOBS:--j1}
 
 if [ -z "$ARCH" ]; then
   case "$( uname -m )" in
@@ -82,7 +82,7 @@ cd build
     -DSYSCONF_INSTALL_DIR=/etc \
     -DMAN_INSTALL_DIR=/usr/man \
 
-  make
+  make VERBOSE=1 $NUMJOBS
   make install DESTDIR=$PKG
 cd -
 

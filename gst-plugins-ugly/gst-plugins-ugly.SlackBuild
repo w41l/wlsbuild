@@ -2,7 +2,7 @@
 
 # Slackware build script for gst-plugins-ugly
 
-# Copyright 2010-2012  Widya Walesa <walecha99@gmail.com>
+# Copyright 2010-2013  Widya Walesa <walecha99@gmail.com>
 # All rights reserved.
 #
 # Redistribution and use of this script, with or without modification, is
@@ -25,9 +25,9 @@
 
 PRGNAM=gst-plugins-ugly
 VERSION=0.10.19
-BUILD=1
+BUILD=2
 TAG=${TAG:-_wls}
-NUMJOBS=${NUMJOBS:--j4}
+NUMJOBS=${NUMJOBS:--j1}
 
 if [ -z "$ARCH" ]; then
   case "$( uname -m )" in
@@ -90,12 +90,10 @@ CXXFLAGS="$SLKCFLAGS" \
   --disable-gtk-doc \
   --disable-debug \
 
-make
+make V=1 $NUMJOBS
 
 AMRNB_CFLAGS="-I/usr/include/opencore-amrnb" \
 AMRWB_CFLAGS="-I/usr/include/opencore-amrwb" \
-CFLAGS="$SLKCFLAGS" \
-CXXFLAGS="$SLKCFLAGS" \
 make install DESTDIR=$PKG
 
 find $PKG | xargs file | grep -e "executable" -e "shared object" | grep ELF \

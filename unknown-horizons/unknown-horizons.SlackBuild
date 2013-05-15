@@ -24,7 +24,7 @@
 # YOUR DATA IS DESTROYED, YOUR HOUSE BURNS DOWN OR YOUR DOG RUNS OFF.
 
 PRGNAM=unknown-horizons
-VERSION=2013.1b
+VERSION=2013.2
 BUILD=1
 TAG=${TAG:-_wls}
 DOCS="README doc/*"
@@ -65,7 +65,6 @@ mkdir -p $WRK $PKG $OUTPUT
 cd $WRK
 rm -rf $PRGNAM
 tar xvf $CWD/$PRGNAM-$VERSION.tar.?z*
-
 cd $PRGNAM
 chown -R root:root .
 find . \

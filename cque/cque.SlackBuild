@@ -2,7 +2,7 @@
 
 # Slackware build script for cque
 
-# Copyright 2011  Widya Walesa <walecha99@gmail.com>
+# Copyright 2011-2013  Widya Walesa <walecha99@gmail.com>
 # All rights reserved.
 #
 # Redistribution and use of this script, with or without modification, is
@@ -24,9 +24,9 @@
 # YOUR DATA IS DESTROYED, YOUR HOUSE BURNS DOWN OR YOUR DOG RUNS OFF.
 
 PRGNAM=cque
-VERSION=${VERSION:-2.0.2}
-SRCVERSION=${SRCVERSION:-2.0-2}
-BUILD=${BUILD:-1}
+VERSION=2.0.2
+SRCVERSION=2.0-2
+BUILD=2
 TAG=${TAG:-_wls}
 NUMJOBS=${NUMJOBS:--j4}
 
@@ -45,19 +45,19 @@ OUTPUT=${OUTPUT:-/tmp}
 DOCS="AUTHORS ChangeLog COPY* INSTALL NEWS README TODO"
 
 if [ "$ARCH" = "i486" ]; then
-  SLKCFLAGS="-O2 -pipe -march=i486 -mtune=i686"
+  SLKCFLAGS="-O2 -pipe -march=i486 -mtune=i686 -pthread"
   LIBDIRSUFFIX=""
   PKGARCH=""
 elif [ "$ARCH" = "i686" ]; then
-  SLKCFLAGS="-O2 -pipe -march=i686 -mtune=i686"
+  SLKCFLAGS="-O2 -pipe -march=i686 -mtune=i686 -pthread"
   LIBDIRSUFFIX=""
   PKGARCH=""
 elif [ "$ARCH" = "x86_64" ]; then
-  SLKCFLAGS="-O2 -m64 -pipe -fPIC"
+  SLKCFLAGS="-O2 -m64 -pipe -fPIC -pthread"
   LIBDIRSUFFIX="64"
   PKGARCH=".${ARCH}"
 else
-  SLKCFLAGS="-O2"
+  SLKCFLAGS="-O2 -pthread"
   LIBDIRSUFFIX=""
 fi
 
@@ -79,6 +79,7 @@ mkdir -p opt/cel/bin
 for EXE in CQue.exe MAKEXPP setup sicgsfilter sicnc; do
   mv $PRGNAM-en-$SRCVERSION/$EXE opt/cel/bin;
   chmod 755 opt/cel/bin/*;
+  mkdir -p $PKG/usr/bin;
 done
 
 mkdir -p opt/cel/etc
@@ -113,4 +114,4 @@ cd $PKG
 /sbin/makepkg -l y -c n $OUTPUT/$PRGNAM-$VERSION-$ARCH-$BUILD$TAG.txz
 
 echo "Cleaning up build directory"
-cd $CWD; rm -rf $PKG
+cd $WRK; rm -rf $PKG

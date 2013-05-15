@@ -2,7 +2,7 @@
 
 # Slackware build script for sylpheed
 
-# Copyright 2012  Widya Walesa <walecha99@gmail.com>
+# Copyright 2012-2013  Widya Walesa <walecha99@gmail.com>
 # All rights reserved.
 #
 # Redistribution and use of this script, with or without modification, is
@@ -27,7 +27,7 @@ PRGNAM=sylpheed
 VERSION=3.3.0
 BUILD=1
 TAG=${TAG:-_wls}
-NUMJOBS=${NUMJOBS:--j4}
+NUMJOBS=${NUMJOBS:--j1}
 
 if [ -z "$ARCH" ]; then
   case "$( uname -m )" in
@@ -88,7 +88,7 @@ CXXFLAGS="$SLKCFLAGS" \
   --enable-ldap \
   --disable-updatecheck \
 
-make
+make V=1 $NUMJOBS
 make install DESTDIR=$PKG
 
 find $PKG | xargs file | grep -e "executable" -e "shared object" | grep ELF \

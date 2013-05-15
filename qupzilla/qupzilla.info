@@ -1,4 +1,4 @@
-URL=http://www.qupzilla.com/
-SRC=https://github.com/QupZilla/qupzilla/archive/v1.4.1.tar.gz
-MD5=d1957759a25ddecf83f27cf21fb772cb
-SHA1=b8f1125b907cef616bb77567cd82119810d924ac
+URL=http://www.qupzilla.org/
+SRC=https://codeload.github.com/QupZilla/qupzilla/tar.gz/v1.4.2
+MD5=aadeca644a22c2df0da3e6172f327434
+SHA1=c81b1f02bfae8af05eb5e0ec3c997ec20bc888c6

@@ -2,7 +2,7 @@
 
 # Slackware build script for pyargparse
 
-# Copyright 2011  Widya Walesa <walecha99@gmail.com>
+# Copyright 2011-2013  Widya Walesa <walecha99@gmail.com>
 # All rights reserved.
 #
 # Redistribution and use of this script, with or without modification, is
@@ -25,9 +25,9 @@
 
 PRGNAM=pyargparse
 VERSION=1.2.1
-BUILD=1
+BUILD=2
 TAG=${TAG:-_wls}
-NUMJOBS=${NUMJOBS:--j3}
+NUMJOBS=${NUMJOBS:--j1}
 
 if [ -z "$ARCH" ]; then
   case "$( uname -m )" in
@@ -65,7 +65,6 @@ cd $WRK
 rm -rf argparse-$VERSION
 tar xvf $CWD/argparse-$VERSION.tar.gz
 cd argparse-$VERSION
-
 chown -R root:root .
 find . \
  \( -perm 777 -o -perm 775 -o -perm 711 -o -perm 555 -o -perm 511 \) \

@@ -25,7 +25,7 @@
 
 PRGNAM=opencv
 VERSION=2.4.3
-BUILD=2
+BUILD=3
 TAG=${TAG:-_wls}
 NUMJOBS=${NUMJOBS:--j1}
 
@@ -95,7 +95,7 @@ if [ "$ARCH" = "x86_64" ]; then
     mv $PKG/usr/lib/* $PKG/usr/lib64/
     rm -r $PKG/usr/lib
     sed -i 's,libdir=${exec_prefix}/lib,libdir=${exec_prefix}/lib64,g' \
-	$PKG/usr/lib64/pkgconfig/opencv.pc
+        $PKG/usr/lib64/pkgconfig/opencv.pc
 fi
 
 find $PKG | xargs file | grep -e "executable" -e "shared object" | grep ELF \

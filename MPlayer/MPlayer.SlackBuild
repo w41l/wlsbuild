@@ -2,7 +2,7 @@
 
 # Slackware build script for MPlayer
 
-# Copyright 2010-2012  Widya Walesa <walecha99@gmail.com>
+# Copyright 2010-2013  Widya Walesa <walecha99@gmail.com>
 # All rights reserved.
 #
 # Redistribution and use of this script, with or without modification, is
@@ -24,11 +24,15 @@
 # YOUR DATA IS DESTROYED, YOUR HOUSE BURNS DOWN OR YOUR DOG RUNS OFF.
 
 PRGNAM=MPlayer
-VERSION=1.1
-FFVERSION=b06903e
+VERSION=1.1.1
+FFVERSION=aba32d84630cb17b68fd41d465d17580465f1d9e
 BUILD=1
 TAG=${TAG:-_wls}
 NUMJOBS=${NUMJOBS:--j4}
+
+# Use enternal or external FFMPEG (default).
+#FFMPEG_EXTERNAL=""
+FFMPEG_EXTERNAL="--disable-ffmpeg_a"
 
 # Mencoder build. Default is enable. I'm disabling it because I don't
 # need another audio-video encoder other than FFMPEG
@@ -81,6 +85,7 @@ fi
 if [ ! -d ffmpeg ]; then
   rm -rf ffmpeg
   tar xvf $CWD/ffmpeg-$FFVERSION.tar.?z*
+  mv ffmpeg-$FFVERSION ffmpeg
 fi
 
 chown -R root:root .
@@ -89,6 +94,8 @@ find . \
  -exec chmod 755 {} \; -o \
  \( -perm 666 -o -perm 664 -o -perm 600 -o -perm 444 -o -perm 440 -o -perm 400 \) \
  -exec chmod 644 {} \;
+
+chmod +x configure
 
 echo "$VERSION" > VERSION
 CODECSDIR="/usr/lib${LIBDIRSUFFIX}/codecs"
@@ -106,17 +113,14 @@ LANGUAGES="en"
   --disable-gui \
   --disable-dvdread-internal \
   --disable-libdvdcss-internal \
-  --disable-mp3lib \
   --disable-pulse \
+  --disable-openal \
+  --disable-mp3lib \
   --enable-menu \
-  --enable-faac \
-  --enable-x264 \
-  --enable-openal \
-  --enable-libdca \
-  --enable-liba52 \
   --enable-dvdread \
   --enable-dvdnav \
   --enable-runtime-cpudetection \
+  $FFMPEG_EXTERNAL \
   $MENC \
 
 echo "$VERSION" > VERSION

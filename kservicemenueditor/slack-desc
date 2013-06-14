@@ -1,0 +1,19 @@
+# HOW TO EDIT THIS FILE:
+# The "handy ruler" below makes it easier to edit a package description.  Line
+# up the first '|' above the ':' following the base package name, and the '|'
+# on the right side marks the last column you can put a character in.  You must
+# make exactly 11 lines for the formatting to be correct.  It's also
+# customary to leave one space after the ':'.
+
+                  |-----handy-ruler-------------------------------------------------------|
+kservicemenueditor: kservicemenueditor
+kservicemenueditor:
+kservicemenueditor: KDE Service Menu Editor is a simple way of editing the right-click
+kservicemenueditor: menus that you see when using Dolphin. It has simple but flexible way
+kservicemenueditor: of selecting the "mime types" (type of file) that the menu should
+kservicemenueditor: appear on. Then adding the menu is as simple as typing a name and
+kservicemenueditor: the command
+kservicemenueditor:
+kservicemenueditor: URL: http://www.sharpley.org.uk/node/3
+kservicemenueditor:
+kservicemenueditor: Packaged by Widya Walesa <walecha99@gmail.com>

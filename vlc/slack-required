@@ -13,6 +13,7 @@ libgsm
 libkate
 libmodplug
 libmpeg2
+libupnp
 libva
 lua
 opencore-amr

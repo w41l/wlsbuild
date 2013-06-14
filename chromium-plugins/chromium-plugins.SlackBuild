@@ -86,8 +86,23 @@ mkdir -p $PKG/usr/lib${LIBDIRSUFFIX}/chromium/PepperFlash
 install -m644 opt/google/chrome/PepperFlash/* "$PKG/usr/lib${LIBDIRSUFFIX}/chromium/PepperFlash"
 install -m644 opt/google/chrome/libpdf.so "$PKG/usr/lib${LIBDIRSUFFIX}/chromium"
 
+# Flash version
+PEPPER_FLASH_VERSION=$(grep \"version\" usr/lib${LIBDIRSUFFIX}/chromium/PepperFlash/manifest.json | tr -d '[:blank:]",' | cut -d : -f 2)
+
 # Remove unneeded files and directories
-rm -rf etc opt usr/bin usr/share
+rm -rf etc/* opt usr/bin usr/share
+mkdir -p etc/chromium
+cat $CWD/chromium.default > etc/chromium/default.new
+sed -e "s|@LIBDIR@|lib${LIBDIRSUFFIX}|g" \
+    -e "s|@PEPPER_FLASH_VERSION@|${PEPPER_FLASH_VERSION}|g" \
+    -i etc/chromium/default.new
+
+cat $CWD/chromium.sh > usr/lib${LIBDIRSUFFIX}/chromium/chromium.sh
+sed -e "s|@LIBDIR@|lib${LIBDIRSUFFIX}|g" \
+    -i usr/lib${LIBDIRSUFFIX}/chromium/chromium.sh
+chmod +x usr/lib${LIBDIRSUFFIX}/chromium/chromium.sh
+mkdir -p usr/bin
+ln -sf /usr/lib${LIBDIRSUFFIX}/chromium/chromium.sh usr/bin/chromium
 
 mkdir -p $PKG/install
 cat $CWD/slack-desc > $PKG/install/slack-desc

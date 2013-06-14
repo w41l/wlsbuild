@@ -24,7 +24,7 @@
 # YOUR DATA IS DESTROYED, YOUR HOUSE BURNS DOWN OR YOUR DOG RUNS OFF.
 
 PRGNAM=ffmpeg
-VERSION=0.11.2
+VERSION=0.11.3
 BUILD=1
 TAG=${TAG:-_wls}
 NUMJOBS=${NUMJOBS:--j1}
@@ -111,12 +111,7 @@ echo "$VERSION" > VERSION
     --enable-libass \
     --enable-libfreetype \
     --enable-openssl \
-
-#    --enable-libdirac \
-#    --enable-libcaca \
-#    --enable-libbluray \
-#    --enable-fontconfig \
-#    --enable-libiec61883 \
+    --enable-fontconfig \
 
 echo "$VERSION" > VERSION
 make $NUMJOBS
@@ -132,8 +127,6 @@ for i in $( find $PKG/usr/man -type l ) ; do ln -s $( readlink $i ).gz $i.gz ; r
 
 mkdir -p $PKG/usr/doc/$PRGNAM-$VERSION
 cp -a $DOCS $PKG/usr/doc/$PRGNAM-$VERSION
-cp -a -r doc $PKG/usr/doc/$PRGNAM-$VERSION/
-rm $PKG/usr/doc/$PRGNAM-$VERSION/*.1
 cat $CWD/$PRGNAM.SlackBuild > $PKG/usr/doc/$PRGNAM-$VERSION/$PRGNAM.SlackBuild
 
 mkdir -p $PKG/install
@@ -145,4 +138,3 @@ cd $PKG
 
 echo "Cleaning up build directory"
 cd $WRK; rm -rf $PRGNAM-$VERSION $PKG
-

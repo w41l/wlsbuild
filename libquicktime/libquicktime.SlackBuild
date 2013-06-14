@@ -25,7 +25,7 @@
 
 PRGNAM=libquicktime
 VERSION=1.2.4
-BUILD=3
+BUILD=4
 TAG=${TAG:-_wls}
 NUMJOBS=${NUMJOBS:--j1}
 

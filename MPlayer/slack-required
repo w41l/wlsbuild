@@ -2,6 +2,7 @@ a52dec
 dirac
 faac
 faad2
+ffmpeg
 libass
 libbluray
 libdca

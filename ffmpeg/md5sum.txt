@@ -1,0 +1,4 @@
+dc36436c5a6771e15da86b5f91043091  ffmpeg-0.11.3.tar.bz2
+27ef77e09d57c7f6478a879368d2039f  ffmpeg-1.0.7.tar.bz2
+9b0293eeb2c16de238409ddfbf13957c  ffmpeg-1.1.5.tar.bz2
+5071a26cc149f380908ce79ec2a677ef  ffmpeg-1.2.1.tar.bz2

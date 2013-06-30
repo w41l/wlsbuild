@@ -1,4 +1,4 @@
 URL=https://github.com/json-c/json-c/wiki
-SRC=https://github.com/downloads/json-c/json-c/json-c-0.10.tar.gz
-MD5=a4edc79410eb894f08d7d52ca9f88732
-SHA1=f90f643c8455da21d57b3e8866868a944a93c596
+SRC=https://s3.amazonaws.com/json-c_releases/releases/json-c-0.11.tar.gz
+MD5=aa02367d2f7a830bf1e3376f77881e98
+SHA1=5d0377d2cc4a1af324d5aeb5b63032d1d026aacd

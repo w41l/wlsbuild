@@ -2,7 +2,7 @@
 
 # Slackware build script for qemu
 
-# Copyright 2011-2012  Widya Walesa <walecha99@gmail.com>
+# Copyright 2011-2013  Widya Walesa <walecha99@gmail.com>
 # All rights reserved.
 #
 # Redistribution and use of this script, with or without modification, is
@@ -24,7 +24,7 @@
 # YOUR DATA IS DESTROYED, YOUR HOUSE BURNS DOWN OR YOUR DOG RUNS OFF.
 
 PRGNAM=qemu
-VERSION=1.2.1
+VERSION=1.5.0
 BUILD=1
 TAG=${TAG:-_wls}
 NUMJOBS=${NUMJOBS:--j1}
@@ -42,7 +42,7 @@ CWD=$(pwd)
 WRK=${WRK:-/tmp/wlsbuild}
 PKG=$WRK/package-$PRGNAM
 OUTPUT=${OUTPUT:-/tmp}
-DOCS="CODING_STYLE COPYING COPYING.LIB Changelog HACKING LICENSE MAINTAINERS README TODO VERSION"
+DOCS="CODING_STYLE COPYING COPYING.LIB Changelog HACKING LICENSE MAINTAINERS QMP README VERSION"
 
 if [ "$ARCH" = "i486" ]; then
   SLKCFLAGS="-O2 -pipe -march=i486 -mtune=i686"
@@ -99,7 +99,7 @@ if [ -x /usr/bin/pulseaudio ]; then
     AUDIODRV="pa,alsa,oss,sdl,esd"
     echo "Audio driver: $AUDIODRV"
 else
-    AUDIODRV="alsa,oss,sdl,esd"
+    AUDIODRV="alsa,sdl"
     echo "Audio driver: $AUDIODRV"
 fi
 
@@ -136,7 +136,6 @@ CXXFLAGS="$SLKCFLAGS" \
   --docdir=/usr/doc/$PRGNAM-$VERSION \
   --enable-system \
   --audio-drv-list=$AUDIODRV \
-  --audio-card-list=ac97,es1370,sb16,cs4231a,adlib,gus,hda \
   --enable-mixemu \
   --enable-user \
   --enable-linux-aio \

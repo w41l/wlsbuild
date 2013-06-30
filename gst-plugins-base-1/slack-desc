@@ -1,0 +1,12 @@
+                  |-----handy-ruler------------------------------------------------------|
+gst-plugins-base-1: gst-plugins-base 1.0
+gst-plugins-base-1:
+gst-plugins-base-1: GStreamer Base Plug-ins is a well-groomed and well-maintained 
+gst-plugins-base-1: collection of GStreamer plug-ins and elements, spanning the 
+gst-plugins-base-1: range of possible types of elements one would want to write 
+gst-plugins-base-1: for GStreamer.  It also contains helper libraries and base 
+gst-plugins-base-1: classes useful for writing elements.  A wide range of video 
+gst-plugins-base-1: and audio decoders, encoders, and filters are included.
+gst-plugins-base-1:
+gst-plugins-base-1:
+gst-plugins-base-1: http://www.walecha.net/

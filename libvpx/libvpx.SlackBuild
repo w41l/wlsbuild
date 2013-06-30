@@ -2,7 +2,7 @@
 
 # Slackware build script for libvpx
 
-# Copyright 2010-2012  Widya Walesa <walecha99@gmail.com>
+# Copyright 2010-2013  Widya Walesa <walecha99@gmail.com>
 # All rights reserved.
 #
 # Redistribution and use of this script, with or without modification, is
@@ -25,9 +25,9 @@
 
 PRGNAM=libvpx
 VERSION=1.1.0
-BUILD=1
+BUILD=2
 TAG=${TAG:-_wls}
-NUMJOBS=${NUMJOBS:--j1}
+NUMJOBS=${NUMJOBS:--j2}
 
 if [ -z "$ARCH" ]; then
   case "$( uname -m )" in
@@ -63,9 +63,8 @@ rm -rf $PKG
 mkdir -p $WRK $PKG $OUTPUT
 cd $WRK
 rm -rf $PRGNAM-v$VERSION
-tar xvf $CWD/$PRGNAM-v$VERSION.tar.bz2
+tar xvf $CWD/$PRGNAM-v$VERSION.tar.?z*
 cd $PRGNAM-v$VERSION
-
 chown -R root:root .
 find . \
  \( -perm 777 -o -perm 775 -o -perm 711 -o -perm 555 -o -perm 511 \) \
@@ -78,24 +77,20 @@ CXXFLAGS="$SLKCFLAGS" \
 ./configure \
   --prefix=/usr \
   --libdir=/usr/lib$LIBDIRSUFFIX \
-  --disable-install-bins \
   --disable-install-srcs \
   --disable-debug-libs \
-  --disable-install-libs \
+  --disable-static \
   --enable-vp8 \
   --enable-runtime-cpu-detect \
   --enable-postproc \
   --enable-shared \
 
-make
+make V=1 $NUMJOBS
 make install DESTDIR=$PKG
 
 # The build system vor libvpx is not yet mature:
 mkdir -p ${PKG}/usr/include
 cp -a --parents vpx/*.h ${PKG}/usr/include/
-mkdir -p ${PKG}/usr/lib${LIBDIRSUFFIX}
-cp -a libvpx.a ${PKG}/usr/lib${LIBDIRSUFFIX}
-cp -a libvpx_g.a ${PKG}/usr/lib${LIBDIRSUFFIX}
 
 find $PKG | xargs file | grep -e "executable" -e "shared object" | grep ELF \
   | cut -f 1 -d : | xargs strip --strip-unneeded 2> /dev/null || true
@@ -109,7 +104,7 @@ mkdir -p $PKG/install
 cat $CWD/slack-desc > $PKG/install/slack-desc
 
 cd $PKG
-/sbin/makepkg -l y -c n $OUTPUT/$PRGNAM-$VERSION-$ARCH-$BUILD$TAG.txz
+/sbin/makepkg -p -l y -c n $OUTPUT/$PRGNAM-$VERSION-$ARCH-$BUILD$TAG.txz
 
 echo "Cleaning up build directory"
 cd $WRK; rm -rf $PRGNAM-v$VERSION $PKG

@@ -1,0 +1,12 @@
+       |-----handy-ruler------------------------------------------------------|
+libwebp: libwebp
+libwebp:
+libwebp: Full C-sources for building the WebP reference encoder and decoder.
+libwebp: Builds on unix systems using autoconf tools, or using the
+libwebp: makefile.unix file. Visual C++ is supported through an NMAKE file,
+libwebp: Makefile.vc, and Android via Android.mk.
+libwebp:
+libwebp: URL: https://code.google.com/p/webp/
+libwebp:
+libwebp:
+libwebp:

@@ -1,0 +1,20 @@
+# HOW TO EDIT THIS FILE:
+# The "handy ruler" below makes it easier to edit a package description.  Line
+# up the first '|' above the ':' following the base package name, and the '|'
+# on the right side marks the last column you can put a character in.  You must
+# make exactly 11 lines for the formatting to be correct.  It's also
+# customary to leave one space after the ':'.
+
+         |-----handy-ruler------------------------------------------------------|
+libunique: libunique (Single Instance Library)
+libunique:
+libunique: libunique is a library for writing single instance application. If
+libunique: you launch a single instance application twice, the second instance
+libunique: will either just quit or will send a message to the running instance.
+libunique: libunique makes it easy to write this kind of applications, by providing
+libunique: a base class, taking care of all the IPC machinery needed to send
+libunique: messages to a running instance, and also handling the startup
+libunique: notification side.
+libunique:
+libunique:
+libunique: Packaged by: Widya Walesa <walecha99@gmail.com>

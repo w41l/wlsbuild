@@ -1,4 +1,4 @@
 URL=http://telepathy.freedesktop.org/wiki/Components
-SRC=http://telepathy.freedesktop.org/releases/telepathy-gabble/telepathy-gabble-0.16.4.tar.gz
-MD5=dcaa7a18839ede7311d3d41837e7e64a
-SHA1=8dbe3ad29c6497a3acec48ba602d0153da1402cc
+SRC=http://telepathy.freedesktop.org/releases/telepathy-gabble/telepathy-gabble-0.17.5.tar.gz
+MD5=57d7778e58f82a43dba1311cece0d4e3
+SHA1=34c8f8aa8f10fd9ef36253ed9f0512224573eafd

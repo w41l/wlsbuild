@@ -59,6 +59,15 @@ fi
 
 set -e
 
+# Exit process if there is another usbmuxd installed
+EXISTS=$(pkg-config --exists libusbmuxd)
+if [ "${EXISTS}" = "" ]; then
+  echo "+===========================================================+"
+  echo "+ ERROR: Another $PRGNAM installed. Please remove it first! +"
+  echo "+===========================================================+"
+  exit 1
+fi
+
 # Setup user and group for nm-openconnect
 bailout() {
   printf "Please create user usbmux:
@@ -110,7 +119,7 @@ cat $CWD/slack-desc > $PKG/install/slack-desc
 cat $CWD/slack-required > $PKG/install/slack-required
 
 cd $PKG
-/sbin/makepkg -l y -c n $OUTPUT/$PRGNAM-$VERSION-$ARCH-$BUILD$TAG.txz
+/sbin/makepkg -p -l y -c n $OUTPUT/$PRGNAM-$VERSION-$ARCH-$BUILD$TAG.txz
 
 echo "Cleaning up build directory"
 cd $WRK; rm -rf $PRGNAM-$VERSION $PKG

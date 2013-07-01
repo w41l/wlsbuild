@@ -1,3 +1,5 @@
+
+
 schema_install() {
   SCHEMA="$1"
   GCONF_CONFIG_SOURCE="xml::etc/gconf/gconf.xml.defaults" \

@@ -75,7 +75,6 @@ find . \
 CFLAGS="$SLKCFLAGS" \
 CXXFLAGS="$SLKCFLAGS" \
 ./configure \
-  --build=$ARCH-slackware-linux --host=$ARCH-slackware-linux \
   --program-prefix= --program-suffix= \
   --prefix=/usr --exec-prefix=/usr \
   --bindir=/usr/bin --sbindir=/usr/sbin \
@@ -90,7 +89,7 @@ CXXFLAGS="$SLKCFLAGS" \
   --enable-orc \
   --disable-gst_v4l2 \
 
-make $NUMJOBS
+make V=1 $NUMJOBS
 make DESTDIR=$PKG install
 
 find $PKG | xargs file | grep -e "executable" -e "shared object" | grep ELF \
@@ -105,7 +104,7 @@ cat $CWD/slack-desc > $PKG/install/slack-desc
 cat $CWD/slack-required > $PKG/install/slack-required
 
 cd $PKG
-/sbin/makepkg -l y -c n $OUTPUT/$PRGNAM-$VERSION-$ARCH-$BUILD$TAG.txz
+/sbin/makepkg -p -l y -c n $OUTPUT/$PRGNAM-$VERSION-$ARCH-$BUILD$TAG.txz
 
 echo "Cleaning up build directory"
 cd $WRK; rm -rf $PRGNAM-$VERSION $PKG

@@ -27,7 +27,7 @@ PRGNAM=wxsvg
 VERSION=1.1.9
 BUILD=2
 TAG=${TAG:-_wls}
-NUMJOBS=${NUMJOBS:--j4}
+NUMJOBS=${NUMJOBS:--j1}
 
 if [ -z "$ARCH" ]; then
   case "$( uname -m )" in
@@ -76,7 +76,6 @@ find . \
 CFLAGS="$SLKCFLAGS" \
 CXXFLAGS="$SLKCFLAGS" \
 ./configure \
-  --build=$ARCH-slackware-linux --host=$ARCH-slackware-linux \
   --program-prefix= --program-suffix= \
   --prefix=/usr --exec-prefix=/usr \
   --bindir=/usr/bin --sbindir=/usr/sbin \
@@ -87,7 +86,7 @@ CXXFLAGS="$SLKCFLAGS" \
   --disable-static --enable-shared \
   --disable-debug
 
-make
+make V=1 $NUMJOBS
 make install DESTDIR=$PKG
 
 find $PKG | xargs file | grep -e "executable" -e "shared object" | grep ELF \

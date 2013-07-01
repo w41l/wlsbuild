@@ -27,7 +27,7 @@ PRGNAM=xvidcore
 VERSION=1.3.2
 BUILD=1
 TAG=${TAG:-_wls}
-NUMJOBS=${NUMJOBS:--j4}
+NUMJOBS=${NUMJOBS:--j1}
 
 if [ -z "$ARCH" ]; then
   case "$( uname -m )" in
@@ -65,7 +65,6 @@ cd $WRK
 rm -rf $PRGNAM
 tar xvf $CWD/$PRGNAM-$VERSION.tar.bz2
 cd $PRGNAM
-
 chown -R root:root .
 find . \
  \( -perm 777 -o -perm 775 -o -perm 711 -o -perm 555 -o -perm 511 \) \
@@ -78,7 +77,6 @@ cd build/generic
 CFLAGS="$SLKCFLAGS" \
 CXXFLAGS="$SLKCFLAGS" \
 ./configure \
-  --build=$ARCH-slackware-linux --host=$ARCH-slackware-linux \
   --program-prefix= --program-suffix= \
   --prefix=/usr --exec-prefix=/usr \
   --bindir=/usr/bin --sbindir=/usr/sbin \
@@ -87,7 +85,7 @@ CXXFLAGS="$SLKCFLAGS" \
   --sysconfdir=/etc \
   --localstatedir=/var --sharedstatedir=/var/lib
 
-make
+make V=1 $NUMJOBS
 make install DESTDIR=$PKG
 cd ../..
 
@@ -118,7 +116,7 @@ mkdir -p $PKG/install
 cat $CWD/slack-desc > $PKG/install/slack-desc
 
 cd $PKG
-/sbin/makepkg -l y -c n $OUTPUT/$PRGNAM-$VERSION-$ARCH-$BUILD$TAG.txz
+/sbin/makepkg -p -l y -c n $OUTPUT/$PRGNAM-$VERSION-$ARCH-$BUILD$TAG.txz
 
 echo "Cleaning up build directory"
 cd $WRK; rm -rf $PRGNAM $PKG

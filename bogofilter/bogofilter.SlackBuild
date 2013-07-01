@@ -27,7 +27,7 @@ PRGNAM=bogofilter
 VERSION=1.2.3
 BUILD=1
 TAG="_wls"
-NUMJOBS="-j3"
+NUMJOBS="-j2"
 
 if [ -z "$ARCH" ]; then
   case "$( uname -m )" in
@@ -75,7 +75,6 @@ find . \
 CFLAGS="$SLKCFLAGS" \
 CXXFLAGS="$SLKCFLAGS" \
 ./configure \
-  --build=$ARCH-slackware-linux --host=$ARCH-slackware-linux \
   --program-prefix= --program-suffix= \
   --prefix=/usr --exec-prefix=/usr \
   --bindir=/usr/bin --sbindir=/usr/sbin \
@@ -84,7 +83,7 @@ CXXFLAGS="$SLKCFLAGS" \
   --sysconfdir=/etc --docdir=/usr/doc/$PRGNAM-$VERSION \
   --localstatedir=/var --sharedstatedir=/var/lib
 
-make
+make V=1 $NUMJOBS
 make DESTDIR=$PKG install
 
 cp $PKG/etc/bogofilter.cf.example $PKG/etc/bogofilter.cf.new

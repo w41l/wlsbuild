@@ -2,7 +2,7 @@
 
 # Slackware build script for gwget
 
-# Copyright 2010  Widya Walesa <walecha99@gmail.com>
+# Copyright 2010-2013  Widya Walesa <walecha99@gmail.com>
 # All rights reserved.
 #
 # Redistribution and use of this script, with or without modification, is
@@ -27,7 +27,7 @@ PRGNAM=gwget
 VERSION=${VERSION:-1.0.4}
 BUILD=${BUILD:-2}
 TAG=${TAG:-_wls}
-NUMJOBS=${NUMJOBS:--j4}
+NUMJOBS=${NUMJOBS:--j2}
 
 if [ -z "$ARCH" ]; then
   case "$( uname -m )" in
@@ -38,8 +38,8 @@ if [ -z "$ARCH" ]; then
 fi
 
 CWD=$(pwd)
-TMP=${TMP:-/tmp/wls}
-PKG=$TMP/package-$PRGNAM
+WRK=${WRK:-/tmp/wlsbuild}
+PKG=$WRK/package-$PRGNAM
 OUTPUT=${OUTPUT:-/tmp}
 DOCS="AUTHORS ChangeLog COPY* NEWS README"
 
@@ -60,12 +60,11 @@ fi
 set -e
 
 rm -rf $PKG
-mkdir -p $TMP $PKG $OUTPUT
-cd $TMP
+mkdir -p $WRK $PKG $OUTPUT
+cd $WRK
 rm -rf $PRGNAM-$VERSION
 tar xvf $CWD/$PRGNAM-$VERSION.tar.bz2
 cd $PRGNAM-$VERSION
-
 chown -R root:root .
 find . \
  \( -perm 777 -o -perm 775 -o -perm 711 -o -perm 555 -o -perm 511 \) \
@@ -76,7 +75,6 @@ find . \
 CFLAGS="$SLKCFLAGS" \
 CXXFLAGS="$SLKCFLAGS" \
 ./configure \
-  --build=$ARCH-slackware-linux --host=$ARCH-slackware-linux \
   --program-prefix= --program-suffix= \
   --prefix=/usr --exec-prefix=/usr \
   --bindir=/usr/bin --sbindir=/usr/sbin \
@@ -87,9 +85,9 @@ CXXFLAGS="$SLKCFLAGS" \
   --disable-static --enable-shared \
   --disable-schemas-install \
   --disable-scrollkeeper \
-  --disable-gtk-doc
+  --disable-gtk-doc \
 
-make $NUMJOBS
+make V=1 $NUMJOBS
 make install DESTDIR=$PKG
 
 find $PKG | xargs file | grep -e "executable" -e "shared object" | grep ELF \
@@ -101,10 +99,10 @@ cat $CWD/$PRGNAM.SlackBuild > $PKG/usr/doc/$PRGNAM-$VERSION/$PRGNAM.SlackBuild
 
 mkdir -p $PKG/install
 cat $CWD/slack-desc > $PKG/install/slack-desc
-cat $CWD/doinst.sh >> $PKG/install/doinst.sh
+cat $CWD/doinst.sh > $PKG/install/doinst.sh
 
 cd $PKG
 /sbin/makepkg -l y -c n $OUTPUT/$PRGNAM-$VERSION-$ARCH-$BUILD$TAG.txz
 
 echo "Cleaning up build directory"
-cd $TMP; rm -rf $PRGNAM-$VERSION $PKG
+cd $WRK; rm -rf $PRGNAM-$VERSION $PKG

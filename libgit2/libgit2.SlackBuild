@@ -1,8 +1,8 @@
 #!/bin/sh
 
-# Slackware build script for rekonq
+# Slackware build script for libgit2
 
-# Copyright 2010-2013  Widya Walesa <walecha99@gmail.com>
+# Copyright 2013  Widya Walesa <walecha99@gmail.com>
 # All rights reserved.
 #
 # Redistribution and use of this script, with or without modification, is
@@ -23,11 +23,11 @@
 # ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. FURTHERMORE I AM NOT LIABLE IF
 # YOUR DATA IS DESTROYED, YOUR HOUSE BURNS DOWN OR YOUR DOG RUNS OFF.
 
-PRGNAM=rekonq
-VERSION=2.3.0
+PRGNAM=libgit2
+VERSION=0.19.0
 BUILD=1
 TAG=${TAG:-_wls}
-NUMJOBS=${NUMJOBS:--j1}
+NUMJOBS=${NUMJOBS:--j2}
 
 if [ -z "$ARCH" ]; then
   case "$( uname -m )" in
@@ -41,16 +41,16 @@ CWD=$(pwd)
 WRK=${WRK:-/tmp/wlsbuild}
 PKG=$WRK/package-$PRGNAM
 OUTPUT=${OUTPUT:-/tmp}
-DOCS="AUTHORS ChangeLog COPY* INSTALL TODO"
+DOCS="docs/* AUTHORS CONTRIBUTING.md CONVENTIONS.md COPYING README.md"
 
 if [ "$ARCH" = "i486" ]; then
   SLKCFLAGS="-O2 -pipe -march=i486 -mtune=i686"
   LIBDIRSUFFIX=""
 elif [ "$ARCH" = "i686" ]; then
-  SLKCFLAGS="-O2 -pipe -march=i686 -mtune=i686 -fPIC"
+  SLKCFLAGS="-O2 -pipe -march=i686 -mtune=i686"
   LIBDIRSUFFIX=""
 elif [ "$ARCH" = "x86_64" ]; then
-  SLKCFLAGS="-O2 -pipe -m64 -fPIC"
+  SLKCFLAGS="-O2 -m64 -pipe -fPIC"
   LIBDIRSUFFIX="64"
 else
   SLKCFLAGS="-O2"
@@ -75,22 +75,14 @@ find . \
 mkdir build
 cd build
   cmake .. \
-    -DCMAKE_C_FLAGS="$SLKCFLAGS -pthread" \
-    -DCMAKE_CXX_FLAGS="$SLKCFLAGS -pthread" \
-    -DCMAKE_SHARED_LINKER_FLAGS="-lpthread" \
+    -DCMAKE_C_FLAGS="$SLKCFLAGS" \
     -DCMAKE_BUILD_TYPE=Release \
-    -DCMAKE_INSTALL_PREFIX=$(kde4-config --prefix) \
-    -DLIB_SUFFIX=${LIBDIRSUFFIX} \
+    -DCMAKE_INSTALL_PREFIX=/usr \
     -DLIB_INSTALL_DIR=/usr/lib$LIBDIRSUFFIX \
-    -DMAN_INSTALL_DIR=/usr/man \
-    -DSYSCONF_INSTALL_DIR=/etc \
 
   make VERBOSE=1 $NUMJOBS
   make install DESTDIR=$PKG
 cd -
-
-# No /usr/share/doc
-mv $PKG/usr/share/doc $PKG/usr/
 
 find $PKG | xargs file | grep -e "executable" -e "shared object" | grep ELF \
   | cut -f 1 -d : | xargs strip --strip-unneeded 2> /dev/null || true
@@ -100,11 +92,10 @@ cp -a $DOCS $PKG/usr/doc/$PRGNAM-$VERSION
 cat $CWD/$PRGNAM.SlackBuild > $PKG/usr/doc/$PRGNAM-$VERSION/$PRGNAM.SlackBuild
 
 mkdir -p $PKG/install
-cat $CWD/doinst.sh > $PKG/install/doinst.sh
 cat $CWD/slack-desc > $PKG/install/slack-desc
 
 cd $PKG
 /sbin/makepkg -p -l y -c n $OUTPUT/$PRGNAM-$VERSION-$ARCH-$BUILD$TAG.txz
 
 echo "Cleaning up build directory"
-cd $WRK ; rm -rf $PKG $PRGNAM-$VERSION
+cd $WRK; rm -rf $PRGNAM-$VERSION $PKG

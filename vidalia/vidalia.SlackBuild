@@ -27,7 +27,7 @@ PRGNAM=vidalia
 VERSION=0.2.20
 BUILD=1
 TAG=${TAG:-_wls}
-NUMJOBS=${NUMJOBS:--j3}
+NUMJOBS=${NUMJOBS:--j2}
 
 if [ -z "$ARCH" ]; then
   case "$( uname -m )" in
@@ -84,7 +84,7 @@ cmake .. \
   -DLIB_INSTALL_DIR:PATH=/usr/lib${LIBDIRSUFFIX} \
   -DLIB_SUFFIX=${LIBDIRSUFFIX}
 
-make
+make $NUMJOBS
 make DESTDIR=$PKG install
 cd -
 
@@ -93,6 +93,7 @@ find $PKG | xargs file | grep -e "executable" -e "shared object" | grep ELF \
 
 mkdir -p $PKG/usr/doc/$PRGNAM-$VERSION
 cp -a $DOCS $PKG/usr/doc/$PRGNAM-$VERSION
+head -n 1000 ChangeLog > $PKG/usr/doc/$PRGNAM-$VERSION/ChangeLog
 cat $CWD/$PRGNAM.SlackBuild > $PKG/usr/doc/$PRGNAM-$VERSION/$PRGNAM.SlackBuild
 
 mkdir -p $PKG/install

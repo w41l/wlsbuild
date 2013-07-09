@@ -157,6 +157,7 @@ cp -r -p DOCS/HTML $PKG/usr/doc/$PRGNAM-$VERSION/
 cp -r -p DOCS/tech $PKG/usr/doc/$PRGNAM-$VERSION/
 cp -r -p TOOLS $PKG/usr/doc/$PRGNAM-$VERSION/
 #cat $CWD/$PRGNAM.html > $PKG/usr/doc/$PRGNAM-$VERSION/$PRGNAM.html
+head -n 1000 ChangeLog > $PKG/usr/doc/$PRGNAM-$VERSION/ChangeLog
 cat $CWD/$PRGNAM.SlackBuild > $PKG/usr/doc/$PRGNAM-$VERSION/$PRGNAM.SlackBuild
 find $PKG/usr/doc -type d -exec chmod -v 755 {} \;
 

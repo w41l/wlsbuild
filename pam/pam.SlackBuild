@@ -122,6 +122,10 @@ cat $CWD/patches/pam_namespace-build-1.1.6.patch | patch -p0
 make $NUMJOBS || make || exit 1
 make install DESTDIR=$PKG || exit 1
 
+# Add default pam.d configuration
+mkdir -p $PKG/etc/pam.d
+cat $CWD/pam.d/system-login > $PKG/etc/pam.d/system-login.new
+
 # this is a pam helper, that can only be called from pam
 chown root:shadow $PKG/usr/sbin/unix_chkpwd
 chmod g+s $PKG/usr/sbin/unix_chkpwd

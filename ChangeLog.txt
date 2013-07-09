@@ -1,3 +1,418 @@
+commit 5462e67c3da59d79c56dd1d0c256ff1e09eb7cee
+Author: w41l <walecha99@gmail.com>
+Date:   Tue Jul 2 23:59:02 2013 +0700
+
+    Upgraded transmission bittorrent client to version 2.80.
+
+commit 63d8f0626ec53aafe0d0e29157aa956e7a05f558
+Author: w41l <walecha99@gmail.com>
+Date:   Tue Jul 2 20:38:39 2013 +0700
+
+    Add GNOME 3.8 dependencies: py3cairo (python3 binding for cairo) and pam. Upgraded sddm to git commit 3dbc906.
+
+commit 14a67d248434004453f4ab6f7a71edbb768349cd
+Author: w41l <walecha99@gmail.com>
+Date:   Mon Jul 1 21:54:43 2013 +0700
+
+    libgit2: Added version 0.19.0.
+    rekonq: Updated SlackBuild.
+
+commit f75c68e46214e8bedaf4c00ef0d15278e2ea3122
+Author: w41l <walecha99@gmail.com>
+Date:   Mon Jul 1 11:16:02 2013 +0700
+
+    Fix and reorganize wlsbuild:
+    * a52dec: Updated SlackBuild.
+    * alsa-plugins: Updated SlackBuild.
+    * appmenu-gtk: Removed.
+    * aria2: Removed.
+    * bogofilter: Updated SlackBuild.
+    * bzr: Removed.
+    * cabextract: Updated SlackBuild.
+    * celestia: Upgraded to 1.6.1.
+    * claws-mail: Updated SlackBuild.
+    * claws-mail-extra-plugins: Updated SlackBuild.
+    * clementine: Updated SlackBuild.
+    * dvdauthor: Updated SlackBuild.
+    * dvdstyler: Updated SlackBuild.
+    * faac: Updated SlackBuild.
+    * faad2: Updated SlackBuild.
+    * ffmeg: Updated SlackBuild.
+    * gdl: Moved to gnome.
+    * geany: Updated SlackBuild.
+    * gparted: Updated SlackBuild.
+    * gst-ffmpeg: Updated SlackBuild.
+    * gst-plugins-bad: Updated SlackBuild.
+    * gst-plugins-base: Removed.
+    * gst-plugins-good: Updated SlackBuild.
+    * gst-plugins-ugly: Updated SlackBuild.
+    * gstreamer: Removed.
+    * gtkhtml: Moved to gnome.
+    * gwget: Updated SlackBuild.
+    * ifuse: Updated SlackBuild.
+    * lame: Updated SlackBuild.
+    * libburn: Upgraded to 1.3.0.pl01.
+    * libisoburn: Upgraded to 1.3.0.
+    * libisofs: Upgraded to 1.3.0.
+    * opal: Moved to gnome.
+    * ptlib: Moved to gnome.
+    * speex: Updated SlackBuild.
+    * usbmuxd: Updated SlackBuild. Add usbmuxd detection script.
+    * wxsvg: Updated SlackBuild.
+    * wxWidgets: Updated SlackBuild.
+    * xvidcore: Updated SlackBuild.
+
+commit 027ea10f1dd57b1e523927a2da4f0e8f3ce3c26d
+Author: w41l <walecha99@gmail.com>
+Date:   Sun Jun 30 13:03:43 2013 +0700
+
+    Bunch of updates to get gnome 3.8 working on my Slackware-current.
+    * alsa-plugins: Updated SlackBuild.
+    * aqemu: Updated SlackBuild.
+    * atkmm: Upgraded to 2.22.6.
+    * cairomm: Updated SlackBuild.
+    * farstream: Upgraded to 0.2.3.
+    * gc: Updated SlackBuild.
+    * geany: Upgraded to 1.23.1.
+    * geoclue: Updated SlackBuild.
+    * glibmm: Upgraded to 2.36.2.
+    * gst-libav: Added version 1.0.7. Need gstreamer-1.
+    * gst-plugins-bad-1: Added version 1.0.7. Need gstreamer-1.
+    * gst-plugins-base-1: Added version 1.0.7. Need gstreamer-1.
+    * gst-plugins-good-1: Added version 1.0.7. Need gstreamer-1.
+    * gst-plugins-ugly-1: Added version 1.0.7. Need gstreamer-1.
+    * gstreamer-1: Added version 1.0.7. Needed by gnome 3.8.
+    * gtkmm3: Upgraded to 3.8.1.
+    * heimdal-libraries: Removed.
+    * heimdal: Added to make heimdal and heimdal-libraries at once.
+    * itstool: Removed. Already provided by Slackware.
+    * json-c: Upgraded to 0.11.
+    * json-glib: Moved to gnome.
+    * libnice: Upgraded to 0.1.4.
+    * libpst: Moved to gnome.
+    * libunique-1: Added version 1.1.6.
+    * libunique: Moved to gnome.
+    * libvpx: Updated SlackBuild.
+    * libwebp: Added version 0.3.1. Needed by webkitgtk 2.x.
+    * libxml++: Updated SlackBuild.
+    * liferea: Moved to gnome.
+    * pangomm: Upgraded to 2.34.0.
+    * pulseaudio: Upgraded to 4.0.
+    * pygi: Removed.
+    * pylint: Moved to gnome.
+    * python-isodate: Moved to gnome.
+    * python-logilab-astng: Moved to gnome.
+    * python-logilab-common: Moved to gnome.
+    * python-rdflib: Moved to gnome.
+    * qemu: Upgraded to 1.5.0.
+    * setuptools: Updated SlackBuild.
+    * telepathy-farstream: Upgraded to 0.6.0.
+    * telepathy-gabble: Upgraded to 0.17.5.
+    * telepathy-glib: Upgraded to 0.21.1.
+    * telepathy-logger: Upgraded to 0.8.0.
+    * telepathy-mission-control: Upgraded to 5.15.0.
+    * vte: Removed.
+    * webkitgtk: Upgraded to 1.10.2.
+    * webkitgtk2: Added version 2.0.3. Needed by gnome 3.8.
+    * xapian-core: Moved to gnome.
+
+commit 42abaedd50ae5141a80daf38d8291f7cfce5f55f
+Author: w41l <walecha99@gmail.com>
+Date:   Thu Jun 20 21:21:54 2013 +0700
+
+    * choqok: Upgraded using version git commit e22372b, because Twitter
+        upgrading it's API to version 1.1.
+    * clementine: Add patch to fix building on glib2 >= 2.36.x
+    * kipi-plugins: Upgraded to version 3.2.0.
+    +--------------------------+
+
+commit 90eb3ce0321228288586dc08f57a562ceea8ff1d
+Author: w41l <walecha99@gmail.com>
+Date:   Fri Jun 14 15:40:45 2013 +0700
+
+    Rebuild multimedia packages due to slackware-current upgrade.
+    * MPlayer: Upgraded to version 1.1.1. Now using external ffmpeg library
+        for codecs.
+    * chromium-plugins: Added google-chrome libpdf and pepperflash.
+    * clementine: Rebuilt to use new ffmpeg libraries.
+    * ffmpeg: Upgraded to 0.11.3.
+    * gpac: Rebuilt to use new ffmpeg libraries.
+    * gst-plugins-ugly: Rebuilt to use new x264 libraries.
+    * kipi-plugins: Rebuilt to use new ffmpeg libraries.
+    * kservicemenueditor: Testing.
+    * libimobiledevice: Rebuilt to use new libtasn1 from Slackware.
+    * libquicktime: Rebuilt to use new ffmpeg libraries.
+    * libupnp: Upgraded to 1.6.18.
+    * mplayer2: Removed because it's using python3 which is not available in
+        Slackware.
+    * opencv: Rebuilt to use new ffmpeg libraries.
+    * unetbootin: Upgraded to 583.
+    * vlc: Rebuilt to use new ffmpeg libraries.
+    * wxsvg: Rebuilt to use new ffmpeg libraries.
+    * x264: Upgraded to 20130307.
+    +------------------------+
+
+commit e44f3010982022bf10f41bd21551f3a1ff60e838
+Author: w41l <walecha99@gmail.com>
+Date:   Wed May 15 17:21:23 2013 +0700
+
+    Kejar mengejar dengan perubahan Slackware-current dan pengembangan
+    software lainnnya.
+    * appmenu-gtk: Testing.
+    * atkmm: Updated SlackBuild script.
+    * cairomm: Updated SlackBuild script.
+    * cque: Updated SlackBuild script.
+    * ffmpeg: Updated SlackBuild script.
+    * glibmm: Upgraded to 2.34.1.
+    * gparted: Upgraded to 0.16.1.
+    * gst-ffmpeg: Updated SlackBuild script.
+    * gst-plugins-bad: Updated SlackBuild script.
+    * gst-plugins-ugly: Updated SlackBuild script.
+    * gst-python: Updated SlackBuild script.
+    * gstreamermm: Updated SlackBuild script.
+    * gtkmm: Upgraded to 2.24.3.
+    * hwinfo: Upgraded to 20.1.
+    * libfm: Updated SlackBuild script.
+    * libsigc++: Upgraded to 2.3.1.
+    * libx86emu: Upgraded to 1.4.
+    * libxml++: Updated SlackBuild script.
+    * menu-cache: Updated SlackBuild script.
+    * mirall: Upgraded to 1.2.5.
+    * nginx: Upgraded to 1.4.0.
+    * ocsync: Upgraded to 0.70.7.
+    * pangomm: Updated SlackBuild script.
+    * pcmanfm-qt: Added version 0.1.0.
+    * phonon-vlc: Upgraded to 0.6.2.
+    * plymouth: Testing.
+    * py-mysql2pgsql: Added version 0.1.5.
+    * pyalsaaudio: Downgraded to 0.6.
+    * pyudev: Upgraded to 0.16.1.
+    * qupzilla: Upgraded to 1.4.2.
+    * rekonq: Upgraded to 2.3.0.
+    * smplayer: Upgraded to version 0.8.5.
+    * synaptiks: Updated SlackBuild script. Add patch to use newer udev.
+    * unknown-horizons: Upgraded to 2013.2.
+    * vlc: Upgraded to 2.0.6. Add patch to fix building with opencv >= 2.0.
+
+commit fd1a83bdbf2b18076229ddc4c661315bb8417eb5
+Author: Widya Walesa <walecha99@gmail.com>
+Date:   Sun Apr 7 09:47:52 2013 +0700
+
+    * NetworkManager-openvpn: Upgraded to 0.9.4.0.
+    * NetworkManager-pptp: Upgraded to 0.9.4.0.
+    * choqok: Updated SlackBuild script.
+    * clementine: Updated SlackBuild script.
+    * d-feet: Added version 0.1.15. Use to debug dbus.
+    * fife: Updated SlackBuild script.
+    * hotot: Updated SlackBuild script.
+    * ipmitool: Upgraded to 1.8.12.
+    * kipi-plugins: Upgraded to 3.1.0.
+    * nginx: Upgraded to 1.2.7.
+    * opencv: Updated SlackBuild script.
+    * qmmp-plugin-pack: Added version 0.6.6.
+    * qmmp: Upgraded to 0.6.7.
+    * qupzilla: Upgraded to 1.4.1.
+    * razorqt: Moved to wlsbuild root.
+    * rekonq: Updated SlackBuild script.
+    * sddm: Upgraded to revision 20130404_d214c13, without using PAM.
+    * soundkonverter: Upgraded to 2.0.0.
+    * supertuxkart: Updated SlackBuild script.
+
+commit 5648bb4f5b5eb38c17abb8809b255fad9e1f92dc
+Author: Widya Walesa <walecha99@gmail.com>
+Date:   Wed Mar 27 13:56:23 2013 +0700
+
+    Removing old and already provided packages by Slackware or SBo. If there
+    are some same packages around, that means I have another build
+    configuration.
+    * BeautifulSoup: Removed. Use SBo package.
+    * RAZOR-QT/libstatgrab:  Removed. Use SBo package.
+    * RAZOR-QT/razorqt: Upgraded to 0.5.2.
+    * dirac: Updated SlackBuild script.
+    * ffmpeg: Updated SlackBuild script and slack-required.
+    * graphviz: Removed. Use Sbo package.
+    * orc: Updated SlackBuild script.
+    * pygtksourceview: Removed. Use SBo package.
+    * pyyaml: Removed. Use SBo package.
+    * rekonq: Updated SlackBuild script.
+    * sddm: Upgraded to 0.1.0. Still in testing.
+    * smplayer: Upgraded to 0.8.4.
+    * squid: Added version 3.2.9 with another build options.
+
+commit 588ac81ce0d3b4ff0e888c664451a829acad5b1f
+Author: Widya Walesa <walecha99@gmail.com>
+Date:   Tue Mar 19 17:22:43 2013 +0700
+
+    * Cython: Added version 0.18.
+    * SDL_image: Updated SlackBuild.
+    * SDL_ttf: Updated SlackBuild.
+    * a52dec: Updated SlackBuild.
+    * aegisub: Updated SlackBuild.
+    * allegro: Added version 4.4.2. Used by fife.
+    * alsa-plugins: Updated SlackBuild.
+    * enet: Upgraded to version 1.3.7.
+    * fife: Updated SlackBuild.
+    * google-chrome: Updated SlackBuild.
+    * guichan: Updated SlackBuild. Add three patches.
+    * libevent: Updated SlackBuild.
+    * nvtt: Updated SlackBuild.
+    * pam: Upgraded to version 1.1.6.
+    * pyenet: Added version svn24. Need enet and Cython.
+    * qmmp: Upgraded to version 0.6.7.
+    * sddm: Testing.
+    * sessionk: Testing.
+    * ttf-arphic-uming: Added version 0.2.20080216.1.
+    * unknown-horizons: Upgraded to version 2013.1b.
+    
+    Have fun...
+
+commit 594a15714b019de817db9ce809957fe613907366
+Author: w41l <walecha99@gmail.com>
+Date:   Sat Mar 9 20:35:31 2013 +0700
+
+    Fixing and upgrading some games SlackBuild. Visiting 0ad and 0ad-data after
+    long time abandonned.
+    * 0ad-data: Upgraded to version 0.0.12.
+    * 0ad: Upgraded to version 0.0.12. Add OpenAL, enet, nvtt, and wxWidgets
+        to slack-required.
+    * SDL_image: Added version 1.2.12. Needed by fife.
+    * SDL_ttf: Added version 2.0.11. Needed by fife.
+    * fife: Added version 0.3.4. This is game engine for unknown-horizons.
+    * guichan: Added version 0.8.2. Needed by fife.
+    * nvtt: Updated SlackBuild script. Added some patch from 0ad with some
+        modification. Linked to cg.
+    * pyyaml: Added version 3.10. Needed by unknown-horizons.
+    * scons: Upgraded to version 2.3.0.
+    * speed-dreams: Added version 2.0.0.
+    * unknown-horizons: Added version 2013.1
+    
+    As always, read the slack-required for dependency information.
+
+commit 51e2aa08e41fb79ec82b53e5c0c9894355ae1288
+Author: w41l <walecha99@gmail.com>
+Date:   Sun Mar 3 14:16:05 2013 +0700
+
+    Some clean ups
+    * supertuxkart: Updated SlackBuild. Removing unneeded files.
+
+commit df41bde910aa30708567ee18ccaf86f4ac72829c
+Author: w41l <walecha99@gmail.com>
+Date:   Sun Mar 3 14:13:45 2013 +0700
+
+    Here comes the wlsbuild games galore... With some other not-games packages.
+    
+    * MyGUI: Added version 3.2.0. Needed by StuntRally.
+    * QtCurve-KDE4: Updated SlackBuild.
+    * StuntRally: Added version 1.9. Runs well on AMD Radeon HD 6310, using
+        fglrx (amd catalyst) driver.
+    * cg: Added version 3.1_April2012. Needed by StuntRally.
+    * enet: Upgraded to version 1.3.6. Needed by StuntRally.
+    * gtk-qtcurve-engine: Upgraded to version 1.8.16.
+    * kipi-plugins: Upgraded to git version ac5cf40 or 3.0 RC.
+    * mirall: Upgraded to version 1.2.1.
+    * ocsync: Upgraded to version 0.70.4.
+    * ogre: Added version 1.8.1. Adopted from SBo ogre package, with
+        modification to satisfied StuntRally requirement.
+    * oxygen-fonts: Upgraded to version 0.2 git a25fc69.
+    * quiterss: Upgraded to version 0.12.2.
+    * skype: Fix icons directory.
+    * supertuxkart: Added version 0.8.
+    
+    As always, if you don't find any dependencies here, you can search it at
+    http://slackbuilds.org/
+    
+    Happy racing guys!
+
+commit b4ab489ea1d969652ec0eb1b22e3477ba74e257c
+Author: w41l <walecha99@gmail.com>
+Date:   Sat Feb 23 14:20:15 2013 +0700
+
+    * chromium-plugins: Just some playing around on repacking google-chrome
+        plugins to be used in chromium browser.
+    * fcgi: Updated SlackBuild.
+    * freexl: Added version 1.0.0e. Used by libspatialite.
+    * gdal: Upgraded to version 1.9.2.
+    * geos: Upgraded to version 3.3.7.
+    * graphviz: Upgraded to version 2.30.0.
+    * grass: Upgraded to version 6.4.2.
+    * hotot: Updated SlackBuild. Disabled GTK+ build, only using Qt.
+    * ksshaskpass: Updated SlackBuild.
+    * lapack: Upgraded to version 3.4.2.
+    * libgeotiff: Upgraded to version 1.4.0. Removing deprecated configure
+        options.
+    * libspatialite: Upgraded to version 4.0.0. Removing deprecated configure
+        options. Require freexl.
+    * mesa: Upgraded to version 9.0.2.
+    * oxygen-fonts: Upgraded to version 0.2.3. Fix SlackBuild.
+    * oxygen-gtk3: Removed.
+    * pavucontrol: Updated SlackBuild. Disable GTK3.
+    * proj: Upgraded to version 4.8.0. Add patch for to generate jni.h.
+    * qgis: Upgraded to version 1.8.0. Add slack-required to trace dependency.
+    * quiterss: Upgraded to version 0.12.1.
+    * qupzilla: Moved from RAZOR-QT to root wlsbuild.
+    * rekonq: Upgraded to version 2.1.
+    * skype: Upgraded to version 4.1.0.20.
+    * testdisk: Upgraded to version 6.14.
+    * wine: Upgraded to version 1.5.24.
+
+commit a6de826391f3a46a073a4943cd70c8c864481034
+Author: Widya Walesa <walecha99@gmail.com>
+Date:   Wed Jan 30 11:37:01 2013 +0700
+
+    Adding several new packages but mostly for testing.
+    * alsa-plugins: Updated SlackBuild.
+    * clementine: Updated SlackBuild.
+    * gksu: Updated SlackBuild.
+    * hotot: Upgraded to version 0.9.8.10.
+    * iniparser: Added version 3.1. Used by ocsync.
+    * json-c: Updated SlackBuild.
+    * libgksu: Updated SlackBuild. Add patch to fix building with glib 2.32.x.
+    * libgxps: Added version 0.2.2. Used by mate-document-viewer to open
+        Postscript file.
+    * libunique: Added back version 1.1.6. Add patch to fix build with
+        glib-2.32.x.
+    * mirall: Added version 1.2.0. This is ownCloud desktop client. Need ocsync.
+    * nginx: Upgraded to version 1.2.6.
+    * ocsync: Added version 0.70.3. Used by mirall. Need iniparser.
+
+commit b07fc8204f5c0bfe4eac256c5e3bd279fa00a402
+Author: w41l <walecha99@gmail.com>
+Date:   Thu Jan 24 19:50:39 2013 +0700
+
+    * MATE: Moved to its own repository.
+
+commit 3b70fed1893900e954b860b1e7140810cd44b52e
+Author: w41l <walecha99@gmail.com>
+Date:   Thu Jan 24 08:12:23 2013 +0700
+
+    * GeoIP: Updated SlackBuild script.
+    * NetworkManager-openvpn: Updated SlackBuild script, add .info file.
+    * bogofilter: Upgraded to version 1.2.3. Add .info file. Bugfix:
+        - https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2012-5468
+        - http://bogofilter.sourceforge.net/security/bogofilter-SA-2012-01
+    * gstreamermm: Added version 0.10.9.1. Add patch for glib.h path.
+    * libreoffice: Testing version 4.0.0.1.
+    * libtorrent-rasterbar: Upgraded to version 0.16.6. Add .info file.
+    * mkvtoolnix: Updated SlackBuild script.
+    * openbox: Downgrade to stable version 3.5.0.
+    * qbittorrent: Upgraded to version 3.0.6. Add .info file.
+    * qmmp: Upgraded to version 0.6.6. Add .info file.
+    * quiterss: Upgraded to version 0.12.0.
+    * spacefm: Added version 0.8.4.
+    * subtitleeditor: Upgraded to version 0.40.0. Add .info file. Add patch for
+        glib 2.32 include path.
+    * synaptiks: Updated SlackBuild script.
+    * wine: Upgraded to 1.5.21.
+    * wv: Testing version 1.2.29.
+    * wv2: Testing version 0.4.2. Add patch for glib 2.32 include path.
+    * yakuake: Upgraded to 2.9.9. Add .info file.
+
+commit cf3ee8fb0e8abc5e19b14c52262974e2b3b00d8d
+Author: w41l <walecha99@gmail.com>
+Date:   Wed Jan 2 19:43:41 2013 +0700
+
+    +------------+
+
 commit 651676aaefb9ebe37b3ab6bedeec5981da38c202
 Author: w41l <walecha99@gmail.com>
 Date:   Wed Jan 2 19:39:03 2013 +0700

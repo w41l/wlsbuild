@@ -59,6 +59,21 @@ fi
 
 set -e
 
+# Check if PAM exists. We don't need it! So removing it first!
+if [ -f /usr/include/security/pam_ext.h ]; then
+  echo "+====================================================+"
+  echo "+ ERROR: YOU HAVE PAM INSTALLED! UNINSTALL IT FIRST! +"
+  echo "+====================================================+"
+  exit 1
+fi
+
+if [ -f /usr/lib/libpam.so.0 ]; then
+  echo "+====================================================+"
+  echo "+ ERROR: YOU HAVE PAM INSTALLED! UNINSTALL IT FIRST! +"
+  echo "+====================================================+"
+  exit 1
+fi
+
 rm -rf $PKG
 mkdir -p $WRK $PKG $OUTPUT
 cd $WRK

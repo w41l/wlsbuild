@@ -38,8 +38,8 @@ if [ -z "$ARCH" ]; then
 fi
 
 CWD=$(pwd)
-TMP=${TMP:-/tmp/wlsbuild}
-PKG=$TMP/package-$PRGNAM
+WRK=${WRK:-/tmp/wlsbuild}
+PKG=$WRK/package-$PRGNAM
 OUTPUT=${OUTPUT:-/tmp}
 DOCS="AUTHORS ChangeLog COPY* INSTALL NEWS README THANKS TODO"
 
@@ -60,8 +60,8 @@ fi
 set -e
 
 rm -rf $PKG
-mkdir -p $TMP $PKG $OUTPUT
-cd $TMP
+mkdir -p $WRK $PKG $OUTPUT
+cd $WRK
 rm -rf $PRGNAM-$VERSION
 tar xvf $CWD/$PRGNAM-$VERSION.tar.xz
 cd $PRGNAM-$VERSION
@@ -99,7 +99,7 @@ mkdir -p  $PKG/usr/doc/$PRGNAM-$VERSION
 cat docs/grub.cfg > $PKG/usr/doc/$PRGNAM-$VERSION/grub.cfg
 
 # Install os-prober
-cd $TMP
+cd $WRK
 rm -rf os-prober
 tar xvf $CWD/os-prober_1.53.tar.gz
 cd os-prober-1.53
@@ -129,7 +129,7 @@ mkdir -p $PKG/usr/share/os-prober
 cp -p common.sh $PKG/usr/share/os-prober
 mkdir -p $PKG/var/lib/os-prober/mount
 
-cd $TMP/$PRGNAM-$VERSION
+cd $WRK/$PRGNAM-$VERSION
 
 find $PKG | xargs file | grep -e "executable" -e "shared object" | grep ELF \
   | cut -f 1 -d : | xargs strip --strip-unneeded 2> /dev/null || true
@@ -146,6 +146,7 @@ for i in $( find $PKG/usr/info -type l ) ; do ln -s $( readlink $i ).gz $i.gz ; 
 
 mkdir -p $PKG/usr/doc/$PRGNAM-$VERSION
 cp -a $DOCS $PKG/usr/doc/$PRGNAM-$VERSION
+head -n 1000 ChangeLog > $PKG/usr/doc/$PRGNAM-$VERSION/ChangeLog
 cat $CWD/$PRGNAM.SlackBuild > $PKG/usr/doc/$PRGNAM-$VERSION/$PRGNAM.SlackBuild
 
 mkdir -p $PKG/install
@@ -153,7 +154,7 @@ cat $CWD/slack-desc > $PKG/install/slack-desc
 cat $CWD/doinst.sh > $PKG/install/doinst.sh
 
 cd $PKG
-/sbin/makepkg -l y -c n $OUTPUT/$PRGNAM-$VERSION-$ARCH-$BUILD$TAG.txz
+/sbin/makepkg -p -l y -c n $OUTPUT/$PRGNAM-$VERSION-$ARCH-$BUILD$TAG.txz
 
 echo "Cleaning up build directory"
-cd $TMP ; rm -rf $PRGNAM-$VERSION $PKG
+cd $WRK ; rm -rf $PRGNAM-$VERSION $PKG

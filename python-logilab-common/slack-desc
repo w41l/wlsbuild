@@ -1,0 +1,19 @@
+# HOW TO EDIT THIS FILE:
+# The "handy ruler" below makes it easier to edit a package description.  Line
+# up the first '|' above the ':' following the base package name, and the '|'
+# on the right side marks the last column you can put a character in.  You must
+# make exactly 11 lines for the formatting to be correct.  It's also
+# customary to leave one space after the ':'.
+
+                     |-----handy-ruler------------------------------------------------------|
+python-logilab-common: python-logilab-common
+python-logilab-common:
+python-logilab-common: This package contains some modules used by differents Logilab's
+python-logilab-common: projects. It is released under the GNU Lesser General Public License.
+python-logilab-common:
+python-logilab-common: URL: http://pypi.python.org/pypi/logilab-common/
+python-logilab-common:
+python-logilab-common:
+python-logilab-common:
+python-logilab-common:
+python-logilab-common: Packaged by Widya Walesa <walecha99@gmail.com>

@@ -1,0 +1,7 @@
+URL=http://cracklib.sourceforge.net/
+SRC=http://downloads.sourceforge.net/project/cracklib/cracklib/2.9.0/cracklib-2.9.0.tar.gz
+MD5=e0f94ac2138fd33c7e77b19c1e9a9390
+SHA1=827dcd24b14bf23911c34f4226b4453b24f949a3
+SRC_WORDLIST=http://downloads.sourceforge.net/project/cracklib/cracklib-words/2008-05-07/cracklib-words-20080507.gz
+MD5_WORDLIST=7fa6ba0cd50e7f9ccaf4707c810b14f1
+SHA1_WORDLIST=e0cea03e505e709b15b8b950d56cb493166607da

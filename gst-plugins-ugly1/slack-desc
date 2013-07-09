@@ -1,0 +1,12 @@
+                 |-----handy-ruler------------------------------------------------------|
+gst-plugins-ugly1: gst-plugins-ugly 1.0
+gst-plugins-ugly1:
+gst-plugins-ugly1: GStreamer Ugly Plug-ins is a set of plug-ins that have good quality
+gst-plugins-ugly1: and correct functionality, but distributing them might pose problems.
+gst-plugins-ugly1: The license on either the plug-ins or the supporting libraries might
+gst-plugins-ugly1: not be how it would be liked. The code might be widely known to
+gst-plugins-ugly1: present patent problems.
+gst-plugins-ugly1:
+gst-plugins-ugly1: URL: http://gstreamer.freedesktop.org/modules/gst-plugins-ugly.html
+gst-plugins-ugly1:
+gst-plugins-ugly1: Packaged by: Widya Walesa <walecha99@gmail.com>

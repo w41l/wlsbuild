@@ -1,0 +1,12 @@
+                |-----handy-ruler------------------------------------------------------|
+gst-plugins-bad1: gst-plugins-bad 1.0
+gst-plugins-bad1: 
+gst-plugins-bad1: GStreamer Bad Plug-ins is a set of plug-ins that aren't up to
+gst-plugins-bad1: par compared to the rest. They might be close to being good 
+gst-plugins-bad1: quality, but they're missing something - be it a good code 
+gst-plugins-bad1: review, some documentation, a set of tests, a real live 
+gst-plugins-bad1: maintainer, or some actual wide use.
+gst-plugins-bad1: 
+gst-plugins-bad1: gst-plugins-bad is a set of plug-ins that need more quality.
+gst-plugins-bad1: 
+gst-plugins-bad1: Packaged by: Widya Walesa <walecha99@gmail.com>

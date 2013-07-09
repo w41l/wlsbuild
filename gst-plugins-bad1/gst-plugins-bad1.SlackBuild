@@ -1,6 +1,6 @@
 #!/bin/sh
 
-# Slackware build script for gst-plugins-ugly-1
+# Slackware build script for gst-plugins-bad1
 
 # Copyright 2013  Widya Walesa <walecha99@gmail.com>
 # All rights reserved.
@@ -23,8 +23,8 @@
 # ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. FURTHERMORE I AM NOT LIABLE IF
 # YOUR DATA IS DESTROYED, YOUR HOUSE BURNS DOWN OR YOUR DOG RUNS OFF.
 
-PRGNAM=gst-plugins-ugly-1
-SRCNAM=gst-plugins-ugly
+PRGNAM=gst-plugins-bad1
+SRCNAM=gst-plugins-bad
 VERSION=1.0.7
 BUILD=1
 TAG=${TAG:-_wls}
@@ -73,11 +73,10 @@ find . \
  \( -perm 666 -o -perm 664 -o -perm 600 -o -perm 444 -o -perm 440 -o -perm 400 \) \
  -exec chmod 644 {} \;
 
-AMRNB_CFLAGS="-I/usr/include/opencore-amrnb" \
-AMRWB_CFLAGS="-I/usr/include/opencore-amrwb" \
 CFLAGS="$SLKCFLAGS" \
 CXXFLAGS="$SLKCFLAGS" \
 ./configure \
+  --build=$ARCH-slackware-linux \
   --program-prefix= --program-suffix= \
   --prefix=/usr --exec-prefix=/usr \
   --bindir=/usr/bin --sbindir=/usr/sbin \
@@ -89,17 +88,15 @@ CXXFLAGS="$SLKCFLAGS" \
   --disable-gtk-doc \
   --disable-debug \
 
-make V=1 $NUMJOBS
-
-AMRNB_CFLAGS="-I/usr/include/opencore-amrnb" \
-AMRWB_CFLAGS="-I/usr/include/opencore-amrwb" \
-make install DESTDIR=$PKG
+make $NUMJOBS
+make DESTDIR=$PKG install
 
 find $PKG | xargs file | grep -e "executable" -e "shared object" | grep ELF \
   | cut -f 1 -d : | xargs strip --strip-unneeded 2> /dev/null || true
 
 mkdir -p $PKG/usr/doc/$PRGNAM-$VERSION
 cp -a $DOCS $PKG/usr/doc/$PRGNAM-$VERSION
+head -n 1000 ChangeLog > $PKG/usr/doc/$PRGNAM-$VERSION/ChangeLog
 cat $CWD/$PRGNAM.SlackBuild > $PKG/usr/doc/$PRGNAM-$VERSION/$PRGNAM.SlackBuild
 
 mkdir -p $PKG/install
@@ -111,4 +108,4 @@ cd $PKG
 /sbin/makepkg -p -l y -c n $OUTPUT/$PRGNAM-$VERSION-$ARCH-$BUILD$TAG.txz
 
 echo "Cleaning up build directory"
-cd $WRK ; rm -rf $SRCNAM-$VERSION $PKG
+cd $WRK; rm -rf $SRCNAM-$VERSION $PKG

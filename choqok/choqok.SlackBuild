@@ -24,10 +24,10 @@
 # YOUR DATA IS DESTROYED, YOUR HOUSE BURNS DOWN OR YOUR DOG RUNS OFF.
 
 PRGNAM=choqok
-VERSION=e22372b
+VERSION=b8b3d31
 BUILD=1
 TAG=${TAG:-_wls}
-NUMJOBS=${NUMJOBS:--j4}
+NUMJOBS=${NUMJOBS:--j2}
 
 if [ -z "$ARCH" ]; then
   case "$( uname -m )" in
@@ -83,7 +83,7 @@ cd build
     -DCMAKE_INSTALL_PREFIX:PATH=/usr \
     -DLIB_SUFFIX=${LIBDIRSUFFIX}
 
-  make VERBOSE=1
+  make
   make install DESTDIR=$PKG
 cd -
 

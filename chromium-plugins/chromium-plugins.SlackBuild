@@ -108,6 +108,6 @@ mkdir -p $PKG/install
 cat $CWD/slack-desc > $PKG/install/slack-desc
 
 cd $PKG
-/sbin/makepkg -l y -c n $OUTPUT/$PKGNAM-$VERSION-$ARCH-${BUILD}${TAG}.txz
+/sbin/makepkg -p -l y -c n $OUTPUT/$PKGNAM-$VERSION-$ARCH-${BUILD}${TAG}.txz
 
 cd $CWD ; rm -rf $PKG

@@ -1,0 +1,293 @@
+--- a/trunk/celestia/src/celengine/command.h
++++ b/trunk/celestia/src/celengine/command.h
+@@ -13,9 +13,9 @@
+ #define MAX_CONSTELLATIONS 100
+ 
+ #include <iostream>
+-#include <celutil/color.h>
+ #include <celengine/execenv.h>
+ #include <celengine/astro.h>
++#include <celutil/color.h>
+ 
+ 
+ class Command
+--- a/trunk/celestia/src/celengine/opencluster.cpp
++++ b/trunk/celestia/src/celengine/opencluster.cpp
+@@ -7,18 +7,17 @@
+ // as published by the Free Software Foundation; either version 2
+ // of the License, or (at your option) any later version.
+ 
+-#include <algorithm>
+-#include <stdio.h>
+ #include "celestia.h"
++#include "render.h"
++#include "astro.h"
++#include "opencluster.h"
++#include "meshmanager.h"
++#include "vecgl.h"
+ #include <celmath/mathlib.h>
+ #include <celutil/util.h>
+ #include <celutil/debug.h>
+-#include "astro.h"
+-#include "opencluster.h"
+-#include "meshmanager.h"
+-#include <GL/glew.h>
+-#include "vecgl.h"
+-#include "render.h"
++#include <algorithm>
++#include <cstdio>
+ 
+ using namespace Eigen;
+ using namespace std;
+--- a/trunk/celestia/src/celengine/simulation.cpp
++++ b/trunk/celestia/src/celengine/simulation.cpp
+@@ -11,6 +11,7 @@
+ // of the License, or (at your option) any later version.
+ 
+ #include <algorithm>
++#include "render.h"
+ #include "simulation.h"
+ 
+ using namespace Eigen;
+--- a/trunk/celestia/src/celengine/vecgl.h
++++ b/trunk/celestia/src/celengine/vecgl.h
+@@ -16,6 +16,7 @@
+ #include <celmath/vecmath.h>
+ #include <celmath/quaternion.h>
+ #include <celutil/color.h>
++#include <GL/glew.h>
+ #include <Eigen/Core>
+ #include <Eigen/Geometry>
+--- a/trunk/celestia/src/celengine/nebula.cpp
++++ b/trunk/celestia/src/celengine/nebula.cpp
+@@ -7,19 +7,18 @@
+ // as published by the Free Software Foundation; either version 2
+ // of the License, or (at your option) any later version.
+ 
+-#include <algorithm>
+-#include <stdio.h>
+ #include "celestia.h"
+-#include <celmath/mathlib.h>
+-#include <celutil/util.h>
+-#include <celutil/debug.h>
++#include "vecgl.h"
++#include "render.h"
+ #include "astro.h"
+ #include "nebula.h"
+ #include "meshmanager.h"
+ #include "rendcontext.h"
+-#include <GL/glew.h>
+-#include "vecgl.h"
+-#include "render.h"
++#include <celmath/mathlib.h>
++#include <celutil/util.h>
++#include <celutil/debug.h>
++#include <algorithm>
++#include <cstdio>
+ 
+ using namespace Eigen;
+ using namespace std;
+--- a/trunk/celestia/src/celengine/globular.cpp
++++ b/trunk/celestia/src/celengine/globular.cpp
+@@ -11,23 +11,23 @@
+ // as published by the Free Software Foundation; either version 2
+ // of the License, or (at your option) any later version.
+ 
++#include "celestia.h"
++#include "astro.h"
++#include "render.h"
++#include "globular.h"
++#include "vecgl.h"
++#include "texture.h"
++#include <celmath/mathlib.h>
++#include <celmath/perlin.h>
++#include <celmath/intersect.h>
++#include <celutil/util.h>
++#include <celutil/debug.h>
++#include <GL/glew.h>
++#include <cmath>
+ #include <fstream>
+ #include <algorithm>
+ #include <cstdio>
+ #include <cassert>
+-#include "celestia.h"
+-#include <celmath/mathlib.h>
+-#include <celmath/perlin.h>
+-#include <celmath/intersect.h>
+-#include "astro.h"
+-#include "globular.h"
+-#include <celutil/util.h>
+-#include <celutil/debug.h>
+-#include <GL/glew.h>
+-#include "vecgl.h"
+-#include "render.h"
+-#include "texture.h"
+-#include <math.h>
+ #include "eigenport.h"
+ 
+ using namespace Eigen;
+--- a/trunk/celestia/src/celengine/observer.cpp
++++ b/trunk/celestia/src/celengine/observer.cpp
+@@ -7,11 +7,11 @@
+ // as published by the Free Software Foundation; either version 2
+ // of the License, or (at your option) any later version.
+ 
+-#include <celmath/mathlib.h>
+-#include <celmath/solve.h>
+ #include "observer.h"
+ #include "simulation.h"
+ #include "frametree.h"
++#include <celmath/mathlib.h>
++#include <celmath/solve.h>
+ 
+ static const double maximumSimTime = 730486721060.00073; // 2000000000 Jan 01 12:00:00 UTC
+ static const double minimumSimTime = -730498278941.99951; // -2000000000 Jan 01 12:00:00 UTC
+
+--- a/trunk/celestia/src/celengine/planetgrid.cpp
++++ b/trunk/celestia/src/celengine/planetgrid.cpp
+@@ -2,7 +2,7 @@
+ //
+ // Longitude/latitude grids for ellipsoidal bodies.
+ //
+-// Copyright (C) 2008, the Celestia Development Team
++// Copyright (C) 2008-2009, the Celestia Development Team
+ // Initial version by Chris Laurel, claurel@gmail.com
+ //
+ // This program is free software; you can redistribute it and/or
+@@ -10,16 +10,15 @@
+ // as published by the Free Software Foundation; either version 2
+ // of the License, or (at your option) any later version.
+ 
+-#include <cstdio>
+-#include <cmath>
+-#include <celmath/intersect.h>
++#include "render.h"
+ #include "planetgrid.h"
+ #include "body.h"
+-#include <GL/glew.h>
+ #include "vecgl.h"
+-#include "render.h"
++#include <celmath/intersect.h>
+ #include <Eigen/Core>
+ #include <Eigen/Geometry>
++#include <cmath>
++#include <cstdio>
+ 
+ using namespace Eigen;
+ 
+--- a/trunk/celestia/src/celengine/simulation.h
++++ b/trunk/celestia/src/celengine/simulation.h
+@@ -10,8 +10,6 @@
+ #ifndef _CELENGINE_SIMULATION_H_
+ #define _CELENGINE_SIMULATION_H_
+ 
+-#include <celmath/vecmath.h>
+-#include <celmath/quaternion.h>
+ #include <celengine/texture.h>
+ #include <celengine/mesh.h>
+ #include <celengine/universe.h>
+@@ -19,12 +17,15 @@
+ #include <celengine/galaxy.h>
+ #include <celengine/globular.h>
+ #include <celengine/texmanager.h>
+-#include <celengine/render.h>
+ #include <celengine/frame.h>
+ #include <celengine/observer.h>
++#include <celmath/vecmath.h>
++#include <celmath/quaternion.h>
+ #include <Eigen/Core>
+ #include <vector>
+ 
++
++class Renderer;
+ 
+ class Simulation
+ {
+--- a/trunk/celestia/src/celengine/command.cpp
++++ b/trunk/celestia/src/celengine/command.cpp
+@@ -7,15 +7,15 @@
+ // as published by the Free Software Foundation; either version 2
+ // of the License, or (at your option) any later version.
+ 
+-#include <celutil/util.h>
++#include "command.h"
+ #include "astro.h"
+ #include "asterism.h"
+-#include "command.h"
+ #include "execution.h"
+ #include "glcontext.h"
+ #include <celestia/celestiacore.h>
+ #include <celestia/imagecapture.h>
+ #include <celestia/celx_internal.h>
++#include <celutil/util.h>
+ #include <iostream>
+ #include "eigenport.h"
+ 
+--- a/trunk/celestia/src/celengine/universe.cpp
++++ b/trunk/celestia/src/celengine/universe.cpp
+@@ -10,18 +10,18 @@
+ // as published by the Free Software Foundation; either version 2
+ // of the License, or (at your option) any later version.
+ 
++#include "render.h"
++#include "astro.h"
++#include "asterism.h"
++#include "boundaries.h"
++#include "meshmanager.h"
++#include "universe.h"
++#include "timelinephase.h"
++#include "frametree.h"
+ #include <celmath/mathlib.h>
+ #include <celmath/intersect.h>
+ #include <celutil/utf8.h>
+ #include <cassert>
+-#include "astro.h"
+-#include "asterism.h"
+-#include "boundaries.h"
+-#include "meshmanager.h"
+-#include "render.h"
+-#include "universe.h"
+-#include "timelinephase.h"
+-#include "frametree.h"
+ 
+ static const double ANGULAR_RES = 3.5e-6;
+ 
+--- a/trunk/celestia/src/celengine/visibleregion.cpp
++++ b/trunk/celestia/src/celengine/visibleregion.cpp
+@@ -10,18 +10,17 @@
+ // as published by the Free Software Foundation; either version 2
+ // of the License, or (at your option) any later version.
+ 
+-#include <cstdio>
+-#include <cmath>
+-#include <celmath/intersect.h>
++#include "render.h"
+ #include "visibleregion.h"
+ #include "body.h"
+ #include "selection.h"
+-#include <GL/glew.h>
+ #include "vecgl.h"
+-#include "render.h"
+ #include <celmath/geomutil.h>
++#include <celmath/intersect.h>
+ #include <Eigen/Core>
+ #include <Eigen/Geometry>
++#include <cstdio>
++#include <cmath>
+ 
+ using namespace Eigen;
+ 
+--- a/trunk/celestia/src/celengine/execenv.h
++++ b/trunk/celestia/src/celengine/execenv.h
+@@ -10,9 +10,9 @@
+ #ifndef _EXECENV_H_
+ #define _EXECENV_H_
+ 
+-#include <string>
+ #include <celengine/render.h>
+ #include <celengine/simulation.h>
++#include <string>
+ 
+ class CelestiaCore;
+ 
+

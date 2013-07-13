@@ -27,7 +27,7 @@ PRGNAM=grub
 VERSION=2.00
 BUILD=1
 TAG=${TAG:-_wls}
-NUMJOBS=${NUMJOBS:--j4}
+NUMJOBS=${NUMJOBS:--j2}
 
 if [ -z "$ARCH" ]; then
   case "$( uname -m )" in
@@ -75,7 +75,7 @@ find . \
 CFLAGS="$SLKCFLAGS" \
 CXXFLAGS="$SLKCFLAGS" \
 ./configure \
-  --build=$ARCH-slackware-linux --host=$ARCH-slackware-linux \
+  --build=$ARCH-slackware-linux \
   --program-prefix= --program-suffix= \
   --prefix=/ --exec-prefix=/ \
   --bindir=/bin --sbindir=/sbin \

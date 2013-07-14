@@ -28,7 +28,7 @@ VERSION=1.1.1
 FFVERSION=aba32d84630cb17b68fd41d465d17580465f1d9e
 BUILD=1
 TAG=${TAG:-_wls}
-NUMJOBS=${NUMJOBS:--j4}
+NUMJOBS=${NUMJOBS:--j2}
 
 # Use enternal or external FFMPEG (default).
 #FFMPEG_EXTERNAL=""
@@ -113,13 +113,13 @@ LANGUAGES="en"
   --disable-gui \
   --disable-dvdread-internal \
   --disable-libdvdcss-internal \
-  --disable-pulse \
   --disable-openal \
-  --disable-mp3lib \
   --enable-menu \
   --enable-dvdread \
   --enable-dvdnav \
   --enable-runtime-cpudetection \
+  --enable-pulse \
+  --enable-mp3lib \
   $FFMPEG_EXTERNAL \
   $MENC \
 
@@ -157,7 +157,7 @@ cp -r -p DOCS/HTML $PKG/usr/doc/$PRGNAM-$VERSION/
 cp -r -p DOCS/tech $PKG/usr/doc/$PRGNAM-$VERSION/
 cp -r -p TOOLS $PKG/usr/doc/$PRGNAM-$VERSION/
 #cat $CWD/$PRGNAM.html > $PKG/usr/doc/$PRGNAM-$VERSION/$PRGNAM.html
-head -n 1000 ChangeLog > $PKG/usr/doc/$PRGNAM-$VERSION/ChangeLog
+head -n 1000 Changelog > $PKG/usr/doc/$PRGNAM-$VERSION/Changelog
 cat $CWD/$PRGNAM.SlackBuild > $PKG/usr/doc/$PRGNAM-$VERSION/$PRGNAM.SlackBuild
 find $PKG/usr/doc -type d -exec chmod -v 755 {} \;
 
@@ -167,7 +167,7 @@ cat $CWD/slack-required > $PKG/install/slack-required
 cat $CWD/doinst.sh > $PKG/install/doinst.sh
 
 cd $PKG
-/sbin/makepkg -l y -c n $OUTPUT/$PRGNAM-$VERSION-$ARCH-$BUILD$TAG.txz
+/sbin/makepkg -p -l y -c n $OUTPUT/$PRGNAM-$VERSION-$ARCH-$BUILD$TAG.txz
 
 echo "Cleaning up build directory"
 cd $WRK; rm -rf $PRGNAM-$VERSION $PKG

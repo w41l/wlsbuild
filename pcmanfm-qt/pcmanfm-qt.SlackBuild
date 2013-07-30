@@ -27,7 +27,7 @@ PRGNAM=pcmanfm-qt
 VERSION=0.1.0
 BUILD=1
 TAG=${TAG:-_wls}
-NUMJOBS=${NUMJOBS:--j1}
+NUMJOBS=${NUMJOBS:--j2}
 
 if [ -z "$ARCH" ]; then
   case "$( uname -m )" in
@@ -79,12 +79,8 @@ cd build
     -DCMAKE_CXX_FLAGS="$SLKCFLAGS" \
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_PREFIX=/usr \
-    -DLIB_SUFFIX=${LIBDIRSUFFIX} \
-    -DLIB_INSTALL_DIR=/usr/lib$LIBDIRSUFFIX \
-    -DMAN_INSTALL_DIR=/usr/man \
-    -DSYSCONF_INSTALL_DIR=/etc \
 
-  make VERBOSE=1 $NUMJOBS
+  make $NUMJOBS
   make install DESTDIR=$PKG
 cd -
 
@@ -101,7 +97,7 @@ cat $CWD/slack-desc > $PKG/install/slack-desc
 cat $CWD/slack-required > $PKG/install/slack-required
 
 cd $PKG
-/sbin/makepkg -l y -c n $OUTPUT/$PRGNAM-$VERSION-$ARCH-$BUILD$TAG.txz
+/sbin/makepkg -p -l y -c n $OUTPUT/$PRGNAM-$VERSION-$ARCH-$BUILD$TAG.txz
 
 echo "Cleaning up build directory"
 cd $WRK ; rm -rf $PKG $PRGNAM-$VERSION-Source

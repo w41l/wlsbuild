@@ -1,0 +1,19 @@
+# HOW TO EDIT THIS FILE:
+# The "handy ruler" below makes it easier to edit a package description.  Line
+# up the first '|' above the ':' following the base package name, and the '|'
+# on the right side marks the last column you can put a character in.  You must
+# make exactly 11 lines for the formatting to be correct.  It's also
+# customary to leave one space after the ':'.
+
+       |-----handy-ruler------------------------------------------------------|
+colibri: colibri (KDE4 Plasma Notifications)
+colibri:
+colibri: Colibri provides an alternative to KDE4 Plasma notifications. Colibri
+colibri: notifications look lighter and are completely passive: they do not
+colibri: provide any buttons. Since they are completely passive, they smoothly
+colibri: fade away when you mouse over them, allowing you to interact with any
+colibri: window behind them. They also do not stack each others: if multiple
+colibri: notifications happen, they will be shown one at a time.
+colibri:
+colibri:
+colibri:

@@ -1,0 +1,19 @@
+# HOW TO EDIT THIS FILE:
+# The "handy ruler" below makes it easier to edit a package description.  Line
+# up the first '|' above the ':' following the base package name, and the '|'
+# on the right side marks the last column you can put a character in.  You must
+# make exactly 11 lines for the formatting to be correct.  It's also
+# customary to leave one space after the ':'.
+
+        |-----handy-ruler------------------------------------------------------|
+florence: florence (GNOME Virtual Keyboard)
+florence:
+florence: Florence is an extensible scalable on-screen virtual keyboard for
+florence: GNOME that stays out of your way when not needed. You need it if you
+florence: can't use a real keyboard either because of a handicap, broken
+florence: keyboard or tablet PC but you can use a pointing devide.
+florence:
+florence:
+florence:
+florence:
+florence:

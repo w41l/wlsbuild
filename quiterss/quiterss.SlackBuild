@@ -24,7 +24,7 @@
 # YOUR DATA IS DESTROYED, YOUR HOUSE BURNS DOWN OR YOUR DOG RUNS OFF.
 
 PRGNAM=quiterss
-VERSION=0.12.2
+VERSION=0.13.1
 BUILD=1
 TAG=${TAG:-_wls}
 
@@ -64,7 +64,6 @@ cd $WRK
 rm -rf QuiteRSS-$VERSION-src
 tar xvf $CWD/QuiteRSS-$VERSION-src.tar.?z*
 cd QuiteRSS-$VERSION-src
-
 chown -R root:root .
 find . \
  \( -perm 777 -o -perm 775 -o -perm 711 -o -perm 555 -o -perm 511 \) \
@@ -92,7 +91,7 @@ mkdir -p $PKG/install
 cat $CWD/slack-desc > $PKG/install/slack-desc
 
 cd $PKG
-/sbin/makepkg -l y -c n $OUTPUT/$PRGNAM-$VERSION-$ARCH-$BUILD$TAG.txz
+/sbin/makepkg -p -l y -c n $OUTPUT/$PRGNAM-$VERSION-$ARCH-$BUILD$TAG.txz
 
 echo "Cleaning up build directory"
 cd $WRK ; rm -rf $PKG QuiteRSS-$VERSION-src

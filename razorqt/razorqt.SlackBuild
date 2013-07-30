@@ -25,9 +25,9 @@
 
 PRGNAM=razorqt
 VERSION=0.5.2
-BUILD=1
+BUILD=${BUILD:-1}
 TAG=${TAG:-_wls}
-NUMJOBS=${NUMJOBS:--j1}
+NUMJOBS=${NUMJOBS:--j2}
 
 if [ -z "$ARCH" ]; then
   case "$( uname -m )" in
@@ -85,17 +85,17 @@ cd build
   make install DESTDIR=$PKG
 cd -
 
-mkdir -p $PKG/etc/razorqt/xdg
-mv $PKG/etc/xdg/menus $PKG/etc/razorqt/xdg/
+#mkdir -p $PKG/etc/razorqt/xdg
+#mv $PKG/etc/xdg/menus $PKG/etc/razorqt/xdg/
 
 mkdir -p $PKG/etc/X11/xinit
 cat $CWD/xinitrc.razorqt > $PKG/etc/X11/xinit/xinitrc.razorqt
 chmod +x $PKG/etc/X11/xinit/xinitrc.razorqt
 
-mkdir -p $PKG/etc/profile.d
-cat $CWD/razorqt.sh > $PKG/etc/profile.d/razorqt.sh
-cat $CWD/razorqt.csh > $PKG/etc/profile.d/razorqt.csh
-chmod 755 $PKG/etc/profile.d/razorqt.*
+#mkdir -p $PKG/etc/profile.d
+#cat $CWD/razorqt.sh > $PKG/etc/profile.d/razorqt.sh
+#cat $CWD/razorqt.csh > $PKG/etc/profile.d/razorqt.csh
+#chmod 755 $PKG/etc/profile.d/razorqt.*
 
 find $PKG | xargs file | grep -e "executable" -e "shared object" | grep ELF \
   | cut -f 1 -d : | xargs strip --strip-unneeded 2> /dev/null || true
@@ -109,7 +109,7 @@ cat $CWD/slack-desc > $PKG/install/slack-desc
 cat $CWD/slack-required > $PKG/install/slack-required
 
 cd $PKG
-/sbin/makepkg -l y -c n $OUTPUT/$PRGNAM-$VERSION-$ARCH-$BUILD$TAG.txz
+/sbin/makepkg -p -l y -c n $OUTPUT/$PRGNAM-$VERSION-$ARCH-$BUILD$TAG.txz
 
 echo "Cleaning up build directory"
 cd $WRK ; rm -rf $PKG $PRGNAM-$VERSION

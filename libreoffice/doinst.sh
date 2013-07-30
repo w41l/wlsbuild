@@ -21,4 +21,3 @@ fi
 if [ -x /usr/bin/fc-cache ]; then
   /usr/bin/fc-cache -f -s /usr/share/fonts/TTF >/dev/null 2>&1
 fi
-

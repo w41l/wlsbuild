@@ -24,13 +24,16 @@
 # YOUR DATA IS DESTROYED, YOUR HOUSE BURNS DOWN OR YOUR DOG RUNS OFF.
 
 PRGNAM=libreoffice
-VERSION=4.0.0
-RCVERS=".1"
+VERSION=4.1.0
+RCVERS=".4"
 MAJORVER=$( echo $VERSION | sed "s/\(.*\)\.\(.*\)\.*/\1/" )
-BUILD=1
+BUILD=${BUILD:-1}
 TAG=${TAG:-_wls}
 DIST=${DIST:-rpm}
 LANGPACK=${LANGPACK:-id}
+
+# Select desktop environment which is NOT going to be used
+DE=${DE:-gnome}
 
 if [ -z "$ARCH" ]; then
   case "$( uname -m )" in
@@ -70,7 +73,7 @@ rm -rf $PKG
 mkdir -p $WRK $PKG $OUTPUT
 cd $WRK
 rm -rf LibreOffice_*
-tar xvf $CWD/LibreOffice_${VERSION}${RCVERS}_Linux_${LOARCH}_${DIST}.tar.gz
+tar xvf $CWD/LibreOffice_${VERSION}_Linux_${LOARCH}_${DIST}.tar.gz
 cd LibreOffice_${VERSION}${RCVERS}_Linux_${LOARCH}_${DIST}
 
 chown -R root:root .
@@ -87,20 +90,22 @@ mv -v readmes/* ${PKG}/usr/doc/${PRGNAM}-${VERSION}/
 echo "Unpacking ${DIST} packages"
 if [ "${DIST}" = "deb" ]; then
   cd DEBS
-  for i in `ls -1 *.deb`; do
-    ar p $i data.tar.gz | gzip -d | tar xv || exit 1
+  for i in *.deb; do
+    echo "Processing $i" | tee -a $WRK/LibreOffice_pkg.list;
+    ar p $i data.tar.gz | gzip -d | tar xf || exit 1;
   done
 else
   cd RPMS
-  for i in `ls -1 *.rpm`; do
-    rpm2cpio $i | cpio -idmv || exit 1
+  for i in *.rpm; do
+    echo "Processing $i" | tee -a $WRK/LibreOffice_pkg.list;
+    rpm2cpio $i | cpio -idm --quiet || exit 1;
   done
 fi
 
 echo "Install program files"
-mv -v opt ${PKG}/
+mv opt ${PKG}/
 mkdir -p ${PKG}/usr/share/applications
-mv -v ${PKG}/opt/libreoffice${MAJORVER}/share/xdg/*.desktop ${PKG}/usr/share/applications/
+mv ${PKG}/opt/libreoffice${MAJORVER}/share/xdg/*.desktop ${PKG}/usr/share/applications/
 rm -rf ${PKG}/opt/libreoffice${MAJORVER}/share/xdg
 echo "Creating binary symlinks"
 mkdir -p ${PKG}/usr/bin
@@ -111,63 +116,27 @@ mkdir -p ${PKG}/usr/bin
   done
 )
 
-echo "Use system libs instead of the bundled one"
-( cd $PKG/opt/libreoffice${MAJORVER}/ure/lib;
-  rm -f libstdc++.so.6*;
-  rm -f libgcc_s.so.1*;
-
-  cd $PKG/opt/libreoffice${MAJORVER}/program;
-  rm -f libfreebl3.so*;
-  rm -f libneon.so*;
-  rm -f libnspr4.so*;
-  rm -f libnss3.so*;
-  rm -f libnssckbi.so*;
-  rm -f libnssdbm3.so*;
-  rm -f libnssutil3.so*;
-  rm -f libplc4.so*;
-  rm -f libplds4.so*;
-  rm -f libsmime3.so*;
-  rm -f libsoftokn3.so*;
-  rm -f libsqlite3.so*;
-  rm -f libssl3.so*;
-  rm -f libcairo.so*;
-  rm -f libcurl.so*;
-  rm -f libicudata.so*;
-  rm -f libicui18n.so*;
-  rm -f libicule.so*;
-  rm -f libicuuc.so*;
-  rm -f liblcms2.so*;
-  rm -f libpixman-1.so*;
-  rm -f libxslt.so*;
-)
-
-echo "Unpacking desktop-integration packages"
-cd desktop-integration
-if [ "${DIST}" = "deb" ]; then
-  ar p libreoffice${MAJORVER}-*.deb data.tar.gz | gzip -d | tar xv || exit 1
-else
-  rpm2cpio libreoffice${MAJORVER}-freedesktop-menus-*.rpm | cpio -idmv || exit 1
-fi
-  echo "Install icons and mime files"
-  mkdir -p ${PKG}/usr/share
-  rm -rf usr/share/applications
-  mv -v usr/share/* ${PKG}/usr/share
-  mkdir -p ${PKG}/usr/bin
-  mv -v usr/bin/* ${PKG}/usr/bin
-cd ..
+echo "Install icons and mime files"
+mkdir -p ${PKG}/usr/share
+rm -rf usr/share/applications
+mv usr/share/* ${PKG}/usr/share
+mkdir -p ${PKG}/usr/bin
+mv usr/bin/* ${PKG}/usr/bin
 
 echo "Unpacking language packages"
-tar xvf $CWD/LibreOffice_${VERSION}${RCVERS}_Linux_${LOARCH}_${DIST}_langpack_${LANGPACK}.tar.gz
+tar xvf $CWD/LibreOffice_${VERSION}_Linux_${LOARCH}_${DIST}_langpack_${LANGPACK}.tar.gz
 cd LibreOffice_${VERSION}${RCVERS}_Linux_${LOARCH}_${DIST}_langpack_${LANGPACK}
 if [ "${DIST}" = "deb" ]; then
   cd DEBS
-  for i in `ls -1 *.deb`; do
-    ar p $i data.tar.gz | gzip -d | tar xv || exit 1
+  for i in *.deb; do
+    echo "Processing $i" | tee -a $WRK/LibreOffice_pkg.list;
+    ar p $i data.tar.gz | gzip -d | tar xf || exit 1;
   done
 else
   cd RPMS
-  for i in `ls -1 *.rpm`; do
-    rpm2cpio $i | cpio -idmv || exit 1
+  for i in *.rpm; do
+    echo "Processing $i" | tee -a $WRK/LibreOffice_pkg.list;
+    rpm2cpio $i | cpio -idm --quiet || exit 1;
   done
 fi
 cd ..
@@ -186,6 +155,9 @@ cat $CWD/doinst.sh > $PKG/install/doinst.sh
 
 cd $PKG
 /sbin/makepkg -p -l y -c n $OUTPUT/$PRGNAM-${VERSION}${RCVERS}-$ARCH-$BUILD$TAG.txz
+
+echo "Used ${DIST} packages"
+cat $WRK/LibreOffice_pkg.list
 
 echo "Cleaning up $WRK";
 cd $WRK; rm -rf $PKG LibreOffice_*

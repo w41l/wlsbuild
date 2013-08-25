@@ -24,9 +24,8 @@
 # YOUR DATA IS DESTROYED, YOUR HOUSE BURNS DOWN OR YOUR DOG RUNS OFF.
 
 PRGNAM=gst-plugins-bad1
-SRCNAM=gst-plugins-bad
-VERSION=1.0.7
-BUILD=1
+VERSION=$(ls gst-plugins-bad-*.tar.?z* | rev | cut -d - -f 1 | cut -d . -f 3- | rev)
+BUILD=${BUILD:-1}
 TAG=${TAG:-_wls}
 NUMJOBS=${NUMJOBS:--j2}
 
@@ -63,9 +62,10 @@ set -e
 rm -rf $PKG
 mkdir -p $WRK $PKG $OUTPUT
 cd $WRK
-rm -rf $SRCNAM-$VERSION
-tar xvf $CWD/$SRCNAM-$VERSION.tar.?z*
-cd $SRCNAM-$VERSION
+rm -rf gst-plugins-bad-$VERSION
+tar xvf $CWD/gst-plugins-bad-$VERSION.tar.?z*
+cd gst-plugins-bad-$VERSION
+
 chown -R root:root .
 find . \
  \( -perm 777 -o -perm 775 -o -perm 711 -o -perm 555 -o -perm 511 \) \
@@ -96,7 +96,7 @@ find $PKG | xargs file | grep -e "executable" -e "shared object" | grep ELF \
 
 mkdir -p $PKG/usr/doc/$PRGNAM-$VERSION
 cp -a $DOCS $PKG/usr/doc/$PRGNAM-$VERSION
-head -n 1000 ChangeLog > $PKG/usr/doc/$PRGNAM-$VERSION/ChangeLog
+cat ChangeLog | head -n 1000 > $PKG/usr/doc/$PRGNAM-$VERSION/ChangeLog
 cat $CWD/$PRGNAM.SlackBuild > $PKG/usr/doc/$PRGNAM-$VERSION/$PRGNAM.SlackBuild
 
 mkdir -p $PKG/install
@@ -108,4 +108,4 @@ cd $PKG
 /sbin/makepkg -p -l y -c n $OUTPUT/$PRGNAM-$VERSION-$ARCH-$BUILD$TAG.txz
 
 echo "Cleaning up build directory"
-cd $WRK; rm -rf $SRCNAM-$VERSION $PKG
+cd $WRK; rm -rf gst-plugins-bad-$VERSION $PKG

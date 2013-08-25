@@ -1,4 +1,4 @@
 URL=http://gstreamer.freedesktop.org/
-SRC=http://gstreamer.freedesktop.org/src/gst-plugins-good/gst-plugins-good-1.0.7.tar.xz
-MD5=e4b1c825475a9b478fe29e8e9f34516f
-SHA1=15addda7c6322a42c904aaf1c1d0b5d5a63f908b
+SRC=http://gstreamer.freedesktop.org/src/gst-plugins-good/gst-plugins-good-1.0.9.tar.xz
+MD5=20bb77f201b044f4ba61de167c4466d7
+SHA1=1c075120fb956a9a43c2fdc18ae2b86658d35695

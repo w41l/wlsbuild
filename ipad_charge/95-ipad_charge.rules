@@ -1,0 +1,1 @@
+ENV{DEVTYPE}=="usb_device", ACTION=="add", SUBSYSTEM=="usb", ATTRS{idVendor}=="05ac", ATTRS{idProduct}=="12[9a][0-9a-f]", RUN+="/usr/bin/ipad_charge"

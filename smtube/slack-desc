@@ -1,0 +1,19 @@
+# HOW TO EDIT THIS FILE:
+# The "handy ruler" below makes it easier to edit a package description.  Line
+# up the first '|' above the ':' following the base package name, and the '|'
+# on the right side marks the last column you can put a character in.  You must
+# make exactly 11 lines for the formatting to be correct.  It's also
+# customary to leave one space after the ':'.
+
+      |-----handy-ruler------------------------------------------------------|
+smtube: SMTube (SMPlayer Youtube Browser)
+smtube:
+smtube: This is a youtube browser for smplayer. You can browse, search,
+smtube: download and play youtube videos. The videos are currently played in
+smtube: smplayer but in the future it may be added the possibility to use
+smtube: other players. The code has been taken from UMPlayer
+smtube: (http://www.umplayer.com).
+smtube:
+smtube: URL: http://smplayer.sourceforge.net/
+smtube:
+smtube: http://www.walecha.net/

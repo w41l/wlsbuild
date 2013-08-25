@@ -1,0 +1,19 @@
+# HOW TO EDIT THIS FILE:
+# The "handy ruler" below makes it easier to edit a package description.  Line
+# up the first '|' above the ':' following the base package name, and the '|'
+# on the right side marks the last column you can put a character in.  You must
+# make exactly 11 lines for the formatting to be correct.  It's also
+# customary to leave one space after the ':'.
+
+       |-----handy-ruler------------------------------------------------|
+oyranos: Oyranos
+oyranos:
+oyranos: The Operating System Colour Management System Oyranos is
+oyranos: intented to coordinate device informations (ICC colour profiles)
+oyranos: and configure their system wide usage. Target is a predictable
+oyranos: path for applications and users to match colours across devices.
+oyranos:
+oyranos: URL: http://www.oyranos.org/
+oyranos:
+oyranos:
+oyranos: Packaged by Widya Walesa <walecha99@gmail.com>

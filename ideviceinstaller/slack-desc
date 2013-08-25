@@ -1,0 +1,19 @@
+# HOW TO EDIT THIS FILE:
+# The "handy ruler" below makes it easier to edit a package description.  Line
+# up the first '|' above the ':' following the base package name, and the '|' on
+# the right side marks the last column you can put a character in.  You must make
+# exactly 11 lines for the formatting to be correct.  It's also customary to
+# leave one space after the ':'.
+
+                |-----handy-ruler---------------------------------------------------|
+ideviceinstaller: ideviceinstaller
+ideviceinstaller:
+ideviceinstaller: ideviceinstaller is a tool to interact with the installation_proxy
+ideviceinstaller: of an iDevice allowing to install, upgrade, uninstall, archive,
+ideviceinstaller: restore, and enumerate installed or archived apps.
+ideviceinstaller:
+ideviceinstaller: It makes use of the libimobiledevice library that allows
+ideviceinstaller: communication with the devices.
+ideviceinstaller:
+ideviceinstaller:
+ideviceinstaller: http://www.walecha.net/

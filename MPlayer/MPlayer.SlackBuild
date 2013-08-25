@@ -24,9 +24,9 @@
 # YOUR DATA IS DESTROYED, YOUR HOUSE BURNS DOWN OR YOUR DOG RUNS OFF.
 
 PRGNAM=MPlayer
-VERSION=1.1.1
+VERSION=${VERSION:-1.1.1}
 FFVERSION=aba32d84630cb17b68fd41d465d17580465f1d9e
-BUILD=1
+BUILD=${BUILD:-1}
 TAG=${TAG:-_wls}
 NUMJOBS=${NUMJOBS:--j2}
 
@@ -114,14 +114,24 @@ LANGUAGES="en"
   --disable-dvdread-internal \
   --disable-libdvdcss-internal \
   --disable-openal \
+  --disable-gif \
+  --disable-esd \
+  --disable-mga \
+  --disable-ass-internal \
+  --disable-pulse \
+  --disable-vdpau \
+  --enable-xvmc \
+  --enable-radio \
+  --enable-radio-capture \
   --enable-menu \
   --enable-dvdread \
   --enable-dvdnav \
   --enable-runtime-cpudetection \
-  --enable-pulse \
   --enable-mp3lib \
   $FFMPEG_EXTERNAL \
   $MENC \
+
+#  --enable-vaapi \
 
 echo "$VERSION" > VERSION
 make

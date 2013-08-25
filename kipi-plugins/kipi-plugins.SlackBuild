@@ -24,8 +24,8 @@
 # YOUR DATA IS DESTROYED, YOUR HOUSE BURNS DOWN OR YOUR DOG RUNS OFF.
 
 PRGNAM=kipi-plugins
-VERSION=3.2.0
-BUILD=1
+VERSION=$(ls digikam-*.tar.?z* | rev | cut -d - -f 1 | cut -d . -f 3- | rev)
+BUILD=${BUILD:-1}
 TAG=${TAG:-_wls}
 NUMJOBS=${NUMJOBS:--j1}
 
@@ -103,7 +103,7 @@ cd build
   -DCMAKE_CXX_FLAGS="$SLKCFLAGS" \
   -DCMAKE_SHARED_LINKER_FLAGS=" -lpthread " \
   -DCMAKE_BUILD_TYPE="Release" \
-  -DCMAKE_INSTALL_PREFIX=/usr \
+  -DCMAKE_INSTALL_PREFIX=$(kde4-config --prefix) \
   -DINSTALL_MAN_DIR=man \
   -DINSTALL_DOC_DIR=doc/$PRGNAM-$VERSION \
   -DBUILD_SHARED_LIBS=ON \
@@ -111,7 +111,7 @@ cd build
   -DLIB_INSTALL_DIR=/usr/lib$LIBDIRSUFFIX \
   ..
 
-  make VERBOSE=1 $NUMJOBS
+  make $NUMJOBS
   make DESTDIR=$PKG install
 cd -
 
@@ -120,13 +120,14 @@ find $PKG | xargs file | grep -e "executable" -e "shared object" | grep ELF \
 
 mkdir -p $PKG/usr/doc/$PRGNAM-$VERSION
 cp -a $DOCS $PKG/usr/doc/$PRGNAM-$VERSION
+cat ChangeLog | head -n 1000 > $PKG/usr/doc/$PRGNAM-$VERSION/ChangeLog
 cat $CWD/$PRGNAM.SlackBuild > $PKG/usr/doc/$PRGNAM-$VERSION/$PRGNAM.SlackBuild
 
 mkdir -p $PKG/install
 cat $CWD/slack-desc > $PKG/install/slack-desc
 
 cd $PKG
-/sbin/makepkg -l y -c n $OUTPUT/$PRGNAM-$VERSION-$ARCH-$BUILD$TAG.txz
+/sbin/makepkg -p -l y -c n $OUTPUT/$PRGNAM-$VERSION-$ARCH-$BUILD$TAG.txz
 
 echo "Cleaning up build directory"
 cd $WRK; rm -rf digikam-$VERSION $PKG

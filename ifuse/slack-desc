@@ -10,7 +10,7 @@ ifuse: ifuse
 ifuse:
 ifuse: A fuse filesystem for mounting iPhone and iPod touch devices.
 ifuse:
-ifuse: URL: http://matt.colyer.name/projects/iphone-linux/
+ifuse: Don't forget to add your username into fuse group.
 ifuse:
 ifuse:
 ifuse:

@@ -2,7 +2,7 @@
 
 # Slackware build script for xarchiver
 
-# Copyright 2011 Widya Walesa <walecha99@gmail.com>
+# Copyright 2011-2013  Widya Walesa <walecha99@gmail.com>
 # All rights reserved.
 #
 # Redistribution and use of this script, with or without modification, is
@@ -25,9 +25,9 @@
 
 PRGNAM=xarchiver
 VERSION=0.5.2
-BUILD=1
+BUILD=${BUILD:-1}
 TAG=${TAG:-_wls}
-NUMJOBS=${NUMJOBS:--j4}
+NUMJOBS=${NUMJOBS:--j2}
 
 if [ -z "$ARCH" ]; then
   case "$( uname -m )" in
@@ -63,8 +63,11 @@ rm -rf $PKG
 mkdir -p $WRK $PKG $OUTPUT
 cd $WRK
 rm -rf $PRGNAM-$VERSION
-tar xvf $CWD/$PRGNAM-$VERSION.tar.bz2
+tar xvf $CWD/$PRGNAM-$VERSION.tar.?z*
 cd $PRGNAM-$VERSION
+#rm -rf $PRGNAM-code-58-trunk
+#unzip $CWD/$PRGNAM-code-58-trunk.zip
+#cd $PRGNAM-code-58-trunk
 
 zcat $CWD/$PRGNAM-$VERSION-add_xz_support.patch.gz | patch -p1
 
@@ -77,8 +80,8 @@ find . \
 
 CFLAGS="$SLKCFLAGS" \
 CXXFLAGS="$SLKCFLAGS" \
-./configure \
-  --build=$ARCH-slackware-linux --host=$ARCH-slackware-linux \
+./autogen.sh \
+  --build=$ARCH-slackware-linux \
   --program-prefix= --program-suffix= \
   --prefix=/usr --exec-prefix=/usr \
   --bindir=/usr/bin --sbindir=/usr/sbin \
@@ -89,7 +92,7 @@ CXXFLAGS="$SLKCFLAGS" \
   --disable-static --enable-shared \
   --disable-gtk-doc
 
-make
+make $NUMJOBS
 make install DESTDIR=$PKG
 
 mkdir -p $PKG/usr/doc
@@ -107,7 +110,7 @@ cat $CWD/slack-desc > $PKG/install/slack-desc
 cat $CWD/doinst.sh > $PKG/install/doinst.sh
 
 cd $PKG
-/sbin/makepkg -l y -c n $OUTPUT/$PRGNAM-$VERSION-$ARCH-$BUILD$TAG.txz
+/sbin/makepkg -p -l y -c n $OUTPUT/$PRGNAM-$VERSION-$ARCH-$BUILD$TAG.txz
 
 echo "Cleaning up build directory"
-cd $WRK; rm -rf $PRGNAM-$VERSION $PKG
+cd $WRK; rm -rf $PRGNAM-* $PKG

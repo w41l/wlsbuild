@@ -29,6 +29,18 @@ BUILD=${BUILD:-1}
 TAG=${TAG:-_wls}
 NUMJOBS=${NUMJOBS:--j2}
 
+if $(pkg-config --exists --print-errors pygobject-3.0 >/dev/null 2>&1); then
+  USE_GNOME="-DWITH_GIR=ON -DWITH_GTK3=ON"
+else
+  USE_GNOME="-DWITH_GIR=OFF -DWITH_GTK3=OFF"
+fi
+
+if [ -x /usr/bin/kde4-config ]; then
+  USE_KDE="-DWITH_QT=ON -DWITH_KDE=ON"
+else
+  USE_KDE="-DWITH_QT=OFF -DWITH_KDE=OFF"
+fi
+
 if [ -z "$ARCH" ]; then
   case "$( uname -m )" in
     i?86) ARCH=i486 ;;
@@ -80,8 +92,8 @@ cd build
     -DCMAKE_SHARED_LINKER_FLAGS="-lpthread" \
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_PREFIX=/usr \
-    -DWITH_GIR=OFF \
-    -DWITH_QT=ON \
+    $USE_GNOME \
+    $USE_KDE
 
   make $NUMJOBS
   make install DESTDIR=$PKG

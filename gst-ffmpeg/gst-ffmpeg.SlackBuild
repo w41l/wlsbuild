@@ -24,8 +24,9 @@
 # YOUR DATA IS DESTROYED, YOUR HOUSE BURNS DOWN OR YOUR DOG RUNS OFF.
 
 PRGNAM=gst-ffmpeg
-VERSION=0.10.13
-BUILD=2
+VERSION=$( ls gst-ffmpeg-*.tar.?z* | rev | cut -d - -f 1 | cut -d . -f 3- | rev )
+LIBAV_VERSION=$( ls libav-*.tar.?z* | rev | cut -d - -f 1 | cut -d . -f 3- | rev )
+BUILD=${BUILD:-1}
 TAG=${TAG:-_wls}
 NUMJOBS=${NUMJOBS:--j2}
 
@@ -66,7 +67,10 @@ rm -rf $PRGNAM-$VERSION
 tar xvf $CWD/$PRGNAM-$VERSION.tar.?z*
 cd $PRGNAM-$VERSION
 
-cat $CWD/$PRGNAM-$VERSION-gcc-4.7-1.patch | patch -p1
+tar xvf $CWD/libav-$LIBAV_VERSION.tar.?z*
+mv gst-libs/ext/libav gst-libs/ext/libav.old
+mv libav-${LIBAV_VERSION} gst-libs/ext/libav
+cp -a gst-libs/ext/libav.old/config.* gst-libs/ext/libav/
 
 chown -R root:root .
 find . \

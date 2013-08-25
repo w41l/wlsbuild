@@ -1,0 +1,42 @@
+alsa-lib >= 1.0.26-i486-1
+atk >= 2.4.0-i486-1
+bzip2 >= 1.0.6-i486-1
+cairo >= 1.10.2-i486-2
+cups >= 1.5.4-i486-2
+cxxlibs >= 6.0.17-i486-1 | gcc-g++ >= 4.7.1-i486-1
+dbus >= 1.4.20-i486-3
+expat >= 2.0.1-i486-2
+flac >= 1.2.1-i486-3
+fontconfig >= 2.9.0-i486-1
+freetype >= 2.4.10-i486-1
+gdk-pixbuf2 >= 2.26.1-i486-2
+glib2 >= 2.32.4-i486-1
+glibc-solibs >= 2.15-i486-7
+gtk+2 >= 2.24.10-i486-2
+libX11 >= 1.5.0-i486-1
+libXScrnSaver >= 1.2.2-i486-1
+libXau >= 1.0.7-i486-1
+libXcomposite >= 0.4.3-i486-1
+libXcursor >= 1.1.13-i486-1
+libXdamage >= 1.1.3-i486-1
+libXdmcp >= 1.1.1-i486-1
+libXext >= 1.3.1-i486-1
+libXfixes >= 5.0-i486-1
+libXi >= 1.6.1-i486-1
+libXinerama >= 1.1.2-i486-1
+libXrandr >= 1.3.2-i486-1
+libXrender >= 0.9.7-i486-1
+libffi >= 3.0.11-i486-1
+libgcrypt >= 1.5.0-i486-1
+libgpg-error >= 1.10-i486-1
+libjpeg >= v8a-i486-1
+libogg >= 1.3.0-i486-1
+libpng >= 1.4.12-i486-1
+libxcb >= 1.8.1-i486-1
+openssl >= 1.0.1c-i486-3 | openssl-solibs >= 1.0.1c-i486-3
+pango >= 1.30.1-i486-1
+pixman >= 0.26.2-i486-1
+udev >= 182-i486-5
+udisks >= 1.0.4-i486-1 | udisks2 >= 1.98.0-i486-1 | util-linux >= 2.21.2-i486-5
+wget >= 1.14-i486-1
+zlib >= 1.2.6-i486-1

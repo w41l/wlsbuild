@@ -25,9 +25,9 @@
 
 PRGNAM=a52dec
 VERSION=$(ls $PRGNAM-*.tar.?z* | rev | cut -d - -f 1 | cut -d . -f 3- | rev)
-BUILD=2
-TAG="_wls"
-NUMJOBS="-j2"
+BUILD=${BUILD:-1}
+TAG=${TAG:-_wls}
+NUMJOBS=${NUMJOBS:--j2}
 
 if [ -z "$ARCH" ]; then
   case "$( uname -m )" in

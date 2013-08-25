@@ -24,7 +24,8 @@
 # YOUR DATA IS DESTROYED, YOUR HOUSE BURNS DOWN OR YOUR DOG RUNS OFF.
 
 PRGNAM=mesa
-VERSION=9.2.ee421ae
+VERSION=9.2.0_rc2
+SRCVERSION=$(echo "$VERSION" | sed 's/_/-/g')
 BUILD=${BUILD:-1}
 TAG=${TAG:-_wls}
 NUMJOBS=${NUMJOBS:--j2}
@@ -51,7 +52,7 @@ if [ "$ARCH" = "i486" ]; then
   SLKCFLAGS="-O2 -pipe -march=i486 -mtune=i686"
   LIBDIRSUFFIX=""
 elif [ "$ARCH" = "x86_64" ]; then
-  SLKCFLAGS="-O2 -fPIC"
+  SLKCFLAGS="-O2 -m64 -pipe -fPIC"
   LIBDIRSUFFIX="64"
 else
   SLKCFLAGS="-O2"
@@ -61,9 +62,9 @@ fi
 rm -rf $PKG
 mkdir -p $WRK $PKG
 cd $WRK
-rm -rf Mesa-*
-tar xvf $CWD/MesaLib-$VERSION.tar.?z* || exit 1
-cd Mesa-*
+rm -rf Mesa-$SRCVERSION
+tar xvf $CWD/MesaLib-$SRCVERSION.tar.?z* || exit 1
+cd Mesa-$SRCVERSION
 
 patch -p1 < $CWD/patches/MesaLib-9.1.4-add_xdemos-1.patch
 
@@ -85,13 +86,8 @@ CXXFLAGS="$SLKCFLAGS $(pkg-config --cflags libelf)" \
   --mandir=/usr/man \
   --docdir=/usr/doc/mesa-$VERSION \
   --enable-xa \
-  --enable-gallium-llvm \
-  --enable-shared-glapi \
-  --with-dri-driverdir=/usr/lib${LIBDIRSUFFIX}/xorg/modules/dri \
-  --with-dri-drivers="$DRI_DRIVERS" \
-  --with-gallium-drivers="$GALLIUM_DRIVERS" \
-  --build=$ARCH-slackware-linux \
   --enable-texture-float \
+  --enable-gallium-llvm \
   --enable-gles1 \
   --enable-gles2 \
   --enable-openvg \
@@ -100,8 +96,13 @@ CXXFLAGS="$SLKCFLAGS $(pkg-config --cflags libelf)" \
   --enable-gallium-egl \
   --enable-gallium-gbm \
   --enable-glx-tls \
-  --with-egl-platforms="drm,x11" \
   --enable-r600-llvm-compiler \
+  --enable-shared-glapi \
+  --with-dri-driverdir=/usr/lib${LIBDIRSUFFIX}/xorg/modules/dri \
+  --with-dri-drivers="$DRI_DRIVERS" \
+  --with-gallium-drivers="$GALLIUM_DRIVERS" \
+  --with-egl-platforms="drm,x11" \
+  --build=$ARCH-slackware-linux \
 
 make
 make install DESTDIR=$PKG || exit 1
@@ -130,9 +131,10 @@ cat $CWD/$PRGNAM.SlackBuild > $PKG/usr/doc/Mesa-$VERSION/$PRGNAM.SlackBuild
 
 mkdir -p $PKG/install
 cat $CWD/slack-desc > $PKG/install/slack-desc
+cat $CWD/doinst.sh > $PKG/install/doinst.sh
 
 cd $PKG
 /sbin/makepkg -p -l y -c n $OUTPUT/$PRGNAM-$VERSION-$ARCH-$BUILD$TAG.txz
 
 echo "Cleaning up build directory"
-cd $WRK; rm -rf Mesa-* $PKG
+cd $WRK; rm -rf Mesa-$SRCVERSION $PKG

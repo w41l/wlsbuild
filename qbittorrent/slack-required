@@ -1,2 +1,0 @@
-GeoIP
-libtorrent-rasterbar

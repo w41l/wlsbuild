@@ -24,8 +24,8 @@
 # YOUR DATA IS DESTROYED, YOUR HOUSE BURNS DOWN OR YOUR DOG RUNS OFF.
 
 PRGNAM=oxygen-fonts
-VERSION=0.2
-GITVERS=a25fc69
+VERSION=0.4
+GITVERS=484328b
 BUILD=1
 TAG="_wls"
 ARCH="noarch"
@@ -34,6 +34,7 @@ CWD=$(pwd)
 WRK=${WRK:-/tmp/wlsbuild}
 PKG=$WRK/package-$PRGNAM
 OUTPUT=${OUTPUT:-/tmp}
+DOCS="COPYING* GPL.txt README"
 
 set -e
 
@@ -52,13 +53,13 @@ find . \
 
 cd version-$VERSION
 mkdir -p $PKG/usr/share/fonts/TTF
-install -m 644 Monospace/OxygenMono-Regular.ttf $PKG/usr/share/fonts/TTF/
-install -m 644 Oxygen-Bold/Oxygen-Bold.ttf $PKG/usr/share/fonts/TTF/
-install -m 644 Oxygen-Regular/Oxygen.ttf $PKG/usr/share/fonts/TTF/
+install -m 644 mono-*/OxygenMono-Regular.ttf $PKG/usr/share/fonts/TTF/
+install -m 644 Bold-*/Oxygen-Sans-Bold.ttf $PKG/usr/share/fonts/TTF/
+install -m 644 Regular-*/Oxygen-Sans.ttf $PKG/usr/share/fonts/TTF/
 cd ..
 
 mkdir -p $PKG/usr/doc/$PRGNAM-$VERSION
-install -m 644 {COPYING-GPL+FE.txt,COPYING-OFL,GPL.txt,README} $PKG/usr/doc/$PRGNAM-$VERSION/
+install -m 644 ${DOCS} $PKG/usr/doc/$PRGNAM-$VERSION/
 cat $CWD/$PRGNAM.SlackBuild > $PKG/usr/doc/$PRGNAM-$VERSION/$PRGNAM.SlackBuild
 
 mkdir -p $PKG/install
@@ -66,7 +67,7 @@ cat $CWD/doinst.sh > $PKG/install/doinst.sh
 cat $CWD/slack-desc > $PKG/install/slack-desc
 
 cd $PKG
-/sbin/makepkg -l y -c n $OUTPUT/$PRGNAM-${VERSION}_${GITVERS}git-$ARCH-$BUILD$TAG.txz
+/sbin/makepkg -p -l y -c n $OUTPUT/$PRGNAM-${VERSION}_${GITVERS}git-$ARCH-$BUILD$TAG.txz
 
 echo "Cleaning up build directory"
 cd $WRK; rm -rf $PRGNAM $PKG

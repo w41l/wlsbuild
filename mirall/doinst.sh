@@ -11,7 +11,7 @@ config() {
   # Otherwise, we leave the .new copy for the admin to consider...
 }
 
-config $PKG/etc/sync-exclude.lst.new
+config $PKG/etc/ownCloud/sync-exclude.lst.new
 
 if [ -x /usr/bin/update-mime-database ]; then
   /usr/bin/update-mime-database /usr/share/mime >/dev/null 2>&1
@@ -26,4 +26,3 @@ if [ -e /usr/share/icons/hicolor/icon-theme.cache ]; then
     /usr/bin/gtk-update-icon-cache -q /usr/share/icons/hicolor >/dev/null 2>&1
   fi
 fi
-

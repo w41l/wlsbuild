@@ -1,6 +1,5 @@
 a52dec
 avahi
-dirac
 faac
 ffmpeg
 lame
@@ -13,6 +12,7 @@ libgsm
 libkate
 libmodplug
 libmpeg2
+libssh2
 libupnp
 libva
 lua

@@ -30,29 +30,31 @@
 #
 # Require:
 
-set -e 
-
+set -e
 
 PKGNAME=chromium
 #VERSION=${VERSION:-SNAPSHOT} # Set to SNAPSHOT to install the latest release.
-VERSION=${VERSION:-29.0.1547.57} # or set an exact realese
+VERSION=${VERSION:-31.0.1650.63} # or set an exact realese
 # VERSION=${VERSION:-28} # or set your prefered major version
 BUILD=${BUILD:-1}
-TAG=${TAG:-sl}
+TAG=${TAG:-_wls}
 ARCH=${ARCH:-i686}
 CONTINUE=${CONTINUE:-0}
-SOURCE="http://commondatastorage.googleapis.com/chromium-browser-official"
+SOURCE="http://commondatastorage.googleapis.com/${PKGNAME}-browser-official"
 if [ "$VERSION" == "SNAPSHOT" ];then
   VERSION=.
 fi
 #VERSION=$(wget http://src.chromium.org/viewvc/chrome/releases/?view=log -O - -q|grep DEPS|awk '{print $7}'|grep -m1 ^$VERSION)
-SOURCE=$SOURCE/chromium-$VERSION.tar.xz
+SOURCE=$SOURCE/${PKGNAME}-$VERSION.tar.xz
 TAR=      # empty = auto
 DIR=      # empty = auto
 DOCS="AUTHORS  Android.mk  DEPS  LICENSE  OWNERS  PRESUBMIT.py  WATCHLISTS"
-SLKFILES="chromium.Desktop"
+SLKFILES="${PKGNAME}.desktop"
 
-
+# The default, chromium will always activate the GPU Blacklist because some buggy
+# OpenGL implementation in the opensource driver code. If you don't care about it
+# you can ignore the blacklist by commenting out the line below.
+#GPU_BLACKLIST="--ignore-gpu-blacklist"
 
 # If EULA
 if [ -e EULA.TXT ];then
@@ -65,13 +67,11 @@ if [ -e EULA.TXT ];then
   fi
 fi
 
-
-
 # Does not touch following if not needed
 JOBS=${JOBS:--j2}
 CWD=$(pwd)
-TMP=${TMP:-/tmp/buildpkgs/$PKGNAME}
-PKG=$TMP/package-$PKGNAME
+WRK=${WRK:-/tmp/buildpkgs/$PKGNAME}
+PKG=$WRK/package-$PKGNAME
 OUTPUT=${OUTPUT:-$CWD}
 TAR=${TAR:-$(basename $SOURCE)}
 DIR=${DIR:-$(echo "$TAR"|sed -r 's/(\.tar|)(.gz|.bz2|.xz|)$//')}
@@ -80,9 +80,6 @@ if [ ! -e "$CWD/$TAR" -a "$CONTINUE" != "1" ];then
   wget "$SOURCE" -O "$CWD/$TAR"
 fi
 
-
-
-CHOST="i486"
 if [ "$ARCH" = "i486" ]; then
   SLKCFLAGS="-O2 -march=i486 -mtune=i686"
   LIBDIRSUFFIX=""
@@ -95,16 +92,14 @@ elif [ "$ARCH" = "i686" ]; then
 elif [ "$ARCH" = "x86_64" ]; then
   SLKCFLAGS="-O2 -fPIC -fno-ipa-cp"
   LIBDIRSUFFIX="64"
-  CHOST="x86_64"
 fi
-
 
 rm -rf $PKG
 if [ "$CONTINUE" != "1" ];then
   ### Preparing Source
-  rm -rf $TMP
-  mkdir -p $TMP $PKG $OUTPUT
-  cd $TMP
+  rm -rf $WRK
+  mkdir -p $WRK $PKG $OUTPUT
+  cd $WRK
   echo "Extracting source..."
   tar xf $CWD/$TAR
   cd $DIR
@@ -116,53 +111,86 @@ fi
 
 # Building Chromium package
 
-cd $TMP/$DIR
+cd $WRK/$DIR
 if [ "$CONFIGURE" == "1" ];then
-   build/gyp_chromium -f make build/all.gyp --depth=. \
-    -Dgcc_version=47 \
+   GYP_GENERATORS=ninja \
+   ./build/gyp_chromium build/all.gyp --depth=. \
+    -Dgcc_version=48 \
     -Dno_strict_aliasing=1 \
     -Dwerror= \
-    -Dlinux_sandbox_path=/usr/lib${LIBDIRSUFFIX}/$PKGNAME/chromium_sandbox \
-    -Dlinux_sandbox_chrome_path=/usr/lib${LIBDIRSUFFIX}/$PKGNAME/chromium \
     -Dlinux_strip_binary=1 \
     -Drelease_extra_cflags="$SLKCFLAGS ${CFLAGS}" \
     -Dffmpeg_branding=Chrome \
     -Dproprietary_codecs=1 \
+    -Dremove_webcore_debug_symbols=1 \
+    -Dlinux_fpic=1 \
+    -Dbuild_ffmpegsumo=1 \
+    -Ddisable_nacl=1 \
+    -Duse_cups=1 \
     -Duse_system_libjpeg=1 \
     -Duse_system_libxslt=1 \
-    -Duse_system_libxml=0 \
-    -Duse_system_speex=0 \
+    -Duse_system_libxml=1 \
     -Duse_system_flac=1 \
-    -Duse_system_libwebp=0 \
     -Duse_system_bzip2=1 \
     -Duse_system_zlib=1 \
     -Duse_system_libpng=1 \
-    -Duse_system_ffmpeg=0 \
     -Duse_system_yasm=1 \
-    -Duse_system_libevent=0 \
-    -Dremove_webcore_debug_symbols=1 \
+    -Duse_system_libevent=1 \
+    -Duse_system_libusb=1 \
+    -Denable_webrtc=1 \
+    -Denable_openmax=1 \
+    -Denable_one_click_signin=1 \
+    -Dno_gc_sections=1 \
+    -Duse_system_ffmpeg=0 \
+    -Duse_system_libwebp=0 \
+    -Duse_system_speex=0 \
     -Duse_system_ssl=0 \
-    -Duse_gnome_keyring=0 \
-    -Dlinux_link_gnome_keyring=0 \
-    -Ddisable_nacl=1 \
     -Duse_kerberos=0 \
     -Duse_gconf=0 \
-    -Dlinux_fpic=1 \
-    -Dbuild_ffmpegsumo=1 \
     -Duse_openssl=0 \
     -Duse_pulseaudio=0 \
+    -Duse_gnome_keyring=0 \
+    -Dlinux_link_gnome_keyring=0 \
+    -Duse_system_libvpx=0 \
+    -Dlinux_breakpad=0 \
+    -Dlinux_use_tcmalloc=0 \
+    -Dlinux_use_heapchecker=0 \
+    -Dtest_isolation_mode=noop \
+    -Dclang_use_chrome_plugins=0 \
+    -Dgoogle_api_key='AIzaSyBACsVc5eA_4_r48QC1DmBJilCjN-OX6mg' \
+    -Dgoogle_default_client_id='395473374750.apps.googleusercontent.com' \
+    -Dgoogle_default_client_secret='Q6hzrieIXfB_ULzn4TXtksFl' \
     $([ "${ARCH}" == 'i686' ] && echo '-Ddisable_sse2=1')
 fi
 
+#     -Dlinux_sandbox_path=/usr/lib${LIBDIRSUFFIX}/$PKGNAME/${PKGNAME}_sandbox \
+#     -Dlinux_sandbox_chrome_path=/usr/lib${LIBDIRSUFFIX}/$PKGNAME/${PKGNAME} \
+
 ### Building Chrome executable
 CXXFLAGS="-include /usr/include/expat.h -include unistd.h" \
-make $JOBS chrome chrome_sandbox chromedriver BUILDTYPE=Release
+BUILDTYPE="Release" \
+ninja -C out/Release ${PKGNAME} ${PKGNAME}_sandbox
 
 # Installing Chrome executable, sandbox and driver
 mkdir -p $PKG/usr/lib${LIBDIRSUFFIX}/$PKGNAME
-install -m 0755 -o root -g root out/Release/chrome $PKG/usr/lib${LIBDIRSUFFIX}/$PKGNAME/chromium
-install -m 4555 -o root -g root -D out/Release/chrome_sandbox $PKG/usr/lib${LIBDIRSUFFIX}/$PKGNAME/chromium_sandbox
-install -m 0755 -o root -g root -D out/Release/chromedriver $PKG/usr/lib${LIBDIRSUFFIX}/$PKGNAME/chromiumdriver
+cp -a out/Release/${PKGNAME} $PKG/usr/lib${LIBDIRSUFFIX}/$PKGNAME/${PKGNAME}
+chown root:root $PKG/usr/lib${LIBDIRSUFFIX}/$PKGNAME/${PKGNAME}
+chmod 0755 $PKG/usr/lib${LIBDIRSUFFIX}/$PKGNAME/${PKGNAME}
+
+# cp -a out/Release/chromedriver $PKG/usr/lib${LIBDIRSUFFIX}/$PKGNAME/chromiumdriver
+# chown root:root $PKG/usr/lib${LIBDIRSUFFIX}/$PKGNAME/chromiumdriver
+# chmod 0755 $PKG/usr/lib${LIBDIRSUFFIX}/$PKGNAME/chromiumdriver
+
+cp -a out/Release/${PKGNAME}_sandbox $PKG/usr/lib${LIBDIRSUFFIX}/$PKGNAME/${PKGNAME}_sandbox
+chown root:root $PKG/usr/lib${LIBDIRSUFFIX}/$PKGNAME/${PKGNAME}_sandbox
+chmod 4755 $PKG/usr/lib${LIBDIRSUFFIX}/$PKGNAME/${PKGNAME}_sandbox
+( cd $PKG/usr/lib${LIBDIRSUFFIX}/$PKGNAME/; ln -s ${PKGNAME}_sandbox chrome-sandbox; )
+
+# Linking Chrome executable on default path
+mkdir -p $PKG/usr/bin
+ln -sf /usr/lib${LIBDIRSUFFIX}/$PKGNAME/${PKGNAME} $PKG/usr/bin/$PKGNAME
+ln -sf /usr/lib${LIBDIRSUFFIX}/$PKGNAME/${PKGNAME}_sandbox $PKG/usr/bin/${PKGNAME}_sandbox
+ln -sf /usr/lib${LIBDIRSUFFIX}/$PKGNAME/chrome-sandbox $PKG/usr/bin/chrome-sandbox
 
 # Installing Chrome data, resources and libraries
 mkdir -p  $PKG/usr/lib${LIBDIRSUFFIX}/$PKGNAME/themes
@@ -174,34 +202,35 @@ cp -r \
   out/Release/libffmpegsumo.so \
   out/Release/locales \
   out/Release/resources \
+  out/Release/pyproto \
    $PKG/usr/lib${LIBDIRSUFFIX}/$PKGNAME
 
-
-
 # Installing manpage
+mkdir -p $PKG/usr/man/man1
 install -m 0644 -D out/Release/chrome.1 $PKG/usr/man/man1/$PKGNAME.1
 
 # Installing desktop menu and icon files
-install -m 0644 -D $CWD/$PKGNAME.desktop $PKG/usr/share/applications/chromium.desktop
+if [ "$GPU_BLACKLIST" = "" ]; then
+  install -m 0644 -D $CWD/$PKGNAME.desktop $PKG/usr/share/applications/$PKGNAME.desktop
+else
+  install -m 0644 -D $CWD/$PKGNAME.desktop $PKG/usr/share/applications/$PKGNAME.desktop
+  sed "s/Exec=${PKGNAME}/Exec=${PKGNAME} ${GPU_BLACKLIST}/g" -i $PKG/usr/share/applications/$PKGNAME.desktop
+fi
+
 for res in 22 24 48 64 128 256 ;do
   dir=${PKG}/usr/share/icons/hicolor/${res}x${res}/apps
   mkdir -p ${dir}
-  cp chrome/app/theme/chromium/product_logo_${res}.png ${dir}/${PKGNAME}.png
+  cp chrome/app/theme/$PKGNAME/product_logo_${res}.png ${dir}/${PKGNAME}.png
 done
 res=32
 dir=${PKG}/usr/share/icons/hicolor/${res}x${res}/apps
 mkdir -p ${dir}
-cp chrome/app/theme/chromium/product_logo_${res}.xpm ${dir}/${PKGNAME}.xpm
-
-# Linking Chrome executable on default path 
-mkdir -p $PKG/usr/bin
-ln -s ../../usr/lib${LIBDIRSUFFIX}/chromium/chromium $PKG/usr/bin/chromium
-ln -s ../../usr/lib${LIBDIRSUFFIX}/chromium/chromium_sandbox $PKG/usr/bin/chromium_sandbox
+cp chrome/app/theme/${PKGNAME}/product_logo_${res}.xpm ${dir}/${PKGNAME}.xpm
 
 #Add documentation files: readme, changelog and so on
 mkdir -p $PKG/usr/doc/$PKGNAME-$VERSION
 cp -r $DOCS $PKG/usr/doc/$PKGNAME-$VERSION
- 
+
 mkdir -p $PKG/usr/doc/$PKGNAME-$VERSION/SlackBuild
 cd $CWD
 for SB in $PKGNAME.SlackBuild slack-desc doinst.sh doinst.sh.gz EULA.TXT $SLKFILES;do
@@ -224,12 +253,11 @@ fi
 )
 
 
-
 mkdir -p $PKG/install
 cat $CWD/slack-desc > $PKG/install/slack-desc
-[ -e $CWD/doinst.sh ] && cat $CWD/doinst.sh > $PKG/install/doinst.sh
+[ -e $CWD/doinst.sh ] && cat $CWD/doinst.sh | sed -e "s:@LIB@:lib${LIBDIRSUFFIX}:g" > \
+    $PKG/install/doinst.sh
 [ -e $CWD/doinst.sh.gz ] && zcat $CWD/doinst.sh.gz > $PKG/install/doinst.sh
-
 
 # Find and print dependencies into slack-required file
 cd $PKG
@@ -241,8 +269,7 @@ fi
 ## NOTE THE -p parameter
 /sbin/makepkg -p -l y -c n $OUTPUT/$PKGNAME-$VERSION-$ARCH-$BUILD$TAG.${PKGTYPE:-txz}
 
-
 # Cleanup if enabled
 if [ "$1" = "--cleanup" ]; then
- rm -rf $TMP
+ rm -rf $WRK
 fi

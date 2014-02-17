@@ -24,13 +24,14 @@
 # YOUR DATA IS DESTROYED, YOUR HOUSE BURNS DOWN OR YOUR DOG RUNS OFF.
 
 PRGNAM=quiterss
-VERSION=0.13.1
-BUILD=1
+VERSION=${VERSION:-0.14.1}
+BUILD=${BUILD:-1}
 TAG=${TAG:-_wls}
+NUMJOBS=${NUMJOBS:--j2}
 
 if [ -z "$ARCH" ]; then
   case "$( uname -m )" in
-    i?86) ARCH=i486 ;;
+    i?86) ARCH="i486" ;;
     arm*) ARCH=arm ;;
        *) ARCH=$( uname -m ) ;;
   esac
@@ -40,7 +41,7 @@ CWD=$(pwd)
 WRK=${WRK:-/tmp/wlsbuild}
 PKG=$WRK/package-$PRGNAM
 OUTPUT=${OUTPUT:-/tmp}
-DOCS="COPYING HISTORY_EN HISTORY_RU"
+DOCS="AUTHORS CHANGELOG COPYING HISTORY* INSTALL README"
 
 if [ "$ARCH" = "i486" ]; then
   SLKCFLAGS="-O2 -pipe -march=i486 -mtune=i686"
@@ -77,14 +78,15 @@ qmake \
   LIB_DIR=/usr/lib${LIBDIRSUFFIX} \
   QuiteRSS.pro
 
-make
+make $NUMJOBS
 make INSTALL_ROOT=$PKG install
 
 find $PKG | xargs file | grep -e "executable" -e "shared object" | grep ELF \
   | cut -f 1 -d : | xargs strip --strip-unneeded 2> /dev/null || true
 
 mkdir -p $PKG/usr/doc/$PRGNAM-$VERSION
-cp -a ${DOCS} $PKG/usr/doc/$PRGNAM-$VERSION
+cp -a $DOCS $PKG/usr/doc/$PRGNAM-$VERSION
+cat CHANGELOG | head -n 1000 > $PKG/usr/doc/$PRGNAM-$VERSION/CHANGELOG
 cat $CWD/$PRGNAM.SlackBuild > $PKG/usr/doc/$PRGNAM-$VERSION/$PRGNAM.SlackBuild
 
 mkdir -p $PKG/install

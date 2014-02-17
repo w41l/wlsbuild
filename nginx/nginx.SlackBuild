@@ -24,10 +24,10 @@
 # YOUR DATA IS DESTROYED, YOUR HOUSE BURNS DOWN OR YOUR DOG RUNS OFF.
 
 PRGNAM=nginx
-VERSION=1.4.0
-BUILD=1
+VERSION=${VERSION:-1.4.3}
+BUILD=${BUILD:-1}
 TAG=${TAG:-_wls}
-NUMJOBS=${NUMJOBS:--j1}
+NUMJOBS=${NUMJOBS:--j2}
 
 if [ -z "$ARCH" ]; then
   case "$( uname -m )" in
@@ -75,25 +75,25 @@ find . \
 EXTRA_MODS="
 --with-http_ssl_module \
 --with-http_gzip_static_module \
+--with-http_stub_status_module \
+--with-http_perl_module \
+--with-http_xslt_module \
+--with-poll_module \
+--with-http_addition_module \
+--with-select_module \
+--with-http_realip_module \
+--with-http_secure_link_module \
+--with-http_degradation_module \
+--with-http_sub_module \
 "
 # --with-http_flv_module \
 # --with-http_mp4_module \
 # --with-http_random_index_module \
-# --with-http_secure_link_module \
-# --with-http_degradation_module \
-# --with-http_stub_status_module \
 # --with-rtsig_module \
-# --with-select_module \
-# --with-poll_module \
-# --with-http_realip_module \
-# --with-http_addition_module \
 # --with-http_image_filter_module \
-# --with-http_sub_module
 # --with-http_dav_module \
 # --with-http_geoip_module \
 # --with-openssl=/usr/lib$LIBDIRSUFFIX \
-# --with-http_perl_module \
-# --with-http_xslt_module \
 
 MAIL_MOD=""
 # MAIL_MOD=" \
@@ -135,21 +135,17 @@ cp man/nginx.8 $PKG/usr/man/man8
 mkdir -p $PKG/etc/rc.d
 cat $CWD/rc.nginx > $PKG/etc/rc.d/rc.nginx.new
 
-mv $PKG/etc/nginx/mime.types $PKG/etc/nginx/mime.types.new
-mv $PKG/etc/nginx/uwsgi_params $PKG/etc/nginx/uwsgi_params.new
-mv $PKG/etc/nginx/fastcgi_params $PKG/etc/nginx/fastcgi_params.new
-mv $PKG/etc/nginx/fastcgi.conf $PKG/etc/nginx/fastcgi.conf.new
-mv $PKG/etc/nginx/koi-win $PKG/etc/nginx/koi-win.new
-mv $PKG/etc/nginx/scgi_params $PKG/etc/nginx/scgi_params.new
-mv $PKG/etc/nginx/koi-utf $PKG/etc/nginx/koi-utf.new
-mv $PKG/etc/nginx/nginx.conf $PKG/etc/nginx/nginx.conf.new
-mv $PKG/etc/nginx/win-utf $PKG/etc/nginx/win-utf.new
-
+mv $PKG/etc/nginx $PKG/etc/nginx-dist
+mkdir -p $PKG/etc/nginx
 mkdir -p $PKG/var/www/nginx
 mv $PKG/usr/html $PKG/var/www/nginx
 
 mkdir -p $PKG/var/lock/nginx $PKG/var/lib/nginx
-chown -R nobody:nobody $PKG/var/run/nginx $PKG/var/log/nginx $PKG/var/lib/nginx $PKG/var/lock/nginx
+chown -R nobody:nobody \
+    $PKG/var/run/nginx \
+    $PKG/var/log/nginx \
+    $PKG/var/lib/nginx \
+    $PKG/var/lock/nginx
 
 find $PKG | xargs file | grep -e "executable" -e "shared object" | grep ELF \
   | cut -f 1 -d : | xargs strip --strip-unneeded 2> /dev/null || true
@@ -162,11 +158,10 @@ cp -a $DOCS $PKG/usr/doc/$PRGNAM-$VERSION
 cat $CWD/$PRGNAM.SlackBuild > $PKG/usr/doc/$PRGNAM-$VERSION/$PRGNAM.SlackBuild
 
 mkdir -p $PKG/install
-cat $CWD/doinst.sh > $PKG/install/doinst.sh
 cat $CWD/slack-desc > $PKG/install/slack-desc
 
 cd $PKG
-/sbin/makepkg -l y -c n $OUTPUT/$PRGNAM-$VERSION-$ARCH-$BUILD$TAG.txz
+/sbin/makepkg -p -l y -c n $OUTPUT/$PRGNAM-$VERSION-$ARCH-$BUILD$TAG.txz
 
 echo "Cleaning up build directory"
 cd $WRK; rm -rf $PRGNAM-$VERSION $PKG

@@ -1,0 +1,13 @@
+--- chromium-30.0.1599.101/native_client/src/trusted/service_runtime/linux/nacl_bootstrap_munge_phdr.c.orig	2013-10-16 16:52:23.275345733 +0700
++++ chromium-30.0.1599.101/native_client/src/trusted/service_runtime/linux/nacl_bootstrap_munge_phdr.c	2013-10-16 17:10:38.730367811 +0700
+@@ -14,8 +14,8 @@
+ #include <errno.h>
+ #include <error.h>
+ #include <fcntl.h>
+-#include <gelf.h>
+-#include <libelf.h>
++#include <libelf/gelf.h>
++#include <libelf/libelf.h>
+ #include <stdlib.h>
+ #include <unistd.h>
+ 

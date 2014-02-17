@@ -1,0 +1,103 @@
+#!/bin/sh
+
+# Slackware build script for synaptics-led
+
+# Copyright 2013  Widya Walesa <walecha99@gmail.com>
+# All rights reserved.
+#
+# Redistribution and use of this script, with or without modification, is
+# permitted provided that the following conditions are met:
+#
+# 1. Redistributions of this script must retain the above copyright
+#    notice, this list of conditions and the following disclaimer.
+#
+# THIS SOFTWARE IS PROVIDED BY THE AUTHOR ''AS IS'' AND ANY EXPRESS OR IMPLIED
+# WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF
+# MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO
+# EVENT SHALL THE AUTHOR BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
+# SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,
+# PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS;
+# OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY,
+# WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR
+# OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF
+# ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. FURTHERMORE I AM NOT LIABLE IF
+# YOUR DATA IS DESTROYED, YOUR HOUSE BURNS DOWN OR YOUR DOG RUNS OFF.
+
+PRGNAM=synaptics-led
+VERSION=${VERSION:-20131002}
+BUILD=${BUILD:-1}
+TAG=${TAG:-_wls}
+NUMJOBS=${NUMJOBS:--j2}
+
+if [ -z "$ARCH" ]; then
+  case "$( uname -m )" in
+       *) ARCH=$( uname -m ) ;;
+  esac
+fi
+
+CWD=$(pwd)
+WRK=${WRK:-/tmp/wlsbuild}
+PKG=$WRK/package-$PRGNAM
+OUTPUT=${OUTPUT:-/tmp}
+DOCS=""
+
+set -e
+
+rm -rf $PKG
+mkdir -p $WRK $PKG $OUTPUT
+
+DRIVER_DIR="drivers/input/mouse"
+KERNEL_VERSION=$(uname -r)
+KERNEL_DIR="/lib/modules/$KERNEL_VERSION"
+
+echo "Kernel version: $KERNEL_VERSION"
+echo "Build directory: $KERNEL_DIR/build"
+echo "Press ^C now if those are not correct!"
+sleep 5
+
+# test kernel source/build directory first
+if [ ! -d $KERNEL_DIR/build/$DRIVER_DIR ]; then
+    echo "Please install kernel-source package for $KERNEL_VERSION!"
+    echo "Will now exit!"
+    exit 1
+fi
+
+cd $KERNEL_DIR/build/$DRIVER_DIR
+make -C "$KERNEL_DIR/build" M="$PWD" clean
+
+echo "Patching kernel modules"
+if nohup patch -p4 -N --dry-run --silent <$CWD/0001-input-Add-LED-support-to-Synaptics-device.patch 2>/dev/null; then
+  echo "Applying patch 0001-input-Add-LED-support-to-Synaptics-device.patch"
+  cat $CWD/0001-input-Add-LED-support-to-Synaptics-device.patch | patch -p4
+else
+  echo "Patch 0001-input-Add-LED-support-to-Synaptics-device.patch already applied"
+fi
+
+if nohup patch -p4 -N --dry-run --silent <$CWD/0002-synaptics-add-debugging-to-synaptics_has_led.patch 2>/dev/null; then
+  echo "Applying patch 0002-synaptics-add-debugging-to-synaptics_has_led.patch"
+  cat $CWD/0002-synaptics-add-debugging-to-synaptics_has_led.patch | patch -p4
+else
+  echo "Patch 0002-synaptics-add-debugging-to-synaptics_has_led.patch already applied"
+fi
+
+echo "Building kernel modules"
+make -C "$KERNEL_DIR/build" M="$PWD" psmouse.ko
+# gzip -9 psmouse.ko
+
+echo "Packing kernel modules"
+mkdir -p $PKG/$KERNEL_DIR/extramodules
+install -m 0644 psmouse.ko $PKG/$KERNEL_DIR/extramodules/psmouse.ko
+
+mkdir -p $PKG/usr/doc/$PRGNAM-$VERSION
+cat $CWD/$PRGNAM.SlackBuild > $PKG/usr/doc/$PRGNAM-$VERSION/$PRGNAM.SlackBuild
+
+mkdir -p $PKG/install
+cat $CWD/slack-desc > $PKG/install/slack-desc
+cat $CWD/slack-required > $PKG/install/slack-required
+cat $CWD/doinst.sh | sed "s/@KERNEL_VERSION@/$KERNEL_VERSION/g" > $PKG/install/doinst.sh
+
+cd $PKG
+/sbin/makepkg -p -l y -c n $OUTPUT/$PRGNAM-${VERSION}_$(echo "$KERNEL_VERSION" | tr - _)-$ARCH-$BUILD$TAG.txz
+
+echo "Cleaning up build directory"
+cd $WRK; rm -rf $PKG

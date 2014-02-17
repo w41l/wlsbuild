@@ -32,7 +32,6 @@ NUMJOBS=${NUMJOBS:--j2}
 
 if [ -z "$ARCH" ]; then
   case "$( uname -m )" in
-    i?86) ARCH=i486 ;;
     arm*) ARCH=arm ;;
        *) ARCH=$( uname -m ) ;;
   esac
@@ -86,7 +85,7 @@ CODECSDIR="/usr/lib${LIBDIRSUFFIX}/codecs"
 LANGUAGES="en"
 
 ./configure \
-  --extra-ldflags="-L/usr/lib${LIBDIRSUFFIX}" \
+  --extra-ldflags="-L/usr/lib${LIBDIRSUFFIX} -lavresample" \
   --prefix=/usr \
   --libdir=/usr/lib${LIBDIRSUFFIX} \
   --mandir=/usr/man \
@@ -96,13 +95,14 @@ LANGUAGES="en"
   --disable-dvdread-internal \
   --disable-libdvdcss-internal \
   --disable-gif \
-  --disable-pulse \
   --disable-vdpau \
   --disable-openal \
+  --enable-pulse \
   --enable-radio \
   --enable-radio-capture \
   --enable-dvdread \
   --enable-dvdnav \
+  --enable-libavresample \
   --enable-runtime-cpudetection \
 
 #  --enable-vaapi \

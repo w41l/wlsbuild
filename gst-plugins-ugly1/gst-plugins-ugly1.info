@@ -1,4 +1,4 @@
 URL=http://gstreamer.freedesktop.org/
-SRC=http://gstreamer.freedesktop.org/src/gst-plugins-ugly/gst-plugins-ugly-1.0.9.tar.xz
-MD5=ea8b4e05ed5beb982762b45aba266720
-SHA1=d06d1d96f18788c6ff23b599577e6a39f96d7d56
+SRC=http://gstreamer.freedesktop.org/src/gst-plugins-ugly/gst-plugins-ugly-1.0.10.tar.xz
+MD5=fbe21d93c314e43c790e0ac96e197905
+SHA1=08fcaba501f250bbc7c337919081032dacef108e

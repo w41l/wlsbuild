@@ -24,10 +24,10 @@
 # YOUR DATA IS DESTROYED, YOUR HOUSE BURNS DOWN OR YOUR DOG RUNS OFF.
 
 PRGNAM=atkmm
-VERSION=2.22.7
-BUILD=1
+VERSION=${VERSION:-2.22.7}
+BUILD=${BUILD:-1}
 TAG=${TAG:-_wls}
-NUMJOBS=${NUMJOBS:--j1}
+NUMJOBS=${NUMJOBS:--j2}
 
 if [ -z "$ARCH" ]; then
   case "$( uname -m )" in
@@ -85,7 +85,7 @@ CXXFLAGS="$SLKCFLAGS" \
   --disable-static --enable-shared \
   --disable-documentation
 
-make V=1 $NUMJOBS
+make $NUMJOBS
 make DESTDIR=$PKG install
 
 find $PKG | xargs file | grep -e "executable" -e "shared object" | grep ELF \

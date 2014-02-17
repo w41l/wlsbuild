@@ -1,0 +1,12 @@
+             |-----handy-ruler------------------------------------------------------|
+synaptics-led: synaptics-led (Synaptics/Touchpad Kernel Driver)
+synaptics-led:
+synaptics-led: Synaptics LED enabled psmouse kernel module.
+synaptics-led:
+synaptics-led: URL: https://github.com/mmonaco/PKGBUILDs
+synaptics-led:
+synaptics-led:
+synaptics-led:
+synaptics-led:
+synaptics-led:
+synaptics-led: Packaged by: Widya Walesa <walecha99@gmail.com>

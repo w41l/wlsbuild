@@ -1,4 +1,4 @@
 URL=https://www.bunkus.org/videotools/mkvtoolnix/
-SRC=http://dl.matroska.org/downloads/libebml/libebml-1.2.2.tar.bz2
-MD5=726cc2bd1a525929ff35ff9854c0ebab
-SHA1=f8ef2e044b79b6e4f777b20c0e0e2382c16fbafc
+SRC=http://dl.matroska.org/downloads/libebml/libebml-1.3.0.tar.bz2
+MD5=efec729bf5a51e649e1d9d1f61c0ae7a
+SHA1=5a49ae3fddfe4b514f76d5743b29b23e0ecbc935

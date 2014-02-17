@@ -1,4 +1,4 @@
 URL=http://owncloud.org/
-SRC=http://download.owncloud.com/download/mirall-1.3.0.tar.bz2
-MD5=ee2e7bafc714399f2027fefed853f968
-SHA1=6ab96c386865b646aef6fa2d59064a13c112955f
+SRC=http://download.owncloud.com/desktop/stable/mirall-1.4.2.tar.bz2
+MD5=4724730cf7376983c06bc83133c06a3f
+SHA1=d53a64177addc9fcdd831a0a78786eca25b2588a

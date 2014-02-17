@@ -1,4 +1,4 @@
 URL=http://gstreamer.freedesktop.org/
-SRC=http://gstreamer.freedesktop.org/src/gstreamer/gstreamer-1.0.9.tar.xz
-MD5=cbbad73d703b811bc8bd18e47b36e534
-SHA1=a946f74d03e18dff53ecb064d89720b3f59fb5ea
+SRC=http://gstreamer.freedesktop.org/src/gstreamer/gstreamer-1.0.10.tar.xz
+MD5=fddc83a851f7c695bd667b7325455b47
+SHA1=bb705d949ba470c4c647efae979066514cf6b013

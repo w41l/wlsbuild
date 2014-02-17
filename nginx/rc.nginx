@@ -22,8 +22,8 @@ nginx_start()
 
 nginx_status()
 {
-  echo -en "$NAME is running as PID: "
   if [ -e $PID ]; then
+    echo -en "$NAME is running as PID: "
     cat $PID
   else
     echo "$NAME is not running"

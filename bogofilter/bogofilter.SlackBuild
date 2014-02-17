@@ -24,10 +24,10 @@
 # YOUR DATA IS DESTROYED, YOUR HOUSE BURNS DOWN OR YOUR DOG RUNS OFF.
 
 PRGNAM=bogofilter
-VERSION=1.2.3
-BUILD=1
-TAG="_wls"
-NUMJOBS="-j2"
+VERSION=${VERSION:-1.2.4}
+BUILD=${BUILD:-1}
+TAG=${TAG:-_wls}
+NUMJOBS=${NUMJOBS:--j2}
 
 if [ -z "$ARCH" ]; then
   case "$( uname -m )" in
@@ -83,7 +83,7 @@ CXXFLAGS="$SLKCFLAGS" \
   --sysconfdir=/etc --docdir=/usr/doc/$PRGNAM-$VERSION \
   --localstatedir=/var --sharedstatedir=/var/lib
 
-make V=1 $NUMJOBS
+make $NUMJOBS
 make DESTDIR=$PKG install
 
 cp $PKG/etc/bogofilter.cf.example $PKG/etc/bogofilter.cf.new

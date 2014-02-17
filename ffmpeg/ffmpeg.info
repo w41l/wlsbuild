@@ -1,4 +1,4 @@
 URL=http://ffmpeg.org/
-SRC=http://ffmpeg.org/releases/ffmpeg-0.11.3.tar.bz2
-MD5=dc36436c5a6771e15da86b5f91043091
-SHA1=a099519ef8cc5b2faa10dca59ff7849a30d4cc86
+SRC=http://ffmpeg.org/releases/ffmpeg-1.2.4.tar.bz2
+MD5=f1cfdbaae308214beeb621746300de16
+SHA1=ee73a05bde209fc23441c7e49767c1b7a4b6f124

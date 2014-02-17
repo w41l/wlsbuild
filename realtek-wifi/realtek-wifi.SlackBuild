@@ -100,7 +100,7 @@ cat $CWD/slack-desc > $PKG/install/slack-desc
 sed "s/@KERNEL_VERSION@/$KERNEL_VERSION/g" $CWD/doinst.sh > $PKG/install/doinst.sh
 
 cd $PKG
-/sbin/makepkg -l y -c n $OUTPUT/$PRGNAM-${VERSION}_$(echo "${KERNEL_VERSION}" | sed 's/-/_/g')-$ARCH-$BUILD$TAG.txz
+/sbin/makepkg -l y -c n $OUTPUT/$PRGNAM-${VERSION}_$(echo "${KERNEL_VERSION}" | tr - _)-$ARCH-$BUILD$TAG.txz
 
 echo "Cleaning up build directory"
 cd $WRK; rm -rf rtl_92ce_92se_92de_8723ae_linux_mac80211_* $PKG

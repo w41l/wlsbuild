@@ -1,4 +1,4 @@
 URL=http://owncloud.org
-SRC=http://download.owncloud.com/download/ocsync-0.80.0.tar.bz2
-MD5=db46cdb4c710a607dfc062ed0a413b35
-SHA1=cc41775b85a83e6921f131df82442307c895d1f1
+SRC=http://download.owncloud.com/desktop/stable/ocsync-0.90.4.tar.bz2
+MD5=4724730cf7376983c06bc83133c06a3f
+SHA1=d53a64177addc9fcdd831a0a78786eca25b2588a

@@ -1,4 +1,4 @@
 URL=http://www.gnome.org/projects/NetworkManager/
-SRC=http://kambing.ui.ac.id/gnome/sources/NetworkManager-openvpn/0.9/NetworkManager-openvpn-0.9.8.2.tar.xz
-MD5=73c45f26c795d93ea3cc7cb2c1910871
-SHA1=9f73179d1f8ae294d46c5828adb78086daa5a183
+SRC=http://kambing.ui.ac.id/gnome/sources/NetworkManager-openvpn/0.9/NetworkManager-openvpn-0.9.8.4.tar.xz
+MD5=afe11c50ce63bd251e50a2f1b20af654
+SHA1=7d51aba888f98906555cdd947123653975b644c9

@@ -79,7 +79,7 @@ cd build
     -DCMAKE_C_FLAGS="$SLKCFLAGS" \
     -DCMAKE_CXX_FLAGS="$SLKCFLAGS" \
     -DCMAKE_BUILD_TYPE=Release \
-    -DCMAKE_INSTALL_PREFIX=$(kde4-config --prefix) \
+    -DCMAKE_INSTALL_PREFIX=/usr \
 
   make
   make install DESTDIR=$PKG

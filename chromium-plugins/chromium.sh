@@ -6,7 +6,7 @@ DEFAULT="/etc/$NAME/default"
 
 if [ -r $DEFAULT ]; then
     source $DEFAULT
-    $CHROMEDIR/$NAME $CHROMIUM_FLAGS $1
+    $CHROMEDIR/$NAME --enable-plugins $CHROMIUM_FLAGS $1
 else
-    $CHROMEDIR/$NAME $1
+    $CHROMEDIR/$NAME --enable-plugins $1
 fi

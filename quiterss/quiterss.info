@@ -1,4 +1,4 @@
-URL=http://code.google.com/p/quite-rss/
-SRC=https://quite-rss.googlecode.com/files/QuiteRSS-0.13.1-src.tar.bz2
-MD5=77358e67002d6158613c4802cc69d6c8
-SHA1=fa71471cf8939f6350fa7f61c56d584932224694
+URL=http://quiterss.org/
+SRC=http://quiterss.org/files/0.14.1/QuiteRSS-0.14.1-src.tar.bz2
+MD5=89c02defb7b935e057521bc5e68fd140
+SHA1=e06a90d92a0dde8c07432b05b6a11a9dddf817d6

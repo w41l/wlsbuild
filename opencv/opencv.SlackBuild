@@ -24,14 +24,14 @@
 # YOUR DATA IS DESTROYED, YOUR HOUSE BURNS DOWN OR YOUR DOG RUNS OFF.
 
 PRGNAM=opencv
-VERSION=2.4.3
-BUILD=3
+VERSION=${VERSION:-2.4.6.1}
+BUILD=${BUILD:-1}
 TAG=${TAG:-_wls}
 NUMJOBS=${NUMJOBS:--j1}
 
 if [ -z "$ARCH" ]; then
   case "$( uname -m )" in
-    i?86) ARCH=i486 ;;
+#     i?86) ARCH=i486 ;;
     arm*) ARCH=arm ;;
        *) ARCH=$( uname -m ) ;;
   esac
@@ -62,9 +62,9 @@ set -e
 rm -rf $PKG
 mkdir -p $WRK $PKG $OUTPUT
 cd $WRK
-rm -rf OpenCV-$VERSION
-tar xvf $CWD/OpenCV-$VERSION.tar.?z*
-cd OpenCV-$VERSION
+rm -rf $PRGNAM-$VERSION
+tar xvf $CWD/$PRGNAM-$VERSION.tar.?z*
+cd $PRGNAM-$VERSION
 chown -R root:root .
 find . \
  \( -perm 777 -o -perm 775 -o -perm 711 -o -perm 555 -o -perm 511 \) \
@@ -85,7 +85,7 @@ cd build
     -DWITH_XINE=ON \
     -DWITH_UNICAP=OFF
 
-  make VERBOSE=1 $NUMJOBS
+  make $NUMJOBS
   make DESTDIR=$PKG install
 cd ..
 
@@ -102,9 +102,10 @@ find $PKG | xargs file | grep -e "executable" -e "shared object" | grep ELF \
   | cut -f 1 -d : | xargs strip --strip-unneeded 2> /dev/null || true
 
 mkdir -p $PKG/usr/doc/$PRGNAM-$VERSION
-mv $PKG/usr/share/OpenCV/doc/* $PKG/usr/doc/$PRGNAM-$VERSION/
-rm -rf $PKG/usr/share/OpenCV/doc
-ln -sf /usr/doc/$PRGNAM-$VERSION $PKG/usr/share/OpenCV/doc
+# Uncomment to copy documentation
+# cp -r -p doc/* $PKG/usr/doc/$PRGNAM-$VERSION/
+# rm -rf $PKG/usr/share/OpenCV/doc
+# ln -sf /usr/doc/$PRGNAM-$VERSION $PKG/usr/share/OpenCV/doc
 cp -a $DOCS $PKG/usr/doc/$PRGNAM-$VERSION/
 cat $CWD/$PRGNAM.SlackBuild > $PKG/usr/doc/$PRGNAM-$VERSION/$PRGNAM.SlackBuild
 
@@ -116,4 +117,4 @@ cd $PKG
 /sbin/makepkg -l y -c n $OUTPUT/$PRGNAM-$VERSION-$ARCH-$BUILD$TAG.txz
 
 echo "Cleaning up build directory"
-cd $WRK; rm -rf OpenCV-$VERSION $PKG
+cd $WRK; rm -rf $PRGNAM-$VERSION $PKG

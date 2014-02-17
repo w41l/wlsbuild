@@ -24,6 +24,7 @@
 
 
 PKGNAM=chromium-plugins
+CHROMENAME=chromium
 RELEASE=${RELEASE:-stable}    # stable, beta, or unstable
 case "$(uname -m)" in
   i?86) PKGARCH="i386" ; LIBDIRSUFFIX="" ; ARCH=i386 ;;
@@ -31,8 +32,12 @@ case "$(uname -m)" in
   *) echo "Package for $(uname -m) architecture is not available." ; exit 1 ;;
 esac
 # Get the version from the Debian/Ubuntu .deb (thanks to Fred Richards):
-# VERSION=$(ar p google-chrome-${RELEASE}_current_${DEBARCH}.deb control.tar.gz 2> /dev/null | tar zxO ./control 2> /dev/null | grep Version | awk '{print $2}' | cut -d- -f1)
-VERSION=$(rpm --nosignature -qpi google-chrome-${RELEASE}_current_${PKGARCH}.rpm | grep "Version" | awk '{ print $3 }')
+CMP=$( file google-chrome-${RELEASE}_current* | awk '{ print $2 }' )
+if [ "$CMP" = "Debian" ]; then
+  VERSION=$(ar p google-chrome-${RELEASE}_current_${PKGARCH}.deb control.tar.gz 2> /dev/null | tar zxO ./control 2> /dev/null | grep Version | awk '{print $2}' | cut -d- -f1)
+else
+  VERSION=$(rpm --nosignature -qpi google-chrome-${RELEASE}_current_${PKGARCH}.rpm | grep "Version" | awk '{ print $3 }')
+fi
 BUILD=${BUILD:-1}
 TAG=${TAG:-_wls}
 
@@ -53,8 +58,11 @@ OUTPUT=${OUTPUT:-/tmp}
 rm -rf $PKG
 mkdir -p $WRK $PKG $OUTPUT
 cd $PKG
-# ar p $CWD/google-chrome-${RELEASE}_current_${PKGARCH}.deb data.tar.lzma | lzma -d | tar xv || exit 1
-rpm2cpio $CWD/google-chrome-${RELEASE}_current_${PKGARCH}.rpm | cpio -ivd
+if [ "$CMP" = "Debian" ]; then
+  ar p $CWD/google-chrome-${RELEASE}_current_${PKGARCH}.deb data.tar.lzma | lzma -d | tar xv || exit 1
+else
+  rpm2cpio $CWD/google-chrome-${RELEASE}_current_${PKGARCH}.rpm | cpio -ivd
+fi
 chown -R root:root .
 chmod -R u+w,go+r-w,a-s .
 
@@ -62,30 +70,31 @@ chmod -R u+w,go+r-w,a-s .
 chmod 0755 .
 
 # Copying library
-mkdir -p $PKG/usr/lib${LIBDIRSUFFIX}/chromium/PepperFlash
-install -m644 opt/google/chrome/PepperFlash/* "$PKG/usr/lib${LIBDIRSUFFIX}/chromium/PepperFlash"
-install -m644 opt/google/chrome/libpdf.so "$PKG/usr/lib${LIBDIRSUFFIX}/chromium"
+mkdir -p $PKG/usr/lib${LIBDIRSUFFIX}/${CHROMENAME}/PepperFlash
+install -m644 opt/google/chrome/PepperFlash/* "$PKG/usr/lib${LIBDIRSUFFIX}/${CHROMENAME}/PepperFlash"
+install -m644 opt/google/chrome/libpdf.so "$PKG/usr/lib${LIBDIRSUFFIX}/${CHROMENAME}"
 
 # Flash version
-PEPPER_FLASH_VERSION=$(grep \"version\" usr/lib${LIBDIRSUFFIX}/chromium/PepperFlash/manifest.json | tr -d '[:blank:]",' | cut -d : -f 2)
+PEPPER_FLASH_VERSION=$(grep \"version\" usr/lib${LIBDIRSUFFIX}/${CHROMENAME}/PepperFlash/manifest.json | tr -d '[:blank:]",' | cut -d : -f 2)
 
 # Remove unneeded files and directories
 rm -rf etc/* opt usr/bin usr/share
-mkdir -p etc/chromium
-cat $CWD/chromium.default > etc/chromium/default.new
+mkdir -p etc/$CHROMENAME
+cat $CWD/${CHROMENAME}.default > etc/$CHROMENAME/default.new
 sed -e "s|@LIBDIR@|lib${LIBDIRSUFFIX}|g" \
     -e "s|@PEPPER_FLASH_VERSION@|${PEPPER_FLASH_VERSION}|g" \
-    -i etc/chromium/default.new
+    -i etc/$CHROMENAME/default.new
 
-cat $CWD/chromium.sh > usr/lib${LIBDIRSUFFIX}/chromium/chromium.sh
+cat $CWD/${CHROMENAME}.sh > usr/lib${LIBDIRSUFFIX}/${CHROMENAME}/${CHROMENAME}.sh
 sed -e "s|@LIBDIR@|lib${LIBDIRSUFFIX}|g" \
-    -i usr/lib${LIBDIRSUFFIX}/chromium/chromium.sh
-chmod +x usr/lib${LIBDIRSUFFIX}/chromium/chromium.sh
+    -i usr/lib${LIBDIRSUFFIX}/${CHROMENAME}/${CHROMENAME}.sh
+chmod +x usr/lib${LIBDIRSUFFIX}/${CHROMENAME}/${CHROMENAME}.sh
 mkdir -p usr/bin
-ln -sf /usr/lib${LIBDIRSUFFIX}/chromium/chromium.sh usr/bin/chromium
+ln -sf /usr/lib${LIBDIRSUFFIX}/${CHROMENAME}/${CHROMENAME}.sh usr/bin/$CHROMENAME
 
 mkdir -p $PKG/install
 cat $CWD/slack-desc > $PKG/install/slack-desc
+cat $CWD/doinst.sh | sed -e "s:@CHROMENAME@:${CHROMENAME}:g" > $PKG/install/doinst.sh
 
 cd $PKG
 /sbin/makepkg -p -l y -c n $OUTPUT/$PKGNAM-$VERSION-$ARCH-${BUILD}${TAG}.txz

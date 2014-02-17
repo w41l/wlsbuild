@@ -2,7 +2,7 @@
 
 # Slackware build script for frei0r
 
-# Copyright 2011-2012  Widya Walesa <walecha99@gmail.com>
+# Copyright 2011-2013  Widya Walesa <walecha99@gmail.com>
 # All rights reserved.
 #
 # Redistribution and use of this script, with or without modification, is
@@ -24,10 +24,10 @@
 # YOUR DATA IS DESTROYED, YOUR HOUSE BURNS DOWN OR YOUR DOG RUNS OFF.
 
 PRGNAM=frei0r
-VERSION=1.3
-BUILD=1
+VERSION=${VERSION:-1.3}
+BUILD=${BUILD:-1}
 TAG=${TAG:-_wls}
-NUMJOBS=${NUMJOBS:--j4}
+NUMJOBS=${NUMJOBS:--j2}
 
 if [ -z "$ARCH" ]; then
   case "$( uname -m )" in

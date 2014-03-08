@@ -1,0 +1,19 @@
+# HOW TO EDIT THIS FILE:
+# The "handy ruler" below makes it easier to edit a package description.  Line
+# up the first '|' above the ':' following the base package name, and the '|'
+# on the right side marks the last column you can put a character in.  You must
+# make exactly 11 lines for the formatting to be correct.  It's also
+# customary to leave one space after the ':'.
+
+            |-----handy-ruler------------------------------------------------------|
+presentproto: presentproto (X11 extension for efficient window updates)
+presentproto:
+presentproto: The Present extension provides a way for applications to update
+presentproto: their window contents from a pixmap in a well defined fashion,
+presentproto: synchronizing with the display refresh and potentially using a more
+presentproto: efficient mechanism than copying the contents of the source pixmap.
+presentproto:
+presentproto: URL: http://xorg.freedesktop.org/
+presentproto:
+presentproto:
+presentproto:

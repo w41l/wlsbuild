@@ -1,4 +1,4 @@
 URL=http://www.winehq.org/
-SRC=http://sourceforge.net/projects/wine/files/Source/wine-1.5.24.tar.bz2/download
-MD5=d65a64799a815de7864c27660a9307ab
-SHA1=d96ad506e115659520ad24f30c87c7d04a810154
+SRC=http://downloads.sourceforge.net/project/wine/Source/wine-1.7.13.tar.bz2
+MD5=f238be82934d48fee55b46789a26d9aa
+SHA1=b74cf9c79e989140e3e981eb2a5c14688fb6630b

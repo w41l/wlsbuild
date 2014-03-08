@@ -24,10 +24,10 @@
 # YOUR DATA IS DESTROYED, YOUR HOUSE BURNS DOWN OR YOUR DOG RUNS OFF.
 
 PRGNAM=wine
-VERSION=1.5.24
+VERSION=1.7.13
 BUILD=1
 TAG=${TAG:-_wls}
-NUMJOBS=${NUMJOBS:--j1}
+NUMJOBS=${NUMJOBS:--j4}
 
 if [ -z "$ARCH" ]; then
   case "$( uname -m )" in
@@ -79,12 +79,10 @@ find . \
 echo "Creating build directory $WRK/$PRGNAM"
 mkdir -p $WRK/$PRGNAM
 cd $WRK/$PRGNAM
-
-LDFLAGS=" -L/usr/lib${LIBDIRSUFFIX} -ldl" \
-CFLAGS="$SLKCFLAGS" \
-CXXFLAGS="$SLKCFLAGS" \
+# LDFLAGS=" -L/usr/lib${LIBDIRSUFFIX} -ldl" \
+# CFLAGS+="$SLKCFLAGS" \
+# CXXFLAGS+="$SLKCFLAGS" \
 ../$PRGNAM-$VERSION/configure \
-  --build=$ARCH-slackware-linux --host=$ARCH-slackware-linux \
   --program-prefix= --program-suffix= \
   --prefix=/usr --exec-prefix=/usr \
   --bindir=/usr/bin --sbindir=/usr/sbin \
@@ -105,12 +103,11 @@ if [ "$ARCH" = "x86_64" ]; then
   echo "Building WINE 32-bit compat for $ARCH"
   mkdir -p $WRK/$PRGNAM-wow64
   cd $WRK/$PRGNAM-wow64
-    LDFLAGS=" -L/usr/lib${LIBDIRSUFFIX} -ldl" \
-    CFLAGS="${SLKCFLAGS}" \
-    CXXFLAGS="${SLKCFLAGS}" \
+#     LDFLAGS=" -L/usr/lib${LIBDIRSUFFIX} -ldl" \
+    CFLAGS+=" -mstackrealign" \
+    CXXFLAGS+=" -mstackrealign" \
     ../${PRGNAM}-${VERSION}/configure \
       --with-wine64=../${PRGNAM} \
-      --build=$ARCH-slackware-linux --host=$ARCH-slackware-linux \
       --program-prefix= --program-suffix= \
       --prefix=/usr --exec-prefix=/usr \
       --bindir=/usr/bin --sbindir=/usr/sbin \

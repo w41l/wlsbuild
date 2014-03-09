@@ -1,4 +1,4 @@
 URL=http://choqok.gnufolks.org
-SRC=http://quickgit.kde.org/?p=choqok.git&a=snapshot&h=9fd572debdde39a09e0d01d0ebc5eb0e0a225e4b&fmt=tbz2
-MD5=7f6ff8b209169c973846e394b2e7c7e2
-SHA1=a1c150ec8ad93690b2816b18fd8be55bbf0d21c7
+SRC=http://downloads.sourceforge.net/project/choqok/Choqok/choqok-1.4.tar.xz
+MD5=2efe34ed903b448a21d9233d8033dbdb
+SHA1=b1c7b00208c259ffe9af2d5b79299cdc325b4df3

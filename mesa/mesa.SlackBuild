@@ -2,7 +2,7 @@
 
 # Slackware build script for mesa
 
-# Copyright 2011-2013  Widya Walesa <walecha99@gmail.com>
+# Copyright 2011-2014  Widya Walesa <walecha99@gmail.com>
 # All rights reserved.
 #
 # Redistribution and use of this script, with or without modification, is
@@ -24,7 +24,7 @@
 # YOUR DATA IS DESTROYED, YOUR HOUSE BURNS DOWN OR YOUR DOG RUNS OFF.
 
 PRGNAM=mesa
-VERSION=9.2.0_rc2
+VERSION=10.1.0
 SRCVERSION=$(echo "$VERSION" | sed 's/_/-/g')
 BUILD=${BUILD:-1}
 TAG=${TAG:-_wls}
@@ -131,6 +131,7 @@ cat $CWD/$PRGNAM.SlackBuild > $PKG/usr/doc/Mesa-$VERSION/$PRGNAM.SlackBuild
 
 mkdir -p $PKG/install
 cat $CWD/slack-desc > $PKG/install/slack-desc
+cat $CWD/slack-required > $PKG/install/slack-required
 cat $CWD/doinst.sh > $PKG/install/doinst.sh
 
 cd $PKG

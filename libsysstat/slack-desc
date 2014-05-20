@@ -10,7 +10,7 @@ libsysstat: libsysstat
 libsysstat:
 libsysstat: Library used to query system info and statistics.
 libsysstat:
-libsysstat: URL: https://github.com/lxde/libsysstat
+libsysstat: URL: http://lxde.org/
 libsysstat:
 libsysstat:
 libsysstat:

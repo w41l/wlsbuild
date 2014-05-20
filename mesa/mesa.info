@@ -1,4 +1,4 @@
 URL=http://www.mesa3d.org/
-SRC=http://cgit.freedesktop.org/mesa/mesa/snapshot/mesa-master.tar.gz
-MD5=b6923bac76279b7858fb1b181dd049d2
-SHA1=72f241cc327a8ad68d3e895e333cb70fbaccc767
+SRC=ftp://ftp.freedesktop.org/pub/mesa/9.2.5/MesaLib-9.2.5.tar.bz2
+MD5=9fb4de29ca1d9cfd03cbdefa123ba336
+SHA1=b206a285a3f69c49aaf8479cd12f436d8ee7b58c

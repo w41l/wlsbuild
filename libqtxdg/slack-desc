@@ -10,7 +10,7 @@ libqtxdg: libqtxdg
 libqtxdg:
 libqtxdg: Qt implementation of freedesktop.org xdg specs.
 libqtxdg:
-libqtxdg: URL: https://github.com/lxde/libqtxdg
+libqtxdg: URL: http://lxde.org/
 libqtxdg:
 libqtxdg:
 libqtxdg:

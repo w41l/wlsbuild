@@ -1,0 +1,19 @@
+# HOW TO EDIT THIS FILE:
+# The "handy ruler" below makes it easier to edit a package description.  Line
+# up the first '|' above the ':' following the base package name, and the '|'
+# on the right side marks the last column you can put a character in.  You must
+# make exactly 11 lines for the formatting to be correct.  It's also
+# customary to leave one space after the ':'.
+
+         |-----handy-ruler------------------------------------------------------|
+libturpial: libturpial (Microblogging Library)
+libturpial:
+libturpial: libturpial is a library that handles multiple microblogging
+libturpial: protocols. It implements a lot of features and aims to support
+libturpial: all the features for each protocol. At the moment it supports Twitter
+libturpial: and Identi.ca and is the backend used for Turpial.
+libturpial:
+libturpial: URL: http://turpial.org.ve/
+libturpial:
+libturpial:
+libturpial: Packaged by: Widya Walesa <walecha99@gmail.com>

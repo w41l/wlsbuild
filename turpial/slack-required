@@ -1,0 +1,9 @@
+babel
+jinja2
+libturpial
+python-requests
+python-oauth
+python-oauth2
+python-oauthlib
+requests-oauthlib
+pytz

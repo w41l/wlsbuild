@@ -1,8 +1,8 @@
 #!/bin/sh
 
-# Slackware build script for choqok
+# Slackware build script for libsysstat
 
-# Copyright 2010-2014 Widya Walesa <walecha99@gmail.com>
+# Copyright 2014 Widya Walesa <walecha99@gmail.com>
 # All rights reserved.
 #
 # Redistribution and use of this script, with or without modification, is
@@ -23,8 +23,8 @@
 # ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. FURTHERMORE I AM NOT LIABLE IF
 # YOUR DATA IS DESTROYED, YOUR HOUSE BURNS DOWN OR YOUR DOG RUNS OFF.
 
-PRGNAM=choqok
-VERSION=1.4
+PRGNAM=libsysstat
+VERSION=0.1.0
 BUILD=${BUILD:-1}
 TAG=${TAG:-_wls}
 NUMJOBS=${NUMJOBS:--j2}
@@ -41,7 +41,7 @@ CWD=$(pwd)
 WRK=${WRK:-/tmp/wlsbuild}
 PKG=$WRK/package-$PRGNAM
 OUTPUT=${OUTPUT:-/tmp}
-DOCS="AUTHORS COPY* README TODO changelog"
+DOCS="AUTHORS COPY*"
 
 if [ "$ARCH" = "i486" ]; then
   SLKCFLAGS="-O2 -pipe -march=i486 -mtune=i686 -pthread"
@@ -95,7 +95,6 @@ cat $CWD/$PRGNAM.SlackBuild > $PKG/usr/doc/$PRGNAM-$VERSION/$PRGNAM.SlackBuild
 
 mkdir -p $PKG/install
 cat $CWD/slack-desc > $PKG/install/slack-desc
-cat $CWD/slack-required > $PKG/install/slack-required
 
 cd $PKG
 /sbin/makepkg -p -l y -c n $OUTPUT/$PRGNAM-$VERSION-$ARCH-$BUILD$TAG.txz

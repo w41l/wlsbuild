@@ -21,7 +21,7 @@
 #  ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 PKGNAM=libdrm
-VERSION=${VERSION:-$(echo $PKGNAM-*.tar.?z* | rev | cut -f 3- -d . | cut -f 1 -d - | rev)}
+VERSION=${VERSION:-2.4.54}
 BUILD=${BUILD:-1_wls}
 
 # Automatically determine architecture for build & packaging:
@@ -33,11 +33,12 @@ if [ -z "$ARCH" ]; then
   esac
 fi
 
-NUMJOBS=${NUMJOBS:-" -j7 "}
+NUMJOBS=${NUMJOBS:-" -j2 "}
 
 CWD=$(pwd)
-TMP=${TMP:-/tmp}
-PKG=$TMP/package-${PKGNAM}
+WRK=${WRK:-/tmp/wlsbuild}
+PKG=$WRK/package-${PKGNAM}
+OUTPUT=${OUTPUT:-/tmp}
 
 if [ "$ARCH" = "i486" ]; then
   SLKCFLAGS="-O2 -march=i486 -mtune=i686"
@@ -54,8 +55,8 @@ else
 fi
 
 rm -rf $PKG
-mkdir -p $TMP $PKG
-cd $TMP
+mkdir -p $WRK $PKG
+cd $WRK
 rm -rf ${PKGNAM}-${VERSION}
 tar xvf $CWD/${PKGNAM}-$VERSION.tar.?z* || exit 1
 cd ${PKGNAM}-$VERSION
@@ -68,6 +69,7 @@ find . \
   \( -perm 666 -o -perm 664 -o -perm 600 -o -perm 444 -o -perm 440 -o -perm 400 \) \
   -exec chmod 644 {} \;
 
+sed -e "/pthread-stubs/d" -i configure.ac
 autoreconf -ivsf
 
 # Configure:
@@ -121,7 +123,7 @@ cp -a \
 mkdir -p $PKG/install
 cat $CWD/slack-desc > $PKG/install/slack-desc
 
-cd $TMP/package-${PKGNAM}
-/sbin/makepkg -l y -c n $TMP/${PKGNAM}-$VERSION-$ARCH-$BUILD.txz
+cd $WRK/package-${PKGNAM}
+/sbin/makepkg -l y -c n $OUTPUT/${PKGNAM}-$VERSION-$ARCH-$BUILD.txz
 
-cd $TMP; rm -rf ${PKGNAM}-${VERSION} $PKG
+cd $WRK; rm -rf ${PKGNAM}-${VERSION} $PKG

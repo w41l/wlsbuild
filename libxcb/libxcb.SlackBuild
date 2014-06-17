@@ -68,9 +68,12 @@ find . \
   \( -perm 666 -o -perm 664 -o -perm 600 -o -perm 444 -o -perm 440 -o -perm 400 \) \
   -exec chmod 644 {} \;
 
+sed -e "s/pthread-stubs//" -i configure.ac
+autoreconf -ivsf
+
 CFLAGS="$SLKCFLAGS" \
 CXXFLAGS="$SLKCFLAGS" \
-./autogen.sh \
+./configure \
   --prefix=/usr \
   --sysconfdir=/etc \
   --libdir=/usr/lib${LIBDIRSUFFIX} \
@@ -78,6 +81,8 @@ CXXFLAGS="$SLKCFLAGS" \
   --docdir=/usr/doc/$PRGNAM-$VERSION \
   --build=$ARCH-slackware-linux \
   --disable-static \
+  --enable-xinput \
+  --enable-xkb \
 
 make
 make install DESTDIR=$PKG || exit 1

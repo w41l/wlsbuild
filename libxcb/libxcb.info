@@ -1,4 +1,4 @@
 URL=http://xorg.freedesktop.org/
-SRC=http://xorg.freedesktop.org/archive/individual/proto/presentproto-1.0.tar.bz2
-MD5=2d569c75884455c7148d133d341e8fd6
-SHA1=432371cdc464881029c3f39f9bf81cc80a484e54
+SRC=http://xcb.freedesktop.org/dist/libxcb-1.10.tar.bz2
+MD5=074c335cc4453467eeb234e3dadda700
+SHA1=bb1a3113eca5146e2a1cf6379c2e52c212a757e0

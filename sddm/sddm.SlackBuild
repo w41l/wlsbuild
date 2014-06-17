@@ -2,7 +2,7 @@
 
 # Slackware build script for sddm
 
-# Copyright 2013  Widya Walesa <walecha99@gmail.com>
+# Copyright 2013-2014  Widya Walesa <walecha99@gmail.com>
 # All rights reserved.
 #
 # Redistribution and use of this script, with or without modification, is
@@ -24,7 +24,7 @@
 # YOUR DATA IS DESTROYED, YOUR HOUSE BURNS DOWN OR YOUR DOG RUNS OFF.
 
 PRGNAM=sddm
-VERSION=20130626_3dbc906
+VERSION=20131226_505c7c6
 BUILD=1
 TAG=${TAG:-_wls}
 NUMJOBS=${NUMJOBS:--j1}
@@ -96,7 +96,7 @@ cd build
     -DCMAKE_INSTALL_PREFIX:PATH=/usr \
     -DLIB_SUFFIX=${LIBDIRSUFFIX}
 
-  make VERBOSE=1 $NUMJOBS
+  make VERBOSE=1
   make install DESTDIR=$PKG
 cd -
 
@@ -108,8 +108,8 @@ mv $PKG/etc/pam.d/sddm $PKG/etc/pam.d/sddm.new
 mkdir -p $PKG/usr/share/xsessions
 
 # Use xinitrc script rather than calling startkde directly
-sed 's:/usr/bin/startkde:/etc/X11/xinit/xinitrc:g' \
-  -i $PKG/usr/share/apps/sddm/scripts/Xsession
+#sed 's:/usr/bin/startkde:/etc/X11/xinit/xinitrc:g' \
+#  -i $PKG/usr/share/apps/sddm/scripts/Xsession
 
 find $PKG | xargs file | grep -e "executable" -e "shared object" | grep ELF \
   | cut -f 1 -d : | xargs strip --strip-unneeded 2> /dev/null || true
@@ -127,4 +127,3 @@ cd $PKG
 
 echo "Cleaning up build directory"
 cd $WRK ; rm -rf $PKG $PRGNAM-$VERSION
-

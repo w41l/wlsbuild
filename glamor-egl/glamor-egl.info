@@ -1,4 +1,4 @@
 URL=http://www.freedesktop.org/wiki/Software/Glamor/
-SRC=http://cgit.freedesktop.org/xorg/driver/glamor/snapshot/glamor-81aadb8ae204f58d77a948c8624f1e72659dcdf0.tar.gz
-MD5=
-SHA1=
+SRC=http://ftp.x.org/pub/individual/driver/glamor-egl-0.5.1.tar.bz2
+MD5=025c4e64dbc22009a8576f76a6f6eb7c
+SHA1=42c0dd7a810278f6a0f8f4ae961c5da36a8c3d80

@@ -1,8 +1,8 @@
 #!/bin/sh
 
-# Slackware build script for mesa
+# Slackware build script for xcb-proto
 
-# Copyright 2011-2014  Widya Walesa <walecha99@gmail.com>
+# Copyright 2014  Widya Walesa <walecha99@gmail.com>
 # All rights reserved.
 #
 # Redistribution and use of this script, with or without modification, is
@@ -23,19 +23,11 @@
 # ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. FURTHERMORE I AM NOT LIABLE IF
 # YOUR DATA IS DESTROYED, YOUR HOUSE BURNS DOWN OR YOUR DOG RUNS OFF.
 
-PRGNAM=mesa
-VERSION=10.2.1
-SRCVERSION=$(echo "$VERSION" | sed 's/_/-/g')
+PRGNAM=xcb-proto
+VERSION=1.10
 BUILD=${BUILD:-1}
 TAG=${TAG:-_wls}
 NUMJOBS=${NUMJOBS:--j2}
-
-# Be sure this list is up-to-date:
-DRI_DRIVERS="i915,i965,nouveau,r200,radeon,swrast"
-GALLIUM_DRIVERS="nouveau,r300,r600,svga,swrast,radeonsi"
-
-# Slackware use static llvm. Comment out if you are using shared llvm libraries.
-LLVM_STATIC="--disable-llvm-shared-libs"
 
 if [ -z "$ARCH" ]; then
   case "$( uname -m )" in
@@ -47,14 +39,11 @@ fi
 
 CWD=$(pwd)
 WRK=${WRK:-/tmp/wlsbuild}
-PKG=$WRK/package-mesa
+PKG=$WRK/package-$PRGNAM
 OUTPUT=${OUTPUT:-/tmp}
 DOCS=""
 
 if [ "$ARCH" = "i486" ]; then
-  SLKCFLAGS="-O2 -pipe -march=i486 -mtune=i686"
-  LIBDIRSUFFIX=""
-elif [ "$ARCH" = "i686" ]; then
   SLKCFLAGS="-O2 -pipe -march=i486 -mtune=i686"
   LIBDIRSUFFIX=""
 elif [ "$ARCH" = "x86_64" ]; then
@@ -68,18 +57,9 @@ fi
 rm -rf $PKG
 mkdir -p $WRK $PKG
 cd $WRK
-rm -rf Mesa-$SRCVERSION
-tar xvf $CWD/MesaLib-$SRCVERSION.tar.?z* || exit 1
-cd Mesa-$SRCVERSION
-
-# Let's kill the warning about operating on a dangling symlink:
-# rm -f src/gallium/state_trackers/d3d1x/w32api
-
-cat $CWD/patches/MesaLib-$VERSION-add_xdemos-1.patch | patch -p1 --verbose
-cat $CWD/patches/MesaLib-$VERSION-svga_texture-1.patch | patch -p1 --verbose
-# if [ "$ARCH" = "i486" ]; then
-#   cat $CWD/patches/MesaLib-9.2-remove.options.RealignStack.patch | patch -p1 --verbose
-# fi
+rm -rf $PRGNAM-$VERSION
+tar xvf $CWD/$PRGNAM-$VERSION.tar.?z* || exit 1
+cd $PRGNAM-$VERSION
 
 chown -R root:root .
 find . \
@@ -88,7 +68,8 @@ find . \
   \( -perm 666 -o -perm 664 -o -perm 600 -o -perm 444 -o -perm 440 -o -perm 400 \) \
   -exec chmod 644 {} \;
 
-./autogen.sh --no-configure
+sed -e "s/pthread-stubs//" -i configure.ac
+autoreconf -ivsf
 
 CFLAGS="$SLKCFLAGS" \
 CXXFLAGS="$SLKCFLAGS" \
@@ -97,36 +78,11 @@ CXXFLAGS="$SLKCFLAGS" \
   --sysconfdir=/etc \
   --libdir=/usr/lib${LIBDIRSUFFIX} \
   --mandir=/usr/man \
-  --docdir=/usr/doc/mesa-$VERSION \
-  --enable-gallium-llvm \
-  --enable-shared-glapi \
-  --enable-xa \
-  --enable-osmesa \
-  --with-dri-driverdir=/usr/lib${LIBDIRSUFFIX}/xorg/modules/dri \
-  --with-dri-drivers="$DRI_DRIVERS" \
-  --with-gallium-drivers="$GALLIUM_DRIVERS" \
-  --with-egl-platforms="drm,x11" \
+  --docdir=/usr/doc/$PRGNAM-$VERSION \
   --build=$ARCH-slackware-linux \
-  --enable-texture-float \
-  --enable-gles1 \
-  --enable-gles2 \
-  --enable-openvg \
-  --enable-gbm \
-  --enable-gallium-egl \
-  --enable-gallium-gbm \
-  --enable-glx-tls \
-  $LLVM_STATIC \
 
 make
 make install DESTDIR=$PKG || exit 1
-
-cd xdemos
-make DEMOS_PREFIX=/usr
-make install DESTDIR=$PKG || exit 1
-cd -
-
-mv $PKG/usr/share/man $PKG/usr/
-mv $PKG/etc/drirc $PKG/etc/drirc.new
 
 find $PKG | xargs file | grep -e "executable" -e "shared object" | grep ELF \
   | cut -f 1 -d : | xargs strip --strip-unneeded 2> /dev/null
@@ -134,21 +90,17 @@ find $PKG | xargs file | grep -e "executable" -e "shared object" | grep ELF \
 find $PKG/usr/man -type f -exec gzip -9 {} \;
 for i in $( find $PKG/usr/man -type l ) ; do ln -s $( readlink $i ).gz $i.gz ; rm $i ; done
 
-mkdir -p $PKG/usr/doc/Mesa-$VERSION/html
+mkdir -p $PKG/usr/doc/$PRGNAM-$VERSION
 cp -a \
-  docs/COPYING* docs/relnotes-${VERSION}*.html docs/README* docs/GL* \
-  $PKG/usr/doc/Mesa-$VERSION
-cp -a docs/*.html $PKG/usr/doc/Mesa-$VERSION/html
-rm -f $PKG/usr/doc/Mesa-$VERSION/html/relnotes*.html
-cat $CWD/$PRGNAM.SlackBuild > $PKG/usr/doc/Mesa-$VERSION/$PRGNAM.SlackBuild
+  ChangeLog INSTALL \
+  $PKG/usr/doc/$PRGNAM-$VERSION
+cat $CWD/$PRGNAM.SlackBuild > $PKG/usr/doc/$PRGNAM-$VERSION/$PRGNAM.SlackBuild
 
 mkdir -p $PKG/install
 cat $CWD/slack-desc > $PKG/install/slack-desc
-cat $CWD/slack-required > $PKG/install/slack-required
-cat $CWD/doinst.sh > $PKG/install/doinst.sh
 
 cd $PKG
 /sbin/makepkg -p -l y -c n $OUTPUT/$PRGNAM-$VERSION-$ARCH-$BUILD$TAG.txz
 
 echo "Cleaning up build directory"
-cd $WRK; rm -rf Mesa-$SRCVERSION $PKG
+cd $WRK; rm -rf $PRGNAM-$VERSION $PKG

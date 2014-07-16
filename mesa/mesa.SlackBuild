@@ -24,7 +24,7 @@
 # YOUR DATA IS DESTROYED, YOUR HOUSE BURNS DOWN OR YOUR DOG RUNS OFF.
 
 PRGNAM=mesa
-VERSION=10.2.1
+VERSION=10.1.5
 SRCVERSION=$(echo "$VERSION" | sed 's/_/-/g')
 BUILD=${BUILD:-1}
 TAG=${TAG:-_wls}
@@ -75,8 +75,8 @@ cd Mesa-$SRCVERSION
 # Let's kill the warning about operating on a dangling symlink:
 # rm -f src/gallium/state_trackers/d3d1x/w32api
 
-cat $CWD/patches/MesaLib-$VERSION-add_xdemos-1.patch | patch -p1 --verbose
-cat $CWD/patches/MesaLib-$VERSION-svga_texture-1.patch | patch -p1 --verbose
+cat $CWD/patches/MesaLib-10.2.1-add_xdemos-1.patch | patch -p1 --verbose
+cat $CWD/patches/MesaLib-10.2.1-svga_texture-1.patch | patch -p1 --verbose
 # if [ "$ARCH" = "i486" ]; then
 #   cat $CWD/patches/MesaLib-9.2-remove.options.RealignStack.patch | patch -p1 --verbose
 # fi

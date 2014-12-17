@@ -1,3 +1,5 @@
-libdrm
+libinput
+libxkbcommon
 mesa
+pam
 wayland

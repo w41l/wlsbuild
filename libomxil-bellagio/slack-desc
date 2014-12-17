@@ -1,0 +1,12 @@
+                 |-----handy-ruler------------------------------------------------------|
+libomxil-bellagio: libomxil-bellagio (Bellagio OpenMAX Integration Layer)
+libomxil-bellagio:
+libomxil-bellagio: OpenMAX Integration Layer (IL) is a standard API to access Multimedia
+libomxil-bellagio: Components on mobile platforms. It has been defined by the Khronos
+libomxil-bellagio: group. By means of the OpenMAX IL API, multimedia frameworks can
+libomxil-bellagio: access hardware accelerators on platforms that provide it.
+libomxil-bellagio:
+libomxil-bellagio: URL: http://omxil.sourceforge.net/
+libomxil-bellagio:
+libomxil-bellagio:
+libomxil-bellagio: Packaged by: Widya Walesa <walecha99@gmail.com>

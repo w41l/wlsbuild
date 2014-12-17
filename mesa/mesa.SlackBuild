@@ -24,18 +24,19 @@
 # YOUR DATA IS DESTROYED, YOUR HOUSE BURNS DOWN OR YOUR DOG RUNS OFF.
 
 PRGNAM=mesa
-VERSION=10.1.5
+VERSION=10.4.0
 SRCVERSION=$(echo "$VERSION" | sed 's/_/-/g')
 BUILD=${BUILD:-1}
 TAG=${TAG:-_wls}
 NUMJOBS=${NUMJOBS:--j2}
 
 # Be sure this list is up-to-date:
+#EGL_PLATFORMS="x11,wayland,drm"
+EGL_PLATFORMS="x11,drm"
 DRI_DRIVERS="i915,i965,nouveau,r200,radeon,swrast"
-GALLIUM_DRIVERS="nouveau,r300,r600,svga,swrast,radeonsi"
-
-# Slackware use static llvm. Comment out if you are using shared llvm libraries.
-LLVM_STATIC="--disable-llvm-shared-libs"
+# DRI_DRIVERS="i965,i915,r200,radeon"
+# GALLIUM_DRIVERS="nouveau,r300,r600,svga,swrast,radeonsi"
+GALLIUM_DRIVERS="r600,r300,swrast,nouveau,radeonsi,svga,ilo"
 
 if [ -z "$ARCH" ]; then
   case "$( uname -m )" in
@@ -46,10 +47,11 @@ if [ -z "$ARCH" ]; then
 fi
 
 CWD=$(pwd)
-WRK=${WRK:-/tmp/wlsbuild}
+WRK=${WRK:-/usr/src/wlsbuild}
 PKG=$WRK/package-mesa
 OUTPUT=${OUTPUT:-/tmp}
 DOCS=""
+ENABLE_NINE="--enable-nine"
 
 if [ "$ARCH" = "i486" ]; then
   SLKCFLAGS="-O2 -pipe -march=i486 -mtune=i686"
@@ -68,18 +70,11 @@ fi
 rm -rf $PKG
 mkdir -p $WRK $PKG
 cd $WRK
-rm -rf Mesa-$SRCVERSION
-tar xvf $CWD/MesaLib-$SRCVERSION.tar.?z* || exit 1
-cd Mesa-$SRCVERSION
+rm -rf Mesa-$VERSION
+tar xvf $CWD/MesaLib-$VERSION.tar.?z* || exit 1
+cd Mesa-$VERSION
 
-# Let's kill the warning about operating on a dangling symlink:
-# rm -f src/gallium/state_trackers/d3d1x/w32api
-
-cat $CWD/patches/MesaLib-10.2.1-add_xdemos-1.patch | patch -p1 --verbose
-cat $CWD/patches/MesaLib-10.2.1-svga_texture-1.patch | patch -p1 --verbose
-# if [ "$ARCH" = "i486" ]; then
-#   cat $CWD/patches/MesaLib-9.2-remove.options.RealignStack.patch | patch -p1 --verbose
-# fi
+cat $CWD/Mesa-dev-clover-disable-broken-debug-facility-1.patch | patch -p1
 
 chown -R root:root .
 find . \
@@ -88,7 +83,7 @@ find . \
   \( -perm 666 -o -perm 664 -o -perm 600 -o -perm 444 -o -perm 440 -o -perm 400 \) \
   -exec chmod 644 {} \;
 
-./autogen.sh --no-configure
+./autogen.sh
 
 CFLAGS="$SLKCFLAGS" \
 CXXFLAGS="$SLKCFLAGS" \
@@ -98,35 +93,45 @@ CXXFLAGS="$SLKCFLAGS" \
   --libdir=/usr/lib${LIBDIRSUFFIX} \
   --mandir=/usr/man \
   --docdir=/usr/doc/mesa-$VERSION \
+  --with-dri-driverdir=/usr/lib${LIBDIRSUFFIX}/xorg/modules/dri \
+  --with-dri-drivers="$DRI_DRIVERS" \
+  --with-gallium-drivers="$GALLIUM_DRIVERS" \
+  --with-egl-platforms="$EGL_PLATFORMS" \
+  --build=$ARCH-slackware-linux \
+  --disable-debug \
+  --disable-static \
+  --enable-shared \
   --enable-gallium-llvm \
   --enable-shared-glapi \
   --enable-xa \
   --enable-osmesa \
-  --with-dri-driverdir=/usr/lib${LIBDIRSUFFIX}/xorg/modules/dri \
-  --with-dri-drivers="$DRI_DRIVERS" \
-  --with-gallium-drivers="$GALLIUM_DRIVERS" \
-  --with-egl-platforms="drm,x11" \
-  --build=$ARCH-slackware-linux \
   --enable-texture-float \
   --enable-gles1 \
   --enable-gles2 \
-  --enable-openvg \
   --enable-gbm \
-  --enable-gallium-egl \
-  --enable-gallium-gbm \
+  --enable-glx \
   --enable-glx-tls \
-  $LLVM_STATIC \
+  --enable-dri3 \
+  --enable-asm \
+  --enable-egl \
+  --enable-omx \
+  --enable-opencl \
+  --enable-opencl-icd \
+  $ENABLE_NINE \
+  || exit 1
 
-make
-make install DESTDIR=$PKG || exit 1
+#  --enable-gallium-egl \
+#  --enable-gallium-gbm \
+#  --enable-openvg \
 
-cd xdemos
-make DEMOS_PREFIX=/usr
+make || exit 1
 make install DESTDIR=$PKG || exit 1
-cd -
 
 mv $PKG/usr/share/man $PKG/usr/
 mv $PKG/etc/drirc $PKG/etc/drirc.new
+
+mkdir -p $PKG/etc/udev/rules.d
+install -m 644 -o root -g root $CWD/70-radeon.rules $PKG/etc/udev/rules.d/70-radeon.rules
 
 find $PKG | xargs file | grep -e "executable" -e "shared object" | grep ELF \
   | cut -f 1 -d : | xargs strip --strip-unneeded 2> /dev/null
@@ -151,4 +156,4 @@ cd $PKG
 /sbin/makepkg -p -l y -c n $OUTPUT/$PRGNAM-$VERSION-$ARCH-$BUILD$TAG.txz
 
 echo "Cleaning up build directory"
-cd $WRK; rm -rf Mesa-$SRCVERSION $PKG
+cd $WRK; rm -rf Mesa-$VERSION $PKG

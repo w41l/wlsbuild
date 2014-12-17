@@ -24,7 +24,7 @@
 # YOUR DATA IS DESTROYED, YOUR HOUSE BURNS DOWN OR YOUR DOG RUNS OFF.
 
 PKGNAM=mesa-demos
-VERSION=8.1.0
+VERSION=8.2.0
 BUILD=${BUILD:-1}
 TAG=${TAG:-_wls}
 
@@ -72,21 +72,41 @@ if [ ! -r configure ]; then
   ./autogen.sh || exit 1
 fi
 
-CC="clang" \
-CXX="clang++" \
 CFLAGS="$SLKCFLAGS" \
+CXXFLAGS="$SLKCFLAGS" \
 ./configure \
   --prefix=/usr \
   --sysconfdir=/etc \
   --libdir=/usr/lib$LIBDIRSUFFIX \
   --build=$ARCH-slackware-linux \
 
-make -C src/xdemos/ glxinfo glxgears glxgears_fbconfig
+make -C src/xdemos/ \
+  glthreads \
+  glxcontexts \
+  glxdemo \
+  glxpbdemo \
+  glxpixmap \
+  glxinfo \
+  glxgears \
+  glxgears_fbconfig \
+  glxheads
+
+make -C src/demos/ \
+  gears \
+  glinfo
 
 mkdir -p $PKG/usr/bin
-install -v -o root -g root src/xdemos/glxinfo $PKG/usr/bin/
-install -v -o root -g root src/xdemos/glxgears $PKG/usr/bin/
-install -v -o root -g root src/xdemos/glxgears_fbconfig $PKG/usr/bin/
+install -v -o root -g root src/xdemos/glxinfo $PKG/usr/bin/glxinfo
+install -v -o root -g root src/xdemos/glxgears $PKG/usr/bin/glxgears
+install -v -o root -g root src/xdemos/glxgears_fbconfig $PKG/usr/bin/glxgears_fbconfig
+install -v -o root -g root src/xdemos/glthreads $PKG/usr/bin/glthreads
+install -v -o root -g root src/xdemos/glxcontexts $PKG/usr/bin/glxcontexts
+install -v -o root -g root src/xdemos/glxdemo $PKG/usr/bin/glxdemo
+install -v -o root -g root src/xdemos/glxheads $PKG/usr/bin/glxheads
+install -v -o root -g root src/xdemos/glxpbdemo $PKG/usr/bin/glxpbdemo
+install -v -o root -g root src/xdemos/glxpixmap $PKG/usr/bin/glxpixmap
+install -v -o root -g root src/demos/gears $PKG/usr/bin/gears
+install -v -o root -g root src/demos/glinfo $PKG/usr/bin/glinfo
 
 find $PKG | xargs file | grep -e "executable" -e "shared object" | grep ELF \
   | cut -f 1 -d : | xargs strip --strip-unneeded 2> /dev/null

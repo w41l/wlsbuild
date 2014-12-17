@@ -1,1 +1,4 @@
-elfutils
+libdrm
+libomxil-bellagio
+libclc
+ocl-icd

@@ -24,7 +24,7 @@
 # YOUR DATA IS DESTROYED, YOUR HOUSE BURNS DOWN OR YOUR DOG RUNS OFF.
 
 PRGNAM=sddm
-VERSION=20131226_505c7c6
+VERSION=0.10.0
 BUILD=1
 TAG=${TAG:-_wls}
 NUMJOBS=${NUMJOBS:--j1}
@@ -50,7 +50,7 @@ elif [ "$ARCH" = "i686" ]; then
   SLKCFLAGS="-O2 -pipe -march=i686 -mtune=i686 -fPIC -pthread"
   LIBDIRSUFFIX=""
 elif [ "$ARCH" = "x86_64" ]; then
-  SLKCFLAGS="-O2 -pipe -m64 -fPIC -pthread"
+  SLKCFLAGS="-O2 -pipe -m64 -fPIC"
   LIBDIRSUFFIX="64"
 else
   SLKCFLAGS="-O2 -pthread"
@@ -89,10 +89,11 @@ find . \
 
 mkdir build
 cd build
+#  cmake .. \
+#    -DCMAKE_C_FLAGS:STRING="$SLKCFLAGS" \
+#    -DCMAKE_CXX_FLAGS:STRING="$SLKCFLAGS" \
   cmake .. \
-    -DCMAKE_C_FLAGS:STRING="$SLKCFLAGS" \
-    -DCMAKE_CXX_FLAGS:STRING="$SLKCFLAGS" \
-    -DCMAKE_BUILD_TYPE=Release \
+    -DCMAKE_BUILD_TYPE=Debug \
     -DCMAKE_INSTALL_PREFIX:PATH=/usr \
     -DLIB_SUFFIX=${LIBDIRSUFFIX}
 
@@ -100,26 +101,17 @@ cd build
   make install DESTDIR=$PKG
 cd -
 
-# Preserve old configuratios
-mv $PKG/etc/sddm.conf $PKG/etc/sddm.conf.new
-mv $PKG/etc/pam.d/sddm $PKG/etc/pam.d/sddm.new
-
 # Add default xsessions directory
 mkdir -p $PKG/usr/share/xsessions
 
-# Use xinitrc script rather than calling startkde directly
-#sed 's:/usr/bin/startkde:/etc/X11/xinit/xinitrc:g' \
-#  -i $PKG/usr/share/apps/sddm/scripts/Xsession
-
-find $PKG | xargs file | grep -e "executable" -e "shared object" | grep ELF \
-  | cut -f 1 -d : | xargs strip --strip-unneeded 2> /dev/null || true
+#find $PKG | xargs file | grep -e "executable" -e "shared object" | grep ELF \
+#  | cut -f 1 -d : | xargs strip --strip-unneeded 2> /dev/null || true
 
 mkdir -p $PKG/usr/doc/$PRGNAM-$VERSION
 cp -a $DOCS $PKG/usr/doc/$PRGNAM-$VERSION
 cat $CWD/$PRGNAM.SlackBuild > $PKG/usr/doc/$PRGNAM-$VERSION/$PRGNAM.SlackBuild
 
 mkdir -p $PKG/install
-#cat $CWD/doinst.sh > $PKG/install/doinst.sh
 cat $CWD/slack-desc > $PKG/install/slack-desc
 
 cd $PKG

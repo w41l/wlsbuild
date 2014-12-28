@@ -1,10 +1,10 @@
 cabextract
 fontforge
-#libclc
+libclc
 libdrm
-#libomxil-bellagio
+libomxil-bellagio
 mesa
-#ocl-icd
-#opencl-headers
+ocl-icd
+opencl-headers
 webcore-fonts
 xf86-video-ati

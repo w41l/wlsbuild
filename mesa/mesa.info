@@ -1,4 +1,4 @@
 URL=http://www.mesa3d.org/
-SRC=http://mirrors.slackware.com/slackware/slackware64-current/source/x/mesa/MesaLib-10.2.6.tar.xz
-MD5=9c142267ebf158466cf8e9d40a92608e
-SHA1=f64087b3686aeff9fee65f5bb545ff375e9358b6
+SRC=ftp://ftp.freedesktop.org/pub/mesa/10.4.0/MesaLib-10.4.0.tar.bz2
+MD5=
+SHA1=

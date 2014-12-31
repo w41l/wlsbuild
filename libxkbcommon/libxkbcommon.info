@@ -1,4 +1,4 @@
 URL=http://xkbcommon.org/
-SRC=http://xkbcommon.org/download/libxkbcommon-0.2.0.tar.bz2
-MD5=2be3d4a255d02c7d46fc6a9486f21f6a
-SHA1=476dce33bf508cc166f4b2441d96ccd3aed809a2
+SRC=http://xkbcommon.org/download/libxkbcommon-0.5.0.tar.xz
+MD5=2e1faeafcc609c30af3a561a91e84158
+SHA1=

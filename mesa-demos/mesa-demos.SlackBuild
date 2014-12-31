@@ -27,8 +27,7 @@ PKGNAM=mesa-demos
 VERSION=8.2.0
 BUILD=${BUILD:-1}
 TAG=${TAG:-_wls}
-
-NUMJOBS=${NUMJOBS:--j2}
+NUMJOBS=${NUMJOBS:--j3}
 
 if [ -z "$ARCH" ]; then
   case "$( uname -m )" in

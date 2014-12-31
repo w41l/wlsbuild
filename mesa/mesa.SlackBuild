@@ -28,7 +28,7 @@ VERSION=10.4.0
 SRCVERSION=$(echo "$VERSION" | sed 's/_/-/g')
 BUILD=${BUILD:-1}
 TAG=${TAG:-_wls}
-NUMJOBS=${NUMJOBS:--j2}
+NUMJOBS=${NUMJOBS:--j3}
 
 # Be sure this list is up-to-date:
 #EGL_PLATFORMS="x11,wayland,drm"
@@ -52,6 +52,7 @@ PKG=$WRK/package-mesa
 OUTPUT=${OUTPUT:-/tmp}
 DOCS=""
 ENABLE_NINE="--enable-nine"
+ENABLE_S3TC="USE_EXTERNAL_DXTN_LIB=1"
 
 if [ "$ARCH" = "i486" ]; then
   SLKCFLAGS="-O2 -pipe -march=i486 -mtune=i686"
@@ -71,7 +72,8 @@ rm -rf $PKG
 mkdir -p $WRK $PKG
 cd $WRK
 rm -rf Mesa-$VERSION
-tar xvf $CWD/MesaLib-$VERSION.tar.?z* || exit 1
+echo "extracting MesaLib-$VERSION"
+tar xf $CWD/MesaLib-$VERSION.tar.?z* || exit 1
 cd Mesa-$VERSION
 
 cat $CWD/Mesa-dev-clover-disable-broken-debug-facility-1.patch | patch -p1
@@ -83,10 +85,10 @@ find . \
   \( -perm 666 -o -perm 664 -o -perm 600 -o -perm 444 -o -perm 440 -o -perm 400 \) \
   -exec chmod 644 {} \;
 
-./autogen.sh
+./autogen.sh --no-configure
 
-CFLAGS="$SLKCFLAGS" \
-CXXFLAGS="$SLKCFLAGS" \
+CFLAGS="$SLKCFLAGS -DUSE_EXTERNAL_DXTN_LIB=1" \
+CXXFLAGS="$SLKCFLAGS -DUSE_EXTERNAL_DXTN_LIB=1" \
 ./configure \
   --prefix=/usr \
   --sysconfdir=/etc \
@@ -124,7 +126,7 @@ CXXFLAGS="$SLKCFLAGS" \
 #  --enable-gallium-gbm \
 #  --enable-openvg \
 
-make || exit 1
+make $NUMJOBS || exit 1
 make install DESTDIR=$PKG || exit 1
 
 mv $PKG/usr/share/man $PKG/usr/

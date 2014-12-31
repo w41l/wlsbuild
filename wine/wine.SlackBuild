@@ -24,10 +24,11 @@
 # YOUR DATA IS DESTROYED, YOUR HOUSE BURNS DOWN OR YOUR DOG RUNS OFF.
 
 PRGNAM=wine
-VERSION=1.7.33
-BUILD=1
+VERSION=${VERSION:-1.7.33}
+BUILD=${BUILD:-1}
 TAG=${TAG:-_wls}
-NUMJOBS=${NUMJOBS:--j4}
+NUMJOBS=${NUMJOBS:--j5}
+STAGING=${STAGING:-1}
 
 if [ -z "$ARCH" ]; then
   case "$( uname -m )" in
@@ -70,11 +71,16 @@ rm -rf $PKG
 mkdir -p $WRK $PKG $OUTPUT
 cd $WRK
 rm -rf $PRGNAM*
-tar xvf $CWD/$PRGNAM-$VERSION.tar.?z*
-tar xvf $CWD/$PRGNAM-staging-$VERSION.tar.?z*
+echo "extracting $PRGNAM-$VERSION"
+tar xf $CWD/$PRGNAM-$VERSION.tar.?z*
+
+if [ "$STAGING" = "1" ]; then
+  echo "extracting $PRGNAM-staging-$VERSION"
+  tar xf $CWD/$PRGNAM-staging-$VERSION.tar.?z*
+fi
 cd $PRGNAM-$VERSION
 
-cat $CWD/wine-cjk.patch | patch -p1
+cat $CWD/wine-cjk.patch | patch -p1 || exit 1
 
 chown -R root:root .
 find . \
@@ -83,19 +89,22 @@ find . \
  \( -perm 666 -o -perm 664 -o -perm 600 -o -perm 444 -o -perm 440 -o -perm 400 \) \
  -exec chmod 644 {} \;
 
-mv ../$PRGNAM-staging-$VERSION/* .
-make -C patches DESTDIR=$WRK/$PRGNAM-$VERSION install
-sed -i -e 's!^loader server: libs/port libs/wine tools.*!& include!' Makefile.in
+if [ "$STAGING" = "1" ]; then
+  mv ../$PRGNAM-staging-$VERSION/* .
+  make -C patches DESTDIR=$WRK/$PRGNAM-$VERSION install
+  sed -i -e 's!^loader server: libs/port libs/wine tools.*!& include!' Makefile.in
+fi
 
-# autoreconf -ivsf
+autoreconf -ivsf
 
 echo "Creating build directory $WRK/$PRGNAM"
 rm -rf $WRK/$PRGNAM
 mkdir -p $WRK/$PRGNAM
 cd $WRK/$PRGNAM
 LDFLAGS="$SLKLDFLAGS" \
-CFLAGS="$SLKCFLAGS" \
-CXXFLAGS="$SLKCFLAGS" \
+CPPFLAGS="${CPPFLAGS/-D_FORTIFY_SOURCE=2/} -D_FORTIFY_SOURCE=0" \
+CFLAGS="$SLKCFLAGS -DHAVE_ATTR_XATTR_H=1" \
+CXXFLAGS="$SLKCFLAGS -DHAVE_ATTR_XATTR_H=1" \
 ../$PRGNAM-$VERSION/configure \
   --program-prefix= --program-suffix= \
   --prefix=/usr --exec-prefix=/usr \
@@ -105,16 +114,18 @@ CXXFLAGS="$SLKCFLAGS" \
   --sysconfdir=/etc --docdir=/usr/doc/$PRGNAM-$VERSION \
   --localstatedir=/var --sharedstatedir=/var/lib \
   --build=$ARCH-slackware-linux \
-  --disable-tests \
   --with-x \
   --with-opengl \
   --with-xattr \
-  --with-dbus \
-  ${ENABLE_NINE} ${ENABLE_64} \
+  ${ENABLE_NINE} \
+  ${ENABLE_64} \
   || exit 1
 
+#  --with-dbus \
+#  --without-gstreamer \
+
 make depend || exit 1
-make || exit 1
+make $NUMJOBS || exit 1
 make install DESTDIR=$PKG || exit 1
 
 if [ "$ARCH" = "x86_64" ]; then
@@ -126,9 +137,10 @@ if [ "$ARCH" = "x86_64" ]; then
   # Set 32-bit pkgconfig path as needed by gstreamer
   PKG_CONFIG_PATH=/usr/lib/pkgconfig
 
-  CFLAGS="$SLKCFLAGS" \
-  CXXFLAGS="$SLKCFLAGS" \
-  ../${PRGNAM}-${VERSION}/configure \
+  CPPFLAGS="${CPPFLAGS/-D_FORTIFY_SOURCE=2/} -D_FORTIFY_SOURCE=0" \
+  CFLAGS="$SLKCFLAGS -DHAVE_ATTR_XATTR_H=1" \
+  CXXFLAGS="$SLKCFLAGS -DHAVE_ATTR_XATTR_H=1" \
+  ../$PRGNAM-$VERSION/configure \
     --with-wine64=../${PRGNAM} \
     --program-prefix= --program-suffix= \
     --prefix=/usr --exec-prefix=/usr \
@@ -138,16 +150,17 @@ if [ "$ARCH" = "x86_64" ]; then
     --sysconfdir=/etc --docdir=/usr/doc/$PRGNAM-$VERSION \
     --localstatedir=/var --sharedstatedir=/var/lib \
     --build=$ARCH-slackware-linux \
-    --disable-tests \
     --with-x \
     --with-opengl \
     --with-xattr \
-    --with-dbus \
     ${ENABLE_NINE} \
     || exit 1
 
+#    --with-dbus \
+#    --without-gstreamer \
+
   make depend || exit 1
-  make || exit 1
+  make $NUMJOBS || exit 1
   make install DESTDIR=$PKG || exit 1
 fi
 

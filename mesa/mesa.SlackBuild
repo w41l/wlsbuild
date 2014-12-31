@@ -28,11 +28,15 @@ VERSION=10.4.0
 SRCVERSION=$(echo "$VERSION" | sed 's/_/-/g')
 BUILD=${BUILD:-1}
 TAG=${TAG:-_wls}
-NUMJOBS=${NUMJOBS:--j3}
+NUMJOBS=${NUMJOBS:--j1}
 
 # Be sure this list is up-to-date:
-#EGL_PLATFORMS="x11,wayland,drm"
-EGL_PLATFORMS="x11,drm"
+if [ "$WAYLAND" = "yes" ]; then
+  EGL_PLATFORMS="x11,wayland,drm"
+else
+  EGL_PLATFORMS="x11,drm"
+fi
+
 DRI_DRIVERS="i915,i965,nouveau,r200,radeon,swrast"
 # DRI_DRIVERS="i965,i915,r200,radeon"
 # GALLIUM_DRIVERS="nouveau,r300,r600,svga,swrast,radeonsi"
@@ -67,6 +71,9 @@ else
   SLKCFLAGS="-O2"
   LIBDIRSUFFIX=""
 fi
+
+echo 'To build wayland support, use: WAYLAND="yes" ./mesa.SlackBuild'
+sleep 5
 
 rm -rf $PKG
 mkdir -p $WRK $PKG

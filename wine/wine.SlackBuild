@@ -27,7 +27,7 @@ PRGNAM=wine
 VERSION=${VERSION:-1.7.33}
 BUILD=${BUILD:-1}
 TAG=${TAG:-_wls}
-NUMJOBS=${NUMJOBS:--j5}
+NUMJOBS=${NUMJOBS:--j3}
 STAGING=${STAGING:-1}
 
 if [ -z "$ARCH" ]; then
@@ -114,15 +114,14 @@ CXXFLAGS="$SLKCFLAGS -DHAVE_ATTR_XATTR_H=1" \
   --sysconfdir=/etc --docdir=/usr/doc/$PRGNAM-$VERSION \
   --localstatedir=/var --sharedstatedir=/var/lib \
   --build=$ARCH-slackware-linux \
+  --without-hal \
+  --with-dbus \
   --with-x \
   --with-opengl \
   --with-xattr \
   ${ENABLE_NINE} \
   ${ENABLE_64} \
   || exit 1
-
-#  --with-dbus \
-#  --without-gstreamer \
 
 make depend || exit 1
 make $NUMJOBS || exit 1
@@ -150,14 +149,13 @@ if [ "$ARCH" = "x86_64" ]; then
     --sysconfdir=/etc --docdir=/usr/doc/$PRGNAM-$VERSION \
     --localstatedir=/var --sharedstatedir=/var/lib \
     --build=$ARCH-slackware-linux \
+    --without-hal \
+    --with-dbus \
     --with-x \
     --with-opengl \
     --with-xattr \
     ${ENABLE_NINE} \
     || exit 1
-
-#    --with-dbus \
-#    --without-gstreamer \
 
   make depend || exit 1
   make $NUMJOBS || exit 1

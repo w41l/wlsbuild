@@ -31,10 +31,12 @@ TAG=${TAG:-_wls}
 NUMJOBS=${NUMJOBS:--j1}
 
 # Be sure this list is up-to-date:
-if [ "$WAYLAND" = "yes" ]; then
-  EGL_PLATFORMS="x11,wayland,drm"
-else
+if [ ! "$WAYLAND" = "yes" ]; then
   EGL_PLATFORMS="x11,drm"
+  echo 'To build wayland support, use: WAYLAND="yes" ./mesa.SlackBuild'
+  sleep 5
+else
+  EGL_PLATFORMS="x11,wayland,drm"
 fi
 
 DRI_DRIVERS="i915,i965,nouveau,r200,radeon,swrast"
@@ -71,9 +73,6 @@ else
   SLKCFLAGS="-O2"
   LIBDIRSUFFIX=""
 fi
-
-echo 'To build wayland support, use: WAYLAND="yes" ./mesa.SlackBuild'
-sleep 5
 
 rm -rf $PKG
 mkdir -p $WRK $PKG

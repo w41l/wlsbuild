@@ -1,2 +1,4 @@
-dri3proto
-presentproto
+libdrm
+libomxil-bellagio
+libclc
+ocl-icd

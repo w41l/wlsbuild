@@ -2,7 +2,7 @@
 
 # Slackware build script for libxkbcommon
 
-# Copyright 2012  Widya Walesa <walecha99@gmail.com>
+# Copyright 2012-2014  Widya Walesa <walecha99@gmail.com>
 # All rights reserved.
 #
 # Redistribution and use of this script, with or without modification, is
@@ -24,26 +24,18 @@
 # YOUR DATA IS DESTROYED, YOUR HOUSE BURNS DOWN OR YOUR DOG RUNS OFF.
 
 PRGNAM=libxkbcommon
-VERSION=0.2.0
-BUILD=1
+VERSION=0.5.0
+BUILD=${BUILD:-1}
 TAG=${TAG:-_wls}
+NUMJOBS=${NUMJOBS:--j1}
 
-# Automatically determine architecture for build & packaging:
 if [ -z "$ARCH" ]; then
   case "$( uname -m )" in
-    i?86) export ARCH=i486 ;;
-    # Unless $ARCH is already set, use uname -m for all other archs:
-    *)    export ARCH=$( uname -m ) ;;
+    i?86) ARCH=i486 ;;
+    arm*) ARCH=arm ;;
+       *) ARCH=$( uname -m ) ;;
   esac
 fi
-
-NUMJOBS=${NUMJOBS:-" -j4 "}
-
-CWD=$(pwd)
-WRK=${WRK:-/tmp/wlsbuild}
-PKG=$WRK/package-${PRGNAM}
-OUTPUT=${OUTPUT:-/tmp}
-DOCS="COPYING README"
 
 if [ "$ARCH" = "i486" ]; then
   SLKCFLAGS="-O2 -march=i486 -mtune=i686"
@@ -58,6 +50,12 @@ else
   SLKCFLAGS="-O2"
   LIBDIRSUFFIX=""
 fi
+
+CWD=$(pwd)
+WRK=${WRK:-/tmp/wlsbuild}
+PKG=$WRK/package-${PRGNAM}
+OUTPUT=${OUTPUT:-/tmp}
+DOCS="COPYING README"
 
 rm -rf $PKG
 mkdir -p $WRK $PKG
@@ -83,7 +81,7 @@ CFLAGS="$SLKCFLAGS" \
   --disable-static --enable-shared \
 
 # Build and install:
-make $NUMJOBS || make || exit 1
+make || exit 1
 make install DESTDIR=$PKG || exit 1
 
 # No /usr/share/doc
@@ -126,7 +124,7 @@ mkdir -p $PKG/install
 cat $CWD/slack-desc > $PKG/install/slack-desc
 
 cd $PKG
-/sbin/makepkg -l y -c n $OUTPUT/$PRGNAM-$VERSION-$ARCH-$BUILD$TAG.txz
+/sbin/makepkg -p -l y -c n $OUTPUT/$PRGNAM-$VERSION-$ARCH-$BUILD$TAG.txz
 
 echo "Cleaning up build directory"
 cd $WRK; rm -rf $PRGNAM-$VERSION $PKG

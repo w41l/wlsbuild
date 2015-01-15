@@ -1,4 +1,4 @@
-URL=http://cgit.freedesktop.org/xorg/driver/xf86-video-ati/
-SRC=http://cgit.freedesktop.org/xorg/driver/xf86-video-ati/snapshot/xf86-video-ati-6a278369c05a298a4367306d986467a9ceacae8c.tar.gz
-MD5=5584ebfd78f82fe5da5b12dc248f1200
-SHA1=78a2a483353a626ff6063fac5826fbd1d86ae7e8
+URL=http://www.x.org/
+SRC=file:///home/walecha/tmp/wlsbuild/xf86-video-ati/xf86-video-ati-7.2.0.tar.bz2
+MD5=5ab9a826699e5c86ef89fca43ebb3821
+SHA1=2b11e423506f1f967d4bb6be0ff1277c24332b68

@@ -1,0 +1,294 @@
+--- invocation.cpp.orig	2014-11-25 01:00:44.213862711 +0000
++++ invocation.cpp	2014-11-25 01:43:12.000000000 +0000
+@@ -36,11 +36,17 @@
+ #include <llvm/IR/DiagnosticInfo.h>
+ #include <llvm/IR/DiagnosticPrinter.h>
+ #endif
++#if HAVE_LLVM < 0x0303
++#include <llvm/DerivedTypes.h>
++#include <llvm/LLVMContext.h>
++#include <llvm/Module.h>
++#else
+ #include <llvm/IR/DerivedTypes.h>
+ #include <llvm/IR/LLVMContext.h>
+ #include <llvm/IR/Module.h>
+ #include <llvm/Support/SourceMgr.h>
+ #include <llvm/IRReader/IRReader.h>
++#endif
+ #if HAVE_LLVM < 0x0305
+ #include <llvm/ADT/OwningPtr.h>
+ #endif
+@@ -48,14 +54,21 @@
+ #include <llvm/Support/CodeGen.h>
+ #include <llvm/Support/TargetSelect.h>
+ #include <llvm/Support/MemoryBuffer.h>
++#if HAVE_LLVM < 0x0303
++#include <llvm/Support/PathV1.h>
++#endif
+ #include <llvm/Support/FormattedStream.h>
+ #include <llvm/Support/TargetRegistry.h>
+ #include <llvm/Transforms/IPO.h>
+ #include <llvm/Transforms/IPO/PassManagerBuilder.h>
+-#include <llvm/Transforms/Utils/Cloning.h>
+-
+ 
++#if HAVE_LLVM < 0x0302
++#include <llvm/Target/TargetData.h>
++#elif HAVE_LLVM < 0x0303
++#include <llvm/DataLayout.h>
++#else
+ #include <llvm/IR/DataLayout.h>
++#endif
+ #include <llvm/Target/TargetLibraryInfo.h>
+ #include <llvm/Target/TargetMachine.h>
+ #include <llvm/Target/TargetOptions.h>
+@@ -119,23 +132,13 @@
+       return module::deserialize(cs);
+    }
+ #endif
+-   void debug_log(const std::string &msg, const std::string &suffix) {
+-      const char *dbg_file = debug_get_option("CLOVER_DEBUG_FILE", "stderr");
+-      if (!strcmp("stderr", dbg_file)) {
+-         std::cerr << msg;
+-       } else {
+-        std::ofstream file(dbg_file + suffix, std::ios::app);
+-        file << msg;
+-       }
+-   }
+ 
+    llvm::Module *
+    compile_llvm(llvm::LLVMContext &llvm_ctx, const std::string &source,
+-                const header_map &headers,
+-                const std::string &name, const std::string &triple,
+-                const std::string &processor, const std::string &opts,
+-                clang::LangAS::Map& address_spaces, unsigned &optimization_level,
+-                compat::string &r_log) {
++           const std::string &name, const std::string &triple,
++           const std::string &processor, const std::string &opts,
++           clang::LangAS::Map& address_spaces, unsigned &optimization_level,
++	   compat::string &r_log) {
+ 
+       clang::CompilerInstance c;
+       clang::EmitLLVMOnlyAction act(&llvm_ctx);
+@@ -188,6 +191,9 @@
+       c.getHeaderSearchOpts().AddPath(LIBCLC_INCLUDEDIR,
+                                       clang::frontend::Angled,
+                                       false, false
++#if HAVE_LLVM < 0x0303
++                                      , false
++#endif
+                                       );
+ 
+       // Add libclc include
+@@ -205,12 +211,23 @@
+       // of warnings and errors to be printed to stderr.
+       // http://www.llvm.org/bugs/show_bug.cgi?id=19735
+       c.getDiagnosticOpts().ShowCarets = false;
++#if HAVE_LLVM <= 0x0301
++      c.getInvocation().setLangDefaults(clang::IK_OpenCL);
++#else
+       c.getInvocation().setLangDefaults(c.getLangOpts(), clang::IK_OpenCL,
+                                         clang::LangStandard::lang_opencl11);
++#endif
+       c.createDiagnostics(
++#if HAVE_LLVM < 0x0303
++                          0, NULL,
++#endif
+                           new clang::TextDiagnosticPrinter(
+                                  s_log,
++#if HAVE_LLVM <= 0x0301
++                                 c.getDiagnosticOpts()));
++#else
+                                  &c.getDiagnosticOpts()));
++#endif
+ 
+ #if HAVE_LLVM >= 0x0306
+       c.getPreprocessorOpts().addRemappedFile(name,
+@@ -220,26 +237,6 @@
+                                       llvm::MemoryBuffer::getMemBuffer(source));
+ #endif
+ 
+-      if (headers.size()) {
+-         const std::string tmp_header_path = "/tmp/clover/";
+-
+-         c.getHeaderSearchOpts().AddPath(tmp_header_path,
+-                                         clang::frontend::Angled,
+-                                         false, false
+-                                         );
+-
+-         for (header_map::const_iterator it = headers.begin();
+-              it != headers.end(); ++it) {
+-            const std::string path = tmp_header_path + std::string(it->first);
+-            c.getPreprocessorOpts().addRemappedFile(path,
+-#if HAVE_LLVM >= 0x0306
+-                    llvm::MemoryBuffer::getMemBuffer(it->second.c_str()).release());
+-#else
+-                    llvm::MemoryBuffer::getMemBuffer(it->second.c_str()));
+-#endif
+-         }
+-      }
+-
+       // Setting this attribute tells clang to link this file before
+       // performing any optimizations.  This is required so that
+       // we can replace calls to the OpenCL C barrier() builtin
+@@ -312,9 +309,7 @@
+          llvm::Function *kernel = *I;
+          export_list.push_back(kernel->getName().data());
+       }
+-#if HAVE_LLVM < 0x0305
+-      PM.add(new llvm::DataLayout(mod));
+-#elif HAVE_LLVM < 0x0306
++#if HAVE_LLVM < 0x0306
+       PM.add(new llvm::DataLayoutPass(mod));
+ #else
+       PM.add(new llvm::DataLayoutPass());
+@@ -336,7 +331,9 @@
+       compat::vector<module::argument> args;
+       llvm::Function *kernel_func = mod->getFunction(kernel_name);
+ 
+-#if HAVE_LLVM < 0x0305
++#if HAVE_LLVM < 0x0302
++         llvm::TargetData TD(kernel_func->getParent());
++#elif HAVE_LLVM < 0x0305
+          llvm::DataLayout TD(kernel_func->getParent()->getDataLayout());
+ #else
+          llvm::DataLayout TD(mod);
+@@ -459,32 +456,9 @@
+       return m;
+    }
+ 
+-   void
+-   emit_code(LLVMTargetMachineRef tm, LLVMModuleRef mod,
+-             LLVMCodeGenFileType file_type,
+-             LLVMMemoryBufferRef *out_buffer,
+-             compat::string &r_log) {
+-      LLVMBool err;
+-      char *err_message = NULL;
+-
+-      err = LLVMTargetMachineEmitToMemoryBuffer(tm, mod, file_type,
+-                                                &err_message, out_buffer);
+-
+-      if (err) {
+-         r_log = std::string(err_message);
+-      }
+-
+-      LLVMDisposeMessage(err_message);
+-
+-      if (err) {
+-         throw build_error();
+-      }
+-   }
+-
+    std::vector<char>
+    compile_native(const llvm::Module *mod, const std::string &triple,
+-                  const std::string &processor, unsigned dump_asm,
+-                  compat::string &r_log) {
++                  const std::string &processor, compat::string &r_log) {
+ 
+       std::string log;
+       LLVMTargetRef target;
+@@ -492,6 +466,7 @@
+       LLVMMemoryBufferRef out_buffer;
+       unsigned buffer_size;
+       const char *buffer_data;
++      LLVMBool err;
+       LLVMModuleRef mod_ref = wrap(mod);
+ 
+       if (LLVMGetTargetFromTriple(triple.c_str(), &target, &error_message)) {
+@@ -509,20 +484,15 @@
+          throw build_error();
+       }
+ 
+-      if (dump_asm) {
+-         LLVMSetTargetMachineAsmVerbosity(tm, true);
+-         LLVMModuleRef debug_mod = wrap(llvm::CloneModule(mod));
+-         emit_code(tm, debug_mod, LLVMAssemblyFile, &out_buffer, r_log);
+-         buffer_size = LLVMGetBufferSize(out_buffer);
+-         buffer_data = LLVMGetBufferStart(out_buffer);
+-         debug_log(std::string(buffer_data, buffer_size), ".asm");
+-
+-         LLVMSetTargetMachineAsmVerbosity(tm, false);
+-         LLVMDisposeMemoryBuffer(out_buffer);
+-         LLVMDisposeModule(debug_mod);
+-      }
++      err = LLVMTargetMachineEmitToMemoryBuffer(tm, mod_ref, LLVMObjectFile,
++                                                &error_message, &out_buffer);
+ 
+-      emit_code(tm, mod_ref, LLVMObjectFile, &out_buffer, r_log);
++      if (err) {
++         LLVMDisposeTargetMachine(tm);
++         r_log = std::string(error_message);
++         LLVMDisposeMessage(error_message);
++         throw build_error();
++      }
+ 
+       buffer_size = LLVMGetBufferSize(out_buffer);
+       buffer_data = LLVMGetBufferStart(out_buffer);
+@@ -662,29 +632,14 @@
+    }
+ } // End anonymous namespace
+ 
+-#define DBG_CLC  (1 << 0)
+-#define DBG_LLVM (1 << 1)
+-#define DBG_ASM  (1 << 2)
+-
+-static const struct debug_named_value debug_options[] = {
+-   {"clc", DBG_CLC, "Dump the OpenCL C code for all kernels."},
+-   {"llvm", DBG_LLVM, "Dump the generated LLVM IR for all kernels."},
+-   {"asm", DBG_ASM, "Dump kernel assembly code for targets specifying "
+-                    "PIPE_SHADER_IR_NATIVE"},
+-	DEBUG_NAMED_VALUE_END // must be last
+-};
+-
+ module
+ clover::compile_program_llvm(const compat::string &source,
+-                             const header_map &headers,
+                              enum pipe_shader_ir ir,
+                              const compat::string &target,
+                              const compat::string &opts,
+                              compat::string &r_log) {
+ 
+    init_targets();
+-   static unsigned debug_flags = debug_get_flags_option("CLOVER_DEBUG",
+-                                                         debug_options, 0);
+ 
+    std::vector<llvm::Function *> kernels;
+    size_t processor_str_len = std::string(target.begin()).find_first_of("-");
+@@ -701,25 +656,14 @@
+ 
+    // The input file name must have the .cl extension in order for the
+    // CompilerInvocation class to recognize it as an OpenCL source file.
+-   llvm::Module *mod = compile_llvm(llvm_ctx, source, headers, "input.cl",
+-                                    triple, processor, opts, address_spaces,
++   llvm::Module *mod = compile_llvm(llvm_ctx, source, "input.cl", triple,
++                                    processor, opts, address_spaces,
+                                     optimization_level, r_log);
+ 
+    find_kernels(mod, kernels);
+ 
+    optimize(mod, optimization_level, kernels);
+ 
+-   if (debug_flags & DBG_CLC)
+-      debug_log(source, ".cl");
+-
+-   if (debug_flags & DBG_LLVM) {
+-      std::string log;
+-      llvm::raw_string_ostream s_log(log);
+-      mod->print(s_log, NULL);
+-      s_log.flush();
+-      debug_log(log, ".ll");
+-    }
+-
+    module m;
+    // Build the clover::module
+    switch (ir) {
+@@ -732,8 +676,7 @@
+          m = build_module_llvm(mod, kernels, address_spaces);
+          break;
+       case PIPE_SHADER_IR_NATIVE: {
+-         std::vector<char> code = compile_native(mod, triple, processor,
+-	                                         debug_flags & DBG_ASM, r_log);
++         std::vector<char> code = compile_native(mod, triple, processor, r_log);
+          m = build_module_native(code, mod, kernels, address_spaces, r_log);
+          break;
+       }

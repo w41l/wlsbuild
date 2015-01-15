@@ -1,0 +1,19 @@
+# HOW TO EDIT THIS FILE:
+# The "handy ruler" below makes it easier to edit a package description.  Line
+# up the first '|' above the ':' following the base package name, and the '|'
+# on the right side marks the last column you can put a character in.  You must
+# make exactly 11 lines for the formatting to be correct.  It's also
+# customary to leave one space after the ':'.
+
+     |-----handy-ruler-----------------------------------------------------|
+mytop: mytop (Top Clone for MySQL)
+mytop:
+mytop: mytop is a non-gui tool for monitoring the threads and overall
+mytop: performance of MySQL 3.22.x and 3.23.x servers. It runs on most Unix
+mytop: systems which have Perl, DBI, and Term::ReadKey installed. And with
+mytop: Term::ANSIColor installed you even get color.
+mytop:
+mytop: URL: http://jeremy.zawodny.com/mysql/mytop/
+mytop:
+mytop:
+mytop: Packaged by Widya Walesa <walecha99@gmail.com>

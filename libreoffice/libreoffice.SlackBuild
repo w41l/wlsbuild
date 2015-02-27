@@ -2,7 +2,7 @@
 
 # Slackware build script for libreoffice
 
-# Copyright 2010-2013  Widya Walesa <walecha99@gmail.com>
+# Copyright 2010-2015  Widya Walesa <walecha99@gmail.com>
 # All rights reserved.
 #
 # Redistribution and use of this script, with or without modification, is
@@ -24,7 +24,7 @@
 # YOUR DATA IS DESTROYED, YOUR HOUSE BURNS DOWN OR YOUR DOG RUNS OFF.
 
 PRGNAM=libreoffice
-VERSION=4.1.1
+VERSION=4.4.1
 RCVERS=".2"
 MAJORVER=$( echo $VERSION | sed "s/\(.*\)\.\(.*\)\.*/\1/" )
 BUILD=${BUILD:-1}

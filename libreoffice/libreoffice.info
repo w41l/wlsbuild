@@ -1,5 +1,5 @@
 URL=https://www.libreoffice.org/
-SRC_32=http://kambing.ui.ac.id/tdf/libreoffice/stable/4.1.1/rpm/x86/LibreOffice_4.1.1_Linux_x86_rpm.tar.gz
-SRC_64=http://kambing.ui.ac.id/tdf/libreoffice/stable/4.1.1/rpm/x86_64/LibreOffice_4.1.1_Linux_x86-64_rpm.tar.gz
-SRC_LANG_32=http://kambing.ui.ac.id/tdf/libreoffice/stable/4.1.1/rpm/x86/LibreOffice_4.1.1_Linux_x86_rpm_langpack_id.tar.gz
-SRC_LANG_64=http://kambing.ui.ac.id/tdf/libreoffice/stable/4.1.1/rpm/x86_64/LibreOffice_4.1.1_Linux_x86-64_rpm_langpack_id.tar.gz
+SRC_32=http://download.documentfoundation.org/libreoffice/stable/4.4.1/rpm/x86/LibreOffice_4.4.1_Linux_x86_rpm.tar.gz
+SRC_64=http://download.documentfoundation.org/libreoffice/stable/4.4.1/rpm/x86_64/LibreOffice_4.4.1_Linux_x86-64_rpm.tar.gz
+SRC_LANG_32=http://download.documentfoundation.org/libreoffice/stable/4.4.1/rpm/x86/LibreOffice_4.4.1_Linux_x86_rpm_langpack_id.tar.gz
+SRC_LANG_64=http://download.documentfoundation.org/libreoffice/stable/4.4.1/rpm/x86_64/LibreOffice_4.4.1_Linux_x86-64_rpm_langpack_id.tar.gz

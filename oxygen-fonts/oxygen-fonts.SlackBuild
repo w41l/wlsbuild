@@ -2,7 +2,7 @@
 
 # Slackware build script for oxygen-fonts
 
-# Copyright 2011-2013  Widya Walesa <walecha99@gmail.com>
+# Copyright 2011-2014  Widya Walesa <walecha99@gmail.com>
 # All rights reserved.
 #
 # Redistribution and use of this script, with or without modification, is
@@ -24,8 +24,13 @@
 # YOUR DATA IS DESTROYED, YOUR HOUSE BURNS DOWN OR YOUR DOG RUNS OFF.
 
 PRGNAM=oxygen-fonts
+<<<<<<< HEAD
 VERSION=0.4
 GITVERS=484328b
+=======
+VERSION=5.0.0
+GITVERS=556f299
+>>>>>>> origin/master
 BUILD=1
 TAG="_wls"
 ARCH="noarch"
@@ -34,13 +39,18 @@ CWD=$(pwd)
 WRK=${WRK:-/tmp/wlsbuild}
 PKG=$WRK/package-$PRGNAM
 OUTPUT=${OUTPUT:-/tmp}
+<<<<<<< HEAD
 DOCS="COPYING* GPL.txt README"
+=======
+DOCS="COPYING-GPL+FE.txt COPYING-OFL GPL.txt README*"
+>>>>>>> origin/master
 
 set -e
 
 rm -rf $PKG
 mkdir -p $WRK $PKG $OUTPUT
 cd $WRK
+rm -rf $PRGNAM
 tar xvf $CWD/$PRGNAM-$GITVERS.tar.?z*
 cd $PRGNAM
 
@@ -51,8 +61,16 @@ find . \
  \( -perm 666 -o -perm 664 -o -perm 600 -o -perm 444 -o -perm 440 -o -perm 400 \) \
  -exec chmod 644 {} \;
 
-cd version-$VERSION
+# mkdir -p build
+# cd build
+#   cmake .. \
+#     -DCMAKE_BUILD_TYPE=Release \
+#     -DCMAKE_INSTALL_PREFIX=$(kde4-config --prefix) \
+# 
+#   make
+#   make install DESTDIR=$PKG
 mkdir -p $PKG/usr/share/fonts/TTF
+<<<<<<< HEAD
 install -m 644 mono-*/OxygenMono-Regular.ttf $PKG/usr/share/fonts/TTF/
 install -m 644 Bold-*/Oxygen-Sans-Bold.ttf $PKG/usr/share/fonts/TTF/
 install -m 644 Regular-*/Oxygen-Sans.ttf $PKG/usr/share/fonts/TTF/
@@ -60,6 +78,16 @@ cd ..
 
 mkdir -p $PKG/usr/doc/$PRGNAM-$VERSION
 install -m 644 ${DOCS} $PKG/usr/doc/$PRGNAM-$VERSION/
+=======
+install -m 644 oxygen-fonts/Bold-700/Oxygen-Sans-Bold.ttf $PKG/usr/share/fonts/TTF/
+install -m 644 oxygen-fonts/Regular-400/Oxygen-Sans.ttf $PKG/usr/share/fonts/TTF/
+install -m 644 oxygen-fonts/mono-400/OxygenMono-Regular.ttf $PKG/usr/share/fonts/TTF/
+# cd -
+
+mkdir -p $PKG/usr/doc/$PRGNAM-$VERSION
+cp -a $DOCS $PKG/usr/doc/$PRGNAM-$VERSION/
+chmod 644 $PKG/usr/doc/$PRGNAM-$VERSION/*
+>>>>>>> origin/master
 cat $CWD/$PRGNAM.SlackBuild > $PKG/usr/doc/$PRGNAM-$VERSION/$PRGNAM.SlackBuild
 
 mkdir -p $PKG/install

@@ -1,0 +1,19 @@
+# HOW TO EDIT THIS FILE:
+# The "handy ruler" below makes it easier to edit a package description.  Line
+# up the first '|' above the ':' following the base package name, and the '|'
+# on the right side marks the last column you can put a character in.  You must
+# make exactly 11 lines for the formatting to be correct.  It's also
+# customary to leave one space after the ':'.
+
+       |-----handy-ruler------------------------------------------------------|
+turpial: turpial (Microblogging Client)
+turpial:
+turpial: Turpial is a lightweight and beautiful microblogging client written
+turpial: in Python
+turpial:
+turpial: URL: http://turpial.org.ve/
+turpial:
+turpial:
+turpial:
+turpial:
+turpial: Packaged by: Widya Walesa <walecha99@gmail.com>

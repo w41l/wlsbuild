@@ -2,7 +2,11 @@
 
 # Slackware build script for libreoffice
 
+<<<<<<< HEAD
 # Copyright 2010-2015  Widya Walesa <walecha99@gmail.com>
+=======
+# Copyright 2010-2014  Widya Walesa <walecha99@gmail.com>
+>>>>>>> origin/master
 # All rights reserved.
 #
 # Redistribution and use of this script, with or without modification, is
@@ -24,7 +28,11 @@
 # YOUR DATA IS DESTROYED, YOUR HOUSE BURNS DOWN OR YOUR DOG RUNS OFF.
 
 PRGNAM=libreoffice
+<<<<<<< HEAD
 VERSION=4.4.1
+=======
+VERSION=4.1.6
+>>>>>>> origin/master
 RCVERS=".2"
 MAJORVER=$( echo $VERSION | sed "s/\(.*\)\.\(.*\)\.*/\1/" )
 BUILD=${BUILD:-1}
@@ -33,7 +41,7 @@ DIST=${DIST:-rpm}
 LANGPACK=${LANGPACK:-id}
 
 # Select desktop environment which is NOT going to be used
-DE=${DE:-gnome}
+NOTDE=${NOTDE:-gnome}
 
 if [ -z "$ARCH" ]; then
   case "$( uname -m )" in
@@ -50,19 +58,15 @@ OUTPUT=${OUTPUT:-/tmp}
 DOCS="AUTHORS ChangeLog COPY* MAINTAINERS NEWS README"
 
 if [ "$ARCH" = "i486" ]; then
-  SLKCFLAGS="-O2 -pipe -march=i486 -mtune=i686"
   LIBDIRSUFFIX=""
   LOARCH="x86"
 elif [ "$ARCH" = "i686" ]; then
-  SLKCFLAGS="-O2 -pipe -march=i686 -mtune=i686"
   LIBDIRSUFFIX=""
   LOARCH="x86"
 elif [ "$ARCH" = "x86_64" ]; then
-  SLKCFLAGS="-O2 -pipe -fPIC"
   LIBDIRSUFFIX="64"
   LOARCH="x86-64"
 else
-  SLKCFLAGS="-O2"
   LIBDIRSUFFIX=""
   LOARCH="x86"
 fi
@@ -107,7 +111,7 @@ mv opt ${PKG}/
 mkdir -p ${PKG}/usr/share/applications
 mv ${PKG}/opt/libreoffice${MAJORVER}/share/xdg/*.desktop ${PKG}/usr/share/applications/
 rm -rf ${PKG}/opt/libreoffice${MAJORVER}/share/xdg
-echo "Creating binary symlinks"
+echo "Creating symlinks to /usr/bin"
 mkdir -p ${PKG}/usr/bin
 ( cd ${PKG}/usr/bin
   ln -sf /opt/libreoffice${MAJORVER}/program/soffice soffice
@@ -115,6 +119,11 @@ mkdir -p ${PKG}/usr/bin
     ln -sf /opt/libreoffice${MAJORVER}/program/s${APP} lo${APP}
   done
 )
+# cat $CWD/loffice | sed \
+#   -e "s:@MAJORVER@:${MAJORVER}:g" \
+#   -e "s:@EXE@:soffice:g" > ${PKG}/usr/bin/soffice
+# chown root:root ${PKG}/usr/bin/*
+# chmod +x ${PKG}/usr/bin/*
 
 echo "Install icons and mime files"
 mkdir -p ${PKG}/usr/share
@@ -123,9 +132,27 @@ mv usr/share/* ${PKG}/usr/share
 mkdir -p ${PKG}/usr/bin
 mv usr/bin/* ${PKG}/usr/bin
 
-echo "Unpacking language packages"
+echo "Unpacking language package"
 tar xvf $CWD/LibreOffice_${VERSION}_Linux_${LOARCH}_${DIST}_langpack_${LANGPACK}.tar.gz
 cd LibreOffice_${VERSION}${RCVERS}_Linux_${LOARCH}_${DIST}_langpack_${LANGPACK}
+if [ "${DIST}" = "deb" ]; then
+  cd DEBS
+  for i in *.deb; do
+    echo "Processing $i" | tee -a $WRK/LibreOffice_pkg.list;
+    ar p $i data.tar.gz | gzip -d | tar xf || exit 1;
+  done
+else
+  cd RPMS
+  for i in *.rpm; do
+    echo "Processing $i" | tee -a $WRK/LibreOffice_pkg.list;
+    rpm2cpio $i | cpio -idm --quiet || exit 1;
+  done
+fi
+cd ..
+
+echo "Unpacking help package"
+tar xvf $CWD/LibreOffice_${VERSION}_Linux_${LOARCH}_${DIST}_helppack_${LANGPACK}.tar.gz
+cd LibreOffice_${VERSION}${RCVERS}_Linux_${LOARCH}_${DIST}_helppack_${LANGPACK}
 if [ "${DIST}" = "deb" ]; then
   cd DEBS
   for i in *.deb; do
@@ -144,9 +171,9 @@ cd ..
 chown -R root:root ${PKG}
 cd -
 
-mkdir -p $PKG/usr/share/fonts/TTF
-mv  $PKG/opt/libreoffice${MAJORVER}/share/fonts/truetype/* \
-  $PKG/usr/share/fonts/TTF
+# mkdir -p $PKG/usr/share/fonts/TTF
+# mv  $PKG/opt/libreoffice${MAJORVER}/share/fonts/truetype/* \
+#   $PKG/usr/share/fonts/TTF
 rm -rf $PKG/opt/libreoffice${MAJORVER}/share/fonts
 
 mkdir -p $PKG/install

@@ -1,0 +1,19 @@
+# HOW TO EDIT THIS FILE:
+# The "handy ruler" below makes it easier to edit a package description.  Line
+# up the first '|' above the ':' following the base package name, and the '|' on
+# the right side marks the last column you can put a character in.  You must make
+# exactly 11 lines for the formatting to be correct.  It's also customary to
+# leave one space after the ':'.
+
+	    |-----handy-ruler------------------------------------------------------|
+kcm-touchpad: kcm-touchpad (KDE Touchpad Configuration)
+kcm-touchpad:
+kcm-touchpad: KCModule
+kcm-touchpad: Daemon
+kcm-touchpad: * Automatically enable/disable touchpad when typing and/or when mouse
+kcm-touchpad:   is plugged in
+kcm-touchpad: * Enable/disable touchpad with keyboard shortcuts
+kcm-touchpad: Applet
+kcm-touchpad: * Shows touchpad's state
+kcm-touchpad: * Toggle touchpad with single click
+kcm-touchpad:

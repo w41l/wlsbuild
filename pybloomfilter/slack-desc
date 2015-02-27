@@ -1,0 +1,19 @@
+# HOW TO EDIT THIS FILE:
+# The "handy ruler" below makes it easier to edit a package description.  Line
+# up the first '|' above the ':' following the base package name, and the '|'
+# on the right side marks the last column you can put a character in.  You must
+# make exactly 11 lines for the formatting to be correct.  It's also
+# customary to leave one space after the ':'.
+
+             |-----handy-ruler----------------------------------------------------|
+pybloomfilter: pybloomfilter (bloomfilter for Python)
+pybloomfilter:
+pybloomfilter: A bloom filter is a space efficient data structure that can be used
+pybloomfilter: to test whether a given element is part of a set. Lookups will
+pybloomfilter: occasionally generate false positives, but never false negatives.
+pybloomfilter:
+pybloomfilter: URL: http://bitbucket.org/xmonader/pybloomfilter/
+pybloomfilter:
+pybloomfilter:
+pybloomfilter:
+pybloomfilter:

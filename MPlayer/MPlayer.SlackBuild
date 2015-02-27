@@ -2,7 +2,7 @@
 
 # Slackware build script for MPlayer
 
-# Copyright 2010-2013  Widya Walesa <walecha99@gmail.com>
+# Copyright 2010-2014  Widya Walesa <walecha99@gmail.com>
 # All rights reserved.
 #
 # Redistribution and use of this script, with or without modification, is
@@ -24,15 +24,18 @@
 # YOUR DATA IS DESTROYED, YOUR HOUSE BURNS DOWN OR YOUR DOG RUNS OFF.
 
 PRGNAM=MPlayer
-VERSION=${VERSION:-1.1.1}
-FFVERSION=aba32d84630cb17b68fd41d465d17580465f1d9e
+VERSION=${VERSION:-20141003}
+FFVERSION=20140830
 BUILD=${BUILD:-1}
 TAG=${TAG:-_wls}
-NUMJOBS=${NUMJOBS:--j2}
+# NUMJOBS=${NUMJOBS:-}
+
+# WARNING!! TESTING COMPILING USING CLANG!! COMMENT OUT TO USE DEFAULT GCC!!
+COMP="--cc=clang --host-cc=clang"
 
 # Use enternal or external FFMPEG (default).
 #FFMPEG_EXTERNAL=""
-FFMPEG_EXTERNAL="--disable-ffmpeg_a"
+# FFMPEG_EXTERNAL="--disable-ffmpeg_a"
 
 # Mencoder build. Default is enable. I'm disabling it because I don't
 # need another audio-video encoder other than FFMPEG
@@ -56,9 +59,11 @@ DOCS="AUTHORS Changelog Copy* LICENSE README"
 if [ "$ARCH" = "i486" ]; then
   SLKCFLAGS="-O2 -pipe -march=i486 -mtune=i686"
   LIBDIRSUFFIX=""
+  CPU_OPTS="--enable-runtime-cpudetection"
 elif [ "$ARCH" = "i686" ]; then
   SLKCFLAGS="-O2 -pipe -march=i686 -mtune=i686"
   LIBDIRSUFFIX=""
+  CPU_OPTS="--enable-runtime-cpudetection"
 elif [ "$ARCH" = "x86_64" ]; then
   SLKCFLAGS="-O2 -m64 -pipe -fPIC"
   LIBDIRSUFFIX="64"
@@ -110,31 +115,33 @@ LANGUAGES="en"
   --codecsdir=${CODECSDIR} \
   --language="${LANGUAGES}" \
   --disable-arts \
+  --disable-esd \
   --disable-gui \
   --disable-dvdread-internal \
   --disable-libdvdcss-internal \
-  --disable-openal \
-  --disable-gif \
-  --disable-esd \
-  --disable-mga \
-  --disable-ass-internal \
-  --disable-pulse \
-  --disable-vdpau \
   --enable-xvmc \
   --enable-radio \
   --enable-radio-capture \
-  --enable-menu \
   --enable-dvdread \
   --enable-dvdnav \
-  --enable-runtime-cpudetection \
-  --enable-mp3lib \
+  $CPU_OPTS \
   $FFMPEG_EXTERNAL \
   $MENC \
+  $COMP \
 
 #  --enable-vaapi \
+#   --disable-openal \
+#   --disable-gif \
+#   --disable-mga \
+#   --disable-ass-internal \
+#   --disable-pulse \
+#   --disable-vdpau \
+#   --enable-menu \
+#   --enable-mp3lib \
 
 echo "$VERSION" > VERSION
 make
+make html-chunked-$LANGUAGES
 # Build the html documentation (not all languages are available):
 # ( cd DOCS/xml
 #   for i in $(echo $LANGUAGES | tr , ' ') ; do

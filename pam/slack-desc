@@ -15,5 +15,5 @@ pam: these programs will need "authentication modules" (and libpam) at
 pam: run-time in order to work.
 pam:
 pam:
-pam: Homepage:  http://www.kernel.org/pub/linux/libs/pam/
+pam: Homepage:  http://www.linux-pam.org/
 pam:

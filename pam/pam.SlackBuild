@@ -1,5 +1,5 @@
 #!/bin/sh
-
+ 
 # Copyright 2010  Vincent Batts, vbatts@hashbangbash.com
 # Copyright 2010, 2011  Patrick J. Volkerding, Sebeka, Minnesota, USA
 # All rights reserved.
@@ -24,10 +24,9 @@
 # Call the church police!  ;-)
 SRCNAM=Linux-PAM
 PKGNAM=pam
-PAMRHVER=${PAMRHVER:-$(echo pam-redhat-*.tar.?z* | rev | cut -f 3- -d . | cut -f 1,2 -d - | rev)}
+PAMRHVER=${PAMRHVER:-$(echo pam-redhat-*.tar.?z* | rev | cut -f 3- -d . | cut -f 1 -d - | rev)}
 VERSION=${VERSION:-$(echo $SRCNAM-*.tar.?z* | rev | cut -f 3- -d . | cut -f 1 -d - | rev)}
-BUILD=1
-TAG=${TAG:-_wls}
+BUILD=${BUILD:-1}
 
 # Automatically determine the architecture we're building on:
 if [ -z "$ARCH" ]; then
@@ -39,7 +38,7 @@ if [ -z "$ARCH" ]; then
   esac
 fi
 
-NUMJOBS=${NUMJOBS:--j1}
+NUMJOBS=${NUMJOBS:--j7}
 
 if [ "$ARCH" = "i386" ]; then
   SLKCFLAGS="-O2 -march=i386 -mcpu=i686"
@@ -59,13 +58,13 @@ else
 fi
 
 CWD=$(pwd)
-WRK=${WRK:-/tmp/wlsbuild}
-PKG=$WRK/package-$PKGNAM
+TMP=${TMP:-/tmp}
+PKG=$TMP/package-$PKGNAM
 
 rm -rf $PKG
-mkdir -p $WRK $PKG
+mkdir -p $TMP $PKG
 
-cd $WRK
+cd $TMP
 rm -rf $SRCNAM-$VERSION
 tar xvf $CWD/$SRCNAM-$VERSION.tar.?z* || exit 1
 cd $SRCNAM-$VERSION || exit 1
@@ -75,22 +74,23 @@ cd $SRCNAM-$VERSION || exit 1
 tar xvf $CWD/pam-redhat-$PAMRHVER.tar.?z* || exit 1
 mv pam-redhat-$PAMRHVER/{CHANGELOG*,COPYING*,README*} .
 mv pam-redhat-$PAMRHVER/* modules
-zcat $CWD/patches/pam-1.0.90-redhat-modules.patch.gz | patch -p1 --verbose || exit 1
-# zcat $CWD/patches/pam-1.0.91-std-noclose.patch.gz | patch -p1 --verbose || exit 1
-zcat $CWD/patches/pam-1.1.0-notally.patch.gz | patch -p1 --verbose || exit 1
-zcat $CWD/patches/pam-1.1.1-faillock.patch.gz | patch -p1 --verbose || exit 1
-# zcat $CWD/patches/pam-1.1.2-noflex.patch.gz | patch -p1 --verbose || exit 1
-zcat $CWD/patches/pam-1.1.3-faillock-screensaver.patch.gz | patch -p1 --verbose || exit 1
-zcat $CWD/patches/pam-1.1.3-nouserenv.patch.gz | patch -p1 --verbose || exit 1
+patch -p1 < $CWD/patches/pam-1.0.90-redhat-modules.patch
+patch -p1 < $CWD/patches/pam-1.1.6-std-noclose.patch
+patch -p1 < $CWD/patches/pam-1.1.0-console-nochmod.patch
+patch -p1 < $CWD/patches/pam-1.1.0-notally.patch
+patch -p1 < $CWD/patches/pam-1.1.1-faillock.patch
+patch -p1 < $CWD/patches/pam-1.1.6-noflex.patch
+patch -p1 < $CWD/patches/pam-1.1.3-nouserenv.patch
+patch -p1 < $CWD/patches/pam-1.1.3-faillock-screensaver.patch
+patch -p1 < $CWD/patches/pam-1.1.6-limits-user.patch
+patch -p1 < $CWD/patches/pam-1.1.6-full-relro.patch
 
 # Churn some patches from .am -> .in:
-autoreconf -f
+autoreconf -ivf
 
 # Make these 2 man pages or the build falls over later on:
-( cd modules/pam_faillock
-  xmlto man faillock.8.xml
-  xmlto man pam_faillock.8.xml
-)
+xmlto man modules/pam_faillock/faillock.8.xml -o modules/pam_faillock/
+xmlto man modules/pam_faillock/pam_faillock.8.xml -o modules/pam_faillock/
 
 chown -R root:root .
 find . \
@@ -99,17 +99,18 @@ find . \
  \( -perm 666 -o -perm 664 -o -perm 600 -o -perm 444 -o -perm 440 -o -perm 400 \) \
  -exec chmod 644 {} \;
 
+# Using --enable-securedir=/lib/security/ because some downstream software
+# (last I checked) assumes this, so /lib64/security/ was a problem...
 CFLAGS="$SLKCFLAGS" \
 CXXFLAGS="$SLKCFLAGS" \
 ./configure \
-  --prefix=/usr \
-  --bindir=/usr/bin \
-  --sbindir=/usr/sbin \
-  --libdir=/usr/lib${LIBDIRSUFFIX} \
+  --prefix=/ \
+  --libdir=/lib${LIBDIRSUFFIX} \
   --sysconfdir=/etc \
   --includedir=/usr/include/security \
+  --enable-securedir=/lib/security \
   --datarootdir=/usr/share \
-  --localstatedir=/var --sharedstatedir=/var/lib \
+  --localstatedir=/var \
   --mandir=/usr/man \
   --docdir=/usr/doc/$PKGNAM-$VERSION \
   --enable-read-both-confs \
@@ -117,26 +118,12 @@ CXXFLAGS="$SLKCFLAGS" \
   --disable-selinux \
   --build=$ARCH-slackware-linux || exit 1
 
-cat $CWD/patches/pam_namespace-build-1.1.6.patch | patch -p0
-# cat $CWD/patches/pam_unix2-glibc216.patch | patch -p1
 make $NUMJOBS || make || exit 1
 make install DESTDIR=$PKG || exit 1
 
-# Add default pam.d configuration
-mkdir -p $PKG/etc/pam.d
-cat $CWD/pam.d/system-login > $PKG/etc/pam.d/system-login.new
-
-# this is a pam helper, that can only be called from pam
-chown root:shadow $PKG/usr/sbin/unix_chkpwd
-chmod g+s $PKG/usr/sbin/unix_chkpwd
-
-# fix some missing symlinks from old pam for compatibility
-( cd $PKG/usr/lib${LIBDIRSUFFIX}/security;
-  ln -s pam_unix.so pam_unix_acct.so;
-  ln -s pam_unix.so pam_unix_auth.so;
-  ln -s pam_unix.so pam_unix_passwd.so;
-  ln -s pam_unix.so pam_unix_session.so;
-)
+# This is a pam helper that can only be called from pam
+chmod g+s $PKG/sbin/unix_chkpwd
+chmod u+s $PKG/sbin/unix_chkpwd
 
 # Strip binaries:
 ( cd $PKG
@@ -180,9 +167,16 @@ rm -f $PKG/usr/doc/$PKGNAM-$VERSION/index.html
 
 mkdir -p $PKG/install
 cat $CWD/slack-desc > $PKG/install/slack-desc
+cat $CWD/doinst.sh > $PKG/install/doinst.sh
+
+# Don't clobber existing config files
+find $PKG/etc -type f -exec mv {} {}.new \;
+( cd $PKG
+  for i in $(find etc -type f -name "*.new") ; do
+  echo "config $i" >> $PKG/install/doinst.sh ; 
+done
+)
 
 cd $PKG
-/sbin/makepkg -l y -c n /tmp/$PKGNAM-$VERSION-$ARCH-$BUILD$TAG.txz
+/sbin/makepkg -p -l y -c n $TMP/$PKGNAM-$VERSION-$ARCH-$BUILD$TAG.txz
 
-echo "Clearing build directory"
-cd $WRK ; rm -rf SRCNAM-$VERSION $PKG

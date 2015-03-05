@@ -2,7 +2,7 @@
 
 # Slackware build script for mesa
 
-# Copyright 2011-2014  Widya Walesa <walecha99@gmail.com>
+# Copyright 2011-2015  Widya Walesa <walecha99@gmail.com>
 # All rights reserved.
 #
 # Redistribution and use of this script, with or without modification, is
@@ -24,16 +24,11 @@
 # YOUR DATA IS DESTROYED, YOUR HOUSE BURNS DOWN OR YOUR DOG RUNS OFF.
 
 PRGNAM=mesa
-<<<<<<< HEAD
-VERSION=9.2.3
-SRCVERSION=$(echo "$VERSION" | tr _ -)
-=======
-VERSION=10.4.0
+VERSION=10.4.5
 SRCVERSION=$(echo "$VERSION" | sed 's/_/-/g')
->>>>>>> origin/master
-BUILD=${BUILD:-1}
+BUILD=${BUILD:-2}
 TAG=${TAG:-_wls}
-NUMJOBS=${NUMJOBS:--j1}
+NUMJOBS=${NUMJOBS:--j7}
 
 # Be sure this list is up-to-date:
 if [ ! "$WAYLAND" = "yes" ]; then
@@ -62,7 +57,6 @@ WRK=${WRK:-/usr/src/wlsbuild}
 PKG=$WRK/package-mesa
 OUTPUT=${OUTPUT:-/tmp}
 DOCS=""
-ENABLE_NINE="--enable-nine"
 ENABLE_S3TC="USE_EXTERNAL_DXTN_LIB=1"
 
 if [ "$ARCH" = "i486" ]; then
@@ -87,6 +81,7 @@ echo "extracting MesaLib-$VERSION"
 tar xf $CWD/MesaLib-$VERSION.tar.?z* || exit 1
 cd Mesa-$VERSION
 
+cat $CWD/01-enable-vgpr-spilling-for-all-shader.patch | patch -p1
 cat $CWD/Mesa-dev-clover-disable-broken-debug-facility-1.patch | patch -p1
 
 chown -R root:root .
@@ -97,6 +92,7 @@ find . \
   -exec chmod 644 {} \;
 
 ./autogen.sh --no-configure
+# autoreconf -ivsf
 
 CFLAGS="$SLKCFLAGS -DUSE_EXTERNAL_DXTN_LIB=1" \
 CXXFLAGS="$SLKCFLAGS -DUSE_EXTERNAL_DXTN_LIB=1" \
@@ -127,12 +123,12 @@ CXXFLAGS="$SLKCFLAGS -DUSE_EXTERNAL_DXTN_LIB=1" \
   --enable-dri3 \
   --enable-asm \
   --enable-egl \
-  --enable-omx \
-  --enable-opencl \
-  --enable-opencl-icd \
-  $ENABLE_NINE \
+  --enable-nine \
   || exit 1
 
+#  --enable-omx \
+#  --enable-opencl \
+#  --enable-opencl-icd \
 #  --enable-gallium-egl \
 #  --enable-gallium-gbm \
 #  --enable-openvg \

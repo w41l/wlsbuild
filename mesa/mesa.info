@@ -1,9 +1,4 @@
 URL=http://www.mesa3d.org/
-<<<<<<< HEAD
-SRC=ftp://freedesktop.org/pub/mesa/9.2.2/MesaLib-9.2.2.tar.bz2
-MD5=20887f8020db7d1736a01ae9cd5d8c38
-=======
-SRC=ftp://ftp.freedesktop.org/pub/mesa/10.4.0/MesaLib-10.4.0.tar.bz2
-MD5=
->>>>>>> origin/master
-SHA1=
+SRC=ftp://ftp.freedesktop.org/pub/mesa/10.4.5/MesaLib-10.4.5.tar.bz2
+MD5=fd44bf89d48d1744591d9dbe0ce1d54e
+SHA1=43fba4885d2c115d76588b778be0dc0ff4da4d77

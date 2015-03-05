@@ -2,7 +2,7 @@
 
 # Slackware build script for wine
 
-# Copyright 2011-2014  Widya Walesa <walecha99@gmail.com>
+# Copyright 2011-2015  Widya Walesa <walecha99@gmail.com>
 # All rights reserved.
 #
 # Redistribution and use of this script, with or without modification, is
@@ -24,10 +24,10 @@
 # YOUR DATA IS DESTROYED, YOUR HOUSE BURNS DOWN OR YOUR DOG RUNS OFF.
 
 PRGNAM=wine
-VERSION=${VERSION:-1.7.33}
+VERSION=${VERSION:-1.7.34}
 BUILD=${BUILD:-1}
 TAG=${TAG:-_wls}
-NUMJOBS=${NUMJOBS:--j3}
+NUMJOBS=${NUMJOBS:--j7}
 STAGING=${STAGING:-1}
 
 if [ -z "$ARCH" ]; then
@@ -43,7 +43,7 @@ WRK=${WRK:-/usr/src/wlsbuild}
 PKG=$WRK/package-$PRGNAM
 OUTPUT=${OUTPUT:-/tmp}
 DOCS="ANNOUNCE AUTHORS COPYING.LIB LICENSE* README VERSION"
-ENABLE_NINE="--with-d3dadapter"
+# ENABLE_NINE="--with-d3dadapter"
 
 if [ "$ARCH" = "i486" ]; then
   SLKCFLAGS="-O2 -pipe -march=i486 -mtune=i686"
@@ -102,7 +102,7 @@ rm -rf $WRK/$PRGNAM
 mkdir -p $WRK/$PRGNAM
 cd $WRK/$PRGNAM
 LDFLAGS="$SLKLDFLAGS" \
-CPPFLAGS="${CPPFLAGS/-D_FORTIFY_SOURCE=2/} -D_FORTIFY_SOURCE=0" \
+# CPPFLAGS="${CPPFLAGS/-D_FORTIFY_SOURCE=2/} -D_FORTIFY_SOURCE=0" \
 CFLAGS="$SLKCFLAGS -DHAVE_ATTR_XATTR_H=1" \
 CXXFLAGS="$SLKCFLAGS -DHAVE_ATTR_XATTR_H=1" \
 ../$PRGNAM-$VERSION/configure \

@@ -40,12 +40,7 @@ fi
 CWD=$(pwd)
 WRK=${WRK:-/tmp/wlsbuild}
 PKG=$WRK/package-$PRGNAM
-OUTPUT=${OUTPUT:-/tmp}
-<<<<<<< HEAD
-DOCS="COPYING README* TODO"
-=======
 DOCS="COPYING README.md TODO"
->>>>>>> origin/master
 
 if [ "$ARCH" = "i486" ]; then
   SLKCFLAGS="-O2 -pipe -march=i486 -mtune=i686"

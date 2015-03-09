@@ -27,7 +27,7 @@ PRGNAM=libomxil-bellagio
 VERSION=0.9.3
 BUILD=1
 TAG="_wls"
-NUMJOBS="-j2"
+NUMJOBS=${NUMJOBS:-"-j7"}
 
 if [ -z "$ARCH" ]; then
   case "$( uname -m )" in
@@ -75,7 +75,7 @@ find . \
  \( -perm 666 -o -perm 664 -o -perm 600 -o -perm 444 -o -perm 440 -o -perm 400 \) \
  -exec chmod 644 {} \;
 
-autoreconf -if
+autoreconf -ivsf
 
 CFLAGS="$SLKCFLAGS" \
 CXXFLAGS="$SLKCFLAGS" \
@@ -89,7 +89,7 @@ CXXFLAGS="$SLKCFLAGS" \
   --localstatedir=/var --sharedstatedir=/var/lib \
   --disable-static --enable-shared
 
-make
+make $NUMJOBS
 make DESTDIR=$PKG install
 
 find $PKG | xargs file | grep -e "executable" -e "shared object" | grep ELF \

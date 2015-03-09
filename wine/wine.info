@@ -1,4 +1,4 @@
 URL=http://www.winehq.org/
-SRC=http://downloads.sourceforge.net/project/wine/Source/wine-1.7.13.tar.bz2
-MD5=f238be82934d48fee55b46789a26d9aa
-SHA1=b74cf9c79e989140e3e981eb2a5c14688fb6630b
+SRC=https://kojipkgs.fedoraproject.org//packages/wine/1.7.37/1.fc21/src/wine-1.7.37-1.fc21.src.rpm
+WINE_SHA256=6730ec79bc8d5f61ab90d9cb51daab26a57c1a79e2804e03731f060dea4af305
+STAGING_SHA256=db13e8d8f9319afefb73624a9c630b125613102eace9a1ef5e65e8113d65ff3f

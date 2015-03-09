@@ -2,7 +2,7 @@
 
 # Slackware build script for clementine
 
-# Copyright 2010-2013  Widya Walesa <walecha99@gmail.com>
+# Copyright 2010-2015  Widya Walesa <walecha99@gmail.com>
 # All rights reserved.
 #
 # Redistribution and use of this script, with or without modification, is
@@ -24,10 +24,10 @@
 # YOUR DATA IS DESTROYED, YOUR HOUSE BURNS DOWN OR YOUR DOG RUNS OFF.
 
 PRGNAM=clementine
-VERSION=${VERSION:-1.2.1}
+VERSION=${VERSION:-1.2.3}
 BUILD=${BUILD:-1}
 TAG=${TAG:-_wls}
-NUMJOBS=${NUMJOBS:--j2}
+NUMJOBS=${NUMJOBS:--j7}
 
 if [ -z "$ARCH" ]; then
   case "$( uname -m )" in
@@ -62,9 +62,11 @@ set -e
 rm -rf $PKG
 mkdir -p $WRK $PKG $OUTPUT
 cd $WRK
-rm -rf $PRGNAM-$VERSION
-tar xvf $CWD/$PRGNAM-$VERSION.tar.?z*
-cd $PRGNAM-$VERSION
+rm -rf Clementine-$VERSION
+tar xvf $CWD/Clementine-$VERSION.tar.?z*
+cd Clementine-$VERSION
+
+cat $CWD/$PRGNAM-$VERSION-namespaces.patch | patch -p1 --verbose || exit 1
 
 chown -R root:root .
 find . \
@@ -111,4 +113,4 @@ cd $PKG
 /sbin/makepkg -p -l y -c n $OUTPUT/$PRGNAM-$VERSION-$ARCH-$BUILD$TAG.txz
 
 echo "Cleaning up build directory"
-cd $WRK; rm -rf $PRGNAM-$VERSION $PKG
+cd $WRK; rm -rf Clementine-$VERSION $PKG

@@ -24,9 +24,9 @@
 # YOUR DATA IS DESTROYED, YOUR HOUSE BURNS DOWN OR YOUR DOG RUNS OFF.
 
 PRGNAM=mesa
-VERSION=10.4.5
+VERSION=10.5.0
 SRCVERSION=$(echo "$VERSION" | sed 's/_/-/g')
-BUILD=${BUILD:-2}
+BUILD=${BUILD:-1}
 TAG=${TAG:-_wls}
 NUMJOBS=${NUMJOBS:--j7}
 
@@ -76,12 +76,11 @@ fi
 rm -rf $PKG
 mkdir -p $WRK $PKG
 cd $WRK
-rm -rf Mesa-$VERSION
-echo "extracting MesaLib-$VERSION"
-tar xf $CWD/MesaLib-$VERSION.tar.?z* || exit 1
-cd Mesa-$VERSION
+rm -rf $PRGNAM-$VERSION
+echo "extracting $PRGNAM-$VERSION"
+tar xf $CWD/$PRGNAM-$VERSION.tar.?z* || exit 1
+cd $PRGNAM-$VERSION
 
-cat $CWD/01-enable-vgpr-spilling-for-all-shader.patch | patch -p1
 cat $CWD/Mesa-dev-clover-disable-broken-debug-facility-1.patch | patch -p1
 
 chown -R root:root .
@@ -92,7 +91,7 @@ find . \
   -exec chmod 644 {} \;
 
 ./autogen.sh --no-configure
-# autoreconf -ivsf
+#autoreconf -ivsf
 
 CFLAGS="$SLKCFLAGS -DUSE_EXTERNAL_DXTN_LIB=1" \
 CXXFLAGS="$SLKCFLAGS -DUSE_EXTERNAL_DXTN_LIB=1" \
@@ -165,4 +164,4 @@ cd $PKG
 /sbin/makepkg -p -l y -c n $OUTPUT/$PRGNAM-$VERSION-$ARCH-$BUILD$TAG.txz
 
 echo "Cleaning up build directory"
-cd $WRK; rm -rf Mesa-$VERSION $PKG
+cd $WRK; rm -rf $PRGNAM-$VERSION $PKG

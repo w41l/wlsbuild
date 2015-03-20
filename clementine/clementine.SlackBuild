@@ -67,6 +67,8 @@ tar xvf $CWD/Clementine-$VERSION.tar.?z*
 cd Clementine-$VERSION
 
 cat $CWD/$PRGNAM-$VERSION-namespaces.patch | patch -p1 --verbose || exit 1
+cat $CWD/$PRGNAM-$VERSION-libraryquery.patch | patch -p1 --verbose || exit 1
+cat $CWD/$PRGNAM-$VERSION-qt_moc_fails_with_boost_fix.patch | patch -p1 --verbose || exit 1
 
 chown -R root:root .
 find . \

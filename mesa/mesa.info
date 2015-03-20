@@ -1,4 +1,4 @@
 URL=http://www.mesa3d.org/
-SRC=ftp://ftp.freedesktop.org/pub/mesa/10.4.5/MesaLib-10.4.5.tar.bz2
-MD5=fd44bf89d48d1744591d9dbe0ce1d54e
-SHA1=43fba4885d2c115d76588b778be0dc0ff4da4d77
+SRC=ftp://ftp.freedesktop.org/pub/mesa/10.5.0/mesa-10.5.0.tar.xz
+MD5=133c5264a0c81d23168a65435ad23ede
+SHA1=55326a6bedd80188338575df7f07a51829626974

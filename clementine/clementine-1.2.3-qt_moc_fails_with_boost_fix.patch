@@ -1,0 +1,68 @@
+--- Clementine-1.2.3/src/core/mergedproxymodel.h
++++ Clementine-1.2.3/src/core/mergedproxymodel.h
+@@ -25,18 +25,20 @@
+ using std::placeholders::_1;
+ using std::placeholders::_2;
+ 
+-#include <boost/multi_index_container.hpp>
+-#include <boost/multi_index/member.hpp>
+-#include <boost/multi_index/ordered_index.hpp>
+-#include <boost/multi_index/hashed_index.hpp>
++#ifndef Q_MOC_RUN
++# include <boost/multi_index_container.hpp>
++# include <boost/multi_index/member.hpp>
++# include <boost/multi_index/ordered_index.hpp>
++# include <boost/multi_index/hashed_index.hpp>
+ 
+-using boost::multi_index::multi_index_container;
+-using boost::multi_index::indexed_by;
+-using boost::multi_index::hashed_unique;
+-using boost::multi_index::ordered_unique;
+-using boost::multi_index::tag;
+-using boost::multi_index::member;
+-using boost::multi_index::identity;
++ using boost::multi_index::multi_index_container;
++ using boost::multi_index::indexed_by;
++ using boost::multi_index::hashed_unique;
++ using boost::multi_index::ordered_unique;
++ using boost::multi_index::tag;
++ using boost::multi_index::member;
++ using boost::multi_index::identity;
++#endif
+ 
+ std::size_t hash_value(const QModelIndex& index);
+ 
+--- Clementine-1.2.3/src/library/groupbydialog.h
++++ Clementine-1.2.3/src/library/groupbydialog.h
+@@ -25,19 +25,23 @@
+ using std::placeholders::_1;
+ using std::placeholders::_2;
+ 
+-#include <boost/multi_index_container.hpp>
+-#include <boost/multi_index/member.hpp>
+-#include <boost/multi_index/ordered_index.hpp>
++#ifndef Q_MOC_RUN
++# include <boost/multi_index_container.hpp>
++# include <boost/multi_index/member.hpp>
++# include <boost/multi_index/ordered_index.hpp>
++#endif
+ 
+ #include "librarymodel.h"
+ 
+ class Ui_GroupByDialog;
+ 
+-using boost::multi_index_container;
+-using boost::multi_index::indexed_by;
+-using boost::multi_index::ordered_unique;
+-using boost::multi_index::tag;
+-using boost::multi_index::member;
++#ifndef Q_MOC_RUN
++ using boost::multi_index_container;
++ using boost::multi_index::indexed_by;
++ using boost::multi_index::ordered_unique;
++ using boost::multi_index::tag;
++ using boost::multi_index::member;
++#endif
+ 
+ class GroupByDialog : public QDialog {
+   Q_OBJECT

@@ -1,0 +1,19 @@
+#!/sbin/openrc-run
+# Copyright (c) 2007-2008 Roy Marples <roy@marples.name>
+# Released under the 2-clause BSD license.
+
+command=/usr/sbin/acpid
+pidfile=/var/run/acpid.pid
+command_args=""
+name="ACPI Daemon"
+
+depend()
+{
+	need localmount syslogd
+	after bootmisc
+}
+
+start_post()
+{
+	/bin/setterm -blank 15 -powersave powerdown -powerdown 60
+}

@@ -1,0 +1,12 @@
+#!/sbin/openrc-run
+
+depend() {
+    need localmount syslogd
+    after bootmisc
+}
+
+start() {
+    ebegin "Updating shared library links"
+    /sbin/ldconfig &
+    eend $?
+}

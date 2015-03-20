@@ -1,0 +1,15 @@
+#!/sbin/openrc-run
+# Copyright (c) 2007-2009 Roy Marples <roy@marples.name>
+# Released under the 2-clause BSD license.
+
+command=/usr/sbin/klogd
+command_args=$klogd_args
+pidfile=/var/run/klogd.pid
+name="Kernel Logger Daemon"
+
+depend()
+{
+	provide klogger
+	need localmount
+	after bootmisc
+}

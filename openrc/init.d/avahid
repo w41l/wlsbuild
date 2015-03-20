@@ -1,0 +1,15 @@
+#!/sbin/openrc-run
+# Copyright (c) 2007-2008 Roy Marples <roy@marples.name>
+# Released under the 2-clause BSD license.
+
+command=/usr/sbin/avahi-daemon
+command_args="$avahid_args -D"
+pidfile=/var/run/avahi-daemon/pid
+name="Avahi Service Advertisement Daemon"
+
+depend()
+{
+	use dns
+	need localmount dbus
+	after bootmisc
+}

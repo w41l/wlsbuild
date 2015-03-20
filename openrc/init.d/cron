@@ -1,0 +1,29 @@
+#!/sbin/openrc-run
+# Copyright (c) 2007-2008 Roy Marples <roy@marples.name>
+# Released under the 2-clause BSD license.
+
+command=/usr/bin/dbus-daemon
+pidfile=/var/run/dbus/dbus.pid
+name="Cron Daemon"
+
+depend()
+{
+	need localmount syslogd
+	after bootmisc
+	provide cron
+}
+
+start()
+{
+    # Start crond (Dillon's crond):
+    # If you want cron to actually log activity to /var/log/cron, then change
+    # -l notice to -l info to increase the logging level.
+    if [ -x /usr/sbin/crond ]; then
+	/usr/sbin/crond -l notice
+    fi
+
+    # Start atd (manages jobs scheduled with 'at'):
+    if [ -x /usr/sbin/atd ]; then
+	/usr/sbin/atd -b 15 -l 1
+    fi
+}

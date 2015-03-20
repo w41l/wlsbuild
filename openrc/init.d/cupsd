@@ -1,0 +1,23 @@
+#!/sbin/openrc-run
+# Copyright (c) 2007-2008 Roy Marples <roy@marples.name>
+# Released under the 2-clause BSD license.
+
+command=/usr/sbin/cupsd
+pidfile=/var/run/cups/cups.pid
+name="CUPS Printing Daemon"
+
+depend()
+{
+	need localmount syslogd loopback
+	after bootmisc
+}
+
+start_pre()
+{
+	mkdir -p $(dirname $pidfile)
+}
+
+start_post()
+{
+	pidof cupsd > $pidfile
+}

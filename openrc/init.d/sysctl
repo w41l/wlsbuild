@@ -1,0 +1,16 @@
+#!/sbin/openrc-run
+# Copyright (c) 2007-2008 Roy Marples <roy@marples.name>
+# Released under the 2-clause BSD license.
+
+depend()
+{
+	before bootmisc logger
+	keyword -prefix -vserver
+}
+
+start()
+{
+	ebegin "Configuring kernel parameters"
+	sysctl --system
+	eend $? "Unable to configure some kernel parameters"
+}

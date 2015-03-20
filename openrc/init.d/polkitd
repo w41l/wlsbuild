@@ -1,0 +1,13 @@
+#!/sbin/openrc-run
+# Copyright (c) 2007-2008 Roy Marples <roy@marples.name>
+# Released under the 2-clause BSD license.
+
+command=/usr/sbin/polkitd
+pidfile=/var/run/polkitd/polkitd.pid
+command_args="$polkitd_args"
+name="PolicyKit Daemon"
+
+depend()
+{
+	need dbus
+}

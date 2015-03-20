@@ -1,0 +1,12 @@
+      |-----handy-ruler------------------------------------------------------|
+openrc: openrc (Open Init System)
+openrc:
+openrc: OpenRC is a dependency based init system that works with the system
+openrc: provided init program, normally /sbin/init. It is not a replacement
+openrc: for /sbin/init. OpenRC, however, is not exclusively used by
+openrc: Gentoo Linux and can be used on different Linux and BSD systems. 
+openrc:
+openrc: URL: http://wiki.gentoo.org/wiki/Project:OpenRC
+openrc:
+openrc:
+openrc: Packaged by: Widya Walesa <walecha99@gmail.com>

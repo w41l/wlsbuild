@@ -1,0 +1,21 @@
+#!/sbin/openrc-run
+# Copyright (c) 2007-2009 Roy Marples <roy@marples.name>
+# Released under the 2-clause BSD license.
+
+description="Start isapnp devices of the machine."
+
+depend() {
+	#keyword -prefix -lxc
+	before dev modules
+}
+
+start()
+{
+	ebegin "Setting up isapnp devices"
+	if [ -r /etc/isapnp.conf ]; then
+	    if [ -x /sbin/isapnp ]; then
+		/sbin/isapnp /etc/isapnp.conf
+	    fi
+	fi
+	eend $? "Failed to set isapnp devices"
+}

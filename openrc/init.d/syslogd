@@ -1,0 +1,17 @@
+#!/sbin/openrc-run
+# Copyright (c) 2007-2009 Roy Marples <roy@marples.name>
+# Released under the 2-clause BSD license.
+
+command=/usr/sbin/syslogd
+command_args=$syslogd_args
+pidfile=/var/run/syslogd.pid
+name="System Logger Daemon"
+
+depend()
+{
+	need localmount
+	after bootmisc
+	provide logger
+	#use net newsyslog
+	keyword -prefix
+}

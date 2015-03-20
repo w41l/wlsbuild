@@ -1,0 +1,83 @@
+#!/sbin/openrc-run
+# Copyright (c) 2007-2008 Roy Marples <roy@marples.name>
+# Released under the 2-clause BSD license.
+
+description="Hardware management UDEV Daemon."
+command=/sbin/udevd
+command_args="${udevd_args---daemon}"
+name="Hardware management UDEV Daemon"
+
+depend()
+{
+	need devfs tmpfiles.dev tmpfiles.setup
+	keyword -lxc -prefix -vserver
+}
+
+start_pre()
+{
+        . /etc/udev/udev.conf
+
+        # remove trailing slash from udev_root
+        UDEV_ROOT=$(echo "${udev_root}" |sed 's/\/*$//')
+
+        # Disable hotplug helper since udevd listens to netlink:
+        if [ -e /proc/sys/kernel/hotplug ]; then
+          echo "" > /proc/sys/kernel/hotplug
+        fi
+}
+
+start()
+{
+        if ! /sbin/pidof udevd 1>/dev/null 2>/dev/null; then # start udevd
+          echo "Starting udevd:  /sbin/udevd --daemon"
+          /sbin/udevd --daemon
+          # Since udev is just now being started we want to use add events:
+          echo "Triggering udev events:  /sbin/udevadm trigger --action=add"
+          # Call udevtrigger and udevsettle to do the device configuration:
+          /sbin/udevadm trigger --type=subsystems --action=add
+          /sbin/udevadm trigger --type=devices --action=add
+        else # trigger changes for already running udevd
+          # If the persistent rules files do not exist, trigger an add event:
+          if [ ! -r /etc/udev/rules.d/70-persistent-net.rules -o ! -r /etc/udev/rules.d/70-persistent-cd.rules ]; then
+            # Test that we can actually write to the directory first:
+            if touch /etc/udev/rules.d/testfile 2> /dev/null ; then
+              rm -f /etc/udev/rules.d/testfile
+              # This should add persistent net/cd rules:
+              echo "Triggering udev to write persistent rules to /etc/udev/rules.d/"
+              /sbin/udevadm trigger --type=devices --action=add
+              sleep 3
+              # Create the files if they don't exist at this point.
+              # If a machine does not have a network device or an optical
+              # device, we don't want to waste time trying to generate
+              # rules at every boot.
+              # To force another attempt, delete the file(s).
+              touch /etc/udev/rules.d/70-persistent-net.rules
+              touch /etc/udev/rules.d/70-persistent-cd.rules
+            fi
+          fi
+          # Since udevd is running, most of the time we only need change events:
+          echo "Triggering udev events:  /sbin/udevadm trigger --action=change"
+          /sbin/udevadm trigger --type=subsystems --action=change
+          /sbin/udevadm trigger --type=devices --action=change
+        fi
+        /sbin/udevadm settle --timeout=120
+}
+
+restart() {
+	echo "Restarting udevd"
+	udevadm control --exit
+	sleep 3
+	udevd --daemon
+}
+
+stop() {
+	echo "Stopping udevd"
+	udevadm control --exit
+	killall udevd 2>/dev/null
+}
+
+reload() {
+	echo "Reloading udev rules"
+	udevadm control --reload
+	cp --preserve=all --recursive --update /lib/udev/devices/* $UDEV_ROOT
+}

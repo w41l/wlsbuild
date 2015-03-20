@@ -1,0 +1,162 @@
+#!/bin/sh
+
+# Slackware build script for openrc
+
+# Copyright 2015  Widya Walesa <walecha99@gmail.com>
+# All rights reserved.
+#
+# Redistribution and use of this script, with or without modification, is
+# permitted provided that the following conditions are met:
+#
+# 1. Redistributions of this script must retain the above copyright
+#    notice, this list of conditions and the following disclaimer.
+#
+# THIS SOFTWARE IS PROVIDED BY THE AUTHOR ''AS IS'' AND ANY EXPRESS OR IMPLIED
+# WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF
+# MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO
+# EVENT SHALL THE AUTHOR BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
+# SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,
+# PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS;
+# OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY,
+# WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR
+# OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF
+# ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. FURTHERMORE I AM NOT LIABLE IF
+# YOUR DATA IS DESTROYED, YOUR HOUSE BURNS DOWN OR YOUR DOG RUNS OFF.
+
+PRGNAM=openrc
+VERSION=${VERSION:-0.13.11}
+BUILD=${BUILD:-1}
+TAG=${TAG:-_wls}
+NUMJOBS=${NUMJOBS:--j2}
+
+if [ -z "$ARCH" ]; then
+  case "$( uname -m )" in
+    i?86) ARCH=i486 ;;
+    arm*) ARCH=arm ;;
+       *) ARCH=$( uname -m ) ;;
+  esac
+fi
+
+CWD=$(pwd)
+WRK=${WRK:-/tmp/wlsbuild}
+PKG=$WRK/package-$PRGNAM
+OUTPUT=${OUTPUT:-/tmp}
+DOCS="ChangeLog FEATURE-REMOVAL-SCHEDULE NEWS* README* STYLE TODO"
+
+if [ "$ARCH" = "i486" ]; then
+  SLKCFLAGS="-O2 -pipe -march=i486 -mtune=i686"
+  LIBDIRSUFFIX=""
+elif [ "$ARCH" = "i686" ]; then
+  SLKCFLAGS="-O2 -pipe -march=i686 -mtune=i686"
+  LIBDIRSUFFIX=""
+elif [ "$ARCH" = "x86_64" ]; then
+  SLKCFLAGS="-O2 -m64 -pipe -fPIC"
+  LIBDIRSUFFIX="64"
+else
+  SLKCFLAGS="-O2"
+  LIBDIRSUFFIX=""
+fi
+
+set -e
+
+rm -rf $PKG
+mkdir -p $WRK $PKG $OUTPUT
+cd $WRK
+rm -rf $PRGNAM-$VERSION
+tar xvf $CWD/$PRGNAM-$VERSION.tar.?z*
+cd $PRGNAM-$VERSION
+chown -R root:root .
+find . \
+ \( -perm 777 -o -perm 775 -o -perm 711 -o -perm 555 -o -perm 511 \) \
+ -exec chmod 755 {} \; -o \
+ \( -perm 666 -o -perm 664 -o -perm 600 -o -perm 444 -o -perm 440 -o -perm 400 \) \
+ -exec chmod 644 {} \;
+
+CFLAGS="$SLKCFLAGS" \
+CXXFLAGS="$SLKCFLAGS" \
+LIBNAME=lib${LIBDIRSUFFIX} \
+DESTDIR=${PKG} \
+MKSELINUX=no \
+MKSTATICLIBS=no \
+MKTERMCAP=ncurses \
+MKTOOLS=yes \
+make
+
+LIBNAME=lib${LIBDIRSUFFIX} \
+DESTDIR=${PKG} \
+MKSELINUX=no \
+MKSTATICLIBS=no \
+MKTERMCAP=ncurses \
+MKTOOLS=yes \
+make install
+
+cd init.d.misc
+LIBNAME=lib${LIBDIRSUFFIX} \
+DESTDIR=${PKG} \
+MKSELINUX=no \
+MKSTATICLIBS=no \
+MKTERMCAP=ncurses \
+MKTOOLS=yes \
+make
+
+install -m 755 avahid $PKG/etc/init.d/avahid
+install -m 755 avahi-dnsconfd $PKG/etc/init.d/avahi-dnsconfd
+install -m 755 dbus $PKG/etc/init.d/dbus
+install -m 755 dhcpcd $PKG/etc/init.d/dhcpcd
+install -m 755 hald $PKG/etc/init.d/hald
+install -m 755 named $PKG/etc/init.d/named
+install -m 755 ntpd $PKG/etc/init.d/ntpd
+install -m 755 openvpn $PKG/etc/init.d/openvpn
+install -m 755 polkitd $PKG/etc/init.d/polkitd
+install -m 755 sshd $PKG/etc/init.d/sshd
+install -m 755 wpa_supplicant $PKG/etc/init.d/wpa_supplicant
+
+cd ..
+
+# Add additional init script or replacement (created/modified) by me :-)
+cp -a $CWD/init.d/* $PKG/etc/init.d/
+chmod 755 $PKG/etc/init.d/*
+
+# Add default runlevels composed by me :-)
+cp -r $CWD/runlevels $PKG/etc/
+
+# fix permission
+chown -R root:root $PKG/etc/
+
+# Add initial inittab
+cp -a support/sysvinit/inittab $PKG/etc/inittab.new
+
+# Preserve old configuration
+mv $PKG/etc/rc.conf $PKG/etc/rc.conf.new
+
+for i in `find $PKG/etc/conf.d/* -type f`; do
+  mv $i ${i}.new
+done
+
+for i in `find $PKG/etc/init.d/* -type f`; do
+  mv $i ${i}.new
+done
+
+# fix man directory
+mv $PKG/usr/share/man $PKG/usr/
+
+find $PKG | xargs file | grep -e "executable" -e "shared object" | grep ELF \
+  | cut -f 1 -d : | xargs strip --strip-unneeded 2> /dev/null || true
+
+find $PKG/usr/man -type f -exec gzip -9 {} \;
+for i in $( find $PKG/usr/man -type l ) ; do ln -s $( readlink $i ).gz $i.gz ; rm $i ; done
+
+mkdir -p $PKG/usr/doc/$PRGNAM-$VERSION
+cp -a $DOCS $PKG/usr/doc/$PRGNAM-$VERSION
+cat $CWD/$PRGNAM.SlackBuild > $PKG/usr/doc/$PRGNAM-$VERSION/$PRGNAM.SlackBuild
+cp -r support/* $PKG/usr/doc/$PRGNAM-$VERSION
+
+mkdir -p $PKG/install
+cat $CWD/slack-desc > $PKG/install/slack-desc
+cat $CWD/doinst.sh > $PKG/install/doinst.sh
+
+cd $PKG
+/sbin/makepkg -p -l y -c n $OUTPUT/$PRGNAM-$VERSION-$ARCH-$BUILD$TAG.txz
+
+echo "Cleaning up build directory"
+cd $WRK; rm -rf $PRGNAM-$VERSION $PKG

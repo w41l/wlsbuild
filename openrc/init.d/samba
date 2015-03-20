@@ -1,0 +1,31 @@
+#!/sbin/runscript
+# Copyright 1999-2014 Gentoo Foundation
+# Distributed under the terms of the GNU General Public License, v2 or later
+# $Header: /var/cvsroot/gentoo-x86/net-fs/samba/files/3.6/samba.initd,v 1.4 2014/03/14 09:30:41 polynomial-c Exp $
+
+cmd_samba="/usr/sbin/smbd"
+cmd_nmbd="/usr/sbin/nmbd"
+cmd_args="-D"
+piddir="/var/run/samba"
+
+depend() {
+	need net syslogd
+	use cupsd
+}
+
+start_pre() {
+	if [ ! -f /etc/samba/smb.conf ]; then
+	    eerror "Could not found samba configuration."
+	fi
+	[ -d "${piddir}" ] || mkdir -p ${piddir}
+}
+
+start() {
+	$cmd_samba $cmd_args
+	$cmd_nmbd $cmd_args
+}
+
+stop() {
+	killall $cmd_samba $cmd_nmbd
+	sleep 2
+}

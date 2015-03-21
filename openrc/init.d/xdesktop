@@ -6,7 +6,7 @@ name="Updating X desktop related cache"
 
 depend()
 {
-	need localmount
+	need localmount dbus
 	after bootmisc
 }
 

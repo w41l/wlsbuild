@@ -12,4 +12,10 @@ depend()
 	provide klogger
 	need localmount
 	after bootmisc
+	keyword -prefix
+}
+
+start() {
+	rm -f $pidfile
+	$command
 }

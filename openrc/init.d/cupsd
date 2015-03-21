@@ -8,16 +8,15 @@ name="CUPS Printing Daemon"
 
 depend()
 {
-	need localmount syslogd loopback
+	need localmount
 	after bootmisc
+	use logger
 }
 
-start_pre()
+start()
 {
 	mkdir -p $(dirname $pidfile)
-}
-
-start_post()
-{
+	rm -f $pidfile
+	$command
 	pidof cupsd > $pidfile
 }

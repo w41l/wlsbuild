@@ -41,7 +41,7 @@ CWD=$(pwd)
 WRK=${WRK:-/tmp/wlsbuild}
 PKG=$WRK/package-$PRGNAM
 OUTPUT=${OUTPUT:-/tmp}
-DOCS="ChangeLog FEATURE-REMOVAL-SCHEDULE NEWS* README* STYLE TODO"
+DOCS=" FEATURE-REMOVAL-SCHEDULE NEWS* README* STYLE TODO"
 
 if [ "$ARCH" = "i486" ]; then
   SLKCFLAGS="-O2 -pipe -march=i486 -mtune=i686"

@@ -8,9 +8,10 @@ name="Cron Daemon"
 
 depend()
 {
-	need localmount syslogd
+	need localmount
 	after bootmisc
 	provide cron
+	use logger
 }
 
 start()

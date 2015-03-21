@@ -12,6 +12,10 @@ depend()
 	need localmount
 	after bootmisc
 	provide logger
-	#use net newsyslog
 	keyword -prefix
+}
+
+start() {
+	rm -f $pidfile
+	$command
 }

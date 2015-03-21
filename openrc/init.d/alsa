@@ -9,8 +9,9 @@ name="ALSA Audio System"
 
 depend()
 {
-	need localmount syslogd
+	need localmount
 	after bootmisc
+	keyword -prefix -vserver -openvz -lxc
 }
 
 # A function to load the ALSA mixer settings:

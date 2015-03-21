@@ -1,6 +1,7 @@
-#!/sbin/runscript
-# Copyright 1999-2013 Gentoo Foundation
-# Distributed under the terms of the GNU General Public License v2
+#!/sbin/openrc-run
+# This is a script to initialize udev, which populates the /dev
+# directory with device nodes, scans for devices, loads the
+# appropriate kernel modules, and configures the devices.
 
 command_args="--daemon ${udev_opts}"
 description="udev manages device permissions and symbolic links in /dev"
@@ -23,155 +24,128 @@ depend()
 	keyword -vserver -lxc
 }
 
-disable_oldnet_hotplug()
-{
-	if is_service_enabled network; then
-		# disable network hotplugging
-		local d="/run/udev/rules.d"
-		mkdir -p "${d}"
-		local f="${d}/90-network.rules"
-		echo "# This file disables network hotplug events calling" >> "${f}"
-		echo "# old-style openrc net scripts" >> "${f}"
-		echo "# as we use /etc/init.d/network to set up our network" >> "${f}"
-	fi
+#PATH="/sbin:/bin"
+
+. /etc/udev/udev.conf
+
+# remove trailing slash from udev_root
+UDEV_ROOT=$(echo "${udev_root}" |sed 's/\/*$//')
+
+check_mounted() {
+  grep -E -q "^[^[:space:]]+ $1 $2" /proc/mounts
+  return $?	
 }
 
-start_pre()
-{
-	if [ -e /proc/sys/kernel/hotplug ]; then
-		echo "" >/proc/sys/kernel/hotplug
-	fi
+mount_devpts() {
+  if ! check_mounted $UDEV_ROOT/pts devpts ; then
+    mkdir $UDEV_ROOT/pts 2> /dev/null
+    mount -n -o mode=0620,gid=5 -t devpts devpts $UDEV_ROOT/pts
+  fi
+}
 
-	# load unix domain sockets if built as module, Bug #221253
-	# and not yet loaded, Bug #363549
-	if [ ! -e /proc/net/unix ]; then
-		if ! modprobe unix; then
-			eerror "Cannot load the unix domain socket module"
-			return 1
+start() {
+        # Sanity check #1, udev requires that the kernel support devtmpfs:
+        if ! grep -wq devtmpfs /proc/filesystems ; then
+          exit 1
+        fi
+
+	# Sanity check #2, udev requires that the kernel support tmpfs:
+        if ! grep -wq tmpfs /proc/filesystems ; then
+          exit 1
+        fi
+
+        # Sanity check #3, make sure that a 2.6.x kernel is new enough:
+        if [ "$(uname -r | cut -f 1,2 -d .)" = "2.6" ]; then
+          if [ "$(uname -r | cut -f 3 -d . | sed 's/[^[:digit:]].*//')" -lt "32" ]; then
+            exit 1
+          fi
+        fi
+
+        # Sanity check #4, make sure the udev package was not removed.  If udevd
+        # is not there, this will also shut off this script to prevent further
+        # problems:
+        if [ ! -x /sbin/udevd ]; then
+          exit 1
+        fi
+
+        # Disable hotplug helper since udevd listens to netlink:
+        if [ -e /proc/sys/kernel/hotplug ]; then
+          echo "" > /proc/sys/kernel/hotplug
+        fi
+
+	if grep -qw devtmpfs /proc/filesystems ; then
+	   if ! check_mounted $UDEV_ROOT devtmpfs ; then
+		# umount shm if needed
+		check_mounted $UDEV_ROOT/shm tmpfs && umount -l $UDEV_ROOT/shm
+
+		# Umount pts if needed, we will remount it later:
+		check_mounted $UDEV_ROOT/pts devpts && umount -l $UDEV_ROOT/pts
+		
+		# Mount tmpfs on $UDEV_ROOT:
+		mount -n -t devtmpfs devtmpfs $UDEV_ROOT 
+	   fi
+	else 
+		# Mount tmpfs on $UDEV_ROOT:
+		if ! check_mounted $UDEV_ROOT tmpfs ; then
+		  # umount shm if needed
+		  check_mounted $UDEV_ROOT/shm tmpfs && umount -l $UDEV_ROOT/shm
+
+		  # Umount pts if needed, we will remount it later:
+		  check_mounted $UDEV_ROOT/pts devpts && umount -l $UDEV_ROOT/pts
+		
+		  # Mount tmpfs on $UDEV_ROOT:
+		  # the -n is because we don't want $UDEV_ROOT umounted when
+		  # someone (rc.[06]) calls umount -a
+		  mount -n -o mode=0755 -t tmpfs tmpfs $UDEV_ROOT 
+		
 		fi
 	fi
+	# Mount devpts
+	mount_devpts
 
-	if yesno "${udev_debug:-NO}"; then
-		command_args="${command_args} --debug 2> /run/udevdebug.log"
-	fi
-
-	bins="/sbin/udevd /lib/systemd/systemd-udevd /usr/lib/systemd/systemd-udevd"
-	for f in ${bins}; do
-		if [ -x "$f" -a ! -L "$f" ]; then
-			command="$f"
-		fi
-	done
-	if [ -z "$command" ]; then
-		eerror "Unable to find udev executable."
-		return 1
-	fi
-
-	# Need to do this before starting udev so it will load the rules.
-	disable_oldnet_hotplug
-
-	return 0
+        if ! /sbin/pidof udevd 1>/dev/null 2>/dev/null; then # start udevd
+          /sbin/udevd --daemon
+          # Since udev is just now being started we want to use add events:
+          # Call udevtrigger and udevsettle to do the device configuration:
+          /sbin/udevadm trigger --type=subsystems --action=add
+          /sbin/udevadm trigger --type=devices --action=add
+        else # trigger changes for already running udevd
+          # If the persistent rules files do not exist, trigger an add event:
+          if [ ! -r /etc/udev/rules.d/70-persistent-net.rules -o ! -r /etc/udev/rules.d/70-persistent-cd.rules ]; then
+            # Test that we can actually write to the directory first:
+            if touch /etc/udev/rules.d/testfile 2> /dev/null ; then
+              rm -f /etc/udev/rules.d/testfile
+              # This should add persistent net/cd rules:
+              /sbin/udevadm trigger --type=devices --action=add
+              sleep 3
+              # Create the files if they don't exist at this point.
+              # If a machine does not have a network device or an optical
+              # device, we don't want to waste time trying to generate
+              # rules at every boot.
+              # To force another attempt, delete the file(s).
+              touch /etc/udev/rules.d/70-persistent-net.rules
+              touch /etc/udev/rules.d/70-persistent-cd.rules
+            fi
+          fi
+          # Since udevd is running, most of the time we only need change events:
+          /sbin/udevadm trigger --type=subsystems --action=change
+          /sbin/udevadm trigger --type=devices --action=change
+        fi
+        /sbin/udevadm settle --timeout=120
 }
 
-is_service_enabled()
-{
-	local svc="$1"
-
-	[ ! -e "/etc/init.d/${svc}" ] && return 1
-
-	[ -e "/etc/runlevels/${RC_BOOTLEVEL}/${svc}" ] && return 0
-	[ -e "/etc/runlevels/${RC_DEFAULTLEVEL}/${svc}" ] && return 0
-	return 1
+stop() {
+	udevadm control --exit 2>/dev/null
+	killall udevd 2>/dev/null
 }
 
-start_udevmonitor()
-{
-	yesno "${udev_monitor}" || return 0
-
-	einfo "udev: Running udevadm monitor ${udev_monitor_opts} to log all events"
-	start-stop-daemon --start --stdout "${udevmonitor_log}" \
-		--make-pidfile --pidfile "${udevmonitor_pid}" \
-		--background --exec /bin/udevadm -- monitor ${udev_monitor_opts}
+restart() {
+	udevadm control --exit 2>/dev/null
+	sleep 3
+	udevd --daemon
 }
 
-populate_dev()
-{
-	if yesno ${rc_dev_root_symlink:-yes}; then
-		ebegin "Generating a rule to create a /dev/root symlink"
-		/lib/udev/dev-root-link.sh
-		eend $?
-	fi
-
-	get_bootparam "nocoldplug" && rc_coldplug="no"
-	if ! yesno ${rc_coldplug:-${RC_COLDPLUG:-yes}}; then
-		einfo "Setting /dev permissions and symbolic links"
-		udevadm trigger --attr-match=dev --action=add
-		udevadm trigger --subsystem-match=net --action=add
-		ewarn "Skipping udev coldplug sequence"
-		return 0
-	fi
-
-	ebegin "Populating /dev with existing devices through uevents"
-	udevadm trigger --type=subsystems --action=add
-	udevadm trigger --type=devices --action=add
-	eend $?
-
-	ebegin "Waiting for uevents to be processed"
-	udevadm settle --timeout=${udev_settle_timeout:-60}
-	eend $?
-	return 0
-}
-
-stop_udevmonitor()
-{
-	yesno "${udev_monitor}" || return 0
-
-	if yesno "${udev_monitor_keep_running:-no}"; then
-		ewarn "udev: udevmonitor is still running and writing into ${udevmonitor_log}"
-	else
-		einfo "udev: Stopping udevmonitor: Log is in ${udevmonitor_log}"
-		start-stop-daemon --stop --pidfile "${udevmonitor_pid}" --exec /bin/udevadm
-	fi
-}
-
-display_hotplugged_services()
-{
-	local svcfile= svc= services=
-	for svcfile in "${RC_SVCDIR}"/hotplugged/*; do
-		svc="${svcfile##*/}"
-		[ -x "${svcfile}" ] || continue
-
-		services="${services} ${svc}"
-	done
-	[ -n "${services}" ] && einfo "Device initiated services:${HILITE}${services}${NORMAL}"
-}
-
-start_post()
-{
-	start_udevmonitor
-	populate_dev
-	stop_udevmonitor
-	display_hotplugged_services
-	return 0
-}
-
-stop()
-{
-	local rc=0
-	ebegin "Stopping ${name:-$RC_SVCNAME}"
-	udevadm control --exit
-	rc=$?
-	if [ $rc -ne 0 ]; then
-		eend $rc "Failed to stop $RC_SVCNAME using udevadm"
-		ebegin "Trying with start-stop-daemon"
-		start-stop-daemon --stop --exec /sbin/udevd
-		rc=$?
-	fi
-	eend $rc "Failed to stop $RC_SVCNAME"
-}
-
-reload()
-{
-	ebegin "reloading udev rules and databases"
+reload() {
 	udevadm control --reload
-	eend $?
+	cp --preserve=all --recursive --update /lib/udev/devices/* $UDEV_ROOT
 }

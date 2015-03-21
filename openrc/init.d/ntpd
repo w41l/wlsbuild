@@ -35,3 +35,8 @@ start_pre()
 		command_args="$command_args -u ntpd:ntpd -i $ntpd_chroot"
 	fi
 }
+
+start() {
+	rm -f $pidfile
+	$command $command_args
+}

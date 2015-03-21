@@ -109,9 +109,8 @@ config etc/openrc/rc.conf.new
 config etc/openrc/inittab.new
 
 echo "+==============================================================+"
-echo "+ Add entries to /etc/openrc/runlevels/* according to my try-n-error. +"
-echo "+                                                              +"
-echo "+ Please review it after install.                              +"
+echo "+ Add entries to /etc/openrc/runlevels/* according to my       +"
+echo "+ try-n-error. Please review it after install.                 +"
 echo "+==============================================================+"
 ( cd etc/openrc/runlevels/sysinit ; rm -rf udev-mount )
 ( cd etc/openrc/runlevels/sysinit ; ln -sf /etc/openrc/init.d/udev-mount udev-mount )

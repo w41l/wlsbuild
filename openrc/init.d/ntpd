@@ -14,8 +14,8 @@ name="Network Time Protocol Daemon"
 depend()
 {
 	use dns
-	need localmount net
-	after bootmisc
+	need localmount
+	after bootmisc ntp-client
 }
 
 start_pre()
@@ -34,9 +34,4 @@ start_pre()
 
 		command_args="$command_args -u ntpd:ntpd -i $ntpd_chroot"
 	fi
-}
-
-start() {
-	rm -f $pidfile
-	$command $command_args
 }

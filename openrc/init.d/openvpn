@@ -8,7 +8,7 @@ name="OpenVPN"
 command=/usr/sbin/openvpn
 
 pidfile=/var/run/"$RC_SVCNAME".pid
-: ${openvpn_dir:=/usr/etc/openvpn}
+: ${openvpn_dir:=/etc/openvpn}
 : ${openvpn_config:=$openvpn_dir/$vpn.conf}
 command_args="$openvpn_args --daemon --config $openvpn_config"
 command_args="$command_args --writepid $pidfile"

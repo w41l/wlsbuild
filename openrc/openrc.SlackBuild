@@ -25,7 +25,7 @@
 
 PRGNAM=openrc
 VERSION=${VERSION:-0.13.11}
-BUILD=${BUILD:-1}
+BUILD=${BUILD:-4}
 TAG=${TAG:-_wls}
 NUMJOBS=${NUMJOBS:--j2}
 
@@ -72,64 +72,56 @@ find . \
  \( -perm 666 -o -perm 664 -o -perm 600 -o -perm 444 -o -perm 440 -o -perm 400 \) \
  -exec chmod 644 {} \;
 
+sed -i 's:procfs.in sysfs.in:procfs.in rpcbind.in sysfs.in:g' init.d/Makefile
+sed -i 's:sysfs.in termencoding.in:sysfs.in syslogd.in termencoding.in:g' init.d/Makefile
 CFLAGS="$SLKCFLAGS" \
 CXXFLAGS="$SLKCFLAGS" \
+BRANDING='WLSBUILD' \
 LIBNAME=lib${LIBDIRSUFFIX} \
 DESTDIR=${PKG} \
 MKSELINUX=no \
-MKSTATICLIBS=no \
 MKTERMCAP=ncurses \
-MKTOOLS=yes \
-make
-
-LIBNAME=lib${LIBDIRSUFFIX} \
-DESTDIR=${PKG} \
-MKSELINUX=no \
-MKSTATICLIBS=no \
-MKTERMCAP=ncurses \
-MKTOOLS=yes \
+PKG_PREFIX="" \
+SYSCONFDIR=/etc/openrc \
 make install
 
 cd init.d.misc
+CFLAGS="$SLKCFLAGS" \
+CXXFLAGS="$SLKCFLAGS" \
+BRANDING='WLSBUILD' \
 LIBNAME=lib${LIBDIRSUFFIX} \
 DESTDIR=${PKG} \
 MKSELINUX=no \
-MKSTATICLIBS=no \
 MKTERMCAP=ncurses \
-MKTOOLS=yes \
+PKG_PREFIX="" \
+SYSCONFDIR=/etc/openrc \
 make
 
-install -m 755 avahid $PKG/etc/init.d/avahid
-install -m 755 avahi-dnsconfd $PKG/etc/init.d/avahi-dnsconfd
-install -m 755 dbus $PKG/etc/init.d/dbus
-install -m 755 dhcpcd $PKG/etc/init.d/dhcpcd
-install -m 755 hald $PKG/etc/init.d/hald
-install -m 755 named $PKG/etc/init.d/named
-install -m 755 ntpd $PKG/etc/init.d/ntpd
-install -m 755 openvpn $PKG/etc/init.d/openvpn
-install -m 755 polkitd $PKG/etc/init.d/polkitd
-install -m 755 sshd $PKG/etc/init.d/sshd
-install -m 755 wpa_supplicant $PKG/etc/init.d/wpa_supplicant
+install -m 755 dhcpcd $PKG/etc/openrc/init.d/dhcpcd
+install -m 755 sshd $PKG/etc/openrc/init.d/sshd
+install -m 755 wpa_supplicant $PKG/etc/openrc/init.d/wpa_supplicant
 
 cd ..
 
 # Add additional init script or replacement (created/modified) by me
 # mostly from SystemRescueCD (http://www.sysresccd.org) :-)
-cp -a $CWD/init.d/* $PKG/etc/init.d/
-#chmod 755 $PKG/etc/init.d/*
+cp -a $CWD/init.d/* $PKG/etc/openrc/init.d/
+
+# Add default Slackware conf.d
+cat $CWD/conf.d/fsck > $PKG/etc/openrc/conf.d/fsck
 
 # Add initial inittab
-cp -a support/sysvinit/inittab $PKG/etc/inittab.new
+cp -a support/sysvinit/inittab $PKG/etc/openrc/inittab.new
 
 # Preserve old configuration
-mv $PKG/etc/rc.conf $PKG/etc/rc.conf.new
+mv $PKG/etc/openrc/rc.conf $PKG/etc/openrc/rc.conf.new
 
-for i in `find $PKG/etc/conf.d/* -type f`; do
+for i in `find $PKG/etc/openrc/conf.d/* -type f`; do
   mv $i ${i}.new
-  chmod 755 ${i}.new
+  chmod 644 ${i}.new
 done
 
-for i in `find $PKG/etc/init.d/* -type f`; do
+for i in `find $PKG/etc/openrc/init.d/* -type f`; do
   mv $i ${i}.new
   chmod 755 ${i}.new
 done
@@ -158,5 +150,5 @@ cat $CWD/doinst.sh > $PKG/install/doinst.sh
 cd $PKG
 /sbin/makepkg -p -l y -c n $OUTPUT/$PRGNAM-$VERSION-$ARCH-$BUILD$TAG.txz
 
-echo "Cleaning up build directory"
-cd $WRK; rm -rf $PRGNAM-$VERSION $PKG
+#echo "Cleaning up build directory"
+#cd $WRK; rm -rf $PRGNAM-$VERSION $PKG

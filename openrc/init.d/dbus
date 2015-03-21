@@ -9,14 +9,11 @@ name="Message Bus Daemon"
 
 depend()
 {
-	need localmount
+	need localmount net
 	after bootmisc
-	use logger
 }
 
-start() {
+start_pre()
+{
 	mkdir -p $(dirname $pidfile)
-	rm -f $pidfile
-	$command $command_args
 }
-

@@ -47,7 +47,7 @@ mount_dev()
 		ewarn "is no entry for /dev in fstab."
 		ewarn "This means /dev will not be mounted."
 		ewarn "To avoid this message, set CONFIG_DEVTMPFS or CONFIG_TMPFS to y"
-		ewarn "in your kernel configuration or see /etc/conf.d/devfs"
+		ewarn "in your kernel configuration or see /etc/openrc/conf.d/devfs"
 	fi
 	return 0
 }

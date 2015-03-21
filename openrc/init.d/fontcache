@@ -2,12 +2,17 @@
 # Copyright (c) 2007-2008 Roy Marples <roy@marples.name>
 # Released under the 2-clause BSD license.
 
-command=/usr/sbin/hald
-pidfile=/var/run/hald/hald.pid
-command_args=$hald_args
-name="Hardware Abstraction Layer Daemon"
+name="X font cache"
 
 depend()
 {
-	need dbus
+	need localmount
+	after bootmisc
+}
+
+start()
+{
+ebegin "Updating X font cache"
+fc-cache -s -f 2>/dev/null &
+eend $?
 }

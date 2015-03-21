@@ -1,0 +1,28 @@
+#!/sbin/openrc-run
+# Copyright (c) 2007-2008 Roy Marples <roy@marples.name>
+# Released under the 2-clause BSD license.
+
+name="GTK+ modules"
+
+depend()
+{
+	need localmount
+	after bootmisc
+}
+
+start()
+{
+ebegin "Updating gtk+ modules"
+# These GTK+/pango files need to be kept up to date for
+# proper input method, pixbuf loaders, and font support.
+if [ -x /usr/bin/update-gtk-immodules ]; then
+  /usr/bin/update-gtk-immodules > /dev/null 2>&1 &
+fi
+if [ -x /usr/bin/update-gdk-pixbuf-loaders ]; then
+  /usr/bin/update-gdk-pixbuf-loaders > /dev/null 2>&1 &
+fi
+if [ -x /usr/bin/update-pango-querymodules ]; then
+  /usr/bin/update-pango-querymodules > /dev/null 2>&1 &
+fi
+eend $?
+}

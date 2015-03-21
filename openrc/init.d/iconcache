@@ -1,0 +1,31 @@
+#!/sbin/openrc-run
+# Copyright (c) 2007-2008 Roy Marples <roy@marples.name>
+# Released under the 2-clause BSD license.
+
+name="X desktop icon cache"
+
+depend()
+{
+	need localmount net
+	after bootmisc
+}
+
+start()
+{
+ebegin "Updating X desktop icon cache"
+# Update any existing icon cache files:
+if find /usr/share/icons -maxdepth 2 2> /dev/null | grep -q icon-theme.cache ; then
+  for theme_dir in /usr/share/icons/* ; do
+    if [ -r ${theme_dir}/icon-theme.cache ]; then
+      /usr/bin/gtk-update-icon-cache -t -f ${theme_dir} 1> /dev/null 2> /dev/null &
+    fi
+  done
+  # This would be a large file and probably shouldn't be there.
+  if [ -r /usr/share/icons/icon-theme.cache ]; then
+    #/usr/bin/gtk-update-icon-cache -t -f /usr/share/icons 1> /dev/null 2> /dev/null &
+    rm -f /usr/share/icons/icon-theme.cache
+  fi
+fi
+
+eend $?
+}

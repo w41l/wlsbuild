@@ -136,7 +136,7 @@ start() {
 
 stop() {
 	udevadm control --exit 2>/dev/null
-	killall udevd 2>/dev/null
+	#killall udevd 2>/dev/null
 }
 
 restart() {

@@ -6,7 +6,7 @@ command=/usr/sbin/dnsmasq
 command_args=$dnsmasq_args
 pidfile=/var/run/dnsmasq.pid
 required_files=/etc/dnsmasq.conf
-name="DNSMasq Daemon"
+
 extra_started_commands="reload"
 
 depend()

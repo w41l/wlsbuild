@@ -113,15 +113,10 @@ install -m 755 wpa_supplicant $PKG/etc/init.d/wpa_supplicant
 
 cd ..
 
-# Add additional init script or replacement (created/modified) by me :-)
+# Add additional init script or replacement (created/modified) by me
+# mostly from SystemRescueCD (http://www.sysresccd.org) :-)
 cp -a $CWD/init.d/* $PKG/etc/init.d/
 chmod 755 $PKG/etc/init.d/*
-
-# Add default runlevels composed by me :-)
-cp -r $CWD/runlevels $PKG/etc/
-
-# fix permission
-chown -R root:root $PKG/etc/
 
 # Add initial inittab
 cp -a support/sysvinit/inittab $PKG/etc/inittab.new
@@ -131,11 +126,16 @@ mv $PKG/etc/rc.conf $PKG/etc/rc.conf.new
 
 for i in `find $PKG/etc/conf.d/* -type f`; do
   mv $i ${i}.new
+  chmod 755 ${i}.new
 done
 
 for i in `find $PKG/etc/init.d/* -type f`; do
   mv $i ${i}.new
+  chmod 755 ${i}.new
 done
+
+# fix permission
+chown -R root:root $PKG/etc/
 
 # fix man directory
 mv $PKG/usr/share/man $PKG/usr/

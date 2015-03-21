@@ -116,7 +116,7 @@ cd ..
 # Add additional init script or replacement (created/modified) by me
 # mostly from SystemRescueCD (http://www.sysresccd.org) :-)
 cp -a $CWD/init.d/* $PKG/etc/init.d/
-chmod 755 $PKG/etc/init.d/*
+#chmod 755 $PKG/etc/init.d/*
 
 # Add initial inittab
 cp -a support/sysvinit/inittab $PKG/etc/inittab.new

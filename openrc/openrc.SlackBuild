@@ -108,7 +108,7 @@ cd ..
 cp -a $CWD/init.d/* $PKG/etc/openrc/init.d/
 
 # Add default Slackware conf.d
-cat $CWD/conf.d/* $PKG/etc/openrc/conf.d/
+cp $CWD/conf.d/* $PKG/etc/openrc/conf.d/
 
 # Add initial inittab
 cp -a support/sysvinit/inittab $PKG/etc/openrc/inittab.new

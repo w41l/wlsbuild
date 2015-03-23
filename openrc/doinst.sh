@@ -24,6 +24,7 @@ config etc/openrc/conf.d/localmount.new
 config etc/openrc/conf.d/modules.new
 config etc/openrc/conf.d/netmount.new
 config etc/openrc/conf.d/network.new
+config etc/openrc/conf.d/portmap.new
 config etc/openrc/conf.d/staticroute.new
 config etc/openrc/conf.d/tmpfiles.new
 config etc/openrc/conf.d/urandom.new
@@ -97,6 +98,7 @@ config etc/openrc/init.d/nfsmount.new
 config etc/openrc/init.d/ntp-client.new
 config etc/openrc/init.d/numlock.new
 config etc/openrc/init.d/polkitd.new
+config etc/openrc/init.d/portmap.new
 config etc/openrc/init.d/root.new
 config etc/openrc/init.d/rpc.pipefs.new
 config etc/openrc/init.d/staticroute.new

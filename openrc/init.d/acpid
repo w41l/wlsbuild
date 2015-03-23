@@ -4,7 +4,6 @@
 
 command=/usr/sbin/acpid
 pidfile=/var/run/acpid.pid
-command_args=""
 name="ACPI Daemon"
 
 depend()

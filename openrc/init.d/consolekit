@@ -12,9 +12,3 @@ depend() {
 	after bootmisc
 	use logger
 }
-
-start() {
-	mkdir -p $(dirname $pidfile)
-	rm -f $pidfile
-	$command
-}

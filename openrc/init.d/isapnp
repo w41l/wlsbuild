@@ -13,9 +13,9 @@ start()
 {
 	ebegin "Setting up isapnp devices"
 	if [ -r /etc/isapnp.conf ]; then
-	    if [ -x /sbin/isapnp ]; then
-		/sbin/isapnp /etc/isapnp.conf
-	    fi
+		if [ -x /sbin/isapnp ]; then
+			/sbin/isapnp /etc/isapnp.conf
+		fi
 	fi
 	eend $? "Failed to set isapnp devices"
 }

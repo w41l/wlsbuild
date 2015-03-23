@@ -6,15 +6,15 @@ name="Glib2 schemas compilation"
 
 depend()
 {
-	need localmount
-	after bootmisc
+  need localmount
+  after bootmisc
 }
 
 start()
 {
-ebegin "Updating glib2 schemas compilation"
-if [ -x /usr/bin/glib-compile-schemas ]; then
-  /usr/bin/glib-compile-schemas /usr/share/glib-2.0/schemas >/dev/null 2>&1 &
-fi
-eend $?
+  ebegin "Updating glib2 schemas compilation"
+  if [ -x /usr/bin/glib-compile-schemas ]; then
+    /usr/bin/glib-compile-schemas /usr/share/glib-2.0/schemas >/dev/null 2>&1 &
+  fi
+  eend $?
 }

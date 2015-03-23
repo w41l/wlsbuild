@@ -2,24 +2,13 @@
 
 name="php-fpm"
 description="PHP FastCGI Process Manager"
+command="/usr/sbin/php-fpm"
+command_args="-y /etc/php-fpm.conf"
 extra_started_commands="reload"
 pidfile="/var/run/php-fpm.pid"
 
 depend() {
         need net
-}
-
-start() {
-        ebegin "Starting PHP FastCGI server"
-        start-stop-daemon --start --pidfile=$pidfile \
-               --exec /usr/sbin/php-fpm
-        eend $?
-}
-
-stop() {
-        ebegin "Stopping PHP FastCGI server"
-        start-stop-daemon --stop --pidfile=$pidfile
-        eend $?
 }
 
 reload() {

@@ -3,27 +3,22 @@
 # Released under the 2-clause BSD license.
 
 command=/usr/sbin/alsactl
-command_args_1="restore"
-command_args_2="store"
 name="ALSA Audio System"
 
 depend()
 {
 	need localmount
 	after bootmisc
-	keyword -prefix -vserver -openvz -lxc
 }
 
 # A function to load the ALSA mixer settings:
 start() {
   if [ -r /var/lib/alsa/asound.state ]; then
-    echo "Loading ALSA mixer settings:  /usr/sbin/alsactl restore"
-    $command $command_args_1
+    $command restore
   else
     # It's possible a user might not want to set a default sound state.
     # In that case, do this:  touch /var/lib/alsa/no.asound.state
     if [ ! -r /var/lib/alsa/no.asound.state ]; then
-      #echo "Setting default ALSA mixer settings."
       # set default mixer volumes for ALSA
       # Taken from the alsaconf script.
       amixer -s -q <<EOF
@@ -65,12 +60,12 @@ set Playback 100% unmute
 set "SB Live Analog/Digital Output Jack" off
 set "Audigy Analog/Digital Output Jack" off
 EOF
-      #echo "Storing default ALSA mixer settings:  /usr/sbin/alsactl store"
-      $command $command_args_2
+
+    $command store
     fi
   fi
 }
 
 stop() {
-    $command $command_args_2
+    $command store
 }

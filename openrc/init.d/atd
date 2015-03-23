@@ -2,17 +2,12 @@
 # Copyright (c) 2007-2008 Roy Marples <roy@marples.name>
 # Released under the 2-clause BSD license.
 
-name="X font cache"
+command=/usr/sbin/atd
+command_args="-b 15 -l 1"
+pidfile=/var/run/atd.pid
 
 depend()
 {
-	need localmount
+	need clock logger
 	after bootmisc
-}
-
-start()
-{
-	ebegin "Updating X font cache"
-	fc-cache -s -f 2>/dev/null &
-	eend $?
 }

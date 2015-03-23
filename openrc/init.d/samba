@@ -3,30 +3,29 @@
 # Distributed under the terms of the GNU General Public License, v2 or later
 # $Header: /var/cvsroot/gentoo-x86/net-fs/samba/files/3.6/samba.initd,v 1.4 2014/03/14 09:30:41 polynomial-c Exp $
 
-cmd_samba="/usr/sbin/smbd"
-cmd_nmbd="/usr/sbin/nmbd"
-cmd_args="-D"
+name="SAMBA shares daemon"
+command_args="-D"
 piddir="/var/run/samba"
-name="Samba shares daemon"
 
 depend() {
-	need net syslogd
+	need net logger
 	use cupsd
 }
 
-start_pre() {
+start() {
+	ebegin "Starting samba shares"
 	if [ ! -f /etc/samba/smb.conf ]; then
 	    eerror "Could not found samba configuration."
 	fi
 	[ -d "${piddir}" ] || mkdir -p ${piddir}
-}
-
-start() {
-	$cmd_samba $cmd_args
-	$cmd_nmbd $cmd_args
+	start-stop-daemon --start --exec /usr/sbin/smbd -- $command_args
+	start-stop-daemon --start --exec /usr/sbin/nmbd -- $command_args
+	eend $? "Failed to start samba shares"
 }
 
 stop() {
-	killall $cmd_samba $cmd_nmbd
-	sleep 2
+	ebegin "Stopping samba shares"
+	start-stop-daemon --stop --exec /usr/sbin/smbd -- $command_args
+	start-stop-daemon --stop --exec /usr/sbin/nmbd -- $command_args
+	eend $? "Failed to stop samba shares"
 }

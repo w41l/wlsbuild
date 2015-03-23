@@ -3,13 +3,30 @@
 # Released under the 2-clause BSD license.
 
 command=/usr/sbin/avahi-dnsconfd
-command_args="$avahi_dnsconfd_args -D"
 pidfile=/var/run/avahi-dnsconfd.pid
-name="Avahi DNS Configuration Daemon"
+extra_started_commands="reload"
 
 depend()
 {
 	use dns
-	need localmount dbus
+	need avahid
 	after bootmisc
+}
+
+start() {
+  ebegin "Starting avahi-dnsconfd"
+  $command -D
+  eend $?
+}
+
+stop() {
+  ebegin "Stopping avahi-dnsconfd"
+  $command -k
+  eend $?
+}
+
+reload() {
+  ebegin "Reloading avahi-dnsconfd"
+  $command -r
+  eend $?
 }

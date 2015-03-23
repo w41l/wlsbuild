@@ -3,10 +3,32 @@
 name="mysqld"
 description="MySQL Server"
 pidfile="/var/run/mysql/mysql.pid"
-command="/usr/bin/mysqld_safe --user=mysql --datadir=/var/lib/mysql --pid-file=$pidfile $SKIP $INNODB"
+command="/usr/bin/mysqld_safe"
 command_background="yes"
+command_args="--user=mysql --datadir=/var/lib/mysql --pid-file=$pidfile $SKIP $INNODB"
 
 depend() {
     use net.lo
     need localmount loopback
+}
+
+start_pre() {
+    if [ -r $pidfile ]; then
+      if ! ps axc | grep mysqld 1> /dev/null 2> /dev/null ; then
+        rm -f ${pidfile}
+      fi
+    else
+      mkdir -p $(dirname $pidfile)
+    fi
+}
+
+stop_post() {
+    # Wait at least one minute for it to exit, as we don't know how big the DB is...
+    for second in 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 \
+      0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 60 ; do
+      if [ ! -r $pidfile ]; then
+        break;
+      fi
+      sleep 1
+    done
 }

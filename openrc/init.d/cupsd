@@ -8,9 +8,8 @@ name="CUPS Printing Daemon"
 
 depend()
 {
-	need localmount
+	need loopback logger
 	after bootmisc
-	use logger
 }
 
 start()

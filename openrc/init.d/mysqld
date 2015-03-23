@@ -1,0 +1,12 @@
+#!/sbin/openrc-run
+
+name="mysqld"
+description="MySQL Server"
+pidfile="/var/run/mysql/mysql.pid"
+command="/usr/bin/mysqld_safe --user=mysql --datadir=/var/lib/mysql --pid-file=$pidfile $SKIP $INNODB"
+command_background="yes"
+
+depend() {
+    use net.lo
+    need localmount loopback
+}

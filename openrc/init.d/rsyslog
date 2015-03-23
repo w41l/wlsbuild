@@ -1,0 +1,10 @@
+#!/sbin/openrc-run
+
+command=/usr/sbin/rsyslogd
+name="enhanced syslogd"
+
+depend()
+{
+    provide rsyslogd syslog
+    need $remote_fs $time
+}

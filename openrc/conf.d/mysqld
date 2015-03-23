@@ -1,0 +1,7 @@
+# To allow outside connections to the database comment out the next line.
+# If you don't need incoming network connections, then leave the line
+# uncommented to improve system security.
+SKIP="--skip-networking"
+
+# Uncomment the next line to use Oracle's InnoDB plugin instead of the included XtraDB
+#INNODB="--ignore-builtin-innodb --plugin-load=innodb=ha_innodb.so"

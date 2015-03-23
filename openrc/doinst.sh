@@ -22,6 +22,7 @@ config etc/openrc/conf.d/keymaps.new
 config etc/openrc/conf.d/killprocs.new
 config etc/openrc/conf.d/localmount.new
 config etc/openrc/conf.d/modules.new
+config etc/openrc/conf.d/mysqld.new
 config etc/openrc/conf.d/netmount.new
 config etc/openrc/conf.d/network.new
 config etc/openrc/conf.d/portmap.new
@@ -107,6 +108,11 @@ config etc/openrc/init.d/gtkmodules.new
 config etc/openrc/init.d/glibschemas.new
 config etc/openrc/init.d/iconcache.new
 config etc/openrc/init.d/mimedatabase.new
+config etc/openrc/init.d/snmpd.new
+config etc/openrc/init.d/nginx.new
+config etc/openrc/init.d/mysqld.new
+config etc/openrc/init.d/php-fpm.new
+config etc/openrc/init.d/rsyslog.new
 config etc/openrc/rc.conf.new
 config etc/openrc/inittab.new
 

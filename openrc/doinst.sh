@@ -1,6 +1,3 @@
-( cd etc/openrc/init.d ; rm -rf rpcbind )
-( cd etc/openrc/init.d ; ln -sf portmap rpcbind )
-
 config() {
   NEW="$1"
   OLD="$(dirname $NEW)/$(basename $NEW .new)"

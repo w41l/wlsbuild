@@ -103,6 +103,9 @@ install -m 755 wpa_supplicant $PKG/etc/openrc/init.d/wpa_supplicant
 
 cd ..
 
+# Use init portmap as rpcbind
+( cd $PKG/etc/openrc/init.d; rm -f rpcbind; ln -snf portmap rpcbind; )
+
 # Add additional init script or replacement (created/modified) by me
 # mostly from SystemRescueCD (http://www.sysresccd.org) :-)
 cp -a $CWD/init.d/* $PKG/etc/openrc/init.d/
@@ -152,7 +155,7 @@ cat $CWD/slack-desc > $PKG/install/slack-desc
 cat $CWD/doinst.sh > $PKG/install/doinst.sh
 
 cd $PKG
-/sbin/makepkg -l y -c n $OUTPUT/$PRGNAM-$VERSION-$ARCH-$BUILD$TAG.txz
+/sbin/makepkg -p -l y -c n $OUTPUT/$PRGNAM-$VERSION-$ARCH-$BUILD$TAG.txz
 
 echo "Cleaning up build directory"
 cd $WRK; rm -rf $PRGNAM-$VERSION $PKG

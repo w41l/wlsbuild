@@ -1,3 +1,6 @@
+( cd etc/openrc/init.d ; rm -rf rpcbind )
+( cd etc/openrc/init.d ; ln -sf portmap rpcbind )
+
 config() {
   NEW="$1"
   OLD="$(dirname $NEW)/$(basename $NEW .new)"
@@ -34,6 +37,7 @@ config etc/openrc/conf.d/ntpd.new
 config etc/openrc/conf.d/openvpn.new
 config etc/openrc/conf.d/portmap.new
 config etc/openrc/conf.d/rsyncd.new
+config etc/openrc/conf.d/rsyslog.new
 config etc/openrc/conf.d/samba4.new
 config etc/openrc/conf.d/sshd.new
 config etc/openrc/conf.d/staticroute.new
@@ -104,11 +108,9 @@ config etc/openrc/init.d/portmap.new
 config etc/openrc/init.d/procfs.new
 config etc/openrc/init.d/root.new
 config etc/openrc/init.d/rpcbind.new
-config etc/openrc/init.d/rpc.idmapd.new
 config etc/openrc/init.d/rpc.pipefs.new
 config etc/openrc/init.d/rpc.rquotad.new
 config etc/openrc/init.d/rpc.statd.new
-config etc/openrc/init.d/rpc.svcgssd.new
 config etc/openrc/init.d/rsyncd.new
 config etc/openrc/init.d/rsyslog.new
 config etc/openrc/init.d/samba4.new

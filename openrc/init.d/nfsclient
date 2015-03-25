@@ -6,16 +6,8 @@
 [ -e /etc/openrc/conf.d/nfs ] && . /etc/openrc/conf.d/nfs
 
 depend() {
-	local opts myneed=""
-	if [ -e /etc/fstab ] ; then
-		for opts in $(fstabinfo -o -t nfs,nfs4) ; do
-			case $opts in
-				*sec=krb*|*sec=spkm*) myneed="$myneed rpc.gssd" ;;
-			esac
-		done
-	fi
 	config /etc/fstab
-	need portmap rpc.statd rpc.idmapd ${myneed}
+	need portmap rpc.statd
 	use ypbind dns
 }
 

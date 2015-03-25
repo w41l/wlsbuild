@@ -16,21 +16,9 @@ exportfs=/usr/sbin/exportfs
 smnotify=/usr/sbin/sm-notify
 
 depend() {
-	local myneed=""
-	# XXX: no way to detect NFSv4 is desired and so need rpc.idmapd
-	myneed="${myneed} $(
-		awk '!/^[[:space:]]*#/ {
-			# clear the path to avoid spurious matches
-			$1 = "";
-			if ($0 ~ /[(][^)]*sec=(krb|spkm)[^)]*[)]/) {
-				print "rpc.svcgssd"
-				exit 0
-			}
-		}' /etc/exports /etc/exports.d/*.exports 2>/dev/null
-	)"
 	config /etc/exports /etc/exports.d/*.exports
-	need portmap rpc.statd ${myneed} ${NFS_NEEDED_SERVICES}
-	use ypbind net dns rpc.rquotad rpc.idmapd rpc.svcgssd
+	need portmap rpc.statd
+	use ypbind net dns rpc.rquotad
 	after quota
 }
 
@@ -53,10 +41,6 @@ mount_nfsd() {
 		# Make sure nfs support is loaded in the kernel #64709
 		if ! grep -qs nfsd /proc/filesystems ; then
 			modprobe -q nfsd
-		fi
-		# Restart idmapd if needed #220747
-		if grep -qs nfsd /proc/modules ; then
-			killall -q -HUP rpc.idmapd
 		fi
 	fi
 

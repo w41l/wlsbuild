@@ -6,22 +6,9 @@
 [ -e /etc/openrc/conf.d/nfs ] && . /etc/openrc/conf.d/nfs
 
 depend() {
-	local myneed=""
-	if [ -e /etc/fstab ] ; then
-		myneed="${myneed} $(
-			awk '!/^[[:space:]]*#/ && ($3 == "nfs" || $3 == "nfs4") {
-					if ($3 == "nfs4")
-						idmapd = "rpc.idmapd"
-					if ($4 ~ /sec=(krb|spkm)/)
-						gssd = "rpc.gssd"
-				}
-				END { print idmapd " " gssd }
-				' /etc/fstab
-			)"
-	fi
 	config /etc/fstab
-	need portmap rpc.statd ${myneed}
-	use ypbind dns rpc.idmapd rpc.gssd
+	need portmap rpc.statd
+	use ypbind dns
 }
 
 start() {

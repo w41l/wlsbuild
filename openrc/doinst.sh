@@ -104,7 +104,6 @@ config etc/openrc/init.d/polkitd.new
 config etc/openrc/init.d/portmap.new
 config etc/openrc/init.d/procfs.new
 config etc/openrc/init.d/root.new
-config etc/openrc/init.d/rpcbind.new
 config etc/openrc/init.d/rpc.pipefs.new
 config etc/openrc/init.d/rpc.rquotad.new
 config etc/openrc/init.d/rpc.statd.new

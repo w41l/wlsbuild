@@ -11,6 +11,7 @@ config() {
   # Otherwise, we leave the .new copy for the admin to consider...
 }
 
+config etc/openrc/conf.d/NetworkManager.new
 config etc/openrc/conf.d/bootmisc.new
 config etc/openrc/conf.d/consolefont.new
 config etc/openrc/conf.d/devfs.new
@@ -110,7 +111,6 @@ config etc/openrc/init.d/rpc.statd.new
 config etc/openrc/init.d/rpc.svcgssd.new
 config etc/openrc/init.d/rsyncd.new
 config etc/openrc/init.d/rsyslog.new
-config etc/openrc/init.d/samba.new
 config etc/openrc/init.d/samba4.new
 config etc/openrc/init.d/savecache.new
 config etc/openrc/init.d/serial.new

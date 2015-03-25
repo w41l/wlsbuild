@@ -11,7 +11,7 @@ depend() {
 execute_hook="dm_crypt_execute_dmcrypt"
 # XXX: Should we drop this ?
 # execute_hook="dm_crypt_execute_localmount"
-conf_file="/etc/conf.d/${SVCNAME}"
+conf_file="/etc/openrc/conf.d/${SVCNAME}"
 
 # Get splash helpers if available.
 if [ -e /sbin/splash-functions.sh ] ; then

@@ -1,4 +1,4 @@
-#!/sbin/openrc-run
+#!/sbin/runscript
 # Copyright 1999-2012 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: /var/cvsroot/gentoo-x86/net-analyzer/net-snmp/files/snmpd.init.2,v 1.3 2012/10/22 02:57:05 flameeyes Exp $
@@ -16,8 +16,8 @@ depend() {
 }
 
 checkconfig() {
-	if [ ! -e /etc/snmp/snmpd.conf ] ; then
-		eerror "${SVCNAME} requires an /etc/snmp/snmpd.conf configuration file"
+	if [ ! -e ${SNMPD_CONFIG} ] ; then
+		eerror "${SVCNAME} requires an ${SNMPD_CONFIG} configuration file"
 		return 1
 	fi
 }

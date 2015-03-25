@@ -1,9 +1,9 @@
 #!/sbin/openrc-run
 # Copyright 1999-2015 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/net-fs/nfs-utils/files/rpc.statd.initd,v 1.8 2015/01/31 22:59:37 radhermit Exp $
+# $Header: /var/cvsroot/gentoo-x86/net-fs/nfs-utils/files/rpc.statd.initd,v 1.9 2015/02/02 13:47:41 radhermit Exp $
 
-[ -e /etc/conf.d/nfs ] && . /etc/conf.d/nfs
+[ -e /etc/openrc/conf.d/nfs ] && . /etc/openrc/conf.d/nfs
 
 rpc_bin=/sbin/rpc.statd
 rpc_pid=/var/run/rpc.statd.pid
@@ -22,7 +22,7 @@ start() {
 	fi
 
 	ebegin "Starting NFS statd"
-	start-stop-daemon --start --background --exec ${rpc_bin} -- --no-notify ${OPTS_RPC_STATD}
+	start-stop-daemon --start --exec ${rpc_bin} -- --no-notify ${OPTS_RPC_STATD}
 	eend $?
 }
 

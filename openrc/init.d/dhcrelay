@@ -10,7 +10,7 @@ depend() {
 
 start() {
 	if [ -z "${DHCRELAY_SERVERS}" ] ; then
-		eerror "No DHCRELAY_SERVERS specified in /etc/conf.d/${SVCNAME}"
+		eerror "No DHCRELAY_SERVERS specified in /etc/openrc/conf.d/${SVCNAME}"
 		return 1
 	fi
 

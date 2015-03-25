@@ -1,0 +1,5 @@
+# /etc/openrc/conf.d/rsyncd: config file for /etc/openrc/init.d/rsyncd
+
+# see man pages for rsync or run `rsync --help`
+# for valid cmdline options
+#RSYNC_OPTS=""

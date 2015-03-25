@@ -1,4 +1,4 @@
-# /etc/conf.d/portmap: config file for /etc/init.d/portmap
+# /etc/openrc/conf.d/portmap: config file for /etc/openrc/init.d/portmap
 
 # Options for `portmap`.
 # For a full list, just run `portmap -h`.

@@ -3,19 +3,17 @@
 # Released under the 2-clause BSD license.
 
 command=/usr/sbin/cupsd
-pidfile=/var/run/cups/cups.pid
 name="CUPS Printing Daemon"
 
 depend()
 {
-	need loopback logger
-	after bootmisc
+	use net logger
+	need dbus
+	before nfs
+	after logger
 }
 
-start()
+start_pre()
 {
-	mkdir -p $(dirname $pidfile)
-	rm -f $pidfile
-	$command
-	pidof cupsd > $pidfile
+	mkdir -p /var/run/cups
 }

@@ -3,7 +3,7 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Header: /var/cvsroot/gentoo-x86/net-fs/nfs-utils/files/nfsmount.initd,v 1.15 2013/03/24 20:29:48 vapier Exp $
 
-[ -e /etc/conf.d/nfs ] && . /etc/conf.d/nfs
+[ -e /etc/openrc/conf.d/nfs ] && . /etc/openrc/conf.d/nfs
 
 depend() {
 	local myneed=""

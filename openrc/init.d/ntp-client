@@ -11,12 +11,12 @@ depend() {
 
 checkconfig() {
 	if ! type "${NTPCLIENT_CMD}" >/dev/null 2>&1 ; then
-		eerror "Please edit /etc/conf.d/ntp-client"
+		eerror "Please edit /etc/openrc/conf.d/ntp-client"
 		eerror "Unable to locate the client command ${NTPCLIENT_CMD}!"
 		return 1
 	fi
 	if [ -z "${NTPCLIENT_OPTS}" ] ; then
-		eerror "Please edit /etc/conf.d/ntp-client"
+		eerror "Please edit /etc/openrc/conf.d/ntp-client"
 		eerror "I need to know what server/options to use!"
 		return 1
 	fi

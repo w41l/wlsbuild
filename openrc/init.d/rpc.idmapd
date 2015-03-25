@@ -3,7 +3,7 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Header: /var/cvsroot/gentoo-x86/net-fs/nfs-utils/files/rpc.idmapd.initd,v 1.8 2009/03/14 18:43:18 vapier Exp $
 
-[ -e /etc/conf.d/nfs ] && . /etc/conf.d/nfs
+[ -e /etc/openrc/conf.d/nfs ] && . /etc/openrc/conf.d/nfs
 
 rpc_bin=/usr/sbin/rpc.idmapd
 

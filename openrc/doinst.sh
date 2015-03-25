@@ -14,10 +14,13 @@ config() {
 config etc/openrc/conf.d/bootmisc.new
 config etc/openrc/conf.d/consolefont.new
 config etc/openrc/conf.d/devfs.new
+config etc/openrc/conf.d/dhcpd.new
 config etc/openrc/conf.d/dmesg.new
 config etc/openrc/conf.d/fsck.new
 config etc/openrc/conf.d/hostname.new
 config etc/openrc/conf.d/hwclock.new
+config etc/openrc/conf.d/ip6tables.new
+config etc/openrc/conf.d/iptables.new
 config etc/openrc/conf.d/keymaps.new
 config etc/openrc/conf.d/killprocs.new
 config etc/openrc/conf.d/localmount.new
@@ -25,10 +28,17 @@ config etc/openrc/conf.d/modules.new
 config etc/openrc/conf.d/mysqld.new
 config etc/openrc/conf.d/netmount.new
 config etc/openrc/conf.d/network.new
+config etc/openrc/conf.d/ntp-client.new
+config etc/openrc/conf.d/ntpd.new
+config etc/openrc/conf.d/openvpn.new
 config etc/openrc/conf.d/portmap.new
+config etc/openrc/conf.d/rsyncd.new
+config etc/openrc/conf.d/samba4.new
+config etc/openrc/conf.d/sshd.new
 config etc/openrc/conf.d/staticroute.new
 config etc/openrc/conf.d/tmpfiles.new
 config etc/openrc/conf.d/urandom.new
+
 config etc/openrc/init.d/acct.new
 config etc/openrc/init.d/acpid.new
 config etc/openrc/init.d/alsa.new
@@ -59,6 +69,7 @@ config etc/openrc/init.d/gtkmodules.new
 config etc/openrc/init.d/hostname.new
 config etc/openrc/init.d/hwclock.new
 config etc/openrc/init.d/iconcache.new
+config etc/openrc/init.d/iptables.new
 config etc/openrc/init.d/isapnp.new
 config etc/openrc/init.d/keymaps.new
 config etc/openrc/init.d/killprocs.new
@@ -78,8 +89,9 @@ config etc/openrc/init.d/mysqld.new
 config etc/openrc/init.d/netmount.new
 config etc/openrc/init.d/NetworkManager.new
 config etc/openrc/init.d/network.new
-config etc/openrc/init.d/nfsmount.new
 config etc/openrc/init.d/nfs.new
+config etc/openrc/init.d/nfsclient.new
+config etc/openrc/init.d/nfsmount.new
 config etc/openrc/init.d/nginx.new
 config etc/openrc/init.d/ntp-client.new
 config etc/openrc/init.d/ntpd.new
@@ -93,9 +105,13 @@ config etc/openrc/init.d/root.new
 config etc/openrc/init.d/rpcbind.new
 config etc/openrc/init.d/rpc.idmapd.new
 config etc/openrc/init.d/rpc.pipefs.new
+config etc/openrc/init.d/rpc.rquotad.new
 config etc/openrc/init.d/rpc.statd.new
+config etc/openrc/init.d/rpc.svcgssd.new
+config etc/openrc/init.d/rsyncd.new
 config etc/openrc/init.d/rsyslog.new
 config etc/openrc/init.d/samba.new
+config etc/openrc/init.d/samba4.new
 config etc/openrc/init.d/savecache.new
 config etc/openrc/init.d/serial.new
 config etc/openrc/init.d/snmpd.new
@@ -113,7 +129,10 @@ config etc/openrc/init.d/tmpfiles.setup.new
 config etc/openrc/init.d/udev-mount.new
 config etc/openrc/init.d/udev.new
 config etc/openrc/init.d/urandom.new
+config etc/openrc/init.d/vsftpd.new
+config etc/openrc/init.d/vsftpd-checkconfig.sh.new
 config etc/openrc/init.d/wpa_supplicant.new
+config etc/openrc/init.d/ypbind.new
 config etc/openrc/inittab.new
 config etc/openrc/rc.conf.new
 
@@ -129,12 +148,8 @@ echo "+==============================================================+"
 ( cd etc/openrc/runlevels/sysinit ; ln -sf /etc/openrc/init.d/dmesg dmesg )
 ( cd etc/openrc/runlevels/sysinit ; rm -rf fsck )
 ( cd etc/openrc/runlevels/sysinit ; ln -sf /etc/openrc/init.d/fsck fsck )
-( cd etc/openrc/runlevels/sysinit ; rm -rf portmap )
-( cd etc/openrc/runlevels/sysinit ; ln -sf /etc/openrc/init.d/portmap portmap )
 ( cd etc/openrc/runlevels/sysinit ; rm -rf procfs )
 ( cd etc/openrc/runlevels/sysinit ; ln -sf /etc/openrc/init.d/procfs procfs )
-( cd etc/openrc/runlevels/sysinit ; rm -rf rpc.statd )
-( cd etc/openrc/runlevels/sysinit ; ln -sf /etc/openrc/init.d/rpc.statd rpc.statd )
 ( cd etc/openrc/runlevels/sysinit ; rm -rf sysfs )
 ( cd etc/openrc/runlevels/sysinit ; ln -sf /etc/openrc/init.d/sysfs sysfs )
 ( cd etc/openrc/runlevels/sysinit ; rm -rf tmpfiles.dev )
@@ -205,16 +220,12 @@ echo "+==============================================================+"
 ( cd etc/openrc/runlevels/default ; ln -sf /etc/openrc/init.d/loopback loopback )
 ( cd etc/openrc/runlevels/default ; rm -rf mimedatabase )
 ( cd etc/openrc/runlevels/default ; ln -sf /etc/openrc/init.d/mimedatabase mimedatabase )
-( cd etc/openrc/runlevels/default ; rm -rf netmount )
-( cd etc/openrc/runlevels/default ; ln -sf /etc/openrc/init.d/netmount netmount )
 ( cd etc/openrc/runlevels/default ; rm -rf network )
 ( cd etc/openrc/runlevels/default ; ln -sf /etc/openrc/init.d/network network )
 ( cd etc/openrc/runlevels/default ; rm -rf numlock )
 ( cd etc/openrc/runlevels/default ; ln -sf /etc/openrc/init.d/numlock numlock )
 ( cd etc/openrc/runlevels/default ; rm -rf sshd )
 ( cd etc/openrc/runlevels/default ; ln -sf /etc/openrc/init.d/sshd sshd )
-( cd etc/openrc/runlevels/default ; rm -rf staticroute )
-( cd etc/openrc/runlevels/default ; ln -sf /etc/openrc/init.d/staticroute staticroute )
 ( cd etc/openrc/runlevels/default ; rm -rf syslogd )
 ( cd etc/openrc/runlevels/default ; ln -sf /etc/openrc/init.d/syslogd syslogd )
 

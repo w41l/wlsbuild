@@ -12,7 +12,7 @@ iptables|ip6tables) ;;
 *) iptables_name="iptables" ;;
 esac
 
-iptables_bin="/sbin/${iptables_name}"
+iptables_bin="/usr/sbin/${iptables_name}"
 case ${iptables_name} in
 	iptables)  iptables_proc="/proc/net/ip_tables_names"
 	           iptables_save=${IPTABLES_SAVE};;
@@ -50,7 +50,7 @@ checkkernel() {
 checkconfig() {
 	if [ ! -f ${iptables_save} ] ; then
 		eerror "Not starting ${iptables_name}.  First create some rules then run:"
-		eerror "/etc/init.d/${iptables_name} save"
+		eerror "/etc/openrc/init.d/${iptables_name} save"
 		return 1
 	fi
 	return 0

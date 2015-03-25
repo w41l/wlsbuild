@@ -1,0 +1,43 @@
+#!/sbin/openrc-run
+
+extra_started_commands="graceful gracefulstop"
+
+description_graceful="A graceful restart advises the children to exit after the current request and reloads the configuration."
+description_gracefulstop="A graceful stop advises the children to exit after the current request and stops the server."
+description_stop="Kills all children and stops the server."
+
+depend() {
+  need net
+  use mysql dns logger netmount postgresql
+  after sshd
+}
+
+start()
+{
+  ebegin "Starting Apache HTTPD"
+  /usr/sbin/apachectl -k start
+  eend $? "Failed to start Apache HTTPD"
+}
+
+stop()
+{
+  ebegin "Stopping Apache HTTPD"
+  /usr/sbin/apachectl -k stop || killall httpd
+  # Remove both old and new .pid locations:
+  rm -f /var/run/httpd.pid /var/run/httpd/httpd.pid
+  eend $? "Failed to stop Apache HTTPD"
+}
+
+graceful()
+{
+  ebegin "Graceful restart Apache HTTPD"
+  /usr/sbin/apachectl -k graceful
+  eend $? "Failed to restart Apache HTTPD"
+}
+
+gracefulstop()
+{
+  ebegin "Graceful stop Apache HTTPD"
+  /usr/sbin/apachectl -k graceful-stop
+  eend $? "Failed to stop Apache HTTPD"
+}

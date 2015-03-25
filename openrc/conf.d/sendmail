@@ -1,0 +1,6 @@
+# Sendmail daemon options
+SENDMAIL_OPTS="-L sm-mta -bd -q25m"
+CLIENTMQUEUE_OPTS="-L sm-msp-queue -Ac -q25m"
+
+# Force kill
+#KILL_OPTS="-9"

@@ -1,0 +1,10 @@
+#!/sbin/openrc-run
+# Start/stop/restart inetd, the BSD Internet super-daemon.
+
+description="inetd - the BSD Internet super-daemon"
+command="/usr/sbin/inetd"
+
+depend() {
+  need net
+  use logger
+}

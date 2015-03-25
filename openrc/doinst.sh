@@ -69,8 +69,10 @@ config etc/openrc/init.d/fuse.new
 config etc/openrc/init.d/glibschemas.new
 config etc/openrc/init.d/gtkmodules.new
 config etc/openrc/init.d/hostname.new
+config etc/openrc/init.d/httpd.new
 config etc/openrc/init.d/hwclock.new
 config etc/openrc/init.d/iconcache.new
+config etc/openrc/init.d/inetd.new
 config etc/openrc/init.d/iptables.new
 config etc/openrc/init.d/isapnp.new
 config etc/openrc/init.d/keymaps.new
@@ -111,6 +113,7 @@ config etc/openrc/init.d/rsyncd.new
 config etc/openrc/init.d/rsyslog.new
 config etc/openrc/init.d/samba4.new
 config etc/openrc/init.d/savecache.new
+config etc/openrc/init.d/sendmail.new
 config etc/openrc/init.d/serial.new
 config etc/openrc/init.d/snmpd.new
 config etc/openrc/init.d/sshd.new
@@ -131,6 +134,7 @@ config etc/openrc/init.d/vsftpd.new
 config etc/openrc/init.d/vsftpd-checkconfig.sh.new
 config etc/openrc/init.d/wpa_supplicant.new
 config etc/openrc/init.d/ypbind.new
+
 config etc/openrc/inittab.new
 config etc/openrc/rc.conf.new
 
@@ -144,10 +148,6 @@ echo "+==============================================================+"
 ( cd etc/openrc/runlevels/sysinit ; ln -sf /etc/openrc/init.d/device-mapper device-mapper )
 ( cd etc/openrc/runlevels/sysinit ; rm -rf dmesg )
 ( cd etc/openrc/runlevels/sysinit ; ln -sf /etc/openrc/init.d/dmesg dmesg )
-( cd etc/openrc/runlevels/sysinit ; rm -rf fsck )
-( cd etc/openrc/runlevels/sysinit ; ln -sf /etc/openrc/init.d/fsck fsck )
-( cd etc/openrc/runlevels/sysinit ; rm -rf procfs )
-( cd etc/openrc/runlevels/sysinit ; ln -sf /etc/openrc/init.d/procfs procfs )
 ( cd etc/openrc/runlevels/sysinit ; rm -rf sysfs )
 ( cd etc/openrc/runlevels/sysinit ; ln -sf /etc/openrc/init.d/sysfs sysfs )
 ( cd etc/openrc/runlevels/sysinit ; rm -rf tmpfiles.dev )
@@ -156,25 +156,39 @@ echo "+==============================================================+"
 ( cd etc/openrc/runlevels/sysinit ; ln -sf /etc/openrc/init.d/udev udev )
 ( cd etc/openrc/runlevels/sysinit ; rm -rf udev-mount )
 ( cd etc/openrc/runlevels/sysinit ; ln -sf /etc/openrc/init.d/udev-mount udev-mount )
+( cd etc/openrc/runlevels/sysinit ; rm -rf urandom )
+( cd etc/openrc/runlevels/sysinit ; ln -sf /etc/openrc/init.d/urandom urandom )
 
 ( cd etc/openrc/runlevels/boot ; rm -rf bootmisc )
 ( cd etc/openrc/runlevels/boot ; ln -sf /etc/openrc/init.d/bootmisc bootmisc )
 ( cd etc/openrc/runlevels/boot ; rm -rf consolefont )
 ( cd etc/openrc/runlevels/boot ; ln -sf /etc/openrc/init.d/consolefont consolefont )
+( cd etc/openrc/runlevels/boot ; rm -rf fsck )
+( cd etc/openrc/runlevels/boot ; ln -sf /etc/openrc/init.d/fsck fsck )
 ( cd etc/openrc/runlevels/boot ; rm -rf fuse )
 ( cd etc/openrc/runlevels/boot ; ln -sf /etc/openrc/init.d/fuse fuse )
 ( cd etc/openrc/runlevels/boot ; rm -rf hostname )
 ( cd etc/openrc/runlevels/boot ; ln -sf /etc/openrc/init.d/hostname hostname )
 ( cd etc/openrc/runlevels/boot ; rm -rf hwclock )
 ( cd etc/openrc/runlevels/boot ; ln -sf /etc/openrc/init.d/hwclock hwclock )
+( cd etc/openrc/runlevels/boot ; rm -rf keymaps )
+( cd etc/openrc/runlevels/boot ; ln -sf /etc/openrc/init.d/keymaps keymaps )
 ( cd etc/openrc/runlevels/boot ; rm -rf localmount )
 ( cd etc/openrc/runlevels/boot ; ln -sf /etc/openrc/init.d/localmount localmount )
+( cd etc/openrc/runlevels/boot ; rm -rf loopback )
+( cd etc/openrc/runlevels/boot ; ln -sf /etc/openrc/init.d/loopback loopback )
 ( cd etc/openrc/runlevels/boot ; rm -rf modules )
 ( cd etc/openrc/runlevels/boot ; ln -sf /etc/openrc/init.d/modules modules )
 ( cd etc/openrc/runlevels/boot ; rm -rf mtab )
 ( cd etc/openrc/runlevels/boot ; ln -sf /etc/openrc/init.d/mtab mtab )
+( cd etc/openrc/runlevels/boot ; rm -rf network )
+( cd etc/openrc/runlevels/boot ; ln -sf /etc/openrc/init.d/network network )
+( cd etc/openrc/runlevels/boot ; rm -rf procfs )
+( cd etc/openrc/runlevels/boot ; ln -sf /etc/openrc/init.d/procfs procfs )
 ( cd etc/openrc/runlevels/boot ; rm -rf root )
 ( cd etc/openrc/runlevels/boot ; ln -sf /etc/openrc/init.d/root root )
+( cd etc/openrc/runlevels/boot ; rm -rf staticroute )
+( cd etc/openrc/runlevels/boot ; ln -sf /etc/openrc/init.d/staticroute staticroute )
 ( cd etc/openrc/runlevels/boot ; rm -rf swap )
 ( cd etc/openrc/runlevels/boot ; ln -sf /etc/openrc/init.d/swap swap )
 ( cd etc/openrc/runlevels/boot ; rm -rf swapfiles )
@@ -183,8 +197,6 @@ echo "+==============================================================+"
 ( cd etc/openrc/runlevels/boot ; ln -sf /etc/openrc/init.d/termencoding termencoding )
 ( cd etc/openrc/runlevels/boot ; rm -rf tmpfiles.setup )
 ( cd etc/openrc/runlevels/boot ; ln -sf /etc/openrc/init.d/tmpfiles.setup tmpfiles.setup )
-( cd etc/openrc/runlevels/boot ; rm -rf urandom )
-( cd etc/openrc/runlevels/boot ; ln -sf /etc/openrc/init.d/urandom urandom )
 
 ( cd etc/openrc/runlevels/default ; rm -rf acpid )
 ( cd etc/openrc/runlevels/default ; ln -sf /etc/openrc/init.d/acpid acpid )
@@ -214,12 +226,8 @@ echo "+==============================================================+"
 ( cd etc/openrc/runlevels/default ; ln -sf /etc/openrc/init.d/ldconfig ldconfig )
 ( cd etc/openrc/runlevels/default ; rm -rf local )
 ( cd etc/openrc/runlevels/default ; ln -sf /etc/openrc/init.d/local local )
-( cd etc/openrc/runlevels/default ; rm -rf loopback )
-( cd etc/openrc/runlevels/default ; ln -sf /etc/openrc/init.d/loopback loopback )
 ( cd etc/openrc/runlevels/default ; rm -rf mimedatabase )
 ( cd etc/openrc/runlevels/default ; ln -sf /etc/openrc/init.d/mimedatabase mimedatabase )
-( cd etc/openrc/runlevels/default ; rm -rf network )
-( cd etc/openrc/runlevels/default ; ln -sf /etc/openrc/init.d/network network )
 ( cd etc/openrc/runlevels/default ; rm -rf numlock )
 ( cd etc/openrc/runlevels/default ; ln -sf /etc/openrc/init.d/numlock numlock )
 ( cd etc/openrc/runlevels/default ; rm -rf sshd )

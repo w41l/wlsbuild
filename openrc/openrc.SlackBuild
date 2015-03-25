@@ -132,6 +132,10 @@ chown -R root:root $PKG/etc/
 # fix man directory
 mv $PKG/usr/share/man $PKG/usr/
 
+# Add openrc cache directory. Somehow installer and init script did not
+# create it.
+mkdir -p $PKG/libexec/rc/cache
+
 find $PKG | xargs file | grep -e "executable" -e "shared object" | grep ELF \
   | cut -f 1 -d : | xargs strip --strip-unneeded 2> /dev/null || true
 

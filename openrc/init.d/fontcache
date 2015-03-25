@@ -3,11 +3,12 @@
 # Released under the 2-clause BSD license.
 
 name="X font cache"
+command_background="yes"
 
 depend()
 {
 	need localmount
-	after bootmisc
+	after ldconfig
 }
 
 start()

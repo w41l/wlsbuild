@@ -3,19 +3,20 @@
 # Released under the 2-clause BSD license.
 
 name="Mime database update"
+command_background="yes"
 
 depend()
 {
-	need localmount net
-	after bootmisc
+	need localmount
+	after ldconfig
 }
 
 start()
 {
-ebegin "Updating mime database"
-# Update mime database:
-if [ -x /usr/bin/update-mime-database -a -d /usr/share/mime ]; then
-  /usr/bin/update-mime-database /usr/share/mime 1> /dev/null 2> /dev/null &
-fi
-eend $?
+    ebegin "Updating mime database"
+    # Update mime database:
+    if [ -x /usr/bin/update-mime-database -a -d /usr/share/mime ]; then
+	/usr/bin/update-mime-database /usr/share/mime 1> /dev/null 2> /dev/null &
+    fi
+    eend $?
 }

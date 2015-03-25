@@ -3,11 +3,12 @@
 # Released under the 2-clause BSD license.
 
 name="X desktop icon cache"
+command_background="yes"
 
 depend()
 {
-	need localmount net
-	after bootmisc
+	need localmount
+	after ldconfig
 }
 
 start()

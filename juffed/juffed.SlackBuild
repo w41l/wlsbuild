@@ -28,7 +28,7 @@ VERSION=0.10
 REV=1054
 BUILD=1
 TAG="_wls"
-NUMJOBS="-j7"
+NUMJOBS="${NUMJOBS:--j7}"
 
 if [ -z "$ARCH" ]; then
   case "$( uname -m )" in
@@ -83,7 +83,7 @@ cd build
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DLIB_SUFFIX=$LIBDIRSUFFIX
 
-  make
+  make $NUMJOBS
   make install DESTDIR=$PKG
 cd -
 

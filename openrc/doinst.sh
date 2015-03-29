@@ -156,8 +156,6 @@ echo "+==============================================================+"
 ( cd etc/openrc/runlevels/sysinit ; ln -sf /etc/openrc/init.d/udev udev )
 ( cd etc/openrc/runlevels/sysinit ; rm -rf udev-mount )
 ( cd etc/openrc/runlevels/sysinit ; ln -sf /etc/openrc/init.d/udev-mount udev-mount )
-( cd etc/openrc/runlevels/sysinit ; rm -rf urandom )
-( cd etc/openrc/runlevels/sysinit ; ln -sf /etc/openrc/init.d/urandom urandom )
 
 ( cd etc/openrc/runlevels/boot ; rm -rf bootmisc )
 ( cd etc/openrc/runlevels/boot ; ln -sf /etc/openrc/init.d/bootmisc bootmisc )
@@ -197,6 +195,8 @@ echo "+==============================================================+"
 ( cd etc/openrc/runlevels/boot ; ln -sf /etc/openrc/init.d/termencoding termencoding )
 ( cd etc/openrc/runlevels/boot ; rm -rf tmpfiles.setup )
 ( cd etc/openrc/runlevels/boot ; ln -sf /etc/openrc/init.d/tmpfiles.setup tmpfiles.setup )
+( cd etc/openrc/runlevels/boot ; rm -rf urandom )
+( cd etc/openrc/runlevels/boot ; ln -sf /etc/openrc/init.d/urandom urandom )
 
 ( cd etc/openrc/runlevels/default ; rm -rf acpid )
 ( cd etc/openrc/runlevels/default ; ln -sf /etc/openrc/init.d/acpid acpid )

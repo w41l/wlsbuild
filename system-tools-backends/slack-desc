@@ -1,0 +1,12 @@
+                     |-----handy-ruler------------------------------------------------------|
+system-tools-backends: system-tools-backends
+system-tools-backends:
+system-tools-backends: The System Tools Backends (s-t-b for short) are a set of
+system-tools-backends: cross-platform modules for Linux, FreeBSD and other Unix systems.
+system-tools-backends: The backends provide an common DBus interface to all platforms to
+system-tools-backends: modify or read the system configuration in a distro independent
+system-tools-backends: fashion.
+system-tools-backends:
+system-tools-backends:
+system-tools-backends:
+system-tools-backends: Packaged by: Widya Walesa <walecha99@gmail.com>

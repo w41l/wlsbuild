@@ -1,0 +1,45 @@
+#!/sbin/openrc-run
+# Copyright (c) 2008 Saleem Abdulrasool <compnerd@compnerd.org>
+# Distributed under the terms of the GNU General Purpose License v2
+# $Header: /var/cvsroot/gentoo-x86/net-misc/networkmanager/files/init.d.NetworkManager,v 1.1 2013/01/28 07:05:05 tetromino Exp $
+
+description="NetworkManager daemon. The service is marked as started only \
+when a network connection is established."
+pidfile=/run/NetworkManager/NetworkManager.pid
+command=/usr/sbin/NetworkManager
+
+depend() {
+	need dbus
+	provide net
+}
+
+start_pre() {
+#	ebegin "Starting NetworkManager"
+	# Just in case the pidfile is still there, we may need to nuke it.
+	if [ -e "$pidfile" ]; then
+	rm -f $pidfile
+	fi
+#	start-stop-daemon --start --quiet --pidfile $pidfile \
+#	--exec $command -- --pid-file $pidfile
+#	eend $? "Failed to start NetworkManager"
+}
+
+stop_pre() {
+	ebegin "Stopping NetworkManager"
+	# Shut down any DHCP connections, otherwise the processes will be orphaned
+	# and the connections will not come up when NetworkManager restarts.
+	if ps ax | grep /sbin/dhcpcd | grep -q libexec/nm-dhcp ; then
+	ps ax | grep /sbin/dhcpcd | grep libexec/nm-dhcp | while read line ; do
+	  kill -HUP $(echo $line | cut -b 1-5)
+	done
+	fi
+	if ps ax | grep /sbin/dhclient | grep -q /var/lib/NetworkManager ; then
+	ps ax | grep /sbin/dhclient | grep /var/lib/NetworkManager | while read line ; do
+	  kill -HUP $(echo $line | cut -b 1-5)
+	done
+	fi
+#	start-stop-daemon --stop --quiet --pidfile $pidfile \
+#	--exec $command -- --pid-file $pidfile
+}
+
+# vim: set ft=gentoo-init-d ts=4 :

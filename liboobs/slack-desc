@@ -1,0 +1,12 @@
+       |-----handy-ruler------------------------------------------------------|
+liboobs: liboobs
+liboobs:
+liboobs: Liboobs is a lightweight library that provides a GObject based
+liboobs: interface to system-tools-backends. It's completely abstracted of the
+liboobs: communication and authentication details, making it easy for
+liboobs: applications to integrate with the system details.
+liboobs:
+liboobs:
+liboobs:
+liboobs:
+liboobs: Packaged by: Widya Walesa <walecha99@gmail.com>

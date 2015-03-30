@@ -2,7 +2,7 @@
 
 name="mysqld"
 description="MySQL Server"
-pidfile="/var/run/mysql/mysql.pid"
+pidfile="/run/mysql/mysql.pid"
 command="/usr/bin/mysqld_safe"
 command_background="yes"
 command_args="--user=mysql --datadir=/var/lib/mysql --pid-file=$pidfile $SKIP $INNODB"
@@ -19,6 +19,7 @@ start_pre() {
       fi
     else
       mkdir -p $(dirname $pidfile)
+      chown -R $user:$group $(dirname $pidfile)
     fi
 }
 

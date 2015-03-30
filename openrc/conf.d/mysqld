@@ -5,3 +5,7 @@ SKIP="--skip-networking"
 
 # Uncomment the next line to use Oracle's InnoDB plugin instead of the included XtraDB
 #INNODB="--ignore-builtin-innodb --plugin-load=innodb=ha_innodb.so"
+
+# User and group whom owned mysqld service
+user=mysql
+group=mysql

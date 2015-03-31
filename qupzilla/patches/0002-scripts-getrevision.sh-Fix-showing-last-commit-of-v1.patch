@@ -1,0 +1,27 @@
+From 0c37b62d26d6fa433d996157e1cf4be957c991e8 Mon Sep 17 00:00:00 2001
+From: David Rosca <nowrep@gmail.com>
+Date: Tue, 17 Feb 2015 18:57:25 +0100
+Subject: [PATCH 2/3] scripts/getrevision.sh: Fix showing last commit of v1.8
+ branch
+
+Closes #1607
+---
+ scripts/getrevision.sh | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/scripts/getrevision.sh b/scripts/getrevision.sh
+index 0246c46..2ff1884 100755
+--- a/scripts/getrevision.sh
++++ b/scripts/getrevision.sh
+@@ -3,7 +3,7 @@
+ REV=""
+ 
+ if [ -e "/usr/bin/git" ] && ([ -e ".git" ] || [ -e "../.git" ]); then
+-    REV=`git show-ref refs/heads/master | cut -d " " -f 1`
++    REV=`git show-ref refs/heads/v1.8 | cut -d " " -f 1`
+ elif [ -e "git_revision" ]; then
+     REV=`cat git_revision`
+ fi
+-- 
+1.8.4
+

@@ -1,0 +1,14 @@
+/var/log/php*.log {
+  compress
+  delaycompress
+  rotate 10
+  size=+5M
+  notifempty
+  missingok
+  create 640 apache apache
+  sharedscripts
+  postrotate
+    service php-fpm restart
+  endscript
+
+}

@@ -138,10 +138,16 @@ config etc/openrc/init.d/ypbind.new
 config etc/openrc/inittab.new
 config etc/openrc/rc.conf.new
 
+config etc/logrotate.d/php-fpm.new
+config etc/logrotate.d/rsyslog.new
+config etc/logrotate.d/snmpd.new
+
 echo "+==============================================================+"
 echo "+ Add entries to /etc/openrc/runlevels/* according to my       +"
 echo "+ try-n-error. Please review it after install.                 +"
 echo "+==============================================================+"
+( cd etc/openrc/runlevels/sysinit ; rm -rf bootmisc )
+( cd etc/openrc/runlevels/sysinit ; ln -sf /etc/openrc/init.d/bootmisc bootmisc )
 ( cd etc/openrc/runlevels/sysinit ; rm -rf devfs )
 ( cd etc/openrc/runlevels/sysinit ; ln -sf /etc/openrc/init.d/devfs devfs )
 ( cd etc/openrc/runlevels/sysinit ; rm -rf device-mapper )
@@ -175,8 +181,6 @@ echo "+==============================================================+"
 ( cd etc/openrc/runlevels/sysinit ; rm -rf urandom )
 ( cd etc/openrc/runlevels/sysinit ; ln -sf /etc/openrc/init.d/urandom urandom )
 
-( cd etc/openrc/runlevels/boot ; rm -rf bootmisc )
-( cd etc/openrc/runlevels/boot ; ln -sf /etc/openrc/init.d/bootmisc bootmisc )
 ( cd etc/openrc/runlevels/boot ; rm -rf consolefont )
 ( cd etc/openrc/runlevels/boot ; ln -sf /etc/openrc/init.d/consolefont consolefont )
 ( cd etc/openrc/runlevels/boot ; rm -rf dmesg )
@@ -205,21 +209,25 @@ echo "+==============================================================+"
 ( cd etc/openrc/runlevels/boot ; ln -sf /etc/openrc/init.d/swapfiles swapfiles )
 ( cd etc/openrc/runlevels/boot ; rm -rf termencoding )
 ( cd etc/openrc/runlevels/boot ; ln -sf /etc/openrc/init.d/termencoding termencoding )
+( cd etc/openrc/runlevels/boot ; rm -rf acpid )
+( cd etc/openrc/runlevels/boot ; ln -sf /etc/openrc/init.d/acpid acpid )
+( cd etc/openrc/runlevels/boot ; rm -rf alsa )
+( cd etc/openrc/runlevels/boot ; ln -sf /etc/openrc/init.d/alsa alsa )
+( cd etc/openrc/runlevels/boot ; rm -rf atd )
+( cd etc/openrc/runlevels/boot ; ln -sf /etc/openrc/init.d/atd atd )
+( cd etc/openrc/runlevels/boot ; rm -rf consolekit )
+( cd etc/openrc/runlevels/boot ; ln -sf /etc/openrc/init.d/consolekit consolekit )
+( cd etc/openrc/runlevels/boot ; rm -rf cron )
+( cd etc/openrc/runlevels/boot ; ln -sf /etc/openrc/init.d/cron cron )
+( cd etc/openrc/runlevels/boot ; rm -rf dbus )
+( cd etc/openrc/runlevels/boot ; ln -sf /etc/openrc/init.d/dbus dbus )
+( cd etc/openrc/runlevels/boot ; rm -rf klogd )
+( cd etc/openrc/runlevels/boot ; ln -sf /etc/openrc/init.d/klogd klogd )
+( cd etc/openrc/runlevels/boot ; rm -rf syslogd )
+( cd etc/openrc/runlevels/boot ; ln -sf /etc/openrc/init.d/syslogd syslogd )
 
-( cd etc/openrc/runlevels/default ; rm -rf acpid )
-( cd etc/openrc/runlevels/default ; ln -sf /etc/openrc/init.d/acpid acpid )
-( cd etc/openrc/runlevels/default ; rm -rf alsa )
-( cd etc/openrc/runlevels/default ; ln -sf /etc/openrc/init.d/alsa alsa )
-( cd etc/openrc/runlevels/default ; rm -rf atd )
-( cd etc/openrc/runlevels/default ; ln -sf /etc/openrc/init.d/atd atd )
-( cd etc/openrc/runlevels/default ; rm -rf consolekit )
-( cd etc/openrc/runlevels/default ; ln -sf /etc/openrc/init.d/consolekit consolekit )
-( cd etc/openrc/runlevels/default ; rm -rf cron )
-( cd etc/openrc/runlevels/default ; ln -sf /etc/openrc/init.d/cron cron )
 ( cd etc/openrc/runlevels/default ; rm -rf cupsd )
 ( cd etc/openrc/runlevels/default ; ln -sf /etc/openrc/init.d/cupsd cupsd )
-( cd etc/openrc/runlevels/default ; rm -rf dbus )
-( cd etc/openrc/runlevels/default ; ln -sf /etc/openrc/init.d/dbus dbus )
 ( cd etc/openrc/runlevels/default ; rm -rf fontcache )
 ( cd etc/openrc/runlevels/default ; ln -sf /etc/openrc/init.d/fontcache fontcache )
 ( cd etc/openrc/runlevels/default ; rm -rf glibschemas )
@@ -228,8 +236,6 @@ echo "+==============================================================+"
 ( cd etc/openrc/runlevels/default ; ln -sf /etc/openrc/init.d/gtkmodules gtkmodules )
 ( cd etc/openrc/runlevels/default ; rm -rf iconcache )
 ( cd etc/openrc/runlevels/default ; ln -sf /etc/openrc/init.d/iconcache iconcache )
-( cd etc/openrc/runlevels/default ; rm -rf klogd )
-( cd etc/openrc/runlevels/default ; ln -sf /etc/openrc/init.d/klogd klogd )
 ( cd etc/openrc/runlevels/default ; rm -rf local )
 ( cd etc/openrc/runlevels/default ; ln -sf /etc/openrc/init.d/local local )
 ( cd etc/openrc/runlevels/default ; rm -rf inetd )
@@ -240,8 +246,6 @@ echo "+==============================================================+"
 ( cd etc/openrc/runlevels/default ; ln -sf /etc/openrc/init.d/netmount )
 ( cd etc/openrc/runlevels/default ; rm -rf sshd )
 ( cd etc/openrc/runlevels/default ; ln -sf /etc/openrc/init.d/sshd sshd )
-( cd etc/openrc/runlevels/default ; rm -rf syslogd )
-( cd etc/openrc/runlevels/default ; ln -sf /etc/openrc/init.d/syslogd syslogd )
 
 ( cd etc/openrc/runlevels/shutdown ; rm -rf killprocs )
 ( cd etc/openrc/runlevels/shutdown ; ln -sf /etc/openrc/init.d/killprocs killprocs )

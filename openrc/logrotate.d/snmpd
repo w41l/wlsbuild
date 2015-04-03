@@ -1,0 +1,14 @@
+/var/log/snmpd.log {
+  compress
+  delaycompress
+  rotate 10
+  size=+5M
+  notifempty
+  missingok
+  create 640 root root
+  sharedscripts
+  postrotate
+    service snmpd reload
+  endscript
+
+}

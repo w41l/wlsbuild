@@ -107,7 +107,7 @@ cd ..
 ( cd $PKG/etc/openrc/init.d; rm -f rpcbind; ln -snf portmap rpcbind; )
 
 # Add additional init script or replacement (created/modified) by me
-# mostly from SystemRescueCD (http://www.sysresccd.org) :-)
+# mostly from Gentoo, ArchLinux, and SystemRescueCD. :-)
 cp -a $CWD/init.d/* $PKG/etc/openrc/init.d/
 
 # Add default Slackware conf.d
@@ -115,6 +115,13 @@ cp $CWD/conf.d/* $PKG/etc/openrc/conf.d/
 
 # Add initial inittab
 cp -a support/sysvinit/inittab $PKG/etc/openrc/inittab.new
+
+# Add custom logrotate.d
+cp -r $CWD/logrotate.d $PKG/etc/
+for i in `find $PKG/etc/logrotate.d/* -type f`; do
+  mv $i ${i}.new
+  chmod 644 ${i}.new
+done
 
 # Preserve old configuration
 mv $PKG/etc/openrc/rc.conf $PKG/etc/openrc/rc.conf.new

@@ -26,6 +26,14 @@ start_pre() {
 	checkconfig || return 1
 }
 
+stop() {
+    ebegin "Stopping snmpd"
+    kill -9 `cat $pidfile` 2>/dev/null
+    sleep 1
+    rm $pidfile
+    eend $? "Failed to stop snmpd"
+}
+
 reload() {
 	checkconfig || return 1
 

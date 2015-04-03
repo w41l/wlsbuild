@@ -2,7 +2,7 @@
 
 # Slackware build script for kcm-touchpad
 
-# Copyright 2014  Widya Walesa <walecha99@gmail.com>
+# Copyright 2014-2015  Widya Walesa <walecha99@gmail.com>
 # All rights reserved.
 #
 # Redistribution and use of this script, with or without modification, is
@@ -24,11 +24,10 @@
 # YOUR DATA IS DESTROYED, YOUR HOUSE BURNS DOWN OR YOUR DOG RUNS OFF.
 
 PRGNAM=kcm-touchpad
-VERSION=5.1.95
-GITVERS=2237a0d
+VERSION=5.1.96
 BUILD=1
 TAG=${TAG:-_wls}
-NUMJOBS=${NUMJOBS:--j1}
+NUMJOBS=${NUMJOBS:--j7}
 
 if [ -z "$ARCH" ]; then
   case "$( uname -m )" in
@@ -64,7 +63,7 @@ rm -rf $PKG
 mkdir -p $WRK $PKG $OUTPUT
 cd $WRK
 rm -rf $PRGNAM
-tar xvf $CWD/$PRGNAM-$GITVERS.tar.?z*
+tar xvf $CWD/$PRGNAM-$VERSION.tar.?z*
 cd $PRGNAM
 
 chown -R root:root .
@@ -77,7 +76,6 @@ find . \
 mkdir build
 cd build
   cmake \
-    $KDE_OPT_ARGS \
     -DKDE_PLATFORM_FEATURE_DISABLE_DEPRECATED=TRUE \
     -DCMAKE_C_FLAGS:STRING="$SLKCFLAGS" \
     -DCMAKE_C_FLAGS_RELEASE:STRING="$SLKCFLAGS" \
@@ -87,13 +85,14 @@ cd build
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DMAN_INSTALL_DIR=/usr/man \
     -DSYSCONF_INSTALL_DIR=/etc/kde \
-    -DLIB_SUFFIX=${LIBDIRSUFFIX} \
     -DLIB_INSTALL_DIR=lib$LIBDIRSUFFIX \
+    -DLIB_SUFFIX=${LIBDIRSUFFIX} \
     -DLIBEXEC_INSTALL_DIR=lib$LIBDIRSUFFIX \
     -DQT_PLUGIN_INSTALL_DIR=lib$LIBDIRSUFFIX/qt5/plugins \
     -DQML_INSTALL_DIR=lib$LIBDIRSUFFIX/qt5/qml \
     -DKDE_INSTALL_USE_QT_SYS_PATHS=ON \
     -DBUILD_TESTING=OFF \
+    -DHAVE_SHADOW=TRUE \
     -DQca-qt5_DIR=/usr/lib${LIBDIRSUFFIX}/cmake/Qca \
     ..
 

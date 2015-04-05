@@ -81,7 +81,7 @@ echo "extracting $PRGNAM-$VERSION"
 tar xf $CWD/$PRGNAM-$VERSION.tar.?z* || exit 1
 cd $PRGNAM-$VERSION
 
-# cat $CWD/Mesa-dev-clover-disable-broken-debug-facility-1.patch | patch -p1
+cat $CWD/clover_workaround_clang_function_argument_deduction.patch | patch -p1
 
 chown -R root:root .
 find . \

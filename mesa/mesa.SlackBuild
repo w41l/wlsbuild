@@ -82,6 +82,7 @@ tar xf $CWD/$PRGNAM-$VERSION.tar.?z* || exit 1
 cd $PRGNAM-$VERSION
 
 cat $CWD/clover_workaround_clang_function_argument_deduction.patch | patch -p1
+cat $CWD/02-clover_workaround_clang_invocation.patch | patch -p1
 
 chown -R root:root .
 find . \

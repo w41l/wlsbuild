@@ -1,0 +1,46 @@
+diff --git a/src/gallium/state_trackers/clover/util/range.hpp b/src/gallium/state_trackers/clover/util/range.hpp
+index afa5f77..359edda 100644
+--- a/src/gallium/state_trackers/clover/util/range.hpp
++++ b/src/gallium/state_trackers/clover/util/range.hpp
+@@ -362,6 +362,12 @@ namespace clover {
+       return { i, i + n };
+    }
+ 
++   namespace detail {
++      template<typename T>
++      using fixup_function_type =
++         typename std::conditional<std::is_function<T>::value, T &, T>::type;
++   }
++
+    ///
+    /// Create a range by transforming the contents of a number of
+    /// source ranges \a rs element-wise using a provided functor \a f.
+@@ -369,7 +375,7 @@ namespace clover {
+    /// \sa adaptor_range.
+    ///
+    template<typename F, typename... Rs>
+-   adaptor_range<F, Rs...>
++   adaptor_range<detail::fixup_function_type<F>, Rs...>
+    map(F &&f, Rs &&... rs) {
+       return { std::forward<F>(f), std::forward<Rs>(rs)... };
+    }
+--- invocation.cpp.orig	2015-04-05 14:06:56.890565202 +0700
++++ invocation.cpp	2015-04-05 19:06:16.006663973 +0700
+@@ -79,6 +79,8 @@
+ #include <sstream>
+ #include <libelf.h>
+ #include <gelf.h>
++#include <string>
++#include <utility>
+ 
+ using namespace clover;
+ 
+@@ -128,7 +130,7 @@
+       if (!strcmp("stderr", dbg_file)) {
+          std::cerr << msg;
+        } else {
+-        std::ofstream file(dbg_file + suffix, std::ios::app);
++        std::ofstream file(dbg_file, std::ios::app);
+         file << msg;
+        }
+    }

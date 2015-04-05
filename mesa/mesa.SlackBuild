@@ -24,7 +24,7 @@
 # YOUR DATA IS DESTROYED, YOUR HOUSE BURNS DOWN OR YOUR DOG RUNS OFF.
 
 PRGNAM=mesa
-VERSION=10.5.0
+VERSION=10.5.2
 SRCVERSION=$(echo "$VERSION" | sed 's/_/-/g')
 BUILD=${BUILD:-1}
 TAG=${TAG:-_wls}
@@ -123,10 +123,10 @@ CXXFLAGS="$SLKCFLAGS -DUSE_EXTERNAL_DXTN_LIB=1" \
   --enable-asm \
   --enable-egl \
   --enable-nine \
+  --enable-opencl \
   || exit 1
 
 #  --enable-omx \
-#  --enable-opencl \
 #  --enable-opencl-icd \
 #  --enable-gallium-egl \
 #  --enable-gallium-gbm \

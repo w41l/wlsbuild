@@ -93,6 +93,7 @@ cd build
     -DQML_INSTALL_DIR=lib$LIBDIRSUFFIX/qt5/qml \
     -DKDE_INSTALL_USE_QT_SYS_PATHS=ON \
     -DBUILD_TESTING=OFF \
+    -DQTC_QT4_ENABLE_KWIN=OFF \
     ..
 
   make $NUMJOBS

@@ -1,0 +1,11 @@
+--- a/src/lib/app/qzcommon.cpp	2015-04-19 01:38:52.391480073 +0700
++++ b/src/lib/app/qzcommon.cpp	2015-04-19 01:39:02.979480588 +0700
+@@ -25,7 +25,7 @@
+ 
+ QUPZILLA_EXPORT const char* APPNAME = "QupZilla";
+ QUPZILLA_EXPORT const char* VERSION = QUPZILLA_VERSION;
+-QUPZILLA_EXPORT const char* BUILDTIME =  __DATE__" "__TIME__;
++QUPZILLA_EXPORT const char* BUILDTIME =  __DATE__ " " __TIME__;
+ QUPZILLA_EXPORT const char* AUTHOR = "David Rosca";
+ QUPZILLA_EXPORT const char* COPYRIGHT = "2010-2014";
+ QUPZILLA_EXPORT const char* WWWADDRESS = "http://www.qupzilla.com";

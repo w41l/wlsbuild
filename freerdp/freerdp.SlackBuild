@@ -79,7 +79,7 @@ cd build
     -DCMAKE_C_FLAGS="$SLKCFLAGS" \
     -DCMAKE_CXX_FLAGS="$SLKCFLAGS" \
     -DCMAKE_BUILD_TYPE=Release \
-    -DCMAKE_INSTALL_PREFIX=/usr/lib${LIBDIRSUFFIX}/$PRGNAM \
+    -DCMAKE_INSTALL_PREFIX=/usr \
     -DWITH_PULSE=OFF \
     -DWITH_FFMPEG=ON \
     -DWITH_SSE2=ON \
@@ -90,10 +90,11 @@ cd build
   make install DESTDIR=$PKG
 cd -
 
+mv $PKG/usr/share/man $PKG/usr
 find $PKG | xargs file | grep -e "executable" -e "shared object" | grep ELF \
   | cut -f 1 -d : | xargs strip --strip-unneeded 2> /dev/null || true
 
-  find $PKG/usr/man -type f -exec gzip -9 {} \;
+find $PKG/usr/man -type f -exec gzip -9 {} \;
 for i in $( find $PKG/usr/man -type l ) ; do ln -s $( readlink $i ).gz $i.gz ; rm $i ; done
 
 mkdir -p $PKG/usr/doc/$PRGNAM-$VERSION

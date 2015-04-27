@@ -1,4 +1,4 @@
 URL=http://www.gnome.org/projects/NetworkManager/
-SRC=http://kambing.ui.ac.id/gnome/sources/NetworkManager-pptp/0.9/NetworkManager-pptp-0.9.8.4.tar.xz
-MD5=2d1f48ab2383aaba1cc4acb43a187320
-SHA1=bb5335b8d4c49c56fde04b1bd010a558f68e9102
+SRC=http://download.gnome.org/sources/NetworkManager-pptp/1.0/NetworkManager-pptp-1.0.0.tar.xz
+MD5=493d76494ddf0b1ec1e78e835fd887ca
+SHA1=687983c8a2c20384a90fcd24fc17bc0dc28c9e6f

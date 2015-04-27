@@ -1,8 +1,8 @@
 #!/bin/sh
 
-# Slackware build script for kcm-touchpad
+# Slackware build script for NetworkManager-pptp
 
-# Copyright 2014-2015  Widya Walesa <walecha99@gmail.com>
+# Copyright 2015  Widya Walesa <walecha99@gmail.com>
 # All rights reserved.
 #
 # Redistribution and use of this script, with or without modification, is
@@ -23,9 +23,9 @@
 # ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. FURTHERMORE I AM NOT LIABLE IF
 # YOUR DATA IS DESTROYED, YOUR HOUSE BURNS DOWN OR YOUR DOG RUNS OFF.
 
-PRGNAM=kcm-touchpad
-VERSION=5.1.96
-BUILD=1
+PRGNAM=NetworkManager-pptp
+VERSION=${VERSION:-1.0.0}
+BUILD=${BUILD:-1}
 TAG=${TAG:-_wls}
 NUMJOBS=${NUMJOBS:--j7}
 
@@ -41,7 +41,7 @@ CWD=$(pwd)
 WRK=${WRK:-/tmp/wlsbuild}
 PKG=$WRK/package-$PRGNAM
 OUTPUT=${OUTPUT:-/tmp}
-DOCS="COPY* README*"
+DOCS="AUTHORS ChangeLog COPY* NEWS* README*"
 
 if [ "$ARCH" = "i486" ]; then
   SLKCFLAGS="-O2 -pipe -march=i486 -mtune=i686"
@@ -62,9 +62,9 @@ set -e
 rm -rf $PKG
 mkdir -p $WRK $PKG $OUTPUT
 cd $WRK
-rm -rf $PRGNAM
+rm -rf $PRGNAM-$VERSION
 tar xvf $CWD/$PRGNAM-$VERSION.tar.?z*
-cd $PRGNAM
+cd $PRGNAM-$VERSION
 
 chown -R root:root .
 find . \
@@ -73,30 +73,26 @@ find . \
  \( -perm 666 -o -perm 664 -o -perm 600 -o -perm 444 -o -perm 440 -o -perm 400 \) \
  -exec chmod 644 {} \;
 
-mkdir build
-cd build
-  cmake \
-    -DKDE_PLATFORM_FEATURE_DISABLE_DEPRECATED=TRUE \
-    -DCMAKE_C_FLAGS:STRING="$SLKCFLAGS" \
-    -DCMAKE_C_FLAGS_RELEASE:STRING="$SLKCFLAGS" \
-    -DCMAKE_CXX_FLAGS:STRING="$SLKCFLAGS" \
-    -DCMAKE_CXX_FLAGS_RELEASE:STRING="$SLKCFLAGS" \
-    -DCMAKE_BUILD_TYPE=Release \
-    -DCMAKE_INSTALL_PREFIX=/usr \
-    -DMAN_INSTALL_DIR=/usr/man \
-    -DSYSCONF_INSTALL_DIR=/etc/kde \
-    ..
+CFLAGS="$SLKCFLAGS" \
+CXXFLAGS="$SLKCFLAGS" \
+./configure \
+  --program-prefix= --program-suffix= \
+  --prefix=/usr --exec-prefix=/usr \
+  --bindir=/usr/bin --sbindir=/usr/sbin \
+  --libdir=/usr/lib$LIBDIRSUFFIX --includedir=/usr/include \
+  --mandir=/usr/man --infodir=/usr/info \
+  --sysconfdir=/etc --docdir=/usr/doc/$PRGNAM-$VERSION \
+  --localstatedir=/var --sharedstatedir=/var/lib \
+  --build=$ARCH-slackware-linux
 
-  make
-  make install DESTDIR=$PKG
-cd -
+make $NUMJOBS
+make DESTDIR=$PKG install
 
 find $PKG | xargs file | grep -e "executable" -e "shared object" | grep ELF \
   | cut -f 1 -d : | xargs strip --strip-unneeded 2> /dev/null || true
 
 mkdir -p $PKG/usr/doc/$PRGNAM-$VERSION
 cp -a $DOCS $PKG/usr/doc/$PRGNAM-$VERSION
-chmod 644 $PKG/usr/doc/$PRGNAM-$VERSION/*
 cat $CWD/$PRGNAM.SlackBuild > $PKG/usr/doc/$PRGNAM-$VERSION/$PRGNAM.SlackBuild
 
 mkdir -p $PKG/install
@@ -106,4 +102,4 @@ cd $PKG
 /sbin/makepkg -p -l y -c n $OUTPUT/$PRGNAM-$VERSION-$ARCH-$BUILD$TAG.txz
 
 echo "Cleaning up build directory"
-cd $WRK; rm -rf $PRGNAM $PKG
+cd $WRK; rm -rf $PRGNAM-$VERSION $PKG

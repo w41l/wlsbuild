@@ -1,4 +1,4 @@
 URL=http://quiterss.org/
-SRC=http://quiterss.org/files/0.14.1/QuiteRSS-0.14.1-src.tar.bz2
-MD5=89c02defb7b935e057521bc5e68fd140
-SHA1=e06a90d92a0dde8c07432b05b6a11a9dddf817d6
+SRC=https://codeload.github.com/QuiteRSS/quiterss/tar.gz/0.17.7
+MD5=d53e048e5cd6ee6a3075677a26a5dcbc
+SHA1=892c56089183edd45fe907cae6762b1533892a3f

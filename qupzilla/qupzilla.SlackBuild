@@ -24,7 +24,7 @@
 # YOUR DATA IS DESTROYED, YOUR HOUSE BURNS DOWN OR YOUR DOG RUNS OFF.
 
 PRGNAM=qupzilla
-VERSION=${VERSION:-20150417_395a5f6}
+VERSION=${VERSION:-1.8.6}
 BUILD=${BUILD:-1}
 TAG=${TAG:-_wls}
 NUMJOBS=${NUMJOBS:--j7}
@@ -59,6 +59,18 @@ fi
 
 set -e
 
+# Use Qt4 or Qt5
+USE_QT=${USE_QT:--QT5}
+if [ "$USE_QT" = "QT5" ]; then
+    QMAKE="qmake-qt5"
+    echo "This build is using $QMAKE from $USE_QT"
+    echo "To use qmake from Qt4 press CTRL^C now and pass environment variable"
+    echo "USE_QT=\"QT4\" ./qupzilla.SlackBuild"
+    sleep 5
+elif [ "$USE_QT" = "QT4" ]; then
+    QMAKE="qmake"
+fi
+
 rm -rf $PKG
 mkdir -p $WRK $PKG $OUTPUT
 cd $WRK
@@ -75,17 +87,17 @@ else
     echo "Patch for $PRGNAM is not available"
 fi
 
-# Use QT4
-#QMAKE="qmake"
-# Use QT5
-QMAKE="qmake-qt5"
-
 chown -R root:root .
 find . \
  \( -perm 777 -o -perm 775 -o -perm 711 -o -perm 555 -o -perm 511 \) \
  -exec chmod 755 {} \; -o \
  \( -perm 666 -o -perm 664 -o -perm 600 -o -perm 444 -o -perm 440 -o -perm 400 \) \
  -exec chmod 644 {} \;
+
+export USE_WEBGL=true \
+       QUPZILLA_PREFIX=/usr/ \
+       KDE_INTEGRATION=true \
+       GNOME_INTEGRATION=true
 
 mkdir -p $PKG/usr
 $QMAKE \

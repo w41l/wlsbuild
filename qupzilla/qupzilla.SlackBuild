@@ -62,13 +62,13 @@ set -e
 # Use Qt4 or Qt5
 USE_QT=${USE_QT:--QT5}
 if [ "$USE_QT" = "QT5" ]; then
-    QMAKE="qmake-qt5"
+    export QMAKE="qmake-qt5"
     echo "This build is using $QMAKE from $USE_QT"
     echo "To use qmake from Qt4 press CTRL^C now and pass environment variable"
     echo "USE_QT=\"QT4\" ./qupzilla.SlackBuild"
     sleep 5
 elif [ "$USE_QT" = "QT4" ]; then
-    QMAKE="qmake"
+    export QMAKE="qmake"
 fi
 
 rm -rf $PKG
@@ -94,10 +94,10 @@ find . \
  \( -perm 666 -o -perm 664 -o -perm 600 -o -perm 444 -o -perm 440 -o -perm 400 \) \
  -exec chmod 644 {} \;
 
-export USE_WEBGL=true \
-       QUPZILLA_PREFIX=/usr/ \
-       KDE_INTEGRATION=true \
-       GNOME_INTEGRATION=true
+export USE_WEBGL=true
+export QUPZILLA_PREFIX=/usr/
+export KDE_INTEGRATION=true
+export GNOME_INTEGRATION=true
 
 mkdir -p $PKG/usr
 $QMAKE \

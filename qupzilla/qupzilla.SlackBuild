@@ -101,17 +101,14 @@ export GNOME_INTEGRATION=true
 
 mkdir -p $PKG/usr
 $QMAKE \
-  PREFIX=/usr \
   USE_LIBPATH=/usr/lib$LIBDIRSUFFIX \
   QMAKE_LIBDIR=/usr/lib$LIBDIRSUFFIX
 
 make $NUMJOBS \
-  PREFIX=/usr \
   USE_LIBPATH=/usr/lib$LIBDIRSUFFIX \
   QMAKE_LIBDIR=/usr/lib$LIBDIRSUFFIX
 
 make \
-  PREFIX=/usr \
   USE_LIBPATH=/usr/lib$LIBDIRSUFFIX \
   QMAKE_LIBDIR=/usr/lib$LIBDIRSUFFIX \
   INSTALL_ROOT=$PKG \

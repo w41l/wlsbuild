@@ -60,7 +60,7 @@ fi
 set -e
 
 # Use Qt4 or Qt5
-USE_QT=${USE_QT:--QT5}
+USE_QT=${USE_QT:-"QT5"}
 if [ "$USE_QT" = "QT5" ]; then
     export QMAKE="qmake-qt5"
     echo "This build is using $QMAKE from $USE_QT"
@@ -101,18 +101,20 @@ export GNOME_INTEGRATION=true
 
 mkdir -p $PKG/usr
 $QMAKE \
-  USE_LIBPATH=/usr/lib$LIBDIRSUFFIX \
-  QMAKE_LIBDIR=/usr/lib$LIBDIRSUFFIX
+    PREFIX=/usr \
+    USE_LIBPATH=/usr/lib$LIBDIRSUFFIX \
+    QMAKE_LIBDIR=/usr/lib$LIBDIRSUFFIX
 
 make $NUMJOBS \
-  USE_LIBPATH=/usr/lib$LIBDIRSUFFIX \
-  QMAKE_LIBDIR=/usr/lib$LIBDIRSUFFIX
+    PREFIX=/usr \
+    USE_LIBPATH=/usr/lib$LIBDIRSUFFIX \
+    QMAKE_LIBDIR=/usr/lib$LIBDIRSUFFIX
 
 make \
-  USE_LIBPATH=/usr/lib$LIBDIRSUFFIX \
-  QMAKE_LIBDIR=/usr/lib$LIBDIRSUFFIX \
-  INSTALL_ROOT=$PKG \
-  install
+    USE_LIBPATH=/usr/lib$LIBDIRSUFFIX \
+    QMAKE_LIBDIR=/usr/lib$LIBDIRSUFFIX \
+    INSTALL_ROOT=$PKG \
+    install
 
 find $PKG | xargs file | grep -e "executable" -e "shared object" | grep ELF \
   | cut -f 1 -d : | xargs strip --strip-unneeded 2> /dev/null || true

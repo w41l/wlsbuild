@@ -1,8 +1,8 @@
 #!/bin/sh
 
-# Slackware build script for sddm
+# Slackware build script for sddm-qt5
 
-# Copyright 2013-2014  Widya Walesa <walecha99@gmail.com>
+# Copyright 2013-2015  Widya Walesa <walecha99@gmail.com>
 # All rights reserved.
 #
 # Redistribution and use of this script, with or without modification, is
@@ -23,9 +23,9 @@
 # ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. FURTHERMORE I AM NOT LIABLE IF
 # YOUR DATA IS DESTROYED, YOUR HOUSE BURNS DOWN OR YOUR DOG RUNS OFF.
 
-PRGNAM=sddm
-VERSION=0.10.0
-BUILD=1
+PRGNAM=sddm-qt5
+VERSION=${VERSION:-0.11.0}
+BUILD=${BUILD:-1}
 TAG=${TAG:-_wls}
 NUMJOBS=${NUMJOBS:--j1}
 
@@ -59,6 +59,17 @@ fi
 
 set -e
 
+# Check user and group for sddm
+if ! grep -q "sddm" /etc/group >/dev/null; then
+  echo "Please add group 'sddm': /usr/sbin/groupadd -g 64 sddm"
+  exit 1
+fi
+
+if ! grep -q "sddm" /etc/passwd >/dev/null; then
+  echo "Please add user 'sddm': /usr/sbin/useradd -u 64 -g 64 -d /var/lib/sddm -m -s /bin/false -c \"SDDM Daemon Owner\" sddm"
+  exit 1
+fi
+
 # Check if PAM exists. We don't need it! So removing it first!
 if [ -f /usr/include/security/pam_ext.h ]; then
   echo "+====================================================+"
@@ -77,9 +88,9 @@ fi
 rm -rf $PKG
 mkdir -p $WRK $PKG $OUTPUT
 cd $WRK
-rm -rf $PRGNAM-$VERSION
-tar xvf $CWD/$PRGNAM-$VERSION.tar.?z*
-cd $PRGNAM-$VERSION
+rm -rf sddm-$VERSION
+tar xvf $CWD/sddm-$VERSION.tar.?z*
+cd sddm-$VERSION
 chown -R root:root .
 find . \
  \( -perm 777 -o -perm 775 -o -perm 711 -o -perm 555 -o -perm 511 \) \
@@ -89,23 +100,25 @@ find . \
 
 mkdir build
 cd build
-#  cmake .. \
-#    -DCMAKE_C_FLAGS:STRING="$SLKCFLAGS" \
-#    -DCMAKE_CXX_FLAGS:STRING="$SLKCFLAGS" \
-  cmake .. \
-    -DCMAKE_BUILD_TYPE=Debug \
-    -DCMAKE_INSTALL_PREFIX:PATH=/usr \
-    -DLIB_SUFFIX=${LIBDIRSUFFIX}
+ cmake .. \
+  -DCMAKE_BUILD_TYPE=Release \
+  -DCMAKE_INSTALL_PREFIX:PATH=/usr \
+  -DCMAKE_C_FLAGS:STRING="$SLKCFLAGS" \
+  -DCMAKE_CXX_FLAGS:STRING="$SLKCFLAGS" \
+  -DLIB_SUFFIX=${LIBDIRSUFFIX}
 
-  make VERBOSE=1
+  make VERBOSE=1 $NUMJOBS
   make install DESTDIR=$PKG
 cd -
+
+# Remove /etc/pam.d
+rm -rf $PKG/etc/pam.d
 
 # Add default xsessions directory
 mkdir -p $PKG/usr/share/xsessions
 
-#find $PKG | xargs file | grep -e "executable" -e "shared object" | grep ELF \
-#  | cut -f 1 -d : | xargs strip --strip-unneeded 2> /dev/null || true
+find $PKG | xargs file | grep -e "executable" -e "shared object" | grep ELF \
+ | cut -f 1 -d : | xargs strip --strip-unneeded 2> /dev/null || true
 
 mkdir -p $PKG/usr/doc/$PRGNAM-$VERSION
 cp -a $DOCS $PKG/usr/doc/$PRGNAM-$VERSION
@@ -118,4 +131,4 @@ cd $PKG
 /sbin/makepkg -p -l y -c n $OUTPUT/$PRGNAM-$VERSION-$ARCH-$BUILD$TAG.txz
 
 echo "Cleaning up build directory"
-cd $WRK ; rm -rf $PKG $PRGNAM-$VERSION
+cd $WRK ; rm -rf $PKG sddm-$VERSION

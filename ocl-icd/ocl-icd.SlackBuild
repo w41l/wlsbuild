@@ -24,10 +24,10 @@
 # YOUR DATA IS DESTROYED, YOUR HOUSE BURNS DOWN OR YOUR DOG RUNS OFF.
 
 PRGNAM=ocl-icd
-VERSION=2.2.3
+VERSION=2.2.7
 BUILD=1
 TAG="_wls"
-NUMJOBS="-j2"
+NUMJOBS="-j7"
 
 if [ -z "$ARCH" ]; then
   case "$( uname -m )" in
@@ -81,9 +81,10 @@ CXXFLAGS="$SLKCFLAGS" \
   --libdir=/usr/lib$LIBDIRSUFFIX --includedir=/usr/include \
   --mandir=/usr/man --infodir=/usr/info \
   --sysconfdir=/etc --docdir=/usr/doc/$PRGNAM-$VERSION \
-  --localstatedir=/var --sharedstatedir=/var/lib
+  --localstatedir=/var --sharedstatedir=/var/lib \
+  --build=$ARCH-slackware-linux
 
-make
+make $NUMJOBS
 make DESTDIR=$PKG install
 
 find $PKG | xargs file | grep -e "executable" -e "shared object" | grep ELF \

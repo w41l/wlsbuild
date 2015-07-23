@@ -1,5 +1,5 @@
 URL=http://www.winehq.org/
-SRC_WINE=http://downloads.sourceforge.net/project/wine/Source/wine-1.7.39.tar.bz2
-SRC_STAGING=https://github.com/wine-compholio/wine-staging/archive/v1.7.39.tar.gz
-WINE_SHA1=eb94b2160dbf3bea8364de34225f85efea594044
-STAGING_SHA1=db9d03ee2d96dfd3fae1fd0084f8523c27017c0c
+SRC_WINE=http://downloads.sourceforge.net/project/wine/Source/wine-1.7.47.tar.bz2
+SRC_STAGING=https://github.com/wine-compholio/wine-staging/archive/v1.7.47.tar.gz
+WINE_SHA1=08cbca1ac32e7250e9e9512ac9cbacecb54a2ff4
+STAGING_SHA1=e2b2c4b69f65eae0b24cd868b94d5d20a348eb6f

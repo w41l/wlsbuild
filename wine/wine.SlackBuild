@@ -24,11 +24,12 @@
 # YOUR DATA IS DESTROYED, YOUR HOUSE BURNS DOWN OR YOUR DOG RUNS OFF.
 
 PRGNAM=wine
-VERSION=${VERSION:-1.7.41}
+VERSION=${VERSION:-1.7.47}
 BUILD=${BUILD:-1}
 TAG=${TAG:-_wls}
 NUMJOBS=${NUMJOBS:--j7}
 STAGING=${STAGING:-1}
+D3D9=${D3D9:-1}
 
 if [ -z "$ARCH" ]; then
   case "$( uname -m )" in
@@ -43,7 +44,6 @@ WRK=${WRK:-/usr/src/wlsbuild}
 PKG=$WRK/package-$PRGNAM
 OUTPUT=${OUTPUT:-/tmp}
 DOCS="ANNOUNCE AUTHORS COPYING.LIB LICENSE* README VERSION"
-# ENABLE_NINE="--with-d3dadapter"
 
 if [ "$ARCH" = "i486" ]; then
   SLKCFLAGS="-O2 -pipe -march=i486 -mtune=i686"
@@ -79,6 +79,12 @@ if [ "$STAGING" = "1" ]; then
   tar xf $CWD/$PRGNAM-staging-$VERSION.tar.?z*
 fi
 cd $PRGNAM-$VERSION
+
+if [ "$D3D9" = "1" ]; then
+  echo "Building wine d3d9"
+  cat $CWD/wine-d3d9.patch | patch -p1
+  ENABLE_NINE="--with-d3dadapter"
+fi
 
 cat $CWD/wine-cjk.patch | patch -p1 || exit 1
 

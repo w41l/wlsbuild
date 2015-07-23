@@ -13,3 +13,5 @@ speex
 usbmuxd
 x264
 xvidcore
+chromaprint
+cryptopp

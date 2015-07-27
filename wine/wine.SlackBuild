@@ -29,7 +29,7 @@ BUILD=${BUILD:-1}
 TAG=${TAG:-_wls}
 NUMJOBS=${NUMJOBS:--j7}
 STAGING=${STAGING:-1}
-D3D9=${D3D9:-1}
+D3D9=${D3D9:-0}
 
 if [ -z "$ARCH" ]; then
   case "$( uname -m )" in

@@ -1,0 +1,12 @@
+                |-----handy-ruler------------------------------------------------------|
+xf86-video-intel: xf86-video-intel (X.org graphics driver for Intel graphics)
+xf86-video-intel:
+xf86-video-intel: xf86-video-intel is part of X11.
+xf86-video-intel:
+xf86-video-intel: For more information about the X.Org Foundation (the providers of the
+xf86-video-intel: X.Org implementation of the X Window System), see their website:
+xf86-video-intel:
+xf86-video-intel: http://www.x.org
+xf86-video-intel:
+xf86-video-intel:
+xf86-video-intel: Packaged by: Widya Walesa <walecha99@gmail.com>

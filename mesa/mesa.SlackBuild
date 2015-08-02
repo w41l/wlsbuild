@@ -26,6 +26,7 @@
 PRGNAM=mesa
 VERSION=10.5.4
 SRCVERSION=$(echo "$VERSION" | sed 's/_/-/g')
+DEMOVERS=8.2.0
 BUILD=${BUILD:-1}
 TAG=${TAG:-_wls}
 NUMJOBS=${NUMJOBS:--j7}
@@ -33,8 +34,8 @@ NUMJOBS=${NUMJOBS:--j7}
 # Be sure this list is up-to-date:
 if [ ! "$WAYLAND" = "yes" ]; then
   EGL_PLATFORMS="x11,drm"
-  echo 'To build wayland support, use: WAYLAND="yes" ./mesa.SlackBuild'
-  sleep 5
+  echo 'To build wayland support, press CTRL^C and use: WAYLAND="yes" ./mesa.SlackBuild'
+  sleep 10
 else
   EGL_PLATFORMS="x11,wayland,drm"
 fi
@@ -80,6 +81,10 @@ rm -rf $PRGNAM-$VERSION
 echo "extracting $PRGNAM-$VERSION"
 tar xf $CWD/$PRGNAM-$VERSION.tar.?z* || exit 1
 cd $PRGNAM-$VERSION
+
+# Don't worry if Mako is not present:
+#sed -i "s,AX_CHECK_PYTHON_MAKO_MODULE(\$PYTHON_MAKO_REQUIRED),,g" configure.ac
+zcat $CWD/mesa.no.mako.diff.gz | patch -p1 --verbose || exit 1
 
 cat $CWD/clover_workaround_clang_function_argument_deduction.patch | patch -p1
 cat $CWD/02-clover_workaround_clang_invocation.patch | patch -p1
@@ -136,6 +141,34 @@ CXXFLAGS="$SLKCFLAGS -DUSE_EXTERNAL_DXTN_LIB=1" \
 make $NUMJOBS || exit 1
 make install DESTDIR=$PKG || exit 1
 
+# Now install the demos
+( cd $WRK
+  rm -rf mesa-demos-$DEMOVERS
+  tar xvf $CWD/mesa-demos-$DEMOVERS.tar.?z* || exit 1
+  cd mesa-demos-$DEMOVERS
+  chown -R root:root .
+  find . \
+    \( -perm 777 -o -perm 775 -o -perm 711 -o -perm 555 -o -perm 511 \) \
+    -exec chmod 755 {} \; -o \
+    \( -perm 666 -o -perm 664 -o -perm 600 -o -perm 444 -o -perm 440 -o -perm 400 \) \
+    -exec chmod 644 {} \;
+  CFLAGS="$SLKCFLAGS" \
+  ./configure \
+    --prefix=/usr \
+    --build=$ARCH-slackware-linux
+  # Build and install gears and glinfo, as well as a few other demos
+  make -C src/demos gears glinfo
+  make -C src/xdemos \
+    glthreads glxcontexts glxdemo glxgears glxgears_fbconfig \
+    glxheads glxinfo glxpbdemo glxpixmap
+  mkdir -p $PKG/usr/bin
+  cp -a src/demos/{gears,glinfo} $PKG/usr/bin
+  for i in glthreads glxcontexts glxdemo glxgears glxgears_fbconfig \
+      glxheads glxinfo glxpbdemo glxpixmap ; do
+        cp -a src/xdemos/$i $PKG/usr/bin ;
+  done
+)
+
 mv $PKG/usr/share/man $PKG/usr/
 mv $PKG/etc/drirc $PKG/etc/drirc.new
 
@@ -165,4 +198,4 @@ cd $PKG
 /sbin/makepkg -p -l y -c n $OUTPUT/$PRGNAM-$VERSION-$ARCH-$BUILD$TAG.txz
 
 echo "Cleaning up build directory"
-cd $WRK; rm -rf $PRGNAM-$VERSION $PKG
+cd $WRK; rm -rf $PRGNAM-$VERSION mesa-demos-$DEMOVERS $PKG

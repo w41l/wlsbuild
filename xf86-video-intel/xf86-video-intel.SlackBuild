@@ -1,8 +1,8 @@
 #!/bin/sh
 
-# Slackware build script for bogofilter
+# Slackware build script for xf86-video-intel
 
-# Copyright 2010-2013  Widya Walesa <walecha99@gmail.com>
+# Copyright 2015  Widya Walesa <walecha99@gmail.com>
 # All rights reserved.
 #
 # Redistribution and use of this script, with or without modification, is
@@ -23,11 +23,11 @@
 # ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. FURTHERMORE I AM NOT LIABLE IF
 # YOUR DATA IS DESTROYED, YOUR HOUSE BURNS DOWN OR YOUR DOG RUNS OFF.
 
-PRGNAM=bogofilter
-VERSION=${VERSION:-1.2.4}
+PRGNAM=xf86-video-intel
+VERSION=${VERSION:-2.99.917}
 BUILD=${BUILD:-1}
 TAG=${TAG:-_wls}
-NUMJOBS=${NUMJOBS:--j2}
+NUMJOBS=${NUMJOBS:--j7}
 
 if [ -z "$ARCH" ]; then
   case "$( uname -m )" in
@@ -41,7 +41,7 @@ CWD=$(pwd)
 WRK=${WRK:-/tmp/wlsbuild}
 PKG=$WRK/package-$PRGNAM
 OUTPUT=${OUTPUT:-/tmp}
-DOCS="AUTHORS COPY* GETTING.STARTED INSTALL NEWS* README* RELEASE.NOTES TODO"
+DOCS="AUTHORS COPY* ChangeLog INSTALL NEWS* README*"
 
 if [ "$ARCH" = "i486" ]; then
   SLKCFLAGS="-O2 -pipe -march=i486 -mtune=i686"
@@ -63,7 +63,8 @@ rm -rf $PKG
 mkdir -p $WRK $PKG $OUTPUT
 cd $WRK
 rm -rf $PRGNAM-$VERSION
-tar xvf $CWD/$PRGNAM-$VERSION.tar.bz2
+tar xvf $CWD/$PRGNAM-$VERSION.tar.?z*
+
 cd $PRGNAM-$VERSION
 chown -R root:root .
 find . \
@@ -82,12 +83,11 @@ CXXFLAGS="$SLKCFLAGS" \
   --mandir=/usr/man --infodir=/usr/info \
   --sysconfdir=/etc --docdir=/usr/doc/$PRGNAM-$VERSION \
   --localstatedir=/var --sharedstatedir=/var/lib \
-  --build=$ARCH-slackware-linux
+  --build=$ARCH-slackware-linux \
+  --enable-dri3
 
 make $NUMJOBS
 make DESTDIR=$PKG install
-
-cp $PKG/etc/bogofilter.cf.example $PKG/etc/bogofilter.cf.new
 
 find $PKG | xargs file | grep -e "executable" -e "shared object" | grep ELF \
   | cut -f 1 -d : | xargs strip --strip-unneeded 2> /dev/null || true
@@ -102,7 +102,6 @@ cat $CWD/$PRGNAM.SlackBuild > $PKG/usr/doc/$PRGNAM-$VERSION/$PRGNAM.SlackBuild
 mkdir -p $PKG/install
 cat $CWD/slack-desc > $PKG/install/slack-desc
 cat $CWD/slack-required > $PKG/install/slack-required
-cat $CWD/doinst.sh > $PKG/install/doinst.sh
 
 cd $PKG
 /sbin/makepkg -p -l y -c n $OUTPUT/$PRGNAM-$VERSION-$ARCH-$BUILD$TAG.txz

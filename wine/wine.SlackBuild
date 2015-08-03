@@ -24,7 +24,7 @@
 # YOUR DATA IS DESTROYED, YOUR HOUSE BURNS DOWN OR YOUR DOG RUNS OFF.
 
 PRGNAM=wine
-VERSION=${VERSION:-1.7.47}
+VERSION=${VERSION:-1.7.48}
 BUILD=${BUILD:-1}
 TAG=${TAG:-_wls}
 NUMJOBS=${NUMJOBS:--j7}
@@ -79,15 +79,6 @@ if [ "$STAGING" = "1" ]; then
   tar xf $CWD/$PRGNAM-staging-$VERSION.tar.?z*
 fi
 cd $PRGNAM-$VERSION
-
-if [ "$D3D9" = "1" ]; then
-  echo "Building wine d3d9"
-  cat $CWD/wine-d3d9.patch | patch -p1
-  ENABLE_NINE="--with-d3dadapter"
-fi
-
-cat $CWD/wine-cjk.patch | patch -p1 || exit 1
-
 chown -R root:root .
 find . \
  \( -perm 777 -o -perm 775 -o -perm 711 -o -perm 555 -o -perm 511 \) \
@@ -100,6 +91,14 @@ if [ "$STAGING" = "1" ]; then
   make -C patches DESTDIR=$WRK/$PRGNAM-$VERSION install
   sed -i -e 's!^loader server: libs/port libs/wine tools.*!& include!' Makefile.in
 fi
+
+if [ "$D3D9" = "1" ]; then
+  echo "Building wine d3d9"
+  cat $CWD/wine-d3d9-$VERSION.patch | patch -p1
+  ENABLE_NINE="--with-d3dadapter"
+fi
+
+cat $CWD/wine-cjk.patch | patch -p1 || exit 1
 
 autoreconf -ivsf
 
@@ -125,12 +124,13 @@ CXXFLAGS="$SLKCFLAGS -DHAVE_ATTR_XATTR_H=1" \
   --with-x \
   --with-opengl \
   --with-xattr \
+  --without-gstreamer \
   ${ENABLE_NINE} \
   ${ENABLE_64} \
   || exit 1
 
 make depend || exit 1
-make $NUMJOBS || exit 1
+make || exit 1
 make install DESTDIR=$PKG || exit 1
 
 if [ "$ARCH" = "x86_64" ]; then
@@ -140,7 +140,7 @@ if [ "$ARCH" = "x86_64" ]; then
    cd $WRK/$PRGNAM-wow64
 
   # Set 32-bit pkgconfig path as needed by gstreamer
-  PKG_CONFIG_PATH=/usr/lib/pkgconfig
+  export PKG_CONFIG_PATH=/usr/lib/pkgconfig
 
   CPPFLAGS="${CPPFLAGS/-D_FORTIFY_SOURCE=2/} -D_FORTIFY_SOURCE=0" \
   CFLAGS="$SLKCFLAGS -DHAVE_ATTR_XATTR_H=1" \
@@ -160,12 +160,14 @@ if [ "$ARCH" = "x86_64" ]; then
     --with-x \
     --with-opengl \
     --with-xattr \
+    --without-gstreamer \
     ${ENABLE_NINE} \
     || exit 1
 
   make depend || exit 1
-  make $NUMJOBS || exit 1
+  make CFLAGS+="-march=native -pipe -mstackrealign -mincoming-stack-boundary=2" CXXFLAGS+="-mstackrealign -mincoming-stack-boundary=2" || exit 1
   make install DESTDIR=$PKG || exit 1
+  unset PKG_CONFIG_PATH
 fi
 
 cd $WRK/$PRGNAM-$VERSION

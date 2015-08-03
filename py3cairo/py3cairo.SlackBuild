@@ -2,7 +2,7 @@
 
 # Slackware build script for py3cairo
 
-# Copyright 2013  Widya Walesa <walecha99@gmail.com>
+# Copyright 2013-2015  Widya Walesa <walecha99@gmail.com>
 # All rights reserved.
 #
 # Redistribution and use of this script, with or without modification, is
@@ -25,9 +25,10 @@
 
 PRGNAM=py3cairo
 VERSION=1.10.0
+PYVER="3.4"
 BUILD=1
 TAG=${TAG:-_wls}
-NUMJOBS=${NUMJOBS:--j2}
+NUMJOBS=${NUMJOBS:--j7}
 
 if [ -z "$ARCH" ]; then
   case "$( uname -m )" in
@@ -73,10 +74,11 @@ find . \
  \( -perm 666 -o -perm 664 -o -perm 600 -o -perm 444 -o -perm 440 -o -perm 400 \) \
  -exec chmod 644 {} \;
 
-PYTHON=python3 \
+PYTHON=/usr/bin/python3 \
+PYTHON_CONFIG=/usr/lib${LIBDIRSUFFIX}/python${PYVER}/config-${PYVER}m/python-config.py \
 CFLAGS="$SLKCFLAGS" \
 CXXFLAGS="$SLKCFLAGS" \
-python3 ./waf configure \
+./waf configure \
   --prefix=/usr --exec-prefix=/usr \
   --bindir=/usr/bin --sbindir=/usr/sbin \
   --libdir=/usr/lib$LIBDIRSUFFIX --includedir=/usr/include \
@@ -84,8 +86,8 @@ python3 ./waf configure \
   --sysconfdir=/etc --docdir=/usr/doc/$PRGNAM-$VERSION \
   --localstatedir=/var --sharedstatedir=/var/lib \
 
-python3 ./waf build
-python3 ./waf install --destdir=$PKG
+./waf build
+./waf install --destdir=$PKG
 
 find $PKG | xargs file | grep -e "executable" -e "shared object" | grep ELF \
   | cut -f 1 -d : | xargs strip --strip-unneeded 2> /dev/null || true

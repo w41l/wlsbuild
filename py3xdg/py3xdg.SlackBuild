@@ -1,6 +1,6 @@
 #!/bin/sh
 
-# Slackware build script for pycurl
+# Slackware build script for py3xdg
 
 # Copyright 2015  Widya Walesa <walecha99@gmail.com>
 # All rights reserved.
@@ -27,7 +27,7 @@ PRGNAM=py3xdg
 VERSION=0.25
 BUILD=${BUILD:-1}
 TAG=${TAG:-_wls}
-NUMJOBS=${NUMJOBS:--j4}
+NUMJOBS=${NUMJOBS:--j7}
 
 if [ -z "$ARCH" ]; then
   case "$( uname -m )" in
@@ -73,6 +73,7 @@ find . \
  \( -perm 666 -o -perm 664 -o -perm 600 -o -perm 444 -o -perm 440 -o -perm 400 \) \
  -exec chmod 644 {} \;
 
+PYTHON=/usr/bin/python3 \
 CFLAGS="$SLKCFLAGS" \
 CXXFLAGS="$SLKCFLAGS" \
 python3 setup.py build

@@ -22,7 +22,7 @@
 #  ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 PKGNAM=libdrm
-VERSION=${VERSION:-2.4.58}
+VERSION=${VERSION:-2.4.60}
 BUILD=${BUILD:-1_wls}
 
 # Automatically determine architecture for build & packaging:
@@ -80,8 +80,6 @@ CFLAGS="$SLKCFLAGS" \
   --libdir=/usr/lib${LIBDIRSUFFIX} \
   --mandir=/usr/man \
   --enable-udev \
-  --enable-omap-experimental-api \
-  --enable-exynos-experimental-api \
   --build=$ARCH-slackware-linux \
 
 # Build and install:

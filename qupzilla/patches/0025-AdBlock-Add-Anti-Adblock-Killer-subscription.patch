@@ -1,0 +1,24 @@
+From 1ca001ec0598a63e4de4baaf3e650d194b52deea Mon Sep 17 00:00:00 2001
+From: Peter Dave Hello <hsu@peterdavehello.org>
+Date: Sat, 11 Jul 2015 21:25:33 +0800
+Subject: [PATCH 25/36] [AdBlock] Add "Anti-Adblock Killer" subscription
+
+---
+ src/lib/adblock/adblockaddsubscriptiondialog.cpp | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/src/lib/adblock/adblockaddsubscriptiondialog.cpp b/src/lib/adblock/adblockaddsubscriptiondialog.cpp
+index b6effae..fc68237 100644
+--- a/src/lib/adblock/adblockaddsubscriptiondialog.cpp
++++ b/src/lib/adblock/adblockaddsubscriptiondialog.cpp
+@@ -43,6 +43,7 @@ AdBlockAddSubscriptionDialog::AdBlockAddSubscriptionDialog(QWidget* parent)
+                          << Subscription("RU Adlist (Russian)", "https://ruadlist.googlecode.com/hg/advblock.txt")
+                          << Subscription("ABPindo (Indonesian)", "https://indonesianadblockrules.googlecode.com/hg/subscriptions/abpindo.txt")
+                          << Subscription("Easylist China (Chinese)", "https://easylist-downloads.adblockplus.org/easylistchina.txt")
++                         << Subscription("Anti-Adblock Killer", "https://raw.githubusercontent.com/reek/anti-adblock-killer/master/anti-adblock-killer-filters.txt")
+                          << Subscription(tr("Other..."), QString());
+ 
+     foreach (const Subscription &subscription, m_knownSubscriptions) {
+-- 
+2.5.1
+

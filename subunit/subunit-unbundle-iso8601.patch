@@ -1,0 +1,145 @@
+--- ./COPYING.orig	2012-05-02 03:41:14.000000000 -0600
++++ ./COPYING	2014-02-13 20:00:00.000000000 -0700
+@@ -29,8 +29,6 @@ Code that has been incorporated into Sub
+ naturally be under its own license, and will retain that license.
+ 
+ A known list of such code is maintained here:
+-* The python/iso8601 module by Michael Twomey, distributed under an MIT style
+-  licence - see python/iso8601/LICENSE for details.
+ * The runtests.py and python/subunit/tests/TestUtil.py module are GPL test
+   support modules. There are not installed by Subunit - they are only ever
+   used on the build machine.  Copyright 2004 Canonical Limited.
+--- ./Makefile.in.orig	2014-01-29 12:16:23.000000000 -0700
++++ ./Makefile.in	2014-02-13 20:00:00.000000000 -0700
+@@ -303,11 +303,6 @@ EXTRA_DIST = \
+ 	perl/lib/Subunit.pm \
+ 	perl/lib/Subunit/Diff.pm \
+ 	perl/subunit-diff \
+-	python/iso8601/LICENSE \
+-	python/iso8601/README \
+-	python/iso8601/README.subunit \
+-	python/iso8601/setup.py \
+-	python/iso8601/test_iso8601.py \
+ 	python/subunit/tests/__init__.py \
+ 	python/subunit/tests/sample-script.py \
+ 	python/subunit/tests/sample-two-script.py \
+@@ -359,7 +354,6 @@ pkgpython_PYTHON = \
+ 	python/subunit/chunked.py \
+ 	python/subunit/details.py \
+ 	python/subunit/filters.py \
+-	python/subunit/iso8601.py \
+ 	python/subunit/progress_model.py \
+ 	python/subunit/run.py \
+ 	python/subunit/v2.py \
+--- ./python/subunit/__init__.py.orig	2014-01-29 12:14:12.000000000 -0700
++++ ./python/subunit/__init__.py	2014-02-13 20:00:00.000000000 -0700
+@@ -138,7 +138,8 @@ except ImportError:
+         "_StringException, check your version.")
+ from testtools import testresult, CopyStreamResult
+ 
+-from subunit import chunked, details, iso8601, test_results
++from iso8601 import iso8601
++from subunit import chunked, details, test_results
+ from subunit.v2 import ByteStreamToStreamResult, StreamResultToBytes
+ 
+ # same format as sys.version_info: "A tuple containing the five components of
+--- ./python/subunit/_output.py.orig	2014-01-12 17:07:19.000000000 -0700
++++ ./python/subunit/_output.py	2014-02-13 20:00:00.000000000 -0700
+@@ -23,7 +23,7 @@ from optparse import (
+ import sys
+ 
+ from subunit import make_stream_binary
+-from subunit.iso8601 import UTC
++from iso8601.iso8601 import UTC
+ from subunit.v2 import StreamResultToBytes
+ 
+ 
+--- ./python/subunit/test_results.py.orig	2014-01-29 12:10:33.000000000 -0700
++++ ./python/subunit/test_results.py	2014-02-13 20:00:00.000000000 -0700
+@@ -26,7 +26,7 @@ from testtools.content import (
+     )
+ from testtools import StreamResult
+ 
+-from subunit import iso8601
++from iso8601 import iso8601
+ import subunit
+ 
+ 
+--- ./python/subunit/tests/test_output_filter.py.orig	2014-01-12 17:07:19.000000000 -0700
++++ ./python/subunit/tests/test_output_filter.py	2014-02-13 20:00:00.000000000 -0700
+@@ -34,7 +34,7 @@ from testtools.matchers import (
+ )
+ from testtools.testresult.doubles import StreamResult
+ 
+-from subunit.iso8601 import UTC
++from iso8601.iso8601 import UTC
+ from subunit.v2 import StreamResultToBytes, ByteStreamToStreamResult
+ from subunit._output import (
+     _ALL_ACTIONS,
+--- ./python/subunit/tests/test_subunit_filter.py.orig	2013-06-16 03:58:35.000000000 -0600
++++ ./python/subunit/tests/test_subunit_filter.py	2014-02-13 20:00:00.000000000 -0700
+@@ -20,7 +20,7 @@ from datetime import datetime
+ import os
+ import subprocess
+ import sys
+-from subunit import iso8601
++from iso8601 import iso8601
+ import unittest
+ 
+ from testtools import TestCase
+--- ./python/subunit/tests/test_test_protocol2.py.orig	2013-08-24 18:01:39.000000000 -0600
++++ ./python/subunit/tests/test_test_protocol2.py	2014-02-13 20:00:00.000000000 -0700
+@@ -23,7 +23,7 @@ from testtools.tests.test_testresult imp
+ from testtools.testresult.doubles import StreamResult
+ 
+ import subunit
+-import subunit.iso8601 as iso8601
++from iso8601 import iso8601
+ 
+ CONSTANT_ENUM = b'\xb3)\x01\x0c\x03foo\x08U_\x1b'
+ CONSTANT_INPROGRESS = b'\xb3)\x02\x0c\x03foo\x8e\xc1-\xb5'
+--- ./python/subunit/tests/test_test_protocol.py.orig	2013-11-23 15:54:11.000000000 -0700
++++ ./python/subunit/tests/test_test_protocol.py	2014-02-13 20:00:00.000000000 -0700
+@@ -42,7 +42,7 @@ from subunit.tests import (
+     _remote_exception_str,
+     _remote_exception_str_chunked,
+     )
+-import subunit.iso8601 as iso8601
++from iso8601 import iso8601
+ 
+ 
+ def details_to_str(details):
+--- ./python/subunit/tests/test_test_results.py.orig	2013-06-16 03:59:10.000000000 -0600
++++ ./python/subunit/tests/test_test_results.py	2014-02-13 20:00:00.000000000 -0700
+@@ -28,7 +28,7 @@ from testtools.content import (
+ from testtools.testresult.doubles import ExtendedTestResult
+ 
+ import subunit
+-import subunit.iso8601 as iso8601
++from iso8601 import iso8601
+ import subunit.test_results
+ 
+ import testtools
+--- ./python/subunit/v2.py.orig	2013-08-24 18:38:39.000000000 -0600
++++ ./python/subunit/v2.py	2014-02-13 20:00:00.000000000 -0700
+@@ -27,7 +27,7 @@ from extras import safe_hasattr, try_imp
+ builtins = try_imports(['__builtin__', 'builtins'])
+ 
+ import subunit
+-import subunit.iso8601 as iso8601
++from iso8601 import iso8601
+ 
+ __all__ = [
+     'ByteStreamToStreamResult',
+--- ./README.orig	2014-01-29 02:32:50.000000000 -0700
++++ ./README	2014-02-13 20:00:00.000000000 -0700
+@@ -15,9 +15,6 @@
+ 
+   See the COPYING file for full details on the licensing of Subunit.
+ 
+-  subunit reuses iso8601 by Michael Twomey, distributed under an MIT style
+-  licence - see python/iso8601/LICENSE for details.
+-
+ Subunit
+ -------
+ 

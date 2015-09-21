@@ -1,0 +1,27 @@
+From b2723e64a09eee6daa5c08f157bd0c54620432c6 Mon Sep 17 00:00:00 2001
+From: David Rosca <nowrep@gmail.com>
+Date: Sat, 5 Sep 2015 21:12:54 +0200
+Subject: [PATCH 35/36] SpeedDial: Fix saving settings without changing dials
+
+Closes #1689
+Closes #1680
+---
+ src/lib/plugins/speeddial.cpp | 2 ++
+ 1 file changed, 2 insertions(+)
+
+diff --git a/src/lib/plugins/speeddial.cpp b/src/lib/plugins/speeddial.cpp
+index 9dd9035..500b901 100644
+--- a/src/lib/plugins/speeddial.cpp
++++ b/src/lib/plugins/speeddial.cpp
+@@ -331,6 +331,8 @@ void SpeedDial::setSdSize(int count)
+ void SpeedDial::setSdCentered(int cntr)
+ {
+     m_sdcentered = cntr;
++
++    m_autoSaver->changeOcurred();
+ }
+ 
+ void SpeedDial::thumbnailCreated(const QPixmap &pixmap)
+-- 
+2.5.1
+

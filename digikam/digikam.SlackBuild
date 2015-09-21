@@ -93,12 +93,12 @@ cd build
   -DINSTALL_MAN_DIR=man \
   -DINSTALL_DOC_DIR=doc/$PRGNAM-$VERSION \
   -DBUILD_SHARED_LIBS=ON \
+  -DLIB_INSTALL_DIR=lib$LIBDIRSUFFIX \
   -DSYSCONF_INSTALL_DIR=/etc/kde \
   -DUSE_KDE4=ON \
   ..
 
-#   -DLIB_INSTALL_DIR=lib$LIBDIRSUFFIX \
-
+  exit 1
   make $NUMJOBS
   make DESTDIR=$PKG install
 cd -

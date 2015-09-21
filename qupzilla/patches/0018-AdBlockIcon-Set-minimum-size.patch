@@ -1,0 +1,25 @@
+From 8a1e10bc19c7c0d33cab19dd0521975bfb9c029c Mon Sep 17 00:00:00 2001
+From: David Rosca <nowrep@gmail.com>
+Date: Thu, 28 May 2015 11:12:57 +0200
+Subject: [PATCH 18/36] AdBlockIcon: Set minimum size
+
+See #1655
+---
+ src/lib/adblock/adblockicon.cpp | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/src/lib/adblock/adblockicon.cpp b/src/lib/adblock/adblockicon.cpp
+index 0d4ed12..4077766 100644
+--- a/src/lib/adblock/adblockicon.cpp
++++ b/src/lib/adblock/adblockicon.cpp
+@@ -39,6 +39,7 @@ AdBlockIcon::AdBlockIcon(BrowserWindow* window, QWidget* parent)
+ {
+     setCursor(Qt::PointingHandCursor);
+     setToolTip(tr("AdBlock lets you block unwanted content on web pages"));
++    setMinimumSize(16, 16);
+ 
+     connect(this, SIGNAL(clicked(QPoint)), this, SLOT(showMenu(QPoint)));
+     connect(AdBlockManager::instance(), SIGNAL(enabledChanged(bool)), this, SLOT(setEnabled(bool)));
+-- 
+2.5.1
+

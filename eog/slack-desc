@@ -1,0 +1,12 @@
+   |-----handy-ruler------------------------------------------------------|
+eog: eog (GNOME Image viewer)
+eog:
+eog: The Eye of GNOME image viewer is the official image viewer for the 
+eog: GNOME Desktop environment. With it, you can view single image files, 
+eog: as well as large image collections.  The Eye of GNOME supports a 
+eog: variety of image file formats. The GdkPixbuf library determines which 
+eog: file formats Eye of GNOME can load and save. If the appropriate 
+eog: plugins are installed on your system, Image Viewer will be able to 
+eog: open more image formats. By default, it supports ANI, BMP, GIF, ICO,
+eog: JPEG, PCX, PNG, PNM, RAS, SVG, TGA, TIFF, WBMP, XBM, and XPM.
+eog:

@@ -1,0 +1,1140 @@
+From 52ae34adf6e4f47f72ea5b486bd5fff50987a01a Mon Sep 17 00:00:00 2001
+From: Nikoli <nikoli@gmx.us>
+Date: Mon, 30 Mar 2015 15:42:52 +0300
+Subject: [PATCH 04/36] Remove tags from images
+
+exiftool -all= -overwrite_original $(find -iname '*.png')
+---
+ bin/themes/breathe/images/add.png                  | Bin 907 -> 849 bytes
+ bin/themes/breathe/images/find.png                 | Bin 626 -> 568 bytes
+ bin/themes/breathe/images/flash.png                | Bin 3368 -> 3331 bytes
+ bin/themes/breathe/images/flashstart.png           | Bin 1932 -> 1874 bytes
+ bin/themes/breathe/images/goto.png                 | Bin 641 -> 601 bytes
+ bin/themes/breathe/images/home.png                 | Bin 935 -> 877 bytes
+ bin/themes/breathe/images/library-bg-top-right.png | Bin 208 -> 168 bytes
+ bin/themes/breathe/images/library-search-bg.png    | Bin 569 -> 529 bytes
+ bin/themes/breathe/images/lineedit-bg.png          | Bin 435 -> 354 bytes
+ bin/themes/breathe/images/login.png                | Bin 762 -> 722 bytes
+ bin/themes/breathe/images/menu.png                 | Bin 261 -> 203 bytes
+ bin/themes/breathe/images/navigation-dropdown.png  | Bin 415 -> 394 bytes
+ bin/themes/breathe/images/next.png                 | Bin 940 -> 900 bytes
+ bin/themes/breathe/images/previous.png             | Bin 907 -> 867 bytes
+ bin/themes/breathe/images/reload.png               | Bin 1283 -> 1225 bytes
+ bin/themes/breathe/images/restore.png              | Bin 433 -> 375 bytes
+ bin/themes/breathe/images/rss.png                  | Bin 586 -> 528 bytes
+ bin/themes/breathe/images/semi-transp.png          | Bin 150 -> 110 bytes
+ bin/themes/breathe/images/siteicon-bg-a.png        | Bin 366 -> 285 bytes
+ bin/themes/breathe/images/siteicon-bg-h.png        | Bin 325 -> 285 bytes
+ bin/themes/breathe/images/siteicon-bg.png          | Bin 313 -> 273 bytes
+ bin/themes/breathe/images/siteicon-secure-bg-a.png | Bin 403 -> 322 bytes
+ bin/themes/breathe/images/siteicon-secure-bg-h.png | Bin 344 -> 303 bytes
+ bin/themes/breathe/images/siteicon-secure-bg.png   | Bin 427 -> 346 bytes
+ bin/themes/breathe/images/star-a.png               | Bin 665 -> 607 bytes
+ bin/themes/breathe/images/star.png                 | Bin 657 -> 617 bytes
+ bin/themes/breathe/images/stop.png                 | Bin 1078 -> 1020 bytes
+ bin/themes/breathe/images/tab-left.png             | Bin 167 -> 127 bytes
+ bin/themes/breathe/images/tab-right.png            | Bin 165 -> 125 bytes
+ bin/themes/breathe/images/tabs-list.png            | Bin 300 -> 260 bytes
+ bin/themes/breathe/images/transp.png               | Bin 135 -> 95 bytes
+ bin/themes/breathe/images/trash.png                | Bin 1097 -> 1057 bytes
+ bin/themes/breathe/images/websearch-bg-a.png       | Bin 445 -> 364 bytes
+ bin/themes/breathe/theme.png                       | Bin 2985 -> 2918 bytes
+ bin/themes/chrome/images/flash.png                 | Bin 3368 -> 3331 bytes
+ bin/themes/chrome/images/flashstart.png            | Bin 1997 -> 1939 bytes
+ bin/themes/chrome/images/key.png                   | Bin 713 -> 655 bytes
+ bin/themes/chrome/images/library-bg-top-right.png  | Bin 208 -> 168 bytes
+ bin/themes/chrome/images/library-search-bg.png     | Bin 569 -> 529 bytes
+ bin/themes/chrome/images/navigation-dropdown.png   | Bin 526 -> 486 bytes
+ bin/themes/chrome/images/navigation-home.png       | Bin 3475 -> 3454 bytes
+ bin/themes/chrome/images/rss.png                   | Bin 735 -> 698 bytes
+ bin/themes/chrome/images/search-icon.png           | Bin 271 -> 250 bytes
+ bin/themes/chrome/images/semi-transp.png           | Bin 150 -> 110 bytes
+ bin/themes/chrome/images/siteicon-secure-bg.png    | Bin 579 -> 539 bytes
+ bin/themes/chrome/images/star-a.png                | Bin 359 -> 322 bytes
+ bin/themes/chrome/images/star.png                  | Bin 347 -> 310 bytes
+ bin/themes/chrome/images/tab-left-arrow.png        | Bin 192 -> 152 bytes
+ bin/themes/chrome/images/tab-right-arrow.png       | Bin 188 -> 148 bytes
+ bin/themes/chrome/images/tabbar-addtab.png         | Bin 1255 -> 1215 bytes
+ bin/themes/chrome/images/tabs-bg.png               | Bin 320 -> 283 bytes
+ bin/themes/chrome/images/tabs-list-button.png      | Bin 1340 -> 1300 bytes
+ bin/themes/chrome/images/toolbar-bg.png            | Bin 247 -> 207 bytes
+ bin/themes/chrome/images/toolbutton-a.png          | Bin 1187 -> 1150 bytes
+ bin/themes/chrome/images/toolbutton-h.png          | Bin 1322 -> 1285 bytes
+ bin/themes/chrome/images/toolbutton.png            | Bin 1000 -> 960 bytes
+ bin/themes/chrome/theme.png                        | Bin 1460 -> 1439 bytes
+ bin/themes/default/images/background.png           | Bin 16826 -> 16789 bytes
+ bin/themes/default/images/flash.png                | Bin 3368 -> 3331 bytes
+ bin/themes/default/images/flashstart.png           | Bin 1997 -> 1939 bytes
+ bin/themes/default/images/key.png                  | Bin 713 -> 655 bytes
+ bin/themes/default/images/library-bg-top-right.png | Bin 208 -> 168 bytes
+ bin/themes/default/images/lineedit-bg.png          | Bin 569 -> 529 bytes
+ bin/themes/default/images/navigation-addtab.png    | Bin 329 -> 292 bytes
+ bin/themes/default/images/navigation-back.png      | Bin 560 -> 502 bytes
+ bin/themes/default/images/navigation-forward.png   | Bin 578 -> 520 bytes
+ bin/themes/default/images/navigation-home.png      | Bin 920 -> 880 bytes
+ bin/themes/default/images/navigation-reload.png    | Bin 884 -> 844 bytes
+ bin/themes/default/images/navigation-stop.png      | Bin 616 -> 576 bytes
+ bin/themes/default/images/navigation-supmenu.png   | Bin 2554 -> 2533 bytes
+ bin/themes/default/images/rss.png                  | Bin 735 -> 698 bytes
+ bin/themes/default/images/search.png               | Bin 574 -> 537 bytes
+ bin/themes/default/images/semi-transp.png          | Bin 150 -> 110 bytes
+ bin/themes/default/images/siteicon-bg-secure.png   | Bin 783 -> 746 bytes
+ bin/themes/default/images/siteicon-bg.png          | Bin 655 -> 618 bytes
+ bin/themes/default/images/star.png                 | Bin 344 -> 323 bytes
+ bin/themes/default/images/starg.png                | Bin 267 -> 246 bytes
+ bin/themes/default/images/tab-left-arrow.png       | Bin 192 -> 152 bytes
+ bin/themes/default/images/tab-right-arrow.png      | Bin 188 -> 148 bytes
+ bin/themes/default/images/tabs-list-button.png     | Bin 300 -> 260 bytes
+ bin/themes/default/images/transp.png               | Bin 135 -> 95 bytes
+ bin/themes/default/images/websearchbar-bg.png      | Bin 654 -> 614 bytes
+ bin/themes/default/theme.png                       | Bin 2682 -> 2661 bytes
+ bin/themes/linux/images/flash.png                  | Bin 3368 -> 3331 bytes
+ bin/themes/linux/images/flashstart.png             | Bin 1997 -> 1939 bytes
+ bin/themes/linux/images/goto.png                   | Bin 641 -> 601 bytes
+ bin/themes/linux/images/key.png                    | Bin 713 -> 655 bytes
+ bin/themes/linux/images/library-bg-top-right.png   | Bin 208 -> 168 bytes
+ bin/themes/linux/images/library-search-bg.png      | Bin 569 -> 529 bytes
+ bin/themes/linux/images/menu.png                   | Bin 284 -> 244 bytes
+ bin/themes/linux/images/navigation-dropdown.png    | Bin 189 -> 149 bytes
+ bin/themes/linux/images/rss.png                    | Bin 735 -> 698 bytes
+ bin/themes/linux/images/semi-transp.png            | Bin 150 -> 110 bytes
+ bin/themes/linux/images/star-a.png                 | Bin 793 -> 753 bytes
+ bin/themes/linux/images/star.png                   | Bin 650 -> 610 bytes
+ bin/themes/linux/images/tab-left-arrow.png         | Bin 192 -> 152 bytes
+ bin/themes/linux/images/tab-right-arrow.png        | Bin 188 -> 148 bytes
+ bin/themes/linux/images/tabs-list-button.png       | Bin 300 -> 260 bytes
+ bin/themes/linux/images/transp.png                 | Bin 135 -> 95 bytes
+ bin/themes/linux/images/websearch-bg.png           | Bin 152 -> 131 bytes
+ bin/themes/linux/theme.png                         | Bin 1497 -> 1476 bytes
+ bin/themes/mac/images/flash.png                    | Bin 3368 -> 3331 bytes
+ bin/themes/mac/images/flashstart.png               | Bin 1997 -> 1939 bytes
+ bin/themes/mac/images/key.png                      | Bin 713 -> 655 bytes
+ bin/themes/mac/images/library-bg-top-right.png     | Bin 208 -> 168 bytes
+ bin/themes/mac/images/library-search-bg.png        | Bin 569 -> 529 bytes
+ bin/themes/mac/images/navigation-dropdown.png      | Bin 221 -> 200 bytes
+ bin/themes/mac/images/navigation-forward.png       | Bin 1579 -> 1542 bytes
+ bin/themes/mac/images/navigation-supermenu.png     | Bin 2693 -> 2656 bytes
+ bin/themes/mac/images/search-icon.png              | Bin 374 -> 353 bytes
+ bin/themes/mac/images/searchbar-provider-bg.png    | Bin 1343 -> 1306 bytes
+ bin/themes/mac/images/semi-transp.png              | Bin 150 -> 110 bytes
+ bin/themes/mac/images/siteicon-bg.png              | Bin 1314 -> 1277 bytes
+ bin/themes/mac/images/siteicon-secure-bg.png       | Bin 991 -> 954 bytes
+ bin/themes/mac/images/splitter.png                 | Bin 141 -> 104 bytes
+ bin/themes/mac/images/star-a.png                   | Bin 628 -> 607 bytes
+ bin/themes/mac/images/star.png                     | Bin 556 -> 535 bytes
+ bin/themes/mac/images/tab-left-arrow.png           | Bin 192 -> 152 bytes
+ bin/themes/mac/images/tab-right-arrow.png          | Bin 188 -> 148 bytes
+ bin/themes/mac/images/tabbar-addtab.png            | Bin 350 -> 310 bytes
+ bin/themes/mac/images/tabs-bg.png                  | Bin 153 -> 132 bytes
+ bin/themes/mac/images/toolbar-bg.png               | Bin 169 -> 132 bytes
+ bin/themes/mac/images/transp.png                   | Bin 135 -> 95 bytes
+ bin/themes/mac/images/user-trash-full.png          | Bin 1108 -> 1068 bytes
+ bin/themes/mac/theme.png                           | Bin 1172 -> 1151 bytes
+ bin/themes/windows/images/flash.png                | Bin 3368 -> 3331 bytes
+ bin/themes/windows/images/flashstart.png           | Bin 1997 -> 1939 bytes
+ bin/themes/windows/images/key.png                  | Bin 713 -> 655 bytes
+ bin/themes/windows/images/library-bg-top-right.png | Bin 208 -> 168 bytes
+ bin/themes/windows/images/library-search-bg.png    | Bin 569 -> 529 bytes
+ bin/themes/windows/images/navigation-addtab.png    | Bin 653 -> 613 bytes
+ bin/themes/windows/images/navigation-home.png      | Bin 803 -> 763 bytes
+ bin/themes/windows/images/navigation-reload.png    | Bin 884 -> 844 bytes
+ bin/themes/windows/images/navigation-stop.png      | Bin 616 -> 576 bytes
+ bin/themes/windows/images/navigation-supermenu.png | Bin 976 -> 955 bytes
+ bin/themes/windows/images/semi-transp.png          | Bin 150 -> 110 bytes
+ bin/themes/windows/images/siteicon-secure-bg.png   | Bin 332 -> 311 bytes
+ bin/themes/windows/images/star-a.png               | Bin 653 -> 613 bytes
+ bin/themes/windows/images/star.png                 | Bin 503 -> 482 bytes
+ bin/themes/windows/images/tab-active-bg.png        | Bin 194 -> 154 bytes
+ bin/themes/windows/images/tab-left-arrow.png       | Bin 192 -> 152 bytes
+ bin/themes/windows/images/tab-right-arrow.png      | Bin 188 -> 148 bytes
+ bin/themes/windows/images/tabbar-addtab.png        | Bin 844 -> 804 bytes
+ bin/themes/windows/images/tabbar-addtab_rtl.png    | Bin 810 -> 789 bytes
+ bin/themes/windows/images/tabs-list-button.png     | Bin 147 -> 126 bytes
+ bin/themes/windows/images/toolbar-bg.png           | Bin 231 -> 210 bytes
+ bin/themes/windows/images/transp.png               | Bin 135 -> 95 bytes
+ bin/themes/windows/images/user-trash-full.png      | Bin 1108 -> 1068 bytes
+ linux/hicolor/16x16/apps/qupzilla.png              | Bin 883 -> 846 bytes
+ mac/images/qupzilla-dmg-background.png             | Bin 36427 -> 36387 bytes
+ mac/images/qupzilla-dmg-icon.png                   | Bin 22576 -> 22536 bytes
+ other/linguist-translating.png                     | Bin 123198 -> 123158 bytes
+ src/lib/data/html/adblock_big.png                  | Bin 4026 -> 3107 bytes
+ src/lib/data/html/box-border.png                   | Bin 12061 -> 12040 bytes
+ src/lib/data/html/broken-page.png                  | Bin 2809 -> 2772 bytes
+ src/lib/data/html/close.png                        | Bin 491 -> 433 bytes
+ src/lib/data/html/configure.png                    | Bin 1374 -> 1316 bytes
+ src/lib/data/html/edit.png                         | Bin 541 -> 483 bytes
+ src/lib/data/html/plus.png                         | Bin 774 -> 716 bytes
+ src/lib/data/html/reload.png                       | Bin 510 -> 452 bytes
+ src/lib/data/icons/browsers/chrome.png             | Bin 3809 -> 3769 bytes
+ src/lib/data/icons/browsers/firefox.png            | Bin 5439 -> 5399 bytes
+ src/lib/data/icons/browsers/html.png               | Bin 3824 -> 2973 bytes
+ src/lib/data/icons/browsers/opera.png              | Bin 2920 -> 2880 bytes
+ src/lib/data/icons/exeicons/page16.png             | Bin 613 -> 592 bytes
+ src/lib/data/icons/exeicons/page32.png             | Bin 1604 -> 1583 bytes
+ src/lib/data/icons/exeicons/page48.png             | Bin 2760 -> 2739 bytes
+ src/lib/data/icons/exeicons/qupzilla-window.png    | Bin 96704 -> 96683 bytes
+ src/lib/data/icons/locationbar/safe.png            | Bin 877 -> 837 bytes
+ src/lib/data/icons/locationbar/unsafe.png          | Bin 1003 -> 963 bytes
+ src/lib/data/icons/locationbar/visit1.png          | Bin 962 -> 904 bytes
+ src/lib/data/icons/locationbar/visit2.png          | Bin 1419 -> 1398 bytes
+ src/lib/data/icons/locationbar/visit3.png          | Bin 1237 -> 1197 bytes
+ src/lib/data/icons/menu/dot.png                    | Bin 451 -> 411 bytes
+ src/lib/data/icons/menu/history.png                | Bin 862 -> 825 bytes
+ src/lib/data/icons/menu/history_entry.png          | Bin 878 -> 841 bytes
+ src/lib/data/icons/menu/privatebrowsing.png        | Bin 409 -> 351 bytes
+ src/lib/data/icons/menu/qt.png                     | Bin 744 -> 704 bytes
+ src/lib/data/icons/menu/search-icon.png            | Bin 935 -> 898 bytes
+ src/lib/data/icons/menu/settings.png               | Bin 945 -> 905 bytes
+ src/lib/data/icons/menu/tab-new.png                | Bin 520 -> 462 bytes
+ src/lib/data/icons/menu/tab.png                    | Bin 441 -> 401 bytes
+ src/lib/data/icons/notifications/download.png      | Bin 4482 -> 4442 bytes
+ src/lib/data/icons/other/about.png                 | Bin 10148 -> 10111 bytes
+ src/lib/data/icons/other/adblock-disabled.png      | Bin 466 -> 426 bytes
+ src/lib/data/icons/other/bighistory.png            | Bin 2939 -> 2902 bytes
+ src/lib/data/icons/other/bigstar.png               | Bin 1769 -> 1729 bytes
+ src/lib/data/icons/other/empty-page.png            | Bin 530 -> 490 bytes
+ src/lib/data/icons/other/feed.png                  | Bin 1136 -> 1078 bytes
+ src/lib/data/icons/other/geolocation.png           | Bin 1359 -> 1338 bytes
+ src/lib/data/icons/other/login.png                 | Bin 1205 -> 1147 bytes
+ src/lib/data/icons/other/notification.png          | Bin 1150 -> 1129 bytes
+ .../data/icons/preferences/application-x-theme.png | Bin 1703 -> 1645 bytes
+ .../data/icons/preferences/applications-fonts.png  | Bin 1778 -> 1738 bytes
+ .../icons/preferences/applications-graphics.png    | Bin 2792 -> 2734 bytes
+ .../icons/preferences/applications-internet.png    | Bin 1143 -> 1085 bytes
+ .../data/icons/preferences/applications-system.png | Bin 1836 -> 1778 bytes
+ .../icons/preferences/applications-webbrowsers.png | Bin 2685 -> 2627 bytes
+ src/lib/data/icons/preferences/dialog-password.png | Bin 1356 -> 1298 bytes
+ src/lib/data/icons/preferences/dialog-question.png | Bin 2050 -> 1992 bytes
+ .../data/icons/preferences/document-properties.png | Bin 1328 -> 1270 bytes
+ src/lib/data/icons/preferences/extension.png       | Bin 1763 -> 1705 bytes
+ src/lib/data/icons/preferences/mail-inbox.png      | Bin 2445 -> 2405 bytes
+ .../preferences-desktop-keyboard-shortcuts.png     | Bin 1826 -> 1768 bytes
+ .../data/icons/preferences/preferences-desktop.png | Bin 2245 -> 2205 bytes
+ .../preferences/preferences-system-firewall.png    | Bin 2141 -> 2083 bytes
+ src/lib/data/icons/preferences/style-default.png   | Bin 1078 -> 1038 bytes
+ src/lib/data/icons/preferences/text-x-sql.png      | Bin 1768 -> 1728 bytes
+ src/lib/data/icons/qupzilla.png                    | Bin 872 -> 835 bytes
+ src/lib/data/icons/qupzillaupdate.png              | Bin 899 -> 862 bytes
+ src/lib/data/icons/sites/akregator.png             | Bin 687 -> 629 bytes
+ src/lib/data/icons/sites/liferea.png               | Bin 652 -> 594 bytes
+ src/lib/data/icons/sites/wikipedia.png             | Bin 323 -> 283 bytes
+ .../oxygen-fallback/16x16/bookmark-new-list.png    | Bin 794 -> 754 bytes
+ .../data/oxygen-fallback/16x16/bookmark-new.png    | Bin 707 -> 649 bytes
+ .../oxygen-fallback/16x16/bookmarks-organize.png   | Bin 625 -> 585 bytes
+ src/lib/data/oxygen-fallback/16x16/configure.png   | Bin 717 -> 677 bytes
+ .../data/oxygen-fallback/16x16/dialog-close.png    | Bin 813 -> 773 bytes
+ src/lib/data/oxygen-fallback/16x16/edit-find.png   | Bin 626 -> 568 bytes
+ src/lib/data/oxygen-fallback/16x16/go-down.png     | Bin 623 -> 583 bytes
+ src/lib/data/oxygen-fallback/16x16/go-home.png     | Bin 635 -> 577 bytes
+ .../oxygen-fallback/16x16/go-jump-locationbar.png  | Bin 641 -> 601 bytes
+ src/lib/data/oxygen-fallback/16x16/go-next.png     | Bin 721 -> 681 bytes
+ src/lib/data/oxygen-fallback/16x16/go-previous.png | Bin 634 -> 594 bytes
+ src/lib/data/oxygen-fallback/16x16/go-up.png       | Bin 672 -> 632 bytes
+ src/lib/data/oxygen-fallback/16x16/list-add.png    | Bin 564 -> 506 bytes
+ src/lib/data/oxygen-fallback/16x16/list-remove.png | Bin 332 -> 274 bytes
+ .../data/oxygen-fallback/16x16/process-stop.png    | Bin 722 -> 664 bytes
+ src/lib/data/oxygen-fallback/16x16/tab-new.png     | Bin 520 -> 462 bytes
+ .../data/oxygen-fallback/16x16/user-trash-full.png | Bin 822 -> 782 bytes
+ .../data/oxygen-fallback/16x16/view-refresh.png    | Bin 931 -> 873 bytes
+ .../data/oxygen-fallback/16x16/view-restore.png    | Bin 370 -> 330 bytes
+ src/lib/data/oxygen-fallback/16x16/window-new.png  | Bin 377 -> 319 bytes
+ .../oxygen-fallback/22x22/bookmark-new-list.png    | Bin 1193 -> 1153 bytes
+ .../data/oxygen-fallback/22x22/bookmark-new.png    | Bin 1031 -> 973 bytes
+ .../oxygen-fallback/22x22/bookmarks-organize.png   | Bin 897 -> 857 bytes
+ src/lib/data/oxygen-fallback/22x22/configure.png   | Bin 1101 -> 1061 bytes
+ .../data/oxygen-fallback/22x22/dialog-close.png    | Bin 1251 -> 1211 bytes
+ src/lib/data/oxygen-fallback/22x22/edit-find.png   | Bin 942 -> 884 bytes
+ src/lib/data/oxygen-fallback/22x22/go-down.png     | Bin 892 -> 852 bytes
+ src/lib/data/oxygen-fallback/22x22/go-home.png     | Bin 935 -> 877 bytes
+ .../oxygen-fallback/22x22/go-jump-locationbar.png  | Bin 957 -> 917 bytes
+ src/lib/data/oxygen-fallback/22x22/go-next.png     | Bin 940 -> 900 bytes
+ src/lib/data/oxygen-fallback/22x22/go-previous.png | Bin 907 -> 867 bytes
+ src/lib/data/oxygen-fallback/22x22/go-up.png       | Bin 929 -> 889 bytes
+ src/lib/data/oxygen-fallback/22x22/list-add.png    | Bin 907 -> 849 bytes
+ src/lib/data/oxygen-fallback/22x22/list-remove.png | Bin 498 -> 440 bytes
+ .../data/oxygen-fallback/22x22/process-stop.png    | Bin 1078 -> 1020 bytes
+ src/lib/data/oxygen-fallback/22x22/tab-new.png     | Bin 791 -> 733 bytes
+ .../data/oxygen-fallback/22x22/user-trash-full.png | Bin 1108 -> 1068 bytes
+ .../data/oxygen-fallback/22x22/view-refresh.png    | Bin 1283 -> 1225 bytes
+ .../data/oxygen-fallback/22x22/view-restore.png    | Bin 433 -> 375 bytes
+ src/lib/data/oxygen-fallback/22x22/window-new.png  | Bin 680 -> 622 bytes
+ .../oxygen-fallback/32x32/preferences-desktop.png  | Bin 2245 -> 2205 bytes
+ .../32x32/preferences-system-network.png           | Bin 2685 -> 2627 bytes
+ src/plugins/AccessKeysNavigation/data/icon.png     | Bin 498 -> 477 bytes
+ src/plugins/AutoScroll/data/scroll_all.png         | Bin 1811 -> 1790 bytes
+ src/plugins/AutoScroll/data/scroll_horizontal.png  | Bin 1734 -> 1713 bytes
+ src/plugins/AutoScroll/data/scroll_vertical.png    | Bin 1714 -> 1693 bytes
+ .../data/flash-cookie-manager.png                  | Bin 30437 -> 30397 bytes
+ src/plugins/GnomeKeyringPasswords/data/icon.png    | Bin 2288 -> 2169 bytes
+ src/plugins/GreaseMonkey/data/icon16.png           | Bin 994 -> 954 bytes
+ src/plugins/GreaseMonkey/data/icon18.png           | Bin 1159 -> 1119 bytes
+ src/plugins/GreaseMonkey/data/script.png           | Bin 1064 -> 908 bytes
+ src/plugins/KWalletPasswords/data/icon.png         | Bin 1826 -> 1768 bytes
+ src/plugins/MouseGestures/data/icon.png            | Bin 3990 -> 1223 bytes
+ src/plugins/PIM/data/PIM.png                       | Bin 2239 -> 2181 bytes
+ src/plugins/StatusBarIcons/data/add.png            | Bin 579 -> 521 bytes
+ src/plugins/StatusBarIcons/data/images.png         | Bin 659 -> 619 bytes
+ src/plugins/StatusBarIcons/data/javascript.png     | Bin 680 -> 640 bytes
+ .../StatusBarIcons/data/network-offline.png        | Bin 489 -> 431 bytes
+ src/plugins/StatusBarIcons/data/network-online.png | Bin 757 -> 699 bytes
+ .../StatusBarIcons/data/network-unknown.png        | Bin 941 -> 901 bytes
+ .../StatusBarIcons/data/preferences-network.png    | Bin 969 -> 911 bytes
+ src/plugins/StatusBarIcons/data/remove.png         | Bin 640 -> 582 bytes
+ src/plugins/TabManager/data/side-by-side.png       | Bin 939 -> 899 bytes
+ src/plugins/TabManager/data/tab-bookmark.png       | Bin 807 -> 767 bytes
+ src/plugins/TabManager/data/tab-close.png          | Bin 976 -> 936 bytes
+ src/plugins/TabManager/data/tab-detach.png         | Bin 784 -> 744 bytes
+ src/plugins/TabManager/data/tab-loading.png        | Bin 1799 -> 1759 bytes
+ src/plugins/TabManager/data/tab-pinned.png         | Bin 2428 -> 2361 bytes
+ src/plugins/TabManager/data/tabmanager.png         | Bin 7417 -> 7377 bytes
+ 282 files changed, 0 insertions(+), 0 deletions(-)
+
+diff --git a/bin/themes/breathe/images/add.png b/bin/themes/breathe/images/add.png
+index e029787..f44186f 100644
+Binary files a/bin/themes/breathe/images/add.png and b/bin/themes/breathe/images/add.png differ
+diff --git a/bin/themes/breathe/images/find.png b/bin/themes/breathe/images/find.png
+index d9d1c7c..fb9b68c 100644
+Binary files a/bin/themes/breathe/images/find.png and b/bin/themes/breathe/images/find.png differ
+diff --git a/bin/themes/breathe/images/flash.png b/bin/themes/breathe/images/flash.png
+index 52eb6db..7f6963f 100644
+Binary files a/bin/themes/breathe/images/flash.png and b/bin/themes/breathe/images/flash.png differ
+diff --git a/bin/themes/breathe/images/flashstart.png b/bin/themes/breathe/images/flashstart.png
+index dbeee2b..40fe36e 100644
+Binary files a/bin/themes/breathe/images/flashstart.png and b/bin/themes/breathe/images/flashstart.png differ
+diff --git a/bin/themes/breathe/images/goto.png b/bin/themes/breathe/images/goto.png
+index 6f81609..79757e1 100644
+Binary files a/bin/themes/breathe/images/goto.png and b/bin/themes/breathe/images/goto.png differ
+diff --git a/bin/themes/breathe/images/home.png b/bin/themes/breathe/images/home.png
+index aab6a88..705904a 100644
+Binary files a/bin/themes/breathe/images/home.png and b/bin/themes/breathe/images/home.png differ
+diff --git a/bin/themes/breathe/images/library-bg-top-right.png b/bin/themes/breathe/images/library-bg-top-right.png
+index 821f12d..d41155b 100644
+Binary files a/bin/themes/breathe/images/library-bg-top-right.png and b/bin/themes/breathe/images/library-bg-top-right.png differ
+diff --git a/bin/themes/breathe/images/library-search-bg.png b/bin/themes/breathe/images/library-search-bg.png
+index 2f159b2..409c880 100644
+Binary files a/bin/themes/breathe/images/library-search-bg.png and b/bin/themes/breathe/images/library-search-bg.png differ
+diff --git a/bin/themes/breathe/images/lineedit-bg.png b/bin/themes/breathe/images/lineedit-bg.png
+index 0f32b6b..89d03dc 100644
+Binary files a/bin/themes/breathe/images/lineedit-bg.png and b/bin/themes/breathe/images/lineedit-bg.png differ
+diff --git a/bin/themes/breathe/images/login.png b/bin/themes/breathe/images/login.png
+index 6114a19..678348e 100644
+Binary files a/bin/themes/breathe/images/login.png and b/bin/themes/breathe/images/login.png differ
+diff --git a/bin/themes/breathe/images/menu.png b/bin/themes/breathe/images/menu.png
+index eddb7bf..d37e236 100644
+Binary files a/bin/themes/breathe/images/menu.png and b/bin/themes/breathe/images/menu.png differ
+diff --git a/bin/themes/breathe/images/navigation-dropdown.png b/bin/themes/breathe/images/navigation-dropdown.png
+index acb373a..0bbb9d9 100644
+Binary files a/bin/themes/breathe/images/navigation-dropdown.png and b/bin/themes/breathe/images/navigation-dropdown.png differ
+diff --git a/bin/themes/breathe/images/next.png b/bin/themes/breathe/images/next.png
+index aa7cbb9..69d5048 100644
+Binary files a/bin/themes/breathe/images/next.png and b/bin/themes/breathe/images/next.png differ
+diff --git a/bin/themes/breathe/images/previous.png b/bin/themes/breathe/images/previous.png
+index 8230340..ff69e32 100644
+Binary files a/bin/themes/breathe/images/previous.png and b/bin/themes/breathe/images/previous.png differ
+diff --git a/bin/themes/breathe/images/reload.png b/bin/themes/breathe/images/reload.png
+index 45b5535..693950e 100644
+Binary files a/bin/themes/breathe/images/reload.png and b/bin/themes/breathe/images/reload.png differ
+diff --git a/bin/themes/breathe/images/restore.png b/bin/themes/breathe/images/restore.png
+index d5cfa95..deb2606 100644
+Binary files a/bin/themes/breathe/images/restore.png and b/bin/themes/breathe/images/restore.png differ
+diff --git a/bin/themes/breathe/images/rss.png b/bin/themes/breathe/images/rss.png
+index 1f412c2..e4fe932 100644
+Binary files a/bin/themes/breathe/images/rss.png and b/bin/themes/breathe/images/rss.png differ
+diff --git a/bin/themes/breathe/images/semi-transp.png b/bin/themes/breathe/images/semi-transp.png
+index da9719b..34951c6 100644
+Binary files a/bin/themes/breathe/images/semi-transp.png and b/bin/themes/breathe/images/semi-transp.png differ
+diff --git a/bin/themes/breathe/images/siteicon-bg-a.png b/bin/themes/breathe/images/siteicon-bg-a.png
+index afdecb6..6bccce3 100644
+Binary files a/bin/themes/breathe/images/siteicon-bg-a.png and b/bin/themes/breathe/images/siteicon-bg-a.png differ
+diff --git a/bin/themes/breathe/images/siteicon-bg-h.png b/bin/themes/breathe/images/siteicon-bg-h.png
+index d2cd800..c445a79 100644
+Binary files a/bin/themes/breathe/images/siteicon-bg-h.png and b/bin/themes/breathe/images/siteicon-bg-h.png differ
+diff --git a/bin/themes/breathe/images/siteicon-bg.png b/bin/themes/breathe/images/siteicon-bg.png
+index d8aad97..5a0fc93 100644
+Binary files a/bin/themes/breathe/images/siteicon-bg.png and b/bin/themes/breathe/images/siteicon-bg.png differ
+diff --git a/bin/themes/breathe/images/siteicon-secure-bg-a.png b/bin/themes/breathe/images/siteicon-secure-bg-a.png
+index e0835d5..ff494e7 100644
+Binary files a/bin/themes/breathe/images/siteicon-secure-bg-a.png and b/bin/themes/breathe/images/siteicon-secure-bg-a.png differ
+diff --git a/bin/themes/breathe/images/siteicon-secure-bg-h.png b/bin/themes/breathe/images/siteicon-secure-bg-h.png
+index a78af69..5638828 100644
+Binary files a/bin/themes/breathe/images/siteicon-secure-bg-h.png and b/bin/themes/breathe/images/siteicon-secure-bg-h.png differ
+diff --git a/bin/themes/breathe/images/siteicon-secure-bg.png b/bin/themes/breathe/images/siteicon-secure-bg.png
+index e5b77ec..7d25395 100644
+Binary files a/bin/themes/breathe/images/siteicon-secure-bg.png and b/bin/themes/breathe/images/siteicon-secure-bg.png differ
+diff --git a/bin/themes/breathe/images/star-a.png b/bin/themes/breathe/images/star-a.png
+index b47a7d6..5b82738 100644
+Binary files a/bin/themes/breathe/images/star-a.png and b/bin/themes/breathe/images/star-a.png differ
+diff --git a/bin/themes/breathe/images/star.png b/bin/themes/breathe/images/star.png
+index 4a1f81e..6f865a2 100644
+Binary files a/bin/themes/breathe/images/star.png and b/bin/themes/breathe/images/star.png differ
+diff --git a/bin/themes/breathe/images/stop.png b/bin/themes/breathe/images/stop.png
+index 738d6f9..d1b381b 100644
+Binary files a/bin/themes/breathe/images/stop.png and b/bin/themes/breathe/images/stop.png differ
+diff --git a/bin/themes/breathe/images/tab-left.png b/bin/themes/breathe/images/tab-left.png
+index 2318ca9..b45d098 100644
+Binary files a/bin/themes/breathe/images/tab-left.png and b/bin/themes/breathe/images/tab-left.png differ
+diff --git a/bin/themes/breathe/images/tab-right.png b/bin/themes/breathe/images/tab-right.png
+index ff2b05e..0aacb75 100644
+Binary files a/bin/themes/breathe/images/tab-right.png and b/bin/themes/breathe/images/tab-right.png differ
+diff --git a/bin/themes/breathe/images/tabs-list.png b/bin/themes/breathe/images/tabs-list.png
+index b3376d2..db3e896 100644
+Binary files a/bin/themes/breathe/images/tabs-list.png and b/bin/themes/breathe/images/tabs-list.png differ
+diff --git a/bin/themes/breathe/images/transp.png b/bin/themes/breathe/images/transp.png
+index 2bba526..4879e7b 100644
+Binary files a/bin/themes/breathe/images/transp.png and b/bin/themes/breathe/images/transp.png differ
+diff --git a/bin/themes/breathe/images/trash.png b/bin/themes/breathe/images/trash.png
+index 245c39a..a994017 100644
+Binary files a/bin/themes/breathe/images/trash.png and b/bin/themes/breathe/images/trash.png differ
+diff --git a/bin/themes/breathe/images/websearch-bg-a.png b/bin/themes/breathe/images/websearch-bg-a.png
+index 19cdfad..af95639 100644
+Binary files a/bin/themes/breathe/images/websearch-bg-a.png and b/bin/themes/breathe/images/websearch-bg-a.png differ
+diff --git a/bin/themes/breathe/theme.png b/bin/themes/breathe/theme.png
+index a5f62af..a62a41c 100644
+Binary files a/bin/themes/breathe/theme.png and b/bin/themes/breathe/theme.png differ
+diff --git a/bin/themes/chrome/images/flash.png b/bin/themes/chrome/images/flash.png
+index 52eb6db..7f6963f 100644
+Binary files a/bin/themes/chrome/images/flash.png and b/bin/themes/chrome/images/flash.png differ
+diff --git a/bin/themes/chrome/images/flashstart.png b/bin/themes/chrome/images/flashstart.png
+index bce503a..a168cb9 100644
+Binary files a/bin/themes/chrome/images/flashstart.png and b/bin/themes/chrome/images/flashstart.png differ
+diff --git a/bin/themes/chrome/images/key.png b/bin/themes/chrome/images/key.png
+index 2151029..b0266de 100644
+Binary files a/bin/themes/chrome/images/key.png and b/bin/themes/chrome/images/key.png differ
+diff --git a/bin/themes/chrome/images/library-bg-top-right.png b/bin/themes/chrome/images/library-bg-top-right.png
+index 821f12d..d41155b 100644
+Binary files a/bin/themes/chrome/images/library-bg-top-right.png and b/bin/themes/chrome/images/library-bg-top-right.png differ
+diff --git a/bin/themes/chrome/images/library-search-bg.png b/bin/themes/chrome/images/library-search-bg.png
+index 2f159b2..409c880 100644
+Binary files a/bin/themes/chrome/images/library-search-bg.png and b/bin/themes/chrome/images/library-search-bg.png differ
+diff --git a/bin/themes/chrome/images/navigation-dropdown.png b/bin/themes/chrome/images/navigation-dropdown.png
+index 901cf24..7808dd0 100644
+Binary files a/bin/themes/chrome/images/navigation-dropdown.png and b/bin/themes/chrome/images/navigation-dropdown.png differ
+diff --git a/bin/themes/chrome/images/navigation-home.png b/bin/themes/chrome/images/navigation-home.png
+index 7d3f737..8cb4d37 100644
+Binary files a/bin/themes/chrome/images/navigation-home.png and b/bin/themes/chrome/images/navigation-home.png differ
+diff --git a/bin/themes/chrome/images/rss.png b/bin/themes/chrome/images/rss.png
+index d1705aa..89bbac1 100644
+Binary files a/bin/themes/chrome/images/rss.png and b/bin/themes/chrome/images/rss.png differ
+diff --git a/bin/themes/chrome/images/search-icon.png b/bin/themes/chrome/images/search-icon.png
+index 4117e72..9b42468 100644
+Binary files a/bin/themes/chrome/images/search-icon.png and b/bin/themes/chrome/images/search-icon.png differ
+diff --git a/bin/themes/chrome/images/semi-transp.png b/bin/themes/chrome/images/semi-transp.png
+index da9719b..34951c6 100644
+Binary files a/bin/themes/chrome/images/semi-transp.png and b/bin/themes/chrome/images/semi-transp.png differ
+diff --git a/bin/themes/chrome/images/siteicon-secure-bg.png b/bin/themes/chrome/images/siteicon-secure-bg.png
+index 098d3e6..a6e3f7a 100644
+Binary files a/bin/themes/chrome/images/siteicon-secure-bg.png and b/bin/themes/chrome/images/siteicon-secure-bg.png differ
+diff --git a/bin/themes/chrome/images/star-a.png b/bin/themes/chrome/images/star-a.png
+index aab4ff1..a06b208 100644
+Binary files a/bin/themes/chrome/images/star-a.png and b/bin/themes/chrome/images/star-a.png differ
+diff --git a/bin/themes/chrome/images/star.png b/bin/themes/chrome/images/star.png
+index 013d264..3e4c75a 100644
+Binary files a/bin/themes/chrome/images/star.png and b/bin/themes/chrome/images/star.png differ
+diff --git a/bin/themes/chrome/images/tab-left-arrow.png b/bin/themes/chrome/images/tab-left-arrow.png
+index fcc62a2..7222efd 100644
+Binary files a/bin/themes/chrome/images/tab-left-arrow.png and b/bin/themes/chrome/images/tab-left-arrow.png differ
+diff --git a/bin/themes/chrome/images/tab-right-arrow.png b/bin/themes/chrome/images/tab-right-arrow.png
+index 89b5aeb..c1fe57a 100644
+Binary files a/bin/themes/chrome/images/tab-right-arrow.png and b/bin/themes/chrome/images/tab-right-arrow.png differ
+diff --git a/bin/themes/chrome/images/tabbar-addtab.png b/bin/themes/chrome/images/tabbar-addtab.png
+index 3004bc9..e466405 100644
+Binary files a/bin/themes/chrome/images/tabbar-addtab.png and b/bin/themes/chrome/images/tabbar-addtab.png differ
+diff --git a/bin/themes/chrome/images/tabs-bg.png b/bin/themes/chrome/images/tabs-bg.png
+index a092d83..58a5360 100644
+Binary files a/bin/themes/chrome/images/tabs-bg.png and b/bin/themes/chrome/images/tabs-bg.png differ
+diff --git a/bin/themes/chrome/images/tabs-list-button.png b/bin/themes/chrome/images/tabs-list-button.png
+index fdfa002..7a6032b 100644
+Binary files a/bin/themes/chrome/images/tabs-list-button.png and b/bin/themes/chrome/images/tabs-list-button.png differ
+diff --git a/bin/themes/chrome/images/toolbar-bg.png b/bin/themes/chrome/images/toolbar-bg.png
+index bc38e0e..8817ed9 100644
+Binary files a/bin/themes/chrome/images/toolbar-bg.png and b/bin/themes/chrome/images/toolbar-bg.png differ
+diff --git a/bin/themes/chrome/images/toolbutton-a.png b/bin/themes/chrome/images/toolbutton-a.png
+index ffbaee9..31e852d 100644
+Binary files a/bin/themes/chrome/images/toolbutton-a.png and b/bin/themes/chrome/images/toolbutton-a.png differ
+diff --git a/bin/themes/chrome/images/toolbutton-h.png b/bin/themes/chrome/images/toolbutton-h.png
+index d81e30b..d64a126 100644
+Binary files a/bin/themes/chrome/images/toolbutton-h.png and b/bin/themes/chrome/images/toolbutton-h.png differ
+diff --git a/bin/themes/chrome/images/toolbutton.png b/bin/themes/chrome/images/toolbutton.png
+index e485b6f..fed816f 100644
+Binary files a/bin/themes/chrome/images/toolbutton.png and b/bin/themes/chrome/images/toolbutton.png differ
+diff --git a/bin/themes/chrome/theme.png b/bin/themes/chrome/theme.png
+index 1e18fe2..a464907 100644
+Binary files a/bin/themes/chrome/theme.png and b/bin/themes/chrome/theme.png differ
+diff --git a/bin/themes/default/images/background.png b/bin/themes/default/images/background.png
+index 243beec..d5a46f8 100644
+Binary files a/bin/themes/default/images/background.png and b/bin/themes/default/images/background.png differ
+diff --git a/bin/themes/default/images/flash.png b/bin/themes/default/images/flash.png
+index 52eb6db..7f6963f 100644
+Binary files a/bin/themes/default/images/flash.png and b/bin/themes/default/images/flash.png differ
+diff --git a/bin/themes/default/images/flashstart.png b/bin/themes/default/images/flashstart.png
+index bce503a..a168cb9 100644
+Binary files a/bin/themes/default/images/flashstart.png and b/bin/themes/default/images/flashstart.png differ
+diff --git a/bin/themes/default/images/key.png b/bin/themes/default/images/key.png
+index 2151029..b0266de 100644
+Binary files a/bin/themes/default/images/key.png and b/bin/themes/default/images/key.png differ
+diff --git a/bin/themes/default/images/library-bg-top-right.png b/bin/themes/default/images/library-bg-top-right.png
+index 821f12d..d41155b 100644
+Binary files a/bin/themes/default/images/library-bg-top-right.png and b/bin/themes/default/images/library-bg-top-right.png differ
+diff --git a/bin/themes/default/images/lineedit-bg.png b/bin/themes/default/images/lineedit-bg.png
+index 2f159b2..409c880 100644
+Binary files a/bin/themes/default/images/lineedit-bg.png and b/bin/themes/default/images/lineedit-bg.png differ
+diff --git a/bin/themes/default/images/navigation-addtab.png b/bin/themes/default/images/navigation-addtab.png
+index ae0d849..03c4e4d 100644
+Binary files a/bin/themes/default/images/navigation-addtab.png and b/bin/themes/default/images/navigation-addtab.png differ
+diff --git a/bin/themes/default/images/navigation-back.png b/bin/themes/default/images/navigation-back.png
+index 453928b..14b58de 100644
+Binary files a/bin/themes/default/images/navigation-back.png and b/bin/themes/default/images/navigation-back.png differ
+diff --git a/bin/themes/default/images/navigation-forward.png b/bin/themes/default/images/navigation-forward.png
+index c3343c6..68f60a2 100644
+Binary files a/bin/themes/default/images/navigation-forward.png and b/bin/themes/default/images/navigation-forward.png differ
+diff --git a/bin/themes/default/images/navigation-home.png b/bin/themes/default/images/navigation-home.png
+index 9d62109..5b12c88 100644
+Binary files a/bin/themes/default/images/navigation-home.png and b/bin/themes/default/images/navigation-home.png differ
+diff --git a/bin/themes/default/images/navigation-reload.png b/bin/themes/default/images/navigation-reload.png
+index c760292..bd26742 100644
+Binary files a/bin/themes/default/images/navigation-reload.png and b/bin/themes/default/images/navigation-reload.png differ
+diff --git a/bin/themes/default/images/navigation-stop.png b/bin/themes/default/images/navigation-stop.png
+index 6753ca2..da1e936 100644
+Binary files a/bin/themes/default/images/navigation-stop.png and b/bin/themes/default/images/navigation-stop.png differ
+diff --git a/bin/themes/default/images/navigation-supmenu.png b/bin/themes/default/images/navigation-supmenu.png
+index f13f5b6..65cd4ed 100644
+Binary files a/bin/themes/default/images/navigation-supmenu.png and b/bin/themes/default/images/navigation-supmenu.png differ
+diff --git a/bin/themes/default/images/rss.png b/bin/themes/default/images/rss.png
+index d1705aa..89bbac1 100644
+Binary files a/bin/themes/default/images/rss.png and b/bin/themes/default/images/rss.png differ
+diff --git a/bin/themes/default/images/search.png b/bin/themes/default/images/search.png
+index 64315e1..b532619 100644
+Binary files a/bin/themes/default/images/search.png and b/bin/themes/default/images/search.png differ
+diff --git a/bin/themes/default/images/semi-transp.png b/bin/themes/default/images/semi-transp.png
+index da9719b..34951c6 100644
+Binary files a/bin/themes/default/images/semi-transp.png and b/bin/themes/default/images/semi-transp.png differ
+diff --git a/bin/themes/default/images/siteicon-bg-secure.png b/bin/themes/default/images/siteicon-bg-secure.png
+index fab1e7c..9d2c280 100644
+Binary files a/bin/themes/default/images/siteicon-bg-secure.png and b/bin/themes/default/images/siteicon-bg-secure.png differ
+diff --git a/bin/themes/default/images/siteicon-bg.png b/bin/themes/default/images/siteicon-bg.png
+index 8a53ff7..72f6cc8 100644
+Binary files a/bin/themes/default/images/siteicon-bg.png and b/bin/themes/default/images/siteicon-bg.png differ
+diff --git a/bin/themes/default/images/star.png b/bin/themes/default/images/star.png
+index 45157f7..f2fb237 100644
+Binary files a/bin/themes/default/images/star.png and b/bin/themes/default/images/star.png differ
+diff --git a/bin/themes/default/images/starg.png b/bin/themes/default/images/starg.png
+index 82669bd..1801769 100644
+Binary files a/bin/themes/default/images/starg.png and b/bin/themes/default/images/starg.png differ
+diff --git a/bin/themes/default/images/tab-left-arrow.png b/bin/themes/default/images/tab-left-arrow.png
+index fcc62a2..7222efd 100644
+Binary files a/bin/themes/default/images/tab-left-arrow.png and b/bin/themes/default/images/tab-left-arrow.png differ
+diff --git a/bin/themes/default/images/tab-right-arrow.png b/bin/themes/default/images/tab-right-arrow.png
+index 89b5aeb..c1fe57a 100644
+Binary files a/bin/themes/default/images/tab-right-arrow.png and b/bin/themes/default/images/tab-right-arrow.png differ
+diff --git a/bin/themes/default/images/tabs-list-button.png b/bin/themes/default/images/tabs-list-button.png
+index b3376d2..db3e896 100644
+Binary files a/bin/themes/default/images/tabs-list-button.png and b/bin/themes/default/images/tabs-list-button.png differ
+diff --git a/bin/themes/default/images/transp.png b/bin/themes/default/images/transp.png
+index 2bba526..4879e7b 100644
+Binary files a/bin/themes/default/images/transp.png and b/bin/themes/default/images/transp.png differ
+diff --git a/bin/themes/default/images/websearchbar-bg.png b/bin/themes/default/images/websearchbar-bg.png
+index 472623d..5488a7b 100644
+Binary files a/bin/themes/default/images/websearchbar-bg.png and b/bin/themes/default/images/websearchbar-bg.png differ
+diff --git a/bin/themes/default/theme.png b/bin/themes/default/theme.png
+index 056e737..6347b50 100644
+Binary files a/bin/themes/default/theme.png and b/bin/themes/default/theme.png differ
+diff --git a/bin/themes/linux/images/flash.png b/bin/themes/linux/images/flash.png
+index 52eb6db..7f6963f 100644
+Binary files a/bin/themes/linux/images/flash.png and b/bin/themes/linux/images/flash.png differ
+diff --git a/bin/themes/linux/images/flashstart.png b/bin/themes/linux/images/flashstart.png
+index bce503a..a168cb9 100644
+Binary files a/bin/themes/linux/images/flashstart.png and b/bin/themes/linux/images/flashstart.png differ
+diff --git a/bin/themes/linux/images/goto.png b/bin/themes/linux/images/goto.png
+index 6f81609..79757e1 100644
+Binary files a/bin/themes/linux/images/goto.png and b/bin/themes/linux/images/goto.png differ
+diff --git a/bin/themes/linux/images/key.png b/bin/themes/linux/images/key.png
+index 2151029..b0266de 100644
+Binary files a/bin/themes/linux/images/key.png and b/bin/themes/linux/images/key.png differ
+diff --git a/bin/themes/linux/images/library-bg-top-right.png b/bin/themes/linux/images/library-bg-top-right.png
+index 821f12d..d41155b 100644
+Binary files a/bin/themes/linux/images/library-bg-top-right.png and b/bin/themes/linux/images/library-bg-top-right.png differ
+diff --git a/bin/themes/linux/images/library-search-bg.png b/bin/themes/linux/images/library-search-bg.png
+index 2f159b2..409c880 100644
+Binary files a/bin/themes/linux/images/library-search-bg.png and b/bin/themes/linux/images/library-search-bg.png differ
+diff --git a/bin/themes/linux/images/menu.png b/bin/themes/linux/images/menu.png
+index a9febc3..d136e35 100644
+Binary files a/bin/themes/linux/images/menu.png and b/bin/themes/linux/images/menu.png differ
+diff --git a/bin/themes/linux/images/navigation-dropdown.png b/bin/themes/linux/images/navigation-dropdown.png
+index 20a586a..04964d1 100644
+Binary files a/bin/themes/linux/images/navigation-dropdown.png and b/bin/themes/linux/images/navigation-dropdown.png differ
+diff --git a/bin/themes/linux/images/rss.png b/bin/themes/linux/images/rss.png
+index d1705aa..89bbac1 100644
+Binary files a/bin/themes/linux/images/rss.png and b/bin/themes/linux/images/rss.png differ
+diff --git a/bin/themes/linux/images/semi-transp.png b/bin/themes/linux/images/semi-transp.png
+index da9719b..34951c6 100644
+Binary files a/bin/themes/linux/images/semi-transp.png and b/bin/themes/linux/images/semi-transp.png differ
+diff --git a/bin/themes/linux/images/star-a.png b/bin/themes/linux/images/star-a.png
+index cf3a425..e0c9b53 100644
+Binary files a/bin/themes/linux/images/star-a.png and b/bin/themes/linux/images/star-a.png differ
+diff --git a/bin/themes/linux/images/star.png b/bin/themes/linux/images/star.png
+index e455d3d..3e8da3d 100644
+Binary files a/bin/themes/linux/images/star.png and b/bin/themes/linux/images/star.png differ
+diff --git a/bin/themes/linux/images/tab-left-arrow.png b/bin/themes/linux/images/tab-left-arrow.png
+index fcc62a2..7222efd 100644
+Binary files a/bin/themes/linux/images/tab-left-arrow.png and b/bin/themes/linux/images/tab-left-arrow.png differ
+diff --git a/bin/themes/linux/images/tab-right-arrow.png b/bin/themes/linux/images/tab-right-arrow.png
+index 89b5aeb..c1fe57a 100644
+Binary files a/bin/themes/linux/images/tab-right-arrow.png and b/bin/themes/linux/images/tab-right-arrow.png differ
+diff --git a/bin/themes/linux/images/tabs-list-button.png b/bin/themes/linux/images/tabs-list-button.png
+index b3376d2..db3e896 100644
+Binary files a/bin/themes/linux/images/tabs-list-button.png and b/bin/themes/linux/images/tabs-list-button.png differ
+diff --git a/bin/themes/linux/images/transp.png b/bin/themes/linux/images/transp.png
+index 2bba526..4879e7b 100644
+Binary files a/bin/themes/linux/images/transp.png and b/bin/themes/linux/images/transp.png differ
+diff --git a/bin/themes/linux/images/websearch-bg.png b/bin/themes/linux/images/websearch-bg.png
+index 77ae5ef..f29fc06 100644
+Binary files a/bin/themes/linux/images/websearch-bg.png and b/bin/themes/linux/images/websearch-bg.png differ
+diff --git a/bin/themes/linux/theme.png b/bin/themes/linux/theme.png
+index 71e7524..c1fa243 100644
+Binary files a/bin/themes/linux/theme.png and b/bin/themes/linux/theme.png differ
+diff --git a/bin/themes/mac/images/flash.png b/bin/themes/mac/images/flash.png
+index 52eb6db..7f6963f 100644
+Binary files a/bin/themes/mac/images/flash.png and b/bin/themes/mac/images/flash.png differ
+diff --git a/bin/themes/mac/images/flashstart.png b/bin/themes/mac/images/flashstart.png
+index bce503a..a168cb9 100644
+Binary files a/bin/themes/mac/images/flashstart.png and b/bin/themes/mac/images/flashstart.png differ
+diff --git a/bin/themes/mac/images/key.png b/bin/themes/mac/images/key.png
+index 2151029..b0266de 100644
+Binary files a/bin/themes/mac/images/key.png and b/bin/themes/mac/images/key.png differ
+diff --git a/bin/themes/mac/images/library-bg-top-right.png b/bin/themes/mac/images/library-bg-top-right.png
+index 821f12d..d41155b 100644
+Binary files a/bin/themes/mac/images/library-bg-top-right.png and b/bin/themes/mac/images/library-bg-top-right.png differ
+diff --git a/bin/themes/mac/images/library-search-bg.png b/bin/themes/mac/images/library-search-bg.png
+index 2f159b2..409c880 100644
+Binary files a/bin/themes/mac/images/library-search-bg.png and b/bin/themes/mac/images/library-search-bg.png differ
+diff --git a/bin/themes/mac/images/navigation-dropdown.png b/bin/themes/mac/images/navigation-dropdown.png
+index 5a60223..daaab25 100644
+Binary files a/bin/themes/mac/images/navigation-dropdown.png and b/bin/themes/mac/images/navigation-dropdown.png differ
+diff --git a/bin/themes/mac/images/navigation-forward.png b/bin/themes/mac/images/navigation-forward.png
+index 318309a..126121a 100644
+Binary files a/bin/themes/mac/images/navigation-forward.png and b/bin/themes/mac/images/navigation-forward.png differ
+diff --git a/bin/themes/mac/images/navigation-supermenu.png b/bin/themes/mac/images/navigation-supermenu.png
+index 5216d2c..b8741ed 100644
+Binary files a/bin/themes/mac/images/navigation-supermenu.png and b/bin/themes/mac/images/navigation-supermenu.png differ
+diff --git a/bin/themes/mac/images/search-icon.png b/bin/themes/mac/images/search-icon.png
+index 7f6f9e4..e8d418c 100644
+Binary files a/bin/themes/mac/images/search-icon.png and b/bin/themes/mac/images/search-icon.png differ
+diff --git a/bin/themes/mac/images/searchbar-provider-bg.png b/bin/themes/mac/images/searchbar-provider-bg.png
+index dca9f7c..02fac97 100644
+Binary files a/bin/themes/mac/images/searchbar-provider-bg.png and b/bin/themes/mac/images/searchbar-provider-bg.png differ
+diff --git a/bin/themes/mac/images/semi-transp.png b/bin/themes/mac/images/semi-transp.png
+index da9719b..34951c6 100644
+Binary files a/bin/themes/mac/images/semi-transp.png and b/bin/themes/mac/images/semi-transp.png differ
+diff --git a/bin/themes/mac/images/siteicon-bg.png b/bin/themes/mac/images/siteicon-bg.png
+index bcc5d90..34a44a9 100644
+Binary files a/bin/themes/mac/images/siteicon-bg.png and b/bin/themes/mac/images/siteicon-bg.png differ
+diff --git a/bin/themes/mac/images/siteicon-secure-bg.png b/bin/themes/mac/images/siteicon-secure-bg.png
+index 1fb3403..ff3cf09 100644
+Binary files a/bin/themes/mac/images/siteicon-secure-bg.png and b/bin/themes/mac/images/siteicon-secure-bg.png differ
+diff --git a/bin/themes/mac/images/splitter.png b/bin/themes/mac/images/splitter.png
+index 2edff63..8980f54 100644
+Binary files a/bin/themes/mac/images/splitter.png and b/bin/themes/mac/images/splitter.png differ
+diff --git a/bin/themes/mac/images/star-a.png b/bin/themes/mac/images/star-a.png
+index 59bb76c..0808299 100644
+Binary files a/bin/themes/mac/images/star-a.png and b/bin/themes/mac/images/star-a.png differ
+diff --git a/bin/themes/mac/images/star.png b/bin/themes/mac/images/star.png
+index 93b9bd7..e8cfaa1 100644
+Binary files a/bin/themes/mac/images/star.png and b/bin/themes/mac/images/star.png differ
+diff --git a/bin/themes/mac/images/tab-left-arrow.png b/bin/themes/mac/images/tab-left-arrow.png
+index fcc62a2..7222efd 100644
+Binary files a/bin/themes/mac/images/tab-left-arrow.png and b/bin/themes/mac/images/tab-left-arrow.png differ
+diff --git a/bin/themes/mac/images/tab-right-arrow.png b/bin/themes/mac/images/tab-right-arrow.png
+index 89b5aeb..c1fe57a 100644
+Binary files a/bin/themes/mac/images/tab-right-arrow.png and b/bin/themes/mac/images/tab-right-arrow.png differ
+diff --git a/bin/themes/mac/images/tabbar-addtab.png b/bin/themes/mac/images/tabbar-addtab.png
+index b491407..cee0612 100644
+Binary files a/bin/themes/mac/images/tabbar-addtab.png and b/bin/themes/mac/images/tabbar-addtab.png differ
+diff --git a/bin/themes/mac/images/tabs-bg.png b/bin/themes/mac/images/tabs-bg.png
+index 3a35bdf..a832254 100644
+Binary files a/bin/themes/mac/images/tabs-bg.png and b/bin/themes/mac/images/tabs-bg.png differ
+diff --git a/bin/themes/mac/images/toolbar-bg.png b/bin/themes/mac/images/toolbar-bg.png
+index 16f7a3f..b510493 100644
+Binary files a/bin/themes/mac/images/toolbar-bg.png and b/bin/themes/mac/images/toolbar-bg.png differ
+diff --git a/bin/themes/mac/images/transp.png b/bin/themes/mac/images/transp.png
+index 2bba526..4879e7b 100644
+Binary files a/bin/themes/mac/images/transp.png and b/bin/themes/mac/images/transp.png differ
+diff --git a/bin/themes/mac/images/user-trash-full.png b/bin/themes/mac/images/user-trash-full.png
+index 57e2c2e..8374467 100644
+Binary files a/bin/themes/mac/images/user-trash-full.png and b/bin/themes/mac/images/user-trash-full.png differ
+diff --git a/bin/themes/mac/theme.png b/bin/themes/mac/theme.png
+index 2d1f818..e40b4f0 100644
+Binary files a/bin/themes/mac/theme.png and b/bin/themes/mac/theme.png differ
+diff --git a/bin/themes/windows/images/flash.png b/bin/themes/windows/images/flash.png
+index 52eb6db..7f6963f 100644
+Binary files a/bin/themes/windows/images/flash.png and b/bin/themes/windows/images/flash.png differ
+diff --git a/bin/themes/windows/images/flashstart.png b/bin/themes/windows/images/flashstart.png
+index bce503a..a168cb9 100644
+Binary files a/bin/themes/windows/images/flashstart.png and b/bin/themes/windows/images/flashstart.png differ
+diff --git a/bin/themes/windows/images/key.png b/bin/themes/windows/images/key.png
+index 2151029..b0266de 100644
+Binary files a/bin/themes/windows/images/key.png and b/bin/themes/windows/images/key.png differ
+diff --git a/bin/themes/windows/images/library-bg-top-right.png b/bin/themes/windows/images/library-bg-top-right.png
+index 821f12d..d41155b 100644
+Binary files a/bin/themes/windows/images/library-bg-top-right.png and b/bin/themes/windows/images/library-bg-top-right.png differ
+diff --git a/bin/themes/windows/images/library-search-bg.png b/bin/themes/windows/images/library-search-bg.png
+index 2f159b2..409c880 100644
+Binary files a/bin/themes/windows/images/library-search-bg.png and b/bin/themes/windows/images/library-search-bg.png differ
+diff --git a/bin/themes/windows/images/navigation-addtab.png b/bin/themes/windows/images/navigation-addtab.png
+index d89095d..8c887f7 100644
+Binary files a/bin/themes/windows/images/navigation-addtab.png and b/bin/themes/windows/images/navigation-addtab.png differ
+diff --git a/bin/themes/windows/images/navigation-home.png b/bin/themes/windows/images/navigation-home.png
+index 5674249..7e1e5cd 100644
+Binary files a/bin/themes/windows/images/navigation-home.png and b/bin/themes/windows/images/navigation-home.png differ
+diff --git a/bin/themes/windows/images/navigation-reload.png b/bin/themes/windows/images/navigation-reload.png
+index c760292..bd26742 100644
+Binary files a/bin/themes/windows/images/navigation-reload.png and b/bin/themes/windows/images/navigation-reload.png differ
+diff --git a/bin/themes/windows/images/navigation-stop.png b/bin/themes/windows/images/navigation-stop.png
+index 6753ca2..da1e936 100644
+Binary files a/bin/themes/windows/images/navigation-stop.png and b/bin/themes/windows/images/navigation-stop.png differ
+diff --git a/bin/themes/windows/images/navigation-supermenu.png b/bin/themes/windows/images/navigation-supermenu.png
+index 59b2b2e..7eb2ed7 100644
+Binary files a/bin/themes/windows/images/navigation-supermenu.png and b/bin/themes/windows/images/navigation-supermenu.png differ
+diff --git a/bin/themes/windows/images/semi-transp.png b/bin/themes/windows/images/semi-transp.png
+index da9719b..34951c6 100644
+Binary files a/bin/themes/windows/images/semi-transp.png and b/bin/themes/windows/images/semi-transp.png differ
+diff --git a/bin/themes/windows/images/siteicon-secure-bg.png b/bin/themes/windows/images/siteicon-secure-bg.png
+index bb2d912..d128be2 100644
+Binary files a/bin/themes/windows/images/siteicon-secure-bg.png and b/bin/themes/windows/images/siteicon-secure-bg.png differ
+diff --git a/bin/themes/windows/images/star-a.png b/bin/themes/windows/images/star-a.png
+index 36e4b03..645ceeb 100644
+Binary files a/bin/themes/windows/images/star-a.png and b/bin/themes/windows/images/star-a.png differ
+diff --git a/bin/themes/windows/images/star.png b/bin/themes/windows/images/star.png
+index 2e3418e..1c104ec 100644
+Binary files a/bin/themes/windows/images/star.png and b/bin/themes/windows/images/star.png differ
+diff --git a/bin/themes/windows/images/tab-active-bg.png b/bin/themes/windows/images/tab-active-bg.png
+index 1ad7560..2acb100 100644
+Binary files a/bin/themes/windows/images/tab-active-bg.png and b/bin/themes/windows/images/tab-active-bg.png differ
+diff --git a/bin/themes/windows/images/tab-left-arrow.png b/bin/themes/windows/images/tab-left-arrow.png
+index fcc62a2..7222efd 100644
+Binary files a/bin/themes/windows/images/tab-left-arrow.png and b/bin/themes/windows/images/tab-left-arrow.png differ
+diff --git a/bin/themes/windows/images/tab-right-arrow.png b/bin/themes/windows/images/tab-right-arrow.png
+index 89b5aeb..c1fe57a 100644
+Binary files a/bin/themes/windows/images/tab-right-arrow.png and b/bin/themes/windows/images/tab-right-arrow.png differ
+diff --git a/bin/themes/windows/images/tabbar-addtab.png b/bin/themes/windows/images/tabbar-addtab.png
+index 769f2ef..e020bbc 100644
+Binary files a/bin/themes/windows/images/tabbar-addtab.png and b/bin/themes/windows/images/tabbar-addtab.png differ
+diff --git a/bin/themes/windows/images/tabbar-addtab_rtl.png b/bin/themes/windows/images/tabbar-addtab_rtl.png
+index dc50b82..4fe0a13 100644
+Binary files a/bin/themes/windows/images/tabbar-addtab_rtl.png and b/bin/themes/windows/images/tabbar-addtab_rtl.png differ
+diff --git a/bin/themes/windows/images/tabs-list-button.png b/bin/themes/windows/images/tabs-list-button.png
+index 23c93db..5e9ee39 100644
+Binary files a/bin/themes/windows/images/tabs-list-button.png and b/bin/themes/windows/images/tabs-list-button.png differ
+diff --git a/bin/themes/windows/images/toolbar-bg.png b/bin/themes/windows/images/toolbar-bg.png
+index 17a371c..8cf52c9 100644
+Binary files a/bin/themes/windows/images/toolbar-bg.png and b/bin/themes/windows/images/toolbar-bg.png differ
+diff --git a/bin/themes/windows/images/transp.png b/bin/themes/windows/images/transp.png
+index 2bba526..4879e7b 100644
+Binary files a/bin/themes/windows/images/transp.png and b/bin/themes/windows/images/transp.png differ
+diff --git a/bin/themes/windows/images/user-trash-full.png b/bin/themes/windows/images/user-trash-full.png
+index 57e2c2e..8374467 100644
+Binary files a/bin/themes/windows/images/user-trash-full.png and b/bin/themes/windows/images/user-trash-full.png differ
+diff --git a/linux/hicolor/16x16/apps/qupzilla.png b/linux/hicolor/16x16/apps/qupzilla.png
+index 25d905a..c70d1a5 100644
+Binary files a/linux/hicolor/16x16/apps/qupzilla.png and b/linux/hicolor/16x16/apps/qupzilla.png differ
+diff --git a/mac/images/qupzilla-dmg-background.png b/mac/images/qupzilla-dmg-background.png
+index f71c641..23668eb 100644
+Binary files a/mac/images/qupzilla-dmg-background.png and b/mac/images/qupzilla-dmg-background.png differ
+diff --git a/mac/images/qupzilla-dmg-icon.png b/mac/images/qupzilla-dmg-icon.png
+index b815cad..4058fe3 100644
+Binary files a/mac/images/qupzilla-dmg-icon.png and b/mac/images/qupzilla-dmg-icon.png differ
+diff --git a/other/linguist-translating.png b/other/linguist-translating.png
+index b0f6958..6870135 100644
+Binary files a/other/linguist-translating.png and b/other/linguist-translating.png differ
+diff --git a/src/lib/data/html/adblock_big.png b/src/lib/data/html/adblock_big.png
+index 3a31005..cce98e1 100644
+Binary files a/src/lib/data/html/adblock_big.png and b/src/lib/data/html/adblock_big.png differ
+diff --git a/src/lib/data/html/box-border.png b/src/lib/data/html/box-border.png
+index eb95c48..be2bbc3 100644
+Binary files a/src/lib/data/html/box-border.png and b/src/lib/data/html/box-border.png differ
+diff --git a/src/lib/data/html/broken-page.png b/src/lib/data/html/broken-page.png
+index 5e11829..e45b429 100644
+Binary files a/src/lib/data/html/broken-page.png and b/src/lib/data/html/broken-page.png differ
+diff --git a/src/lib/data/html/close.png b/src/lib/data/html/close.png
+index 0476ace..a4161b3 100644
+Binary files a/src/lib/data/html/close.png and b/src/lib/data/html/close.png differ
+diff --git a/src/lib/data/html/configure.png b/src/lib/data/html/configure.png
+index 17ceb32..7f7eb4f 100644
+Binary files a/src/lib/data/html/configure.png and b/src/lib/data/html/configure.png differ
+diff --git a/src/lib/data/html/edit.png b/src/lib/data/html/edit.png
+index 1927afb..1c4c3d1 100644
+Binary files a/src/lib/data/html/edit.png and b/src/lib/data/html/edit.png differ
+diff --git a/src/lib/data/html/plus.png b/src/lib/data/html/plus.png
+index 2fc45b7..66f4b03 100644
+Binary files a/src/lib/data/html/plus.png and b/src/lib/data/html/plus.png differ
+diff --git a/src/lib/data/html/reload.png b/src/lib/data/html/reload.png
+index afd0a88..6deb217 100644
+Binary files a/src/lib/data/html/reload.png and b/src/lib/data/html/reload.png differ
+diff --git a/src/lib/data/icons/browsers/chrome.png b/src/lib/data/icons/browsers/chrome.png
+index 1928880..5332929 100644
+Binary files a/src/lib/data/icons/browsers/chrome.png and b/src/lib/data/icons/browsers/chrome.png differ
+diff --git a/src/lib/data/icons/browsers/firefox.png b/src/lib/data/icons/browsers/firefox.png
+index 7e5ed69..5f419f9 100644
+Binary files a/src/lib/data/icons/browsers/firefox.png and b/src/lib/data/icons/browsers/firefox.png differ
+diff --git a/src/lib/data/icons/browsers/html.png b/src/lib/data/icons/browsers/html.png
+index cf8837c..343a335 100644
+Binary files a/src/lib/data/icons/browsers/html.png and b/src/lib/data/icons/browsers/html.png differ
+diff --git a/src/lib/data/icons/browsers/opera.png b/src/lib/data/icons/browsers/opera.png
+index c55b637..cbce293 100644
+Binary files a/src/lib/data/icons/browsers/opera.png and b/src/lib/data/icons/browsers/opera.png differ
+diff --git a/src/lib/data/icons/exeicons/page16.png b/src/lib/data/icons/exeicons/page16.png
+index 83a4c71..3d11f54 100644
+Binary files a/src/lib/data/icons/exeicons/page16.png and b/src/lib/data/icons/exeicons/page16.png differ
+diff --git a/src/lib/data/icons/exeicons/page32.png b/src/lib/data/icons/exeicons/page32.png
+index 9c8126c..c31c96d 100644
+Binary files a/src/lib/data/icons/exeicons/page32.png and b/src/lib/data/icons/exeicons/page32.png differ
+diff --git a/src/lib/data/icons/exeicons/page48.png b/src/lib/data/icons/exeicons/page48.png
+index b05e9c9..f40b40f 100644
+Binary files a/src/lib/data/icons/exeicons/page48.png and b/src/lib/data/icons/exeicons/page48.png differ
+diff --git a/src/lib/data/icons/exeicons/qupzilla-window.png b/src/lib/data/icons/exeicons/qupzilla-window.png
+index 2a580f5..91ee432 100644
+Binary files a/src/lib/data/icons/exeicons/qupzilla-window.png and b/src/lib/data/icons/exeicons/qupzilla-window.png differ
+diff --git a/src/lib/data/icons/locationbar/safe.png b/src/lib/data/icons/locationbar/safe.png
+index 60024fd..a77d7ff 100644
+Binary files a/src/lib/data/icons/locationbar/safe.png and b/src/lib/data/icons/locationbar/safe.png differ
+diff --git a/src/lib/data/icons/locationbar/unsafe.png b/src/lib/data/icons/locationbar/unsafe.png
+index dfa10c8..4640450 100644
+Binary files a/src/lib/data/icons/locationbar/unsafe.png and b/src/lib/data/icons/locationbar/unsafe.png differ
+diff --git a/src/lib/data/icons/locationbar/visit1.png b/src/lib/data/icons/locationbar/visit1.png
+index 9493bd3..109980e 100644
+Binary files a/src/lib/data/icons/locationbar/visit1.png and b/src/lib/data/icons/locationbar/visit1.png differ
+diff --git a/src/lib/data/icons/locationbar/visit2.png b/src/lib/data/icons/locationbar/visit2.png
+index 72cbb4a..5d7d5c5 100644
+Binary files a/src/lib/data/icons/locationbar/visit2.png and b/src/lib/data/icons/locationbar/visit2.png differ
+diff --git a/src/lib/data/icons/locationbar/visit3.png b/src/lib/data/icons/locationbar/visit3.png
+index 9ace21c..d9bfb4a 100644
+Binary files a/src/lib/data/icons/locationbar/visit3.png and b/src/lib/data/icons/locationbar/visit3.png differ
+diff --git a/src/lib/data/icons/menu/dot.png b/src/lib/data/icons/menu/dot.png
+index 54b38f1..a1c668b 100644
+Binary files a/src/lib/data/icons/menu/dot.png and b/src/lib/data/icons/menu/dot.png differ
+diff --git a/src/lib/data/icons/menu/history.png b/src/lib/data/icons/menu/history.png
+index 7d6c709..3f2be10 100644
+Binary files a/src/lib/data/icons/menu/history.png and b/src/lib/data/icons/menu/history.png differ
+diff --git a/src/lib/data/icons/menu/history_entry.png b/src/lib/data/icons/menu/history_entry.png
+index ca07076..7585cea 100644
+Binary files a/src/lib/data/icons/menu/history_entry.png and b/src/lib/data/icons/menu/history_entry.png differ
+diff --git a/src/lib/data/icons/menu/privatebrowsing.png b/src/lib/data/icons/menu/privatebrowsing.png
+index c974107..84cd196 100644
+Binary files a/src/lib/data/icons/menu/privatebrowsing.png and b/src/lib/data/icons/menu/privatebrowsing.png differ
+diff --git a/src/lib/data/icons/menu/qt.png b/src/lib/data/icons/menu/qt.png
+index 91b80ae..37acd32 100644
+Binary files a/src/lib/data/icons/menu/qt.png and b/src/lib/data/icons/menu/qt.png differ
+diff --git a/src/lib/data/icons/menu/search-icon.png b/src/lib/data/icons/menu/search-icon.png
+index c0fb527..88a5ac5 100644
+Binary files a/src/lib/data/icons/menu/search-icon.png and b/src/lib/data/icons/menu/search-icon.png differ
+diff --git a/src/lib/data/icons/menu/settings.png b/src/lib/data/icons/menu/settings.png
+index 13395f0..c0e3d39 100644
+Binary files a/src/lib/data/icons/menu/settings.png and b/src/lib/data/icons/menu/settings.png differ
+diff --git a/src/lib/data/icons/menu/tab-new.png b/src/lib/data/icons/menu/tab-new.png
+index dafcaf9..4f973b5 100644
+Binary files a/src/lib/data/icons/menu/tab-new.png and b/src/lib/data/icons/menu/tab-new.png differ
+diff --git a/src/lib/data/icons/menu/tab.png b/src/lib/data/icons/menu/tab.png
+index f22bbc8..8a2a3ea 100644
+Binary files a/src/lib/data/icons/menu/tab.png and b/src/lib/data/icons/menu/tab.png differ
+diff --git a/src/lib/data/icons/notifications/download.png b/src/lib/data/icons/notifications/download.png
+index e81619b..849ec9d 100644
+Binary files a/src/lib/data/icons/notifications/download.png and b/src/lib/data/icons/notifications/download.png differ
+diff --git a/src/lib/data/icons/other/about.png b/src/lib/data/icons/other/about.png
+index a4128db..3086947 100644
+Binary files a/src/lib/data/icons/other/about.png and b/src/lib/data/icons/other/about.png differ
+diff --git a/src/lib/data/icons/other/adblock-disabled.png b/src/lib/data/icons/other/adblock-disabled.png
+index 7524a7e..d4e07f9 100644
+Binary files a/src/lib/data/icons/other/adblock-disabled.png and b/src/lib/data/icons/other/adblock-disabled.png differ
+diff --git a/src/lib/data/icons/other/bighistory.png b/src/lib/data/icons/other/bighistory.png
+index b8ba989..1b3fcd6 100644
+Binary files a/src/lib/data/icons/other/bighistory.png and b/src/lib/data/icons/other/bighistory.png differ
+diff --git a/src/lib/data/icons/other/bigstar.png b/src/lib/data/icons/other/bigstar.png
+index c3101da..e04c37c 100644
+Binary files a/src/lib/data/icons/other/bigstar.png and b/src/lib/data/icons/other/bigstar.png differ
+diff --git a/src/lib/data/icons/other/empty-page.png b/src/lib/data/icons/other/empty-page.png
+index 1be2379..ce8a184 100644
+Binary files a/src/lib/data/icons/other/empty-page.png and b/src/lib/data/icons/other/empty-page.png differ
+diff --git a/src/lib/data/icons/other/feed.png b/src/lib/data/icons/other/feed.png
+index 1bc5fa0..e8e40d5 100644
+Binary files a/src/lib/data/icons/other/feed.png and b/src/lib/data/icons/other/feed.png differ
+diff --git a/src/lib/data/icons/other/geolocation.png b/src/lib/data/icons/other/geolocation.png
+index 4bc0091..2f70d9c 100644
+Binary files a/src/lib/data/icons/other/geolocation.png and b/src/lib/data/icons/other/geolocation.png differ
+diff --git a/src/lib/data/icons/other/login.png b/src/lib/data/icons/other/login.png
+index a01677f..8283345 100644
+Binary files a/src/lib/data/icons/other/login.png and b/src/lib/data/icons/other/login.png differ
+diff --git a/src/lib/data/icons/other/notification.png b/src/lib/data/icons/other/notification.png
+index f8aef8a..122486d 100644
+Binary files a/src/lib/data/icons/other/notification.png and b/src/lib/data/icons/other/notification.png differ
+diff --git a/src/lib/data/icons/preferences/application-x-theme.png b/src/lib/data/icons/preferences/application-x-theme.png
+index 05c34b9..1d50f9d 100644
+Binary files a/src/lib/data/icons/preferences/application-x-theme.png and b/src/lib/data/icons/preferences/application-x-theme.png differ
+diff --git a/src/lib/data/icons/preferences/applications-fonts.png b/src/lib/data/icons/preferences/applications-fonts.png
+index 76c81f3..de079e2 100644
+Binary files a/src/lib/data/icons/preferences/applications-fonts.png and b/src/lib/data/icons/preferences/applications-fonts.png differ
+diff --git a/src/lib/data/icons/preferences/applications-graphics.png b/src/lib/data/icons/preferences/applications-graphics.png
+index d0cbd10..2a44ad2 100644
+Binary files a/src/lib/data/icons/preferences/applications-graphics.png and b/src/lib/data/icons/preferences/applications-graphics.png differ
+diff --git a/src/lib/data/icons/preferences/applications-internet.png b/src/lib/data/icons/preferences/applications-internet.png
+index 292ca2a..881cfcf 100644
+Binary files a/src/lib/data/icons/preferences/applications-internet.png and b/src/lib/data/icons/preferences/applications-internet.png differ
+diff --git a/src/lib/data/icons/preferences/applications-system.png b/src/lib/data/icons/preferences/applications-system.png
+index 4d9a9dc..8ba0e24 100644
+Binary files a/src/lib/data/icons/preferences/applications-system.png and b/src/lib/data/icons/preferences/applications-system.png differ
+diff --git a/src/lib/data/icons/preferences/applications-webbrowsers.png b/src/lib/data/icons/preferences/applications-webbrowsers.png
+index 0e16fd7..0a700aa 100644
+Binary files a/src/lib/data/icons/preferences/applications-webbrowsers.png and b/src/lib/data/icons/preferences/applications-webbrowsers.png differ
+diff --git a/src/lib/data/icons/preferences/dialog-password.png b/src/lib/data/icons/preferences/dialog-password.png
+index cd34d62..c09c2c8 100644
+Binary files a/src/lib/data/icons/preferences/dialog-password.png and b/src/lib/data/icons/preferences/dialog-password.png differ
+diff --git a/src/lib/data/icons/preferences/dialog-question.png b/src/lib/data/icons/preferences/dialog-question.png
+index e6cd734..f9c44d2 100644
+Binary files a/src/lib/data/icons/preferences/dialog-question.png and b/src/lib/data/icons/preferences/dialog-question.png differ
+diff --git a/src/lib/data/icons/preferences/document-properties.png b/src/lib/data/icons/preferences/document-properties.png
+index 5b43ef7..df4313b 100644
+Binary files a/src/lib/data/icons/preferences/document-properties.png and b/src/lib/data/icons/preferences/document-properties.png differ
+diff --git a/src/lib/data/icons/preferences/extension.png b/src/lib/data/icons/preferences/extension.png
+index 5c8af7d..5aa7b63 100644
+Binary files a/src/lib/data/icons/preferences/extension.png and b/src/lib/data/icons/preferences/extension.png differ
+diff --git a/src/lib/data/icons/preferences/mail-inbox.png b/src/lib/data/icons/preferences/mail-inbox.png
+index ec888b8..926d560 100644
+Binary files a/src/lib/data/icons/preferences/mail-inbox.png and b/src/lib/data/icons/preferences/mail-inbox.png differ
+diff --git a/src/lib/data/icons/preferences/preferences-desktop-keyboard-shortcuts.png b/src/lib/data/icons/preferences/preferences-desktop-keyboard-shortcuts.png
+index 1d8a340..57e4fc9 100644
+Binary files a/src/lib/data/icons/preferences/preferences-desktop-keyboard-shortcuts.png and b/src/lib/data/icons/preferences/preferences-desktop-keyboard-shortcuts.png differ
+diff --git a/src/lib/data/icons/preferences/preferences-desktop.png b/src/lib/data/icons/preferences/preferences-desktop.png
+index c60cfd3..c379433 100644
+Binary files a/src/lib/data/icons/preferences/preferences-desktop.png and b/src/lib/data/icons/preferences/preferences-desktop.png differ
+diff --git a/src/lib/data/icons/preferences/preferences-system-firewall.png b/src/lib/data/icons/preferences/preferences-system-firewall.png
+index d91c25b..233d2e2 100644
+Binary files a/src/lib/data/icons/preferences/preferences-system-firewall.png and b/src/lib/data/icons/preferences/preferences-system-firewall.png differ
+diff --git a/src/lib/data/icons/preferences/style-default.png b/src/lib/data/icons/preferences/style-default.png
+index 73877f8..5d75401 100644
+Binary files a/src/lib/data/icons/preferences/style-default.png and b/src/lib/data/icons/preferences/style-default.png differ
+diff --git a/src/lib/data/icons/preferences/text-x-sql.png b/src/lib/data/icons/preferences/text-x-sql.png
+index e4845e8..f035f8f 100644
+Binary files a/src/lib/data/icons/preferences/text-x-sql.png and b/src/lib/data/icons/preferences/text-x-sql.png differ
+diff --git a/src/lib/data/icons/qupzilla.png b/src/lib/data/icons/qupzilla.png
+index 430128f..f06475a 100644
+Binary files a/src/lib/data/icons/qupzilla.png and b/src/lib/data/icons/qupzilla.png differ
+diff --git a/src/lib/data/icons/qupzillaupdate.png b/src/lib/data/icons/qupzillaupdate.png
+index dab699c..6b57677 100644
+Binary files a/src/lib/data/icons/qupzillaupdate.png and b/src/lib/data/icons/qupzillaupdate.png differ
+diff --git a/src/lib/data/icons/sites/akregator.png b/src/lib/data/icons/sites/akregator.png
+index eb09f3e..ff1bd6f 100644
+Binary files a/src/lib/data/icons/sites/akregator.png and b/src/lib/data/icons/sites/akregator.png differ
+diff --git a/src/lib/data/icons/sites/liferea.png b/src/lib/data/icons/sites/liferea.png
+index 0dbfcce..26cacee 100644
+Binary files a/src/lib/data/icons/sites/liferea.png and b/src/lib/data/icons/sites/liferea.png differ
+diff --git a/src/lib/data/icons/sites/wikipedia.png b/src/lib/data/icons/sites/wikipedia.png
+index 8715f13..5c41116 100644
+Binary files a/src/lib/data/icons/sites/wikipedia.png and b/src/lib/data/icons/sites/wikipedia.png differ
+diff --git a/src/lib/data/oxygen-fallback/16x16/bookmark-new-list.png b/src/lib/data/oxygen-fallback/16x16/bookmark-new-list.png
+index 233c8ba..3827a51 100644
+Binary files a/src/lib/data/oxygen-fallback/16x16/bookmark-new-list.png and b/src/lib/data/oxygen-fallback/16x16/bookmark-new-list.png differ
+diff --git a/src/lib/data/oxygen-fallback/16x16/bookmark-new.png b/src/lib/data/oxygen-fallback/16x16/bookmark-new.png
+index 57173cf..781b990 100644
+Binary files a/src/lib/data/oxygen-fallback/16x16/bookmark-new.png and b/src/lib/data/oxygen-fallback/16x16/bookmark-new.png differ
+diff --git a/src/lib/data/oxygen-fallback/16x16/bookmarks-organize.png b/src/lib/data/oxygen-fallback/16x16/bookmarks-organize.png
+index de36f10..7083087 100644
+Binary files a/src/lib/data/oxygen-fallback/16x16/bookmarks-organize.png and b/src/lib/data/oxygen-fallback/16x16/bookmarks-organize.png differ
+diff --git a/src/lib/data/oxygen-fallback/16x16/configure.png b/src/lib/data/oxygen-fallback/16x16/configure.png
+index 5ce478b..e42332a 100644
+Binary files a/src/lib/data/oxygen-fallback/16x16/configure.png and b/src/lib/data/oxygen-fallback/16x16/configure.png differ
+diff --git a/src/lib/data/oxygen-fallback/16x16/dialog-close.png b/src/lib/data/oxygen-fallback/16x16/dialog-close.png
+index 2c2f99e..76713fd 100644
+Binary files a/src/lib/data/oxygen-fallback/16x16/dialog-close.png and b/src/lib/data/oxygen-fallback/16x16/dialog-close.png differ
+diff --git a/src/lib/data/oxygen-fallback/16x16/edit-find.png b/src/lib/data/oxygen-fallback/16x16/edit-find.png
+index d9d1c7c..fb9b68c 100644
+Binary files a/src/lib/data/oxygen-fallback/16x16/edit-find.png and b/src/lib/data/oxygen-fallback/16x16/edit-find.png differ
+diff --git a/src/lib/data/oxygen-fallback/16x16/go-down.png b/src/lib/data/oxygen-fallback/16x16/go-down.png
+index 5891219..e1a23d4 100644
+Binary files a/src/lib/data/oxygen-fallback/16x16/go-down.png and b/src/lib/data/oxygen-fallback/16x16/go-down.png differ
+diff --git a/src/lib/data/oxygen-fallback/16x16/go-home.png b/src/lib/data/oxygen-fallback/16x16/go-home.png
+index 9ee717c..85ac2a6 100644
+Binary files a/src/lib/data/oxygen-fallback/16x16/go-home.png and b/src/lib/data/oxygen-fallback/16x16/go-home.png differ
+diff --git a/src/lib/data/oxygen-fallback/16x16/go-jump-locationbar.png b/src/lib/data/oxygen-fallback/16x16/go-jump-locationbar.png
+index 6f81609..79757e1 100644
+Binary files a/src/lib/data/oxygen-fallback/16x16/go-jump-locationbar.png and b/src/lib/data/oxygen-fallback/16x16/go-jump-locationbar.png differ
+diff --git a/src/lib/data/oxygen-fallback/16x16/go-next.png b/src/lib/data/oxygen-fallback/16x16/go-next.png
+index a04c99e..1829f09 100644
+Binary files a/src/lib/data/oxygen-fallback/16x16/go-next.png and b/src/lib/data/oxygen-fallback/16x16/go-next.png differ
+diff --git a/src/lib/data/oxygen-fallback/16x16/go-previous.png b/src/lib/data/oxygen-fallback/16x16/go-previous.png
+index 940797b..0ca96cb 100644
+Binary files a/src/lib/data/oxygen-fallback/16x16/go-previous.png and b/src/lib/data/oxygen-fallback/16x16/go-previous.png differ
+diff --git a/src/lib/data/oxygen-fallback/16x16/go-up.png b/src/lib/data/oxygen-fallback/16x16/go-up.png
+index b3d9cef..aa9596a 100644
+Binary files a/src/lib/data/oxygen-fallback/16x16/go-up.png and b/src/lib/data/oxygen-fallback/16x16/go-up.png differ
+diff --git a/src/lib/data/oxygen-fallback/16x16/list-add.png b/src/lib/data/oxygen-fallback/16x16/list-add.png
+index 1e03be9..b1c12e4 100644
+Binary files a/src/lib/data/oxygen-fallback/16x16/list-add.png and b/src/lib/data/oxygen-fallback/16x16/list-add.png differ
+diff --git a/src/lib/data/oxygen-fallback/16x16/list-remove.png b/src/lib/data/oxygen-fallback/16x16/list-remove.png
+index 5a4d15b..cc9730b 100644
+Binary files a/src/lib/data/oxygen-fallback/16x16/list-remove.png and b/src/lib/data/oxygen-fallback/16x16/list-remove.png differ
+diff --git a/src/lib/data/oxygen-fallback/16x16/process-stop.png b/src/lib/data/oxygen-fallback/16x16/process-stop.png
+index 5b4c488..09dfeb8 100644
+Binary files a/src/lib/data/oxygen-fallback/16x16/process-stop.png and b/src/lib/data/oxygen-fallback/16x16/process-stop.png differ
+diff --git a/src/lib/data/oxygen-fallback/16x16/tab-new.png b/src/lib/data/oxygen-fallback/16x16/tab-new.png
+index dafcaf9..4f973b5 100644
+Binary files a/src/lib/data/oxygen-fallback/16x16/tab-new.png and b/src/lib/data/oxygen-fallback/16x16/tab-new.png differ
+diff --git a/src/lib/data/oxygen-fallback/16x16/user-trash-full.png b/src/lib/data/oxygen-fallback/16x16/user-trash-full.png
+index dd9d12d..19f2e79 100644
+Binary files a/src/lib/data/oxygen-fallback/16x16/user-trash-full.png and b/src/lib/data/oxygen-fallback/16x16/user-trash-full.png differ
+diff --git a/src/lib/data/oxygen-fallback/16x16/view-refresh.png b/src/lib/data/oxygen-fallback/16x16/view-refresh.png
+index 86b6f82..8345dba 100644
+Binary files a/src/lib/data/oxygen-fallback/16x16/view-refresh.png and b/src/lib/data/oxygen-fallback/16x16/view-refresh.png differ
+diff --git a/src/lib/data/oxygen-fallback/16x16/view-restore.png b/src/lib/data/oxygen-fallback/16x16/view-restore.png
+index 7726c35..004eece 100644
+Binary files a/src/lib/data/oxygen-fallback/16x16/view-restore.png and b/src/lib/data/oxygen-fallback/16x16/view-restore.png differ
+diff --git a/src/lib/data/oxygen-fallback/16x16/window-new.png b/src/lib/data/oxygen-fallback/16x16/window-new.png
+index 4268189..90f4d88 100644
+Binary files a/src/lib/data/oxygen-fallback/16x16/window-new.png and b/src/lib/data/oxygen-fallback/16x16/window-new.png differ
+diff --git a/src/lib/data/oxygen-fallback/22x22/bookmark-new-list.png b/src/lib/data/oxygen-fallback/22x22/bookmark-new-list.png
+index 6fb4441..4d2e81f 100644
+Binary files a/src/lib/data/oxygen-fallback/22x22/bookmark-new-list.png and b/src/lib/data/oxygen-fallback/22x22/bookmark-new-list.png differ
+diff --git a/src/lib/data/oxygen-fallback/22x22/bookmark-new.png b/src/lib/data/oxygen-fallback/22x22/bookmark-new.png
+index f285718..2e7b76a 100644
+Binary files a/src/lib/data/oxygen-fallback/22x22/bookmark-new.png and b/src/lib/data/oxygen-fallback/22x22/bookmark-new.png differ
+diff --git a/src/lib/data/oxygen-fallback/22x22/bookmarks-organize.png b/src/lib/data/oxygen-fallback/22x22/bookmarks-organize.png
+index 5348ec6..979dc29 100644
+Binary files a/src/lib/data/oxygen-fallback/22x22/bookmarks-organize.png and b/src/lib/data/oxygen-fallback/22x22/bookmarks-organize.png differ
+diff --git a/src/lib/data/oxygen-fallback/22x22/configure.png b/src/lib/data/oxygen-fallback/22x22/configure.png
+index 45b8fae..bfdfe85 100644
+Binary files a/src/lib/data/oxygen-fallback/22x22/configure.png and b/src/lib/data/oxygen-fallback/22x22/configure.png differ
+diff --git a/src/lib/data/oxygen-fallback/22x22/dialog-close.png b/src/lib/data/oxygen-fallback/22x22/dialog-close.png
+index 5492295..9e3a7a0 100644
+Binary files a/src/lib/data/oxygen-fallback/22x22/dialog-close.png and b/src/lib/data/oxygen-fallback/22x22/dialog-close.png differ
+diff --git a/src/lib/data/oxygen-fallback/22x22/edit-find.png b/src/lib/data/oxygen-fallback/22x22/edit-find.png
+index 1b7a252..ed2823b 100644
+Binary files a/src/lib/data/oxygen-fallback/22x22/edit-find.png and b/src/lib/data/oxygen-fallback/22x22/edit-find.png differ
+diff --git a/src/lib/data/oxygen-fallback/22x22/go-down.png b/src/lib/data/oxygen-fallback/22x22/go-down.png
+index 63331a5..2e2103c 100644
+Binary files a/src/lib/data/oxygen-fallback/22x22/go-down.png and b/src/lib/data/oxygen-fallback/22x22/go-down.png differ
+diff --git a/src/lib/data/oxygen-fallback/22x22/go-home.png b/src/lib/data/oxygen-fallback/22x22/go-home.png
+index aab6a88..705904a 100644
+Binary files a/src/lib/data/oxygen-fallback/22x22/go-home.png and b/src/lib/data/oxygen-fallback/22x22/go-home.png differ
+diff --git a/src/lib/data/oxygen-fallback/22x22/go-jump-locationbar.png b/src/lib/data/oxygen-fallback/22x22/go-jump-locationbar.png
+index 889a2c3..554885a 100644
+Binary files a/src/lib/data/oxygen-fallback/22x22/go-jump-locationbar.png and b/src/lib/data/oxygen-fallback/22x22/go-jump-locationbar.png differ
+diff --git a/src/lib/data/oxygen-fallback/22x22/go-next.png b/src/lib/data/oxygen-fallback/22x22/go-next.png
+index aa7cbb9..69d5048 100644
+Binary files a/src/lib/data/oxygen-fallback/22x22/go-next.png and b/src/lib/data/oxygen-fallback/22x22/go-next.png differ
+diff --git a/src/lib/data/oxygen-fallback/22x22/go-previous.png b/src/lib/data/oxygen-fallback/22x22/go-previous.png
+index 8230340..ff69e32 100644
+Binary files a/src/lib/data/oxygen-fallback/22x22/go-previous.png and b/src/lib/data/oxygen-fallback/22x22/go-previous.png differ
+diff --git a/src/lib/data/oxygen-fallback/22x22/go-up.png b/src/lib/data/oxygen-fallback/22x22/go-up.png
+index 4459024..9464dda 100644
+Binary files a/src/lib/data/oxygen-fallback/22x22/go-up.png and b/src/lib/data/oxygen-fallback/22x22/go-up.png differ
+diff --git a/src/lib/data/oxygen-fallback/22x22/list-add.png b/src/lib/data/oxygen-fallback/22x22/list-add.png
+index e029787..f44186f 100644
+Binary files a/src/lib/data/oxygen-fallback/22x22/list-add.png and b/src/lib/data/oxygen-fallback/22x22/list-add.png differ
+diff --git a/src/lib/data/oxygen-fallback/22x22/list-remove.png b/src/lib/data/oxygen-fallback/22x22/list-remove.png
+index 2bb1a59..4d0370f 100644
+Binary files a/src/lib/data/oxygen-fallback/22x22/list-remove.png and b/src/lib/data/oxygen-fallback/22x22/list-remove.png differ
+diff --git a/src/lib/data/oxygen-fallback/22x22/process-stop.png b/src/lib/data/oxygen-fallback/22x22/process-stop.png
+index 738d6f9..d1b381b 100644
+Binary files a/src/lib/data/oxygen-fallback/22x22/process-stop.png and b/src/lib/data/oxygen-fallback/22x22/process-stop.png differ
+diff --git a/src/lib/data/oxygen-fallback/22x22/tab-new.png b/src/lib/data/oxygen-fallback/22x22/tab-new.png
+index 6da0f69..f4060c8 100644
+Binary files a/src/lib/data/oxygen-fallback/22x22/tab-new.png and b/src/lib/data/oxygen-fallback/22x22/tab-new.png differ
+diff --git a/src/lib/data/oxygen-fallback/22x22/user-trash-full.png b/src/lib/data/oxygen-fallback/22x22/user-trash-full.png
+index 57e2c2e..8374467 100644
+Binary files a/src/lib/data/oxygen-fallback/22x22/user-trash-full.png and b/src/lib/data/oxygen-fallback/22x22/user-trash-full.png differ
+diff --git a/src/lib/data/oxygen-fallback/22x22/view-refresh.png b/src/lib/data/oxygen-fallback/22x22/view-refresh.png
+index 45b5535..693950e 100644
+Binary files a/src/lib/data/oxygen-fallback/22x22/view-refresh.png and b/src/lib/data/oxygen-fallback/22x22/view-refresh.png differ
+diff --git a/src/lib/data/oxygen-fallback/22x22/view-restore.png b/src/lib/data/oxygen-fallback/22x22/view-restore.png
+index d5cfa95..deb2606 100644
+Binary files a/src/lib/data/oxygen-fallback/22x22/view-restore.png and b/src/lib/data/oxygen-fallback/22x22/view-restore.png differ
+diff --git a/src/lib/data/oxygen-fallback/22x22/window-new.png b/src/lib/data/oxygen-fallback/22x22/window-new.png
+index 54ad48c..b60d14c 100644
+Binary files a/src/lib/data/oxygen-fallback/22x22/window-new.png and b/src/lib/data/oxygen-fallback/22x22/window-new.png differ
+diff --git a/src/lib/data/oxygen-fallback/32x32/preferences-desktop.png b/src/lib/data/oxygen-fallback/32x32/preferences-desktop.png
+index c60cfd3..c379433 100644
+Binary files a/src/lib/data/oxygen-fallback/32x32/preferences-desktop.png and b/src/lib/data/oxygen-fallback/32x32/preferences-desktop.png differ
+diff --git a/src/lib/data/oxygen-fallback/32x32/preferences-system-network.png b/src/lib/data/oxygen-fallback/32x32/preferences-system-network.png
+index 0e16fd7..0a700aa 100644
+Binary files a/src/lib/data/oxygen-fallback/32x32/preferences-system-network.png and b/src/lib/data/oxygen-fallback/32x32/preferences-system-network.png differ
+diff --git a/src/plugins/AccessKeysNavigation/data/icon.png b/src/plugins/AccessKeysNavigation/data/icon.png
+index 7bd7dcd..b365211 100644
+Binary files a/src/plugins/AccessKeysNavigation/data/icon.png and b/src/plugins/AccessKeysNavigation/data/icon.png differ
+diff --git a/src/plugins/AutoScroll/data/scroll_all.png b/src/plugins/AutoScroll/data/scroll_all.png
+index a7fe7d9..dee5cf2 100644
+Binary files a/src/plugins/AutoScroll/data/scroll_all.png and b/src/plugins/AutoScroll/data/scroll_all.png differ
+diff --git a/src/plugins/AutoScroll/data/scroll_horizontal.png b/src/plugins/AutoScroll/data/scroll_horizontal.png
+index 3e5dcd8..68a257c 100644
+Binary files a/src/plugins/AutoScroll/data/scroll_horizontal.png and b/src/plugins/AutoScroll/data/scroll_horizontal.png differ
+diff --git a/src/plugins/AutoScroll/data/scroll_vertical.png b/src/plugins/AutoScroll/data/scroll_vertical.png
+index 1c48934..d8c0e52 100644
+Binary files a/src/plugins/AutoScroll/data/scroll_vertical.png and b/src/plugins/AutoScroll/data/scroll_vertical.png differ
+diff --git a/src/plugins/FlashCookieManager/data/flash-cookie-manager.png b/src/plugins/FlashCookieManager/data/flash-cookie-manager.png
+index 57940ad..582514c 100644
+Binary files a/src/plugins/FlashCookieManager/data/flash-cookie-manager.png and b/src/plugins/FlashCookieManager/data/flash-cookie-manager.png differ
+diff --git a/src/plugins/GnomeKeyringPasswords/data/icon.png b/src/plugins/GnomeKeyringPasswords/data/icon.png
+index 3c0cda7..cebcd20 100644
+Binary files a/src/plugins/GnomeKeyringPasswords/data/icon.png and b/src/plugins/GnomeKeyringPasswords/data/icon.png differ
+diff --git a/src/plugins/GreaseMonkey/data/icon16.png b/src/plugins/GreaseMonkey/data/icon16.png
+index 3ec669d..b6a6f37 100644
+Binary files a/src/plugins/GreaseMonkey/data/icon16.png and b/src/plugins/GreaseMonkey/data/icon16.png differ
+diff --git a/src/plugins/GreaseMonkey/data/icon18.png b/src/plugins/GreaseMonkey/data/icon18.png
+index 493d281..df46e78 100644
+Binary files a/src/plugins/GreaseMonkey/data/icon18.png and b/src/plugins/GreaseMonkey/data/icon18.png differ
+diff --git a/src/plugins/GreaseMonkey/data/script.png b/src/plugins/GreaseMonkey/data/script.png
+index 9d76ac5..7ffbb82 100644
+Binary files a/src/plugins/GreaseMonkey/data/script.png and b/src/plugins/GreaseMonkey/data/script.png differ
+diff --git a/src/plugins/KWalletPasswords/data/icon.png b/src/plugins/KWalletPasswords/data/icon.png
+index 4029d6d..fd26f42 100644
+Binary files a/src/plugins/KWalletPasswords/data/icon.png and b/src/plugins/KWalletPasswords/data/icon.png differ
+diff --git a/src/plugins/MouseGestures/data/icon.png b/src/plugins/MouseGestures/data/icon.png
+index cae5126..3c57b38 100644
+Binary files a/src/plugins/MouseGestures/data/icon.png and b/src/plugins/MouseGestures/data/icon.png differ
+diff --git a/src/plugins/PIM/data/PIM.png b/src/plugins/PIM/data/PIM.png
+index 46a2b27..ddb8e6f 100644
+Binary files a/src/plugins/PIM/data/PIM.png and b/src/plugins/PIM/data/PIM.png differ
+diff --git a/src/plugins/StatusBarIcons/data/add.png b/src/plugins/StatusBarIcons/data/add.png
+index 8431237..f8a92de 100644
+Binary files a/src/plugins/StatusBarIcons/data/add.png and b/src/plugins/StatusBarIcons/data/add.png differ
+diff --git a/src/plugins/StatusBarIcons/data/images.png b/src/plugins/StatusBarIcons/data/images.png
+index c755360..c4a316d 100644
+Binary files a/src/plugins/StatusBarIcons/data/images.png and b/src/plugins/StatusBarIcons/data/images.png differ
+diff --git a/src/plugins/StatusBarIcons/data/javascript.png b/src/plugins/StatusBarIcons/data/javascript.png
+index 00e7c99..477e3a3 100644
+Binary files a/src/plugins/StatusBarIcons/data/javascript.png and b/src/plugins/StatusBarIcons/data/javascript.png differ
+diff --git a/src/plugins/StatusBarIcons/data/network-offline.png b/src/plugins/StatusBarIcons/data/network-offline.png
+index fd50901..c1379c4 100644
+Binary files a/src/plugins/StatusBarIcons/data/network-offline.png and b/src/plugins/StatusBarIcons/data/network-offline.png differ
+diff --git a/src/plugins/StatusBarIcons/data/network-online.png b/src/plugins/StatusBarIcons/data/network-online.png
+index 1221e13..6e6f671 100644
+Binary files a/src/plugins/StatusBarIcons/data/network-online.png and b/src/plugins/StatusBarIcons/data/network-online.png differ
+diff --git a/src/plugins/StatusBarIcons/data/network-unknown.png b/src/plugins/StatusBarIcons/data/network-unknown.png
+index 246c27f..3651851 100644
+Binary files a/src/plugins/StatusBarIcons/data/network-unknown.png and b/src/plugins/StatusBarIcons/data/network-unknown.png differ
+diff --git a/src/plugins/StatusBarIcons/data/preferences-network.png b/src/plugins/StatusBarIcons/data/preferences-network.png
+index b6d0546..7ca8ace 100644
+Binary files a/src/plugins/StatusBarIcons/data/preferences-network.png and b/src/plugins/StatusBarIcons/data/preferences-network.png differ
+diff --git a/src/plugins/StatusBarIcons/data/remove.png b/src/plugins/StatusBarIcons/data/remove.png
+index 87cd0b0..fde3287 100644
+Binary files a/src/plugins/StatusBarIcons/data/remove.png and b/src/plugins/StatusBarIcons/data/remove.png differ
+diff --git a/src/plugins/TabManager/data/side-by-side.png b/src/plugins/TabManager/data/side-by-side.png
+index dd7efea..0a77206 100644
+Binary files a/src/plugins/TabManager/data/side-by-side.png and b/src/plugins/TabManager/data/side-by-side.png differ
+diff --git a/src/plugins/TabManager/data/tab-bookmark.png b/src/plugins/TabManager/data/tab-bookmark.png
+index f33bb6c..88f3ca2 100644
+Binary files a/src/plugins/TabManager/data/tab-bookmark.png and b/src/plugins/TabManager/data/tab-bookmark.png differ
+diff --git a/src/plugins/TabManager/data/tab-close.png b/src/plugins/TabManager/data/tab-close.png
+index dafd3f1..9ba90ba 100644
+Binary files a/src/plugins/TabManager/data/tab-close.png and b/src/plugins/TabManager/data/tab-close.png differ
+diff --git a/src/plugins/TabManager/data/tab-detach.png b/src/plugins/TabManager/data/tab-detach.png
+index 40eb1d9..49e2ff8 100644
+Binary files a/src/plugins/TabManager/data/tab-detach.png and b/src/plugins/TabManager/data/tab-detach.png differ
+diff --git a/src/plugins/TabManager/data/tab-loading.png b/src/plugins/TabManager/data/tab-loading.png
+index aca5067..2e3c688 100644
+Binary files a/src/plugins/TabManager/data/tab-loading.png and b/src/plugins/TabManager/data/tab-loading.png differ
+diff --git a/src/plugins/TabManager/data/tab-pinned.png b/src/plugins/TabManager/data/tab-pinned.png
+index 727591d..bf26fd8 100644
+Binary files a/src/plugins/TabManager/data/tab-pinned.png and b/src/plugins/TabManager/data/tab-pinned.png differ
+diff --git a/src/plugins/TabManager/data/tabmanager.png b/src/plugins/TabManager/data/tabmanager.png
+index fb6f6b1..944b68f 100644
+Binary files a/src/plugins/TabManager/data/tabmanager.png and b/src/plugins/TabManager/data/tabmanager.png differ
+-- 
+2.5.1
+

@@ -1,0 +1,64 @@
+From b6207d3ef9cc233c22ad62b4fcd5f4910fa166db Mon Sep 17 00:00:00 2001
+From: David Rosca <nowrep@gmail.com>
+Date: Thu, 16 Apr 2015 17:28:04 +0200
+Subject: [PATCH 08/36] Fix searching for strings with special whitespaces from
+ locationbar
+
+This fixes eg. search terms with double byte space.
+
+Closes #1622
+---
+ src/lib/tools/qztools.cpp  | 9 +++++++++
+ src/lib/tools/qztools.h    | 2 ++
+ src/lib/webkit/webview.cpp | 2 +-
+ 3 files changed, 12 insertions(+), 1 deletion(-)
+
+diff --git a/src/lib/tools/qztools.cpp b/src/lib/tools/qztools.cpp
+index 88842f6..e788963 100644
+--- a/src/lib/tools/qztools.cpp
++++ b/src/lib/tools/qztools.cpp
+@@ -566,6 +566,15 @@ bool QzTools::isUtf8(const char* string)
+     return true;
+ }
+ 
++bool QzTools::containsSpace(const QString &str)
++{
++    Q_FOREACH (const QChar &c, str) {
++        if (c.isSpace())
++            return true;
++    }
++    return false;
++}
++
+ QString QzTools::getExistingDirectory(const QString &name, QWidget* parent, const QString &caption, const QString &dir, QFileDialog::Options options)
+ {
+     Settings settings;
+diff --git a/src/lib/tools/qztools.h b/src/lib/tools/qztools.h
+index 1d4bd28..bbb93d0 100644
+--- a/src/lib/tools/qztools.h
++++ b/src/lib/tools/qztools.h
+@@ -73,6 +73,8 @@ public:
+     static QIcon iconFromFileName(const QString &fileName);
+     static bool isUtf8(const char* string);
+ 
++    static bool containsSpace(const QString &str);
++
+     // QFileDialog static functions that remembers last used directory
+     static QString getExistingDirectory(const QString &name, QWidget* parent = 0, const QString &caption = QString(), const QString &dir = QString(), QFileDialog::Options options = QFileDialog::ShowDirsOnly);
+     static QString getOpenFileName(const QString &name, QWidget* parent = 0, const QString &caption = QString(), const QString &dir = QString(), const QString &filter = QString(), QString* selectedFilter = 0, QFileDialog::Options options = 0);
+diff --git a/src/lib/webkit/webview.cpp b/src/lib/webkit/webview.cpp
+index 0c04ac2..ac90113 100644
+--- a/src/lib/webkit/webview.cpp
++++ b/src/lib/webkit/webview.cpp
+@@ -196,7 +196,7 @@ void WebView::load(const LoadRequest &request)
+     // Make sure to correctly load hosts like localhost (eg. without the dot)
+     if (!reqUrl.isEmpty() &&
+         reqUrl.scheme().isEmpty() &&
+-        !reqUrl.path().contains(QL1C(' ')) &&
++        !QzTools::containsSpace(reqUrl.path()) && // See #1622
+         !reqUrl.path().contains(QL1C('.'))
+        ) {
+         LoadRequest req = request;
+-- 
+2.5.1
+

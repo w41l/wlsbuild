@@ -24,7 +24,8 @@
 # YOUR DATA IS DESTROYED, YOUR HOUSE BURNS DOWN OR YOUR DOG RUNS OFF.
 
 PRGNAM=otter-browser
-VERSION=0.9.05
+VERSION=0.9.08
+DEV="-dev89"
 BUILD=${BUILD:-1}
 TAG=${TAG:-_wls}
 NUMJOBS=${NUMJOBS:--j7}
@@ -62,9 +63,9 @@ set -e
 rm -rf $PKG
 mkdir -p $WRK $PKG $OUTPUT
 cd $WRK
-rm -rf $PRGNAM-$VERSION
-tar xvf $CWD/v$VERSION.tar.?z*
-cd $PRGNAM-$VERSION
+rm -rf ${PRGNAM}-${VERSION}${DEV}
+tar xvf $CWD/${PRGNAM}-${VERSION}${DEV}.tar.?z*
+cd ${PRGNAM}-${VERSION}${DEV}
 
 chown -R root:root .
 find . \
@@ -80,9 +81,10 @@ cd build
     -DCMAKE_CXX_FLAGS:STRING="$SLKCFLAGS" \
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_PREFIX:PATH=/usr \
-    -DLIB_SUFFIX=${LIBDIRSUFFIX}
+    -DLIB_SUFFIX=${LIBDIRSUFFIX} \
+    -DEnableQtwebengine=ON
 
-  make $NUMJOBS
+  make VERBOSE=1
   make install DESTDIR=$PKG
 cd -
 
@@ -105,4 +107,4 @@ cd $PKG
 /sbin/makepkg -p -l y -c n $OUTPUT/$PRGNAM-$VERSION-$ARCH-$BUILD$TAG.txz
 
 echo "Cleaning up build directory"
-cd $WRK; rm -rf $PRGNAM-$VERSION $PKG
+cd $WRK; rm -rf ${PRGNAM}-${VERSION}${DEV} $PKG

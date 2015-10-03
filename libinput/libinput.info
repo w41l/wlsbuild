@@ -1,4 +1,4 @@
 URL=http://www.freedesktop.org/wiki/Software/libinput/
-SRC=http://www.freedesktop.org/software/libinput/libinput-0.6.0.tar.xz
-MD5=1e647c306444f20df9373e98860dd5ea
-SHA1=c6947b5bce0d82fc37e186f2626b468324a6c4d9
+SRC=http://www.freedesktop.org/software/libinput/libinput-0.21.0.tar.xz
+MD5=f91d8f4ced986f1ae16d52ea02bc7837
+SHA1=02626c3d168a9875e6876ddaf4b609e213502a34

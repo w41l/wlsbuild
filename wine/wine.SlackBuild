@@ -24,12 +24,12 @@
 # YOUR DATA IS DESTROYED, YOUR HOUSE BURNS DOWN OR YOUR DOG RUNS OFF.
 
 PRGNAM=wine
-VERSION=${VERSION:-1.7.47}
+VERSION=${VERSION:-1.7.52}
 BUILD=${BUILD:-1}
 TAG=${TAG:-_wls}
 NUMJOBS=${NUMJOBS:--j7}
 STAGING=${STAGING:-1}
-D3D9=${D3D9:-0}
+D3D9=${D3D9:-1}
 
 if [ -z "$ARCH" ]; then
   case "$( uname -m )" in
@@ -45,8 +45,8 @@ PKG=$WRK/package-$PRGNAM
 OUTPUT=${OUTPUT:-/tmp}
 DOCS="ANNOUNCE AUTHORS COPYING.LIB LICENSE* README VERSION"
 
-if [ "$ARCH" = "i486" ]; then
-  SLKCFLAGS="-O2 -pipe -march=i486 -mtune=i686"
+if [ "$ARCH" = "i586" ]; then
+  SLKCFLAGS="-O2 -pipe -march=i586 -mtune=i686"
   SLKLDFLAGS="-L/usr/lib -ldl"
   LIBDIRSUFFIX=""
   ENABLE_64=""
@@ -73,20 +73,48 @@ cd $WRK
 rm -rf $PRGNAM*
 echo "extracting $PRGNAM-$VERSION"
 tar xf $CWD/$PRGNAM-$VERSION.tar.?z*
-
-if [ "$STAGING" = "1" ]; then
-  echo "extracting $PRGNAM-staging-$VERSION"
-  tar xf $CWD/$PRGNAM-staging-$VERSION.tar.?z*
-fi
 cd $PRGNAM-$VERSION
 
-if [ "$D3D9" = "1" ]; then
-  echo "Building wine d3d9"
-  cat $CWD/wine-d3d9.patch | patch -p1
-  ENABLE_NINE="--with-d3dadapter"
+if [ "$STAGING" = "1" ]; then
+  if [ -f $CWD/$PRGNAM-staging-$VERSION.tar.?z* ]; then
+    echo "BUILDING WINE STAGING: $VERSION"
+    sleep 5
+    tar -C $WRK -xf $CWD/$PRGNAM-staging-$VERSION.tar.?z*
+    mv ../$PRGNAM-staging-$VERSION/* .
+    make -C patches DESTDIR=$WRK/$PRGNAM-$VERSION install || exit 1
+    sed -i -e 's!^loader server: libs/port libs/wine tools.*!& include!' Makefile.in
+  else
+    echo "BUILDING WINE STAGING: FAILED! $PRGNAM-staging-$VERSION not found!"
+    exit 1
+  fi
+else
+  echo "BUILDING WINE STAGING: FALSE"
+  sleep 5
 fi
 
 cat $CWD/wine-cjk.patch | patch -p1 || exit 1
+
+if [ "$D3D9" = "1" ]; then
+  if [ -f $CWD/wine-d3d9-$VERSION.patch ]; then
+    echo "BUILDING WINE D3D9: $VERSION"
+    sleep 5
+    cat $CWD/wine-d3d9-$VERSION.patch | patch -p1 || exit 1
+    ENABLE_NINE="--with-d3dadapter=yes --with-d3dadapter-dri2-fallback=yes"
+  elif [ ! -f $CWD/wine-d3d9-$VERSION.patch ] && [ -f $CWD/wine-d3d9-latest.patch ]; then
+      echo "BUILDING WINE D3D9: Using latest git patch"
+      sleep 5
+      cat $CWD/wine-d3d9-latest.patch | patch -p1 || exit 1
+      ENABLE_NINE="--with-d3dadapter=yes --with-d3dadapter-dri2-fallback=yes"
+  elif [ ! -f $CWD/wine-d3d9-$VERSION.patch ] && [ ! -f $CWD/wine-d3d9.patch ]; then
+    echo "BUILDING WINE D3D9: FAILED! $PRGNAM-d3d9-$VERSION.patch not found!"
+    exit 1
+  fi
+else
+  echo "BUILDING WINE D3D9: FALSE"
+  sleep 5
+fi
+
+sed -i 's/lib32/lib/g' ./dlls/winex11.drv/d3dadapter.c
 
 chown -R root:root .
 find . \
@@ -95,13 +123,7 @@ find . \
  \( -perm 666 -o -perm 664 -o -perm 600 -o -perm 444 -o -perm 440 -o -perm 400 \) \
  -exec chmod 644 {} \;
 
-if [ "$STAGING" = "1" ]; then
-  mv ../$PRGNAM-staging-$VERSION/* .
-  make -C patches DESTDIR=$WRK/$PRGNAM-$VERSION install
-  sed -i -e 's!^loader server: libs/port libs/wine tools.*!& include!' Makefile.in
-fi
-
-autoreconf -ivsf
+autoreconf -fi
 
 echo "Creating build directory $WRK/$PRGNAM"
 rm -rf $WRK/$PRGNAM
@@ -120,18 +142,18 @@ CXXFLAGS="$SLKCFLAGS -DHAVE_ATTR_XATTR_H=1" \
   --sysconfdir=/etc --docdir=/usr/doc/$PRGNAM-$VERSION \
   --localstatedir=/var --sharedstatedir=/var/lib \
   --build=$ARCH-slackware-linux \
-  --without-hal \
-  --with-dbus \
   --with-x \
-  --with-opengl \
   --with-xattr \
+  --with-xfixes \
+  --without-gstreamer \
+  --enable-largefile \
+  --disable-tests \
   ${ENABLE_NINE} \
   ${ENABLE_64} \
   || exit 1
 
 make depend || exit 1
-make $NUMJOBS || exit 1
-make install DESTDIR=$PKG || exit 1
+make $NUMJOBS || make || exit 1
 
 if [ "$ARCH" = "x86_64" ]; then
   echo "Building WINE 32-bit compat for $ARCH"
@@ -140,7 +162,7 @@ if [ "$ARCH" = "x86_64" ]; then
    cd $WRK/$PRGNAM-wow64
 
   # Set 32-bit pkgconfig path as needed by gstreamer
-  PKG_CONFIG_PATH=/usr/lib/pkgconfig
+  export PKG_CONFIG_PATH=/usr/lib/pkgconfig
 
   CPPFLAGS="${CPPFLAGS/-D_FORTIFY_SOURCE=2/} -D_FORTIFY_SOURCE=0" \
   CFLAGS="$SLKCFLAGS -DHAVE_ATTR_XATTR_H=1" \
@@ -155,18 +177,25 @@ if [ "$ARCH" = "x86_64" ]; then
     --sysconfdir=/etc --docdir=/usr/doc/$PRGNAM-$VERSION \
     --localstatedir=/var --sharedstatedir=/var/lib \
     --build=$ARCH-slackware-linux \
-    --without-hal \
-    --with-dbus \
     --with-x \
-    --with-opengl \
     --with-xattr \
+    --with-xfixes \
+    --without-gstreamer \
+    --enable-largefile \
+    --disable-tests \
     ${ENABLE_NINE} \
     || exit 1
 
   make depend || exit 1
-  make $NUMJOBS || exit 1
+  make $NUMJOBS || make || exit 1
   make install DESTDIR=$PKG || exit 1
+  unset PKG_CONFIG_PATH
 fi
+
+# Back installing wine 64-bit
+cd $WRK/$PRGNAM
+export PKG_CONFIG_PATH="$PKG_CONFIG_PATH:/usr/local/lib64/pkgconfig:/usr/lib64/pkgconfig"
+make install DESTDIR=$PKG || exit 1
 
 cd $WRK/$PRGNAM-$VERSION
 

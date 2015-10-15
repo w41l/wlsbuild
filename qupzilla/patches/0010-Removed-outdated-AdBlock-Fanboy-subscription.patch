@@ -1,0 +1,25 @@
+From 4800c34c4c4cf782ff1624b6c29da9c53a7e9b6d Mon Sep 17 00:00:00 2001
+From: Jonathan Hooverman <Jonathan.Hooverman@gmail.com>
+Date: Thu, 23 Apr 2015 20:44:14 +0200
+Subject: [PATCH 10/36] Removed outdated AdBlock Fanboy subscription
+
+Closes #1637
+---
+ src/lib/adblock/adblockaddsubscriptiondialog.cpp | 1 -
+ 1 file changed, 1 deletion(-)
+
+diff --git a/src/lib/adblock/adblockaddsubscriptiondialog.cpp b/src/lib/adblock/adblockaddsubscriptiondialog.cpp
+index ba2cab7..b6effae 100644
+--- a/src/lib/adblock/adblockaddsubscriptiondialog.cpp
++++ b/src/lib/adblock/adblockaddsubscriptiondialog.cpp
+@@ -25,7 +25,6 @@ AdBlockAddSubscriptionDialog::AdBlockAddSubscriptionDialog(QWidget* parent)
+     ui->setupUi(this);
+ 
+     m_knownSubscriptions << Subscription("EasyList (English)", ADBLOCK_EASYLIST_URL)
+-                         << Subscription("Fanboy's List (English)", "http://www.fanboy.co.nz/adblock/fanboy-adblock.txt")
+                          << Subscription("Adversity (English)", "http://adversity.googlecode.com/hg/Adversity.txt")
+                          << Subscription("BSI Lista Polska (Polish)", "http://www.bsi.info.pl/filtrABP.txt")
+                          << Subscription("Czech List (Czech)", "http://adblock.dajbych.net/adblock.txt")
+-- 
+2.5.1
+

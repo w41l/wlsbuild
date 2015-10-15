@@ -1,0 +1,43 @@
+From cf41a88515526edf60e9c6efabb9651c3708ab79 Mon Sep 17 00:00:00 2001
+From: David Rosca <nowrep@gmail.com>
+Date: Tue, 18 Aug 2015 10:05:16 +0200
+Subject: [PATCH 32/36] msghandler: Output log context only when not null
+
+---
+ src/main/main.cpp | 13 ++++++++++---
+ 1 file changed, 10 insertions(+), 3 deletions(-)
+
+diff --git a/src/main/main.cpp b/src/main/main.cpp
+index 070d42e..1faf76b 100644
+--- a/src/main/main.cpp
++++ b/src/main/main.cpp
+@@ -130,16 +130,23 @@ void msgHandler(QtMsgType type, const QMessageLogContext &context, const QString
+     if (msg.startsWith(QL1S("QSslSocket: cannot resolve SSLv2_")))
+         return;
+ 
+-    QByteArray localMsg = msg.toLocal8Bit();
++    const QByteArray localMsg = msg.toLocal8Bit();
++
+     switch (type) {
+     case QtDebugMsg:
+     case QtWarningMsg:
+     case QtCriticalMsg:
+-        std::cerr << localMsg.constData() << " (" <<  context.file << ":" << context.line << ", " << context.function << ")" << std::endl;
++        std::cerr << localMsg.constData();
++        if (context.file && context.line && context.function)
++            std::cerr << " (" <<  context.file << ":" << context.line << ", " << context.function << ")";
++        std::cerr << std::endl;
+         break;
+ 
+     case QtFatalMsg:
+-        std::cerr << "Fatal: " << localMsg.constData() << " (" << context.file << ":" << context.line << ", " << context.function << ")" << std::endl;
++        std::cerr << "Fatal: " << localMsg.constData() << std::endl;
++        if (context.file && context.line && context.function)
++            std::cerr << " (" <<  context.file << ":" << context.line << ", " << context.function << ")";
++        std::cerr << std::endl;
+         abort();
+ 
+     default:
+-- 
+2.5.1
+

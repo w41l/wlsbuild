@@ -1,0 +1,25 @@
+From a110e080b0f12bcd9bcff550d6b4f52cd9c6cd13 Mon Sep 17 00:00:00 2001
+From: David Rosca <nowrep@gmail.com>
+Date: Thu, 28 May 2015 11:15:07 +0200
+Subject: [PATCH 19/36] Fix build
+
+---
+ src/plugins/GreaseMonkey/settings/gm_settings.cpp | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/src/plugins/GreaseMonkey/settings/gm_settings.cpp b/src/plugins/GreaseMonkey/settings/gm_settings.cpp
+index 09927eb..e2e71d6 100644
+--- a/src/plugins/GreaseMonkey/settings/gm_settings.cpp
++++ b/src/plugins/GreaseMonkey/settings/gm_settings.cpp
+@@ -119,7 +119,7 @@ void GM_Settings::newScript()
+                                 "// @version     1.0.0 \n"
+                                 "// ==/UserScript==\n\n");
+ 
+-    const QString fileName = QSL("%1/%2.user.js").arg(m_manager->scriptsDirectory(), QzTools::filterCharsFromFilename(name));
++    const QString fileName = QString(QSL("%1/%2.user.js")).arg(m_manager->scriptsDirectory(), QzTools::filterCharsFromFilename(name));
+ 
+     QFile file(QzTools::ensureUniqueFilename(fileName));
+     file.open(QFile::WriteOnly);
+-- 
+2.5.1
+

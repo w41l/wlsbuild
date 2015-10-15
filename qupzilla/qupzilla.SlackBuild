@@ -24,7 +24,7 @@
 # YOUR DATA IS DESTROYED, YOUR HOUSE BURNS DOWN OR YOUR DOG RUNS OFF.
 
 PRGNAM=qupzilla
-VERSION=${VERSION:-1.8.6}
+VERSION=${VERSION:-git_20150912_a21c9a2}
 BUILD=${BUILD:-1}
 TAG=${TAG:-_wls}
 NUMJOBS=${NUMJOBS:--j7}
@@ -78,14 +78,14 @@ rm -rf QupZilla-$VERSION
 tar xvf $CWD/QupZilla-$VERSION.tar.?z*
 cd QupZilla-$VERSION
 
-if [ "$(ls -A $CWD/patches)" ]; then
-    echo "Patch for $PRGNAM is available"
-    for i in $CWD/patches/*.patch; do
-        cat $i | patch -p1;
-    done
-else
-    echo "Patch for $PRGNAM is not available"
-fi
+#if [ "$(ls -A $CWD/patches)" ]; then
+#    echo "Patch for $PRGNAM is available"
+#    for i in $CWD/patches/*.patch; do
+#        cat $i | patch -p1;
+#    done
+#else
+#    echo "Patch for $PRGNAM is not available"
+#fi
 
 chown -R root:root .
 find . \
@@ -132,3 +132,8 @@ cd $PKG
 
 echo "Cleaning up build directory"
 cd $WRK ; rm -rf $PKG QupZilla-$VERSION
+
+unset USE_WEBGL
+unset QUPZILLA_PREFIX
+unset KDE_INTEGRATION
+unset GNOME_INTEGRATION

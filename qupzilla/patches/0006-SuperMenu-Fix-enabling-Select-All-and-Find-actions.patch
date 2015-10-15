@@ -1,0 +1,65 @@
+From dcb6ce96769f7724f499a4a6a627aa943196ed92 Mon Sep 17 00:00:00 2001
+From: David Rosca <nowrep@gmail.com>
+Date: Thu, 9 Apr 2015 20:10:50 +0200
+Subject: [PATCH 06/36] SuperMenu: Fix enabling Select All and Find actions
+
+---
+ src/lib/app/mainmenu.cpp | 21 +++++++++++++++++++++
+ src/lib/app/mainmenu.h   |  2 ++
+ 2 files changed, 23 insertions(+)
+
+diff --git a/src/lib/app/mainmenu.cpp b/src/lib/app/mainmenu.cpp
+index 2b5e856..37573a4 100644
+--- a/src/lib/app/mainmenu.cpp
++++ b/src/lib/app/mainmenu.cpp
+@@ -102,6 +102,9 @@ void MainMenu::initSuperMenu(QMenu* superMenu) const
+     superMenu->addAction(m_actions[QSL("File/WorkOffline")]);
+     superMenu->addSeparator();
+     superMenu->addAction(m_actions[QSL("Standard/Quit")]);
++
++    connect(superMenu, SIGNAL(aboutToShow()), this, SLOT(aboutToShowSuperMenu()));
++    connect(superMenu, SIGNAL(aboutToHide()), this, SLOT(aboutToHideSuperMenu()));
+ }
+ 
+ QAction* MainMenu::action(const QString &name) const
+@@ -451,6 +454,24 @@ void MainMenu::aboutToHideToolsMenu()
+     m_actions[QSL("Tools/SiteInfo")]->setEnabled(false);
+ }
+ 
++void MainMenu::aboutToShowSuperMenu()
++{
++    if (!m_window) {
++        return;
++    }
++
++    WebView* view = m_window->weView();
++
++    m_actions[QSL("Edit/Find")]->setEnabled(true);
++    m_actions[QSL("Edit/SelectAll")]->setEnabled(view->pageAction(QWebEnginePage::SelectAll)->isEnabled());
++}
++
++void MainMenu::aboutToHideSuperMenu()
++{
++    m_actions[QSL("Edit/Find")]->setEnabled(true);
++    m_actions[QSL("Edit/SelectAll")]->setEnabled(false);
++}
++
+ void MainMenu::aboutToShowToolbarsMenu()
+ {
+     QMenu* menu = qobject_cast<QMenu*>(sender());
+diff --git a/src/lib/app/mainmenu.h b/src/lib/app/mainmenu.h
+index 8a00565..04c6c2b 100644
+--- a/src/lib/app/mainmenu.h
++++ b/src/lib/app/mainmenu.h
+@@ -111,6 +111,8 @@ private slots:
+     void aboutToHideEditMenu();
+     void aboutToShowToolsMenu();
+     void aboutToHideToolsMenu();
++    void aboutToShowSuperMenu();
++    void aboutToHideSuperMenu();
+ 
+     void aboutToShowToolbarsMenu();
+     void aboutToShowSidebarsMenu();
+-- 
+2.5.1
+

@@ -1,0 +1,40 @@
+From cba83e1561e2bc1e69ff82b9ff9d00f65d7e7d39 Mon Sep 17 00:00:00 2001
+From: David Rosca <nowrep@gmail.com>
+Date: Thu, 11 Jun 2015 20:49:37 +0200
+Subject: [PATCH 22/36] CookieJar: Don't set domain to cookies with empty
+ domain
+
+---
+ src/lib/cookies/cookiejar.cpp | 9 +--------
+ 1 file changed, 1 insertion(+), 8 deletions(-)
+
+diff --git a/src/lib/cookies/cookiejar.cpp b/src/lib/cookies/cookiejar.cpp
+index eefef89..a066511 100644
+--- a/src/lib/cookies/cookiejar.cpp
++++ b/src/lib/cookies/cookiejar.cpp
+@@ -83,11 +83,6 @@ bool CookieJar::setCookiesFromUrl(const QList<QNetworkCookie> &cookieList, const
+     QList<QNetworkCookie> newList;
+ 
+     foreach (QNetworkCookie cookie, cookieList) {
+-        // If cookie domain is empty, set it to url.host()
+-        if (cookie.domain().isEmpty()) {
+-            cookie.setDomain(url.host());
+-        }
+-
+         if (!rejectCookie(url.host(), cookie)) {
+             newList.append(cookie);
+         }
+@@ -194,9 +189,7 @@ void CookieJar::saveCookies()
+ 
+ bool CookieJar::rejectCookie(const QString &domain, const QNetworkCookie &cookie) const
+ {
+-    Q_UNUSED(domain)
+-
+-    const QString cookieDomain = cookie.domain();
++    const QString cookieDomain = cookie.domain().isEmpty() ? domain : cookie.domain();
+ 
+     if (!m_allowCookies) {
+         bool result = listMatchesDomain(m_whitelist, cookieDomain);
+-- 
+2.5.1
+

@@ -1,8 +1,8 @@
 #!/bin/sh
 
-# Slackware build script for bogofilter
+# Slackware build script for gnome-desktop
 
-# Copyright 2010-2013  Widya Walesa <walecha99@gmail.com>
+# Copyright 2015  Widya Walesa <walecha99@gmail.com>
 # All rights reserved.
 #
 # Redistribution and use of this script, with or without modification, is
@@ -23,11 +23,11 @@
 # ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. FURTHERMORE I AM NOT LIABLE IF
 # YOUR DATA IS DESTROYED, YOUR HOUSE BURNS DOWN OR YOUR DOG RUNS OFF.
 
-PRGNAM=bogofilter
-VERSION=${VERSION:-1.2.4}
+PRGNAM=gnome-desktop
+VERSION=${VERSION:-3.16.2}
 BUILD=${BUILD:-1}
 TAG=${TAG:-_wls}
-NUMJOBS=${NUMJOBS:--j2}
+NUMJOBS=${NUMJOBS:--j7}
 
 if [ -z "$ARCH" ]; then
   case "$( uname -m )" in
@@ -41,10 +41,10 @@ CWD=$(pwd)
 WRK=${WRK:-/tmp/wlsbuild}
 PKG=$WRK/package-$PRGNAM
 OUTPUT=${OUTPUT:-/tmp}
-DOCS="AUTHORS COPY* GETTING.STARTED INSTALL NEWS* README* RELEASE.NOTES TODO"
+DOCS="AUTHORS COPYING* ChangeLog HACKING MAINTAINERS NEWS README"
 
-if [ "$ARCH" = "i486" ]; then
-  SLKCFLAGS="-O2 -pipe -march=i486 -mtune=i686"
+if [ "$ARCH" = "i586" ]; then
+  SLKCFLAGS="-O2 -pipe -march=i586 -mtune=i686"
   LIBDIRSUFFIX=""
 elif [ "$ARCH" = "i686" ]; then
   SLKCFLAGS="-O2 -pipe -march=i686 -mtune=i686"
@@ -59,11 +59,16 @@ fi
 
 set -e
 
+if [ ! -e "$PRGNAM-$VERSION.tar.xz" ]; then
+  wget -c http://download.gnome.org/sources/$PRGNAM/$(echo "$VERSION" | cut -d . -f -2)/$PRGNAM-$VERSION.tar.xz
+fi
+
 rm -rf $PKG
 mkdir -p $WRK $PKG $OUTPUT
 cd $WRK
 rm -rf $PRGNAM-$VERSION
-tar xvf $CWD/$PRGNAM-$VERSION.tar.bz2
+tar xvf $CWD/$PRGNAM-$VERSION.tar.?z*
+
 cd $PRGNAM-$VERSION
 chown -R root:root .
 find . \
@@ -84,18 +89,14 @@ CXXFLAGS="$SLKCFLAGS" \
   --localstatedir=/var --sharedstatedir=/var/lib \
   --build=$ARCH-slackware-linux \
   --disable-static --enable-shared \
+  --with-gnome-distributor=WLSBUILD \
   || exit 1
 
-make $NUMJOBS || make || exit 1
+make || exit 1
 make DESTDIR=$PKG install || exit 1
-
-cp $PKG/etc/bogofilter.cf.example $PKG/etc/bogofilter.cf.new
 
 find $PKG | xargs file | grep -e "executable" -e "shared object" | grep ELF \
   | cut -f 1 -d : | xargs strip --strip-unneeded 2> /dev/null || true
-
-find $PKG/usr/man -type f -exec gzip -9 {} \;
-for i in $( find $PKG/usr/man -type l ) ; do ln -s $( readlink $i ).gz $i.gz ; rm $i ; done
 
 mkdir -p $PKG/usr/doc/$PRGNAM-$VERSION
 cp -a $DOCS $PKG/usr/doc/$PRGNAM-$VERSION
@@ -103,8 +104,6 @@ cat $CWD/$PRGNAM.SlackBuild > $PKG/usr/doc/$PRGNAM-$VERSION/$PRGNAM.SlackBuild
 
 mkdir -p $PKG/install
 cat $CWD/slack-desc > $PKG/install/slack-desc
-cat $CWD/slack-required > $PKG/install/slack-required
-cat $CWD/doinst.sh > $PKG/install/doinst.sh
 
 cd $PKG
 /sbin/makepkg -p -l y -c n $OUTPUT/$PRGNAM-$VERSION-$ARCH-$BUILD$TAG.txz

@@ -1,0 +1,19 @@
+# HOW TO EDIT THIS FILE:
+# The "handy ruler" below makes it easier to edit a package description.  Line
+# up the first '|' above the ':' following the base package name, and the '|' on
+# the right side marks the last column you can put a character in.  You must make
+# exactly 11 lines for the formatting to be correct.  It's also customary to
+# leave one space after the ':'.
+
+        |-----handy-ruler------------------------------------------------------|
+geoclue2: geoclue (D-Bus Geo Location Service)
+geoclue2:
+geoclue2: Geoclue is a modular geoinformation service built on top of the D-Bus
+geoclue2: geoclue2: messaging system. The goal of the Geoclue project is to make
+geoclue2: creating location-aware applications as simple as possible. Geoclue is
+geoclue2: Free Software, licensed under GNU LGPL.
+geoclue2:
+geoclue2: URL: http://www.freedesktop.org/wiki/Software/GeoClue
+geoclue2:
+geoclue2:
+geoclue2: Packaged by: Widya Walesa <walecha99@gmail.com>

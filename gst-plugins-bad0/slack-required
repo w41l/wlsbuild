@@ -1,8 +1,8 @@
 dirac
 faac
 faad2
-gst-plugins-base1
-gstreamer1
+gst-plugins-base
+gstreamer
 libass
 libcdaudio
 libdc1394

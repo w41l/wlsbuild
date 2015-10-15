@@ -1,9 +1,0 @@
-[Desktop Entry]
-Name=mkvmerge GUI
-Comment=Merge multimedia streams into a Matroska file
-Exec=mmg
-Icon=mmg
-Terminal=false
-Encoding=UTF-8
-Type=Application
-Categories=AudioVideo;GTK;X-OutputGeneration;

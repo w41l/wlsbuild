@@ -5,12 +5,6 @@
 name="Mime database update"
 command_background="yes"
 
-depend()
-{
-	need localmount
-	after ldconfig
-}
-
 start()
 {
     ebegin "Updating mime database"

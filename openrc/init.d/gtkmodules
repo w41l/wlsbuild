@@ -5,12 +5,6 @@
 name="GTK+ modules"
 command_background="yes"
 
-depend()
-{
-  need localmount
-  after ldconfig
-}
-
 start()
 {
   ebegin "Updating gtk+ modules"

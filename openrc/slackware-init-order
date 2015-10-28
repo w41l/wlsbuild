@@ -1,0 +1,37 @@
+echo "+==============================================================+"
+echo "+ Add entries to /etc/openrc/runlevels/* according to my       +"
+echo "+ try-n-error. Please review it after install.                 +"
+echo "+==============================================================+"
+
+(
+  cd $PKG/etc/openrc/runlevels/sysinit;
+  for i in bootmisc devfs device-mapper fsck hwclock localmount modules mtab procfs root swap sysfs tmpfiles.dev tmpfiles.setup udev udev-mount urandom consolefont dmesg fuse hostname keymaps loopback termencoding; do
+    rm -f $i; ln -sf /etc/openrc/init.d/$i $i;
+  done
+  unset i
+)
+
+(
+  cd $PKG/etc/openrc/runlevels/boot;
+  for i in ldconfig network numlock staticroute portmap rpc.statd swapfiles acpid alsa atd consolekit cron dbus klogd syslogd sysctl; do
+    rm -f $i; ln -sf /etc/openrc/init.d/$i $i;
+  done
+  unset i
+)
+
+(
+  cd $PKG/etc/openrc/runlevels/default;
+  for i in cupsd fontcache glibschemas gtkmodules iconcache local inetd mimedatabase netmount sshd; do
+    rm -f $i; ln -sf /etc/openrc/init.d/$i $i;
+  done
+  unset i
+)
+
+(
+  cd $PKG/etc/openrc/runlevels/shutdown;
+  for i in swclock; do
+    rm -f $i; ln -sf /etc/openrc/init.d/$i $i;
+  done
+  unset i
+)
+

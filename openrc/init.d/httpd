@@ -7,8 +7,7 @@ description_gracefulstop="A graceful stop advises the children to exit after the
 description_stop="Kills all children and stops the server."
 
 depend() {
-  need net
-  use mysql dns logger netmount postgresql
+  use logger dns net
   after sshd
 }
 

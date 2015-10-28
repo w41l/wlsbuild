@@ -14,19 +14,20 @@ nginx_config=${nginx_config:-/etc/nginx/nginx.conf}
 
 command="/usr/sbin/nginx"
 command_args="-c ${nginx_config}"
-pidfile=${pidfile:-/var/run/nginx.pid}
+pidfile=${pidfile:-/var/run/nginx/nginx.pid}
 user=${user:-apache}
 group=${group:-apache}
 
 depend() {
-	need net
-	use dns logger netmount
+  use logger dns net
 }
 
 start_pre() {
 	if [ "${RC_CMD}" != "restart" ]; then
 		configtest || return 1
 	fi
+	mkdir -p /var/run/nginx
+	chown 99:99 /var/run/nginx
 }
 
 stop_pre() {

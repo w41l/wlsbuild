@@ -8,7 +8,7 @@ pidfile=/var/run/crond.pid
 
 depend()
 {
-	need clock logger
+	need clock localmount
 	after bootmisc
 	provide cron
 }

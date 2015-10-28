@@ -5,12 +5,6 @@
 name="Glib2 schemas compilation"
 command_background="yes"
 
-depend()
-{
-  need localmount
-  after ldconfig
-}
-
 start()
 {
   ebegin "Updating glib2 schemas compilation"

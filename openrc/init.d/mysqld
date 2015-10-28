@@ -9,7 +9,6 @@ command_args="--user=mysql --datadir=/var/lib/mysql --pid-file=$pidfile $SKIP $I
 
 depend() {
     use net.lo
-    need localmount loopback
 }
 
 start_pre() {

@@ -8,7 +8,6 @@ name="CUPS Printing Daemon"
 depend()
 {
 	use net logger
-	need dbus
 	before nfs
 	after logger
 }

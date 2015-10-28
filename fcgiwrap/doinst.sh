@@ -11,5 +11,4 @@ config() {
   # Otherwise, we leave the .new copy for the admin to consider...
 }
 
-config etc/lxdm/lxdm.conf.new
-
+config etc/rc.d/rc.fcgiwrap.new

@@ -1,4 +1,4 @@
 URL=http://www.gentoo.org/proj/en/base/openrc/
-SRC=https://gitweb.gentoo.org/proj/openrc.git/snapshot/openrc-0.13.11.tar.bz2
-MD5=22d07a0814241cd4c6a03c412cfff421
-SHA1=eb3a770ba6587baf276cda5c0bf6c5dc87d5b39d
+SRC=https://gitweb.gentoo.org/proj/openrc.git/snapshot/openrc-0.18.3.tar.bz2
+MD5=a0c6d8cb617583d9bac458748200a8c4
+SHA1=590ca6e63a34923f19fdaf37d4a520c20896050a

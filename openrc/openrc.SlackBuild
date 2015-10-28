@@ -24,8 +24,8 @@
 # YOUR DATA IS DESTROYED, YOUR HOUSE BURNS DOWN OR YOUR DOG RUNS OFF.
 
 PRGNAM=openrc
-VERSION=${VERSION:-0.13.11}
-BUILD=${BUILD:-7}
+VERSION=${VERSION:-0.18.3}
+BUILD=${BUILD:-1}
 TAG=${TAG:-_wls}
 NUMJOBS=${NUMJOBS:--j7}
 
@@ -41,10 +41,13 @@ CWD=$(pwd)
 WRK=${WRK:-/tmp/wlsbuild}
 PKG=$WRK/package-$PRGNAM
 OUTPUT=${OUTPUT:-/tmp}
-DOCS=" FEATURE-REMOVAL-SCHEDULE NEWS* README* STYLE TODO"
+DOCS="*.md ChangeLog README.newnet TODO"
 
 if [ "$ARCH" = "i486" ]; then
   SLKCFLAGS="-O2 -pipe -march=i486 -mtune=i686"
+  LIBDIRSUFFIX=""
+elif [ "$ARCH" = "i586" ]; then
+  SLKCFLAGS="-O2 -pipe -march=i586 -mtune=i686"
   LIBDIRSUFFIX=""
 elif [ "$ARCH" = "i686" ]; then
   SLKCFLAGS="-O2 -pipe -march=i686 -mtune=i686"
@@ -114,14 +117,7 @@ cp -a $CWD/init.d/* $PKG/etc/openrc/init.d/
 cp $CWD/conf.d/* $PKG/etc/openrc/conf.d/
 
 # Add initial inittab
-cp -a support/sysvinit/inittab $PKG/etc/openrc/inittab.new
-
-# Add custom logrotate.d
-cp -r $CWD/logrotate.d $PKG/etc/
-for i in `find $PKG/etc/logrotate.d/* -type f`; do
-  mv $i ${i}.new
-  chmod 644 ${i}.new
-done
+cp -a $CWD/inittab $PKG/etc/openrc/inittab.new
 
 # Preserve old configuration
 mv $PKG/etc/openrc/rc.conf $PKG/etc/openrc/rc.conf.new
@@ -146,6 +142,12 @@ mv $PKG/usr/share/man $PKG/usr/
 # create it.
 mkdir -p $PKG/libexec/rc/cache
 
+# Use slackware's init order
+rm -f $PKG/etc/openrc/runlevels/sysinit/*
+rm -f $PKG/etc/openrc/runlevels/boot/*
+rm -f $PKG/etc/openrc/runlevels/default/*
+. $CWD/slackware-init-order
+
 find $PKG | xargs file | grep -e "executable" -e "shared object" | grep ELF \
   | cut -f 1 -d : | xargs strip --strip-unneeded 2> /dev/null || true
 
@@ -166,3 +168,4 @@ cd $PKG
 
 echo "Cleaning up build directory"
 cd $WRK; rm -rf $PRGNAM-$VERSION $PKG
+

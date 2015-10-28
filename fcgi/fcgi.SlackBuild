@@ -74,6 +74,8 @@ sed -i 's/\r//' doc/fastcgi-prog-guide/ch2c.htm
 # fix file permissions
 chmod a-x include/fcgios.h libfcgi/os_unix.c
 
+autoreconf -ivsf
+
 chown -R root:root .
 find . \
  \( -perm 777 -o -perm 775 -o -perm 711 -o -perm 555 -o -perm 511 \) \
@@ -91,8 +93,9 @@ CXXFLAGS="$SLKCFLAGS" \
   --libdir=/usr/lib$LIBDIRSUFFIX --includedir=/usr/include \
   --mandir=/usr/man --infodir=/usr/info \
   --sysconfdir=/etc \
-  --localstatedir=/var --sharedstatedir=/var/lib \
-  --disable-static --enable-shared
+  --localstatedir=/var \
+  --disable-static --enable-shared \
+  || exit 1
 
 make
 make install DESTDIR=$PKG

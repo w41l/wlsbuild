@@ -5,12 +5,6 @@
 name="X font cache"
 command_background="yes"
 
-depend()
-{
-	need localmount
-	after ldconfig
-}
-
 start()
 {
 	ebegin "Updating X font cache"

@@ -1,0 +1,25 @@
+#!/sbin/openrc-run
+# Copyright 2015 walecha.web.id
+# Distributed under the terms of the GNU General Public License, v2 or later
+
+description="Updating motd"
+motd_file="/etc/motd"
+
+depend() {
+	need localmount
+}
+
+start() {
+    if yesno ${update_motd:-YES}; then
+	ebegin "Updating /etc/motd"
+	echo "Hostname  : $(/bin/hostname -f)" > $motd_file
+	echo "System    : $(/bin/uname -a)" >> $motd_file
+	echo "Boot time :" $(date -d "`cut -f1 -d. /proc/uptime` seconds ago") >> $motd_file
+	echo "Shell     : ${SHELL}" >> $motd_file
+	: $(( retval +=$? ))
+    fi
+
+    eend $? "Failed to update $motd_file"
+
+    return 0
+}

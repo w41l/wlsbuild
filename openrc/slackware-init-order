@@ -13,7 +13,7 @@ echo "+==============================================================+"
 
 (
   cd $PKG/etc/openrc/runlevels/boot;
-  for i in ldconfig network numlock staticroute portmap rpc.statd swapfiles acpid alsa atd consolekit cron dbus klogd syslogd sysctl; do
+  for i in ldconfig network numlock staticroute portmap rpc.statd swapfiles acpid alsa atd consolekit cron dbus klogd syslogd sysctl cpufreq motd; do
     rm -f $i; ln -sf /etc/openrc/init.d/$i $i;
   done
   unset i

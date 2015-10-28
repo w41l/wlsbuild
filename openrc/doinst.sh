@@ -14,6 +14,7 @@ config() {
 config etc/openrc/conf.d/NetworkManager.new
 config etc/openrc/conf.d/bootmisc.new
 config etc/openrc/conf.d/consolefont.new
+config etc/openrc/conf.d/cpufreq.new
 config etc/openrc/conf.d/devfs.new
 config etc/openrc/conf.d/dhcpd.new
 config etc/openrc/conf.d/dmesg.new
@@ -27,6 +28,7 @@ config etc/openrc/conf.d/killprocs.new
 config etc/openrc/conf.d/libvirtd.new
 config etc/openrc/conf.d/localmount.new
 config etc/openrc/conf.d/modules.new
+config etc/openrc/conf.d/motd.new
 config etc/openrc/conf.d/mtab.new
 config etc/openrc/conf.d/mysqld.new
 config etc/openrc/conf.d/netmount.new
@@ -54,6 +56,7 @@ config etc/openrc/init.d/binfmt.new
 config etc/openrc/init.d/bootmisc.new
 config etc/openrc/init.d/consolefont.new
 config etc/openrc/init.d/consolekit.new
+config etc/openrc/init.d/cpufreq.new
 config etc/openrc/init.d/cron.new
 config etc/openrc/init.d/cupsd.new
 config etc/openrc/init.d/dbus.new
@@ -92,6 +95,7 @@ config etc/openrc/init.d/mdadm.new
 config etc/openrc/init.d/mdraid.new
 config etc/openrc/init.d/mimedatabase.new
 config etc/openrc/init.d/modules.new
+config etc/openrc/init.d/motd.new
 config etc/openrc/init.d/mount-ro.new
 config etc/openrc/init.d/mtab.new
 config etc/openrc/init.d/mysqld.new

@@ -5,6 +5,11 @@
 name="GTK+ modules"
 command_background="yes"
 
+depend() {
+    need localmount
+    after bootmisc
+}
+
 start()
 {
   ebegin "Updating gtk+ modules"

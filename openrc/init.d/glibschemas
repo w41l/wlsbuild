@@ -5,6 +5,11 @@
 name="Glib2 schemas compilation"
 command_background="yes"
 
+depend() {
+    need localmount
+    after bootmisc
+}
+
 start()
 {
   ebegin "Updating glib2 schemas compilation"

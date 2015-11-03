@@ -143,10 +143,10 @@ mv $PKG/usr/share/man $PKG/usr/
 mkdir -p $PKG/libexec/rc/cache
 
 # Use slackware's init order
-rm -f $PKG/etc/openrc/runlevels/sysinit/*
-rm -f $PKG/etc/openrc/runlevels/boot/*
-rm -f $PKG/etc/openrc/runlevels/default/*
-. $CWD/slackware-init-order
+#rm -f $PKG/etc/openrc/runlevels/sysinit/*
+#rm -f $PKG/etc/openrc/runlevels/boot/*
+#rm -f $PKG/etc/openrc/runlevels/default/*
+#. $CWD/slackware-init-order
 
 find $PKG | xargs file | grep -e "executable" -e "shared object" | grep ELF \
   | cut -f 1 -d : | xargs strip --strip-unneeded 2> /dev/null || true
@@ -163,9 +163,9 @@ mkdir -p $PKG/install
 cat $CWD/slack-desc > $PKG/install/slack-desc
 cat $CWD/doinst.sh > $PKG/install/doinst.sh
 
-cd $PKG
-/sbin/makepkg -p -l y -c n $OUTPUT/$PRGNAM-$VERSION-$ARCH-$BUILD$TAG.txz
+#cd $PKG
+#/sbin/makepkg -p -l y -c n $OUTPUT/$PRGNAM-$VERSION-$ARCH-$BUILD$TAG.txz
 
-echo "Cleaning up build directory"
-cd $WRK; rm -rf $PRGNAM-$VERSION $PKG
+#echo "Cleaning up build directory"
+#cd $WRK; rm -rf $PRGNAM-$VERSION $PKG
 

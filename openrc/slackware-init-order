@@ -35,3 +35,9 @@ echo "+==============================================================+"
   unset i
 )
 
+(
+  mkdir -p $PKG/etc/openrc/runlevels/desktop;
+  cd $PKG/etc/openrc/runlevels/desktop;
+  ln -s ../default default;
+)
+

@@ -149,3 +149,6 @@ config etc/openrc/init.d/ypbind.new
 
 config etc/openrc/inittab.new
 config etc/openrc/rc.conf.new
+
+/usr/bin/echo "Read /etc/openrc/README.TXT for details"
+sleep 2

@@ -143,10 +143,10 @@ mv $PKG/usr/share/man $PKG/usr/
 mkdir -p $PKG/libexec/rc/cache
 
 # Use slackware's init order
-#rm -f $PKG/etc/openrc/runlevels/sysinit/*
-#rm -f $PKG/etc/openrc/runlevels/boot/*
-#rm -f $PKG/etc/openrc/runlevels/default/*
-#. $CWD/slackware-init-order
+rm -f $PKG/etc/openrc/runlevels/sysinit/*
+rm -f $PKG/etc/openrc/runlevels/boot/*
+rm -f $PKG/etc/openrc/runlevels/default/*
+. $CWD/slackware-init-order
 
 find $PKG | xargs file | grep -e "executable" -e "shared object" | grep ELF \
   | cut -f 1 -d : | xargs strip --strip-unneeded 2> /dev/null || true

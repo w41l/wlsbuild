@@ -1,4 +1,10 @@
-URL=http://linuxwacom.sourceforge.net/
-SRC=http://downloads.sourceforge.net/project/linuxwacom/libwacom/libwacom-0.7.1.tar.bz2
-MD5=d11981432144837a29ab2189a2fa0575
-SHA1=8e8a55c99f2880cf7efd6cdeab11d643c4af80a6
+PRGNAM="libwacom"
+VERSION="0.15"
+HOMEPAGE="http://linuxwacom.sourceforge.net/"
+DOWNLOAD="http://downloads.sourceforge.net/project/linuxwacom/libwacom/libwacom-0.15.tar.bz2"
+MD5SUM="692f0e7b10d6587c344ba5970f11bbb3"
+DOWNLOAD_x86_64=""
+MD5SUM_x86_64=""
+REQUIRES=""
+MAINTAINER="Widya Walesa"
+EMAIL="walecha99@gmail.com"

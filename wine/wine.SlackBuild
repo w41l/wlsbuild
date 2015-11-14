@@ -24,12 +24,12 @@
 # YOUR DATA IS DESTROYED, YOUR HOUSE BURNS DOWN OR YOUR DOG RUNS OFF.
 
 PRGNAM=wine
-VERSION=${VERSION:-1.7.52}
+VERSION=${VERSION:-1.7.53}
 BUILD=${BUILD:-1}
 TAG=${TAG:-_wls}
 NUMJOBS=${NUMJOBS:--j7}
-STAGING=${STAGING:-1}
-D3D9=${D3D9:-1}
+STAGING=${STAGING:-"yes"}
+D3D9=${D3D9:-"yes"}
 
 if [ -z "$ARCH" ]; then
   case "$( uname -m )" in
@@ -47,19 +47,19 @@ DOCS="ANNOUNCE AUTHORS COPYING.LIB LICENSE* README VERSION"
 
 if [ "$ARCH" = "i586" ]; then
   SLKCFLAGS="-O2 -pipe -march=i586 -mtune=i686"
-  SLKLDFLAGS="-L/usr/lib -ldl"
+  SLKLDFLAGS="-L/usr/lib -ldl -lm -lpthread"
   LIBDIRSUFFIX=""
   ENABLE_64=""
 elif [ "$ARCH" = "i686" ]; then
   SLKCFLAGS="-O2 -pipe -march=i686 -mtune=i686"
-  SLKLDFLAGS="-L/usr/lib -ldl"
+  SLKLDFLAGS="-L/usr/lib -ldl -lm -lpthread"
   LIBDIRSUFFIX=""
   ENABLE_64=""
 elif [ "$ARCH" = "x86_64" ]; then
   SLKCFLAGS="-O2 -pipe -fPIC"
-  SLKLDFLAGS="-L/usr/lib64"
+  SLKLDFLAGS="-L/usr/lib64 -ldl -lm -lpthread"
   LIBDIRSUFFIX="64"
-  ENABLE_64=" --enable-win64"
+  ENABLE_64="--enable-win64"
 else
   SLKCFLAGS="-O2"
   LIBDIRSUFFIX=""
@@ -75,7 +75,7 @@ echo "extracting $PRGNAM-$VERSION"
 tar xf $CWD/$PRGNAM-$VERSION.tar.?z*
 cd $PRGNAM-$VERSION
 
-if [ "$STAGING" = "1" ]; then
+if [ "$STAGING" = "yes" ]; then
   if [ -f $CWD/$PRGNAM-staging-$VERSION.tar.?z* ]; then
     echo "BUILDING WINE STAGING: $VERSION"
     sleep 5
@@ -94,7 +94,7 @@ fi
 
 cat $CWD/wine-cjk.patch | patch -p1 || exit 1
 
-if [ "$D3D9" = "1" ]; then
+if [ "$D3D9" = "yes" ]; then
   if [ -f $CWD/wine-d3d9-$VERSION.patch ]; then
     echo "BUILDING WINE D3D9: $VERSION"
     sleep 5
@@ -162,7 +162,8 @@ if [ "$ARCH" = "x86_64" ]; then
    cd $WRK/$PRGNAM-wow64
 
   # Set 32-bit pkgconfig path as needed by gstreamer
-  export PKG_CONFIG_PATH=/usr/lib/pkgconfig
+  unset PKG_CONFIG_PATH
+  export PKG_CONFIG_PATH="$PKG_CONFIG_PATH:/usr/local/lib/pkgconfig:/usr/lib/pkgconfig"
 
   CPPFLAGS="${CPPFLAGS/-D_FORTIFY_SOURCE=2/} -D_FORTIFY_SOURCE=0" \
   CFLAGS="$SLKCFLAGS -DHAVE_ATTR_XATTR_H=1" \
@@ -194,6 +195,7 @@ fi
 
 # Back installing wine 64-bit
 cd $WRK/$PRGNAM
+unset PKG_CONFIG_PATH
 export PKG_CONFIG_PATH="$PKG_CONFIG_PATH:/usr/local/lib64/pkgconfig:/usr/lib64/pkgconfig"
 make install DESTDIR=$PKG || exit 1
 
@@ -211,7 +213,6 @@ cat $CWD/$PRGNAM.SlackBuild > $PKG/usr/doc/$PRGNAM-$VERSION/$PRGNAM.SlackBuild
 
 mkdir -p $PKG/install
 cat $CWD/slack-desc > $PKG/install/slack-desc
-cat $CWD/slack-required > $PKG/install/slack-required
 
 cd $PKG
 /sbin/makepkg -p -l y -c n $OUTPUT/$PRGNAM-$VERSION-$ARCH-$BUILD$TAG.txz

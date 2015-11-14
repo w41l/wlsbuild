@@ -1,5 +1,0 @@
-This module has only one function, which is also exported by default:
-  subname NAME, CODEREF
-    Assigns a new name to referenced sub. If package specification is
-    omitted in the name, then the current package is used. The return value
-    is the sub.

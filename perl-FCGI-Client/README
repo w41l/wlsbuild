@@ -1,4 +1,0 @@
-Moo classes and roles will transparently and correctly upgrade to Moose
-when needed. This is a fundamentally better design than what Any::Moose
-offers. Mouse metaclasses do not interact with Moose metaclasses which
-leaks abstractions all over the place.

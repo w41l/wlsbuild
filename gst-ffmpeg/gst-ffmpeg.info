@@ -1,7 +1,0 @@
-URL=http://gstreamer.freedesktop.org/
-SRC=http://gstreamer.freedesktop.org/src/gst-ffmpeg/gst-ffmpeg-0.10.13.tar.gz
-MD5=3e52d69a15d42f0a11abfc02f80effa1
-SHA1=8de5c848638c16c6c6c14ce3b22eecd61ddeed44
-LIBAV_SRC=https://libav.org/releases/libav-0.7.7.tar.xz
-LIBAV_MD5=4c55cfbd490fbd68087d22c4aed76b21
-LIBAV_SHA1=04cfb46c5be58343977ea7f752ae769a5c4afc0d

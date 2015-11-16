@@ -75,7 +75,7 @@ find . \
 
 mkdir build
 cd build
-if [[ $ARCH == i686 ]]; then
+if [[ $ARCH == i?86 ]]; then
   cmake .. \
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_C_FLAGS:STRING="$SLKCFLAGS" \

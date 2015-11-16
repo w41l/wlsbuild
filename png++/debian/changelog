@@ -1,0 +1,32 @@
+png++ (0.2.5-1) unstable; urgency=low
+
+  * New upstream release.
+  * Unfuzz patch.
+  * Ease building with git-buildpackage:
+    + Git-ignore quilt .pc dir.
+    + Add source local-options.
+  * Silence pngsuite test files from copyright check to not upset dpkg
+    with binary diff below debian subdir.
+  * Build-depend on dh-buildinfo.
+
+ -- Jonas Smedegaard <dr@jones.dk>  Wed, 15 Dec 2010 13:51:15 +0100
+
+png++ (0.2.3-2) unstable; urgency=low
+
+  * Improved short and long description to mention "Portable Network
+    Graphics" unabbreviated.
+    See bug#573206. Thanks to Simon Josefsson.
+  * Bump standards-version to 3.9.1.
+  * Depend (not only build-depend) on libpng-dev.
+    Closes: bug#595110. Thanks to Micah Gersten.
+  * Drop local CDBS snippet: all included in cdbs package now.
+  * Update silencing of optional CDBS dependencies.
+  * Refresh patch w/ shortening options --no-timestamps --no-index -pab.
+
+ -- Jonas Smedegaard <dr@jones.dk>  Wed, 01 Sep 2010 09:53:38 +0200
+
+png++ (0.2.3-1) unstable; urgency=low
+
+  * Initial release. Closes: #573206.
+
+ -- Jonas Smedegaard <dr@jones.dk>  Tue, 09 Mar 2010 21:26:57 +0100

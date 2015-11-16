@@ -1,0 +1,10 @@
+Document: png++
+Title: png++ Documentation
+Author: Alex Shulgin <alex.shulgin@gmail.com>
+Abstract: This is the documentation for png++ the C++ wrapper for
+ libpng.
+Section: Programming/C++
+
+Format: HTML
+Index: /usr/share/doc/libpng++-dev/html/index.html
+Files: /usr/share/doc/libpng++-dev/html/*.html

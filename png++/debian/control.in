@@ -1,0 +1,18 @@
+Source: png++
+Priority: optional
+Section: libs
+Build-Depends: @cdbs@
+Homepage: http://savannah.nongnu.org/projects/pngpp/
+Standards-Version: 3.9.1
+Maintainer: Jonas Smedegaard <dr@jones.dk>
+Vcs-Git: git://git.debian.org/git/collab-maint/png++.git
+Vcs-Browser: http://git.debian.org/?p=collab-maint/png++.git
+
+Package: libpng++-dev
+Section: libdevel
+Architecture: all
+Depends: ${misc:Depends},
+ libpng-dev
+Description: C++ interface to the PNG (Portable Network Graphics) library
+ PNG++ aims to provide simple yet powerful C++ interface to libpng, the
+ Portable Network Graphics (PNG) reference implementation library.

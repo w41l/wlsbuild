@@ -1,6 +1,6 @@
 #!/bin/sh
 
-# Slackware build script for cheser-icon-theme
+# Slackware build script for pcsx2
 
 # Copyright 2015  Widya Walesa <walecha99@gmail.com>
 # All rights reserved.
@@ -23,28 +23,50 @@
 # ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. FURTHERMORE I AM NOT LIABLE IF
 # YOUR DATA IS DESTROYED, YOUR HOUSE BURNS DOWN OR YOUR DOG RUNS OFF.
 
-PRGNAM=cheser-icon-theme
+PRGNAM=pcsx2
 VERSION=${VERSION:-$(cat $PRGNAM.info | grep "VERSION=" | cut -d = -f 2 | sed 's/"//g')}
 BUILD=${BUILD:-1}
 TAG=${TAG:-_wls}
+NUMJOBS=${NUMJOBS:--j7}
 
-ARCH=noarch
+if [ -z "$ARCH" ]; then
+  case "$( uname -m )" in
+    i?86) ARCH=i586 ;;
+    arm*) ARCH=arm ;;
+       *) ARCH=$( uname -m ) ;;
+  esac
+fi
 
 CWD=$(pwd)
 WRK=${WRK:-/tmp/wlsbuild}
 PKG=$WRK/package-$PRGNAM
 OUTPUT=${OUTPUT:-/tmp}
-DOCS="COPY* NEWS* README*"
+DOCS="COPY* README*"
+
+if [ "$ARCH" = "i586" ]; then
+  SLKCFLAGS="-O2 -pipe -march=i586 -mtune=i686"
+  LIBDIRSUFFIX=""
+elif [ "$ARCH" = "i686" ]; then
+  SLKCFLAGS="-O2 -pipe -march=i686 -mtune=i686"
+  LIBDIRSUFFIX=""
+elif [ "$ARCH" = "x86_64" ]; then
+  echo "Your system is $ARCH"
+  echo "$PRGNAM is 32-bit only application. Use 32-bit system to build it."
+  echo "$PRGNAM can run in $ARCH system with multilib."
+  echo "Building stops here."
+  exit 1
+else
+  SLKCFLAGS="-O2"
+  LIBDIRSUFFIX=""
+fi
 
 set -e
-
-curl -#OLJ -C - $(cat $PRGNAM.info | grep "DOWNLOAD=" | cut -d = -f 2 | sed 's/"//g')
 
 rm -rf $PKG
 mkdir -p $WRK $PKG $OUTPUT
 cd $WRK
 rm -rf $PRGNAM-$VERSION
-tar xvf $CWD/$PRGNAM-$VERSION.tar.?z*
+7z x $CWD/$PRGNAM-$(echo "$VERSION" | sed 's/_/-/g')-sources.7z
 cd $PRGNAM-$VERSION
 
 chown -R root:root .
@@ -54,19 +76,41 @@ find . \
  \( -perm 666 -o -perm 664 -o -perm 600 -o -perm 444 -o -perm 440 -o -perm 400 \) \
  -exec chmod 644 {} \;
 
-mkdir -p $PKG/usr/share/icons
-mv Cheser $PKG/usr/share/icons/
+export LDFLAGS="-L/usr/local/lib -L/usr/lib"
+export PKG_CONFIG_PATH="/usr/local/lib/pkgconfig:/usr/lib/pkgconfig"
+
+mkdir build
+cd build
+  cmake \
+    -DCMAKE_C_FLAGS:STRING="$SLKCFLAGS" \
+    -DCMAKE_C_FLAGS_RELEASE:STRING="$SLKCFLAGS" \
+    -DCMAKE_CXX_FLAGS:STRING="$SLKCFLAGS" \
+    -DCMAKE_CXX_FLAGS_RELEASE:STRING="$SLKCFLAGS" \
+    -DCMAKE_BUILD_TYPE=Release \
+    -DCMAKE_INSTALL_PREFIX=/usr \
+    -DXDG_STD=TRUE \
+    -DPACKAGE_MODE=TRUE \
+    ..
+
+  make
+  make install DESTDIR=$PKG
+cd -
+
+unset LDFLAGS PKG_CONFIG_PATH
+
+find $PKG | xargs file | grep -e "executable" -e "shared object" | grep ELF \
+  | cut -f 1 -d : | xargs strip --strip-unneeded 2> /dev/null || true
 
 mkdir -p $PKG/usr/doc/$PRGNAM-$VERSION
 cp -a $DOCS $PKG/usr/doc/$PRGNAM-$VERSION
+chmod 644 $PKG/usr/doc/$PRGNAM-$VERSION/*
 cat $CWD/$PRGNAM.SlackBuild > $PKG/usr/doc/$PRGNAM-$VERSION/$PRGNAM.SlackBuild
 
 mkdir -p $PKG/install
 cat $CWD/slack-desc > $PKG/install/slack-desc
-cat $CWD/doinst.sh > $PKG/install/doinst.sh
 
 cd $PKG
 /sbin/makepkg -p -l y -c n $OUTPUT/$PRGNAM-$VERSION-$ARCH-$BUILD$TAG.txz
 
 echo "Cleaning up build directory"
-cd $WRK; rm -rf $PRGNAM-$VERSION $PKG
+cd $WRK; rm -rf $PRGNAM $PKG

@@ -1,4 +1,10 @@
-URL=https://github.com/chekavy/cheser-icon-theme
-SRC=https://codeload.github.com/chekavy/cheser-icon-theme/tar.gz/v3.16.1
-MD5=
-SHA1=
+PRGNAM="cheser-icon-theme"
+VERSION="3.18.0"
+HOMEPAGE="https://github.com/chekavy/cheser-icon-theme"
+DOWNLOAD="https://github.com/chekavy/cheser-icon-theme/archive/v3.18.0.tar.gz"
+MD5SUM=""
+DOWNLOAD_x86_64=""
+MD5SUM_x86_64=""
+REQUIRES=""
+MAINTAINER="Widya Walesa"
+Email="walecha99@gmail.com"

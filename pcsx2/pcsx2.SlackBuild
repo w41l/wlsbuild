@@ -66,8 +66,9 @@ rm -rf $PKG
 mkdir -p $WRK $PKG $OUTPUT
 cd $WRK
 rm -rf $PRGNAM-$VERSION
-7z x $CWD/$PRGNAM-$(echo "$VERSION" | sed 's/_/-/g')-sources.7z
+mkdir -p $PRGNAM-$VERSION
 cd $PRGNAM-$VERSION
+7z x $CWD/$PRGNAM-$(echo "$VERSION" | sed 's/_/-/g')-sources.7z
 
 chown -R root:root .
 find . \

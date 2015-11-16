@@ -50,11 +50,8 @@ elif [ "$ARCH" = "i686" ]; then
   SLKCFLAGS="-O2 -pipe -march=i686 -mtune=i686"
   LIBDIRSUFFIX=""
 elif [ "$ARCH" = "x86_64" ]; then
-  echo "Your system is $ARCH"
-  echo "$PRGNAM is 32-bit only application. Use 32-bit system to build it."
-  echo "$PRGNAM can run in $ARCH system with multilib."
-  echo "Building stops here."
-  exit 1
+  SLKCFLAGS="-O2 -pipe -fPIC"
+  LIBDIRSUFFIX=""
 else
   SLKCFLAGS="-O2"
   LIBDIRSUFFIX=""
@@ -66,9 +63,8 @@ rm -rf $PKG
 mkdir -p $WRK $PKG $OUTPUT
 cd $WRK
 rm -rf $PRGNAM-$VERSION
-mkdir -p $PRGNAM-$VERSION
+tar xf $CWD/$PRGNAM-$VERSION.tar.xz
 cd $PRGNAM-$VERSION
-7z x $CWD/$PRGNAM-$(echo "$VERSION" | sed 's/_/-/g')-sources.7z
 
 chown -R root:root .
 find . \
@@ -79,19 +75,45 @@ find . \
 
 mkdir build
 cd build
-  cmake \
+if [[ $ARCH == i686 ]]; then
+  cmake .. \
+    -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_C_FLAGS:STRING="$SLKCFLAGS" \
     -DCMAKE_C_FLAGS_RELEASE:STRING="$SLKCFLAGS" \
     -DCMAKE_CXX_FLAGS:STRING="$SLKCFLAGS" \
     -DCMAKE_CXX_FLAGS_RELEASE:STRING="$SLKCFLAGS" \
+    -DCMAKE_INSTALL_PREFIX='/usr' \
+    -DCMAKE_LIBRARY_PATH='/usr/lib' \
+    -DPLUGIN_DIR='/usr/lib/pcsx2' \
+    -DGAMEINDEX_DIR='/usr/share/pcsx2' \
+    -DDISABLE_ADVANCE_SIMD='TRUE' \
+    -DEXTRA_PLUGINS='TRUE' \
+    -DREBUILD_SHADER='TRUE' \
+    -DGLSL_API='TRUE' \
+    -DPACKAGE_MODE='TRUE' \
+    -DXDG_STD='TRUE'
+elif [[ $ARCH == x86_64 ]]; then
+  cmake .. \
     -DCMAKE_BUILD_TYPE=Release \
-    -DCMAKE_INSTALL_PREFIX=/usr \
-    -DXDG_STD=TRUE \
-    -DPACKAGE_MODE=TRUE \
-    ..
+    -DCMAKE_C_FLAGS:STRING="$SLKCFLAGS" \
+    -DCMAKE_C_FLAGS_RELEASE:STRING="$SLKCFLAGS" \
+    -DCMAKE_CXX_FLAGS:STRING="$SLKCFLAGS" \
+    -DCMAKE_CXX_FLAGS_RELEASE:STRING="$SLKCFLAGS" \
+    -DCMAKE_TOOLCHAIN_FILE='cmake/linux-compiler-i386-multilib.cmake' \
+    -DCMAKE_INSTALL_PREFIX='/usr' \
+    -DCMAKE_LIBRARY_PATH='/usr/lib' \
+    -DPLUGIN_DIR='/usr/lib/pcsx2' \
+    -DGAMEINDEX_DIR='/usr/share/pcsx2' \
+    -DDISABLE_ADVANCE_SIMD='TRUE' \
+    -DEXTRA_PLUGINS='TRUE' \
+    -DREBUILD_SHADER='TRUE' \
+    -DGLSL_API='TRUE' \
+    -DPACKAGE_MODE='TRUE' \
+    -DXDG_STD='TRUE'
+fi
 
-  make
-  make install DESTDIR=$PKG
+make
+make install DESTDIR=$PKG
 cd -
 
 find $PKG | xargs file | grep -e "executable" -e "shared object" | grep ELF \

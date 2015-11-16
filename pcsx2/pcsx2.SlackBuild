@@ -76,9 +76,6 @@ find . \
  \( -perm 666 -o -perm 664 -o -perm 600 -o -perm 444 -o -perm 440 -o -perm 400 \) \
  -exec chmod 644 {} \;
 
-export LDFLAGS="-L/usr/local/lib -L/usr/lib"
-export PKG_CONFIG_PATH="/usr/local/lib/pkgconfig:/usr/lib/pkgconfig"
-
 mkdir build
 cd build
   cmake \
@@ -95,8 +92,7 @@ cd build
   make
   make install DESTDIR=$PKG
 cd -
-
-unset LDFLAGS PKG_CONFIG_PATH
+exit 1
 
 find $PKG | xargs file | grep -e "executable" -e "shared object" | grep ELF \
   | cut -f 1 -d : | xargs strip --strip-unneeded 2> /dev/null || true
@@ -113,4 +109,4 @@ cd $PKG
 /sbin/makepkg -p -l y -c n $OUTPUT/$PRGNAM-$VERSION-$ARCH-$BUILD$TAG.txz
 
 echo "Cleaning up build directory"
-cd $WRK; rm -rf $PRGNAM $PKG
+cd $WRK; rm -rf $PRGNAM-$VERSION $PKG

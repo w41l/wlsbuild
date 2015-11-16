@@ -88,7 +88,7 @@ if [[ $ARCH == i?86 ]]; then
     -DGLSL_API='TRUE' \
     -DPACKAGE_MODE='TRUE' \
     -DXDG_STD='TRUE' \
-    -DSDL2_API='FALSE'
+    -DSDL2_API='TRUE'
 elif [[ $ARCH == x86_64 ]]; then
   cmake .. \
     -DCMAKE_BUILD_TYPE=Release \
@@ -103,7 +103,7 @@ elif [[ $ARCH == x86_64 ]]; then
     -DGLSL_API='TRUE' \
     -DPACKAGE_MODE='TRUE' \
     -DXDG_STD='TRUE' \
-    -DSDL2_API='FALSE'
+    -DSDL2_API='TRUE'
 fi
 
 make

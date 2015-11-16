@@ -85,7 +85,7 @@ cd build
     -DCMAKE_CXX_FLAGS:STRING="$SLKCFLAGS" \
     -DCMAKE_CXX_FLAGS_RELEASE:STRING="$SLKCFLAGS" \
     -DCMAKE_BUILD_TYPE=Release \
-    -DCMAKE_INSTALL_PREFIX=/usr/local/games \
+    -DCMAKE_INSTALL_PREFIX=/usr \
     -DXDG_STD=TRUE \
     -DPACKAGE_MODE=TRUE \
     ..
@@ -93,13 +93,20 @@ cd build
   make
   make install DESTDIR=$PKG
 cd -
-exit 1
 
 find $PKG | xargs file | grep -e "executable" -e "shared object" | grep ELF \
   | cut -f 1 -d : | xargs strip --strip-unneeded 2> /dev/null || true
 
+mv $PKG/usr/share/man $PKG/usr/
+find $PKG/usr/man -type f -exec gzip -9 {} \;
+for i in $( find $PKG/usr/man -type l ) ; do
+  ln -s $( readlink $i ).gz $i.gz ; rm $i ;
+done
+
 mkdir -p $PKG/usr/doc/$PRGNAM-$VERSION
 cp -a $DOCS $PKG/usr/doc/$PRGNAM-$VERSION
+mv $PKG/usr/share/doc/pcsx2/* $PKG/usr/doc/$PRGNAM-$VERSION/
+rm -rf $PKG/usr/share/doc
 chmod 644 $PKG/usr/doc/$PRGNAM-$VERSION/*
 cat $CWD/$PRGNAM.SlackBuild > $PKG/usr/doc/$PRGNAM-$VERSION/$PRGNAM.SlackBuild
 

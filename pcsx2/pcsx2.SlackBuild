@@ -78,10 +78,6 @@ cd build
 if [[ $ARCH == i?86 ]]; then
   cmake .. \
     -DCMAKE_BUILD_TYPE=Release \
-    -DCMAKE_C_FLAGS:STRING="$SLKCFLAGS" \
-    -DCMAKE_C_FLAGS_RELEASE:STRING="$SLKCFLAGS" \
-    -DCMAKE_CXX_FLAGS:STRING="$SLKCFLAGS" \
-    -DCMAKE_CXX_FLAGS_RELEASE:STRING="$SLKCFLAGS" \
     -DCMAKE_INSTALL_PREFIX='/usr' \
     -DCMAKE_LIBRARY_PATH='/usr/lib' \
     -DPLUGIN_DIR='/usr/lib/pcsx2' \
@@ -91,14 +87,11 @@ if [[ $ARCH == i?86 ]]; then
     -DREBUILD_SHADER='TRUE' \
     -DGLSL_API='TRUE' \
     -DPACKAGE_MODE='TRUE' \
-    -DXDG_STD='TRUE'
+    -DXDG_STD='TRUE' \
+    -DSDL2_API='FALSE'
 elif [[ $ARCH == x86_64 ]]; then
   cmake .. \
     -DCMAKE_BUILD_TYPE=Release \
-    -DCMAKE_C_FLAGS:STRING="$SLKCFLAGS" \
-    -DCMAKE_C_FLAGS_RELEASE:STRING="$SLKCFLAGS" \
-    -DCMAKE_CXX_FLAGS:STRING="$SLKCFLAGS" \
-    -DCMAKE_CXX_FLAGS_RELEASE:STRING="$SLKCFLAGS" \
     -DCMAKE_TOOLCHAIN_FILE='cmake/linux-compiler-i386-multilib.cmake' \
     -DCMAKE_INSTALL_PREFIX='/usr' \
     -DCMAKE_LIBRARY_PATH='/usr/lib' \
@@ -109,7 +102,8 @@ elif [[ $ARCH == x86_64 ]]; then
     -DREBUILD_SHADER='TRUE' \
     -DGLSL_API='TRUE' \
     -DPACKAGE_MODE='TRUE' \
-    -DXDG_STD='TRUE'
+    -DXDG_STD='TRUE' \
+    -DSDL2_API='FALSE'
 fi
 
 make

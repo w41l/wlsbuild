@@ -1,9 +1,0 @@
-
-echo ""
-echo "WARNING! WARNING! WARNING! WARNING!"
-echo ""
-echo "EUDEV WILL REPLACE UDEV!"
-echo "EUDEV WILL REPLACE UDEV!"
-echo ""
-echo "WARNING! WARNING! WARNING! WARNING!"
-sleep 10

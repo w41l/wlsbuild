@@ -36,10 +36,14 @@ OUTPUT=/tmp
 DOCS="AUTHORS COPYING ChangeLog INSTAL* NEWS README*"
 
 # Change to OFF to disable building
+# Enable GTK+3 GUI
 ENABLE_GTK3=${ENABLE_GTK3:-"ON"}
+# Enable Qt5 GUI
 ENABLE_QT5=${ENABLE_QT5:-"OFF"}
+# Enable generating HTML pages guide
 ENABLE_HTML=${ENABLE_HTML:-"ON"}
-ENABLE_PDF=${ENABLE_PDF:-"ON"}
+# Enable generating PDF guides. Requires apache-ant, jai, fop.
+ENABLE_PDF=${ENABLE_PDF:-"OFF"}
 
 if [ -z "$ARCH" ]; then
   case "$( uname -m )" in

@@ -1,0 +1,12 @@
+          |-----handy-ruler------------------------------------------------------|
+libchardet: libchardet (universal charset detection library)
+libchardet:
+libchardet: shared library libchardet is based on Mozilla Universal Charset
+libchardet: Detector library and detects the character set used to encode data.
+libchardet: The original code was written by Netscape for the Mozilla Browser.
+libchardet: Later, the code was turned into the Encode::Detect Perl module.
+libchardet: This library switches the Perl wrapper API, to form a C library with
+libchardet: a libtool build environment.
+libchardet:
+libchardet:
+libchardet: Packaged by: Widya Walesa <walecha99@gmail.com>

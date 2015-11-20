@@ -1,4 +1,10 @@
-URL=http://bogofilter.sourceforge.net/
-SRC=http://downloads.sourceforge.net/project/bogofilter/bogofilter-stable/bogofilter-1.2.4/bogofilter-1.2.4.tar.bz2
-MD5=d0a5eebb3274b23ceabe766a6443a1c5
-SHA1=f51c02162fc31116e583197840a87d76ddcb9536
+PRGNAM="bogofilter"
+VERSION="1.2.4"
+HOMEPAGE="http://bogofilter.sourceforge.net/"
+DOWNLOAD="http://downloads.sourceforge.net/project/bogofilter/bogofilter-stable/bogofilter-1.2.4/bogofilter-1.2.4.tar.bz2"
+MD5SUM="d0a5eebb3274b23ceabe766a6443a1c5"
+DOWNLOAD_x86_64=""
+MD5SUM_x86_64=""
+REQUIRES=""
+MAINTAINER="Widya Walesa"
+Email="walecha99@gmail.com"

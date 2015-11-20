@@ -107,6 +107,18 @@ cd build
   make install DESTDIR=$PKG
 cd -
 
+# Install desktop files
+mkdir -p $PKG/usr/share/applications
+cp -a wireshark-gtk.desktop $PKG/usr/share/applications/
+cp -a wireshark.desktop $PKG/usr/share/applications/
+
+for size in 16 32 48; do
+  mkdir -p $PKG/usr/share/icons/hicolor/${size}x${size}/apps;
+  cp -a image/hi${size}-*.png $PKG/usr/share/icons/hicolor/${size}x${size}/apps;
+  mkdir -p $PKG/usr/share/icons/locolor/${size}x${size}/apps;
+  cp -a image/lo${size}-*.png $PKG/usr/share/icons/locolor/${size}x${size}/apps;
+done
+
 mv $PKG/usr/share/man $PKG/usr/
 
 find $PKG | xargs file | grep -e "executable" -e "shared object" | grep ELF \

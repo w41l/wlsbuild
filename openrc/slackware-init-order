@@ -5,7 +5,7 @@ echo "+==============================================================+"
 
 (
   cd $PKG/etc/openrc/runlevels/sysinit;
-  for i in binfmt devfs device-mapper fsck fuse hwclock isapnp loop modules procfs root serial sysctl sysfs tmpfiles.dev udev udev-mount; do
+  for i in binfmt devfs device-mapper fuse isapnp loop modules procfs serial sysctl sysfs tmpfiles.dev udev udev-mount; do
     rm -f $i; ln -sf /etc/openrc/init.d/$i $i;
   done
   unset i
@@ -13,7 +13,7 @@ echo "+==============================================================+"
 
 (
   cd $PKG/etc/openrc/runlevels/boot;
-  for i in alsa bootmisc consolefont cpufreq dmesg fontcache glibschemas gtkmodules hostname iconcache keymaps klogd ldconfig localmount loopback mimedatabase motd mtab numlock swap swapfiles syslogd termencoding tmpfiles.setup urandom; do
+  for i in alsa bootmisc consolefont cpufreq dmesg fontcache fsck glibschemas gtkmodules hostname hwclock iconcache keymaps klogd ldconfig localmount loopback mimedatabase motd mtab numlock root swap swapfiles syslogd termencoding tmpfiles.setup urandom; do
     rm -f $i; ln -sf /etc/openrc/init.d/$i $i;
   done
   unset i

@@ -6,7 +6,7 @@ name="Glib2 schemas compilation"
 command_background="yes"
 
 depend() {
-    need localmount
+    need localmount ldconfig
     after bootmisc
 }
 

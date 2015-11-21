@@ -6,7 +6,7 @@ name="GTK+ modules"
 command_background="yes"
 
 depend() {
-    need localmount
+    need localmount ldconfig
     after bootmisc
 }
 

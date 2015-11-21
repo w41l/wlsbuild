@@ -5,6 +5,10 @@
 name="Mime database update"
 command_background="yes"
 
+depend() {
+  need localmount
+}
+
 start()
 {
     ebegin "Updating mime database"

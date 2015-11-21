@@ -62,6 +62,10 @@ fi
 
 set -e
 
+if [ ! -f $CWD/$PRGNAM-$VERSION ]; then
+  curl -#OLJ -C - $(cat $PRGNAM.info | grep "DOWNLOAD=" | cut -d = -f 2 | sed 's/"//g')
+fi
+
 rm -rf $PKG
 mkdir -p $WRK $PKG $OUTPUT
 cd $WRK

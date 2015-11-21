@@ -1,4 +1,10 @@
-URL=http://www.gentoo.org/proj/en/base/openrc/
-SRC=https://gitweb.gentoo.org/proj/openrc.git/snapshot/openrc-0.18.3.tar.bz2
-MD5=a0c6d8cb617583d9bac458748200a8c4
-SHA1=590ca6e63a34923f19fdaf37d4a520c20896050a
+PRGNAM="openrc"
+VERSION="0.18.3"
+HOMEPAGE="http://www.gentoo.org/proj/en/base/openrc/"
+DOWNLOAD="https://gitweb.gentoo.org/proj/openrc.git/snapshot/openrc-0.18.3.tar.bz2"
+MD5SUM="a0c6d8cb617583d9bac458748200a8c4"
+DOWNLOAD_x86_64=""
+MD5SUM_x86_64=""
+REQUIRES=""
+MAINTAINER="Widya Walesa"
+EMAIL="walecha99@gmail.com"

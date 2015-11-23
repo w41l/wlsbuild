@@ -10,14 +10,22 @@ also the format used by tcpdump and various other tools.
 wireshark home: http://www.wireshark.org/
 
 You can pass environment variable before SlackBuild script to enable/disable
-these options:
+build options:
 
-Enable GTK+3 GUI: ENABLE_GTK3="ON"
-Enable Qt5 GUI: ENABLE_QT5="OFF"
 Enable generating HTML pages guide: ENABLE_HTML="ON"
+
+To build PDF guides you will need apache-ant, jai, and fop packages installed.
 Enable generating PDF guides: ENABLE_PDF="OFF"
 
-Example for building Qt5 GUI: ENABLE_QT5="ON" ./wireshark.SlackBuild
+Wireshark GUI
+=============
+Enable GTK+3 GUI by default. Tested. Worked.
+GTK3_GUI="yes"
 
-To build Qt5 GUI you will need Qt5 package installed.
-To build PDF guides you will need apache-ant, jai, and fop packages installed.
+Disable Qt4 GUI by default. Still crashed in my system. Maybe because Qt5 installed?
+QT4_GUI="no"
+
+Enable Qt5 GUI. Requires qt5 (alienBob kde5 has it). Disable by default.
+QT5_GUI="no"
+
+Example for building Qt5 GUI: QT5_GUI="yes" ./wireshark.SlackBuild

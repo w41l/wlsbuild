@@ -35,11 +35,37 @@ PKG=$WRK/package-$PRGNAM
 OUTPUT=/tmp
 DOCS="AUTHORS COPYING ChangeLog INSTAL* NEWS README*"
 
-# Change to OFF to disable building
-# Enable GTK+3 GUI
-ENABLE_GTK3=${ENABLE_GTK3:-"ON"}
-# Enable Qt5 GUI
-ENABLE_QT5=${ENABLE_QT5:-"OFF"}
+# Change to ON to enable building, OFF to disable.
+# Enable GTK+3 GUI by default. Tested. Worked.
+GTK3_GUI="yes"
+if [ "$GTK3_GUI" = "yes" ]; then
+  echo "Building Wireshark GTK3"
+  GUI_GTK3="-DENABLE_GTK3=ON"
+else
+  echo "Disable building Wireshark GTK3"
+  GUI_GTK3="-DENABLE_GTK3=OFF"
+fi
+
+# Disable Qt4 GUI by default. Still crashed in my system. Maybe because Qt5?
+QT4_GUI="no"
+if [ "$QT4_GUI" = "yes" ]; then
+  echo "Building Wireshark Qt4"
+  GUI_QT4="-DBUILD_wireshark=ON"
+else
+  echo "Disable building Wireshark Qt4"
+  GUI_QT4="-DBUILD_wireshark=OFF"
+fi
+
+# Enable Qt5 GUI. Requires qt5 (alienBob kde5 has it). Disable by default.
+QT5_GUI="no"
+if [ "$QT5_GUI" = "yes" ]; then
+  echo "Building Wireshark Qt4"
+  GUI_QT5="-DBuild_wireshark=ON -DENABLE_QT5=ON"
+else
+  echo "Disable building Wireshark Qt5"
+  GUI_QT5="-DBuild_wireshark=OFF -DENABLE_QT5=OFF"
+fi
+
 # Enable generating HTML pages guide
 ENABLE_HTML=${ENABLE_HTML:-"ON"}
 # Enable generating PDF guides. Requires apache-ant, jai, fop.
@@ -97,14 +123,19 @@ cd build
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DCMAKE_INSTALL_LIBDIR=/usr/lib${LIBDIRSUFFIX} \
+    -DCMAKE_INSTALL_MODULES_DIR=/usr/lib${LIBDIRSUFFIX}/cmake/wireshark \
+    -DCMAKE_INSTALL_MANDIR=/usr/man \
+    -DDOC_DIR=/usr/doc/$PRGNAM-$VERSION \
+    -DENABLE_CAP=ON \
     -DDUMPCAP_INSTALL_OPTION="suid" \
-    -DENABLE_GTK3=${ENABLE_GTK3} \
-    -DENABLE_QT5=${ENABLE_QT5} \
     -DENABLE_HTML_GUIDES=${ENABLE_HTML} \
     -DENABLE_PDF_GUIDES=${ENABLE_PDF} \
-    ..
+    $GUI_GTK3 \
+    $GUI_QT4 \
+    $GUI_QT5 \
+    .. || exit 1
 
-  make
+  make $NUMJOBS || make || exit 1
   make install DESTDIR=$PKG
 cd -
 

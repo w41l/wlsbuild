@@ -38,45 +38,40 @@ DOCS="AUTHORS COPYING ChangeLog INSTAL* NEWS README*"
 # Build GUI: gtk2, gtk3, qt4, qt5, gtk3+qt4, gtk3+qt5
 # Here we are using GTK3 GUI as Slackware already have GTK3. And it worked, while
 # Qt-based GUI still crashed.
-BUILD_GUI=${BUILD_GUI:-"gtk3"}
+BUILD_GUI=${BUILD_GUI:-"default"}
 # Enable default GUI (gtk2 and qt4). Qt4 GUI crashed.
 if [ "$BUILD_GUI" = "default" ]; then
   echo "Building Wireshark GTK+ and Qt GUI (default). Qt4 GUI still crashed."
-  WIRESHARKGUI=""
+  WIRESHARKGUI="--with-gtk3=yes --with-qt=4"
 # Enable GTK+2 GUI only. Tested. Worked.
 elif [ "$BUILD_GUI" = "gtk2" ]; then
-  echo "Building Wireshark GTK2 GUI only"
-  WIRESHARKGUI="-DBUILD_wireshark=OFF -DENABLE_GTK3=OFF -DENABLE_QT5=OFF"
+  echo "Building Wireshark GTK2 GUI"
+  WIRESHARKGUI="--with-gtk2=yes --with-qt=no"
 # Enable GTK+3 GUI only. Tested. Worked.
 elif [ "$BUILD_GUI" = "gtk3" ]; then
-  echo "Building Wireshark GTK3 GUI only"
-  WIRESHARKGUI="-DENABLE_GTK3=ON -DBUILD_wireshark=OFF -DENABLE_QT5=OFF"
+  echo "Building Wireshark GTK3 GUI"
+  WIRESHARKGUI="--with-gtk3=yes --with-qt=no"
 # Enable Qt4 GUI only. Crashed.
 elif [ "$BUILD_GUI" = "qt4" ]; then
-  echo "Building Wireshark Qt4 GUI only"
-  WIRESHARKGUI="-DBUILD_wireshark_gtk=OFF -DENABLE_QT5=OFF"
+  echo "Building Wireshark Qt4 GUI"
+  WIRESHARKGUI="--with-gtk2=no --with-gtk3=no --with-qt=4"
 # Enable Qt5 GUI. Crashed.
 elif [ "$BUILD_GUI" = "qt5" ]; then
   echo "Building Wireshark Qt5"
-  WIRESHARKGUI="-DBUILD_wireshark_gtk=OFF -DENABLE_QT5=ON"
+  WIRESHARKGUI="--with-gtk2=no --with-gtk3=no --with-qt=5"
 # Enable GTK3 and Qt4 GUI. Qt4 GUI still crashed.
 elif [ "$BUILD_GUI" = "gtk3+qt4" ]; then
   echo "Building Wireshark GTK3 and Qt4"
-  WIRESHARKGUI="-DENABLE_GTK3=ON -DENABLE_QT5=OFF"
+  WIRESHARKGUI="--with-gtk3=yes --with-qt=4"
 # Enable GTK3 and Qt5 GUI. Qt5 GUI still crashed.
 elif [ "$BUILD_GUI" = "gtk3+qt5" ]; then
   echo "Building Wireshark GUI GTK3 and Qt5"
-  WIRESHARKGUI="-DENABLE_GTK3=ON -DENABLE_QT5=ON"
+  WIRESHARKGUI="--with-gtk3=yes --with-qt=5"
 fi
 
 echo "Press CTRL+C now to stop build process and change build options"
 echo "Switches are: BUILD_GUI=default|gtk2|gtk3|qt4|qt5|gtk3+qt4|gtk3+qt5"
 sleep 5
-
-# Enable generating HTML pages guide
-ENABLE_HTML=${ENABLE_HTML:-"ON"}
-# Enable generating PDF guides. Requires apache-ant, jai, fop.
-ENABLE_PDF=${ENABLE_PDF:-"OFF"}
 
 if [ -z "$ARCH" ]; then
   case "$( uname -m )" in
@@ -120,42 +115,28 @@ find . \
  \( -perm 666 -o -perm 664 -o -perm 600 -o -perm 444 -o -perm 440 -o -perm 400 \) \
  -exec chmod 644 {} \;
 
-mkdir -p build
-cd build
 export LC_ALL=C
-  cmake \
-    -DCMAKE_C_FLAGS:STRING="$SLKCFLAGS" \
-    -DCMAKE_C_FLAGS_RELEASE:STRING="$SLKCFLAGS" \
-    -DCMAKE_CXX_FLAGS:STRING="$SLKCFLAGS" \
-    -DCMAKE_CXX_FLAGS_RELEASE:STRING="$SLKCFLAGS" \
-    -DCMAKE_BUILD_TYPE=Release \
-    -DCMAKE_INSTALL_PREFIX=/usr \
-    -DCMAKE_INSTALL_LIBDIR=/usr/lib${LIBDIRSUFFIX} \
-    -DCMAKE_INSTALL_MANDIR=/usr/man \
-    -DDOC_DIR=/usr/doc/$PRGNAM-$VERSION \
-    -DENABLE_CAP=ON \
-    -DDUMPCAP_INSTALL_OPTION="suid" \
-    -DENABLE_HTML_GUIDES=${ENABLE_HTML} \
-    -DENABLE_PDF_GUIDES=${ENABLE_PDF} \
-    $WIRESHARKGUI \
-    .. || exit 1
+./autogen.sh
 
-  make $NUMJOBS || make || exit 1
-  make install DESTDIR=$PKG
+PYTHON=python2 \
+CFLAGS="$SLKCFLAGS" \
+CXXFLAGS="$SLKCFLAGS" \
+./configure \
+  --build=$ARCH-slackware-linux \
+  --prefix=/usr \
+  --libdir=/usr/lib$LIBDIRSUFFIX \
+  --mandir=/usr/man \
+  --docdir=/usr/doc/$PRGNAM-$VERSION \
+  --enable-setuid-install \
+  --with-pcap \
+  --with-zlib \
+  --with-ssl \
+  $WIRESHARKGUI \
+  || exit 1
+
+make $NUMJOBS || make || exit 1
+make install DESTDIR=$PKG
 unset LC_ALL
-cd -
-
-# Install desktop files
-mkdir -p $PKG/usr/share/applications
-cp -a wireshark-gtk.desktop $PKG/usr/share/applications/
-cp -a wireshark.desktop $PKG/usr/share/applications/
-
-for size in 16 32 48; do
-  mkdir -p $PKG/usr/share/icons/hicolor/${size}x${size}/apps;
-  cp -a image/hi${size}-*.png $PKG/usr/share/icons/hicolor/${size}x${size}/apps;
-  mkdir -p $PKG/usr/share/icons/locolor/${size}x${size}/apps;
-  cp -a image/lo${size}-*.png $PKG/usr/share/icons/locolor/${size}x${size}/apps;
-done
 
 find $PKG | xargs file | grep -e "executable" -e "shared object" | grep ELF \
   | cut -f 1 -d : | xargs strip --strip-unneeded 2> /dev/null || true
@@ -169,6 +150,7 @@ cat $CWD/$PRGNAM.SlackBuild > $PKG/usr/doc/$PRGNAM-$VERSION/$PRGNAM.SlackBuild
 
 mkdir -p $PKG/install
 cat $CWD/slack-desc > $PKG/install/slack-desc
+cat $CWD/doinst.sh > $PKG/install/doinst.sh
 
 cd $PKG
 /sbin/makepkg -p -l y -c n $OUTPUT/$PRGNAM-$VERSION-$ARCH-$BUILD$TAG.txz

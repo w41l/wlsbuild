@@ -112,10 +112,11 @@ CXXFLAGS="$SLKCFLAGS" \
   --localstatedir=/var \
   --mandir=/usr/man \
   --docdir=/usr/doc/$PRGNAM-$VERSION \
-  --enable-tests \
+  --disable-qt3 \
   --disable-static \
   --disable-monodoc \
   --disable-autoipd \
+  --disable-manpages \
   --enable-python-dbus \
   --enable-pygtk\
   --enable-glib \
@@ -124,11 +125,10 @@ CXXFLAGS="$SLKCFLAGS" \
   --enable-gtk \
   --enable-gtk3 \
   --enable-qt4 \
-  --disable-qt3 \
-  --disable-manpages \
   --enable-core-docs \
   --enable-compat-howl \
   --enable-compat-libdns_sd \
+  --enable-tests \
   --with-systemdsystemunitdir=no \
   --with-xml=expat \
   --with-dbus-sys=/etc/dbus-1/system.d \

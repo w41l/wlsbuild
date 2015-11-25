@@ -32,8 +32,11 @@ if [ -x /usr/bin/update-desktop-database ]; then
   /usr/bin/update-desktop-database -q usr/share/applications >/dev/null 2>&1
 fi
 
-# Reload messagebus service
-if [ -x etc/rc.d/rc.messagebus ]; then
-  chroot . /etc/rc.d/rc.messagebus reload
+echo "Reloading system message bus configuration..."
+PIDFILE="/var/run/dbus/dbus.pid"
+if [ -e "$PIDFILE" ]; then
+  pid=$(cat $PIDFILE)
+  kill -HUP $pid
+else
+  killall -HUP dbus-daemon
 fi
-

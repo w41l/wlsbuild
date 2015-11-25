@@ -101,6 +101,8 @@ find -L . \
 # Thanks to Robby Workman for this patch.
 patch -p1 --verbose < $CWD/fixup_avahi-dnsconfd.action.patch
 
+./autogen.sh
+
 CFLAGS="$SLKCFLAGS" \
 CXXFLAGS="$SLKCFLAGS" \
 ./configure \

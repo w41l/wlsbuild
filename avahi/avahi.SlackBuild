@@ -112,28 +112,28 @@ CXXFLAGS="$SLKCFLAGS" \
   --localstatedir=/var \
   --mandir=/usr/man \
   --docdir=/usr/doc/$PRGNAM-$VERSION \
-  --disable-qt3 \
   --disable-static \
+  --disable-qt3 \
   --disable-monodoc \
-  --disable-autoipd \
   --disable-manpages \
-  --enable-python-dbus \
-  --enable-pygtk\
+  --disable-autoipd \
   --enable-glib \
   --enable-dbus \
+  --enable-qt4 \
   --enable-python \
   --enable-gtk \
   --enable-gtk3 \
-  --enable-qt4 \
-  --enable-core-docs \
+  --enable-python-dbus \
+  --enable-pygtk \
   --enable-compat-howl \
   --enable-compat-libdns_sd \
   --enable-tests \
-  --with-systemdsystemunitdir=no \
-  --with-xml=expat \
-  --with-dbus-sys=/etc/dbus-1/system.d \
+  --enable-core-docs  \
   --with-avahi-user=avahi \
   --with-avahi-group=avahi \
+  --with-dbus-sys=/etc/dbus-1/system.d \
+  --with-xml=expat \
+  --with-systemdsystemunitdir=no \
   --with-avahi-priv-access-group=netdev \
   --with-distro=slackware \
   --program-prefix= \

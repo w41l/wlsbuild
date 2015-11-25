@@ -124,11 +124,13 @@ CXXFLAGS="$SLKCFLAGS" \
   --enable-gtk \
   --enable-gtk3 \
   --enable-qt4 \
-  --disable-qt3=yes \
-  --enable-qt3=no \
+  --disable-qt3 \
+  --disable-manpages \
   --enable-core-docs \
   --enable-compat-howl \
   --enable-compat-libdns_sd \
+  --with-systemdsystemunitdir=no \
+  --with-xml=expat \
   --with-dbus-sys=/etc/dbus-1/system.d \
   --with-avahi-user=avahi \
   --with-avahi-group=avahi \

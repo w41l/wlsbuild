@@ -124,7 +124,8 @@ CXXFLAGS="$SLKCFLAGS" \
   --enable-gtk \
   --enable-gtk3 \
   --enable-qt4 \
-  --disable-qt3 \
+  --disable-qt3=yes \
+  --enable-qt3=no \
   --enable-core-docs \
   --enable-compat-howl \
   --enable-compat-libdns_sd \

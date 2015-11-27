@@ -139,11 +139,11 @@ for i in `find $PKG/etc/openrc/init.d/* -type f`; do
 done
 
 # Use LIBEXECDIR from above
-sed -i "s|@LIBEXECDIR@|$LIBEXECDIR|g" $PKG/etc/openrc/init.d/*.new
+sed -i "s|@LIBEXECDIR@|${LIBEXECDIR}|g" $PKG/etc/openrc/init.d/*.new
 
 # fix permission
 chown -R root:root $PKG/etc/
-chmod +x $PKG/lib/sh/*
+chmod +x $PKG/${LIBEXECDIR}/sh/*
 
 # fix man directory
 mv $PKG/usr/share/man $PKG/usr/
@@ -151,7 +151,7 @@ rmdir $PKG/usr/share
 
 # Add openrc cache directory. Somehow installer and init script did not
 # create it.
-mkdir -p $PKG/lib/cache
+mkdir -p $PKG/${LIBEXECDIR}/cache
 
 # Use slackware's init order
 rm -f $PKG/etc/openrc/runlevels/sysinit/*

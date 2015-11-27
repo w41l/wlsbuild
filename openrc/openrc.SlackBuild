@@ -148,7 +148,6 @@ chmod +x $PKG/${LIBEXECDIR}/sh/*
 
 # fix man directory
 mv $PKG/usr/share/man $PKG/usr/
-rmdir $PKG/usr/share
 
 # Add openrc cache directory. Somehow installer and init script did not
 # create it.
@@ -162,6 +161,10 @@ rm -f $PKG/etc/openrc/runlevels/default/*
 
 # Add README.TXT
 cat $CWD/README.TXT > $PKG/etc/openrc/README.TXT
+
+# Remove empty directory
+rmdir $PKG/usr/share
+rmdir $PKG/bin
 
 find $PKG | xargs file | grep -e "executable" -e "shared object" | grep ELF \
   | cut -f 1 -d : | xargs strip --strip-unneeded 2> /dev/null || true
@@ -181,6 +184,6 @@ cat $CWD/doinst.sh > $PKG/install/doinst.sh
 cd $PKG
 /sbin/makepkg -p -l y -c n $OUTPUT/$PRGNAM-$VERSION-$ARCH-$BUILD$TAG.txz
 
-#echo "Cleaning up build directory"
-#cd $WRK; rm -rf $PRGNAM-$VERSION $PKG
+echo "Cleaning up build directory"
+cd $WRK; rm -rf $PRGNAM-$VERSION $PKG
 

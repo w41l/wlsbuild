@@ -25,6 +25,7 @@ description_rotate="Sends rsyslogd a signal to re-open its log files."
 
 depend() {
 	need clock hostname localmount
+	after bootmisc
 	provide logger
 }
 

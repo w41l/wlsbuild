@@ -1,0 +1,31 @@
+#!/sbin/openrc-run
+# Copyright 1999-2014 Gentoo Foundation
+# Distributed under the terms of the GNU General Public License, v2 or later
+# $Header: /var/cvsroot/gentoo-x86/net-fs/samba/files/3.6/samba.initd,v 1.4 2014/03/14 09:30:41 polynomial-c Exp $
+
+name="SAMBA shares daemon"
+command_args="-D"
+piddir="/var/run/samba"
+
+depend() {
+	need net logger
+	use cupsd
+}
+
+start() {
+	ebegin "Starting samba shares"
+	if [ ! -f /etc/samba/smb.conf ]; then
+	    eerror "Could not found samba configuration."
+	fi
+	[ -d "${piddir}" ] || mkdir -p ${piddir}
+	start-stop-daemon --start --exec /usr/sbin/smbd -- $command_args
+	start-stop-daemon --start --exec /usr/sbin/nmbd -- $command_args
+	eend $? "Failed to start samba shares"
+}
+
+stop() {
+	ebegin "Stopping samba shares"
+	start-stop-daemon --stop --exec /usr/sbin/smbd -- $command_args
+	start-stop-daemon --stop --exec /usr/sbin/nmbd -- $command_args
+	eend $? "Failed to stop samba shares"
+}

@@ -1,0 +1,59 @@
+#!/sbin/openrc-run
+
+extra_commands="checkconfig"
+extra_started_commands="reload"
+
+UNBOUND_CONFDIR=${UNBOUND_CONFDIR:-/etc/unbound}
+UNBOUND_CONFIG=${UNBOUND_CONFIG:-${UNBOUND_CONFDIR}/unbound.conf}
+UNBOUND_PIDFILE=${UNBOUND_PIDFILE:-/var/run/${SVCNAME}/${SVCNAME}.pid}
+UNBOUND_BINARY=${UNBOUND_BINARY:-/usr/sbin/unbound}
+
+depend() {
+    use logger net
+}
+
+checkconfig() {
+    if [ ! -d /var/empty ] ; then
+	mkdir -p /var/empty || return 1
+    fi
+
+    if [ ! -e "${UNBOUND_CONFIG}" ] ; then
+	eerror "You need an ${UNBOUND_CONFIG} file to run unbound"
+	return 1
+    fi
+}
+
+start_pre(){
+    mkdir -p /run/unbound
+    chown -R unbound:unbound /run/unbound
+    chown -R unbound:unbound /var/state/unbound
+}
+
+start() {
+	checkconfig || return 1
+
+	ebegin "Starting ${SVCNAME}"
+	start-stop-daemon --start --exec "${UNBOUND_BINARY}" \
+	    --pidfile "${UNBOUND_PIDFILE}" \
+	    -- ${UNBOUND_OPTS}
+	eend $?
+}
+
+stop() {
+	if [ "${RC_CMD}" = "restart" ] ; then
+		checkconfig || return 1
+	fi
+
+	ebegin "Stopping ${SVCNAME}"
+	start-stop-daemon --stop --exec "${UNBOUND_BINARY}" \
+	    --pidfile "${UNBOUND_PIDFILE}" --quiet
+	eend $?
+}
+
+reload() {
+	checkconfig || return 1
+	ebegin "Reloading ${SVCNAME}"
+	start-stop-daemon --signal HUP \
+	    --exec "${UNBOUND_BINARY}" --pidfile "${UNBOUND_PIDFILE}"
+	eend $?
+}

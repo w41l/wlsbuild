@@ -5,7 +5,7 @@
 description="Setting up CPU Frequency Governor"
 
 depend() {
-	need localmount modules
+	use modules
 }
 
 start() {

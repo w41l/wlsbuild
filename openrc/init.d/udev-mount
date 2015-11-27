@@ -6,6 +6,7 @@ description="mount devtmpfs on /dev"
 
 depend()
 {
+	need procfs
 	provide dev-mount
 	keyword -vserver -lxc
 }

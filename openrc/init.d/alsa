@@ -7,7 +7,7 @@ name="ALSA Audio System"
 
 depend()
 {
-	need localmount
+	need sysfs
 	after bootmisc
 }
 

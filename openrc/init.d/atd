@@ -9,5 +9,5 @@ pidfile=/var/run/atd.pid
 depend()
 {
 	need clock localmount
-	after bootmisc
+	after cron
 }

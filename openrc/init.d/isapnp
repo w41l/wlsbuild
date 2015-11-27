@@ -6,7 +6,7 @@ description="Start isapnp devices of the machine."
 
 depend() {
 	#keyword -prefix -lxc
-	before dev modules
+	before modules
 }
 
 start()

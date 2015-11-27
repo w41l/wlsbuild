@@ -6,13 +6,14 @@ name="loop device"
 
 depend()
 {
-    need procfs sysfs
+    need sysfs
+    after tmpfiles.dev
     before modules
 }
 
 start()
 {
 	ebegin "Initializing loop device"
-	/sbin/modprobe -v loop
+	/sbin/modprobe loop
 	eend $?
 }

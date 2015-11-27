@@ -25,7 +25,7 @@
 
 PRGNAM=openrc
 VERSION=${VERSION:-0.18.3}
-BUILD=${BUILD:-1}
+BUILD=${BUILD:-2}
 TAG=${TAG:-_wls}
 NUMJOBS=${NUMJOBS:--j7}
 
@@ -138,6 +138,7 @@ done
 
 # fix permission
 chown -R root:root $PKG/etc/
+chmod +x $PKG/libexec/rc/sh/*
 
 # fix man directory
 mv $PKG/usr/share/man $PKG/usr/

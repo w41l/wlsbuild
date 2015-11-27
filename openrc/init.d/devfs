@@ -6,6 +6,7 @@ description="Set up the /dev directory"
 
 depend()
 {
+	use procfs
 	provide dev-mount
 	before dev
 	keyword -prefix -vserver -lxc

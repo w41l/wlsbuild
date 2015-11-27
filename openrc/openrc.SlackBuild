@@ -85,9 +85,7 @@ CFLAGS="$SLKCFLAGS" \
 CXXFLAGS="$SLKCFLAGS" \
 BRANDING='WLSBUILD' \
 LIBNAME=lib${LIBDIRSUFFIX} \
-LIBEXECDIR=/lib \
-BINDIR=/bin \
-SBINDIR=/sbin \
+LIBEXECDIR=/lib/rc \
 DESTDIR=${PKG} \
 MKSELINUX=no \
 MKTERMCAP=ncurses \
@@ -100,9 +98,7 @@ CFLAGS="$SLKCFLAGS" \
 CXXFLAGS="$SLKCFLAGS" \
 BRANDING='WLSBUILD' \
 LIBNAME=lib${LIBDIRSUFFIX} \
-LIBEXECDIR=/lib \
-BINDIR=/bin \
-SBINDIR=/sbin \
+LIBEXECDIR=/lib/rc \
 DESTDIR=${PKG} \
 MKSELINUX=no \
 MKTERMCAP=ncurses \
@@ -141,6 +137,9 @@ for i in `find $PKG/etc/openrc/init.d/* -type f`; do
   mv $i ${i}.new
   chmod 755 ${i}.new
 done
+
+# Use LIBEXECDIR from above
+sed -i "s|@LIBEXECDIR@|$LIBEXECDIR|g" $PKG/etc/openrc/init.d/*
 
 # fix permission
 chown -R root:root $PKG/etc/

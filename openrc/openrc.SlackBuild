@@ -164,8 +164,9 @@ cat $CWD/README.TXT > $PKG/etc/openrc/README.TXT
 
 # Remove empty directory
 rmdir $PKG/usr/share
+# Move symlink /bin/rc-status to doinst.sh
+rm -f $PKG/bin/rc-status
 rmdir $PKG/bin
-
 find $PKG | xargs file | grep -e "executable" -e "shared object" | grep ELF \
   | cut -f 1 -d : | xargs strip --strip-unneeded 2> /dev/null || true
 
@@ -180,6 +181,8 @@ cp -r support/* $PKG/usr/doc/$PRGNAM-$VERSION
 mkdir -p $PKG/install
 cat $CWD/slack-desc > $PKG/install/slack-desc
 cat $CWD/doinst.sh > $PKG/install/doinst.sh
+echo "( rm -rf /bin/rc-status ; ln -s /sbin/openrc /bin/rc-status )" \
+ >> $PKG/install/doinst.sh
 
 cd $PKG
 /sbin/makepkg -p -l y -c n $OUTPUT/$PRGNAM-$VERSION-$ARCH-$BUILD$TAG.txz

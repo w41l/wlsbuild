@@ -85,6 +85,9 @@ CFLAGS="$SLKCFLAGS" \
 CXXFLAGS="$SLKCFLAGS" \
 BRANDING='WLSBUILD' \
 LIBNAME=lib${LIBDIRSUFFIX} \
+LIBEXECDIR=/lib \
+BINDIR=/bin \
+SBINDIR=/sbin \
 DESTDIR=${PKG} \
 MKSELINUX=no \
 MKTERMCAP=ncurses \
@@ -97,6 +100,9 @@ CFLAGS="$SLKCFLAGS" \
 CXXFLAGS="$SLKCFLAGS" \
 BRANDING='WLSBUILD' \
 LIBNAME=lib${LIBDIRSUFFIX} \
+LIBEXECDIR=/lib \
+BINDIR=/bin \
+SBINDIR=/sbin \
 DESTDIR=${PKG} \
 MKSELINUX=no \
 MKTERMCAP=ncurses \
@@ -138,14 +144,14 @@ done
 
 # fix permission
 chown -R root:root $PKG/etc/
-chmod +x $PKG/libexec/rc/sh/*
+chmod +x $PKG/lib/sh/*
 
 # fix man directory
 mv $PKG/usr/share/man $PKG/usr/
 
 # Add openrc cache directory. Somehow installer and init script did not
 # create it.
-mkdir -p $PKG/libexec/rc/cache
+mkdir -p $PKG/lib/cache
 
 # Use slackware's init order
 rm -f $PKG/etc/openrc/runlevels/sysinit/*
@@ -174,6 +180,6 @@ cat $CWD/doinst.sh > $PKG/install/doinst.sh
 cd $PKG
 /sbin/makepkg -p -l y -c n $OUTPUT/$PRGNAM-$VERSION-$ARCH-$BUILD$TAG.txz
 
-echo "Cleaning up build directory"
-cd $WRK; rm -rf $PRGNAM-$VERSION $PKG
+#echo "Cleaning up build directory"
+#cd $WRK; rm -rf $PRGNAM-$VERSION $PKG
 

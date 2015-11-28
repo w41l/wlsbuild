@@ -5,7 +5,7 @@
 MOUNTPOINT=/sys/fs/fuse/connections
 
 depend() {
-	need procfs
+	before modules
 	after sysfs
 }
 

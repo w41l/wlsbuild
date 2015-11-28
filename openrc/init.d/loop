@@ -6,7 +6,6 @@ name="loop device"
 
 depend()
 {
-    need sysfs
     after tmpfiles.dev
     before modules
 }

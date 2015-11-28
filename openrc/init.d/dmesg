@@ -6,7 +6,7 @@ description="Set the dmesg level for a cleaner boot"
 
 depend()
 {
-	use dev clock modules root
+	before dev modules
 	keyword -lxc -prefix -systemd-nspawn -vserver
 }
 

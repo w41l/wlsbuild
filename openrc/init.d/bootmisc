@@ -222,6 +222,13 @@ start()
 			esac
 		fi
 	fi
+	
+	if yesno $create_run_users_dir; then
+	    ebegin "Creating ${RUNUSERSDIR} directory"
+	    mkdir -p $RUNUSERSDIR
+	    chmod 1777 $RUNUSERSDIR
+	    eend 0
+	fi
 
 	return 0
 }

@@ -9,7 +9,7 @@ extra_started_commands="reload"
 depend()
 {
   need avahid
-  use logger dns net
+  use dns logger
   after bootmisc
 }
 

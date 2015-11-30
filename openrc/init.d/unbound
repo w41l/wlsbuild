@@ -10,6 +10,7 @@ UNBOUND_BINARY=${UNBOUND_BINARY:-/usr/sbin/unbound}
 
 depend() {
     use logger net
+    provide dns
 }
 
 checkconfig() {

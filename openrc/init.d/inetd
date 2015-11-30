@@ -3,8 +3,3 @@
 
 description="inetd - the BSD Internet super-daemon"
 command="/usr/sbin/inetd"
-
-depend() {
-  need net
-  use logger
-}

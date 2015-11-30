@@ -8,8 +8,7 @@ command_args="-D"
 piddir="/var/run/samba"
 
 depend() {
-	need net logger
-	use cupsd
+	use logger cupsd
 }
 
 start() {

@@ -15,8 +15,7 @@ VSFTPD_CONF=${VSFTPD_CONF:-${VSFTPD_CONF_DEFAULT}}
 VSFTPD_EXEC=${VSFTPD_EXEC:-/usr/sbin/vsftpd}
 
 depend() {
-	need net
-	use dns logger
+	use dns logger net
 }
 
 #checkconfig() {

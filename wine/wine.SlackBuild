@@ -24,7 +24,8 @@
 # YOUR DATA IS DESTROYED, YOUR HOUSE BURNS DOWN OR YOUR DOG RUNS OFF.
 
 PRGNAM=wine
-VERSION=${VERSION:-1.7.53}
+VERSION=${VERSION:-1.8rc2}
+SRCVERSION=${VERSION:-1.8-rc2}
 BUILD=${BUILD:-1}
 TAG=${TAG:-_wls}
 NUMJOBS=${NUMJOBS:--j7}
@@ -71,9 +72,9 @@ rm -rf $PKG
 mkdir -p $WRK $PKG $OUTPUT
 cd $WRK
 rm -rf $PRGNAM*
-echo "extracting $PRGNAM-$VERSION"
-tar xf $CWD/$PRGNAM-$VERSION.tar.?z*
-cd $PRGNAM-$VERSION
+echo "extracting $PRGNAM-$SRCVERSION"
+tar xf $CWD/$PRGNAM-$SRCVERSION.tar.?z*
+cd $PRGNAM-$SRCVERSION
 
 if [ "$STAGING" = "yes" ]; then
   if [ -f $CWD/$PRGNAM-staging-$VERSION.tar.?z* ]; then

@@ -2,7 +2,7 @@
 
 # Slackware build script for fping
 
-# Copyright 2011  Widya Walesa <walecha99@gmail.com>
+# Copyright 2011-2015  Widya Walesa <walecha99@gmail.com>
 # All rights reserved.
 #
 # Redistribution and use of this script, with or without modification, is
@@ -24,14 +24,14 @@
 # YOUR DATA IS DESTROYED, YOUR HOUSE BURNS DOWN OR YOUR DOG RUNS OFF.
 
 PRGNAM=fping
-VERSION=${VERSION:-2.4b2}
+VERSION=${VERSION:-3.13}
 BUILD=${BUILD:-1}
 TAG=${TAG:-_wls}
-NUMJOBS=${NUMJOBS:--j3}
+NUMJOBS=${NUMJOBS:--j7}
 
 if [ -z "$ARCH" ]; then
   case "$( uname -m )" in
-    i?86) ARCH=i486 ;;
+    i?86) ARCH=i586 ;;
     arm*) ARCH=arm ;;
        *) ARCH=$( uname -m ) ;;
   esac
@@ -43,8 +43,8 @@ PKG=$WRK/package-$PRGNAM
 OUTPUT=${OUTPUT:-/tmp}
 DOCS="COPYING ChangeLog INSTALL README"
 
-if [ "$ARCH" = "i486" ]; then
-  SLKCFLAGS="-O2 -pipe -march=i486 -mtune=i686"
+if [ "$ARCH" = "i586" ]; then
+  SLKCFLAGS="-O2 -pipe -march=i586 -mtune=i686"
   LIBDIRSUFFIX=""
 elif [ "$ARCH" = "i686" ]; then
   SLKCFLAGS="-O2 -pipe -march=i686 -mtune=i686"
@@ -62,9 +62,9 @@ set -e
 rm -rf $PKG
 mkdir -p $WRK $PKG $OUTPUT
 cd $WRK
-rm -rf $PRGNAM-${VERSION}_to
-tar xvf $CWD/$PRGNAM.tar.gz
-cd $PRGNAM-${VERSION}_to
+rm -rf $PRGNAM-${VERSION}
+tar xvf $CWD/$PRGNAM-$VERSION.tar.gz
+cd $PRGNAM-${VERSION}
 
 chown -R root:root .
 find . \
@@ -73,13 +73,11 @@ find . \
  \( -perm 666 -o -perm 664 -o -perm 600 -o -perm 444 -o -perm 440 -o -perm 400 \) \
  -exec chmod 644 {} \;
 
-CPPFLAGS="$SLKCFLAGS" \
 CFLAGS="$SLKCFLAGS" \
 CXXFLAGS="$SLKCFLAGS" \
 ./configure \
-  --build=$ARCH-slackware-linux --host=$ARCH-slackware-linux \
-  --program-prefix= --program-suffix= \
-  --prefix=/usr --exec-prefix=/usr \
+  --build=$ARCH-slackware-linux \
+  --prefix=/usr \
   --bindir=/usr/bin --sbindir=/usr/sbin \
   --libdir=/usr/lib$LIBDIRSUFFIX --includedir=/usr/include \
   --mandir=/usr/man --infodir=/usr/info \
@@ -106,4 +104,4 @@ cd $PKG
 /sbin/makepkg -l y -c n $OUTPUT/$PRGNAM-$VERSION-$ARCH-$BUILD$TAG.txz
 
 echo "Cleaning up build directory"
-cd $WRK; rm -rf $PRGNAM-${VERSION}_to $PKG
+cd $WRK; rm -rf $PRGNAM-${VERSION} $PKG

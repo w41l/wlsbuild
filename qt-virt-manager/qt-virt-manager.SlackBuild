@@ -23,7 +23,7 @@
 #  ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 PRGNAM=qt-virt-manager
-VERSION=${VERSION:-git_20151130_a7c58b3}
+VERSION=${VERSION:-0.21.40}
 GITVERSION=${GITVERSION:-a7c58b3afdc3e7ebd9635c89561ed6c29ca88ae5}
 BUILD=${BUILD:-1}
 TAG=${TAG:-_wls}
@@ -34,7 +34,7 @@ PKG=$WRK/package-$PRGNAM
 OUTPUT=${OUTPUT:-/tmp}
 
 # Qt version 4 or 5
-QTVERSION=${QTVERSION:-"5"}
+QTVERSION=${QTVERSION:-"4"}
 
 if [ -z "$ARCH" ]; then
   case "$( uname -m )" in
@@ -85,17 +85,13 @@ cd build
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DLIB_SUFFIX=${LIBDIRSUFFIX} \
-    -DBUILD_QT_VERSION=${QTVERSION}
+    -DSHARE_INSTALL_PREFIX=/usr/share \
+    -DBUILD_QT_VERSION=${QTVERSION} \
+    || exit 1
 
-  make $NUMJOBS
-  make install DESTDIR=$PKG
+  make $NUMJOBS || make || exit 1
+  make install DESTDIR=$PKG || exit 1
 cd ..
-
-# Fix installation
-mkdir -p $PKG/usr/share
-mv $PKG/applications $PKG/usr/share/
-mv $PKG/icons $PKG/usr/share/
-mv $PKG/qt5-virt-manager $PKG/usr/share/
 
 find $PKG -print0 | xargs -0 file | grep -e "executable" -e "shared object" | grep ELF \
   | cut -f 1 -d : | xargs strip --strip-unneeded 2> /dev/null || true

@@ -25,8 +25,8 @@
 # Modified 2015 by Widya Walesa
 
 PRGNAM=qtermwidget
-VERSION=${VERSION:-git_20151122_45ef247}
-GITVERSION=${GITVERSION:-45ef247bdb301e803640d6ce05810afc762234c9}
+VERSION=${VERSION:-0.6.0}
+GITVERSION=${GITVERSION:-0.6.0}
 BUILD=${BUILD:-1}
 TAG=${TAG:-_wls}
 
@@ -67,8 +67,12 @@ rm -rf $PKG
 mkdir -p $WRK $PKG $OUTPUT
 cd $WRK
 rm -rf $PRGNAM-$GITVERSION
-tar xvf $CWD/$PRGNAM-$GITVERSION.tar.gz
+tar xvf $CWD/$PRGNAM-$GITVERSION.tar.?z*
 cd $PRGNAM-$GITVERSION
+
+# Add patch for qt-virt-manager
+cat $CWD/$PRGNAM-$VERSION-qt-virt-manager.patch | patch -p0 --verbose || exit 1
+
 chown -R root:root .
 find -L . \
  \( -perm 777 -o -perm 775 -o -perm 750 -o -perm 711 -o -perm 555 \
@@ -83,16 +87,18 @@ cd build
     -DCMAKE_CXX_FLAGS:STRING="$SLKCFLAGS" \
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_PREFIX=/usr \
+    || exit 1
 
-  make $NUMJOBS
-  make install DESTDIR=$PKG
+  make $NUMJOBS || make || exit 1
+  make install DESTDIR=$PKG || exit 1
 cd ..
 
 find $PKG -print0 | xargs -0 file | grep -e "executable" -e "shared object" | grep ELF \
   | cut -f 1 -d : | xargs strip --strip-unneeded 2> /dev/null || true
 
 mkdir -p $PKG/usr/doc/$PRGNAM-$VERSION
-cp -a AUTHORS LICENSE README* $PKG/usr/doc/$PRGNAM-$VERSION
+cp -a AUTHORS COPYING Changelog INSTALL README TODO \
+    $PKG/usr/doc/$PRGNAM-$VERSION
 cat $CWD/$PRGNAM.SlackBuild > $PKG/usr/doc/$PRGNAM-$VERSION/$PRGNAM.SlackBuild
 
 mkdir -p $PKG/install

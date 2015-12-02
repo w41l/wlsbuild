@@ -104,9 +104,9 @@ if [ "$D3D9" = "yes" ]; then
   elif [ ! -f $CWD/wine-d3d9-$VERSION.patch ] && [ -f $CWD/wine-d3d9-latest.patch ]; then
       echo "BUILDING WINE D3D9: Using latest git patch"
       sleep 5
-      cat $CWD/wine-d3d9-latest.patch | patch -p1 || exit 1
+      zcat $CWD/wine-d3d9-latest.patch.gz | patch -p1 || exit 1
       ENABLE_NINE="--with-d3dadapter=yes --with-d3dadapter-dri2-fallback=yes"
-  elif [ ! -f $CWD/wine-d3d9-$VERSION.patch ] && [ ! -f $CWD/wine-d3d9.patch ]; then
+  elif [ ! -f $CWD/wine-d3d9-$VERSION.patch ] && [ ! -f $CWD/wine-d3d9-latest.patch.gz ]; then
     echo "BUILDING WINE D3D9: FAILED! $PRGNAM-d3d9-$VERSION.patch not found!"
     exit 1
   fi

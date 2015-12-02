@@ -1,0 +1,448 @@
+diff -dur qtermwidget-0.6.0/lib/Pty.cpp qtermwidget/lib/Pty.cpp
+--- lib/Pty.cpp.orig	2014-10-21 19:47:40.000000000 +0400
++++ lib/Pty.cpp	2015-04-09 20:34:53.000000000 +0300
+@@ -218,6 +218,28 @@
+   return 0;
+ }
+ 
++void Pty::setEmptyPTYProperties()
++{
++    struct ::termios ttmode;
++    pty()->tcGetAttr(&ttmode);
++    if (!_xonXoff)
++      ttmode.c_iflag &= ~(IXOFF | IXON);
++    else
++      ttmode.c_iflag |= (IXOFF | IXON);
++  #ifdef IUTF8 // XXX not a reasonable place to check it.
++    if (!_utf8)
++      ttmode.c_iflag &= ~IUTF8;
++    else
++      ttmode.c_iflag |= IUTF8;
++  #endif
++
++    if (_eraseChar != 0)
++        ttmode.c_cc[VERASE] = _eraseChar;
++
++    if (!pty()->tcSetAttr(&ttmode))
++      qWarning() << "Unable to set terminal attributes.";
++}
++
+ void Pty::setWriteable(bool writeable)
+ {
+   struct stat sbuf;
+@@ -258,7 +280,7 @@
+ {
+   if (!length)
+       return;
+-  
++
+   if (!pty()->write(data,length)) 
+   {
+     qWarning() << "Pty::doSendJobs - Could not send input data to terminal process.";
+diff -dur qtermwidget-0.6.0/lib/Pty.h qtermwidget/lib/Pty.h
+--- lib/Pty.h.orig	2014-10-21 19:47:40.000000000 +0400
++++ lib/Pty.h	2015-04-09 20:34:53.000000000 +0300
+@@ -107,6 +107,11 @@
+                bool addToUtmp
+              );
+ 
++    /**
++     * set properties for "EmptyPTY"
++     */
++    void setEmptyPTYProperties();
++
+     /** TODO: Document me */
+     void setWriteable(bool writeable);
+ 
+diff -dur qtermwidget-0.6.0/lib/qtermwidget.cpp qtermwidget/lib/qtermwidget.cpp
+--- lib/qtermwidget.cpp.orig	2014-10-21 19:47:40.000000000 +0400
++++ lib/qtermwidget.cpp	2015-04-09 20:34:53.000000000 +0300
+@@ -228,6 +228,18 @@
+     m_impl->m_session->run();
+ }
+ 
++void QTermWidget::startTerminalTeletype()
++{
++    if ( m_impl->m_session->isRunning() ) {
++        return;
++    }
++
++    m_impl->m_session->runEmptyPTY();
++    // redirect data from TTY to external recipient
++    connect( m_impl->m_session->emulation(), SIGNAL(sendData(const char *,int)),
++             this, SIGNAL(sendData(const char *,int)) );
++}
++
+ void QTermWidget::init(int startnow)
+ {
+     m_layout = new QVBoxLayout();
+@@ -567,6 +579,11 @@
+     return m_impl->m_terminalDisplay->screenWindow()->screen()->getColumns();
+ }
+ 
++int QTermWidget::screenLinesCount()
++{
++    return m_impl->m_terminalDisplay->screenWindow()->screen()->getLines();
++}
++
+ void QTermWidget::setSelectionStart(int row, int column)
+ {
+     m_impl->m_terminalDisplay->screenWindow()->screen()->setSelectionStart(column, row, true);
+@@ -582,9 +599,9 @@
+     m_impl->m_terminalDisplay->screenWindow()->screen()->getSelectionStart(column, row);
+ }
+ 
+-void QTermWidget::setSelectionEnd(int& row, int& column)
++void QTermWidget::getSelectionEnd(int& row, int& column)
+ {
+-    m_impl->m_terminalDisplay->screenWindow()->screen()->setSelectionEnd(column, row);
++    m_impl->m_terminalDisplay->screenWindow()->screen()->getSelectionEnd(column, row);
+ }
+ 
+ QString QTermWidget::selectedText(bool preserveLineBreaks)
+@@ -619,3 +636,7 @@
+     return m_impl->m_terminalDisplay->filterChain()->hotSpotAt(row, column);
+ }
+ 
++int QTermWidget::getPtySlaveFd() const
++{
++    return m_impl->m_session->getPtySlaveFd();
++}
+diff -dur qtermwidget-0.6.0/lib/qtermwidget.h qtermwidget/lib/qtermwidget.h
+--- lib/qtermwidget.h.orig	2014-10-21 19:47:40.000000000 +0400
++++ lib/qtermwidget.h	2015-04-09 20:34:53.000000000 +0300
+@@ -55,6 +55,13 @@
+     //start shell program if it was not started in constructor
+     void startShellProgram();
+ 
++    /**
++     * Start terminal teletype as is
++     * and redirect data for external recipient.
++     * It can be used for display and control a remote terminal.
++     */
++    void startTerminalTeletype();
++
+     int getShellPID();
+ 
+     void changeDir(const QString & dir);
+@@ -63,8 +70,7 @@
+ 
+     //  Terminal font
+     // Default is application font with family Monospace, size 10
+-    // USE ONLY FIXED-PITCH FONT!
+-    // otherwise symbols' position could be incorrect
++    // Beware of a performance penalty and display/alignment issues when using a proportional font.
+     void setTerminalFont(const QFont & font);
+     QFont getTerminalFont();
+     void setTerminalOpacity(qreal level);
+@@ -133,11 +139,12 @@
+     int historyLinesCount();
+ 
+     int screenColumnsCount();
++    int screenLinesCount();
+ 
+     void setSelectionStart(int row, int column);
+     void setSelectionEnd(int row, int column);
+     void getSelectionStart(int& row, int& column);
+-    void setSelectionEnd(int& row, int& column);
++    void getSelectionEnd(int& row, int& column);
+ 
+     /**
+      * Returns the currently selected text.
+@@ -165,6 +172,13 @@
+      */
+     Filter::HotSpot* getHotSpotAt(int row, int column) const;
+ 
++    /**
++     * Returns a pty slave file descriptor.
++     * This can be used for display and control
++     * a remote terminal.
++     */
++    int getPtySlaveFd() const;
++
+ signals:
+     void finished();
+     void copyAvailable(bool);
+@@ -181,6 +195,13 @@
+     void activity();
+     void silence();
+ 
++    /**
++     * Emitted when emulator send data to the terminal process
++     * (redirected for external recipient). It can be used for
++     * control and display the remote terminal.
++     */
++    void sendData(const char *,int);
++
+ public slots:
+     // Copy selection to clipboard
+     void copyClipboard();
+diff -dur qtermwidget-0.6.0/lib/Screen.cpp qtermwidget/lib/Screen.cpp
+--- lib/Screen.cpp.orig	2014-10-21 19:47:40.000000000 +0400
++++ lib/Screen.cpp	2015-04-09 20:34:53.000000000 +0300
+@@ -307,7 +307,7 @@
+     // create new screen lines and copy from old to new
+ 
+     ImageLine* newScreenLines = new ImageLine[new_lines+1];
+-    for (int i=0; i < qMin(lines-1,new_lines+1) ;i++)
++    for (int i=0; i < qMin(lines,new_lines+1) ;i++)
+         newScreenLines[i]=screenLines[i];
+     for (int i=lines;(i > 0) && (i<new_lines+1);i++)
+         newScreenLines[i].resize( new_columns );
+diff -dur qtermwidget-0.6.0/lib/Session.cpp qtermwidget/lib/Session.cpp
+--- lib/Session.cpp.orig	2014-10-21 19:47:40.000000000 +0400
++++ lib/Session.cpp	2015-04-09 20:34:53.000000000 +0300
+@@ -79,6 +79,7 @@
+ 
+     //create teletype for I/O with shell process
+     _shellProcess = new Pty();
++    ptySlaveFd = _shellProcess->pty()->slaveFd();
+ 
+     //create emulation backend
+     _emulation = new Vt102Emulation();
+@@ -129,7 +130,17 @@
+     // there are multiple views, then the window ID for the
+     // top-level window which contains the first view is
+     // returned
++	//
++	// On Qt5, requesting window IDs breaks QQuickWidget and the likes,
++	// for example, see the following bug reports:
++	//
++	// https://bugreports.qt-project.org/browse/QTBUG-41779
++	// https://bugreports.qt-project.org/browse/QTBUG-40765
++	// https://bugreports.qt-project.org/browse/QTBUG-41942
+ 
++#if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
++	return 0;
++#else
+     if ( _views.count() == 0 ) {
+         return 0;
+     } else {
+@@ -143,6 +154,7 @@
+ 
+         return window->winId();
+     }
++#endif
+ }
+ 
+ void Session::setDarkBackground(bool darkBackground)
+@@ -341,6 +353,22 @@
+     emit started();
+ }
+ 
++void Session::runEmptyPTY()
++{
++    _shellProcess->setFlowControlEnabled(_flowControl);
++    _shellProcess->setErase(_emulation->eraseChar());
++    _shellProcess->setWriteable(false);
++
++    // disconnet send data from emulator to internal terminal process
++    disconnect( _emulation,SIGNAL(sendData(const char *,int)),
++                _shellProcess, SLOT(sendData(const char *,int)) );
++
++    _shellProcess->setEmptyPTYProperties();
++
++    qDebug() << "started!";
++    emit started();
++}
++
+ void Session::setUserTitle( int what, const QString & caption )
+ {
+     //set to true if anything is actually changed (eg. old _nameTitle != new _nameTitle )
+@@ -469,8 +497,8 @@
+         if ( _monitorActivity ) {
+             //FIXME:  See comments in Session::monitorTimerDone()
+             if (!_notifiedActivity) {
+-                emit activity();
+                 _notifiedActivity=true;
++                emit activity();
+             }
+         }
+     }
+@@ -928,6 +956,10 @@
+ {
+     return _shellProcess->pid();
+ }
++int Session::getPtySlaveFd() const
++{
++    return ptySlaveFd;
++}
+ 
+ SessionGroup::SessionGroup()
+         : _masterMode(0)
+diff -dur qtermwidget-0.6.0/lib/Session.h qtermwidget/lib/Session.h
+--- lib/Session.h.orig	2014-10-21 19:47:40.000000000 +0400
++++ lib/Session.h	2015-04-09 20:34:53.000000000 +0300
+@@ -25,7 +25,6 @@
+ #ifndef SESSION_H
+ #define SESSION_H
+ 
+-
+ #include <QStringList>
+ #include <QWidget>
+ 
+@@ -363,6 +362,13 @@
+ //  void cancelZModem();
+ //  bool isZModemBusy() { return _zmodemBusy; }
+ 
++    /**
++     * Returns a pty slave file descriptor.
++     * This can be used for display and control
++     * a remote terminal.
++     */
++    int getPtySlaveFd() const;
++
+ public slots:
+ 
+     /**
+@@ -373,6 +379,13 @@
+     void run();
+ 
+     /**
++     * Starts the terminal session for "as is" PTY
++     * (without the direction a data to internal terminal process).
++     * It can be used for control or display a remote/external terminal.
++     */
++    void runEmptyPTY();
++
++    /**
+      * Closes the terminal session.  This sends a hangup signal
+      * (SIGHUP) to the terminal process and causes the done(Session*)
+      * signal to be emitted.
+@@ -543,6 +556,8 @@
+ 
+     static int lastSessionId;
+ 
++    int ptySlaveFd;
++
+ };
+ 
+ /**
+diff -dur qtermwidget-0.6.0/lib/TerminalDisplay.cpp qtermwidget/lib/TerminalDisplay.cpp
+--- lib/TerminalDisplay.cpp.orig	2014-10-21 19:47:40.000000000 +0400
++++ lib/TerminalDisplay.cpp	2015-04-09 20:34:53.000000000 +0300
+@@ -260,7 +260,7 @@
+ 
+   if ( !QFontInfo(font).fixedPitch() )
+   {
+-      qDebug() << "Using an unsupported variable-width font in the terminal.  This may produce display errors.";
++      qDebug() << "Using a variable-width font in the terminal.  This may cause performance degradation and display/alignment errors.";
+   }
+ 
+   if ( metrics.height() < height() && metrics.maxWidth() < width() )
+@@ -1398,6 +1398,27 @@
+         }
+     }
+ }
++
++int TerminalDisplay::textWidth(const int startColumn, const int length, const int line) const
++{
++  QFontMetrics fm(font());
++  int result = 0;
++  for (int column = 0; column < length; column++) {
++    result += fm.width(_image[loc(startColumn + column, line)].character);
++  }
++  return result;
++}
++
++QRect TerminalDisplay::calculateTextArea(int topLeftX, int topLeftY, int startColumn, int line, int length) {
++  int left = _fixedFont ? _fontWidth * startColumn : textWidth(0, startColumn, line);
++  int top = _fontHeight * line;
++  int width = _fixedFont ? _fontWidth * length : textWidth(startColumn, length, line);
++  return QRect(_leftMargin + topLeftX + left,
++               _topMargin + topLeftY + top,
++               width,
++               _fontHeight);
++}
++
+ void TerminalDisplay::drawContents(QPainter &paint, const QRect &rect)
+ {
+   QPoint tL  = contentsRect().topLeft();
+@@ -1405,9 +1426,9 @@
+   int    tLy = tL.y();
+ 
+   int lux = qMin(_usedColumns-1, qMax(0,(rect.left()   - tLx - _leftMargin ) / _fontWidth));
+-  int luy = qMin(_usedLines-1,  qMax(0,(rect.top()    - tLy - _topMargin  ) / _fontHeight));
++  int luy = qMin(_usedLines-1,   qMax(0,(rect.top()    - tLy - _topMargin  ) / _fontHeight));
+   int rlx = qMin(_usedColumns-1, qMax(0,(rect.right()  - tLx - _leftMargin ) / _fontWidth));
+-  int rly = qMin(_usedLines-1,  qMax(0,(rect.bottom() - tLy - _topMargin  ) / _fontHeight));
++  int rly = qMin(_usedLines-1,   qMax(0,(rect.bottom() - tLy - _topMargin  ) / _fontHeight));
+ 
+   const int bufferSize = _usedColumns;
+   QString unistr;
+@@ -1496,7 +1517,7 @@
+          paint.setWorldMatrix(textScale, true);
+ 
+          //calculate the area in which the text will be drawn
+-         QRect textArea = QRect( _leftMargin+tLx+_fontWidth*x , _topMargin+tLy+_fontHeight*y , _fontWidth*len , _fontHeight);
++         QRect textArea = calculateTextArea(tLx, tLy, x, y, len);
+         
+          //move the calculated area to take account of scaling applied to the painter.
+          //the position of the area from the origin (0,0) is scaled 
+@@ -2184,9 +2205,19 @@
+ 
+ void TerminalDisplay::getCharacterPosition(const QPoint& widgetPoint,int& line,int& column) const
+ {
+-    column = (widgetPoint.x() + _fontWidth/2 -contentsRect().left()-_leftMargin) / _fontWidth;
+     line = (widgetPoint.y()-contentsRect().top()-_topMargin) / _fontHeight;
+ 
++    if ( _fixedFont )
++        column = (widgetPoint.x() + _fontWidth/2 -contentsRect().left()-_leftMargin) / _fontWidth;
++    else
++    {
++        int x = contentsRect().left() + widgetPoint.x() - _fontWidth/2;
++        column = 0;
++
++        while(x > textWidth(0, column, line))
++            column++;
++    }
++
+     if ( line < 0 )
+         line = 0;
+     if ( column < 0 )
+@@ -2450,8 +2481,11 @@
+ 
+ void TerminalDisplay::setUsesMouse(bool on)
+ {
+-  _mouseMarks = on;
+-  setCursor( _mouseMarks ? Qt::IBeamCursor : Qt::ArrowCursor );
++    if (_mouseMarks != on) {
++        _mouseMarks = on;
++        setCursor( _mouseMarks ? Qt::IBeamCursor : Qt::ArrowCursor );
++        emit usesMouseChanged();
++    }
+ }
+ bool TerminalDisplay::usesMouse() const
+ {
+@@ -2913,7 +2947,7 @@
+ {
+   if (event->mimeData()->hasFormat("text/plain"))
+       event->acceptProposedAction();
+-  if (event->mimeData()->urls().count());
++  if (event->mimeData()->urls().count())
+       event->acceptProposedAction();
+ }
+ 
+diff -dur qtermwidget-0.6.0/lib/TerminalDisplay.h qtermwidget/lib/TerminalDisplay.h
+--- lib/TerminalDisplay.h.orig	2014-10-21 19:47:40.000000000 +0400
++++ lib/TerminalDisplay.h	2015-04-09 20:34:53.000000000 +0300
+@@ -571,6 +571,7 @@
+ 	void termLostFocus();
+ 
+     void notifyBell(const QString&);
++    void usesMouseChanged();
+ 
+ protected:
+     virtual bool event( QEvent * );
+@@ -641,6 +642,11 @@
+ 
+     // -- Drawing helpers --
+ 
++    // determine the width of this text
++    int textWidth(int startColumn, int length, int line) const;
++    // determine the area that encloses this series of characters
++    QRect calculateTextArea(int topLeftX, int topLeftY, int startColumn, int line, int length);
++
+     // divides the part of the display specified by 'rect' into
+     // fragments according to their colors and styles and calls
+     // drawTextFragment() to draw the fragments 

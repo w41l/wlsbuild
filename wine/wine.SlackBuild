@@ -77,15 +77,15 @@ tar xf $CWD/$PRGNAM-$SRCVERSION.tar.?z*
 cd $PRGNAM-$SRCVERSION
 
 if [ "$STAGING" = "yes" ]; then
-  if [ -f $CWD/$PRGNAM-staging-$VERSION.tar.?z* ]; then
-    echo "BUILDING WINE STAGING: $VERSION"
+  if [ -f $CWD/$PRGNAM-staging-$SRCVERSION.tar.?z* ]; then
+    echo "BUILDING WINE STAGING: $SRCVERSION"
     sleep 5
-    tar -C $WRK -xf $CWD/$PRGNAM-staging-$VERSION.tar.?z*
-    mv ../$PRGNAM-staging-$VERSION/* .
-    make -C patches DESTDIR=$WRK/$PRGNAM-$VERSION install || exit 1
+    tar -C $WRK -xf $CWD/$PRGNAM-staging-$SRCVERSION.tar.?z*
+    mv ../$PRGNAM-staging-$SRCVERSION/* .
+    make -C patches DESTDIR=$WRK/$PRGNAM-$SRCVERSION install || exit 1
     sed -i -e 's!^loader server: libs/port libs/wine tools.*!& include!' Makefile.in
   else
-    echo "BUILDING WINE STAGING: FAILED! $PRGNAM-staging-$VERSION not found!"
+    echo "BUILDING WINE STAGING: FAILED! $PRGNAM-staging-$SRCVERSION not found!"
     exit 1
   fi
 else

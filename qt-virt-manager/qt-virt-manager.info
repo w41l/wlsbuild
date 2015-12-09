@@ -5,6 +5,6 @@ DOWNLOAD="https://github.com/F1ash/qt-virt-manager/archive/6da70cc881626bb182bee
 MD5SUM=""
 DOWNLOAD_x86_64=""
 MD5SUM_x86_64=""
-REQUIRES="qtermwidget"
+REQUIRES="qtermwidget qemu libvirt libvirt-glib spice-protocol spice"
 MAINTAINER="Widya Walesa"
 EMAIL="walecha_99_[at]_gmail_[dot]_com"

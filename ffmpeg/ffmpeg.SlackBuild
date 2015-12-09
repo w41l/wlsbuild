@@ -146,11 +146,11 @@ sed -i "s| -lflite\"| -lflite -lm -lasound\"|" \
   --enable-libtwolame \
   --enable-ladspa \
   --enable-libpulse \
-  --enable-libcelt \
   --arch=$ARCH \
 
 #  --enable-libopencv \
 #  --enable-opencl \
+#   --enable-libcelt \
 
 make $NUMJOBS || make || exit 1
 make install DESTDIR=$PKG || exit 1

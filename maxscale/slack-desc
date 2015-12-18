@@ -1,0 +1,19 @@
+# HOW TO EDIT THIS FILE:
+# The "handy ruler" below makes it easier to edit a package description.  Line
+# up the first '|' above the ':' following the base package name, and the '|'
+# on the right side marks the last column you can put a character in.  You must
+# make exactly 11 lines for the formatting to be correct.  It's also
+# customary to leave one space after the ':'.
+
+        |-----handy-ruler------------------------------------------------------|
+maxscale: maxscale (A database-centric proxy that works with MariaDB and MySQL)
+maxscale:
+maxscale: MaxScale is an open-source, database-centric proxy that works with
+maxscale: MariaDB and MySQL. It has a pluggable architecture designed
+maxscale: to increase flexibility and aid customisation as well as
+maxscale: a lightweight, high-speed networking core designed to facilitate
+maxscale: throughput. MaxScale runs between the client application and
+maxscale: the database cluster and currently offers connection and
+maxscale: statement-based load balancing.
+maxscale:
+maxscale: Packaged by Widya Walesa <walecha99@gmail.com>

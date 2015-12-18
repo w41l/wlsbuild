@@ -1,0 +1,81 @@
+#!/bin/sh
+
+# init script for MaxScale Server
+
+conffile="/etc/maxscale.cnf"
+pidfile="/var/run/maxscale/maxscale.pid"
+
+maxscale_start() {
+    if [ -x /usr/bin/maxscale ]; then
+        echo "MaxScale is not installed"
+        exit 1
+    fi
+    if [ ! -r $conffile ]; then
+        echo "Could not found MaxScale configuration $conffile"
+        exit 1
+    fi
+    if [ ! -d /var/lib/maxscale ]; then
+        mkdir -p /var/lib/maxscale
+    fi
+    if [ ! -d /var/log/maxscale ]; then
+        mkdir -p /var/log/maxscale
+    fi
+    if [ ! -d /var/cache/maxscale ]; then
+        mkdir -p /var/cache/maxscale
+    fi
+    if [ ! -d /var/run/maxscale ]; then
+        mkdir -p /var/run/maxscale
+    fi
+    chown -R maxscale:maxscale /var/{lib,log,cache,run}/maxscale
+
+    # Start maxscale server
+    if [ ! -r $pidfile ]; then
+        echo -n "Starting MaxScale Server: "
+        /usr/sbin/maxscale -U maxscale -P /var/run/maxscale
+        if pidof maxscale >/dev/null; then
+            echo "OK"
+        else
+            echo "Failed"
+        fi
+    fi
+}
+
+maxscale_stop() {
+    if [ -r $pidfile ]; then
+        echo -n "Stopping MaxScale Server: "
+        kill `cat $pidfile`
+        # Wait at least one minute for it to exit, as we don't know how big the DB is...
+        for second in 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 \
+        0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 60 ; do
+            if [ ! -r $pidfile ]; then
+                break;
+            fi
+            sleep 1
+        done
+        if [ "$second" -lt "60" ]; then
+            echo "OK"
+        elif [ "$second" -ge "60" ]; then
+            echo "Failed"
+            sleep 15
+        fi
+    fi
+}
+
+maxscale_restart() {
+    maxscale_stop
+    maxscale_start
+}
+
+case "$1" in
+'start')
+    maxscale_start
+    ;;
+'stop')
+    maxscale_stop
+    ;;
+'restart')
+    maxscale_restart
+    ;;
+*)
+    echo "Usage: $0 start|stop|restart"
+esac

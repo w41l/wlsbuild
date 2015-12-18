@@ -3,9 +3,9 @@ No need to reinstall/upgrade already installed mysql/mariadb. We just need the
 static libmysqld.a. Please rebuild mysql/mariadb using Slackware's SlackBuild
 like this:
 
-KEEPSTATIC="YES" ./mysql.SlackBuild
+./mysql.SlackBuild
 -OR-
-KEEPSTATIC="YES" ./mariadb.SlackBuild
+./mariadb.SlackBuild
 
 Now we can build maxscale like this:
 

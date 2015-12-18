@@ -69,8 +69,9 @@ if ! getent group maxscale >/dev/null; then
     exit 1
 fi
 if ! getent passwd maxscale >/dev/null; then
-    echo "Please add maxscale user: useradd -r -g maxscale \n
-    -d /var/lib/maxscale -s /sbin/nologin -c \"MaxScale Server\""
+    echo "Please add maxscale user:"
+    echo "useradd -r -g maxscale -d /var/lib/maxscale \\
+-s /sbin/nologin -c \"MaxScale Server\""
     exit 1
 fi
 

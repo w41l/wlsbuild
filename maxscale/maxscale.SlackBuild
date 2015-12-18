@@ -126,6 +126,10 @@ chown -R maxscale:maxscale $PKG/var/{lib,log,cache,run}/maxscale
 # Move man page to /usr/man
 mv $PKG/usr/share/man $PKG/usr/
 
+# Do we need these?
+rm -rf $PKG/etc/init.d
+rm -rf $PKG/usr/lib/systemd
+
 find $PKG | xargs file | grep -e "executable" -e "shared object" | grep ELF \
   | cut -f 1 -d : | xargs strip --strip-unneeded 2> /dev/null || true
 

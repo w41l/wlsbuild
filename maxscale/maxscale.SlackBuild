@@ -102,7 +102,7 @@ cd build
     -DSYSCONF_INSTALL_DIR=/etc \
     -DLIB_SUFFIX=${LIBDIRSUFFIX} \
     -DLIB_INSTALL_DIR=/usr/lib$LIBDIRSUFFIX \
-    -DEMBEDDED_LIB=/tmp/$DB-$DBVER/build/libmysqld/libmysqld.a
+    -DEMBEDDED_LIB=/tmp/$DB-$DBVER/build/libmysqld/libmysqld.a \
     ..
 
   make $NUMJOBS || make || exit 1

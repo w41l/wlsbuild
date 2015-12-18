@@ -71,7 +71,7 @@ fi
 if ! getent passwd maxscale >/dev/null; then
     echo "Please add maxscale user:"
     echo "useradd -r -g maxscale -d /var/lib/maxscale \\
--s /sbin/nologin -c \"MaxScale Server\""
+-s /sbin/nologin -c \"MaxScale Server\" maxscale"
     exit 1
 fi
 

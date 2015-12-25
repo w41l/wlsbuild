@@ -1,4 +1,4 @@
 URL=http://www.gnome.org/projects/NetworkManager/
-SRC=http://download.gnome.org/sources/NetworkManager-openvpn/1.0/NetworkManager-openvpn-1.0.0.tar.xz
-MD5=1ed64b76a363dd1c7999eafcecef0e14
-SHA1=0f23fda9c4fd8cdd8d0bc056144fd3f80fe4af19
+SRC=http://download.gnome.org/sources/NetworkManager-openvpn/1.0/NetworkManager-openvpn-1.0.6.tar.xz
+MD5=02931c0302310d06e43d413b5a7a3261
+SHA1=84433df1ffc8e24b691d9c1bd1c03446cbe63448

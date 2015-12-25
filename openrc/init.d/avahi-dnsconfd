@@ -8,9 +8,9 @@ extra_started_commands="reload"
 
 depend()
 {
-	use dns
-	need avahid
-	after bootmisc
+  need avahid
+  use dns logger
+  after bootmisc
 }
 
 start() {

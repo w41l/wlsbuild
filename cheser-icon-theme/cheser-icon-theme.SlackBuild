@@ -24,10 +24,9 @@
 # YOUR DATA IS DESTROYED, YOUR HOUSE BURNS DOWN OR YOUR DOG RUNS OFF.
 
 PRGNAM=cheser-icon-theme
-VERSION=${VERSION:-3.16.1}
+VERSION=${VERSION:-$(cat $PRGNAM.info | grep "VERSION=" | cut -d = -f 2 | sed 's/"//g')}
 BUILD=${BUILD:-1}
 TAG=${TAG:-_wls}
-NUMJOBS=${NUMJOBS:--j2}
 
 ARCH=noarch
 
@@ -38,6 +37,8 @@ OUTPUT=${OUTPUT:-/tmp}
 DOCS="COPY* NEWS* README*"
 
 set -e
+
+curl -#OLJ -C - $(cat $PRGNAM.info | grep "DOWNLOAD=" | cut -d = -f 2 | sed 's/"//g')
 
 rm -rf $PKG
 mkdir -p $WRK $PKG $OUTPUT

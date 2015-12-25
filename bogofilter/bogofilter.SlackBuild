@@ -82,10 +82,12 @@ CXXFLAGS="$SLKCFLAGS" \
   --mandir=/usr/man --infodir=/usr/info \
   --sysconfdir=/etc --docdir=/usr/doc/$PRGNAM-$VERSION \
   --localstatedir=/var --sharedstatedir=/var/lib \
-  --build=$ARCH-slackware-linux
+  --build=$ARCH-slackware-linux \
+  --disable-static --enable-shared \
+  || exit 1
 
-make $NUMJOBS
-make DESTDIR=$PKG install
+make $NUMJOBS || make || exit 1
+make DESTDIR=$PKG install || exit 1
 
 cp $PKG/etc/bogofilter.cf.example $PKG/etc/bogofilter.cf.new
 

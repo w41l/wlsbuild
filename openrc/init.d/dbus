@@ -5,6 +5,7 @@
 command=/usr/bin/dbus-daemon
 pidfile=/var/run/dbus/dbus.pid
 command_args="${dbusd_args---system}"
+extra_started_commands="reload"
 name="Message Bus Daemon"
 
 depend()
@@ -17,3 +18,15 @@ start_pre()
 {
 	mkdir -p $(dirname $pidfile)
 }
+
+reload() {
+  ebegin "Reloading system message bus configuration..."
+  if [ -e "$pidfile" ]; then
+    pid=$(cat $pidfile)
+    kill -HUP $pid
+  else
+    killall -HUP dbus-daemon
+  fi
+  eend $?
+}
+

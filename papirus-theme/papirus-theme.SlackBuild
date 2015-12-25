@@ -1,0 +1,126 @@
+#!/bin/sh
+
+# Slackware build script for papirus-theme
+
+# Copyright 2015 Widya Walesa <walecha99@gmail.com>
+# All rights reserved.
+#
+# Redistribution and use of this script, with or without modification, is
+# permitted provided that the following conditions are met:
+#
+# 1. Redistributions of this script must retain the above copyright
+#    notice, this list of conditions and the following disclaimer.
+#
+# THIS SOFTWARE IS PROVIDED BY THE AUTHOR ''AS IS'' AND ANY EXPRESS OR IMPLIED
+# WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF
+# MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO
+# EVENT SHALL THE AUTHOR BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
+# SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,
+# PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS;
+# OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY,
+# WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR
+# OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF
+# ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. FURTHERMORE I AM NOT LIABLE IF
+# YOUR DATA IS DESTROYED, YOUR HOUSE BURNS DOWN OR YOUR DOG RUNS OFF.
+
+PRGNAM=papirus-theme
+VERSION=20151116
+GITVERSION=9046be6d57ea40696d822e9d7b78f63c3a5f2fca
+BUILD=${BUILD:-1}
+TAG=${TAG:-"_wls"}
+
+CWD=$(pwd)
+WRK=${WRK:-/tmp/wlsbuild}
+PKG=$WRK/package-$PRGNAM
+OUTPUT=${OUTPUT:-/tmp}
+DOCS="README* papirus-pack.png"
+
+ARCH=noarch
+
+set -e
+
+if [ ! -f $CWD/papirus-pack-kde-${GITVERSION}.tar.gz ]; then
+  curl -#OLJ -C - https://github.com/varlesh/papirus-pack-kde/archive/${GITVERSION}.tar.gz
+fi
+
+rm -rf $PKG
+mkdir -p $WRK $PKG $OUTPUT
+cd $WRK
+rm -rf papirus-pack-kde-*
+tar xvf $CWD/papirus-pack-kde-${GITVERSION}.tar.gz
+cd papirus-pack-kde-${GITVERSION}
+chown -R root:root .
+find . \
+ \( -perm 777 -o -perm 775 -o -perm 711 -o -perm 555 -o -perm 511 \) \
+ -exec chmod 755 {} \; -o \
+ \( -perm 666 -o -perm 664 -o -perm 600 -o -perm 444 -o -perm 440 -o -perm 400 \) \
+ -exec chmod 644 {} \;
+
+install -d ${PKG}/usr/share/plasma/look-and-feel
+cp -r ./look-and-feel/* ${PKG}/usr/share/plasma/look-and-feel/
+install -D -m644  ./plasma-themes/papirus/LICENSE ${PKG}/usr/doc/$PRGNAM-$VERSION/LICENSE.papirus
+
+install -d ${PKG}/usr/share/bomi/skins
+cp -r ./bomi-skin/Papirus ${PKG}/usr/share/bomi/skins/
+install -D -m644  ./bomi-skin/Papirus/LICENSE ${PKG}/usr/doc/$PRGNAM-$VERSION/LICENSE.bomi-skins
+
+install -d ${PKG}/usr/share/libreoffice/share/config
+cp -r ./libreoffice-icons/images_papirus.zip ${PKG}/usr/share/libreoffice/share/config
+install -D -m644  ./libreoffice-icons/LICENSE ${PKG}/usr/doc/$PRGNAM-$VERSION/LICENSE.libreoffice
+
+install -d ${PKG}/usr/share/aurorae/themes
+cp -r ./aurorae-themes/Papirus* ${PKG}/usr/share/aurorae/themes/
+install -D -m644  ./aurorae-themes/Papirus/LICENSE ${PKG}/usr/doc/$PRGNAM-$VERSION/LICENSE.aurorae-themes
+
+install -d ${PKG}/usr/share/color-schemes
+cp -r ./color-schemes/Papirus* ${PKG}/usr/share/color-schemes/
+install -D -m644  ./color-schemes/LICENSE ${PKG}/usr/doc/$PRGNAM-$VERSION/LICENSE.color-schemes
+
+install -d ${PKG}/usr/share/themes
+cp -r ./gtk-themes/papirus* ${PKG}/usr/share/themes/
+install -D -m644  ./gtk-themes/papirus/LICENSE ${PKG}/usr/doc/$PRGNAM-$VERSION/LICENSE.gtk-themes
+
+install -d ${PKG}/usr/share/icons
+install -d ${PKG}/usr/share/apps/amarok/icons/papirus
+install -d ${PKG}/usr/share/apps/amarok/icons/papirus-black-panel
+install -d ${PKG}/usr/share/apps/amarok/icons/papirus-dark
+cp -r ./icons/papirus* ${PKG}/usr/share/icons/
+cp -r ./icons/papirus/extra-icons/amarok/* ${PKG}/usr/share/apps/amarok/icons/papirus/
+cp -r ./icons/papirus-black-panel/extra-icons/amarok/* ${PKG}/usr/share/apps/amarok/icons/papirus-black-panel/
+cp -r ./icons/papirus-dark/extra-icons/amarok/* ${PKG}/usr/share/apps/amarok/icons/papirus-dark/
+install -D -m644  ./icons/papirus/LICENSE ${PKG}/usr/doc/$PRGNAM-$VERSION/LICENSE.icons
+
+install -d ${PKG}/usr/share/messageviewer/themes
+cp -r ./kmail-theme/papirus* ${PKG}/usr/share/messageviewer/themes/
+install -D -m644  ./color-schemes/LICENSE ${PKG}/usr/doc/$PRGNAM-$VERSION/LICENSE.kmail-theme
+
+install -d ${PKG}/usr/share/apps/konsole
+install -d ${PKG}/usr/share/konsole
+cp -r ./konsole-colorschemes/Papirus*.colorscheme ${PKG}/usr/share/apps/konsole/
+cp -r ./konsole-colorschemes/Papirus*.colorscheme ${PKG}/usr/share/konsole/
+install -D -m644  ./konsole-colorschemes/LICENSE ${PKG}/usr/doc/$PRGNAM-$VERSION/LICENSE.konsole-colorschemes
+
+install -d ${PKG}/usr/share/plasma/desktoptheme
+cp -r ./plasma-themes/papirus* ${PKG}/usr/share/plasma/desktoptheme/
+install -D -m644  ./plasma-themes/papirus/LICENSE ${PKG}/usr/doc/$PRGNAM-$VERSION/LICENSE.plasma-themes
+
+install -d ${PKG}/usr/share/apps/yakuake/skins
+install -d ${PKG}/usr/share/yakuake/skins
+echo ./yakuake-skins/papirus*
+cp -r ./yakuake-skins/papirus* ${PKG}/usr/share/apps/yakuake/skins/
+cp -r ./yakuake-skins/papirus* ${PKG}/usr/share/yakuake/skins/
+install -D -m644  ./yakuake-skins/papirus/LICENSE ${PKG}/usr/doc/$PRGNAM-$VERSION/LICENSE.yakuake-skins
+
+mkdir -p $PKG/usr/doc/$PRGNAM-$VERSION
+cp -a $DOCS $PKG/usr/doc/$PRGNAM-$VERSION
+cat $CWD/$PRGNAM.SlackBuild > $PKG/usr/doc/$PRGNAM-$VERSION/$PRGNAM.SlackBuild
+
+mkdir -p $PKG/install
+cat $CWD/slack-desc > $PKG/install/slack-desc
+cat $CWD/doinst.sh > $PKG/install/doinst.sh
+
+cd $PKG
+/sbin/makepkg -l y -c n $OUTPUT/$PRGNAM-$VERSION-$ARCH-$BUILD$TAG.txz
+
+echo "Cleaning up build directory"
+cd $WRK; rm -rf papirus-pack-kde-$GITVERSION $PKG

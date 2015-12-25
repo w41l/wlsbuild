@@ -1,0 +1,18 @@
+#!/bin/bash
+
+if [ -z "$DISPLAY" ]; then
+  echo "radeon-profile must be run in X session."
+  exit 1
+else
+  if [ ! "$(id -u)" = "0" ]; then
+    if [ -x /usr/bin/kdesu ]; then
+      /usr/bin/kdesu /usr/local/sbin/radeon-profile.bin
+    elif [ -x /usr/bin/gksu ]; then
+      /usr/bin/gksu /usr/local/sbin/radeon-profile.bin
+    else
+      xmessage "radeon-profile must be run with root privilege."
+    fi
+  else
+    /usr/local/sbin/radeon-profile.bin
+  fi
+fi

@@ -1,0 +1,154 @@
+#!/bin/sh
+
+# Slackware build script for maxscale
+
+# Copyright 2010-2015  Widya Walesa <walecha99@gmail.com>
+# All rights reserved.
+#
+# Redistribution and use of this script, with or without modification, is
+# permitted provided that the following conditions are met:
+#
+# 1. Redistributions of this script must retain the above copyright
+#    notice, this list of conditions and the following disclaimer.
+#
+# THIS SOFTWARE IS PROVIDED BY THE AUTHOR ''AS IS'' AND ANY EXPRESS OR IMPLIED
+# WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF
+# MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO
+# EVENT SHALL THE AUTHOR BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
+# SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,
+# PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS;
+# OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY,
+# WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR
+# OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF
+# ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. FURTHERMORE I AM NOT LIABLE IF
+# YOUR DATA IS DESTROYED, YOUR HOUSE BURNS DOWN OR YOUR DOG RUNS OFF.
+
+PRGNAM=maxscale
+VERSION=${VERSION:-1.2.1.22}
+BUILD=${BUILD:-1}
+TAG=${TAG:-_wls}
+NUMJOBS=${NUMJOBS:--j7}
+
+# Default is using mariadb version 5.5.43 (lastest version in slackware 14.1)
+DBUSE=${DBUSE:-mariadb}
+DBVER=${DBVER:-5.5.43}
+
+if [ -z "$ARCH" ]; then
+  case "$( uname -m )" in
+    i?86) ARCH=i586 ;;
+    arm*) ARCH=arm ;;
+       *) ARCH=$( uname -m ) ;;
+  esac
+fi
+
+CWD=$(pwd)
+WRK=${WRK:-/tmp/wlsbuild}
+PKG=$WRK/package-$PRGNAM
+OUTPUT=${OUTPUT:-/tmp}
+DOCS="COPYRIGHT LICENSE README README.md VERSION"
+
+if [ "$ARCH" = "i586" ]; then
+  SLKCFLAGS="-O2 -pipe -march=i586 -mtune=i686"
+  LIBDIRSUFFIX=""
+elif [ "$ARCH" = "i686" ]; then
+  SLKCFLAGS="-O2 -pipe -march=i686 -mtune=i686 -fPIC"
+  LIBDIRSUFFIX=""
+elif [ "$ARCH" = "x86_64" ]; then
+  SLKCFLAGS="-O2 -pipe -m64 -fPIC"
+  LIBDIRSUFFIX="64"
+else
+  SLKCFLAGS="-O2"
+  LIBDIRSUFFIX=""
+fi
+
+set -e
+
+# Add MaxScale user and group
+if ! getent group maxscale >/dev/null; then
+    echo "Please add maxscale group: groupadd -r maxscale"
+    exit 1
+fi
+if ! getent passwd maxscale >/dev/null; then
+    echo "Please add maxscale user:"
+    echo "useradd -r -g maxscale -d /var/lib/maxscale \\
+-s /sbin/nologin -c \"MaxScale Server\" maxscale"
+    exit 1
+fi
+
+rm -rf $PKG
+mkdir -p $WRK $PKG
+cd $WRK
+rm -rf MaxScale-blr--$VERSION
+tar xvf $CWD/MaxScale-blr-$VERSION.tar.?z*
+cd MaxScale-blr-$VERSION
+
+chown -R root:root .
+find . \
+ \( -perm 777 -o -perm 775 -o -perm 711 -o -perm 555 -o -perm 511 \) \
+ -exec chmod 755 {} \; -o \
+ \( -perm 666 -o -perm 664 -o -perm 600 -o -perm 444 -o -perm 440 -o -perm 400 \) \
+ -exec chmod 644 {} \;
+
+mkdir -p build
+cd build
+  cmake \
+    -DCMAKE_C_FLAGS:STRING="$SLKCFLAGS" \
+    -DCMAKE_C_FLAGS_RELEASE:STRING="$SLKCFLAGS" \
+    -DCMAKE_CXX_FLAGS:STRING="$SLKCFLAGS" \
+    -DCMAKE_CXX_FLAGS_RELEASE:STRING="$SLKCFLAGS" \
+    -DCMAKE_BUILD_TYPE=Release \
+    -DCMAKE_INSTALL_PREFIX=/usr \
+    -DMAN_INSTALL_DIR=/usr/man \
+    -DSYSCONF_INSTALL_DIR=/etc \
+    -DLIB_SUFFIX=${LIBDIRSUFFIX} \
+    -DLIB_INSTALL_DIR=/usr/lib$LIBDIRSUFFIX \
+    -DEMBEDDED_LIB=/tmp/$DBUSE-$DBVER/build/libmysqld/libmysqld.a \
+    ..
+
+  make $NUMJOBS || make || exit 1
+  make install DESTDIR=$PKG
+cd -
+
+mkdir -p $PKG/etc/rc.d
+cat $CWD/rc.maxscale > $PKG/etc/rc.d/rc.maxscale.new
+chmod +x $PKG/etc/rc.d/rc.maxscale.new
+
+mkdir -p $PKG/etc/logrotate.d
+cat $CWD/logrotate.maxscale > $PKG/etc/logrotate.d/maxscale.new
+
+# Provide new config for consideration
+cat $PKG/etc/maxscale.cnf.template > $PKG/etc/maxscale.cnf.new
+
+# Provide basic MaxScale directories
+mkdir -p $PKG/var/{lib,log,cache,run}/maxscale
+chown -R maxscale:maxscale $PKG/var/{lib,log,cache,run}/maxscale
+
+# Move man page to /usr/man
+mv $PKG/usr/share/man $PKG/usr/
+
+# Do we need these?
+rm -rf $PKG/etc/init.d
+rm -rf $PKG/usr/lib/systemd
+
+find $PKG | xargs file | grep -e "executable" -e "shared object" | grep ELF \
+  | cut -f 1 -d : | xargs strip --strip-unneeded 2> /dev/null || true
+
+find $PKG/usr/man -type f -exec gzip -9 {} \;
+for i in $( find $PKG/usr/man -type l ) ; do ln -s $( readlink $i ).gz $i.gz ; rm $i ; done
+
+mkdir -p $PKG/usr/doc/$PRGNAM-$VERSION
+mv $PKG/usr/share/maxscale/* $PKG/usr/doc/$PRGNAM-$VERSION
+rm -rf $PKG/usr/share/maxscale
+rm -rf $PKG/usr/share
+cp -a ${DOCS} $PKG/usr/doc/$PRGNAM-$VERSION
+cat $CWD/$PRGNAM.SlackBuild > $PKG/usr/doc/$PRGNAM-$VERSION/$PRGNAM.SlackBuild
+
+mkdir -p $PKG/install
+cat $CWD/slack-desc > $PKG/install/slack-desc
+cat $CWD/doinst.sh > $PKG/install/doinst.sh
+
+cd $PKG
+/sbin/makepkg -p -l y -c n $OUTPUT/$PRGNAM-$VERSION-$ARCH-$BUILD$TAG.txz
+
+echo "Cleaning up build directory"
+cd $WRK ; rm -rf $PKG MaxScale-blr-$VERSION

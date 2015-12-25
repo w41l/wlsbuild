@@ -2,19 +2,20 @@
 # Copyright (c) 2007-2008 Roy Marples <roy@marples.name>
 # Released under the 2-clause BSD license.
 
-command=/usr/sbin/crond
-command_args="-l notice"
-pidfile=/var/run/crond.pid
+command="/usr/sbin/crond"
+command_args="${CROND_OPTS}"
+pidfile="/var/run/crond.pid"
 
 depend()
 {
-	need clock logger
-	after bootmisc
-	provide cron
+    need clock localmount
+    after bootmisc
+    provide cron
 }
 
 start_pre() {
-    if ! ps axc | grep crond 1> /dev/null 2> /dev/null ; then
+    if ps axc | grep -q "crond" ; then
+	killall crond >/dev/null 2>&1
         rm -f ${pidfile}
     fi
 }
@@ -24,5 +25,8 @@ start_post() {
 }
 
 stop_post() {
-    rm -f $pidfile
+    if ps axc | grep -q "crond" ; then
+	killall crond >/dev/null 2>&1
+	rm -f $pidfile
+    fi
 }

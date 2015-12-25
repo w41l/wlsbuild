@@ -2,7 +2,7 @@
 
 # Slackware build script for choqok
 
-# Copyright 2010-2015 Widya Walesa <walecha99@gmail.com>
+# Copyright 2015  Widya Walesa <walecha99@gmail.com>
 # All rights reserved.
 #
 # Redistribution and use of this script, with or without modification, is
@@ -24,14 +24,15 @@
 # YOUR DATA IS DESTROYED, YOUR HOUSE BURNS DOWN OR YOUR DOG RUNS OFF.
 
 PRGNAM=choqok
-VERSION=1.5
+VERSION=${VERSION:-1.6_9145ae2}
+GITVERSION=${GITVERSION:-9145ae2e76433b79a0e356da8eca4b68b3bfb7dc}
 BUILD=${BUILD:-1}
 TAG=${TAG:-_wls}
 NUMJOBS=${NUMJOBS:--j7}
 
 if [ -z "$ARCH" ]; then
   case "$( uname -m )" in
-    i?86) ARCH=i486 ;;
+    i?86) ARCH=i586 ;;
     arm*) ARCH=arm ;;
        *) ARCH=$( uname -m ) ;;
   esac
@@ -40,31 +41,35 @@ fi
 CWD=$(pwd)
 WRK=${WRK:-/tmp/wlsbuild}
 PKG=$WRK/package-$PRGNAM
-OUTPUT=${OUTPUT:-/tmp}
+OUTPUT=/tmp
 DOCS="AUTHORS COPY* README TODO changelog"
 
 if [ "$ARCH" = "i586" ]; then
-  SLKCFLAGS="-O2 -pipe -march=i586 -mtune=i686 -pthread"
+  SLKCFLAGS="-O2 -pipe -march=i586 -mtune=i686"
   LIBDIRSUFFIX=""
 elif [ "$ARCH" = "i686" ]; then
-  SLKCFLAGS="-O2 -pipe -march=i686 -mtune=i686 -pthread"
+  SLKCFLAGS="-O2 -pipe -march=i686 -mtune=i686 -fPIC"
   LIBDIRSUFFIX=""
 elif [ "$ARCH" = "x86_64" ]; then
-  SLKCFLAGS="-O2 -pipe -fPIC -pthread"
+  SLKCFLAGS="-O2 -pipe -m64 -fPIC"
   LIBDIRSUFFIX="64"
 else
-  SLKCFLAGS="-O2 -pthread"
+  SLKCFLAGS="-O2"
   LIBDIRSUFFIX=""
 fi
 
 set -e
 
+if [ ! -f $CWD/$PRGNAM-${GITVERSION}.tar.gz ]; then
+    curl -OLJ -C - https://github.com/KDE/choqok/archive/${GITVERSION}.tar.gz
+fi
+
 rm -rf $PKG
-mkdir -p $WRK $PKG $OUTPUT
+mkdir -p $WRK $PKG
 cd $WRK
-rm -rf $PRGNAM-$VERSION
-tar xvf $CWD/$PRGNAM-$VERSION.tar.?z*
-cd $PRGNAM-$VERSION
+rm -rf $PRGNAM-$GITVERSION
+tar xvf $CWD/$PRGNAM-$GITVERSION.tar.?z*
+cd $PRGNAM-$GITVERSION
 
 chown -R root:root .
 find . \
@@ -73,16 +78,24 @@ find . \
  \( -perm 666 -o -perm 664 -o -perm 600 -o -perm 444 -o -perm 440 -o -perm 400 \) \
  -exec chmod 644 {} \;
 
-mkdir build
+mkdir -p build
 cd build
-  cmake .. \
+  cmake \
+    $KDE_OPT_ARGS \
+    -DKDE_PLATFORM_FEATURE_DISABLE_DEPRECATED=TRUE \
     -DCMAKE_C_FLAGS:STRING="$SLKCFLAGS" \
+    -DCMAKE_C_FLAGS_RELEASE:STRING="$SLKCFLAGS" \
     -DCMAKE_CXX_FLAGS:STRING="$SLKCFLAGS" \
+    -DCMAKE_CXX_FLAGS_RELEASE:STRING="$SLKCFLAGS" \
     -DCMAKE_BUILD_TYPE=Release \
-    -DCMAKE_INSTALL_PREFIX:PATH=/usr \
-    -DLIB_SUFFIX=${LIBDIRSUFFIX}
+    -DCMAKE_INSTALL_PREFIX=/usr \
+    -DMAN_INSTALL_DIR=/usr/man \
+    -DSYSCONF_INSTALL_DIR=/etc/kde \
+    -DKDE4_BUILD_TESTS=OFF \
+    -DKDE_INSTALL_USE_QT_SYS_PATHS=ON \
+    ..
 
-  make $NUMJOBS
+  make
   make install DESTDIR=$PKG
 cd -
 
@@ -90,15 +103,14 @@ find $PKG | xargs file | grep -e "executable" -e "shared object" | grep ELF \
   | cut -f 1 -d : | xargs strip --strip-unneeded 2> /dev/null || true
 
 mkdir -p $PKG/usr/doc/$PRGNAM-$VERSION
-cp -a $DOCS $PKG/usr/doc/$PRGNAM-$VERSION
+cp -a ${DOCS} $PKG/usr/doc/$PRGNAM-$VERSION
 cat $CWD/$PRGNAM.SlackBuild > $PKG/usr/doc/$PRGNAM-$VERSION/$PRGNAM.SlackBuild
 
 mkdir -p $PKG/install
 cat $CWD/slack-desc > $PKG/install/slack-desc
-cat $CWD/slack-required > $PKG/install/slack-required
 
 cd $PKG
 /sbin/makepkg -p -l y -c n $OUTPUT/$PRGNAM-$VERSION-$ARCH-$BUILD$TAG.txz
 
 echo "Cleaning up build directory"
-cd $WRK; rm -rf $PRGNAM-$VERSION $PKG
+cd $WRK ; rm -rf $PKG $PRGNAM-$GITVERSION

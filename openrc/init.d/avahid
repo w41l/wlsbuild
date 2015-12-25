@@ -8,9 +8,9 @@ extra_started_commands="reload"
 
 depend()
 {
-	use net
-	need dbus
-	after bootmisc
+  need dbus
+  use dns logger
+  after bootmisc
 }
 
 start() {

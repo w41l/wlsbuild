@@ -8,7 +8,7 @@ extra_started_commands="reload"
 pidfile="/var/run/php-fpm.pid"
 
 depend() {
-        need net
+  use logger dns net
 }
 
 reload() {

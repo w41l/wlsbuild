@@ -8,6 +8,6 @@ pidfile=/var/run/atd.pid
 
 depend()
 {
-	need clock logger
-	after bootmisc
+	need clock localmount
+	after cron
 }

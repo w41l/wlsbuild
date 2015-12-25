@@ -1,0 +1,19 @@
+# HOW TO EDIT THIS FILE:
+# The "handy ruler" below makes it easier to edit a package description.  Line
+# up the first '|' above the ':' following the base package name, and the '|'
+# on the right side marks the last column you can put a character in.  You must
+# make exactly 11 lines for the formatting to be correct.  It's also
+# customary to leave one space after the ':'.
+
+               |-----handy-ruler------------------------------------------------------|
+qt-virt-manager: qt-virt-manager (Qt Virt Manager)
+qt-virt-manager:
+qt-virt-manager: Qt Virtual Machine Manager provides a graphical tool for administering
+qt-virt-manager: virtual machines for QEMU/KVM, Xen, and LXC and other Virtual Entities.
+qt-virt-manager: Start, stop, add or remove virtual devices, connect to a graphical or
+qt-virt-manager: serial console, and see resource usage statistics for existing VMs on
+qt-virt-manager: local or remote machines. Uses libvirt as the backend management API.
+qt-virt-manager:
+qt-virt-manager: Home page: https://github.com/F1ash/qt-virt-manager/
+qt-virt-manager:
+qt-virt-manager:

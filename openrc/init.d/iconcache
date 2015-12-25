@@ -5,10 +5,8 @@
 name="X desktop icon cache"
 command_background="yes"
 
-depend()
-{
-	need localmount
-	after ldconfig
+depend() {
+  need localmount
 }
 
 start()

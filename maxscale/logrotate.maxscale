@@ -1,0 +1,14 @@
+/var/log/maxscale/*.log {
+  notifempty
+  monthly
+  rotate 5
+  missingok
+  compress
+  delaycompress
+  postrotate
+  # just if maxscale is really running
+  if [ pidof maxscale >/dev/null ]; then
+    /usr/bin/maxadmin -pmariadb flush logs
+  fi
+  endscript
+}

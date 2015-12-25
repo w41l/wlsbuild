@@ -10,8 +10,6 @@ name="DHCP Client Daemon"
 depend()
 {
 	provide net
-	need localmount
-	use logger
 	after bootmisc modules
 	before dns
 }

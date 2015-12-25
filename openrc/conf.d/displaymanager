@@ -1,0 +1,2 @@
+# Choices: sddm, gdm, lxdm, xdm
+DM_USE="sddm"

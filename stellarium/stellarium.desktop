@@ -1,9 +1,0 @@
-[Desktop Entry]
-Encoding=UTF-8
-Version=@VERSION@
-Type=Application
-Name=Stellarium
-Exec=stellarium
-Icon=stellarium
-Terminal=false
-Categories=Qt;Education;Science;Astronomy;

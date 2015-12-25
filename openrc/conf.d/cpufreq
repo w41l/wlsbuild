@@ -1,0 +1,2 @@
+CPUFREQ_SET="yes"
+CPU_GOVERNOR="ondemand"

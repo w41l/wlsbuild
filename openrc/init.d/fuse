@@ -5,7 +5,8 @@
 MOUNTPOINT=/sys/fs/fuse/connections
 
 depend() {
-	need localmount
+	before modules
+	after sysfs
 }
 
 start() {

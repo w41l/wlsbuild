@@ -5,15 +5,13 @@
 name="X font cache"
 command_background="yes"
 
-depend()
-{
-	need localmount
-	after ldconfig
+depend() {
+  need localmount
 }
 
 start()
 {
-	ebegin "Updating X font cache"
-	fc-cache -s -f 2>/dev/null &
-	eend $?
+  ebegin "Updating X font cache"
+  fc-cache -s -f 2>/dev/null &
+  eend $?
 }

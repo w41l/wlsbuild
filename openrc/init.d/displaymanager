@@ -1,0 +1,72 @@
+#!/sbin/openrc-run
+# Copyright 2015 walecha.web.id
+# Distributed under the terms of the GNU General Public License, v2 or later
+
+name="Starting Desktop Display Manager"
+DM_USE=${DM_USE:-sddm}
+
+depend() {
+    need localmount
+    use dbus consolekit
+    after bootmisc
+}
+
+start() {
+    ebegin "Starting display manager"
+    case $DM_USE in
+	sddm)
+	    mkdir -p /run/sddm
+	    chown -R sddm:sddm /run/sddm
+	    start-stop-daemon --background --start --exec /usr/bin/sddm
+	    eend $? "Failed to start display manager"
+	    ;;
+	gdm)
+	    mkdir -p /run/gdm
+	    chown -R gdm:gdm /run/gdm
+	    start-stop-daemon --background --start --exec /usr/sbin/gdm
+	    eend $? "Failed to start display manager"
+	    ;;
+	lxdm)
+	    mkdir -p /run/lxdm
+	    chown -R nobody:nobody /run/lxdm
+	    start-stop-daemon --background --start --exec /usr/bin/lxdm
+	    eend $? "Failed to start display manager"
+	    ;;
+	xdm)
+	    mkdir -p /run/xdm
+	    chown -R nobody:nobody /run/xdm
+	    start-stop-daemon --background --start --exec /usr/bin/xdm
+	    eend $? "Failed to start display manager"
+	    ;;
+    esac
+}
+
+stop() {
+    ebegin "Stopping display manager"
+    case $DM_USE in
+	sddm)
+	    mkdir -p /run/sddm
+	    chown -R sddm:sddm /run/sddm
+	    start-stop-daemon --background --stop --exec /usr/bin/sddm || killall sddm >/dev/null
+	    eend $? "Failed to stop display manager"
+	    ;;
+	gdm)
+	    mkdir -p /run/gdm
+	    chown -R gdm:gdm /run/gdm
+	    start-stop-daemon --background --stop --exec /usr/sbin/gdm || killall gdm >/dev/null
+	    eend $? "Failed to stop display manager"
+	    ;;
+	lxdm)
+	    mkdir -p /run/lxdm
+	    chown -R nobody:nobody /run/lxdm
+	    start-stop-daemon --background --stop --exec /usr/bin/lxdm || killall lxdm >/dev/null
+	    eend $? "Failed to stop display manager"
+	    ;;
+	xdm)
+	    mkdir -p /run/xdm
+	    chown -R nobody:nobody /run/xdm
+	    start-stop-daemon --background --stop --exec /usr/bin/xdm || killall xdm >/dev/null
+	    eend $? "Failed to stop display manager"
+	    ;;
+    esac
+}

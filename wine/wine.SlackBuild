@@ -24,42 +24,43 @@
 # YOUR DATA IS DESTROYED, YOUR HOUSE BURNS DOWN OR YOUR DOG RUNS OFF.
 
 PRGNAM=wine
-VERSION=${VERSION:-1.7.52}
+VERSION=${VERSION:-1.8}
+SRCVERSION=${SRCVERSION:-1.8}
 BUILD=${BUILD:-1}
 TAG=${TAG:-_wls}
 NUMJOBS=${NUMJOBS:--j7}
-STAGING=${STAGING:-1}
-D3D9=${D3D9:-1}
+STAGING=${STAGING:-"yes"}
+D3D9=${D3D9:-"yes"}
 
 if [ -z "$ARCH" ]; then
   case "$( uname -m )" in
-    i?86) ARCH=i486 ;;
+    i?86) ARCH=i586 ;;
     arm*) ARCH=arm ;;
        *) ARCH=$( uname -m ) ;;
   esac
 fi
 
 CWD=$(pwd)
-WRK=${WRK:-/usr/src/wlsbuild}
+WRK=${WRK:-/tmp/wlsbuild}
 PKG=$WRK/package-$PRGNAM
 OUTPUT=${OUTPUT:-/tmp}
 DOCS="ANNOUNCE AUTHORS COPYING.LIB LICENSE* README VERSION"
 
 if [ "$ARCH" = "i586" ]; then
   SLKCFLAGS="-O2 -pipe -march=i586 -mtune=i686"
-  SLKLDFLAGS="-L/usr/lib -ldl"
+  SLKLDFLAGS="-L/usr/lib -ldl -lm -lpthread"
   LIBDIRSUFFIX=""
   ENABLE_64=""
 elif [ "$ARCH" = "i686" ]; then
   SLKCFLAGS="-O2 -pipe -march=i686 -mtune=i686"
-  SLKLDFLAGS="-L/usr/lib -ldl"
+  SLKLDFLAGS="-L/usr/lib -ldl -lm -lpthread"
   LIBDIRSUFFIX=""
   ENABLE_64=""
 elif [ "$ARCH" = "x86_64" ]; then
   SLKCFLAGS="-O2 -pipe -fPIC"
-  SLKLDFLAGS="-L/usr/lib64"
+  SLKLDFLAGS="-L/usr/lib64 -ldl -lm -lpthread"
   LIBDIRSUFFIX="64"
-  ENABLE_64=" --enable-win64"
+  ENABLE_64="--enable-win64"
 else
   SLKCFLAGS="-O2"
   LIBDIRSUFFIX=""
@@ -71,20 +72,20 @@ rm -rf $PKG
 mkdir -p $WRK $PKG $OUTPUT
 cd $WRK
 rm -rf $PRGNAM*
-echo "extracting $PRGNAM-$VERSION"
-tar xf $CWD/$PRGNAM-$VERSION.tar.?z*
-cd $PRGNAM-$VERSION
+echo "extracting $PRGNAM-$SRCVERSION"
+tar xf $CWD/$PRGNAM-$SRCVERSION.tar.?z*
+cd $PRGNAM-$SRCVERSION
 
-if [ "$STAGING" = "1" ]; then
-  if [ -f $CWD/$PRGNAM-staging-$VERSION.tar.?z* ]; then
-    echo "BUILDING WINE STAGING: $VERSION"
+if [ "$STAGING" = "yes" ]; then
+  if [ -f $CWD/$PRGNAM-staging-$SRCVERSION.tar.?z* ]; then
+    echo "BUILDING WINE STAGING: $SRCVERSION"
     sleep 5
-    tar -C $WRK -xf $CWD/$PRGNAM-staging-$VERSION.tar.?z*
-    mv ../$PRGNAM-staging-$VERSION/* .
-    make -C patches DESTDIR=$WRK/$PRGNAM-$VERSION install || exit 1
+    tar -C $WRK -xf $CWD/$PRGNAM-staging-$SRCVERSION.tar.?z*
+    mv ../$PRGNAM-staging-$SRCVERSION/* .
+    make -C patches DESTDIR=$WRK/$PRGNAM-$SRCVERSION install || exit 1
     sed -i -e 's!^loader server: libs/port libs/wine tools.*!& include!' Makefile.in
   else
-    echo "BUILDING WINE STAGING: FAILED! $PRGNAM-staging-$VERSION not found!"
+    echo "BUILDING WINE STAGING: FAILED! $PRGNAM-staging-$SRCVERSION not found!"
     exit 1
   fi
 else
@@ -94,7 +95,7 @@ fi
 
 cat $CWD/wine-cjk.patch | patch -p1 || exit 1
 
-if [ "$D3D9" = "1" ]; then
+if [ "$D3D9" = "yes" ]; then
   if [ -f $CWD/wine-d3d9-$VERSION.patch ]; then
     echo "BUILDING WINE D3D9: $VERSION"
     sleep 5
@@ -103,9 +104,9 @@ if [ "$D3D9" = "1" ]; then
   elif [ ! -f $CWD/wine-d3d9-$VERSION.patch ] && [ -f $CWD/wine-d3d9-latest.patch ]; then
       echo "BUILDING WINE D3D9: Using latest git patch"
       sleep 5
-      cat $CWD/wine-d3d9-latest.patch | patch -p1 || exit 1
+      zcat $CWD/wine-d3d9-latest.patch.gz | patch -p1 || exit 1
       ENABLE_NINE="--with-d3dadapter=yes --with-d3dadapter-dri2-fallback=yes"
-  elif [ ! -f $CWD/wine-d3d9-$VERSION.patch ] && [ ! -f $CWD/wine-d3d9.patch ]; then
+  elif [ ! -f $CWD/wine-d3d9-$VERSION.patch ] && [ ! -f $CWD/wine-d3d9-latest.patch.gz ]; then
     echo "BUILDING WINE D3D9: FAILED! $PRGNAM-d3d9-$VERSION.patch not found!"
     exit 1
   fi
@@ -113,8 +114,6 @@ else
   echo "BUILDING WINE D3D9: FALSE"
   sleep 5
 fi
-
-sed -i 's/lib32/lib/g' ./dlls/winex11.drv/d3dadapter.c
 
 chown -R root:root .
 find . \
@@ -133,7 +132,7 @@ LDFLAGS="$SLKLDFLAGS" \
 CPPFLAGS="${CPPFLAGS/-D_FORTIFY_SOURCE=2/} -D_FORTIFY_SOURCE=0" \
 CFLAGS="$SLKCFLAGS -DHAVE_ATTR_XATTR_H=1" \
 CXXFLAGS="$SLKCFLAGS -DHAVE_ATTR_XATTR_H=1" \
-../$PRGNAM-$VERSION/configure \
+../$PRGNAM-$SRCVERSION/configure \
   --program-prefix= --program-suffix= \
   --prefix=/usr --exec-prefix=/usr \
   --bindir=/usr/bin --sbindir=/usr/sbin \
@@ -162,12 +161,13 @@ if [ "$ARCH" = "x86_64" ]; then
    cd $WRK/$PRGNAM-wow64
 
   # Set 32-bit pkgconfig path as needed by gstreamer
-  export PKG_CONFIG_PATH=/usr/lib/pkgconfig
+  unset PKG_CONFIG_PATH
+  export PKG_CONFIG_PATH="$PKG_CONFIG_PATH:/usr/local/lib/pkgconfig:/usr/lib/pkgconfig"
 
   CPPFLAGS="${CPPFLAGS/-D_FORTIFY_SOURCE=2/} -D_FORTIFY_SOURCE=0" \
   CFLAGS="$SLKCFLAGS -DHAVE_ATTR_XATTR_H=1" \
   CXXFLAGS="$SLKCFLAGS -DHAVE_ATTR_XATTR_H=1" \
-  ../$PRGNAM-$VERSION/configure \
+  ../$PRGNAM-$SRCVERSION/configure \
     --with-wine64=../${PRGNAM} \
     --program-prefix= --program-suffix= \
     --prefix=/usr --exec-prefix=/usr \
@@ -194,10 +194,11 @@ fi
 
 # Back installing wine 64-bit
 cd $WRK/$PRGNAM
+unset PKG_CONFIG_PATH
 export PKG_CONFIG_PATH="$PKG_CONFIG_PATH:/usr/local/lib64/pkgconfig:/usr/lib64/pkgconfig"
 make install DESTDIR=$PKG || exit 1
 
-cd $WRK/$PRGNAM-$VERSION
+cd $WRK/$PRGNAM-$SRCVERSION
 
 find $PKG | xargs file | grep -e "executable" -e "shared object" | grep ELF \
  | cut -f 1 -d : | xargs strip --strip-unneeded 2> /dev/null || true
@@ -211,7 +212,6 @@ cat $CWD/$PRGNAM.SlackBuild > $PKG/usr/doc/$PRGNAM-$VERSION/$PRGNAM.SlackBuild
 
 mkdir -p $PKG/install
 cat $CWD/slack-desc > $PKG/install/slack-desc
-cat $CWD/slack-required > $PKG/install/slack-required
 
 cd $PKG
 /sbin/makepkg -p -l y -c n $OUTPUT/$PRGNAM-$VERSION-$ARCH-$BUILD$TAG.txz

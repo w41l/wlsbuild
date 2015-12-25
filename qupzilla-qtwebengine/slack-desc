@@ -1,0 +1,19 @@
+# HOW TO EDIT THIS FILE:
+# The "handy ruler" below makes it easier to edit a package description.  Line
+# up the first '|' above the ':' following the base package name, and the '|'
+# on the right side marks the last column you can put a character in.  You must
+# make exactly 11 lines for the formatting to be correct.  It's also
+# customary to leave one space after the ':'.
+
+                    |-----handy-ruler-------------------------------------------------------|
+qupzilla-qtwebengine: qupzilla (fast and secure open-source WWW browser)
+qupzilla-qtwebengine:
+qupzilla-qtwebengine: QupZilla is a new, fast and secure open-source WWW browser. QupZilla is
+qupzilla-qtwebengine: licensed under GPL version 3 or (at your option) any later version.
+qupzilla-qtwebengine: This project has been started mainly for educational reasons to learn
+qupzilla-qtwebengine: Qt/C++ basics. QupZilla is developed and maintained by the project
+qupzilla-qtwebengine: owner David Rosca <nowrep@gmail.com>
+qupzilla-qtwebengine:
+qupzilla-qtwebengine: This is QupZilla with QtWebengine.
+qupzilla-qtwebengine:
+qupzilla-qtwebengine: Packaged by: Widya Walesa

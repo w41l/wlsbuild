@@ -1,8 +1,0 @@
-[Desktop Entry]
-Type=Application
-Name=Avidemux
-Exec=avidemux3_qt4
-Comment=Video editor
-Icon=avidemux.png
-Categories=AudioVideo
-MimeType=video/mpeg;video/x-mpeg;video/x-avi;application/x-flash-video;application/x-shockwave-flash;video/flv

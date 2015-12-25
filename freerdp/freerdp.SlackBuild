@@ -24,24 +24,25 @@
 # YOUR DATA IS DESTROYED, YOUR HOUSE BURNS DOWN OR YOUR DOG RUNS OFF.
 
 PRGNAM=freerdp
-VERSION=20150427
+VERSION=1.2.5_bea27fd
+${GITVERSION}=bea27fd919b64ee8d97996409e279e1e83d13594
 BUILD=${BUILD:-1}
 TAG=${TAG:-_wls}
 NUMJOBS=${NUMJOBS:--j7}
-
-if [ -z "$ARCH" ]; then
-  case "$( uname -m )" in
-    i?86) ARCH=i486 ;;
-    arm*) ARCH=arm ;;
-       *) ARCH=$( uname -m ) ;;
-  esac
-fi
 
 CWD=$(pwd)
 WRK=${WRK:-/tmp/wlsbuild}
 PKG=$WRK/package-$PRGNAM
 OUTPUT=${OUTPUT:-/tmp}
 DOCS="ChangeLog LICENSE README"
+
+if [ -z "$ARCH" ]; then
+  case "$( uname -m )" in
+    i?86) ARCH=i586 ;;
+    arm*) ARCH=arm ;;
+       *) ARCH=$( uname -m ) ;;
+  esac
+fi
 
 if [ "$ARCH" = "i486" ]; then
   SLKCFLAGS="-O2 -pipe -march=i486 -mtune=i686 -fPIC"
@@ -59,12 +60,16 @@ fi
 
 set -e
 
+if [ ! -f $CWD/FreeRDP-${GITVERSION}.tar.gz ]; then
+  curl -OLJ -C - https://github.com/FreeRDP/FreeRDP/archive/${GITVERSION}.tar.gz
+fi
+
 rm -rf $PKG
 mkdir -p $WRK $PKG $OUTPUT
 cd $WRK
-rm -rf $PRGNAM-$VERSION
-tar xvf $CWD/${PRGNAM}-${VERSION}.tar.?z*
-cd $PRGNAM-$VERSION
+rm -rf FreeRDP-${GITVERSION}
+tar xvf $CWD/FreeRDP-${GITVERSION}.tar.?z*
+cd FreeRDP-${GITVERSION}
 
 chown -R root:root .
 find . \
@@ -86,11 +91,12 @@ cd build
     -DWITH_CUPS=ON \
     -DWITH_WAYLAND=OFF
 
-  make VERBOSE=1 $NUMJOBS
+  make $NUMJOBS
   make install DESTDIR=$PKG
 cd -
 
-mv $PKG/usr/share/man $PKG/usr
+mv $PKG/usr/share/man $PKG/usr/
+
 find $PKG | xargs file | grep -e "executable" -e "shared object" | grep ELF \
   | cut -f 1 -d : | xargs strip --strip-unneeded 2> /dev/null || true
 
@@ -103,10 +109,9 @@ cat $CWD/$PRGNAM.SlackBuild > $PKG/usr/doc/$PRGNAM-$VERSION/$PRGNAM.SlackBuild
 
 mkdir -p $PKG/install
 cat $CWD/slack-desc > $PKG/install/slack-desc
-cat $CWD/slack-required > $PKG/install/slack-required
 
 cd $PKG
 /sbin/makepkg -l y -c n $OUTPUT/$PRGNAM-$VERSION-$ARCH-$BUILD$TAG.txz
 
 echo "Cleaning up build directory"
-cd $WRK ; rm -rf $PKG $PRGNAM-$VERSION
+cd $WRK ; rm -rf $PKG FreeRDP-${GITVERSION}

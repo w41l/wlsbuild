@@ -1,4 +1,6 @@
+PRGNAM=geoclue2
+BUILD=1
 URL=http://www.freedesktop.org/wiki/Software/GeoClue
 SRC=http://www.freedesktop.org/software/geoclue/releases/2.2/geoclue-2.2.0.tar.xz
-MD5=
-SHA1=
+MD5=c1970e4ec6f2af6591a75294fc6fb4fa
+SHA1=26f22f390b34f47f9d336b1d8b942fd9e565d7ef

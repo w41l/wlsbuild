@@ -1,0 +1,26 @@
+#!/sbin/openrc-run
+# Copyright (c) 2007-2009 Roy Marples <roy@marples.name>
+# Released under the 2-clause BSD license.
+
+description="Mounts misc filesystems in /proc."
+
+depend()
+{
+	#use modules devfs
+	keyword -openvz -prefix -systemd-nspawn -vserver -lxc
+}
+
+start()
+{
+	# Setup Kernel Support for miscellaneous Binary Formats
+	if [ -d /proc/sys/fs/binfmt_misc -a ! -e /proc/sys/fs/binfmt_misc/register ]; then
+		modprobe -q binfmt-misc
+		if grep -qs binfmt_misc /proc/filesystems; then
+			ebegin "Mounting misc binary format filesystem"
+			mount -t binfmt_misc -o nodev,noexec,nosuid \
+				binfmt_misc /proc/sys/fs/binfmt_misc
+				eend $?
+		fi
+	fi
+	return 0
+}

@@ -1,4 +1,10 @@
-URL=http://choqok.gnufolks.org
-SRC=http://downloads.sourceforge.net/project/choqok/Choqok/choqok-1.5.tar.xz
-MD5=f2efdd76199f8276e8ac2f76dc600596
-SHA1=0c5c37ff3ead1c3f13ba88c91fdd82ee14cfb7df
+PRGNAM="choqok"
+VERSION="1.6_9145ae2"
+HOMEPAGE="http://choqok.gnufolks.org/"
+DOWNLOAD="https://github.com/KDE/choqok/archive/9145ae2e76433b79a0e356da8eca4b68b3bfb7dc.tar.gz"
+MD5SUM=""
+DOWNLOAD_x86_64=""
+MD5SUM_x86_64=""
+REQUIRES="qoauth | qoauth-qt5"
+MAINTAINER=""
+EMAIL=""

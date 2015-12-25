@@ -4,6 +4,7 @@
 # $Header: /var/cvsroot/gentoo-x86/sys-fs/lvm2/files/device-mapper.rc-2.02.105-r2,v 1.1 2014/02/02 19:52:34 robbat2 Exp $
 
 depend() {
+	use procfs dev
 	# As of .67-r1, we call ALL lvm start/stop scripts with --sysinit, that
 	# means dmeventd is NOT notified, as it cannot be safely running
 	before dmeventd checkfs fsck

@@ -1,0 +1,24 @@
+#!/sbin/openrc-run
+# Copyright 2015 walecha.web.id
+# Distributed under the terms of the GNU General Public License, v2 or later
+
+description="Setting up CPU Frequency Governor"
+
+depend() {
+	use modules
+}
+
+start() {
+    if yesno ${CPUFREQ_SET:-YES}; then
+	ebegin "Setting up CPU Frequency Governor: $CPU_GOVERNOR"
+	for SYSCPU in /sys/devices/system/cpu/cpu*/cpufreq/scaling_governor; do
+	    echo "$CPU_GOVERNOR" > $SYSCPU
+	done
+	: $(( retval +=$? ))
+    fi
+
+    eend $? "Failed to set CPU Frequency Governor"
+
+    return 0
+}
+

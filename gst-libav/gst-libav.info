@@ -1,4 +1,10 @@
-URL=http://gstreamer.freedesktop.org/
-SRC=http://gstreamer.freedesktop.org/src/gst-plugins-bad/gst-plugins-bad-1.0.10.tar.xz
-MD5=715564cdb735dad75b0e770e044488e0
-SHA1=d721f73defe2f6e4dd0571b2cc51fa62106da386
+PRGNAM="gst-libav"
+VERSION="1.6.2"
+HOMEPAGE="http://gstreamer.freedesktop.org/"
+DOWNLOAD="http://gstreamer.freedesktop.org/src/gst-libav/gst-libav-1.6.2.tar.xz"
+MD5SUM="09644a38827d233f53edeac815dd0ec0"
+DOWNLOAD_x86_64=""
+MD5SUM_x86_64=""
+REQUIRES="gst-plugins-base"
+MAINTAINER="Robby Workman"
+EMAIL="rworkman@slackbuilds.org"

@@ -1,0 +1,31 @@
+Wireshark network protocol analyzer
+
+Wireshark is a network protocol analyzer, or "sniffer". It lets you
+capture packet data from a live network, or read packets from a
+previously saved capture file, either printing a decoded form of
+those packets to standard output or writing the packets to a file.
+Wireshark's native capture file format is libpcap format, which is
+also the format used by tcpdump and various other tools.
+
+wireshark home: http://www.wireshark.org/
+
+You can pass environment variable before SlackBuild script to enable/disable
+build options:
+
+Enable generating HTML pages guide: ENABLE_HTML="ON"
+
+To build PDF guides you will need apache-ant, jai, and fop packages installed.
+Enable generating PDF guides: ENABLE_PDF="OFF"
+
+Wireshark GUI
+=============
+Enable GTK+3 GUI by default. Tested. Worked.
+GTK3_GUI="yes"
+
+Disable Qt4 GUI by default. Still crashed in my system. Maybe because Qt5 installed?
+QT4_GUI="no"
+
+Enable Qt5 GUI. Requires qt5 (alienBob kde5 has it). Disable by default.
+QT5_GUI="no"
+
+Example for building Qt5 GUI: QT5_GUI="yes" ./wireshark.SlackBuild

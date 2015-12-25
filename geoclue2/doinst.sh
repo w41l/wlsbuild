@@ -1,3 +1,4 @@
+
 config() {
   NEW="$1"
   OLD="$(dirname $NEW)/$(basename $NEW .new)"
@@ -12,3 +13,9 @@ config() {
 }
 
 config etc/geoclue/geoclue.conf.new
+
+if [ -r /var/run/dbus/dbus.pid ]; then
+    echo "Reloading D-Bus service"
+    pid=$(cat /var/run/dbus/dbus.pid)
+    kill -HUP $pid || killall -HUP $pid
+fi

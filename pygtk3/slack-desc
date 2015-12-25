@@ -1,0 +1,20 @@
+
+# HOW TO EDIT THIS FILE:
+# The "handy ruler" below makes it easier to edit a package description.  Line
+# up the first '|' above the ':' following the base package name, and the '|' on
+# the right side marks the last column you can put a character in.  You must make
+# exactly 11 lines for the formatting to be correct.  It's also customary to
+# leave one space after the ':'.
+
+      |-----handy-ruler------------------------------------------------------|
+pygtk3: pygtk3 (GTK+3 bindings for Python)
+pygtk3:
+pygtk3: PyGTK provides a convenient wrapper for the GTK+ library for use in
+pygtk3: Python programs, taking care of many of the boring details such as
+pygtk3: managing memory and type casting.
+pygtk3:
+pygtk3: PyGTK's web page:  http://www.pygtk.org/
+pygtk3:
+pygtk3:
+pygtk3:
+pygtk3:

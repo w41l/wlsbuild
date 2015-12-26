@@ -6,7 +6,7 @@ description="Updating motd"
 motd_file="/etc/motd"
 
 depend() {
-    need localmount
+    need hostname localmount
 }
 
 start() {

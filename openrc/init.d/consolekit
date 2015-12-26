@@ -8,7 +8,7 @@ pidfile=/var/run/ConsoleKit/pid
 name="ConsoleKit Daemon"
 
 depend() {
-	need localmount dbus
+	need dbus
 	after bootmisc
 	use logger
 }

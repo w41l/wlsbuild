@@ -5,7 +5,7 @@ echo "+==============================================================+"
 
 (
   cd $PKG/etc/openrc/runlevels/sysinit;
-  for i in devfs dmesg sysctl sysfs tmpfiles.dev udev udev-mount; do
+  for i in devfs dmesg fuse loop isapnp modules sysctl sysfs tmpfiles.dev udev udev-mount; do
     rm -f $i; ln -sf /etc/openrc/init.d/$i $i;
   done
   unset i
@@ -13,7 +13,7 @@ echo "+==============================================================+"
 
 (
   cd $PKG/etc/openrc/runlevels/boot;
-  for i in binfmt bootmisc consolefont cpufreq device-mapper dmesg fsck fuse hostname hwclock isapnp keymaps ldconfig localmount loop loopback modules motd mtab numlock procfs root serial swap termencoding tmpfiles.setup urandom; do
+  for i in binfmt bootmisc consolefont cpufreq device-mapper fsck hostname hwclock keymaps ldconfig localmount loopback motd mtab numlock procfs root serial swap termencoding tmpfiles.setup urandom; do
     rm -f $i; ln -sf /etc/openrc/init.d/$i $i;
   done
   unset i
@@ -21,7 +21,7 @@ echo "+==============================================================+"
 
 (
   cd $PKG/etc/openrc/runlevels/default;
-  for i in acpid alsa atd consolekit cron cupsd dbus glibschemas gtkmodules inetd klogd local network netmount portmap rpc.statd sshd swapfiles syslogd; do
+  for i in acpid alsa atd consolekit cron cupsd dbus fontcache glibschemas gtkmodules iconcache inetd klogd local mimedatabase network netmount portmap rpc.statd sshd swapfiles syslogd; do
     rm -f $i; ln -sf /etc/openrc/init.d/$i $i;
   done
   unset i
@@ -31,7 +31,7 @@ echo "+==============================================================+"
   mkdir -p $PKG/etc/openrc/runlevels/desktop;
   cd $PKG/etc/openrc/runlevels/desktop;
   ln -s ../default default;
-  for i in displaymanager fontcache iconcache mimedatabase; do
+  for i in displaymanager; do
     rm -f $i; ln -sf /etc/openrc/init.d/$i $i;
   done
 )

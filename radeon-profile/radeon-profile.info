@@ -1,7 +1,7 @@
 PRGNAM="radeon-profile"
 VERSION="git_20150905_b6b50c4"
 HOMEPAGE="https://github.com/marazmista/radeon-profile"
-DOWNLOAD="https://github.com/marazmista/radeon-profile/archive/master.zip"
+DOWNLOAD="https://github.com/marazmista/radeon-profile/archive/b6b50c45eca34e435dead42b0757a5f7cf301b2f.tar.gz"
 MD5SUM=""
 DOWNLOAD_x86_64=""
 MD5SUM_x86_64=""

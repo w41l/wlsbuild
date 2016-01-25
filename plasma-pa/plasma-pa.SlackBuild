@@ -1,8 +1,8 @@
 #!/bin/sh
 
-# Slackware build script for radeon-profile
+# Slackware build script for plasma-pa
 
-# Copyright 2012-2016  Widya Walesa <walecha99@gmail.com>
+# Copyright 2015  Widya Walesa <walecha99@gmail.com>
 # All rights reserved.
 #
 # Redistribution and use of this script, with or without modification, is
@@ -23,22 +23,11 @@
 # ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. FURTHERMORE I AM NOT LIABLE IF
 # YOUR DATA IS DESTROYED, YOUR HOUSE BURNS DOWN OR YOUR DOG RUNS OFF.
 
-PRGNAM=radeon-profile
-GITVERSION=$(echo $PRGNAM-*.tar.?z* | rev | cut -d . -f 3- | cut -d - -f 1 | rev)
-VERSION=git_$(echo $GITVERSION | cut -c 1-7)
+PRGNAM=plasma-pa
+VERSION=${VERSION:-$(basename $PRGNAM-*.tar.* | rev | cut -d - -f 1 | cut -d . -f 3- | rev)}
 BUILD=${BUILD:-1}
-TAG=${TAG:-"_wls"}
-NUMJOBS=${NUMJOBS:-"-j7"}
-
-CWD=$(pwd)
-WRK=${WRK:-/tmp/wlsbuild}
-PKG=$WRK/package-$PRGNAM
-OUTPUT=${OUTPUT:-/tmp}
-DOCS="README*"
-
-# To build with Qt5, pass argument USE_QMAKE="qmake-qt5"
-# Default is build with Qt4
-USE_QMAKE=${USE_QMAKE:-"qmake"}
+TAG=${TAG:-_wls}
+NUMJOBS=${NUMJOBS:--j7}
 
 if [ -z "$ARCH" ]; then
   case "$( uname -m )" in
@@ -48,14 +37,20 @@ if [ -z "$ARCH" ]; then
   esac
 fi
 
+CWD=$(pwd)
+WRK=${WRK:-/tmp/wlsbuild}
+PKG=$WRK/package-$PRGNAM
+OUTPUT=${OUTPUT:-/tmp}
+DOCS="COPYING COPYING.LIB"
+
 if [ "$ARCH" = "i586" ]; then
-  SLKCFLAGS="-O2 -pipe -march=i586 -mtune=i686"
+  SLKCFLAGS="-O2 -pipe -march=i586 -mtune=i686 -fPIC"
   LIBDIRSUFFIX=""
 elif [ "$ARCH" = "i686" ]; then
-  SLKCFLAGS="-O2 -pipe -march=i686 -mtune=i686"
+  SLKCFLAGS="-O2 -pipe -march=i686 -mtune=i686 -fPIC"
   LIBDIRSUFFIX=""
 elif [ "$ARCH" = "x86_64" ]; then
-  SLKCFLAGS="-O2 -pipe -fPIC"
+  SLKCFLAGS="-O2 -pipe -m64 -fPIC"
   LIBDIRSUFFIX="64"
 else
   SLKCFLAGS="-O2"
@@ -67,10 +62,9 @@ set -e
 rm -rf $PKG
 mkdir -p $WRK $PKG $OUTPUT
 cd $WRK
-rm -rf $PRGNAM-$GITVERSION
-tar xvf $CWD/$PRGNAM-$GITVERSION.tar.?z*
-cd $PRGNAM-$GITVERSION
-
+rm -rf $PRGNAM-$VERSION
+tar xvf $CWD/$PRGNAM-$VERSION.tar.?z*
+cd $PRGNAM-$VERSION
 chown -R root:root .
 find . \
  \( -perm 777 -o -perm 775 -o -perm 711 -o -perm 555 -o -perm 511 \) \
@@ -80,28 +74,36 @@ find . \
 
 mkdir -p build
 cd build
-  CFLAGS="$SLKCFLAGS" \
-  CXXFLAGS="$SLKCFLAGS" \
-  $USE_QMAKE ../radeon-profile/
+  cmake .. \
+    -DKDE_PLATFORM_FEATURE_DISABLE_DEPRECATED=TRUE \
+    -DCMAKE_C_FLAGS:STRING="$SLKCFLAGS" \
+    -DCMAKE_C_FLAGS_RELEASE:STRING="$SLKCFLAGS" \
+    -DCMAKE_CXX_FLAGS:STRING="$SLKCFLAGS" \
+    -DCMAKE_CXX_FLAGS_RELEASE:STRING="$SLKCFLAGS" \
+    -DCMAKE_BUILD_TYPE=Release \
+    -DCMAKE_INSTALL_PREFIX=/usr \
+    -DCMAKE_INSTALL_SYSCONFDIR=/etc/kde \
+    -DCMAKE_INSTALL_DOCDIR=/usr/doc/$PRGNAM-$VERSION \
+    -DMAN_INSTALL_DIR=/usr/man \
+    -DLIB_SUFFIX=${LIBDIRSUFFIX} \
+    -DLIB_INSTALL_DIR=lib$LIBDIRSUFFIX \
+    -DLIBEXEC_INSTALL_DIR=lib$LIBDIRSUFFIX \
+    -DQT_PLUGIN_INSTALL_DIR=lib$LIBDIRSUFFIX/qt5/plugins \
+    -DQML_INSTALL_DIR=lib$LIBDIRSUFFIX/qt5/qml \
+    -DKDE_INSTALL_USE_QT_SYS_PATHS=ON \
+    -DBUILD_TESTING=OFF \
+    -DQca-qt5_DIR=/usr/lib${LIBDIRSUFFIX}/cmake/Qca \
 
-  make
-  mkdir -p $PKG/usr
-  make install prefix=$PKG/usr
+  make $NUMJOBS
+  make install DESTDIR=$PKG
 cd -
-
-install -m 0755 -D build/radeon-profile $PKG/usr/local/sbin/radeon-profile.bin
-install -o root -g root -m 0755 -D $CWD/radeon-profile $PKG/usr/local/bin/radeon-profile
-install -m 0644 -D radeon-profile/extra/radeon-profile.png \
-  $PKG/usr/share/pixmaps/radeon-profile.png
-install -m 0644 -D radeon-profile/extra/radeon-profile.desktop \
-  $PKG/usr/share/applications/radeon-profile.desktop
 
 find $PKG | xargs file | grep -e "executable" -e "shared object" | grep ELF \
   | cut -f 1 -d : | xargs strip --strip-unneeded 2> /dev/null || true
 
 mkdir -p $PKG/usr/doc/$PRGNAM-$VERSION
 cp -a $DOCS $PKG/usr/doc/$PRGNAM-$VERSION
-chmod a-x $PKG/usr/doc/$PRGNAM-$VERSION/*
+cat ChangeLog | head -n 1000 > $PKG/usr/doc/$PRGNAM-$VERSION/ChangeLog
 cat $CWD/$PRGNAM.SlackBuild > $PKG/usr/doc/$PRGNAM-$VERSION/$PRGNAM.SlackBuild
 
 mkdir -p $PKG/install
@@ -111,4 +113,4 @@ cd $PKG
 /sbin/makepkg -p -l y -c n $OUTPUT/$PRGNAM-$VERSION-$ARCH-$BUILD$TAG.txz
 
 echo "Cleaning up build directory"
-cd $WRK; rm -rf $PRGNAM-$GITVERSION $PKG
+cd $WRK ; rm -rf $PKG $PRGNAM-$VERSION

@@ -24,7 +24,8 @@ description_configtest="Run rsyslogd's internal config check."
 description_rotate="Sends rsyslogd a signal to re-open its log files."
 
 depend() {
-	need clock hostname localmount
+	need hostname localmount
+	use clock
 	after bootmisc
 	provide logger
 }

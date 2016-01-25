@@ -3,7 +3,7 @@
 # Released under the 2-clause BSD license.
 
 command="/usr/sbin/crond"
-command_args="${CROND_OPTS}"
+command_args="${CROND_OPTS:--l notice}"
 pidfile="/var/run/crond.pid"
 
 depend()

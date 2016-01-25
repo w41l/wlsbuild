@@ -8,7 +8,6 @@ name="ACPI Daemon"
 
 depend()
 {
-	need localmount
 	after bootmisc
 	use logger
 	keyword -openvz -prefix -vserver -lxc

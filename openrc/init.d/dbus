@@ -10,7 +10,7 @@ name="Message Bus Daemon"
 
 depend()
 {
-	need localmount
+	use logger
 	after bootmisc
 }
 

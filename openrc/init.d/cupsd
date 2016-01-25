@@ -7,7 +7,7 @@ name="CUPS Printing Daemon"
 
 depend()
 {
-	use net logger
+	use net dns logger
 	before nfs
 	after logger
 }

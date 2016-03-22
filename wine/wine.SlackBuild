@@ -24,13 +24,13 @@
 # YOUR DATA IS DESTROYED, YOUR HOUSE BURNS DOWN OR YOUR DOG RUNS OFF.
 
 PRGNAM=wine
-VERSION=${VERSION:-1.9.0}
-SRCVERSION=${SRCVERSION:-1.9.0}
+VERSION=${VERSION:-1.9.3}
+SRCVERSION=${SRCVERSION:-1.9.3}
 BUILD=${BUILD:-1}
 TAG=${TAG:-_wls}
 NUMJOBS=${NUMJOBS:--j7}
 STAGING=${STAGING:-"yes"}
-D3D9=${D3D9:-"no"}
+NINE=${NINE:-"yes"}
 
 if [ -z "$ARCH" ]; then
   case "$( uname -m )" in
@@ -44,7 +44,7 @@ CWD=$(pwd)
 WRK=${WRK:-/tmp/wlsbuild}
 PKG=$WRK/package-$PRGNAM
 OUTPUT=${OUTPUT:-/tmp}
-DOCS="ANNOUNCE AUTHORS COPYING.LIB LICENSE* README VERSION"
+DOCS="ANNOUNCE AUTHORS COPY* LICENSE* README* VERSION"
 
 if [ "$ARCH" = "i586" ]; then
   SLKCFLAGS="-O2 -pipe -march=i586 -mtune=i686"
@@ -71,49 +71,42 @@ set -e
 rm -rf $PKG
 mkdir -p $WRK $PKG $OUTPUT
 cd $WRK
-rm -rf $PRGNAM*
+rm -rf $PRGNAM* Wine-*
 echo "extracting $PRGNAM-$SRCVERSION"
 tar xf $CWD/$PRGNAM-$SRCVERSION.tar.?z*
 cd $PRGNAM-$SRCVERSION
 
 if [ "$STAGING" = "yes" ]; then
-  if [ -f $CWD/$PRGNAM-staging-$SRCVERSION.tar.?z* ]; then
     echo "BUILDING WINE STAGING: $SRCVERSION"
     sleep 5
-    tar -C $WRK -xf $CWD/$PRGNAM-staging-$SRCVERSION.tar.?z*
-    mv ../$PRGNAM-staging-$SRCVERSION/* .
+    tar -xf $CWD/$PRGNAM-staging-$SRCVERSION.tar.?z -C . --strip-components 1
+#     ./patches/patchinstall.sh DESTDIR="$(pwd)" --all
+#     mv ../$PRGNAM-staging-$SRCVERSION/* .
     make -C patches DESTDIR=$WRK/$PRGNAM-$SRCVERSION install || exit 1
     sed -i -e 's!^loader server: libs/port libs/wine tools.*!& include!' Makefile.in
-  else
-    echo "BUILDING WINE STAGING: FAILED! $PRGNAM-staging-$SRCVERSION not found!"
-    exit 1
-  fi
 else
-  echo "BUILDING WINE STAGING: FALSE"
+    echo "BUILDING WINE STAGING: FALSE"
+    sleep 5
+fi
+
+if [ "$NINE" = "yes" ]; then
+    echo "BUILDING WINE NINE: $VERSION"
+    sleep 5
+    mkdir -p $WRK/wine-gaming-nine
+    tar xf $CWD/wine-gaming-nine-1.9.3.tar.xz -C $WRK/wine-gaming-nine --strip-components 1
+    patch -p1 < ../wine-gaming-nine/nine-1.9.1.patch
+    patch -p1 < ../wine-gaming-nine/steam.patch
+    patch -p1 < ../wine-gaming-nine/mipmap.patch
+    patch -p1 < ../wine-gaming-nine/heap_perf.patch
+    patch -p1 < ../wine-gaming-nine/wbemprox_query_v2.patch
+    patch -p1 -R < ../wine-gaming-nine/keybindings.patch
+    ENABLE_NINE="--with-d3dadapter=yes --with-d3dadapter-dri2-fallback=yes"
+else
+  echo "BUILDING WINE NINE: FALSE"
   sleep 5
 fi
 
 cat $CWD/wine-cjk.patch | patch -p1 || exit 1
-
-# if [ "$D3D9" = "yes" ]; then
-#   if [ -f $CWD/wine-d3d9-$VERSION.patch ]; then
-#     echo "BUILDING WINE D3D9: $VERSION"
-#     sleep 5
-#     cat $CWD/wine-d3d9-$VERSION.patch | patch -p1 || exit 1
-#     ENABLE_NINE="--with-d3dadapter=yes --with-d3dadapter-dri2-fallback=yes"
-#   elif [ ! -f $CWD/wine-d3d9-$VERSION.patch ] && [ -f $CWD/wine-d3d9-latest.patch ]; then
-#       echo "BUILDING WINE D3D9: Using latest git patch"
-#       sleep 5
-#       zcat $CWD/wine-d3d9-latest.patch.gz | patch -p1 || exit 1
-#       ENABLE_NINE="--with-d3dadapter=yes --with-d3dadapter-dri2-fallback=yes"
-#   elif [ ! -f $CWD/wine-d3d9-$VERSION.patch ] && [ ! -f $CWD/wine-d3d9-latest.patch.gz ]; then
-#     echo "BUILDING WINE D3D9: FAILED! $PRGNAM-d3d9-$VERSION.patch not found!"
-#     exit 1
-#   fi
-# else
-#   echo "BUILDING WINE D3D9: FALSE"
-#   sleep 5
-# fi
 
 chown -R root:root .
 find . \
@@ -213,4 +206,4 @@ cd $PKG
 /sbin/makepkg -p -l y -c n $OUTPUT/$PRGNAM-$VERSION-$ARCH-$BUILD$TAG.txz
 
 echo "Cleaning up build directory"
-cd $WRK; rm -rf $PRGNAM* $PKG
+cd $WRK; rm -rf $PRGNAM* $PKG Wine-*

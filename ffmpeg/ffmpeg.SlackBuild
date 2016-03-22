@@ -22,13 +22,13 @@
 # OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF
 # ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
-# Modified 2015 by Widya Walesa
+# Modified 2016 by Widya Walesa
 
 PRGNAM=ffmpeg
-VERSION=${VERSION:-2.8.3}
+VERSION=${VERSION:-2.8.6}
 BUILD=${BUILD:-1}
 TAG=${TAG:-_wls}
-NUMJOBS=${NUMJOBS:-"-j7"}
+NUMJOBS=${NUMJOBS:-"-j3"}
 
 CWD=$(pwd)
 WRK=${WRK:-/tmp/wlsbuild}
@@ -79,8 +79,6 @@ cd $WRK
 rm -rf $PRGNAM-$VERSION
 tar xvf $CWD/$PRGNAM-$VERSION.tar.xz
 cd $PRGNAM-$VERSION
-
-cat $CWD/ffmpeg-libvpx_remove_unused_ctrl_id_mappings.patch | patch -p1 --verbose
 
 chown -R root:root .
 find -L . \
@@ -136,7 +134,6 @@ sed -i "s| -lflite\"| -lflite -lm -lasound\"|" \
   --enable-libgsm \
   --enable-librtmp \
   --enable-libschroedinger \
-  --enable-libspeex \
   --enable-libxvid \
   --enable-libbluray \
   --enable-openal \
@@ -148,6 +145,7 @@ sed -i "s| -lflite\"| -lflite -lm -lasound\"|" \
   --enable-libpulse \
   --arch=$ARCH \
 
+#  --enable-speexdsp \
 #  --enable-libopencv \
 #  --enable-opencl \
 #   --enable-libcelt \

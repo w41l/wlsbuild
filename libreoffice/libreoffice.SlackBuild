@@ -2,7 +2,7 @@
 
 # Slackware build script for libreoffice
 
-# Copyright 2010-2015  Widya Walesa <walecha99@gmail.com>
+# Copyright 2010-2016  Widya Walesa <walecha99@gmail.com>
 # All rights reserved.
 #
 # Redistribution and use of this script, with or without modification, is
@@ -24,8 +24,8 @@
 # YOUR DATA IS DESTROYED, YOUR HOUSE BURNS DOWN OR YOUR DOG RUNS OFF.
 
 PRGNAM=libreoffice
-VERSION=4.4.5
-RCVERS=".2"
+VERSION=5.1.1
+RCVERS=".3"
 MAJORVER=$( echo $VERSION | sed "s/\(.*\)\.\(.*\)\.*/\1/" )
 BUILD=${BUILD:-1}
 TAG=${TAG:-_wls}
@@ -37,7 +37,7 @@ NOTDE=${NOTDE:-gnome}
 
 if [ -z "$ARCH" ]; then
   case "$( uname -m )" in
-    i?86) ARCH=i486 ;;
+    i?86) ARCH=i586 ;;
     arm*) ARCH=arm ;;
        *) ARCH=$( uname -m ) ;;
   esac
@@ -49,7 +49,7 @@ PKG=$WRK/package-$PRGNAM
 OUTPUT=${OUTPUT:-/tmp}
 DOCS="AUTHORS ChangeLog COPY* MAINTAINERS NEWS README"
 
-if [ "$ARCH" = "i486" ]; then
+if [ "$ARCH" = "i586" ]; then
   LIBDIRSUFFIX=""
   LOARCH="x86"
 elif [ "$ARCH" = "i686" ]; then

@@ -25,11 +25,7 @@
 # Modified 2016 by Widya Walesa
 
 PRGNAM=ffmpeg
-<<<<<<< HEAD
 VERSION=${VERSION:-2.8.6}
-=======
-VERSION=${VERSION:-2.8.5}
->>>>>>> 576f14b5ccc12c69e6b468d421da9a321ccc75b4
 BUILD=${BUILD:-1}
 TAG=${TAG:-_wls}
 NUMJOBS=${NUMJOBS:-"-j3"}
@@ -149,15 +145,6 @@ sed -i "s| -lflite\"| -lflite -lm -lasound\"|" \
   --enable-libpulse \
   --arch=$ARCH \
 
-<<<<<<< HEAD
-#  --enable-speexdsp \
-=======
-#  --enable-libspeex \
->>>>>>> 576f14b5ccc12c69e6b468d421da9a321ccc75b4
-#  --enable-libopencv \
-#  --enable-opencl \
-#   --enable-libcelt \
-
 make $NUMJOBS || make || exit 1
 make install DESTDIR=$PKG || exit 1
 make install-man DESTDIR=$PKG || exit 1
@@ -182,4 +169,3 @@ cd $PKG
 
 echo "Cleaning up working directory"
 cd $WRK; rm -rf $PRGNAM-$VERSION $PKG
-

@@ -24,8 +24,9 @@
 # YOUR DATA IS DESTROYED, YOUR HOUSE BURNS DOWN OR YOUR DOG RUNS OFF.
 
 PRGNAM=wine
-VERSION=${VERSION:-1.9.3}
-SRCVERSION=${SRCVERSION:-1.9.3}
+VERSION=${VERSION:-1.9.5}
+SRCVERSION=${SRCVERSION:-1.9.5}
+STAGING_VERSION=${STAGING_VERSION:-1.9.4}
 BUILD=${BUILD:-1}
 TAG=${TAG:-_wls}
 NUMJOBS=${NUMJOBS:--j7}
@@ -77,9 +78,9 @@ tar xf $CWD/$PRGNAM-$SRCVERSION.tar.?z*
 cd $PRGNAM-$SRCVERSION
 
 if [ "$STAGING" = "yes" ]; then
-    echo "BUILDING WINE STAGING: $SRCVERSION"
+    echo "BUILDING WINE STAGING: $STAGING_VERSION"
     sleep 5
-    tar -xf $CWD/$PRGNAM-staging-$SRCVERSION.tar.?z -C . --strip-components 1
+    tar -xf $CWD/$PRGNAM-staging-$STAGING_VERSION.tar.?z -C . --strip-components 1
 #     ./patches/patchinstall.sh DESTDIR="$(pwd)" --all
 #     mv ../$PRGNAM-staging-$SRCVERSION/* .
     make -C patches DESTDIR=$WRK/$PRGNAM-$SRCVERSION install || exit 1

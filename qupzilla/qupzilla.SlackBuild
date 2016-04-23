@@ -62,6 +62,9 @@ fi
 
 set -e
 
+# Default using Qt4. To build using Qt5 add "-qt5"
+QTVERSION=${QTVERSION:-"-qt5"}
+
 rm -rf $PKG
 mkdir -p $WRK $PKG $OUTPUT
 cd $WRK
@@ -69,13 +72,15 @@ rm -rf QupZilla-$VERSION
 tar xvf $CWD/QupZilla-$VERSION.tar.?z*
 cd QupZilla-$VERSION
 
-if [ "$(ls -A $CWD/patches)" ]; then
-    echo "Patch for $PRGNAM is available"
-    for i in $CWD/patches/*.patch; do
-        cat $i | patch -p1;
-    done
-else
-    echo "Patch for $PRGNAM is not available"
+if [ -d $CWD/patches ]; then
+    if [ "$(ls -A $CWD/patches)" ]; then
+	echo "Patch for $PRGNAM is available"
+	for i in $CWD/patches/*.patch; do
+    	    cat $i | patch -p1;
+	done
+    else
+	echo "Patch for $PRGNAM is not available"
+    fi
 fi
 
 chown -R root:root .

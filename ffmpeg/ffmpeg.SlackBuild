@@ -22,13 +22,13 @@
 # OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF
 # ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
-# Modified 2015 by Widya Walesa
+# Modified 2016 by Widya Walesa
 
 PRGNAM=ffmpeg
-VERSION=${VERSION:-2.8.5}
+VERSION=${VERSION:-2.8.6}
 BUILD=${BUILD:-1}
 TAG=${TAG:-_wls}
-NUMJOBS=${NUMJOBS:-"-j7"}
+NUMJOBS=${NUMJOBS:-"-j3"}
 
 CWD=$(pwd)
 WRK=${WRK:-/tmp/wlsbuild}
@@ -145,11 +145,6 @@ sed -i "s| -lflite\"| -lflite -lm -lasound\"|" \
   --enable-libpulse \
   --arch=$ARCH \
 
-#  --enable-libspeex \
-#  --enable-libopencv \
-#  --enable-opencl \
-#   --enable-libcelt \
-
 make $NUMJOBS || make || exit 1
 make install DESTDIR=$PKG || exit 1
 make install-man DESTDIR=$PKG || exit 1
@@ -174,4 +169,3 @@ cd $PKG
 
 echo "Cleaning up working directory"
 cd $WRK; rm -rf $PRGNAM-$VERSION $PKG
-

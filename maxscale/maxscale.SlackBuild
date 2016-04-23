@@ -27,7 +27,6 @@ PRGNAM=maxscale
 VERSION=${VERSION:-1.2.1.22}
 BUILD=${BUILD:-1}
 TAG=${TAG:-_wls}
-NUMJOBS=${NUMJOBS:--j7}
 
 # Default is using mariadb version 5.5.43 (lastest version in slackware 14.1)
 DBUSE=${DBUSE:-mariadb}
@@ -105,7 +104,7 @@ cd build
     -DEMBEDDED_LIB=/tmp/$DBUSE-$DBVER/build/libmysqld/libmysqld.a \
     ..
 
-  make $NUMJOBS || make || exit 1
+  make -j1 || exit 1
   make install DESTDIR=$PKG
 cd -
 
@@ -145,7 +144,8 @@ cat $CWD/$PRGNAM.SlackBuild > $PKG/usr/doc/$PRGNAM-$VERSION/$PRGNAM.SlackBuild
 
 mkdir -p $PKG/install
 cat $CWD/slack-desc > $PKG/install/slack-desc
-cat $CWD/doinst.sh > $PKG/install/doinst.sh
+cat $CWD/doinst.sh | sed "s:@LIB@:lib${LIBDIRSUFFIX}:g" > $PKG/install/doinst.sh
+rm -rf $PKG/etc/ld.so.conf.d
 
 cd $PKG
 /sbin/makepkg -p -l y -c n $OUTPUT/$PRGNAM-$VERSION-$ARCH-$BUILD$TAG.txz

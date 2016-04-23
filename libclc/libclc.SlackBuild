@@ -2,7 +2,7 @@
 
 # Slackware build script for libclc
 
-# Copyright 2014-2015  Widya Walesa <walecha99@gmail.com>
+# Copyright 2014-2016  Widya Walesa <walecha99@gmail.com>
 # All rights reserved.
 #
 # Redistribution and use of this script, with or without modification, is
@@ -24,7 +24,7 @@
 # YOUR DATA IS DESTROYED, YOUR HOUSE BURNS DOWN OR YOUR DOG RUNS OFF.
 
 PRGNAM=libclc
-VERSION=20151215_b858eb3
+VERSION=20151216_b858eb3
 GITVERSION=b858eb3811ca8b49a66653473ef309eadcd491af
 BUILD=1
 TAG=${TAG:-_wls}

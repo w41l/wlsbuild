@@ -2,7 +2,7 @@
 
 # Slackware build script for qupzilla
 
-# Copyright 2012-2015  Widya Walesa <walecha99@gmail.com>
+# Copyright 2012-2016  Widya Walesa <walecha99@gmail.com>
 # All rights reserved.
 #
 # Redistribution and use of this script, with or without modification, is
@@ -34,6 +34,9 @@ WRK=${WRK:-/tmp/wlsbuild}
 PKG=$WRK/package-$PRGNAM
 OUTPUT=${OUTPUT:-/tmp}
 DOCS="AUTHORS BUILDING CHANGELOG COPYRIGHT FAQ GPLv3 README.md"
+
+# Default using Qt5.
+QTVERSION=${QTVERSION:-"-qt5"}
 
 if [ -z "$ARCH" ]; then
   case "$( uname -m )" in

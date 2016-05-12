@@ -24,14 +24,14 @@
 # YOUR DATA IS DESTROYED, YOUR HOUSE BURNS DOWN OR YOUR DOG RUNS OFF.
 
 PRGNAM=wine
-VERSION=${VERSION:-1.9.5}
-SRCVERSION=${SRCVERSION:-1.9.5}
-STAGING_VERSION=${STAGING_VERSION:-1.9.4}
+VERSION=${VERSION:-1.9.9}
+SRCVERSION=${SRCVERSION:-1.9.9}
+STAGING_VERSION=${STAGING_VERSION:-1.9.9}
 BUILD=${BUILD:-1}
 TAG=${TAG:-_wls}
 NUMJOBS=${NUMJOBS:--j7}
 STAGING=${STAGING:-"yes"}
-NINE=${NINE:-"yes"}
+NINE=${NINE:-"no"}
 
 if [ -z "$ARCH" ]; then
   case "$( uname -m )" in
@@ -93,14 +93,7 @@ fi
 if [ "$NINE" = "yes" ]; then
     echo "BUILDING WINE NINE: $VERSION"
     sleep 5
-    mkdir -p $WRK/wine-gaming-nine
-    tar xf $CWD/wine-gaming-nine-1.9.3.tar.xz -C $WRK/wine-gaming-nine --strip-components 1
-    patch -p1 < ../wine-gaming-nine/nine-1.9.1.patch
-    patch -p1 < ../wine-gaming-nine/steam.patch
-    patch -p1 < ../wine-gaming-nine/mipmap.patch
-    patch -p1 < ../wine-gaming-nine/heap_perf.patch
-    patch -p1 < ../wine-gaming-nine/wbemprox_query_v2.patch
-    patch -p1 -R < ../wine-gaming-nine/keybindings.patch
+    patch -p1 < $CWD/wine-d3d9-${VERSION}.patch
     ENABLE_NINE="--with-d3dadapter=yes --with-d3dadapter-dri2-fallback=yes"
 else
   echo "BUILDING WINE NINE: FALSE"

@@ -25,13 +25,14 @@
 
 PRGNAM=wine
 VERSION=${VERSION:-1.9.9}
-SRCVERSION=${SRCVERSION:-1.9.9}
-STAGING_VERSION=${STAGING_VERSION:-1.9.9}
+SRCVERSION=${SRCVERSION:-${VERSION}}
+STAGING_VERSION=${STAGING_VERSION:-${VERSION}}
 BUILD=${BUILD:-1}
 TAG=${TAG:-_wls}
 NUMJOBS=${NUMJOBS:--j7}
 STAGING=${STAGING:-"yes"}
-NINE=${NINE:-"no"}
+NINE=${NINE:-"yes"}
+D3D9_DIR="$PRGNAM-d3d9-patches-$PRGNAM-d3d9-$VERSION"
 
 if [ -z "$ARCH" ]; then
   case "$( uname -m )" in
@@ -49,17 +50,17 @@ DOCS="ANNOUNCE AUTHORS COPY* LICENSE* README* VERSION"
 
 if [ "$ARCH" = "i586" ]; then
   SLKCFLAGS="-O2 -pipe -march=i586 -mtune=i686"
-  SLKLDFLAGS="-L/usr/lib -ldl -lm -lpthread"
+  SLKLDFLAGS="-L/lib -L/usr/lib -ldl -lm -lpthread"
   LIBDIRSUFFIX=""
   ENABLE_64=""
 elif [ "$ARCH" = "i686" ]; then
   SLKCFLAGS="-O2 -pipe -march=i686 -mtune=i686"
-  SLKLDFLAGS="-L/usr/lib -ldl -lm -lpthread"
+  SLKLDFLAGS="-L/lib -L/usr/lib -ldl -lm -lpthread"
   LIBDIRSUFFIX=""
   ENABLE_64=""
 elif [ "$ARCH" = "x86_64" ]; then
-  SLKCFLAGS="-O2 -pipe -fPIC -mtune=generic"
-  SLKLDFLAGS="-L/usr/lib64 -ldl -lm -lpthread"
+  SLKCFLAGS="-O2 -pipe -fPIC"
+  SLKLDFLAGS="-L/lib64 -L/usr/lib64 -ldl -lm -lpthread"
   LIBDIRSUFFIX="64"
   ENABLE_64="--enable-win64"
 else
@@ -74,13 +75,17 @@ mkdir -p $WRK $PKG $OUTPUT
 cd $WRK
 rm -rf $PRGNAM* Wine-*
 echo "extracting $PRGNAM-$SRCVERSION"
-tar xf $CWD/$PRGNAM-$SRCVERSION.tar.?z*
+tar xvf $CWD/$PRGNAM-$SRCVERSION.tar.?z*
 cd $PRGNAM-$SRCVERSION
+
+patch -p1 --verbose < ${CWD}/${PRGNAM}-1.5.26-winegcc.patch
+patch -p1 --verbose < ${CWD}/${PRGNAM}-1.9.5-multilib-portage.patch
+patch -p1 --verbose < ${CWD}/${PRGNAM}-1.7.12-osmesa-check.patch
+patch -p1 --verbose < ${CWD}/${PRGNAM}-1.6-memset-O3.patch
 
 if [ "$STAGING" = "yes" ]; then
     echo "BUILDING WINE STAGING: $STAGING_VERSION"
-    sleep 5
-    tar -xf $CWD/$PRGNAM-staging-$STAGING_VERSION.tar.?z -C . --strip-components 1
+    tar -xvf $CWD/$PRGNAM-staging-$STAGING_VERSION.tar.?z -C . --strip-components 1
 #     ./patches/patchinstall.sh DESTDIR="$(pwd)" --all
 #     mv ../$PRGNAM-staging-$SRCVERSION/* .
     make -C patches DESTDIR=$WRK/$PRGNAM-$SRCVERSION install || exit 1
@@ -92,15 +97,22 @@ fi
 
 if [ "$NINE" = "yes" ]; then
     echo "BUILDING WINE NINE: $VERSION"
-    sleep 5
-    patch -p1 < $CWD/wine-d3d9-${VERSION}.patch
-    ENABLE_NINE="--with-d3dadapter=yes --with-d3dadapter-dri2-fallback=yes"
+    tar xvf $CWD/${D3D9_DIR}.tar.gz
+    if [ "$STAGING" = "yes" ]; then
+	patch -p1 < ${D3D9_DIR}/staging-helper.patch
+    else
+	patch -p1 < ${D3D9_DIR}/d3d9-helper.patch
+    fi
+    patch -p1 < ${D3D9_DIR}/wine-d3d9.patch
+    ENABLE_NINE="--with-d3dadapter --with-d3dadapter-dri2-fallback"
 else
   echo "BUILDING WINE NINE: FALSE"
   sleep 5
 fi
 
 cat $CWD/wine-cjk.patch | patch -p1 || exit 1
+
+sed 's|OpenCL/opencl.h|CL/opencl.h|g' -i configure*
 
 chown -R root:root .
 find . \
@@ -128,6 +140,7 @@ cd $WRK/$PRGNAM
   --with-x \
   --with-xattr \
   --with-xfixes \
+  --with-va \
   --without-gstreamer \
   --enable-largefile \
   --disable-tests \
@@ -148,7 +161,7 @@ if [ "$ARCH" = "x86_64" ]; then
   unset PKG_CONFIG_PATH
   export PKG_CONFIG_PATH="$PKG_CONFIG_PATH:/usr/local/lib/pkgconfig:/usr/lib/pkgconfig"
 
-../$PRGNAM-$SRCVERSION/configure \
+  ../$PRGNAM-$SRCVERSION/configure \
     --with-wine64=../${PRGNAM} \
     --program-prefix= --program-suffix= \
     --prefix=/usr --exec-prefix=/usr \
@@ -161,6 +174,7 @@ if [ "$ARCH" = "x86_64" ]; then
     --with-x \
     --with-xattr \
     --with-xfixes \
+    --with-va \
     --without-gstreamer \
     --enable-largefile \
     --disable-tests \
@@ -168,9 +182,10 @@ if [ "$ARCH" = "x86_64" ]; then
     || exit 1
 
   make depend || exit 1
-  make CFLAGS+="-march=native -pipe -mstackrealign -mincoming-stack-boundary=2" \
-       CXXFLAGS+="-mstackrealign -mincoming-stack-boundary=2" \
-       $NUMJOBS || make || exit 1
+  # make CFLAGS+="-march=native -pipe -mstackrealign -mincoming-stack-boundary=2" \
+       #CXXFLAGS+="-mstackrealign -mincoming-stack-boundary=2" \
+
+  make $NUMJOBS || make || exit 1
   make install DESTDIR=$PKG || exit 1
   unset PKG_CONFIG_PATH
 fi

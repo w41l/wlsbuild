@@ -2,7 +2,7 @@
 
 # Slackware build script for choqok
 
-# Copyright 2015  Widya Walesa <walecha99@gmail.com>
+# Copyright 2015-2016  Widya Walesa <walecha99@gmail.com>
 # All rights reserved.
 #
 # Redistribution and use of this script, with or without modification, is
@@ -24,8 +24,8 @@
 # YOUR DATA IS DESTROYED, YOUR HOUSE BURNS DOWN OR YOUR DOG RUNS OFF.
 
 PRGNAM=choqok
-VERSION=${VERSION:-1.6_9145ae2}
-GITVERSION=${GITVERSION:-9145ae2e76433b79a0e356da8eca4b68b3bfb7dc}
+VERSION=${VERSION:-1.5.85}
+#GITVERSION=${GITVERSION:-}
 BUILD=${BUILD:-1}
 TAG=${TAG:-_wls}
 NUMJOBS=${NUMJOBS:--j7}
@@ -60,16 +60,19 @@ fi
 
 set -e
 
-if [ ! -f $CWD/$PRGNAM-${GITVERSION}.tar.gz ]; then
-    curl -OLJ -C - https://github.com/KDE/choqok/archive/${GITVERSION}.tar.gz
+MD5SUM=`cat $PRGNAM.info | grep "MD5SUM=" | cut -d = -f 2 | sed 's/"//g'`
+MD5SRC=`echo "$MD5SUM $(basename $PRGNAM-$VERSION.tar.?z*)" | md5sum -c | tr -d [:blank:] | cut -d : -f 2`
+if [ ! "$MD5SRC" = "OK" ]; then
+  rm -f $PRGNAM-$VERSION.tar.?z*
+  curl -#OLJ -C - $(cat $PRGNAM.info | grep "DOWNLOAD=" | cut -d = -f 2 | sed 's/"//g')
 fi
 
 rm -rf $PKG
 mkdir -p $WRK $PKG
 cd $WRK
-rm -rf $PRGNAM-$GITVERSION
-tar xvf $CWD/$PRGNAM-$GITVERSION.tar.?z*
-cd $PRGNAM-$GITVERSION
+rm -rf $PRGNAM-$VERSION
+tar xvf $CWD/$PRGNAM-$VERSION.tar.?z*
+cd $PRGNAM-$VERSION
 
 chown -R root:root .
 find . \
@@ -95,7 +98,7 @@ cd build
     -DKDE_INSTALL_USE_QT_SYS_PATHS=ON \
     ..
 
-  make
+  make $NUMJOBS
   make install DESTDIR=$PKG
 cd -
 

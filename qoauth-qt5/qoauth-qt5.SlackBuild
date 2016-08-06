@@ -60,7 +60,7 @@ fi
 set -e
 
 if [ ! -f $CWD/qoauth-$GITVERSION.tar.gz ]; then
-  curl -OLJ -C - https://github.com/ayoy/qoauth/archive/${GITVERSION}.tar.gz
+  curl -#OLJ -C - https://github.com/ayoy/qoauth/archive/${GITVERSION}.tar.gz
 fi
 
 rm -rf $PKG

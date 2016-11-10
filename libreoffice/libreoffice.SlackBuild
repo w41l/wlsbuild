@@ -24,9 +24,9 @@
 # YOUR DATA IS DESTROYED, YOUR HOUSE BURNS DOWN OR YOUR DOG RUNS OFF.
 
 PRGNAM=libreoffice
-VERSION=5.1.1
-RCVERS=".3"
-MAJORVER=$( echo $VERSION | sed "s/\(.*\)\.\(.*\)\.*/\1/" )
+VERSION=${VERSION-5.2.1}
+RCVERS=${RCVERS:-".2"}
+MAJORVER=$( echo $VERSION | rev | cut -d . -f 2- | rev )
 BUILD=${BUILD:-1}
 TAG=${TAG:-_wls}
 DIST=${DIST:-rpm}

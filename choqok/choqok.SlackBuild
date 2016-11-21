@@ -24,7 +24,7 @@
 # YOUR DATA IS DESTROYED, YOUR HOUSE BURNS DOWN OR YOUR DOG RUNS OFF.
 
 PRGNAM=choqok
-VERSION=${VERSION:-1.5.85}
+VERSION=${VERSION:-1.6.0}
 #GITVERSION=${GITVERSION:-}
 BUILD=${BUILD:-1}
 TAG=${TAG:-_wls}
@@ -41,7 +41,7 @@ fi
 CWD=$(pwd)
 WRK=${WRK:-/tmp/wlsbuild}
 PKG=$WRK/package-$PRGNAM
-OUTPUT=/tmp
+OUTPUT=${OUTPUT:-/tmp}
 DOCS="AUTHORS COPY* README TODO changelog"
 
 if [ "$ARCH" = "i586" ]; then
@@ -60,18 +60,37 @@ fi
 
 set -e
 
-MD5SUM=`cat $PRGNAM.info | grep "MD5SUM=" | cut -d = -f 2 | sed 's/"//g'`
-MD5SRC=`echo "$MD5SUM $(basename $PRGNAM-$VERSION.tar.?z*)" | md5sum -c | tr -d [:blank:] | cut -d : -f 2`
-if [ ! "$MD5SRC" = "OK" ]; then
-  rm -f $PRGNAM-$VERSION.tar.?z*
-  curl -#OLJ -C - $(cat $PRGNAM.info | grep "DOWNLOAD=" | cut -d = -f 2 | sed 's/"//g')
+check_md5sum()
+{
+  unset MD5SUM
+  eval `cat $PRGNAM.info | grep "MD5SUM="`
+  MD5SRC=`echo "$MD5SUM $(basename $PRGNAM-$VERSION.tar.xz)" | md5sum -c | awk '{print $2}'`
+  if [ ! "$MD5SRC" = "OK" ]; then
+    echo "ERROR: checksum mismatch for tarball $PRGNAM-$VERSION.tar.xz";
+    exit 1;
+  fi
+}
+
+download_src()
+{
+  unset DOWNLOAD
+  rm -f $PRGNAM-$VERSION.tar.xz
+  eval $(cat $PRGNAM.info | grep "DOWNLOAD=")
+  curl -#OLJ -C - "$DOWNLOAD" || exit 1
+}
+
+if [ ! -f $PRGNAM-$VERSION.tar.xz ]; then
+  download_src;
+  check_md5sum;
+else
+  check_md5sum;  
 fi
 
 rm -rf $PKG
 mkdir -p $WRK $PKG
 cd $WRK
 rm -rf $PRGNAM-$VERSION
-tar xvf $CWD/$PRGNAM-$VERSION.tar.?z*
+tar xvf $CWD/$PRGNAM-$VERSION.tar.xz
 cd $PRGNAM-$VERSION
 
 chown -R root:root .

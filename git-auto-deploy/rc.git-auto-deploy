@@ -1,0 +1,69 @@
+#!/bin/sh
+
+# Start/stop/restart the git-auto-deploy daemon:
+
+PATH=/sbin:/bin:/usr/sbin:/usr/bin:/usr/local/bin:/usr/local/sbin
+DESC="Git-Auto-Deploy Daemon"
+NAME="git-auto-deploy"
+DAEMON="/usr/bin/$NAME"
+DAEMON_PID="/var/run/$NAME.pid"
+DAEMON_CONF="/etc/$NAME/config.json"
+
+daemon_start()
+{
+  echo -en "Starting $DESC: \t"
+  if [ ! -f "$DAEMON_CONF" ]; then
+    echo "$DESC config not found: $DAEMON_CONF"
+    exit 1
+  else
+    $DAEMON -d -q -c $DAEMON_CONF >/dev/null 2>&1
+    sleep 1
+    echo "started"
+  fi
+}
+
+daemon_status()
+{
+  if ps acx | grep "$NAME" >/dev/null; then
+    echo -n "$DESC is running as PID: "
+    if [ -f $DAEMON_PID ]; then
+      cat $DAEMON_PID
+    fi
+    echo
+  else
+    echo "$DESC is not running"
+  fi
+}
+
+daemon_stop()
+{
+  echo -en "Stopping $DESC: \t"
+  if ps acx | grep "$NAME" >/dev/null; then
+    if [ -f $DAEMON_PID ]; then
+      kill `cat $DAEMON_PID` >/dev/null
+      rm -f $DAEMON_PID
+      sleep 1
+      echo "stopped";
+    fi
+  else
+    echo "not running"
+  fi
+}
+
+case "$1" in
+'start')
+  daemon_start
+  ;;
+'stop')
+  daemon_stop
+  ;;
+'restart')
+  daemon_stop
+  daemon_start
+  ;;
+'status')
+  daemon_status
+  ;;
+*)
+  echo "usage $0 start|stop|status|restart"
+esac

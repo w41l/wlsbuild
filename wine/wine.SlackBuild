@@ -24,7 +24,7 @@
 # YOUR DATA IS DESTROYED, YOUR HOUSE BURNS DOWN OR YOUR DOG RUNS OFF.
 
 PRGNAM=wine
-VERSION=${VERSION:-1.9.9}
+VERSION=${VERSION:-1.9.22}
 SRCVERSION=${SRCVERSION:-${VERSION}}
 STAGING_VERSION=${STAGING_VERSION:-${VERSION}}
 BUILD=${BUILD:-1}
@@ -70,25 +70,57 @@ fi
 
 set -e
 
+if ! bzip2 -t wine-$VERSION.tar.bz2 >/dev/null; then
+  rm -f wine-$VERSION.tar.bz2
+  unset DOWNLOAD_WINE
+  eval `cat $PRGNAM.info | grep "DOWNLOAD_WINE="`
+  echo "Downloading `basename $DOWNLOAD_WINE`"
+  curl -OLJ -C - $DOWNLOAD_WINE
+fi
+
+if ! gzip -t wine-staging-$STAGING_VERSION.tar.gz >/dev/null; then
+  rm -f wine-staging-$STAGING_VERSION.tar.gz
+  unset DOWNLOAD_STAGING
+  eval `cat $PRGNAM.info | grep "DOWNLOAD_STAGING="`
+  echo "Downloading `basename $DOWNLOAD_STAGING`"
+  curl -OLJ -C - $DOWNLOAD_STAGING
+fi
+
+if [ -f wine-d3d9-patches-$PRGNAM-d3d9-$VERSION.tar.gz ]; then
+  if ! gzip -t wine-d3d9-patches-$PRGNAM-d3d9-$VERSION.tar.gz >/dev/null; then
+    rm -f wine-d3d9-patches-$PRGNAM-d3d9-$VERSION.tar.gz
+    unset DOWNLOAD_D3D9
+    eval `cat $PRGNAM.info | grep "DOWNLOAD_D3D9="`
+    echo "Downloading `basename $DOWNLOAD_D3D9`"
+    curl -OLJ -C - $DOWNLOAD_D3D9
+  fi
+else
+  unset DOWNLOAD_D3D9
+  eval `cat $PRGNAM.info | grep "DOWNLOAD_D3D9="`
+  echo "Downloading `basename $DOWNLOAD_D3D9`"
+  curl -OLJ -C - $DOWNLOAD_D3D9
+fi
+
 rm -rf $PKG
 mkdir -p $WRK $PKG $OUTPUT
 cd $WRK
 rm -rf $PRGNAM* Wine-*
-echo "extracting $PRGNAM-$SRCVERSION"
-tar xvf $CWD/$PRGNAM-$SRCVERSION.tar.?z*
-cd $PRGNAM-$SRCVERSION
+echo "extracting $PRGNAM-$VERSION"
+tar xvf $CWD/$PRGNAM-$VERSION.tar.?z*
 
-patch -p1 --verbose < ${CWD}/${PRGNAM}-1.5.26-winegcc.patch
-patch -p1 --verbose < ${CWD}/${PRGNAM}-1.9.5-multilib-portage.patch
-patch -p1 --verbose < ${CWD}/${PRGNAM}-1.7.12-osmesa-check.patch
-patch -p1 --verbose < ${CWD}/${PRGNAM}-1.6-memset-O3.patch
+cd $PRGNAM-$VERSION
+
+# patch -p1 --verbose < ${CWD}/patches/${PRGNAM}-1.5.26-winegcc.patch
+# patch -p1 --verbose < ${CWD}/patches/${PRGNAM}-1.9.5-multilib-portage.patch
+# patch -p1 --verbose < ${CWD}/patches/${PRGNAM}-1.7.12-osmesa-check.patch
+# patch -p1 --verbose < ${CWD}/patches/${PRGNAM}-1.6-memset-O3.patch
 
 if [ "$STAGING" = "yes" ]; then
     echo "BUILDING WINE STAGING: $STAGING_VERSION"
-    tar -xvf $CWD/$PRGNAM-staging-$STAGING_VERSION.tar.?z -C . --strip-components 1
+    tar -xvf $CWD/$PRGNAM-staging-$STAGING_VERSION.tar.gz --strip-components 1
 #     ./patches/patchinstall.sh DESTDIR="$(pwd)" --all
 #     mv ../$PRGNAM-staging-$SRCVERSION/* .
-    make -C patches DESTDIR=$WRK/$PRGNAM-$SRCVERSION install || exit 1
+    make -C patches DESTDIR=$WRK/$PRGNAM-$VERSION install || exit 1
     sed -i -e 's!^loader server: libs/port libs/wine tools.*!& include!' Makefile.in
 else
     echo "BUILDING WINE STAGING: FALSE"
@@ -97,20 +129,20 @@ fi
 
 if [ "$NINE" = "yes" ]; then
     echo "BUILDING WINE NINE: $VERSION"
-    tar xvf $CWD/${D3D9_DIR}.tar.gz
+    tar xvf $CWD/$D3D9_DIR.tar.gz
     if [ "$STAGING" = "yes" ]; then
 	patch -p1 < ${D3D9_DIR}/staging-helper.patch
     else
 	patch -p1 < ${D3D9_DIR}/d3d9-helper.patch
     fi
     patch -p1 < ${D3D9_DIR}/wine-d3d9.patch
-    ENABLE_NINE="--with-d3dadapter --with-d3dadapter-dri2-fallback"
+#     ENABLE_NINE="--with-d3dadapter --with-d3dadapter-dri2-fallback"
 else
   echo "BUILDING WINE NINE: FALSE"
   sleep 5
 fi
 
-cat $CWD/wine-cjk.patch | patch -p1 || exit 1
+# cat $CWD/patches/wine-cjk.patch | patch -p1 || exit 1
 
 sed 's|OpenCL/opencl.h|CL/opencl.h|g' -i configure*
 
@@ -139,7 +171,6 @@ cd $WRK/$PRGNAM
   --build=$ARCH-slackware-linux \
   --with-x \
   --with-xattr \
-  --with-xfixes \
   --with-va \
   --without-gstreamer \
   --enable-largefile \
@@ -148,7 +179,9 @@ cd $WRK/$PRGNAM
   ${ENABLE_64} \
   || exit 1
 
-# make depend || exit 1
+#   --with-xfixes \
+
+make depend || exit 1
 make $NUMJOBS || make || exit 1
 
 if [ "$ARCH" = "x86_64" ]; then

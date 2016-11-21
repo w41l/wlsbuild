@@ -1,6 +1,10 @@
-PRGNAM=geoclue2
-BUILD=1
-URL=http://www.freedesktop.org/wiki/Software/GeoClue
-SRC=http://www.freedesktop.org/software/geoclue/releases/2.2/geoclue-2.2.0.tar.xz
-MD5=c1970e4ec6f2af6591a75294fc6fb4fa
-SHA1=26f22f390b34f47f9d336b1d8b942fd9e565d7ef
+PRGNAM="geoclue2"
+VERSION="2.4.4"
+HOMEPAGE="http://www.freedesktop.org/wiki/Software/GeoClue"
+DOWNLOAD="http://www.freedesktop.org/software/geoclue/releases/2.4/geoclue-2.4.4.tar.xz"
+SHA256SUM="9fe8efa1326184fe5e5388b5ec20050475b26e858f6688696775cc400dbf76cd"
+DOWNLOAD_x86_64=""
+MD5SUM_x86_64=""
+REQUIRES=""
+MAINTAINER="Widya Walesa"
+EMAIL="walecha99@gmail.com"

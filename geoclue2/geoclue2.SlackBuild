@@ -24,8 +24,8 @@
 # YOUR DATA IS DESTROYED, YOUR HOUSE BURNS DOWN OR YOUR DOG RUNS OFF.
 
 PRGNAM=geoclue2
-VERSION=2.2.0
-BUILD=1
+VERSION=2.4.4
+BUILD=${BUILD:-1}
 TAG=${TAG:-_wls}
 NUMJOBS=${NUMJOBS:--j7}
 
@@ -58,6 +58,14 @@ else
 fi
 
 set -e
+
+unset DOWNLOAD
+eval `cat $PRGNAM.info | grep 'DOWNLOAD='`
+if [ ! -f `basename $DOWNLOAD` ]; then
+  echo "Downloading: $DOWNLOAD"
+  rm -f $PRGNAM-$VERSION.tar.*
+  curl -OLJ -C - $DOWNLOAD
+fi
 
 rm -rf $PKG
 mkdir -p $WRK $PKG $OUTPUT

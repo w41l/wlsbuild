@@ -1,4 +1,10 @@
-URL=http://www.adobe.com/
-SRC=https://get.adobe.com/flashplayer/completion/?installer=Flash_Player_11.2_for_other_Linux_(.tar.gz)_32-bit
-MD5=686fc9363d94213460f389581ca7ba3b
-SHA1=cf86001e5362b4e226e3c24031e47b35ad491147
+PRGNAM="flash-player-plugin"
+VERSION="24.0.0.154"
+HOMEPAGE="http://labs.adobe.com/technologies/flashruntimes/flashplayer/"
+DOWNLOAD_i386_npapi="https://fpdownload.macromedia.com/pub/labs/flashruntimes/flashplayer/linux32/flash_player_npapi_linux.i386.tar.gz"
+DOWNLOAD_x86_64_npapi="https://fpdownload.macromedia.com/pub/labs/flashruntimes/flashplayer/linux64/flash_player_npapi_linux.x86_64.tar.gz"
+DOWNLOAD_i386_ppapi="https://fpdownload.macromedia.com/pub/labs/flashruntimes/flashplayer/linux32/flash_player_ppapi_linux.i386.tar.gz"
+DOWNLOAD_x86_64_ppapi="https://fpdownload.macromedia.com/pub/labs/flashruntimes/flashplayer/linux64/flash_player_ppapi_linux.x86_64.tar.gz"
+REQUIRES=""
+MAINTAINER="Widya Walesa"
+EMAIL="walecha99@gmail.com"

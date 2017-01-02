@@ -24,10 +24,12 @@
 # YOUR DATA IS DESTROYED, YOUR HOUSE BURNS DOWN OR YOUR DOG RUNS OFF.
 
 PRGNAM=flash-player-plugin
-MAJVER=11
-BUILD=1
+BUILD=${BUILD:-1}
 TAG=${TAG:-_wls}
-NUMJOBS=${NUMJOBS:--j1}
+# NUMJOBS=${NUMJOBS:--j1}
+
+# Select flash API: npapi (mozilla) or ppapi (chrome). Default to Mozilla.
+API=${API:-npapi}
 
 if [ -z "$ARCH" ]; then
   case "$( uname -m )" in
@@ -37,13 +39,28 @@ if [ -z "$ARCH" ]; then
   esac
 fi
 
+if [ "$ARCH" = "i386" ]; then
+  LIBDIRSUFFIX=""
+elif [ "$ARCH" = "x86_64" ]; then
+  LIBDIRSUFFIX="64"
+else
+  LIBDIRSUFFIX=""
+fi
+
 CWD=$(pwd)
 WRK=${WRK:-/tmp/wlsbuild}
 PKG=$WRK/package-$PRGNAM
 OUTPUT=${OUTPUT:-/tmp}
-DOCS="COPY*"
 
 set -e
+
+unset URL
+eval URL=`cat $PRGNAM.info | grep DOWNLOAD | grep "$ARCH" | grep "$API" | cut -d = -f 2-`
+if [ ! -f `basename $URL` ]; then
+  echo "Downloading: $URL"
+  rm -f $PRGNAM-$VERSION.tar.*
+  curl -OLJ -C - $URL
+fi
 
 rm -rf $PKG
 mkdir -p $WRK $PKG $OUTPUT
@@ -51,7 +68,7 @@ cd $WRK
 rm -rf $PKG
 mkdir -p $PKG
 cd $PKG
-tar xvf $CWD/install_flash_player_${MAJVER}_linux.${ARCH}.tar.gz
+tar xvf $CWD/flash_player_${API}_linux.${ARCH}.tar.gz
 
 chown -R root:root .
 find . \
@@ -62,12 +79,23 @@ find . \
 
 VERSION=`grep "Version" readme.txt | awk '{ print $2 }'`
 echo "Flash Player Plugin version: ${VERSION}"
-mkdir -p ./usr/lib${LIBDIRSUFFIX}/mozilla/plugins
-mv libflashplayer.so ./usr/lib${LIBDIRSUFFIX}/mozilla/plugins
-chmod 755 ./usr/lib${LIBDIRSUFFIX}/mozilla/plugins/libflashplayer.so
+
+if [ "$API" == "npapi" ]; then
+  mkdir -p ./usr/lib${LIBDIRSUFFIX}/mozilla/plugins
+  mv libflashplayer.so ./usr/lib${LIBDIRSUFFIX}/mozilla/plugins
+  chmod 755 ./usr/lib${LIBDIRSUFFIX}/mozilla/plugins/libflashplayer.so
+else
+  mkdir -p ./usr/lib${LIBDIRSUFFIX}/google/chrome/PepperFlash
+  mv libpepflashplayer.so ./usr/lib${LIBDIRSUFFIX}/google/chrome/PepperFlash
+  mv manifest.json ./usr/lib${LIBDIRSUFFIX}/google/chrome/PepperFlash
+fi
 
 mkdir -p ./usr/doc/$PRGNAM-$VERSION
 mv readme.txt ./usr/doc/$PRGNAM-$VERSION
+mv license.pdf ./usr/doc/$PRGNAM-$VERSION
+mv LGPL/* ./usr/doc/$PRGNAM-$VERSION
+rm -r LGPL
+
 cat $CWD/$PRGNAM.SlackBuild > ./usr/doc/$PRGNAM-$VERSION/$PRGNAM.SlackBuild
 
 mkdir -p ./install

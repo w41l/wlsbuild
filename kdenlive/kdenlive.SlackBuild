@@ -2,7 +2,7 @@
 
 # Slackware build script for kdenlive
 
-# Copyright 2011  Widya Walesa <walecha99@gmail.com>
+# Copyright 2011-2016  Widya Walesa <walecha99@gmail.com>
 # All rights reserved.
 #
 # Redistribution and use of this script, with or without modification, is
@@ -24,26 +24,26 @@
 # YOUR DATA IS DESTROYED, YOUR HOUSE BURNS DOWN OR YOUR DOG RUNS OFF.
 
 PRGNAM=kdenlive
-VERSION=${VERSION:-0.7.8}
+VERSION=${VERSION:-16.08.3}
 BUILD=${BUILD:-1}
 TAG=${TAG:-_wls}
-NUMJOBS=${NUMJOBS:--j4}
+NUMJOBS=${NUMJOBS:--j7}
 
 if [ -z "$ARCH" ]; then
   case "$( uname -m )" in
-    i?86) ARCH=i486 ;;
+    i?86) ARCH=i586 ;;
     arm*) ARCH=arm ;;
        *) ARCH=$( uname -m ) ;;
   esac
 fi
 
 CWD=$(pwd)
-TMP=${TMP:-/tmp/wls}
-PKG=$TMP/package-$PRGNAM
+WRK=${WRK:-/tmp/wlsbuild}
+PKG=$WRK/package-$PRGNAM
 OUTPUT=${OUTPUT:-/tmp}
-DOCS="AUTHORS COPYING INSTALL README"
+DOCS="AUTHORS COPYING ChangeLog README"
 
-if [ "$ARCH" = "i486" ]; then
+if [ "$ARCH" = "i586" ]; then
   SLKCFLAGS="-O2 -pipe -march=i486 -mtune=i686"
   LIBDIRSUFFIX=""
 elif [ "$ARCH" = "i686" ]; then
@@ -60,10 +60,10 @@ fi
 set -e
 
 rm -rf $PKG
-mkdir -p $TMP $PKG $OUTPUT
-cd $TMP
+mkdir -p $WRK $PKG $OUTPUT
+cd $WRK
 rm -rf $PRGNAM-$VERSION
-tar xvf $CWD/${PRGNAM}-${VERSION}.tar.gz
+tar xvf $CWD/${PRGNAM}-${VERSION}.tar.xz
 cd $PRGNAM-$VERSION
 
 chown -R root:root .
@@ -75,18 +75,19 @@ find . \
 
 mkdir build
 cd build
-  cmake \
+  cmake .. \
     -DCMAKE_C_FLAGS="$SLKCFLAGS" \
     -DCMAKE_CXX_FLAGS="$SLKCFLAGS" \
     -DCMAKE_BUILD_TYPE=Release \
-    -DCMAKE_INSTALL_PREFIX=$(kde4-config --prefix) \
+    -DCMAKE_INSTALL_PREFIX=/usr \
     -DLIB_SUFFIX=${LIBDIRSUFFIX} \
     -DLIB_INSTALL_DIR=/usr/lib$LIBDIRSUFFIX \
     -DMAN_INSTALL_DIR=/usr/man \
     -DSYSCONF_INSTALL_DIR=/etc \
-    ..
-  make ${NUMJOBS}
-  make install DESTDIR=$PKG
+    || exit 1
+
+  make ${NUMJOBS} || exit 1
+  make install DESTDIR=$PKG || exit 1
 cd -
 
 find $PKG | xargs file | grep -e "executable" -e "shared object" | grep ELF \
@@ -107,4 +108,4 @@ cd $PKG
 /sbin/makepkg -l y -c n $OUTPUT/$PRGNAM-$VERSION-$ARCH-$BUILD$TAG.txz
 
 echo "Cleaning up build directory"
-cd $TMP; rm -rf $PRGNAM-$VERSION $PKG
+cd $WRK; rm -rf $PRGNAM-$VERSION $PKG

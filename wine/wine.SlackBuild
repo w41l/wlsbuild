@@ -2,7 +2,7 @@
 
 # Slackware build script for wine
 
-# Copyright 2011-2015  Widya Walesa <walecha99@gmail.com>
+# Copyright 2011-2016  Widya Walesa <walecha99@gmail.com>
 # All rights reserved.
 #
 # Redistribution and use of this script, with or without modification, is
@@ -24,15 +24,16 @@
 # YOUR DATA IS DESTROYED, YOUR HOUSE BURNS DOWN OR YOUR DOG RUNS OFF.
 
 PRGNAM=wine
-VERSION=${VERSION:-1.9.22}
-SRCVERSION=${SRCVERSION:-${VERSION}}
-STAGING_VERSION=${STAGING_VERSION:-${VERSION}}
+VERSION=${VERSION:-2.0_rc2}
+SRCVERSION=${SRCVERSION:-2.0-rc2}
+STAGING_VERSION=${STAGING_VERSION:-${SRCVERSION}}
 BUILD=${BUILD:-1}
 TAG=${TAG:-_wls}
 NUMJOBS=${NUMJOBS:--j7}
 STAGING=${STAGING:-"yes"}
 NINE=${NINE:-"yes"}
-D3D9_DIR="$PRGNAM-d3d9-patches-$PRGNAM-d3d9-$VERSION"
+NINE_VERSION=${NINE_VERSION:-$SRCVERSION}
+D3D9_DIR="$PRGNAM-d3d9-patches-$PRGNAM-d3d9-$NINE_VERSION"
 
 if [ -z "$ARCH" ]; then
   case "$( uname -m )" in
@@ -70,8 +71,8 @@ fi
 
 set -e
 
-if ! bzip2 -t wine-$VERSION.tar.bz2 >/dev/null; then
-  rm -f wine-$VERSION.tar.bz2
+if ! bzip2 -t wine-$SRCVERSION.tar.bz2 >/dev/null; then
+  rm -f wine-$SRCVERSION.tar.bz2
   unset DOWNLOAD_WINE
   eval `cat $PRGNAM.info | grep "DOWNLOAD_WINE="`
   echo "Downloading `basename $DOWNLOAD_WINE`"
@@ -86,9 +87,9 @@ if ! gzip -t wine-staging-$STAGING_VERSION.tar.gz >/dev/null; then
   curl -OLJ -C - $DOWNLOAD_STAGING
 fi
 
-if [ -f wine-d3d9-patches-$PRGNAM-d3d9-$VERSION.tar.gz ]; then
-  if ! gzip -t wine-d3d9-patches-$PRGNAM-d3d9-$VERSION.tar.gz >/dev/null; then
-    rm -f wine-d3d9-patches-$PRGNAM-d3d9-$VERSION.tar.gz
+if [ -f wine-d3d9-patches-$PRGNAM-d3d9-$NINE_VERSION.tar.gz ]; then
+  if ! gzip -t wine-d3d9-patches-$PRGNAM-d3d9-$NINE_VERSION.tar.gz >/dev/null; then
+    rm -f wine-d3d9-patches-$PRGNAM-d3d9-$NINE_VERSION.tar.gz
     unset DOWNLOAD_D3D9
     eval `cat $PRGNAM.info | grep "DOWNLOAD_D3D9="`
     echo "Downloading `basename $DOWNLOAD_D3D9`"
@@ -105,10 +106,10 @@ rm -rf $PKG
 mkdir -p $WRK $PKG $OUTPUT
 cd $WRK
 rm -rf $PRGNAM* Wine-*
-echo "extracting $PRGNAM-$VERSION"
-tar xvf $CWD/$PRGNAM-$VERSION.tar.?z*
+echo "extracting $PRGNAM-$SRCVERSION"
+tar xvf $CWD/$PRGNAM-$SRCVERSION.tar.?z*
 
-cd $PRGNAM-$VERSION
+cd $PRGNAM-$SRCVERSION
 
 # patch -p1 --verbose < ${CWD}/patches/${PRGNAM}-1.5.26-winegcc.patch
 # patch -p1 --verbose < ${CWD}/patches/${PRGNAM}-1.9.5-multilib-portage.patch
@@ -120,7 +121,7 @@ if [ "$STAGING" = "yes" ]; then
     tar -xvf $CWD/$PRGNAM-staging-$STAGING_VERSION.tar.gz --strip-components 1
 #     ./patches/patchinstall.sh DESTDIR="$(pwd)" --all
 #     mv ../$PRGNAM-staging-$SRCVERSION/* .
-    make -C patches DESTDIR=$WRK/$PRGNAM-$VERSION install || exit 1
+    make -C patches DESTDIR=$WRK/$PRGNAM-$SRCVERSION install || exit 1
     sed -i -e 's!^loader server: libs/port libs/wine tools.*!& include!' Makefile.in
 else
     echo "BUILDING WINE STAGING: FALSE"
@@ -128,7 +129,7 @@ else
 fi
 
 if [ "$NINE" = "yes" ]; then
-    echo "BUILDING WINE NINE: $VERSION"
+    echo "BUILDING WINE NINE: $NINE_VERSION"
     tar xvf $CWD/$D3D9_DIR.tar.gz
     if [ "$STAGING" = "yes" ]; then
 	patch -p1 < ${D3D9_DIR}/staging-helper.patch

@@ -101,8 +101,10 @@ cd build
     -DSYSCONF_INSTALL_DIR=/etc \
     -DLIB_SUFFIX=${LIBDIRSUFFIX} \
     -DLIB_INSTALL_DIR=/usr/lib$LIBDIRSUFFIX \
-    -DEMBEDDED_LIB=/tmp/$DBUSE-$DBVER/build/libmysqld/libmysqld.a \
     || exit 1
+
+    # Looks like maxscale v2 can use libmysqld.so.
+    # -DEMBEDDED_LIB=/tmp/$DBUSE-$DBVER/build/libmysqld/libmysqld.a \
 
   make || exit 1
   make install DESTDIR=$PKG || exit 1

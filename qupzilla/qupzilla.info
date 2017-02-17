@@ -1,6 +1,6 @@
-VERSION="2.0.0"
+VERSION="2.1.1"
 HOMEPAGE="http://www.qupzilla.com/"
-DOWNLOAD="https://github.com/QupZilla/qupzilla/archive/a2c8108aff95af9b4c5b990bf084c68d31cb59cf.tar.gz"
+DOWNLOAD="https://github.com/QupZilla/qupzilla/releases/download/v2.1.1/QupZilla-2.1.1.tar.xz"
 MD5SUM=""
 DOWNLOAD_x86_64=""
 MD5SUM_x86_64=""

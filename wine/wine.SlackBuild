@@ -2,7 +2,7 @@
 
 # Slackware build script for wine
 
-# Copyright 2011-2016  Widya Walesa <walecha99@gmail.com>
+# Copyright 2011-2017  Widya Walesa <walecha99@gmail.com>
 # All rights reserved.
 #
 # Redistribution and use of this script, with or without modification, is
@@ -24,8 +24,8 @@
 # YOUR DATA IS DESTROYED, YOUR HOUSE BURNS DOWN OR YOUR DOG RUNS OFF.
 
 PRGNAM=wine
-VERSION=${VERSION:-2.0_rc2}
-SRCVERSION=${SRCVERSION:-2.0-rc2}
+VERSION=${VERSION:-2.0}
+SRCVERSION=${SRCVERSION:-2.0}
 STAGING_VERSION=${STAGING_VERSION:-${SRCVERSION}}
 BUILD=${BUILD:-1}
 TAG=${TAG:-_wls}
@@ -111,16 +111,9 @@ tar xvf $CWD/$PRGNAM-$SRCVERSION.tar.?z*
 
 cd $PRGNAM-$SRCVERSION
 
-# patch -p1 --verbose < ${CWD}/patches/${PRGNAM}-1.5.26-winegcc.patch
-# patch -p1 --verbose < ${CWD}/patches/${PRGNAM}-1.9.5-multilib-portage.patch
-# patch -p1 --verbose < ${CWD}/patches/${PRGNAM}-1.7.12-osmesa-check.patch
-# patch -p1 --verbose < ${CWD}/patches/${PRGNAM}-1.6-memset-O3.patch
-
 if [ "$STAGING" = "yes" ]; then
     echo "BUILDING WINE STAGING: $STAGING_VERSION"
     tar -xvf $CWD/$PRGNAM-staging-$STAGING_VERSION.tar.gz --strip-components 1
-#     ./patches/patchinstall.sh DESTDIR="$(pwd)" --all
-#     mv ../$PRGNAM-staging-$SRCVERSION/* .
     make -C patches DESTDIR=$WRK/$PRGNAM-$SRCVERSION install || exit 1
     sed -i -e 's!^loader server: libs/port libs/wine tools.*!& include!' Makefile.in
 else
@@ -137,13 +130,10 @@ if [ "$NINE" = "yes" ]; then
 	patch -p1 < ${D3D9_DIR}/d3d9-helper.patch
     fi
     patch -p1 < ${D3D9_DIR}/wine-d3d9.patch
-#     ENABLE_NINE="--with-d3dadapter --with-d3dadapter-dri2-fallback"
 else
   echo "BUILDING WINE NINE: FALSE"
   sleep 5
 fi
-
-# cat $CWD/patches/wine-cjk.patch | patch -p1 || exit 1
 
 sed 's|OpenCL/opencl.h|CL/opencl.h|g' -i configure*
 
@@ -180,8 +170,6 @@ cd $WRK/$PRGNAM
   ${ENABLE_64} \
   || exit 1
 
-#   --with-xfixes \
-
 make depend || exit 1
 make $NUMJOBS || make || exit 1
 
@@ -216,9 +204,6 @@ if [ "$ARCH" = "x86_64" ]; then
     || exit 1
 
   make depend || exit 1
-  # make CFLAGS+="-march=native -pipe -mstackrealign -mincoming-stack-boundary=2" \
-       #CXXFLAGS+="-mstackrealign -mincoming-stack-boundary=2" \
-
   make $NUMJOBS || make || exit 1
   make install DESTDIR=$PKG || exit 1
   unset PKG_CONFIG_PATH

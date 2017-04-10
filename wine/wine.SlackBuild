@@ -72,7 +72,7 @@ fi
 set -e
 
 if ! bzip2 -t wine-$SRCVERSION.tar.bz2 >/dev/null; then
-  rm -f wine-$SRCVERSION.tar.bz2
+  rm -f wine-$SRCVERSION.tar.xz
   unset DOWNLOAD_WINE
   eval `cat $PRGNAM.info | grep "DOWNLOAD_WINE="`
   echo "Downloading `basename $DOWNLOAD_WINE`"
@@ -107,7 +107,7 @@ mkdir -p $WRK $PKG $OUTPUT
 cd $WRK
 rm -rf $PRGNAM* Wine-*
 echo "extracting $PRGNAM-$SRCVERSION"
-tar xvf $CWD/$PRGNAM-$SRCVERSION.tar.?z*
+tar xvf $CWD/$PRGNAM-$SRCVERSION.tar.bz2
 
 cd $PRGNAM-$SRCVERSION
 
@@ -163,7 +163,6 @@ cd $WRK/$PRGNAM
   --with-x \
   --with-xattr \
   --with-va \
-  --without-gstreamer \
   --enable-largefile \
   --disable-tests \
   ${ENABLE_NINE} \
@@ -197,7 +196,6 @@ if [ "$ARCH" = "x86_64" ]; then
     --with-xattr \
     --with-xfixes \
     --with-va \
-    --without-gstreamer \
     --enable-largefile \
     --disable-tests \
     ${ENABLE_NINE} \

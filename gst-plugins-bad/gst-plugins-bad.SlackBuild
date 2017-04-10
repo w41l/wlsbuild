@@ -23,10 +23,9 @@
 #  ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 PRGNAM=gst-plugins-bad
-VERSION=${VERSION:-1.6.2}
+VERSION=${VERSION:-1.10.4}
 BUILD=${BUILD:-1}
 TAG=${TAG:-_wls}
-NUMJOBS=${NUMJOBS:-"-j7"}
 
 if [ -z "$ARCH" ]; then
   case "$( uname -m )" in
@@ -81,7 +80,7 @@ CXXFLAGS="$SLKCFLAGS" \
   --docdir=/usr/doc/$PRGNAM-$VERSION \
   --build=$ARCH-slackware-linux
 
-make $NUMJOBS || make || exit 1
+make || make || exit 1
 make install DESTDIR=$PKG
 
 find $PKG -print0 | xargs -0 file | grep -e "executable" -e "shared object" | \

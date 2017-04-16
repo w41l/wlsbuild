@@ -24,12 +24,11 @@
 # YOUR DATA IS DESTROYED, YOUR HOUSE BURNS DOWN OR YOUR DOG RUNS OFF.
 
 PRGNAM=wine
-VERSION=${VERSION:-2.0}
-SRCVERSION=${SRCVERSION:-2.0}
+VERSION=${VERSION:-2.5}
+SRCVERSION=${SRCVERSION:-2.5}
 STAGING_VERSION=${STAGING_VERSION:-${SRCVERSION}}
 BUILD=${BUILD:-1}
 TAG=${TAG:-_wls}
-NUMJOBS=${NUMJOBS:--j7}
 STAGING=${STAGING:-"yes"}
 NINE=${NINE:-"yes"}
 NINE_VERSION=${NINE_VERSION:-$SRCVERSION}
@@ -71,7 +70,7 @@ fi
 
 set -e
 
-if ! bzip2 -t wine-$SRCVERSION.tar.bz2 >/dev/null; then
+if ! xz -t wine-$SRCVERSION.tar.xz >/dev/null; then
   rm -f wine-$SRCVERSION.tar.xz
   unset DOWNLOAD_WINE
   eval `cat $PRGNAM.info | grep "DOWNLOAD_WINE="`
@@ -107,7 +106,7 @@ mkdir -p $WRK $PKG $OUTPUT
 cd $WRK
 rm -rf $PRGNAM* Wine-*
 echo "extracting $PRGNAM-$SRCVERSION"
-tar xvf $CWD/$PRGNAM-$SRCVERSION.tar.bz2
+tar xvf $CWD/$PRGNAM-$SRCVERSION.tar.xz
 
 cd $PRGNAM-$SRCVERSION
 
@@ -170,7 +169,7 @@ cd $WRK/$PRGNAM
   || exit 1
 
 make depend || exit 1
-make $NUMJOBS || make || exit 1
+make || exit 1
 
 if [ "$ARCH" = "x86_64" ]; then
   echo "Building WINE 32-bit compat for $ARCH"
@@ -202,7 +201,7 @@ if [ "$ARCH" = "x86_64" ]; then
     || exit 1
 
   make depend || exit 1
-  make $NUMJOBS || make || exit 1
+  make || exit 1
   make install DESTDIR=$PKG || exit 1
   unset PKG_CONFIG_PATH
 fi

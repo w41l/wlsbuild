@@ -1,0 +1,19 @@
+# HOW TO EDIT THIS FILE:
+# The "handy ruler" below makes it easier to edit a package description.
+# Line up the first '|' above the ':' following the base package name, and
+# the '|' on the right side marks the last column you can put a character in.
+# You must make exactly 11 lines for the formatting to be correct.  It's also
+# customary to leave one space after the ':' except on otherwise blank lines.
+
+    |-----handy-ruler------------------------------------------------------|
+gdal: gdal (translator library for raster geospatial data formats)
+gdal:
+gdal: The Geospatial Data Abstraction Library (GDAL) is a unifying
+gdal: C/C++ API for accessing raster geospatial data.  The related OGR
+gdal: library (included with GDAL) provides a similar capability for vector
+gdal: data.
+gdal:
+gdal: Homepage: http://www.gdal.org
+gdal:
+gdal:
+gdal:

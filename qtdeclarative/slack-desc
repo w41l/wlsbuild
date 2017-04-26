@@ -1,0 +1,19 @@
+# HOW TO EDIT THIS FILE:
+# The "handy ruler" below makes it easier to edit a package description.  Line
+# up the first '|' above the ':' following the base package name, and the '|'
+# on the right side marks the last column you can put a character in.  You must
+# make exactly 11 lines for the formatting to be correct.  It's also
+# customary to leave one space after the ':'.
+
+               |-----handy-ruler-------------------------------------------------------|
+qt5-declarative: qt5-declarative
+qt5-declarative:
+qt5-declarative: QDeclarativeListReference allows C++ programs to read from, and assign
+qt5-declarative: values to a QML list property in a simple and type safe way.
+qt5-declarative: A QDeclarativeListReference can be created by passing an object and
+qt5-declarative: property name or through a QDeclarativeProperty instance.
+qt5-declarative:
+qt5-declarative: WWW: http://qt-project.org/
+qt5-declarative:
+qt5-declarative:
+qt5-declarative:

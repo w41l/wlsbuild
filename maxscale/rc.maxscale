@@ -31,7 +31,7 @@ maxscale_start() {
     # Start maxscale server
     if [ ! -r $pidfile ]; then
         echo -n "Starting MaxScale Server: "
-        /usr/sbin/maxscale -U maxscale -P /var/run/maxscale
+        ulimit -HSn 65535 && /usr/sbin/maxscale -U maxscale -P /var/run/maxscale
         if pidof maxscale >/dev/null; then
             echo "OK"
         else

@@ -24,13 +24,13 @@
 # YOUR DATA IS DESTROYED, YOUR HOUSE BURNS DOWN OR YOUR DOG RUNS OFF.
 
 PRGNAM=maxscale
-VERSION=${VERSION:-1.2.1.22}
+VERSION=${VERSION:-2.0.3}
 BUILD=${BUILD:-1}
 TAG=${TAG:-_wls}
 
 # Default is using mariadb version 5.5.43 (lastest version in slackware 14.1)
 DBUSE=${DBUSE:-mariadb}
-DBVER=${DBVER:-5.5.43}
+DBVER=${DBVER:-10.0.28}
 
 if [ -z "$ARCH" ]; then
   case "$( uname -m )" in
@@ -44,7 +44,7 @@ CWD=$(pwd)
 WRK=${WRK:-/tmp/wlsbuild}
 PKG=$WRK/package-$PRGNAM
 OUTPUT=${OUTPUT:-/tmp}
-DOCS="COPYRIGHT LICENSE README README.md VERSION"
+DOCS="COPYRIGHT LICENSE.TXT README README"
 
 if [ "$ARCH" = "i586" ]; then
   SLKCFLAGS="-O2 -pipe -march=i586 -mtune=i686"
@@ -77,9 +77,9 @@ fi
 rm -rf $PKG
 mkdir -p $WRK $PKG
 cd $WRK
-rm -rf MaxScale-blr--$VERSION
-tar xvf $CWD/MaxScale-blr-$VERSION.tar.?z*
-cd MaxScale-blr-$VERSION
+rm -rf MaxScale-*
+tar xvf $CWD/MaxScale-maxscale-$VERSION.tar.gz
+cd MaxScale-maxscale-$VERSION
 
 chown -R root:root .
 find . \
@@ -90,7 +90,7 @@ find . \
 
 mkdir -p build
 cd build
-  cmake \
+  cmake .. \
     -DCMAKE_C_FLAGS:STRING="$SLKCFLAGS" \
     -DCMAKE_C_FLAGS_RELEASE:STRING="$SLKCFLAGS" \
     -DCMAKE_CXX_FLAGS:STRING="$SLKCFLAGS" \
@@ -101,11 +101,13 @@ cd build
     -DSYSCONF_INSTALL_DIR=/etc \
     -DLIB_SUFFIX=${LIBDIRSUFFIX} \
     -DLIB_INSTALL_DIR=/usr/lib$LIBDIRSUFFIX \
-    -DEMBEDDED_LIB=/tmp/$DBUSE-$DBVER/build/libmysqld/libmysqld.a \
-    ..
+    || exit 1
 
-  make -j1 || exit 1
-  make install DESTDIR=$PKG
+    # Looks like maxscale v2 can use libmysqld.so.
+    # -DEMBEDDED_LIB=/tmp/$DBUSE-$DBVER/build/libmysqld/libmysqld.a \
+
+  make || exit 1
+  make install DESTDIR=$PKG || exit 1
 cd -
 
 mkdir -p $PKG/etc/rc.d
@@ -127,7 +129,12 @@ mv $PKG/usr/share/man $PKG/usr/
 
 # Do we need these?
 rm -rf $PKG/etc/init.d
-rm -rf $PKG/usr/lib/systemd
+rm -rf $PKG/usr/var
+if [ "$ARCH" == "x86_64" ]; then
+  rm -rf $PKG/usr/lib
+else
+  rm -rf $PKG/usr/lib/systemd
+fi
 
 find $PKG | xargs file | grep -e "executable" -e "shared object" | grep ELF \
   | cut -f 1 -d : | xargs strip --strip-unneeded 2> /dev/null || true
@@ -145,10 +152,9 @@ cat $CWD/$PRGNAM.SlackBuild > $PKG/usr/doc/$PRGNAM-$VERSION/$PRGNAM.SlackBuild
 mkdir -p $PKG/install
 cat $CWD/slack-desc > $PKG/install/slack-desc
 cat $CWD/doinst.sh | sed "s:@LIB@:lib${LIBDIRSUFFIX}:g" > $PKG/install/doinst.sh
-rm -rf $PKG/etc/ld.so.conf.d
 
 cd $PKG
 /sbin/makepkg -p -l y -c n $OUTPUT/$PRGNAM-$VERSION-$ARCH-$BUILD$TAG.txz
 
 echo "Cleaning up build directory"
-cd $WRK ; rm -rf $PKG MaxScale-blr-$VERSION
+cd $WRK ; rm -rf $PKG MaxScale-*

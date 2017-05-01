@@ -1,4 +1,10 @@
-URL=http://jonls.dk/redshift
-SRC=https://github.com/jonls/redshift/releases/download/v1.10/redshift-1.10.tar.xz
-MD5=3a5480b8dd5d28a877a0cb407619fd76
-SHA1=7b06376ad96305252b93fa2ef14af47b521c82ab
+PRGNAM="redshift"
+VERSION="1.11"
+HOMEPAGE="http://jonls.dk/redshift/"
+DOWNLOAD="https://github.com/jonls/redshift/releases/download/v1.11/redshift-1.11.tar.xz"
+MD5SUM=""
+DOWNLOAD_x86_64=""
+MD5SUM_x86_64=""
+REQUIRES="geoclue geoclue2 pyxdg python3"
+MAINTAINER="Widya Walesa"
+EMAIL="walecha99@gmail.com"

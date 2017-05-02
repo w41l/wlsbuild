@@ -25,9 +25,9 @@
 #  ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 PRGNAM=remmina
-VERSION=${VERSION:-1.2.0_rcgit.14}
+VERSION=${VERSION:-1.2.0_rcgit.18}
 BUILD=${BUILD:-1}
-TAG=${TAG:-_SBo}
+TAG=${TAG:-_wls}
 
 SRCNAM=Remmina
 TARVERSION=$(echo $VERSION | tr _ -)
@@ -84,37 +84,6 @@ sed "s|/lib/remmina|/lib$LIBDIRSUFFIX/remmina|g" -i CMakeLists.txt
 # Apply a whole lotta patches (if available)...
 [ -f $CWD/patches/*.patch ] && for i in $CWD/patches/*.patch; do patch -p1 -i $i ; done
 
-# Static libssh 0.6.4
-#LIBSSH_INSTDIR=$TMP/$SRCNAM-${TARVERSION#v}/libssh
-#tar xvf $CWD/libssh-0.6.4.tar.gz
-#cd libssh-0.6.4
-
-# Fix for the newer gcc, see https://gcc.gnu.org/gcc-5/porting_to.html
-#sed -i "s|__FUNCTION__|__func__|" include/libssh/{,pki_}priv.h src/auth.c
-
-#mkdir build
-#cd build
-#cmake \
-#        -DCMAKE_INSTALL_PREFIX=$LIBSSH_INSTDIR \
-#        -DCMAKE_C_FLAGS:STRING="$SLKCFLAGS" \
-#        -DCMAKE_CXX_FLAGS:STRING="$SLKCFLAGS" \
-#        -DLIB_SUFFIX=${LIBDIRSUFFIX} \
-#        -DWITH_GCRYPT=0 \
-#        -DWITH_SSH1=1 \
-#        -DWITH_PCAP=1 \
-#        -DWITH_SFTP=1 \
-#        -DWITH_SERVER=1 \
-#        -DWITH_STATIC_LIB=1 ..
-#make VERBOSE=1
-#make install
-#export PKG_CONFIG_PATH=$LIBSSH_INSTDIR/lib${LIBDIRSUFFIX}/pkgconfig:$PKG_CONFIG_PATH
-#echo $PKG_CONFIG_PATH
-#cd ../..
-
-# Use the static libssh libraries
-#sed -i 's/LIBSSH_LIBRARY NAMES ssh/LIBSSH_LIBRARY NAMES libssh.a ssh/' cmake/FindLIBSSH.cmake
-#sed -i 's/LIBSSH_THREADS_LIBRARY NAMES ssh/LIBSSH_THREADS_LIBRARY NAMES libssh_threads.a ssh/' cmake/FindLIBSSH.cmake
-
 # appindicator support must explicitly be disabled because it's detected in
 # but the version is not high enough.
 mkdir -p build
@@ -137,8 +106,13 @@ cd ..
 mkdir -p $PKG/usr/include/remmina
 cp -a remmina/include/remmina/*.h $PKG/usr/include/remmina
 
+mv $PKG/usr/share/man $PKG/usr/
+
 find $PKG -print0 | xargs -0 file | grep -e "executable" -e "shared object" | grep ELF \
   | cut -f 1 -d : | xargs strip --strip-unneeded 2> /dev/null || true
+
+find $PKG/usr/man -type f -exec gzip -9 {} \;
+for i in $( find $PKG/usr/man -type l ) ; do ln -s $( readlink $i ).gz $i.gz ; rm $i ; done
 
 mkdir -p $PKG/usr/doc/$PRGNAM-$VERSION
 cp -a AUTHORS ChangeLog* COPYING LICENSE* README* THANKS* $PKG/usr/doc/$PRGNAM-$VERSION
@@ -150,3 +124,6 @@ cat $CWD/doinst.sh > $PKG/install/doinst.sh
 
 cd $PKG
 /sbin/makepkg -l y -c n $OUTPUT/$PRGNAM-$VERSION-$ARCH-$BUILD$TAG.${PKGTYPE:-tgz}
+
+echo "Cleaning up build directory"
+cd $WRK ; rm -rf $PKG $SRCNAM*

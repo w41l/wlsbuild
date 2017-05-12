@@ -102,6 +102,7 @@ cd build
   make install DESTDIR=$PKG
 cd ..
 
+exit 1
 # make install forgot these
 mkdir -p $PKG/usr/include/remmina
 cp -a remmina/include/remmina/*.h $PKG/usr/include/remmina

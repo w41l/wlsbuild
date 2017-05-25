@@ -89,15 +89,8 @@ if [ ! "`md5sum wine-staging-$STAGING_VERSION.tar.gz | awk '{print $1}'`" == "$M
 fi
 
 eval `cat wine.info | grep MD5SUM_D3D9=`
-if [ -f wine-d3d9-patches-$PRGNAM-d3d9-$NINE_VERSION.tar.gz ]; then
-  if [ ! "`md5sum wine-d3d9-patches-$PRGNAM-d3d9-$NINE_VERSION.tar.gz`" == "$MD5SUM_D3D9" ]; then
-    rm -f wine-d3d9-patches-$PRGNAM-d3d9-$NINE_VERSION.tar.gz
-    unset DOWNLOAD_D3D9
-    eval `cat $PRGNAM.info | grep "DOWNLOAD_D3D9="`
-    echo "Downloading `basename $DOWNLOAD_D3D9`"
-    curl -OLJ -C - $DOWNLOAD_D3D9
-  fi
-else
+if [ ! "`md5sum wine-d3d9-patches-$PRGNAM-d3d9-$NINE_VERSION.tar.gz`" == "$MD5SUM_D3D9" ]; then
+  rm -f wine-d3d9-patches-$PRGNAM-d3d9-$NINE_VERSION.tar.gz
   unset DOWNLOAD_D3D9
   eval `cat $PRGNAM.info | grep "DOWNLOAD_D3D9="`
   echo "Downloading `basename $DOWNLOAD_D3D9`"

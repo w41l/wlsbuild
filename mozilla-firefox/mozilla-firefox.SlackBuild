@@ -24,7 +24,7 @@
 # YOUR DATA IS DESTROYED, YOUR HOUSE BURNS DOWN OR YOUR DOG RUNS OFF.
 
 PRGNAM=mozilla-firefox
-VERSION=${VERSION:-53.0}
+VERSION=${VERSION:-$(ls firefox-*.tar.bz2 | rev | cut -d . -f 3- | cut -d - -f 1 | rev)}
 BUILD=${BUILD:-1}
 TAG=${TAG:-_wls}
 

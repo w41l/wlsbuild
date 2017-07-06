@@ -74,6 +74,11 @@ fi
 # - xz
 # - zlib
 
+if [ -e $CWD/$PKGNAM.vars ]; then
+    echo "Get $PKGNAM build environment: source $CWD/$PKGNAM.vars"
+    source $CWD/$PKGNAM.vars
+fi
+
 libx264=""    ; [ "${X264:-no}" != "no" ]         && libx264="--enable-libx264"
 libcelt=""    ; [ "${CELT:-no}" != "no" ]         && libcelt="--enable-libcelt"
 libdc1394=""  ; [ "${DC1394:-no}" != "no" ]       && libdc1394="--enable-libdc1394"
@@ -99,6 +104,7 @@ libopencv=""  ; [ "${OPENCV:-no}" != "no" ]       && libopencv="--enable-libopen
 libgme=""     ; [ "${GME:-no}" != "no" ]          && libgme="--enable-libgme"
 libsnappy=""  ; [ "${SNAPPY:-no}" != "no" ]       && libsnappy="--enable-libsnappy"
 libwebp=""    ; [ "${WEBP:-no}" != "no" ]         && libwebp="--enable-libwebp"
+libmfx=""     ; [ "${MFX:-no}" != "no" ]          && libmfx="--enable-libmfx"
 libzmq=""     ; [ "${ZMQ:-no}" != "no" ]          && libzmq="--enable-libzmq"
 libbs2b=""    ; [ "${BS2B:-no}" != "no" ]         && libbs2b="--enable-libbs2b"
 libebur128="" ; [ "${EBUR128:-no}" != "no" ]      && libebur128="--enable-libebur128"
@@ -138,12 +144,7 @@ samba=""      ; [ "${SAMBA:-yes}" != "no" ]       && samba="--enable-libsmbclien
 wavpack=""    ; [ "${WAVPACK:-yes}" != "no" ]     && wavpack="--enable-libwavpack"
 
 # Enable/disable nonfree patent encumbered features:
-non_free=""        ; [ "${NONFREE:-no}" = "no" ]   && non_free="--enable-nonfree"
-
-# Get build environment from ffmpeg.vars
-if [ -r $CWD/$PKGNAM.vars ]; then
-  . $CWD/$PKGNAM.vars
-fi
+non_free=""        ; [ "${NONFREE:-no}" != "no" ]   && non_free="--enable-nonfree"
 
 rm -rf $PKG
 mkdir -p $WRK $PKG
@@ -201,6 +202,7 @@ CXXFLAGS="$SLKCFLAGS" \
   $libgsm \
   $libiec61883 \
   $libilbc \
+  $libmfx \
   $libmodplug \
   $libopenal \
   $libopencv \
@@ -234,7 +236,7 @@ CXXFLAGS="$SLKCFLAGS" \
   $tesseract \
   $wavpack || exit 1
 
-make || make || exit 1
+make || exit 1
 make install DESTDIR=$PKG || exit 1
 make install-man DESTDIR=$PKG || exit 1
 

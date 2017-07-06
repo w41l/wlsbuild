@@ -1,8 +1,8 @@
 #!/bin/sh
 
-# Slackware build script for mozilla-firefox
+# Slackware build script for latte-dock
 
-# Copyright 2016-2017  Widya Walesa <walecha99@gmail.com>
+# Copyright 2017  Widya Walesa <walecha99@gmail.com>
 # All rights reserved.
 #
 # Redistribution and use of this script, with or without modification, is
@@ -23,43 +23,46 @@
 # ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. FURTHERMORE I AM NOT LIABLE IF
 # YOUR DATA IS DESTROYED, YOUR HOUSE BURNS DOWN OR YOUR DOG RUNS OFF.
 
-PRGNAM=mozilla-firefox
-VERSION=${VERSION:-54.0}
+PRGNAM=latte-dock
+VERSION=${VERSION:-0.6.2}
 BUILD=${BUILD:-1}
 TAG=${TAG:-_wls}
 
 if [ -z "$ARCH" ]; then
   case "$( uname -m )" in
-    i?86) ARCH=i486 ;;
+    i?86) ARCH=i586 ;;
     arm*) ARCH=arm ;;
-    # Unless $ARCH is already set, use uname -m for all other archs:
        *) ARCH=$( uname -m ) ;;
   esac
+fi
+
+if [ "$ARCH" = "i586" ]; then
+  SLKCFLAGS="-O2 -pipe -march=i586 -mtune=i686"
+  LIBDIRSUFFIX=""
+elif [ "$ARCH" = "i686" ]; then
+  SLKCFLAGS="-O2 -pipe -march=i686 -mtune=i686"
+  LIBDIRSUFFIX=""
+elif [ "$ARCH" = "x86_64" ]; then
+  SLKCFLAGS="-O2 -m64 -pipe -fPIC"
+  LIBDIRSUFFIX="64"
+else
+  SLKCFLAGS="-O2"
+  LIBDIRSUFFIX=""
 fi
 
 CWD=$(pwd)
 WRK=${WRK:-/tmp/wlsbuild}
 PKG=$WRK/package-$PRGNAM
 OUTPUT=${OUTPUT:-/tmp}
-
-case "$(uname -m)" in
-  i?86) ARCH="i686" ; LIBDIRSUFFIX="" ;;
-  x86_64) ARCH="x86_64" ; LIBDIRSUFFIX="64" ;;
-  *) echo "Package for $(uname -m) architecture is not available." ; exit 1 ;;
-esac
-
-set -e
+DOCS="CHANGELOG.md INSTALLATION.md LICENSE README.md TRANSLATORS"
 
 rm -rf $PKG
 mkdir -p $WRK $PKG $OUTPUT
 cd $WRK
-mkdir -p $PKG/usr/lib${LIBDIRSUFFIX}
-cd $PKG/usr/lib${LIBDIRSUFFIX}
+rm -rf Latte-Dock-$VERSION
+tar xvf $CWD/Latte-Dock-$VERSION.tar.?z*
 
-rm -rf firefox
-tar xvf $CWD/firefox-${VERSION}.tar.bz2
-mv firefox firefox-${VERSION}
-ln -s firefox-${VERSION} firefox
+cd Latte-Dock-$VERSION
 
 chown -R root:root .
 find . \
@@ -68,37 +71,48 @@ find . \
  \( -perm 666 -o -perm 664 -o -perm 600 -o -perm 444 -o -perm 440 -o -perm 400 \) \
  -exec chmod 644 {} \;
 
-cd $PKG
+KDE_OPT_ARGS=" -Wno-dev -DBUILD_TESTING=OFF -DKDE4_BUILD_TESTS=OFF -DSITE=\"slackware.com\" -DKDE_DISTRIBUTION_TEXT=\"volkerdi@slackware.com\" "
 
-mkdir -p usr/lib${LIBDIRSUFFIX}/mozilla/plugins
-ln -sf /usr/lib${LIBDIRSUFFIX}/mozilla/plugins \
-    usr/lib${LIBDIRSUFFIX}/firefox-${VERSION}/browser/plugins
+mkdir build
+cd build
+  cmake \
+    $KDE_OPT_ARGS \
+    -DKDE_PLATFORM_FEATURE_DISABLE_DEPRECATED=TRUE \
+    -DCMAKE_C_FLAGS:STRING="$SLKCFLAGS" \
+    -DCMAKE_C_FLAGS_RELEASE:STRING="$SLKCFLAGS" \
+    -DCMAKE_CXX_FLAGS:STRING="$SLKCFLAGS" \
+    -DCMAKE_CXX_FLAGS_RELEASE:STRING="$SLKCFLAGS" \
+    -DCMAKE_BUILD_TYPE=Release \
+    -DCMAKE_INSTALL_PREFIX=/usr \
+    -DMAN_INSTALL_DIR=/usr/man \
+    -DSYSCONF_INSTALL_DIR=/etc/kde \
+    -DLIB_INSTALL_DIR=lib$LIBDIRSUFFIX \
+    -DLIB_SUFFIX=${LIBDIRSUFFIX} \
+    -DLIBEXEC_INSTALL_DIR=lib$LIBDIRSUFFIX \
+    -DQT_PLUGIN_INSTALL_DIR=lib$LIBDIRSUFFIX/qt5/plugins \
+    -DQML_INSTALL_DIR=lib$LIBDIRSUFFIX/qt5/qml \
+    -DKDE_INSTALL_USE_QT_SYS_PATHS=ON \
+    -DBUILD_TESTING=OFF \
+    -DHAVE_SHADOW=TRUE \
+    -DQca-qt5_DIR=/usr/lib${LIBDIRSUFFIX}/cmake/Qca \
+    .. || exit 1
 
-mkdir -p usr/bin
-ln -sf /usr/lib${LIBDIRSUFFIX}/firefox/firefox usr/bin/firefox
+make || exit 1
+make DESTDIR=$PKG install || exit 1
+cd ..
 
-for i in 16 22 256 32 48; do
-    mkdir -p usr/share/icons/hicolor/${i}x${i}/apps;
-    install -o root -g root $CWD/icons/firefox-${i}.png \
-        usr/share/icons/hicolor/${i}x${i}/apps/firefox.png;
-done
-
-mkdir -p usr/share/pixmaps
-ln -sf /usr/share/icons/hicolor/256x256/apps/firefox.png \
-    usr/share/pixmaps/firefox.png
-
-mkdir -p usr/share/applications
-cat $CWD/$PRGNAM.desktop > usr/share/applications/$PRGNAM.desktop
+find $PKG | xargs file | grep -e "executable" -e "shared object" | grep ELF \
+  | cut -f 1 -d : | xargs strip --strip-unneeded 2> /dev/null || true
 
 mkdir -p $PKG/usr/doc/$PRGNAM-$VERSION
+cp -a $DOCS $PKG/usr/doc/$PRGNAM-$VERSION
 cat $CWD/$PRGNAM.SlackBuild > $PKG/usr/doc/$PRGNAM-$VERSION/$PRGNAM.SlackBuild
 
 mkdir -p $PKG/install
 cat $CWD/slack-desc > $PKG/install/slack-desc
-cat $CWD/doinst.sh > $PKG/install/doinst.sh
 
 cd $PKG
 /sbin/makepkg -p -l y -c n $OUTPUT/$PRGNAM-$VERSION-$ARCH-$BUILD$TAG.txz
 
 echo "Cleaning up build directory"
-cd $WRK; rm -rf $PKG
+cd $WRK; rm -rf Latte-Dock-$VERSION $PKG

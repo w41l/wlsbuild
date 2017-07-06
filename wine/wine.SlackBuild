@@ -24,7 +24,7 @@
 # YOUR DATA IS DESTROYED, YOUR HOUSE BURNS DOWN OR YOUR DOG RUNS OFF.
 
 PRGNAM=wine
-VERSION=${VERSION:-2.7}
+VERSION=${VERSION:-2.10}
 SRCVERSION=${SRCVERSION:-$VERSION}
 STAGING_VERSION=${STAGING_VERSION:-$SRCVERSION}
 BUILD=${BUILD:-1}
@@ -70,8 +70,7 @@ fi
 
 set -e
 
-eval `cat wine.info | grep MD5SUM_WINE=`
-if [ ! "`md5sum wine-$SRCVERSION.tar.xz | awk '{print $1}'`" == "$MD5SUM_WINE" ]; then
+if [ ! -f wine-$SRCVERSION.tar.xz ]; then
   rm -f wine-$SRCVERSION.tar.xz
   unset DOWNLOAD_WINE
   eval `cat $PRGNAM.info | grep "DOWNLOAD_WINE="`
@@ -79,8 +78,7 @@ if [ ! "`md5sum wine-$SRCVERSION.tar.xz | awk '{print $1}'`" == "$MD5SUM_WINE" ]
   curl -OLJ -C - $DOWNLOAD_WINE
 fi
 
-eval `cat wine.info | grep MD5SUM_STAGING=`
-if [ ! "`md5sum wine-staging-$STAGING_VERSION.tar.gz | awk '{print $1}'`" == "$MD5SUM_STAGING" ]; then
+if [ ! -f wine-staging-$STAGING_VERSION.tar.gz ]; then
   rm -f wine-staging-$STAGING_VERSION.tar.gz
   unset DOWNLOAD_STAGING
   eval `cat $PRGNAM.info | grep "DOWNLOAD_STAGING="`
@@ -88,8 +86,7 @@ if [ ! "`md5sum wine-staging-$STAGING_VERSION.tar.gz | awk '{print $1}'`" == "$M
   curl -OLJ -C - $DOWNLOAD_STAGING
 fi
 
-eval `cat wine.info | grep MD5SUM_D3D9=`
-if [ ! "`md5sum wine-d3d9-patches-$PRGNAM-d3d9-$NINE_VERSION.tar.gz`" == "$MD5SUM_D3D9" ]; then
+if [ ! -f wine-d3d9-patches-$PRGNAM-d3d9-$NINE_VERSION.tar.gz ]; then
   rm -f wine-d3d9-patches-$PRGNAM-d3d9-$NINE_VERSION.tar.gz
   unset DOWNLOAD_D3D9
   eval `cat $PRGNAM.info | grep "DOWNLOAD_D3D9="`

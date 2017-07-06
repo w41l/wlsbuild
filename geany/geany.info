@@ -1,4 +1,10 @@
-URL=http://www.geany.org/
-SRC=http://download.geany.org/geany-1.25.tar.bz2
-MD5=888bd82d62759ac47a4a398fb27c8471
-SHA1=1979cfee8058fa0a258d1c57f45481a1fa9280b8
+PRGNAM="geany"
+VERSION="1.30.1"
+HOMEPAGE="https://www.geany.org/"
+DOWNLOAD="http://download.geany.org/geany-1.30.1.tar.bz2"
+MD5SUM="75081b600560c5c8366eda0e1b8cc531"
+DOWNLOAD_x86_64=""
+MD5SUM_x86_64=""
+REQUIRES=""
+MAINTAINER="Widya Walesa"
+EMAIL="walecha_99_[at]_gmail_[dot]_com"

@@ -1,0 +1,19 @@
+# HOW TO EDIT THIS FILE:
+# The "handy ruler" below makes it easier to edit a package description.  Line
+# up the first '|' above the ':' following the base package name, and the '|'
+# on the right side marks the last column you can put a character in.  You must
+# make exactly 11 lines for the formatting to be correct.  It's also
+# customary to leave one space after the ':'.
+
+             |-----handy-ruler----------------------------------------------------|
+geany-plugins: geany-plugins (Plugins For Geany IDE)
+geany-plugins:
+geany-plugins: Geany-Plugins is a collection of different plugins for Geany,
+geany-plugins: a lightweight IDE. It provides a common location for plugin authors
+geany-plugins: and users with a known infrastructure and support.
+geany-plugins:
+geany-plugins:
+geany-plugins: URL: http://plugins.geany.org/
+geany-plugins:
+geany-plugins:
+geany-plugins: Packaged by: Widya Walesa <walecha99@gmail.com>

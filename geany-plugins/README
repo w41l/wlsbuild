@@ -1,0 +1,5 @@
+For complete plugins build, these *MUST* be installed:
+
+ctpl check cppcheck docutils libgit2 lua webkitgtk3 vala
+
+Some of those package can be installed from SlackBuilds.org

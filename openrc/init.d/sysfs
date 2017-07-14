@@ -65,7 +65,7 @@ mount_misc()
 	if [ -d /sys/fs/cgroup ] && ! mountinfo -q /sys/fs/cgroup; then
 		if grep -qs cgroup /proc/filesystems; then
 			ebegin "Mounting cgroup filesystem"
-			local opts="${sysfs_opts},mode=755,size=${rc_cgroupsize:-10m}"
+			local opts="${sysfs_opts},mode=755,size=${rc_cgroupsize:-8m}"
 			mount -n -t tmpfs -o ${opts} cgroup_root /sys/fs/cgroup
 			eend $?
 		fi
@@ -78,15 +78,6 @@ mount_misc()
 			ebegin "Mounting fuse control filesystem"
 			mount -n -t fusectl -o ${sysfs_opts} \
 				fusectl /sys/fs/fuse/connections
-			eend $?
-		fi
-	fi
-
-	# Setup Kernel Support for SELinux
-	if [ -d /sys/fs/selinux ] && ! mountinfo -q /sys/fs/selinux; then
-		if grep -qs selinuxfs /proc/filesystems; then
-			ebegin "Mounting SELinux filesystem"
-			mount -t selinuxfs selinuxfs /sys/fs/selinux
 			eend $?
 		fi
 	fi
@@ -131,21 +122,10 @@ mount_cgroups()
 	done < /proc/cgroups
 }
 
-restorecon_sys()
-{
-	if [ -x /sbin/restorecon ]; then
-		ebegin "Restoring SELinux contexts in /sys"
-		restorecon -F /sys/devices/system/cpu/online >/dev/null 2>&1
-		restorecon -rF /sys/fs/cgroup >/dev/null 2>&1
-		eend $?
-	fi
-}
-
 start()
 {
 	mount_sys
 	mount_misc
 	mount_cgroups
-	restorecon_sys
 	return 0
 }

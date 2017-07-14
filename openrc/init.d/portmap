@@ -7,6 +7,7 @@ depend() {
 	use net
 	before inetd
 	before xinetd
+	provide portmap
 }
 
 checkconfig() {
@@ -23,8 +24,8 @@ checkconfig() {
 start() {
 	checkconfig || return 1
 
-	ebegin "Starting portmap"
-	start-stop-daemon --start --quiet --exec /sbin/rpc.portmap -- ${PORTMAP_OPTS}
+	ebegin "Starting rpcbind"
+	start-stop-daemon --start --quiet --exec /sbin/rpcbind -- ${RPCBIND_OPTS}
 	local ret=$?
 	eend ${ret}
 	# without, if a service depending on portmap is started too fast,
@@ -34,8 +35,8 @@ start() {
 }
 
 stop() {
-	ebegin "Stopping portmap"
-	start-stop-daemon --stop --quiet --exec /sbin/rpc.portmap
+	ebegin "Stopping rpcbind"
+	start-stop-daemon --stop --quiet --exec /sbin/rpcbind
 	eend $?
 }
 

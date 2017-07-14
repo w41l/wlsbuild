@@ -6,6 +6,7 @@ description="Setting up CPU Frequency Governor"
 
 depend() {
 	use modules
+	keyword -openvz -prefix -vserver -lxc
 }
 
 start() {

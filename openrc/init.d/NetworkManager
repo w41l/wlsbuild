@@ -20,8 +20,7 @@ start() {
 	[ -z "${INACTIVE_TIMEOUT}" ] && INACTIVE_TIMEOUT="1"
 
 	ebegin "Starting NetworkManager"
-	start-stop-daemon --start --quiet --pidfile /run/NetworkManager/NetworkManager.pid \
-		--exec /usr/sbin/NetworkManager -- --pid-file /run/NetworkManager/NetworkManager.pid
+	start-stop-daemon --start --quiet --exec /usr/sbin/NetworkManager --
 	local _retval=$?
 	eend "${_retval}"
 	if [ "x${_retval}" = 'x0' ] && ! nm-online -t "${INACTIVE_TIMEOUT}"; then
@@ -41,7 +40,7 @@ stop() {
 	fi
 
 	ebegin "Stopping NetworkManager"
-	local pidfile=/run/NetworkManager/NetworkManager.pid
+	local pidfile=/var/run/NetworkManager/NetworkManager.pid
 	if [ ! -e "${pidfile}" ] && [ -e /var/run/NetworkManager.pid ]; then 
 		# Try stopping the pid file used by <0.9.7
 		pidfile=/var/run/NetworkManager.pid

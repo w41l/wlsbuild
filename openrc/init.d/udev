@@ -17,11 +17,11 @@ depend()
 	# we depend on udev-mount explicitly, not dev-mount generic as we don't
 	# want mdev as a dev-mount provider to come in.
 	provide dev
-	need sysfs udev-mount
+	need sysfs
 	before checkfs fsck
 
 	# udev does not work inside vservers
-	keyword -vserver -lxc
+	keyword -openvz -prefix -vserver -lxc
 }
 
 #PATH="/sbin:/bin"
@@ -31,41 +31,12 @@ depend()
 # remove trailing slash from udev_root
 UDEV_ROOT=$(echo "${udev_root}" |sed 's/\/*$//')
 
-check_mounted() {
-  grep -E -q "^[^[:space:]]+ $1 $2" /proc/mounts
-  return $?	
-}
-
-mount_devpts() {
-  if ! check_mounted $UDEV_ROOT/pts devpts ; then
-    mkdir $UDEV_ROOT/pts 2> /dev/null
-    mount -n -o mode=0620,gid=5 -t devpts devpts $UDEV_ROOT/pts
-  fi
-}
-
 start() {
-    # Sanity check #1, udev requires that the kernel support devtmpfs:
-    if ! grep -wq devtmpfs /proc/filesystems ; then
-	exit 1
-    fi
-
-    # Sanity check #2, udev requires that the kernel support tmpfs:
-    if ! grep -wq tmpfs /proc/filesystems ; then
-	exit 1
-    fi
-
-    # Sanity check #3, make sure that a 2.6.x kernel is new enough:
-    if [ "$(uname -r | cut -f 1,2 -d .)" = "2.6" ]; then
-	if [ "$(uname -r | cut -f 3 -d . | sed 's/[^[:digit:]].*//')" -lt "32" ]; then
-	    exit 1
-	fi
-    fi
-
     # Sanity check #4, make sure the udev package was not removed.  If udevd
     # is not there, this will also shut off this script to prevent further
     # problems:
     if [ ! -x /sbin/udevd ]; then
-	exit 1
+	return 1
     fi
 
     # Disable hotplug helper since udevd listens to netlink:
@@ -74,6 +45,22 @@ start() {
     fi
 
     if ! /sbin/pidof udevd 1>/dev/null 2>/dev/null; then # start udevd
+        kmod static-nodes -f tmpfiles --output /run/static-nodes
+        grep "^d\ " /run/static-nodes | while read line ; do
+            mkdir -p -m $(echo $line | cut -f 3 -d ' ') $(echo $line | cut -f 2 -d ' ')
+        done
+        grep -v "^d\ " /run/static-nodes | while read line ; do
+            mknod -m $(echo $line | cut -f 3 -d ' ') \
+            $(echo $line | cut -f 2 -d ' ') \
+            $(echo $line | cut -b1 ) \
+            $(echo $line | cut -f 7 -d ' ' | cut -f 1 -d :) \
+            $(echo $line | cut -f 7 -d ' ' | cut -f 2 -d :) 2> /dev/null
+        done
+        rm -f /run/static-nodes
+        # Add any system defined additional device nodes:
+        cp --preserve=all --recursive --update /lib/udev/devices/* /dev 2> /dev/null
+        # Add any locally defined additional device nodes:
+        cp --preserve=all --recursive --update /etc/udev/devices/* /dev 2> /dev/null
 	/sbin/udevd --daemon
 	# Since udev is just now being started we want to use add events:
 	# Call udevtrigger and udevsettle to do the device configuration:

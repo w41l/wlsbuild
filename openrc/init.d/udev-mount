@@ -12,19 +12,49 @@ depend()
 
 mount_dev_directory()
 {
-	local mounted=false fstab=false action=--mount msg=Mounting rc=0
+    local mounted=false fstab=false action=--mount msg=Mounting rc=0
 
-	if ! grep -qs devtmpfs /proc/filesystems; then
-		eerror "CONFIG_DEVTMPFS=y is required in your kernel configuration"
-		eerror "for this version of udev to run successfully."
-		eerror "This requires immediate attention."
-		if ! mountinfo -q /dev; then
-			mount -n -t tmpfs dev /dev
-			busybox mdev -s
-			mkdir /dev/pts
-		fi
-		return 1
+    # Sanity check #1, udev requires that the kernel support devtmpfs:
+    if ! grep -wq devtmpfs /proc/filesystems ; then
+        eerror "CONFIG_DEVTMPFS=y is required in your kernel configuration"
+        eerror "for this version of udev to run successfully."
+        eerror "This requires immediate attention."
+        return 1
+    fi
+
+    # Sanity check #2, udev requires that the kernel support tmpfs:
+    if ! grep -wq tmpfs /proc/filesystems ; then
+	return 1
+    fi
+
+    # Sanity check #3, make sure that a 2.6.x kernel is new enough:
+    if [ "$(uname -r | cut -f 1,2 -d .)" = "2.6" ]; then
+	if [ "$(uname -r | cut -f 3 -d . | sed 's/[^[:digit:]].*//')" -lt "32" ]; then
+	    return 1
 	fi
+    fi
+
+    if grep -qw devtmpfs /proc/filesystems; then
+        # Mount devtmpfs on /dev
+        if mountinfo -q /dev/shm; then
+            umount -l /dev/shm
+        fi
+        if mountinfo -q /dev/pts; then
+            umount -l /dev/pts
+        fi
+        mount -n -t devtmpfs -o size=8M devtmpfs /dev
+        mkdir -p /dev/pts
+    else
+        # Mount tmpfs on /dev
+        if mountinfo -q /dev/shm; then
+            umount -l /dev/shm
+        fi
+        if mountinfo -q /dev/pts; then
+            umount -l /dev/pts
+        fi
+        mount -n -t tmpfs -o size=8M tmpfs /dev
+        mkdir -p /dev/pts
+    fi
 
 	# Is /dev already a mounted devtmpfs?
 	mountinfo -q -f devtmpfs /dev && mounted=true
@@ -41,7 +71,7 @@ mount_dev_directory()
 	elif ! $mounted; then
 		ebegin "Mounting /dev"
 		# Some devices require exec, Bug #92921
-		mount -n -t devtmpfs -o "exec,nosuid,mode=0755,size=10M" udev /dev
+		mount -n -t devtmpfs -o "exec,nosuid,mode=0755,size=8M" udev /dev
 		rc=$?
 	else
 		ebegin "Using /dev mounted from kernel"
@@ -69,13 +99,17 @@ seed_dev()
 
 	# Create problematic directories
 	mkdir -p /dev/pts /dev/shm
+	
+	# Mount /dev/pts and /dev/shm
+	mount -n -o mode=0620,gid=5 -t devpts devpts /dev/pts
+	mount /dev/shm
+	
 	return 0
 }
 
 start()
 {
 	mount_dev_directory || return 1
-
 	seed_dev
 	return 0
 }

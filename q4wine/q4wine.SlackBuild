@@ -1,8 +1,8 @@
 #!/bin/sh
 
-# Slackware build script for openrc
+# Slackware build script for q4wine
 
-# Copyright 2015-2017  Widya Walesa <walecha99@gmail.com>
+# Copyright 2017  Widya Walesa <walecha99@gmail.com>
 # All rights reserved.
 #
 # Redistribution and use of this script, with or without modification, is
@@ -23,31 +23,20 @@
 # ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. FURTHERMORE I AM NOT LIABLE IF
 # YOUR DATA IS DESTROYED, YOUR HOUSE BURNS DOWN OR YOUR DOG RUNS OFF.
 
-PRGNAM=openrc
-VERSION=${VERSION:-0.28}
+PRGNAM=q4wine
+VERSION=${VERSION:-1.3.5}
 BUILD=${BUILD:-1}
 TAG=${TAG:-_wls}
-NUMJOBS=${NUMJOBS:--j7}
 
 if [ -z "$ARCH" ]; then
   case "$( uname -m )" in
-    i?86) ARCH=i486 ;;
+    i?86) ARCH=i586 ;;
     arm*) ARCH=arm ;;
        *) ARCH=$( uname -m ) ;;
   esac
 fi
 
-CWD=$(pwd)
-WRK=${WRK:-/tmp/wlsbuild}
-PKG=$WRK/package-$PRGNAM
-OUTPUT=${OUTPUT:-/tmp}
-DOCS="*.md AUTHORS ChangeLog LICENSE README.newnet TODO"
-LIBEXECDIR="/lib/rc"
-
-if [ "$ARCH" = "i486" ]; then
-  SLKCFLAGS="-O2 -pipe -march=i486 -mtune=i686"
-  LIBDIRSUFFIX=""
-elif [ "$ARCH" = "i586" ]; then
+if [ "$ARCH" = "i586" ]; then
   SLKCFLAGS="-O2 -pipe -march=i586 -mtune=i686"
   LIBDIRSUFFIX=""
 elif [ "$ARCH" = "i686" ]; then
@@ -61,18 +50,20 @@ else
   LIBDIRSUFFIX=""
 fi
 
-set -e
-
-if [ ! -f $CWD/$PRGNAM-$VERSION.tar.* ]; then
-  curl -#OLJ -C - $(cat $PRGNAM.info | grep "DOWNLOAD=" | cut -d = -f 2 | sed 's/"//g')
-fi
+CWD=$(pwd)
+WRK=${WRK:-/tmp/wlsbuild}
+PKG=$WRK/package-$PRGNAM
+OUTPUT=${OUTPUT:-/tmp}
+DOCS="AUTHORS COPYING README ChangeLog"
 
 rm -rf $PKG
 mkdir -p $WRK $PKG $OUTPUT
 cd $WRK
 rm -rf $PRGNAM-$VERSION
 tar xvf $CWD/$PRGNAM-$VERSION.tar.?z*
+
 cd $PRGNAM-$VERSION
+
 chown -R root:root .
 find . \
  \( -perm 777 -o -perm 775 -o -perm 711 -o -perm 555 -o -perm 511 \) \
@@ -80,76 +71,38 @@ find . \
  \( -perm 666 -o -perm 664 -o -perm 600 -o -perm 444 -o -perm 440 -o -perm 400 \) \
  -exec chmod 644 {} \;
 
-sed -i 's:procfs.in sysfs.in:procfs.in rpcbind.in sysfs.in:g' init.d/Makefile
-sed -i 's:sysfs.in termencoding.in:sysfs.in syslogd.in termencoding.in:g' init.d/Makefile
-CFLAGS="$SLKCFLAGS" \
-CXXFLAGS="$SLKCFLAGS" \
-BRANDING='WLSBUILD' \
-LIBNAME=lib${LIBDIRSUFFIX} \
-LIBEXECDIR=${LIBEXECDIR} \
-DESTDIR=${PKG} \
-MKSELINUX=no \
-MKTERMCAP=ncurses \
-PKG_PREFIX="" \
-SYSCONFDIR=/etc/openrc \
-make install
+KDE_OPT_ARGS=" -Wno-dev -DBUILD_TESTING=OFF -DKDE4_BUILD_TESTS=OFF -DSITE=\"slackware.com\" -DKDE_DISTRIBUTION_TEXT=\"volkerdi@slackware.com\" "
 
+mkdir build
+cd build
+  cmake \
+    $KDE_OPT_ARGS \
+    -DKDE_PLATFORM_FEATURE_DISABLE_DEPRECATED=TRUE \
+    -DCMAKE_C_FLAGS:STRING="$SLKCFLAGS" \
+    -DCMAKE_C_FLAGS_RELEASE:STRING="$SLKCFLAGS" \
+    -DCMAKE_CXX_FLAGS:STRING="$SLKCFLAGS" \
+    -DCMAKE_CXX_FLAGS_RELEASE:STRING="$SLKCFLAGS" \
+    -DCMAKE_BUILD_TYPE=Release \
+    -DCMAKE_INSTALL_PREFIX=/usr \
+    -DMAN_INSTALL_DIR=/usr/man \
+    -DSYSCONF_INSTALL_DIR=/etc/kde \
+    -DLIB_INSTALL_DIR=lib$LIBDIRSUFFIX \
+    -DLIB_SUFFIX=${LIBDIRSUFFIX} \
+    -DLIBEXEC_INSTALL_DIR=lib$LIBDIRSUFFIX \
+    -DQT_PLUGIN_INSTALL_DIR=lib$LIBDIRSUFFIX/qt5/plugins \
+    -DQML_INSTALL_DIR=lib$LIBDIRSUFFIX/qt5/qml \
+    -DKDE_INSTALL_USE_QT_SYS_PATHS=ON \
+    -DBUILD_TESTING=OFF \
+    -DHAVE_SHADOW=TRUE \
+    -DQca-qt5_DIR=/usr/lib${LIBDIRSUFFIX}/cmake/Qca \
+    .. || exit 1
+
+make || exit 1
+make DESTDIR=$PKG install || exit 1
 cd ..
 
-# Use init portmap as rpcbind
-# ( cd $PKG/etc/openrc/init.d; rm -f rpcbind; ln -snf portmap rpcbind; )
-
-# Add additional init script or replacement (created/modified) by me
-# mostly from Gentoo, ArchLinux, and SystemRescueCD. :-)
-cp -a $CWD/init.d/* $PKG/etc/openrc/init.d/
-
-# Add default Slackware conf.d
-cp $CWD/conf.d/* $PKG/etc/openrc/conf.d/
-
-# Add initial inittab
-cp -a $CWD/inittab $PKG/etc/openrc/inittab.new
-
-# Preserve old configuration
-mv $PKG/etc/openrc/rc.conf $PKG/etc/openrc/rc.conf.new
-
-for i in `find $PKG/etc/openrc/conf.d/* -type f`; do
-  mv $i ${i}.new
-  chmod 644 ${i}.new
-done
-
-for i in `find $PKG/etc/openrc/init.d/* -type f`; do
-  mv $i ${i}.new
-  chmod 755 ${i}.new
-done
-
-# Use LIBEXECDIR from above
-sed -i "s|@LIBEXECDIR@|${LIBEXECDIR}|g" $PKG/etc/openrc/init.d/*.new
-
-# fix permission
-chown -R root:root $PKG/etc/
-chmod +x $PKG/${LIBEXECDIR}/sh/*
-
-# fix man directory
 mv $PKG/usr/share/man $PKG/usr/
 
-# Add openrc cache directory. Somehow installer and init script did not
-# create it.
-mkdir -p $PKG/${LIBEXECDIR}/cache
-
-# Use slackware's init order
-rm -f $PKG/etc/openrc/runlevels/sysinit/*
-rm -f $PKG/etc/openrc/runlevels/boot/*
-rm -f $PKG/etc/openrc/runlevels/default/*
-. $CWD/slackware-init-order
-
-cd $WRK/$PRGNAM-$VERSION
-
-# Add README.TXT
-cat $CWD/README.TXT > $PKG/etc/openrc/README.TXT
-
-# Move symlink /bin/rc-status to doinst.sh
-rm -f $PKG/bin/rc-status
-rmdir $PKG/bin
 find $PKG | xargs file | grep -e "executable" -e "shared object" | grep ELF \
   | cut -f 1 -d : | xargs strip --strip-unneeded 2> /dev/null || true
 
@@ -159,13 +112,10 @@ for i in $( find $PKG/usr/man -type l ) ; do ln -s $( readlink $i ).gz $i.gz ; r
 mkdir -p $PKG/usr/doc/$PRGNAM-$VERSION
 cp -a $DOCS $PKG/usr/doc/$PRGNAM-$VERSION
 cat $CWD/$PRGNAM.SlackBuild > $PKG/usr/doc/$PRGNAM-$VERSION/$PRGNAM.SlackBuild
-cp -r support/* $PKG/usr/doc/$PRGNAM-$VERSION
 
 mkdir -p $PKG/install
 cat $CWD/slack-desc > $PKG/install/slack-desc
 cat $CWD/doinst.sh > $PKG/install/doinst.sh
-echo "( rm -rf /bin/rc-status ; ln -s /sbin/openrc /bin/rc-status )" \
- >> $PKG/install/doinst.sh
 
 cd $PKG
 /sbin/makepkg -p -l y -c n $OUTPUT/$PRGNAM-$VERSION-$ARCH-$BUILD$TAG.txz

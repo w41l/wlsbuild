@@ -1,0 +1,44 @@
+#!/sbin/openrc-run
+
+command=/usr/libexec/elogind/elogind
+pidfile=/var/run/elogind/elogind.pid
+command_args=$elogind_args
+
+depend()
+{
+    provide logind
+    use logger
+    after bootmisc
+}
+
+start_pre() {
+    # The systemd/elogind state directory:
+    if [ ! -d /run/elogind ]; then
+        mkdir -p /run/elogind
+        chmod 0755 /run/elogind
+        ( cd /run; ln -s elogind systemd; )
+    fi
+
+    # Toplevel directory for runtime user session data:
+    if [ ! -d /run/user ]; then
+        mkdir -p /run/user
+        chmod 0755 /run/user
+        fi
+
+    # Elogind uses cgroups to organize processes like mapping PIDs to sessions.
+    #  Elogind's cgroup hierarchy isn't associated with any resource controller
+    # ("subsystem") so we must create it manually:
+    if [ ! -d /sys/fs/cgroup/elogind ]; then
+        mkdir -p /sys/fs/cgroup/elogind
+        ( cd /sys/fs/cgroup; ln -s elogind systemd; )
+        sleep 1
+    fi
+
+    if ! df /sys/fs/cgroup/elogind | grep -q elogind >/dev/null; then
+        mount -t cgroup -o none,name=elogind elogind /sys/fs/cgroup/elogind
+    fi
+}
+
+start_post(){
+    /sbin/pidof elogind >/var/run/elogind/elogind.pid
+}

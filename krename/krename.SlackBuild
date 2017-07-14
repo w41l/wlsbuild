@@ -2,7 +2,7 @@
 
 # Slackware build script for krename
 
-# Copyright 2010  Widya Walesa <walecha99@gmail.com>
+# Copyright 2010-2017  Widya Walesa <walecha99@gmail.com>
 # All rights reserved.
 #
 # Redistribution and use of this script, with or without modification, is
@@ -24,10 +24,9 @@
 # YOUR DATA IS DESTROYED, YOUR HOUSE BURNS DOWN OR YOUR DOG RUNS OFF.
 
 PRGNAM=krename
-VERSION=${VERSION:-4.0.5}
+VERSION=${VERSION:-20170701.dcf241f}
 BUILD=${BUILD:-1}
 TAG=${TAG:-_wls}
-NUMJOBS=${NUMJOBS:--j4}
 
 if [ -z "$ARCH" ]; then
   case "$( uname -m )" in
@@ -38,8 +37,8 @@ if [ -z "$ARCH" ]; then
 fi
 
 CWD=$(pwd)
-TMP=${TMP:-/tmp/wls}
-PKG=$TMP/package-$PRGNAM
+WRK=${WRK:-/tmp/wlsbuild}
+PKG=$WRK/package-$PRGNAM
 OUTPUT=${OUTPUT:-/tmp}
 DOCS="AUTHORS COPYING INSTALL README TODO"
 
@@ -60,10 +59,10 @@ fi
 set -e
 
 rm -rf $PKG
-mkdir -p $TMP $PKG $OUTPUT
-cd $TMP
+mkdir -p $WRK $PKG $OUTPUT
+cd $WRK
 rm -rf $PRGNAM-$VERSION
-tar xvf $CWD/$PRGNAM-$VERSION.tar.bz2
+tar xvf $CWD/$PRGNAM-$VERSION.tar.xz
 cd $PRGNAM-$VERSION
 chown -R root:root .
 find . \
@@ -72,20 +71,32 @@ find . \
  \( -perm 666 -o -perm 664 -o -perm 600 -o -perm 444 -o -perm 440 -o -perm 400 \) \
  -exec chmod 644 {} \;
 
-mkdir -p build
+mkdir build
 cd build
-cmake \
-  -DCMAKE_C_FLAGS:STRING="$SLKCFLAGS" \
-  -DCMAKE_CXX_FLAGS:STRING="$SLKCFLAGS" \
-  -DCMAKE_BUILD_TYPE=release \
-  -DCMAKE_INSTALL_PREFIX=/usr \
-  -DMAN_INSTALL_DIR=/usr/man \
-  -DSYSCONF_INSTALL_DIR=/etc/kde \
-  -DLIB_SUFFIX=$LIBDIRSUFFIX \
-  ..
+  cmake \
+    $KDE_OPT_ARGS \
+    -DKDE_PLATFORM_FEATURE_DISABLE_DEPRECATED=TRUE \
+    -DCMAKE_C_FLAGS:STRING="$SLKCFLAGS" \
+    -DCMAKE_C_FLAGS_RELEASE:STRING="$SLKCFLAGS" \
+    -DCMAKE_CXX_FLAGS:STRING="$SLKCFLAGS" \
+    -DCMAKE_CXX_FLAGS_RELEASE:STRING="$SLKCFLAGS" \
+    -DCMAKE_BUILD_TYPE=Release \
+    -DCMAKE_INSTALL_PREFIX=/usr \
+    -DMAN_INSTALL_DIR=/usr/man \
+    -DSYSCONF_INSTALL_DIR=/etc/kde \
+    -DLIB_INSTALL_DIR=lib$LIBDIRSUFFIX \
+    -DLIB_SUFFIX=${LIBDIRSUFFIX} \
+    -DLIBEXEC_INSTALL_DIR=lib$LIBDIRSUFFIX \
+    -DQT_PLUGIN_INSTALL_DIR=lib$LIBDIRSUFFIX/qt5/plugins \
+    -DQML_INSTALL_DIR=lib$LIBDIRSUFFIX/qt5/qml \
+    -DKDE_INSTALL_USE_QT_SYS_PATHS=ON \
+    -DBUILD_TESTING=OFF \
+    -DHAVE_SHADOW=TRUE \
+    -DQca-qt5_DIR=/usr/lib${LIBDIRSUFFIX}/cmake/Qca \
+    .. || exit 1
 
-make ${NUMJOBS}
-make DESTDIR=$PKG install
+make || exit 1
+make DESTDIR=$PKG install || exit 1
 cd -
 
 find $PKG | xargs file | grep -e "executable" -e "shared object" | grep ELF \
@@ -103,4 +114,4 @@ cd $PKG
 /sbin/makepkg -l y -c n $OUTPUT/$PRGNAM-$VERSION-$ARCH-$BUILD$TAG.txz
 
 echo "Cleaning up build directory"
-rm -rf $TMP/$PRGNAM-$VERSION $PKG
+cd $WRK; rm -rf $PRGNAM-$VERSION $PKG

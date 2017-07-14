@@ -8,12 +8,12 @@ name="ACPI Daemon"
 
 depend()
 {
-	after bootmisc
-	use logger
-	keyword -openvz -prefix -vserver -lxc
+    after bootmisc
+    use logger
+    keyword -openvz -prefix -vserver -lxc
 }
 
 start_post()
 {
-	/bin/setterm -blank 15 -powersave powerdown -powerdown 60
+    /bin/setterm -blank 15 -powersave powerdown -powerdown 60
 }

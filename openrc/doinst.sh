@@ -43,7 +43,7 @@ config etc/openrc/conf.d/samba4.new
 config etc/openrc/conf.d/sendmail.new
 config etc/openrc/conf.d/sshd.new
 config etc/openrc/conf.d/staticroute.new
-config etc/openrc/conf.d/tmpfiles.new
+#config etc/openrc/conf.d/tmpfiles.new
 config etc/openrc/conf.d/urandom.new
 
 config etc/openrc/init.d/acct.new
@@ -144,7 +144,7 @@ config etc/openrc/init.d/urandom.new
 config etc/openrc/init.d/virtlockd.new
 config etc/openrc/init.d/vsftpd.new
 config etc/openrc/init.d/vsftpd-checkconfig.sh.new
-config etc/openrc/init.d/wpa_supplicant.new
+# config etc/openrc/init.d/wpa_supplicant.new
 config etc/openrc/init.d/ypbind.new
 
 config etc/openrc/inittab.new

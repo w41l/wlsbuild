@@ -7,8 +7,8 @@ name="ALSA Audio System"
 
 depend()
 {
-	need sysfs
-	after bootmisc
+    need sysfs
+    after bootmisc
 }
 
 # A function to load the ALSA mixer settings:

@@ -6,7 +6,6 @@ name="loop device"
 
 depend()
 {
-    after tmpfiles.dev
     before modules
 }
 

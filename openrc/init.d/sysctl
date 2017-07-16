@@ -11,6 +11,6 @@ depend()
 start()
 {
 	ebegin "Configuring kernel parameters"
-	sysctl -p
+	sysctl -e --system
 	eend $? "Unable to configure some kernel parameters"
 }

@@ -12,9 +12,12 @@ config() {
 }
 
 config etc/openrc/conf.d/NetworkManager.new
+config etc/openrc/conf.d/acpid.new
+config etc/openrc/conf.d/atd.new
 config etc/openrc/conf.d/bootmisc.new
 config etc/openrc/conf.d/consolefont.new
 config etc/openrc/conf.d/cpufreq.new
+config etc/openrc/conf.d/dcron.new
 config etc/openrc/conf.d/devfs.new
 config etc/openrc/conf.d/dhcpd.new
 config etc/openrc/conf.d/dmesg.new
@@ -25,7 +28,6 @@ config etc/openrc/conf.d/ip6tables.new
 config etc/openrc/conf.d/iptables.new
 config etc/openrc/conf.d/keymaps.new
 config etc/openrc/conf.d/killprocs.new
-config etc/openrc/conf.d/libvirtd.new
 config etc/openrc/conf.d/localmount.new
 config etc/openrc/conf.d/modules.new
 config etc/openrc/conf.d/motd.new
@@ -36,19 +38,20 @@ config etc/openrc/conf.d/network.new
 config etc/openrc/conf.d/ntp-client.new
 config etc/openrc/conf.d/ntpd.new
 config etc/openrc/conf.d/openvpn.new
-config etc/openrc/conf.d/portmap.new
+config etc/openrc/conf.d/rpcbind.new
 config etc/openrc/conf.d/rsyncd.new
-config etc/openrc/conf.d/rsyslog.new
 config etc/openrc/conf.d/samba4.new
 config etc/openrc/conf.d/sendmail.new
 config etc/openrc/conf.d/sshd.new
 config etc/openrc/conf.d/staticroute.new
-#config etc/openrc/conf.d/tmpfiles.new
+config etc/openrc/conf.d/udev.new
+config etc/openrc/conf.d/udev-settle.new
+config etc/openrc/conf.d/udev-trigger.new
 config etc/openrc/conf.d/urandom.new
+config etc/openrc/conf.d/wpa_supplicant.new
 
 config etc/openrc/init.d/acct.new
 config etc/openrc/init.d/acpid.new
-config etc/openrc/init.d/alsa.new
 config etc/openrc/init.d/atd.new
 config etc/openrc/init.d/avahid.new
 config etc/openrc/init.d/avahi-dnsconfd.new
@@ -57,7 +60,7 @@ config etc/openrc/init.d/bootmisc.new
 config etc/openrc/init.d/consolefont.new
 config etc/openrc/init.d/consolekit.new
 config etc/openrc/init.d/cpufreq.new
-config etc/openrc/init.d/cron.new
+config etc/openrc/init.d/dcron.new
 config etc/openrc/init.d/cupsd.new
 config etc/openrc/init.d/dbus.new
 config etc/openrc/init.d/devfs.new
@@ -105,22 +108,19 @@ config etc/openrc/init.d/network.new
 config etc/openrc/init.d/nfs.new
 config etc/openrc/init.d/nfsclient.new
 config etc/openrc/init.d/nfsmount.new
-config etc/openrc/init.d/nginx.new
 config etc/openrc/init.d/ntp-client.new
 config etc/openrc/init.d/ntpd.new
 config etc/openrc/init.d/numlock.new
 config etc/openrc/init.d/osclock.new
 config etc/openrc/init.d/openvpn.new
 config etc/openrc/init.d/php-fpm.new
-config etc/openrc/init.d/polkitd.new
-config etc/openrc/init.d/portmap.new
+config etc/openrc/init.d/rpcbind.new
 config etc/openrc/init.d/procfs.new
 config etc/openrc/init.d/root.new
 config etc/openrc/init.d/rpc.pipefs.new
 config etc/openrc/init.d/rpc.rquotad.new
 config etc/openrc/init.d/rpc.statd.new
 config etc/openrc/init.d/rsyncd.new
-config etc/openrc/init.d/rsyslog.new
 config etc/openrc/init.d/samba4.new
 config etc/openrc/init.d/savecache.new
 config etc/openrc/init.d/sendmail.new
@@ -136,15 +136,13 @@ config etc/openrc/init.d/sysctl.new
 config etc/openrc/init.d/sysfs.new
 config etc/openrc/init.d/syslogd.new
 config etc/openrc/init.d/termencoding.new
-config etc/openrc/init.d/tmpfiles.dev.new
-config etc/openrc/init.d/tmpfiles.setup.new
-config etc/openrc/init.d/udev-mount.new
 config etc/openrc/init.d/udev.new
+config etc/openrc/init.d/udev-settle.new
+config etc/openrc/init.d/udev-trigger.new
 config etc/openrc/init.d/urandom.new
-config etc/openrc/init.d/virtlockd.new
 config etc/openrc/init.d/vsftpd.new
 config etc/openrc/init.d/vsftpd-checkconfig.sh.new
-# config etc/openrc/init.d/wpa_supplicant.new
+config etc/openrc/init.d/wpa_supplicant.new
 config etc/openrc/init.d/ypbind.new
 
 config etc/openrc/inittab.new

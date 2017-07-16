@@ -14,7 +14,7 @@ depend()
 start()
 {
 	ebegin "Loading custom binary format handlers"
-	"$RC_LIBEXECDIR"/sh/binfmt.sh
+	/lib/rc/sh/binfmt.sh
 	eend $?
 	return 0
 }

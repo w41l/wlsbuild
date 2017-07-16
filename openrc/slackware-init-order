@@ -4,35 +4,43 @@ echo "+ try-n-error. Please review it after install.                 +"
 echo "+==============================================================+"
 
 (
+  echo -n "Setting up runlevels sysinit: "
   cd $PKG/etc/openrc/runlevels/sysinit;
-  for i in devfs dmesg fuse loop isapnp modules sysctl sysfs udev udev-mount; do
+  for i in devfs dmesg fuse loop isapnp modules sysctl sysfs udev udev-trigger; do
     rm -f $i; ln -sf /etc/openrc/init.d/$i $i;
   done
   unset i
+  echo "Done"
 )
 
 (
+  echo -n "Setting up runlevels boot: "
   cd $PKG/etc/openrc/runlevels/boot;
-  for i in binfmt bootmisc consolefont cpufreq device-mapper fsck hostname hwclock keymaps ldconfig localmount loopback motd mtab numlock procfs root serial swap termencoding urandom; do
+  for i in binfmt bootmisc consolefont cpufreq device-mapper fsck hostname hwclock keymaps ldconfig localmount loopback mtab numlock procfs root serial swap termencoding udev-settle urandom; do
     rm -f $i; ln -sf /etc/openrc/init.d/$i $i;
   done
   unset i
+  echo "Done"
 )
 
 (
+  echo -n "Setting up runlevels default: "
   cd $PKG/etc/openrc/runlevels/default;
-  for i in acpid alsa atd consolekit cron cupsd dbus fontcache glibschemas gtkmodules iconcache inetd klogd local mimedatabase network netmount portmap rpc.statd sshd swapfiles syslogd; do
+  for i in acpid atd consolekit dcron cupsd dbus fontcache glibschemas gtkmodules iconcache inetd klogd local mimedatabase motd network netmount polkitd rpcbind rpc.statd sshd swapfiles syslogd; do
     rm -f $i; ln -sf /etc/openrc/init.d/$i $i;
   done
   unset i
+  echo "Done"
 )
 
 (
+  echo -n "Setting up runlevels desktop: "
   mkdir -p $PKG/etc/openrc/runlevels/desktop;
   cd $PKG/etc/openrc/runlevels/desktop;
   ln -s ../default default;
   for i in displaymanager; do
     rm -f $i; ln -sf /etc/openrc/init.d/$i $i;
   done
+  echo "Done"
 )
 

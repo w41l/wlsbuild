@@ -1,5 +1,5 @@
 # If NetworkManager does not establish a connection within $INACTIVE_TIMEOUT
 # seconds after starting, the service will be marked as inactive, and it will
 # continue to wait for a connection in background mode.
-INACTIVE_TIMEOUT=10
+INACTIVE_TIMEOUT=1
 XDG_CACHE_HOME=/root/.cache

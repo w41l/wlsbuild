@@ -6,8 +6,7 @@ command_args=$elogind_args
 
 depend()
 {
-    provide logind
-    use logger
+    need localmount dbus
     after bootmisc
 }
 
@@ -39,6 +38,11 @@ start_pre() {
     fi
 }
 
-start_post(){
-    /sbin/pidof elogind >/var/run/elogind/elogind.pid
+start() {
+    start-stop-daemon --start -b -m -p $pidfile --exec $command
 }
+
+stop() {
+    start-stop-daemon --stop -p $pidfile
+}
+

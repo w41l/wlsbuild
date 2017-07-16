@@ -3,3 +3,13 @@
 
 description="inetd - the BSD Internet super-daemon"
 command="/usr/sbin/inetd"
+pidfile="/var/run/inetd.pid"
+
+depend() {
+    need net
+    use logger
+}
+
+start() {
+    start-stop-daemon --start --quiet --exec $command
+}

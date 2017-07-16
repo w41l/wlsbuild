@@ -1,0 +1,86 @@
+#!/sbin/openrc-run
+# This is a script to initialize udev, which populates the /dev
+# directory with device nodes, scans for devices, loads the
+# appropriate kernel modules, and configures the devices.
+
+command_args="--daemon ${udev_opts}"
+description="udev manages device permissions and symbolic links in /dev"
+extra_started_commands="reload"
+description_reload="Reload the udev rules and databases"
+
+udev_monitor="${udev_monitor:-no}"
+udevmonitor_log=/run/udevmonitor.log
+udevmonitor_pid=/run/udevmonitor.pid
+
+depend()
+{
+	# we depend on udev-mount explicitly, not dev-mount generic as we don't
+	# want mdev as a dev-mount provider to come in.
+	provide dev
+	need sysfs
+	before checkfs fsck
+
+	# udev does not work inside vservers
+	keyword -openvz -prefix -vserver -lxc
+}
+
+#PATH="/sbin:/bin"
+
+. /etc/udev/udev.conf
+
+# remove trailing slash from udev_root
+UDEV_ROOT=$(echo "${udev_root}" |sed 's/\/*$//')
+
+start() {
+    # Sanity check #4, make sure the udev package was not removed.  If udevd
+    # is not there, this will also shut off this script to prevent further
+    # problems:
+    if [ ! -x /sbin/udevd ]; then
+	return 1
+    fi
+
+    # Disable hotplug helper since udevd listens to netlink:
+    if [ -e /proc/sys/kernel/hotplug ]; then
+	echo "" > /proc/sys/kernel/hotplug
+    fi
+
+    if ! /sbin/pidof udevd 1>/dev/null 2>/dev/null; then # start udevd
+        kmod static-nodes -f tmpfiles --output /run/static-nodes
+        grep "^d\ " /run/static-nodes | while read line ; do
+            mkdir -p -m $(echo $line | cut -f 3 -d ' ') $(echo $line | cut -f 2 -d ' ')
+        done
+        grep -v "^d\ " /run/static-nodes | while read line ; do
+            mknod -m $(echo $line | cut -f 3 -d ' ') \
+            $(echo $line | cut -f 2 -d ' ') \
+            $(echo $line | cut -b1 ) \
+            $(echo $line | cut -f 7 -d ' ' | cut -f 1 -d :) \
+            $(echo $line | cut -f 7 -d ' ' | cut -f 2 -d :) 2> /dev/null
+        done
+        rm -f /run/static-nodes
+        # Add any system defined additional device nodes:
+        cp --preserve=all --recursive --update /lib/udev/devices/* /dev 2> /dev/null
+        # Add any locally defined additional device nodes:
+        cp --preserve=all --recursive --update /etc/udev/devices/* /dev 2> /dev/null
+	/sbin/udevd --daemon
+	# Since udev is just now being started we want to use add events:
+	# Call udevtrigger and udevsettle to do the device configuration:
+	/sbin/udevadm trigger --type=subsystems --action=add
+	/sbin/udevadm trigger --type=devices --action=add
+    fi
+}
+
+stop() {
+	udevadm control --exit 2>/dev/null
+	#killall udevd 2>/dev/null
+}
+
+restart() {
+	udevadm control --exit 2>/dev/null
+	sleep 3
+	udevd --daemon
+}
+
+reload() {
+	udevadm control --reload
+	cp --preserve=all --recursive --update /lib/udev/devices/* $UDEV_ROOT
+}

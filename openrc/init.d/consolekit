@@ -10,5 +10,4 @@ name="ConsoleKit Daemon"
 depend() {
 	need dbus
 	after bootmisc
-	use logger
 }

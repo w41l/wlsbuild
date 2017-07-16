@@ -43,7 +43,6 @@ mount_dev_directory()
             umount -l /dev/pts
         fi
         mount -n -t devtmpfs -o size=8M devtmpfs /dev
-        mkdir -p /dev/pts
     else
         # Mount tmpfs on /dev
         if mountinfo -q /dev/shm; then
@@ -53,7 +52,6 @@ mount_dev_directory()
             umount -l /dev/pts
         fi
         mount -n -t tmpfs -o size=8M tmpfs /dev
-        mkdir -p /dev/pts
     fi
 
 	# Is /dev already a mounted devtmpfs?

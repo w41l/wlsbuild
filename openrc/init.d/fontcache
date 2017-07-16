@@ -6,12 +6,13 @@ name="X font cache"
 command_background="yes"
 
 depend() {
-  need localmount
+    need localmount ldconfig
+    after bootmisc
 }
 
 start()
 {
-  ebegin "Updating X font cache"
-  fc-cache -s -f 2>/dev/null &
-  eend $?
+    ebegin "Updating X font cache"
+    fc-cache -s -f 2>/dev/null &
+    eend $?
 }

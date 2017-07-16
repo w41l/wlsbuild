@@ -25,9 +25,8 @@
 
 PRGNAM=openrc
 VERSION=${VERSION:-0.28}
-BUILD=${BUILD:-1}
+BUILD=${BUILD:-5}
 TAG=${TAG:-_wls}
-NUMJOBS=${NUMJOBS:--j7}
 
 if [ -z "$ARCH" ]; then
   case "$( uname -m )" in
@@ -96,9 +95,6 @@ make install
 
 cd ..
 
-# Use init portmap as rpcbind
-# ( cd $PKG/etc/openrc/init.d; rm -f rpcbind; ln -snf portmap rpcbind; )
-
 # Add additional init script or replacement (created/modified) by me
 # mostly from Gentoo, ArchLinux, and SystemRescueCD. :-)
 cp -a $CWD/init.d/* $PKG/etc/openrc/init.d/
@@ -142,6 +138,15 @@ rm -f $PKG/etc/openrc/runlevels/boot/*
 rm -f $PKG/etc/openrc/runlevels/default/*
 . $CWD/slackware-init-order
 
+# Add OpenRC NetworkManager status dipatcher
+mkdir -p $PKG/etc/NetworkManager/dispatcher.d
+cat $CWD/networkmanager-openrc-status >$PKG/etc/NetworkManager/dispatcher.d/10-openrc-status
+chmod +x $PKG/etc/NetworkManager/dispatcher.d/10-openrc-status
+
+# remove portmap and use rpcbind
+rm -f $PKG/etc/openrc/init.d/portmap*
+
+# DONE
 cd $WRK/$PRGNAM-$VERSION
 
 # Add README.TXT

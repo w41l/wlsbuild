@@ -6,7 +6,8 @@ name="X desktop icon cache"
 command_background="yes"
 
 depend() {
-  need localmount
+  need localmount ldconfig
+  after bootmisc
 }
 
 start()

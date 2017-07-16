@@ -1,13 +1,13 @@
 #!/sbin/openrc-run
-# Copyright (c) 2007-2008 Roy Marples <roy@marples.name>
-# Released under the 2-clause BSD license.
+# Copyright 1999-2016 Gentoo Foundation
+# Distributed under the terms of the GNU General Public License v2
 
-command=/usr/sbin/atd
-command_args="-b 15 -l 1"
-pidfile=/var/run/atd.pid
+pidfile="/var/run/atd.pid"
+command="/usr/sbin/atd"
+command_args="${ATD_OPTS}"
+start_stop_daemon_args="--pidfile ${pidfile}"
 
-depend()
-{
-    need clock localmount
-    after cron
+depend() {
+	need clock
+	use logger
 }

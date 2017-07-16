@@ -9,5 +9,6 @@ name="PolicyKit Daemon"
 
 depend()
 {
-	need dbus
+	need dbus consolekit
+	use logger
 }

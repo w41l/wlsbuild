@@ -63,7 +63,8 @@ fi
 set -e
 
 if [ ! -f $CWD/$PRGNAM-$VERSION.tar.* ]; then
-  curl -#OLJ -C - $(cat $PRGNAM.info | grep "DOWNLOAD=" | cut -d = -f 2 | sed 's/"//g')
+    eval `cat $PRGNAM.info | grep "DOWNLOAD="`
+    curl -#OLJ -C - $DOWNLOAD
 fi
 
 rm -rf $PKG

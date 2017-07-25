@@ -76,7 +76,7 @@ fi
 
 if [ -e $CWD/$PKGNAM.vars ]; then
     echo "Get $PKGNAM build environment: source $CWD/$PKGNAM.vars"
-    source $CWD/$PKGNAM.vars
+    eval `cat $CWD/$PKGNAM.vars`
 fi
 
 libx264=""    ; [ "${X264:-no}" != "no" ]         && libx264="--enable-libx264"
@@ -266,3 +266,5 @@ cat $CWD/slack-desc > $PKG/install/slack-desc
 
 cd $PKG
 /sbin/makepkg -l y -c n $OUTPUT/$PKGNAM-$VERSION-$ARCH-${BUILD}${TAG}.txz
+
+cd $WRK && rm -rf ffmpeg-$VERSION $PKG

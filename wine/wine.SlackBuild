@@ -24,9 +24,10 @@
 # YOUR DATA IS DESTROYED, YOUR HOUSE BURNS DOWN OR YOUR DOG RUNS OFF.
 
 PRGNAM=wine
-VERSION=${VERSION:-2.10}
+VERSION=${VERSION:-2.12}
 SRCVERSION=${SRCVERSION:-$VERSION}
 STAGING_VERSION=${STAGING_VERSION:-$SRCVERSION}
+WINETRICKS_VERSION=${WINETRICKS_VERSION:-20170614}
 BUILD=${BUILD:-1}
 TAG=${TAG:-_wls}
 STAGING=${STAGING:-"yes"}
@@ -94,12 +95,23 @@ if [ ! -f wine-d3d9-patches-$PRGNAM-d3d9-$NINE_VERSION.tar.gz ]; then
   curl -OLJ -C - $DOWNLOAD_D3D9
 fi
 
+if [ ! -f winetricks-$WINETRICKS_VERSION.tar.gz ]; then
+  rm -f winetricks-$WINETRICKS_VERSION.tar.gz
+  unset DOWNLOAD_WINETRICKS
+  eval `cat $PRGNAM.info | grep "DOWNLOAD_WINETRICKS="`
+  echo "Downloading `basename $DOWNLOAD_WINETRICKS`"
+  curl -OLJ -C - $DOWNLOAD_WINETRICKS
+fi
+
 rm -rf $PKG
 mkdir -p $WRK $PKG $OUTPUT
 cd $WRK
 rm -rf $PRGNAM* Wine-*
 echo "extracting $PRGNAM-$SRCVERSION"
 tar xvf $CWD/$PRGNAM-$SRCVERSION.tar.xz
+
+echo "extracting winetricks-$WINETRICKS_VERSION"
+tar xvf $CWD/winetricks-$WINETRICKS_VERSION.tar.gz
 
 cd $PRGNAM-$SRCVERSION
 
@@ -205,13 +217,25 @@ unset PKG_CONFIG_PATH
 export PKG_CONFIG_PATH="$PKG_CONFIG_PATH:/usr/local/lib64/pkgconfig:/usr/lib64/pkgconfig"
 make install DESTDIR=$PKG || exit 1
 
+cd $WRK/winetricks-$WINETRICKS_VERSION
+echo "Installing winetricks-$WINETRICKS_VERSION"
+make install DESTDIR=$PKG PREFIX=/usr
+
 cd $WRK/$PRGNAM-$SRCVERSION
 
 find $PKG | xargs file | grep -e "executable" -e "shared object" | grep ELF \
  | cut -f 1 -d : | xargs strip --strip-unneeded 2> /dev/null || true
 
-find $PKG/usr/man -type f -exec gzip -9 {} \;
-for i in $( find $PKG/usr/man -type l ) ; do ln -s $( readlink $i ).gz $i.gz ; rm $i ; done
+if [ -d $PKG/usr/share/man ]; then
+    mv $PKG/usr/share/man $PKG/usr/
+fi
+if [ -d $PKG/usr/man ]; then
+    find $PKG/usr/man -type f -exec gzip -9 {} \;
+    for i in $( find $PKG/usr/man -type l ) ; do
+        ln -s $( readlink $i ).gz $i.gz ;
+        rm $i ;
+    done
+fi
 
 mkdir -p $PKG/usr/doc/$PRGNAM-$VERSION
 cp -a $DOCS $PKG/usr/doc/$PRGNAM-$VERSION

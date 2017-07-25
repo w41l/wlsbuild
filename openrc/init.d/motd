@@ -7,7 +7,6 @@ motd_file="/etc/motd"
 
 depend() {
     need localmount
-    use net
 }
 
 start() {
@@ -16,7 +15,7 @@ start() {
     else
 	if yesno ${update_motd:-YES}; then
 	    ebegin "Updating /etc/motd"
-	    echo "Hostname  : $(/bin/hostname -f)" > $motd_file
+	    echo "Hostname  : $(/bin/cat /etc/HOSTNAME)" > $motd_file
 	    echo "System    : $(/bin/uname -a)" >> $motd_file
 	    echo "Boot time :" $(date -d "`cut -f1 -d. /proc/uptime` seconds ago") >> $motd_file
 	    echo "Shell     : ${SHELL}" >> $motd_file

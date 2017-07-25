@@ -25,10 +25,10 @@
 # Modified 2016 by Widya Walesa for gnome3 wlsbuild
 
 PRGNAM=wayland
-VERSION=${VERSION:-1.12.0}
+VERSION=${VERSION:-1.13.0}
 BUILD=${BUILD:-1}
 TAG=${TAG:-_wls}
-NUMJOBS=${NUMJOBS:" -j7 "}
+NUMJOBS=${NUMJOBS:" -j5"}
 
 CWD=$(pwd)
 WRK=${WRK:-/tmp/wlsbuild}
@@ -75,7 +75,7 @@ case "$ARCH" in
 esac
 
 eval `cat $PRGNAM.info | grep "DOWNLOAD="`
-if [ ! -f `basename $DOWNLOAD` ]; then
+if [ ! -f $PRGNAM-$VERSION.tar.xz ]; then
   echo "Downloading: $DOWNLOAD"
   rm -f $PRGNAM-$VERSION.tar.*
   curl -OLJ -C - $DOWNLOAD

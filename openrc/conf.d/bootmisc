@@ -10,5 +10,5 @@ wipe_tmp="YES"
 log_dmesg="YES"
 
 # Create /run/users directory for user xdg-runtime-dir
-create_run_users_dir="YES"
-RUNUSERSDIR=/run/users
+#create_run_users_dir="YES"
+#RUNUSERSDIR=/run/user

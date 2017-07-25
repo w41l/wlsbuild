@@ -59,6 +59,7 @@ checkconfig() {
 start() {
 	checkconfig || return 1
 	ebegin "Loading ${iptables_name} state and starting firewall"
+	echo 1 > /proc/sys/net/ipv4/ip_forward
 	${iptables_bin}-restore ${SAVE_RESTORE_OPTIONS} < "${iptables_save}"
 	eend $?
 }
@@ -76,6 +77,7 @@ stop() {
 		${iptables_bin} -F -t $a
 		${iptables_bin} -X -t $a
 	done
+	echo 0 > /proc/sys/net/ipv4/ip_forward
 	eend $?
 }
 
@@ -126,5 +128,6 @@ panic() {
 
 		set_table_policy $a DROP
 	done
+	echo 0 > /proc/sys/net/ipv4/ip_forward
 	eend $?
 }

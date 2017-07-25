@@ -17,6 +17,7 @@ stop() {
 	ebegin "Stopping ${SVCNAME}"
 	start-stop-daemon --stop --quiet \
 		--pidfile /var/run/crond.pid --exec /usr/sbin/crond
+        killall crond >/dev/null
 	local ret=$?
 	rm -f /var/run/crond.pid
 	eend ${ret}

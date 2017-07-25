@@ -2,12 +2,12 @@
 # Copyright 2015 walecha.web.id
 # Distributed under the terms of the GNU General Public License, v2 or later
 
-name="Starting Desktop Display Manager"
+name="Starting X11 Display Manager"
 DM_USE=${DM_USE:-sddm}
 
 depend() {
     need localmount
-    use dbus consolekit
+    use dbus consolekit elogind
     after bootmisc
 }
 
@@ -17,26 +17,26 @@ start() {
 	sddm)
 	    mkdir -p /run/sddm
 	    chown -R sddm:sddm /run/sddm
-	    start-stop-daemon --background --start --exec /usr/bin/sddm
-	    eend $? "Failed to start display manager"
+	    start-stop-daemon --background -m -p /run/sddm/sddm.pid --start --exec /usr/bin/sddm
+	    eend $?
 	    ;;
 	gdm)
 	    mkdir -p /run/gdm
 	    chown -R gdm:gdm /run/gdm
 	    start-stop-daemon --background --start --exec /usr/sbin/gdm
-	    eend $? "Failed to start display manager"
+	    eend $?
 	    ;;
 	lxdm)
 	    mkdir -p /run/lxdm
 	    chown -R nobody:nobody /run/lxdm
 	    start-stop-daemon --background --start --exec /usr/bin/lxdm
-	    eend $? "Failed to start display manager"
+	    eend $?
 	    ;;
 	xdm)
 	    mkdir -p /run/xdm
 	    chown -R nobody:nobody /run/xdm
 	    start-stop-daemon --background --start --exec /usr/bin/xdm
-	    eend $? "Failed to start display manager"
+	    eend $?
 	    ;;
     esac
 }
@@ -47,26 +47,26 @@ stop() {
 	sddm)
 	    mkdir -p /run/sddm
 	    chown -R sddm:sddm /run/sddm
-	    start-stop-daemon --background --stop --exec /usr/bin/sddm || killall sddm >/dev/null
-	    eend $? "Failed to stop display manager"
+	    start-stop-daemon --stop --exec /usr/bin/sddm && sleep 3 && killall sddm >/dev/null
+	    eend $?
 	    ;;
 	gdm)
 	    mkdir -p /run/gdm
 	    chown -R gdm:gdm /run/gdm
-	    start-stop-daemon --background --stop --exec /usr/sbin/gdm || killall gdm >/dev/null
-	    eend $? "Failed to stop display manager"
+	    start-stop-daemon --stop --exec /usr/sbin/gdm && sleep 3 && killall gdm >/dev/null
+	    eend $?
 	    ;;
 	lxdm)
 	    mkdir -p /run/lxdm
 	    chown -R nobody:nobody /run/lxdm
-	    start-stop-daemon --background --stop --exec /usr/bin/lxdm || killall lxdm >/dev/null
-	    eend $? "Failed to stop display manager"
+	    start-stop-daemon --stop --exec /usr/bin/lxdm && sleep 3 && killall lxdm >/dev/null
+	    eend $?
 	    ;;
 	xdm)
 	    mkdir -p /run/xdm
 	    chown -R nobody:nobody /run/xdm
-	    start-stop-daemon --background --stop --exec /usr/bin/xdm || killall xdm >/dev/null
-	    eend $? "Failed to stop display manager"
+	    start-stop-daemon --stop --exec /usr/bin/xdm && sleep 3 && killall xdm >/dev/null
+	    eend $?
 	    ;;
     esac
 }

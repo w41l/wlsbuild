@@ -25,7 +25,7 @@
 
 PRGNAM=openrc
 VERSION=${VERSION:-0.28}
-BUILD=${BUILD:-5}
+BUILD=${BUILD:-7}
 TAG=${TAG:-_wls}
 
 if [ -z "$ARCH" ]; then
@@ -144,8 +144,9 @@ mkdir -p $PKG/etc/NetworkManager/dispatcher.d
 cat $CWD/networkmanager-openrc-status >$PKG/etc/NetworkManager/dispatcher.d/10-openrc-status
 chmod +x $PKG/etc/NetworkManager/dispatcher.d/10-openrc-status
 
-# remove portmap and use rpcbind
+# remove unneeded init scripts from default install script
 rm -f $PKG/etc/openrc/init.d/portmap*
+rm -f $PKG/etc/openrc/init.d/polkitd*
 
 # DONE
 cd $WRK/$PRGNAM-$VERSION

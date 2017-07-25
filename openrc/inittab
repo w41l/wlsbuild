@@ -19,7 +19,7 @@ l4:4:wait:/sbin/openrc desktop
 l5:5:wait:/sbin/openrc desktop
 l6:6:wait:/sbin/openrc reboot
 l6r:6:wait:/sbin/reboot -d
-#z6:6:respawn:/sbin/sulogin
+z6:6:respawn:/sbin/sulogin
 
 # new-style single-user
 su0:S:wait:/sbin/openrc single

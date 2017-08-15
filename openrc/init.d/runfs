@@ -1,0 +1,38 @@
+#!/sbin/openrc-run
+# Copyright (c) 2007-2015 The OpenRC Authors.
+# See the Authors file at the top-level directory of this distribution and
+# https://github.com/OpenRC/openrc/blob/master/AUTHORS
+#
+# This file is part of OpenRC. It is subject to the license terms in
+# the LICENSE file found in the top-level directory of this
+# distribution and at https://github.com/OpenRC/openrc/blob/master/LICENSE
+# This file may not be copied, modified, propagated, or distributed
+# except according to the terms contained in the LICENSE file.
+
+description="Remounting /run with custom size."
+
+RUN_SIZE=${RUN_SIZE:-""}
+DIV_SIZE=${DIV_SIZE:-""}
+
+depend()
+{
+	need root
+	after mtab
+}
+
+start()
+{
+	if [ -z "$DIV_RAM" ]; then
+		# Default to 4
+		DIV_SIZE="4"
+	fi
+	if [ -z "$RUN_SIZE" ]; then
+		# Calculate it self
+		RUN_SIZE="$(( `cat /proc/meminfo | grep MemTotal | awk '{print $2}'` / ${DIV_SIZE} ))K"
+	fi
+	if mountinfo -q /run; then
+		ebegin "Remounting /run with size ${RUN_SIZE}"
+		mount -o remount,size=${RUN_SIZE} /run
+		eend $?
+	fi
+}

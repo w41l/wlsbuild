@@ -1,0 +1,5 @@
+DNSCRYPT_LOCALIP=127.0.0.1
+DNSCRYPT_LOCALPORT=40
+DNSCRYPT_USER=nobody
+DNSCRYPT_PROVIDER_NAME=bn-fr0
+DNSCRYPT_LIST=/etc/dnscrypt-proxy/dnscrypt-resolvers.csv

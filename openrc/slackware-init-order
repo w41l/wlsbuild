@@ -6,7 +6,7 @@ echo "+==============================================================+"
 (
   echo -n "Setting up runlevels sysinit: "
   cd $PKG/etc/openrc/runlevels/sysinit;
-  for i in devfs device-mapper dmesg fsck fuse hwclock isapnp loop modules mtab root sysctl sysfs udev udev-settle udev-trigger; do
+  for i in devfs device-mapper dmesg fsck fuse hwclock isapnp localmount loop modules mtab root runfs swap sysfs udev udev-settle udev-trigger; do
     rm -f $i; ln -sf /etc/openrc/init.d/$i $i;
   done
   unset i
@@ -16,7 +16,7 @@ echo "+==============================================================+"
 (
   echo -n "Setting up runlevels boot: "
   cd $PKG/etc/openrc/runlevels/boot;
-  for i in binfmt bootmisc cpufreq hostname keymaps ldconfig localmount loopback motd numlock procfs serial swap swapfiles termencoding urandom; do
+  for i in binfmt bootmisc cpufreq hostname keymaps ldconfig loopback motd numlock procfs serial swapfiles sysctl termencoding urandom; do
     rm -f $i; ln -sf /etc/openrc/init.d/$i $i;
   done
   unset i

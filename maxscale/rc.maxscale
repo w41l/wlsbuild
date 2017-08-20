@@ -1,7 +1,7 @@
 #!/bin/sh
 
 # init script for MaxScale Server
-
+MAXSCALEBIN="/usr/bin/maxscale"
 conffile="/etc/maxscale.cnf"
 pidfile="/var/run/maxscale/maxscale.pid"
 
@@ -31,8 +31,8 @@ maxscale_start() {
     # Start maxscale server
     if [ ! -r $pidfile ]; then
         echo -n "Starting MaxScale Server: "
-        ulimit -HSn 65535 && /usr/sbin/maxscale -U maxscale -P /var/run/maxscale
-        if pidof maxscale >/dev/null; then
+        ulimit -HSn 65535 && $MAXSCALEBIN -U maxscale -P /var/run/maxscale
+        if pidof /usr/bin/maxscale 2>/dev/null; then
             echo "OK"
         else
             echo "Failed"

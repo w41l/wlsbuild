@@ -23,8 +23,8 @@ depend()
 start()
 {
 	if [ -z "$DIV_RAM" ]; then
-		# Default to 4
-		DIV_SIZE="4"
+		# Default to 5 or 20% of RAM
+		DIV_SIZE="5"
 	fi
 	if [ -z "$RUN_SIZE" ]; then
 		# Calculate it self

@@ -27,10 +27,8 @@ PRGNAM=maxscale
 VERSION=${VERSION:-2.0.3}
 BUILD=${BUILD:-1}
 TAG=${TAG:-_wls}
-
-# Default is using mariadb version 5.5.43 (lastest version in slackware 14.1)
 DBUSE=${DBUSE:-mariadb}
-DBVER=${DBVER:-10.0.28}
+DBVER=$(mysql_config --version)
 
 if [ -z "$ARCH" ]; then
   case "$( uname -m )" in
@@ -103,10 +101,7 @@ cd build
     -DLIB_INSTALL_DIR=/usr/lib$LIBDIRSUFFIX \
     || exit 1
 
-    # Looks like maxscale v2 can use libmysqld.so.
-    # -DEMBEDDED_LIB=/tmp/$DBUSE-$DBVER/build/libmysqld/libmysqld.a \
-
-  make || exit 1
+  make -j7 || make || exit 1
   make install DESTDIR=$PKG || exit 1
 cd -
 

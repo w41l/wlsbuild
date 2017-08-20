@@ -1,12 +1,11 @@
 # The default tmpfs size for /run in slackware is 32MB. It is not sufficient if
 # the login user is using /run/user as their XDG directory and maybe their TMP
-# dir too. There is no recommended size, but a quarter of the actual memory
-# sounds good. But I think 16G (from 64G / 4) is too much just for a TMP.
-#
+# dir too. There is no recommended size, but 20% of the actual memory sounds good.
+# But I think 16G (from 64G / 4) is too much just for a TMP.
 # Size suffix should be none if size is in bytes, or K, M, G.
 #
-# Lets start with 256M or quarter of 1G memory as in generic VPS
-#RUN_SIZE="256M"
+# Lets start with 200M or 20% of 1G memory as in generic VPS
+#RUN_SIZE="200M"
 #
-# Or we can set the divider value. Default to 4 (quarter of RAM)
-#DIV_SIZE="4"
+# Or we can set the divider value. Default to 5 (20% of RAM)
+#DIV_SIZE="8"

@@ -101,7 +101,9 @@ cd build
     -DLIB_INSTALL_DIR=/usr/lib$LIBDIRSUFFIX \
     || exit 1
 
-  make -j7 || make || exit 1
+  # Looks like maxscale doesn't like build flags, but lets try
+  unset MAKEFLAGS
+  make -j1 || make || exit 1
   make install DESTDIR=$PKG || exit 1
 cd -
 

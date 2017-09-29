@@ -24,10 +24,10 @@
 # YOUR DATA IS DESTROYED, YOUR HOUSE BURNS DOWN OR YOUR DOG RUNS OFF.
 
 PRGNAM=wine
-VERSION=${VERSION:-2.12}
+VERSION=${VERSION:-2.16}
 SRCVERSION=${SRCVERSION:-$VERSION}
 STAGING_VERSION=${STAGING_VERSION:-$SRCVERSION}
-WINETRICKS_VERSION=${WINETRICKS_VERSION:-20170614}
+WINETRICKS_VERSION=${WINETRICKS_VERSION:-20170823}
 BUILD=${BUILD:-1}
 TAG=${TAG:-_wls}
 STAGING=${STAGING:-"yes"}
@@ -227,15 +227,15 @@ find $PKG | xargs file | grep -e "executable" -e "shared object" | grep ELF \
  | cut -f 1 -d : | xargs strip --strip-unneeded 2> /dev/null || true
 
 if [ -d $PKG/usr/share/man ]; then
-    mv $PKG/usr/share/man $PKG/usr/
+    cp -a $PKG/usr/share/man $PKG/usr/
+    rm -rf $PKG/usr/share/man
 fi
-if [ -d $PKG/usr/man ]; then
-    find $PKG/usr/man -type f -exec gzip -9 {} \;
-    for i in $( find $PKG/usr/man -type l ) ; do
-        ln -s $( readlink $i ).gz $i.gz ;
-        rm $i ;
-    done
-fi
+
+find $PKG/usr/man -type f -exec gzip -9 {} \;
+for i in $( find $PKG/usr/man -type l ) ; do
+    ln -s $( readlink $i ).gz $i.gz ;
+    rm $i ;
+done
 
 mkdir -p $PKG/usr/doc/$PRGNAM-$VERSION
 cp -a $DOCS $PKG/usr/doc/$PRGNAM-$VERSION

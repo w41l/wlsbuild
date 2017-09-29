@@ -24,8 +24,8 @@
 # YOUR DATA IS DESTROYED, YOUR HOUSE BURNS DOWN OR YOUR DOG RUNS OFF.
 
 PRGNAM=radeon-profile
-VERSION=20161022
-VERSION_DAEMON=20161003
+VERSION=20170714
+VERSION_DAEMON=20170620
 BUILD=${BUILD:-1}
 TAG=${TAG:-"_wls"}
 NUMJOBS=${NUMJOBS:-"-j7"}
@@ -38,7 +38,7 @@ DOCS="README*"
 
 # To build with Qt5, pass argument USE_QMAKE="qmake-qt5"
 # Default is build with Qt4
-USE_QMAKE=${USE_QMAKE:-"qmake"}
+USE_QMAKE=${USE_QMAKE:-"qmake-qt5"}
 
 if [ -z "$ARCH" ]; then
   case "$( uname -m )" in
@@ -115,8 +115,7 @@ cd build
   make install prefix=$PKG/usr
 cd -
 
-install -m 0755 -D build/radeon-profile $PKG/usr/local/sbin/radeon-profile.bin
-install -o root -g root -m 0755 -D $CWD/radeon-profile $PKG/usr/local/bin/radeon-profile
+install -m 0755 -D build/radeon-profile $PKG/usr/local/bin/radeon-profile
 install -m 0644 -D radeon-profile/extra/radeon-profile.png \
   $PKG/usr/share/pixmaps/radeon-profile.png
 install -m 0644 -D radeon-profile/extra/radeon-profile.desktop \

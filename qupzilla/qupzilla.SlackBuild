@@ -91,27 +91,19 @@ find . \
  -exec chmod 644 {} \;
 
 export USE_WEBGL=true
-export QUPZILLA_PREFIX=/usr/
+export QUPZILLA_PREFIX=/usr
+export USE_LIBPATH=/usr/lib$LIBDIRSUFFIX
 export KDE_INTEGRATION=true
 export GNOME_INTEGRATION=true
 
 mkdir -p $PKG/usr
 mkdir -p build
 cd build
-  qmake${QTVERSION} \
-    PREFIX=/usr \
-    USE_LIBPATH=/usr/lib$LIBDIRSUFFIX \
-    QMAKE_LIBDIR=/usr/lib$LIBDIRSUFFIX \
-    ../QupZilla.pro || exit 1
+  qmake${QTVERSION} ../QupZilla.pro || exit 1
 
   make $NUMJOBS || make || exit 1
   make install INSTALL_ROOT=$PKG || exit 1
 cd -
-
-unset USE_WEBGL
-unset QUPZILLA_PREFIX
-unset KDE_INTEGRATION
-unset GNOME_INTEGRATION
 
 find $PKG | xargs file | grep -e "executable" -e "shared object" | grep ELF \
   | cut -f 1 -d : | xargs strip --strip-unneeded 2> /dev/null || true

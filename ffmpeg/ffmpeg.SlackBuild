@@ -85,7 +85,6 @@ libdc1394=""  ; [ "${DC1394:-no}" != "no" ]       && libdc1394="--enable-libdc13
 libfrei0r=""  ; [ "${FREI0R:-no}" != "no" ]       && libfrei0r="--enable-frei0r"
 libgsm=""     ; [ "${GSM:-no}" != "no" ]          && libgsm="--enable-libgsm"
 librtmp=""    ; [ "${RTMP:-no}" != "no" ]         && librtmp="--enable-librtmp"
-dirac_fast="" ; [ "${SCHROEDINGER:-no}" != "no" ] && dirac_fast="--enable-libschroedinger"
 libspeex=""   ; [ "${SPEEX:-no}" != "no" ]        && libspeex="--enable-libspeex"
 libxvid=""    ; [ "${XVID:-no}" != "no" ]         && libxvid="--enable-libxvid"
 libass=""     ; [ "${ASS:-no}" != "no" ]          && libass="--enable-libass"

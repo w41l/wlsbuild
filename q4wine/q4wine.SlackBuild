@@ -24,7 +24,7 @@
 # YOUR DATA IS DESTROYED, YOUR HOUSE BURNS DOWN OR YOUR DOG RUNS OFF.
 
 PRGNAM=q4wine
-VERSION=${VERSION:-1.3.5}
+VERSION=${VERSION:-1.3.6}
 BUILD=${BUILD:-1}
 TAG=${TAG:-_wls}
 
@@ -71,34 +71,19 @@ find . \
  \( -perm 666 -o -perm 664 -o -perm 600 -o -perm 444 -o -perm 440 -o -perm 400 \) \
  -exec chmod 644 {} \;
 
-KDE_OPT_ARGS=" -Wno-dev -DBUILD_TESTING=OFF -DKDE4_BUILD_TESTS=OFF -DSITE=\"slackware.com\" -DKDE_DISTRIBUTION_TEXT=\"volkerdi@slackware.com\" "
-
 mkdir build
 cd build
   cmake \
-    $KDE_OPT_ARGS \
-    -DKDE_PLATFORM_FEATURE_DISABLE_DEPRECATED=TRUE \
     -DCMAKE_C_FLAGS:STRING="$SLKCFLAGS" \
-    -DCMAKE_C_FLAGS_RELEASE:STRING="$SLKCFLAGS" \
     -DCMAKE_CXX_FLAGS:STRING="$SLKCFLAGS" \
     -DCMAKE_CXX_FLAGS_RELEASE:STRING="$SLKCFLAGS" \
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DMAN_INSTALL_DIR=/usr/man \
-    -DSYSCONF_INSTALL_DIR=/etc/kde \
-    -DLIB_INSTALL_DIR=lib$LIBDIRSUFFIX \
-    -DLIB_SUFFIX=${LIBDIRSUFFIX} \
-    -DLIBEXEC_INSTALL_DIR=lib$LIBDIRSUFFIX \
-    -DQT_PLUGIN_INSTALL_DIR=lib$LIBDIRSUFFIX/qt5/plugins \
-    -DQML_INSTALL_DIR=lib$LIBDIRSUFFIX/qt5/qml \
-    -DKDE_INSTALL_USE_QT_SYS_PATHS=ON \
-    -DBUILD_TESTING=OFF \
-    -DHAVE_SHADOW=TRUE \
-    -DQca-qt5_DIR=/usr/lib${LIBDIRSUFFIX}/cmake/Qca \
     .. || exit 1
 
-make || exit 1
-make DESTDIR=$PKG install || exit 1
+  make || exit 1
+  make DESTDIR=$PKG install || exit 1
 cd ..
 
 mv $PKG/usr/share/man $PKG/usr/

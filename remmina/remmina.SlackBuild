@@ -25,7 +25,7 @@
 #  ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 PRGNAM=remmina
-VERSION=${VERSION:-1.2.0_rcgit.18}
+VERSION=${VERSION:-1.2.0_rcgit.24}
 BUILD=${BUILD:-1}
 TAG=${TAG:-_wls}
 
@@ -102,7 +102,6 @@ cd build
   make install DESTDIR=$PKG
 cd ..
 
-exit 1
 # make install forgot these
 mkdir -p $PKG/usr/include/remmina
 cp -a remmina/include/remmina/*.h $PKG/usr/include/remmina

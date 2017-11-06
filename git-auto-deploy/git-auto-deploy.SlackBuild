@@ -78,7 +78,6 @@ python setup.py build
 python setup.py install --root=$PKG
 
 mkdir -p $PKG/usr/share/$PRGNAM
-cat $CWD/config.json >$PKG/usr/share/$PRGNAM/config.json-sample
 
 find $PKG | xargs file | grep -e "executable" -e "shared object" | grep ELF \
   | cut -f 1 -d : | xargs strip --strip-unneeded 2> /dev/null || true
@@ -86,9 +85,10 @@ find $PKG | xargs file | grep -e "executable" -e "shared object" | grep ELF \
 mkdir -p $PKG/usr/doc/$PRGNAM-$VERSION
 cp -a Dockerfile LICENSE README.md requirements.txt $PKG/usr/doc/$PRGNAM-$VERSION
 cat $CWD/$PRGNAM.SlackBuild > $PKG/usr/doc/$PRGNAM-$VERSION/$PRGNAM.SlackBuild
+cat $CWD/config.json >$PKG/usr/doc/$PRGNAM-$VERSION/config.json-sample
 
 mkdir -p $PKG/install
-cat $CWD/slack-desc | sed "s/@PRGNAM@/$PRGNAM/g" > $PKG/install/slack-desc
+cat $CWD/slack-desc | sed "s/@PRGNAM@-@VERSION@/$PRGNAM-$VERSION/g" > $PKG/install/slack-desc
 
 cd $PKG
 /sbin/makepkg -p -l y -c n $OUTPUT/$PRGNAM-$VERSION-$ARCH-$BUILD$TAG.txz

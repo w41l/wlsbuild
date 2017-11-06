@@ -7,6 +7,6 @@ git-auto-deploy:
 git-auto-deploy: HOMEPAGE: https://github.com/olipo186/Git-Auto-Deploy
 git-auto-deploy:
 git-auto-deploy: Sample configuration:
-git-auto-deploy:   /usr/share/@PRGNAM@/config.json-sample
+git-auto-deploy:   /usr/doc/@PRGNAM@-@VERSION@/config.json-sample
 git-auto-deploy:
 git-auto-deploy: Packaged by Widya Walesa <walecha99@gmail.com>

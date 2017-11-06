@@ -1,0 +1,12 @@
+               |-----handy-ruler------------------------------------------------------|
+git-auto-deploy: git-auto-deploy
+git-auto-deploy:
+git-auto-deploy: Deploy your GitHub, GitLab or Bitbucket projects automatically on Git
+git-auto-deploy: push events or webhooks using this small HTTP server written in Python.
+git-auto-deploy:
+git-auto-deploy: HOMEPAGE: https://github.com/olipo186/Git-Auto-Deploy
+git-auto-deploy:
+git-auto-deploy: Sample configuration:
+git-auto-deploy:   /usr/share/@PRGNAM@/config.json-sample
+git-auto-deploy:
+git-auto-deploy: Packaged by Widya Walesa <walecha99@gmail.com>

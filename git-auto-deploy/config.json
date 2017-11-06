@@ -1,0 +1,60 @@
+{
+  // HTTP server options
+  "http-enabled": true,
+  "http-host": "0.0.0.0",
+  "http-port": 8001,
+
+  // HTTPS server options
+  "https-enabled": false,
+  //"https-host": "0.0.0.0",
+  //"https-port": 8002,
+
+  // Web socket server options (used by web UI for real time updates)
+  //"wss-enabled": false,
+  //"wss-host": "0.0.0.0",
+  //"wss-port": 8003,
+
+  // Web user interface options
+  //"web-ui-enabled": false,
+  //"web-ui-username": null,
+  //"web-ui-password": null,
+  //"web-ui-whitelist": ["127.0.0.1"],
+
+  // TLS/SSL cert (necessary for HTTPS and web socket server to work)
+  //"ssl-key": null,  // If specified, holds the private key
+  //"ssl-cert": "cert.pem",  // Holds the public key or both the private and public keys
+
+  // File to store a copy of the console output
+  "log-file": "/path/to/git-auto-deploy.log",
+
+  // File to store the process id (pid)
+  "pid-file": "/path/to/git-auto-deploy.pid",
+
+  // Record all log levels by default
+  "log-level": "INFO",
+
+  // Deploy commands that should be executed for all projects
+  //"global_deploy": [
+  //  "echo Deploy started!",
+  //  "echo Deploy completed!"
+  //],
+
+  "repositories": [
+    {
+      "name": "someproject",
+      "url": "some_git_repository_for/someproject.git",
+      "branch": "some_branch",
+      "remote": "origin",
+      "path": "/path/to/deploy/someproject/",
+      "deploy": "echo deploying someproject on /path/to/deploy/someproject/"
+    },
+    {
+      "name": "otherproject",
+      "url": "user@some_git_repository_for/otherproject.git",
+      "branch": "some_branch",
+      "remote": "origin",
+      "path": "/path/to/deploy/otherproject/",
+      "deploy": "echo deploying otherproject on /path/to/deploy/otherproject"
+    }
+  ]
+}

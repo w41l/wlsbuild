@@ -1,8 +1,8 @@
 #!/bin/sh
 
-# Slackware build script for latte-dock
+# Slackware build script for git-auto-deploy
 
-# Copyright 2017  Widya Walesa <walecha99@gmail.com>
+# Copyright 2011  Widya Walesa <walecha99@gmail.com>
 # All rights reserved.
 #
 # Redistribution and use of this script, with or without modification, is
@@ -23,21 +23,27 @@
 # ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. FURTHERMORE I AM NOT LIABLE IF
 # YOUR DATA IS DESTROYED, YOUR HOUSE BURNS DOWN OR YOUR DOG RUNS OFF.
 
-PRGNAM=latte-dock
-VERSION=${VERSION:-0.7.1}
-BUILD=${BUILD:-3}
+SRCNAM=Git-Auto-Deploy
+PRGNAM=git-auto-deploy
+VERSION=${VERSION:-0.15}
+BUILD=${BUILD:-1}
 TAG=${TAG:-_wls}
 
 if [ -z "$ARCH" ]; then
   case "$( uname -m )" in
-    i?86) ARCH=i586 ;;
+    i?86) ARCH=i486 ;;
     arm*) ARCH=arm ;;
        *) ARCH=$( uname -m ) ;;
   esac
 fi
 
-if [ "$ARCH" = "i586" ]; then
-  SLKCFLAGS="-O2 -pipe -march=i586 -mtune=i686"
+CWD=$(pwd)
+WRK=${WRK:-/tmp/wlsbuild}
+PKG=$WRK/package-$PRGNAM
+OUTPUT=${OUTPUT:-/tmp}
+
+if [ "$ARCH" = "i486" ]; then
+  SLKCFLAGS="-O2 -pipe -march=i486 -mtune=i686"
   LIBDIRSUFFIX=""
 elif [ "$ARCH" = "i686" ]; then
   SLKCFLAGS="-O2 -pipe -march=i686 -mtune=i686"
@@ -50,21 +56,14 @@ else
   LIBDIRSUFFIX=""
 fi
 
-CWD=$(pwd)
-WRK=${WRK:-/tmp/wlsbuild}
-PKG=$WRK/package-$PRGNAM
-OUTPUT=${OUTPUT:-/tmp}
-DOCS="CHANGELOG.md INSTALLATION.md LICENSE README.md TRANSLATORS"
+set -e
 
 rm -rf $PKG
 mkdir -p $WRK $PKG $OUTPUT
 cd $WRK
-rm -rf Latte-Dock-$VERSION
-tar xvf $CWD/Latte-Dock-$VERSION.tar.?z*
-
-cd Latte-Dock-$VERSION
-
-cat $CWD/$PRGNAM-qt5.9.2.patch | patch -p1
+rm -rf $SRCNAM-$VERSION
+tar xvf $CWD/$SRCNAM-$VERSION.tar.gz
+cd $SRCNAM-$VERSION
 
 chown -R root:root .
 find . \
@@ -73,39 +72,24 @@ find . \
  \( -perm 666 -o -perm 664 -o -perm 600 -o -perm 444 -o -perm 440 -o -perm 400 \) \
  -exec chmod 644 {} \;
 
-mkdir build
-cd build
-  cmake \
-    -DCMAKE_C_FLAGS:STRING="$SLKCFLAGS" \
-    -DCMAKE_CXX_FLAGS:STRING="$SLKCFLAGS" \
-    -DCMAKE_CXX_FLAGS_RELEASE:STRING="$SLKCFLAGS" \
-    -DCMAKE_BUILD_TYPE=Release \
-    -DCMAKE_INSTALL_PREFIX=/usr \
-    -DKDE_INSTALL_MANDIR=/usr/man \
-    -DKDE_INSTALL_SYSCONFDIR=/etc/kde \
-    -DKDE_INSTALL_LIBDIR=lib$LIBDIRSUFFIX \
-    -DKDE_INSTALL_QTPLUGINDIR=lib$LIBDIRSUFFIX/qt5/plugins \
-    -DKDE_INSTALL_QMLDIR=lib$LIBDIRSUFFIX/qt5/qml \
-    -DKDE_INSTALL_USE_QT_SYS_PATHS=ON \
-    -DBUILD_TESTING=OFF \
-    .. || exit 1
-
-make || exit 1
-make DESTDIR=$PKG install || exit 1
-cd ..
+CFLAGS="$SLKCFLAGS" \
+CXXFLAGS="$SLKCFLAGS" \
+python setup.py build
+python setup.py install --root=$PKG
 
 find $PKG | xargs file | grep -e "executable" -e "shared object" | grep ELF \
   | cut -f 1 -d : | xargs strip --strip-unneeded 2> /dev/null || true
 
 mkdir -p $PKG/usr/doc/$PRGNAM-$VERSION
-cp -a $DOCS $PKG/usr/doc/$PRGNAM-$VERSION
+cp -a Dockerfile LICENSE README.md requirements.txt $PKG/usr/doc/$PRGNAM-$VERSION
 cat $CWD/$PRGNAM.SlackBuild > $PKG/usr/doc/$PRGNAM-$VERSION/$PRGNAM.SlackBuild
+cat $CWD/config.json >$PKG/usr/doc/$PRGNAM-$VERSION/config.json-sample
 
 mkdir -p $PKG/install
-cat $CWD/slack-desc > $PKG/install/slack-desc
+cat $CWD/slack-desc | sed "s/@PRGNAM@-@VERSION@/$PRGNAM-$VERSION/g" > $PKG/install/slack-desc
 
 cd $PKG
 /sbin/makepkg -p -l y -c n $OUTPUT/$PRGNAM-$VERSION-$ARCH-$BUILD$TAG.txz
 
 echo "Cleaning up build directory"
-cd $WRK; rm -rf Latte-Dock-$VERSION $PKG
+cd $WRK; rm -rf $SRCNAM-$VERSION $PKG

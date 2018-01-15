@@ -24,10 +24,10 @@
 # YOUR DATA IS DESTROYED, YOUR HOUSE BURNS DOWN OR YOUR DOG RUNS OFF.
 
 PRGNAM=quiterss
-VERSION=${VERSION:-0.17.7}
+VERSION=${VERSION:-0.18.8}
 BUILD=${BUILD:-1}
 TAG=${TAG:-_wls}
-NUMJOBS=${NUMJOBS:--j7}
+NUMJOBS=${NUMJOBS:-""}
 
 if [ -z "$ARCH" ]; then
   case "$( uname -m )" in
@@ -41,7 +41,7 @@ CWD=$(pwd)
 WRK=${WRK:-/tmp/wlsbuild}
 PKG=$WRK/package-$PRGNAM
 OUTPUT=${OUTPUT:-/tmp}
-DOCS="AUTHORS CHANGELOG COPYING HISTORY* INSTALL README"
+DOCS="AUTHORS CHANGELOG COPYING HISTORY_EN HISTORY_RU INSTALL README.md"
 
 if [ "$ARCH" = "i486" ]; then
   SLKCFLAGS="-O2 -pipe -march=i486 -mtune=i686"
@@ -56,6 +56,10 @@ else
   SLKCFLAGS="-O2"
   LIBDIRSUFFIX=""
 fi
+
+# Use Qt4/Qt5. Default to Qt4
+QMAKE=${QMAKE:-"/usr/bin/qmake"}
+# QMAKE=${QMAKE:-"/usr/bin/qmake-qt5"}
 
 set -e
 
@@ -72,7 +76,7 @@ find . \
  \( -perm 666 -o -perm 664 -o -perm 600 -o -perm 444 -o -perm 440 -o -perm 400 \) \
  -exec chmod 644 {} \;
 
-qmake \
+$QMAKE \
   PREFIX=/usr \
   LRELEASE=/usr/bin/lrelease \
   LIB_DIR=/usr/lib${LIBDIRSUFFIX} \

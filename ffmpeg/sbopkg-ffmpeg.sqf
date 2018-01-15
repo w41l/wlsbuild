@@ -1,0 +1,16 @@
+libavc1394
+libiec61883
+libass
+celt
+libdc1394
+libfdk-aac
+gsm
+libmodplug
+opencore-amr
+rtmpdump
+speex
+twolame
+x264
+x265
+xvidcore
+OpenAL

@@ -24,16 +24,17 @@
 # YOUR DATA IS DESTROYED, YOUR HOUSE BURNS DOWN OR YOUR DOG RUNS OFF.
 
 PRGNAM=wine
-VERSION=${VERSION:-2.18}
-SRCVERSION=${SRCVERSION:-$VERSION}
+VERSION=${VERSION:-3.0.rc6}
+SRCVERSION=${SRCVERSION:-"3.0-rc6"}
 STAGING_VERSION=${STAGING_VERSION:-$SRCVERSION}
-WINETRICKS_VERSION=${WINETRICKS_VERSION:-20171018}
+WINETRICKS_VERSION=${WINETRICKS_VERSION:-20171222}
 BUILD=${BUILD:-1}
 TAG=${TAG:-_wls}
-STAGING=${STAGING:-"yes"}
-NINE=${NINE:-"yes"}
+STAGING=${STAGING:-"no"}
+NINE=${NINE:-"no"}
 NINE_VERSION=${NINE_VERSION:-$SRCVERSION}
 D3D9_DIR="$PRGNAM-d3d9-patches-$PRGNAM-d3d9-$NINE_VERSION"
+RUN_AUTORECONF=""
 
 if [ -z "$ARCH" ]; then
   case "$( uname -m )" in
@@ -79,22 +80,6 @@ if [ ! -f wine-$SRCVERSION.tar.xz ]; then
   curl -OLJ -C - $DOWNLOAD_WINE
 fi
 
-if [ ! -f wine-staging-$STAGING_VERSION.tar.gz ]; then
-  rm -f wine-staging-$STAGING_VERSION.tar.gz
-  unset DOWNLOAD_STAGING
-  eval `cat $PRGNAM.info | grep "DOWNLOAD_STAGING="`
-  echo "Downloading `basename $DOWNLOAD_STAGING`"
-  curl -OLJ -C - $DOWNLOAD_STAGING
-fi
-
-if [ ! -f wine-d3d9-patches-$PRGNAM-d3d9-$NINE_VERSION.tar.gz ]; then
-  rm -f wine-d3d9-patches-$PRGNAM-d3d9-$NINE_VERSION.tar.gz
-  unset DOWNLOAD_D3D9
-  eval `cat $PRGNAM.info | grep "DOWNLOAD_D3D9="`
-  echo "Downloading `basename $DOWNLOAD_D3D9`"
-  curl -OLJ -C - $DOWNLOAD_D3D9
-fi
-
 if [ ! -f winetricks-$WINETRICKS_VERSION.tar.gz ]; then
   rm -f winetricks-$WINETRICKS_VERSION.tar.gz
   unset DOWNLOAD_WINETRICKS
@@ -117,9 +102,19 @@ cd $PRGNAM-$SRCVERSION
 
 if [ "$STAGING" = "yes" ]; then
     echo "BUILDING WINE STAGING: $STAGING_VERSION"
+
+    if [ ! -f wine-staging-$STAGING_VERSION.tar.gz ]; then
+	rm -f wine-staging-$STAGING_VERSION.tar.gz
+	unset DOWNLOAD_STAGING
+	eval `cat $PRGNAM.info | grep "DOWNLOAD_STAGING="`
+	echo "Downloading `basename $DOWNLOAD_STAGING`"
+	curl -OLJ -C - $DOWNLOAD_STAGING
+    fi
+
     tar -xvf $CWD/$PRGNAM-staging-$STAGING_VERSION.tar.gz --strip-components 1
     make -C patches DESTDIR=$WRK/$PRGNAM-$SRCVERSION install || exit 1
     sed -i -e 's!^loader server: libs/port libs/wine tools.*!& include!' Makefile.in
+    RUN_AUTORECONF=1
 else
     echo "BUILDING WINE STAGING: FALSE"
     sleep 5
@@ -127,6 +122,15 @@ fi
 
 if [ "$NINE" = "yes" ]; then
     echo "BUILDING WINE NINE: $NINE_VERSION"
+
+    if [ ! -f wine-d3d9-patches-$PRGNAM-d3d9-$NINE_VERSION.tar.gz ]; then
+	rm -f wine-d3d9-patches-$PRGNAM-d3d9-$NINE_VERSION.tar.gz
+	unset DOWNLOAD_D3D9
+	eval `cat $PRGNAM.info | grep "DOWNLOAD_D3D9="`
+	echo "Downloading `basename $DOWNLOAD_D3D9`"
+	curl -OLJ -C - $DOWNLOAD_D3D9
+    fi
+
     tar xvf $CWD/$D3D9_DIR.tar.gz
     if [ "$STAGING" = "yes" ]; then
 	patch -p1 < ${D3D9_DIR}/staging-helper.patch
@@ -134,6 +138,7 @@ if [ "$NINE" = "yes" ]; then
 	patch -p1 < ${D3D9_DIR}/d3d9-helper.patch
     fi
     patch -p1 < ${D3D9_DIR}/wine-d3d9.patch
+    RUN_AUTORECONF=1
 else
   echo "BUILDING WINE NINE: FALSE"
   sleep 5
@@ -148,7 +153,9 @@ find . \
  \( -perm 666 -o -perm 664 -o -perm 600 -o -perm 444 -o -perm 440 -o -perm 400 \) \
  -exec chmod 644 {} \;
 
-autoreconf -fi
+if [ "$RUN_AUTORECONF" = "1" ]; then
+    autoreconf -fi
+fi
 
 echo "Creating build directory $WRK/$PRGNAM"
 rm -rf $WRK/$PRGNAM
@@ -169,7 +176,6 @@ cd $WRK/$PRGNAM
   --with-va \
   --enable-largefile \
   --disable-tests \
-  ${ENABLE_NINE} \
   ${ENABLE_64} \
   || exit 1
 
@@ -183,6 +189,7 @@ if [ "$ARCH" = "x86_64" ]; then
   cd $WRK/$PRGNAM-wow64
 
   # Set 32-bit pkgconfig path as needed by gstreamer
+  env | grep $PKG_CONFIG_PATH >$WRK/wine-PKG_CONFIG_PATH.orig
   unset PKG_CONFIG_PATH
   export PKG_CONFIG_PATH="$PKG_CONFIG_PATH:/usr/local/lib/pkgconfig:/usr/lib/pkgconfig"
 
@@ -202,7 +209,6 @@ if [ "$ARCH" = "x86_64" ]; then
     --with-va \
     --enable-largefile \
     --disable-tests \
-    ${ENABLE_NINE} \
     || exit 1
 
   make depend || exit 1
@@ -214,7 +220,8 @@ fi
 # Back installing wine 64-bit
 cd $WRK/$PRGNAM
 unset PKG_CONFIG_PATH
-export PKG_CONFIG_PATH="$PKG_CONFIG_PATH:/usr/local/lib64/pkgconfig:/usr/lib64/pkgconfig"
+eval `cat $WRK/wine-PKG_CONFIG_PATH.orig`
+export PKG_CONFIG_PATH
 make install DESTDIR=$PKG || exit 1
 
 cd $WRK/winetricks-$WINETRICKS_VERSION

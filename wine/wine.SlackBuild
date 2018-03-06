@@ -24,17 +24,19 @@
 # YOUR DATA IS DESTROYED, YOUR HOUSE BURNS DOWN OR YOUR DOG RUNS OFF.
 
 PRGNAM=wine
-VERSION=${VERSION:-3.0.rc6}
-SRCVERSION=${SRCVERSION:-"3.0-rc6"}
+VERSION=${VERSION:-3.2}
+SRCVERSION=${SRCVERSION:-"3.2"}
 STAGING_VERSION=${STAGING_VERSION:-$SRCVERSION}
 WINETRICKS_VERSION=${WINETRICKS_VERSION:-20171222}
-BUILD=${BUILD:-1}
-TAG=${TAG:-_wls}
-STAGING=${STAGING:-"no"}
-NINE=${NINE:-"no"}
 NINE_VERSION=${NINE_VERSION:-$SRCVERSION}
 D3D9_DIR="$PRGNAM-d3d9-patches-$PRGNAM-d3d9-$NINE_VERSION"
-RUN_AUTORECONF=""
+BUILD=${BUILD:-1}
+TAG=${TAG:-_wls}
+
+# BUILD OPTIONS
+STAGING=${STAGING:-"no"}
+NINE=${NINE:-"no"}
+RUN_AUTORECONF=${RUN_AUTORECONF:-"no"}
 
 if [ -z "$ARCH" ]; then
   case "$( uname -m )" in
@@ -114,10 +116,10 @@ if [ "$STAGING" = "yes" ]; then
     tar -xvf $CWD/$PRGNAM-staging-$STAGING_VERSION.tar.gz --strip-components 1
     make -C patches DESTDIR=$WRK/$PRGNAM-$SRCVERSION install || exit 1
     sed -i -e 's!^loader server: libs/port libs/wine tools.*!& include!' Makefile.in
-    RUN_AUTORECONF=1
+    RUN_AUTORECONF=yes
 else
     echo "BUILDING WINE STAGING: FALSE"
-    sleep 5
+    sleep 2
 fi
 
 if [ "$NINE" = "yes" ]; then
@@ -138,10 +140,10 @@ if [ "$NINE" = "yes" ]; then
 	patch -p1 < ${D3D9_DIR}/d3d9-helper.patch
     fi
     patch -p1 < ${D3D9_DIR}/wine-d3d9.patch
-    RUN_AUTORECONF=1
+    RUN_AUTORECONF=yes
 else
   echo "BUILDING WINE NINE: FALSE"
-  sleep 5
+  sleep 2
 fi
 
 sed 's|OpenCL/opencl.h|CL/opencl.h|g' -i configure*
@@ -153,8 +155,8 @@ find . \
  \( -perm 666 -o -perm 664 -o -perm 600 -o -perm 444 -o -perm 440 -o -perm 400 \) \
  -exec chmod 644 {} \;
 
-if [ "$RUN_AUTORECONF" = "1" ]; then
-    autoreconf -fi
+if [ "$RUN_AUTORECONF" = "yes" ]; then
+    autoreconf -ivsf
 fi
 
 echo "Creating build directory $WRK/$PRGNAM"
@@ -180,7 +182,7 @@ cd $WRK/$PRGNAM
   || exit 1
 
 make depend || exit 1
-make || exit 1
+make -j $(nproc) || make || exit 1
 
 if [ "$ARCH" = "x86_64" ]; then
   echo "Building WINE 32-bit compat for $ARCH"
@@ -212,7 +214,7 @@ if [ "$ARCH" = "x86_64" ]; then
     || exit 1
 
   make depend || exit 1
-  make || exit 1
+  make -j $(nproc) || make || exit 1
   make install DESTDIR=$PKG || exit 1
   unset PKG_CONFIG_PATH
 fi

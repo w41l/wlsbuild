@@ -24,8 +24,8 @@
 # YOUR DATA IS DESTROYED, YOUR HOUSE BURNS DOWN OR YOUR DOG RUNS OFF.
 
 PRGNAM=latte-dock
-VERSION=${VERSION:-0.7.1}
-BUILD=${BUILD:-3}
+VERSION=${VERSION:-0.7.2}
+BUILD=${BUILD:-1}
 TAG=${TAG:-_wls}
 
 if [ -z "$ARCH" ]; then
@@ -64,8 +64,6 @@ tar xvf $CWD/Latte-Dock-$VERSION.tar.?z*
 
 cd Latte-Dock-$VERSION
 
-cat $CWD/$PRGNAM-qt5.9.2.patch | patch -p1
-
 chown -R root:root .
 find . \
  \( -perm 777 -o -perm 775 -o -perm 711 -o -perm 555 -o -perm 511 \) \
@@ -93,6 +91,9 @@ cd build
 make || exit 1
 make DESTDIR=$PKG install || exit 1
 cd ..
+
+# Remove empty directory
+rmdir $PKG/usr/share/locale
 
 find $PKG | xargs file | grep -e "executable" -e "shared object" | grep ELF \
   | cut -f 1 -d : | xargs strip --strip-unneeded 2> /dev/null || true

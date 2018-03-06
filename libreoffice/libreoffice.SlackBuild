@@ -2,7 +2,7 @@
 
 # Slackware build script for libreoffice
 
-# Copyright 2010-2016  Widya Walesa <walecha99@gmail.com>
+# Copyright 2010-2017  Widya Walesa <walecha99@gmail.com>
 # All rights reserved.
 #
 # Redistribution and use of this script, with or without modification, is
@@ -24,8 +24,8 @@
 # YOUR DATA IS DESTROYED, YOUR HOUSE BURNS DOWN OR YOUR DOG RUNS OFF.
 
 PRGNAM=libreoffice
-VERSION=6.0.0
-RCVERS=".1"
+VERSION=${VERSION:-6.0.0}
+RCVERS=${RCVERS:-".2"}
 MAJORVER=`echo $VERSION | sed "s/\(.*\)\.\(.*\)\.*/\1/"`
 BUILD=${BUILD:-1}
 TAG=${TAG:-_wls}
@@ -80,8 +80,8 @@ find . \
  -exec chmod 644 {} \;
 
 echo "install libreoffice README and LICENSE"
-mkdir -p ${PKG}/usr/doc/${PRGNAM}-${VERSION}
-mv -v readmes/* ${PKG}/usr/doc/${PRGNAM}-${VERSION}/
+mkdir -p ${PKG}/usr/doc/${PRGNAM}-${VERSION}${RCVERS}
+mv -v readmes/* ${PKG}/usr/doc/${PRGNAM}-${VERSION}${RCVERS}/
 
 echo "Unpacking ${DIST} packages"
 if [ "${DIST}" = "deb" ]; then

@@ -25,7 +25,7 @@
 
 PRGNAM=libreoffice
 VERSION=${VERSION:-6.0.0}
-RCVERS=${RCVERS:-".2"}
+RCVERS=${RCVERS:-".3"}
 MAJORVER=`echo $VERSION | sed "s/\(.*\)\.\(.*\)\.*/\1/"`
 BUILD=${BUILD:-1}
 TAG=${TAG:-_wls}
@@ -69,7 +69,7 @@ rm -rf $PKG
 mkdir -p $WRK $PKG $OUTPUT
 cd $WRK
 rm -rf LibreOffice_*
-tar xvf $CWD/LibreOffice_${VERSION}${RCVERS}_Linux_${LOARCH}_${DIST}.tar.gz
+tar xvf $CWD/LibreOffice_${VERSION}_Linux_${LOARCH}_${DIST}.tar.gz
 cd LibreOffice_${VERSION}${RCVERS}_Linux_${LOARCH}_${DIST}
 
 chown -R root:root .
@@ -125,7 +125,7 @@ mkdir -p ${PKG}/usr/bin
 mv usr/bin/* ${PKG}/usr/bin
 
 echo "Unpacking language package"
-tar xvf $CWD/LibreOffice_${VERSION}${RCVERS}_Linux_${LOARCH}_${DIST}_langpack_${LANGPACK}.tar.gz
+tar xvf $CWD/LibreOffice_${VERSION}_Linux_${LOARCH}_${DIST}_langpack_${LANGPACK}.tar.gz
 cd LibreOffice_${VERSION}${RCVERS}_Linux_${LOARCH}_${DIST}_langpack_${LANGPACK}
 if [ "${DIST}" = "deb" ]; then
   cd DEBS
@@ -143,7 +143,7 @@ fi
 cd ..
 
 echo "Unpacking help package"
-tar xvf $CWD/LibreOffice_${VERSION}${RCVERS}_Linux_${LOARCH}_${DIST}_helppack_${LANGPACK}.tar.gz
+tar xvf $CWD/LibreOffice_${VERSION}_Linux_${LOARCH}_${DIST}_helppack_${LANGPACK}.tar.gz
 cd LibreOffice_${VERSION}${RCVERS}_Linux_${LOARCH}_${DIST}_helppack_${LANGPACK}
 if [ "${DIST}" = "deb" ]; then
   cd DEBS

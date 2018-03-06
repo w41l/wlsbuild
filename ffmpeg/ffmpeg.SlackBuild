@@ -30,7 +30,7 @@
 PKGNAM=ffmpeg
 VERSION=${VERSION:-$(echo $PKGNAM-*.tar.xz | rev | cut -f 3- -d . | cut -f 1 -d - | rev)}
 BUILD=${BUILD:-1}
-TAG="_wls"
+TAG=${TAG:-"_wls"}
 
 if [ -z "$ARCH" ]; then
   case "$( uname -m )" in
@@ -235,7 +235,7 @@ CXXFLAGS="$SLKCFLAGS" \
   $tesseract \
   $wavpack || exit 1
 
-make || exit 1
+make -j $(nproc) || make || exit 1
 make install DESTDIR=$PKG || exit 1
 make install-man DESTDIR=$PKG || exit 1
 

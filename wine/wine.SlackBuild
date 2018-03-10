@@ -2,7 +2,7 @@
 
 # Slackware build script for wine
 
-# Copyright 2011-2017  Widya Walesa <walecha99@gmail.com>
+# Copyright 2011-2018  Widya Walesa <walecha99@gmail.com>
 # All rights reserved.
 #
 # Redistribution and use of this script, with or without modification, is
@@ -24,17 +24,17 @@
 # YOUR DATA IS DESTROYED, YOUR HOUSE BURNS DOWN OR YOUR DOG RUNS OFF.
 
 PRGNAM=wine
-VERSION=${VERSION:-3.2}
-SRCVERSION=${SRCVERSION:-"3.2"}
-STAGING_VERSION=${STAGING_VERSION:-$SRCVERSION}
-WINETRICKS_VERSION=${WINETRICKS_VERSION:-20171222}
+eval $(cat $PRGNAM.info | grep "VERSION=")
+SRCVERSION=${SRCVERSION:-"$VERSION"}
+STAGING_VERSION=${STAGING_VERSION:-"$SRCVERSION"}
+WINETRICKS_VERSION=${WINETRICKS_VERSION:-20180217}
 NINE_VERSION=${NINE_VERSION:-$SRCVERSION}
 D3D9_DIR="$PRGNAM-d3d9-patches-$PRGNAM-d3d9-$NINE_VERSION"
 BUILD=${BUILD:-1}
 TAG=${TAG:-_wls}
 
 # BUILD OPTIONS
-STAGING=${STAGING:-"no"}
+STAGING=${STAGING:-"yes"}
 NINE=${NINE:-"no"}
 RUN_AUTORECONF=${RUN_AUTORECONF:-"no"}
 
@@ -74,7 +74,7 @@ fi
 
 set -e
 
-if [ ! -f wine-$SRCVERSION.tar.xz ]; then
+if [ ! -e wine-$SRCVERSION.tar.xz ]; then
   rm -f wine-$SRCVERSION.tar.xz
   unset DOWNLOAD_WINE
   eval `cat $PRGNAM.info | grep "DOWNLOAD_WINE="`
@@ -82,13 +82,51 @@ if [ ! -f wine-$SRCVERSION.tar.xz ]; then
   curl -OLJ -C - $DOWNLOAD_WINE
 fi
 
-if [ ! -f winetricks-$WINETRICKS_VERSION.tar.gz ]; then
+if [ ! -e winetricks-$WINETRICKS_VERSION.tar.gz ]; then
   rm -f winetricks-$WINETRICKS_VERSION.tar.gz
   unset DOWNLOAD_WINETRICKS
   eval `cat $PRGNAM.info | grep "DOWNLOAD_WINETRICKS="`
   echo "Downloading `basename $DOWNLOAD_WINETRICKS`"
   curl -OLJ -C - $DOWNLOAD_WINETRICKS
 fi
+
+if [ "$STAGING" = "yes" ]; then
+    echo "BUILDING WINE STAGING: $STAGING_VERSION"
+    if [ ! -e wine-staging-$STAGING_VERSION.tar.gz ]; then
+	rm -f wine-staging-$STAGING_VERSION.tar.gz
+	unset DOWNLOAD_STAGING
+	eval `cat $PRGNAM.info | grep "DOWNLOAD_STAGING="`
+	echo "Downloading `basename $DOWNLOAD_STAGING`"
+	curl -OLJ -C - $DOWNLOAD_STAGING
+    fi
+else
+    echo "BUILDING WINE STAGING: FALSE"
+fi
+
+if [ "$NINE" = "yes" ]; then
+    echo "BUILDING WINE NINE: $NINE_VERSION"
+    if [ ! -e wine-d3d9-patches-$PRGNAM-d3d9-$NINE_VERSION.tar.gz ]; then
+	rm -f wine-d3d9-patches-$PRGNAM-d3d9-$NINE_VERSION.tar.gz
+	unset DOWNLOAD_D3D9
+	eval `cat $PRGNAM.info | grep "DOWNLOAD_D3D9="`
+	echo "Downloading `basename $DOWNLOAD_D3D9`"
+	curl -OLJ -C - $DOWNLOAD_D3D9
+    fi
+else
+  echo "BUILDING WINE NINE: FALSE"
+fi
+
+# Checking CPU threads
+NUMCPU=$(nproc)
+if [ $NUMCPU -ge 4 ]; then
+  NUMTHREADS=$(nproc --ignore=2)
+elif [ $NUMCPU -le 2 ]; then
+  NUMTHREADS=$(nproc)
+fi
+echo "BUILDING THREADS: $NUMTHREADS"
+
+# Set some time to think of your options
+sleep 7
 
 rm -rf $PKG
 mkdir -p $WRK $PKG $OUTPUT
@@ -103,36 +141,14 @@ tar xvf $CWD/winetricks-$WINETRICKS_VERSION.tar.gz
 cd $PRGNAM-$SRCVERSION
 
 if [ "$STAGING" = "yes" ]; then
-    echo "BUILDING WINE STAGING: $STAGING_VERSION"
-
-    if [ ! -f wine-staging-$STAGING_VERSION.tar.gz ]; then
-	rm -f wine-staging-$STAGING_VERSION.tar.gz
-	unset DOWNLOAD_STAGING
-	eval `cat $PRGNAM.info | grep "DOWNLOAD_STAGING="`
-	echo "Downloading `basename $DOWNLOAD_STAGING`"
-	curl -OLJ -C - $DOWNLOAD_STAGING
-    fi
-
     tar -xvf $CWD/$PRGNAM-staging-$STAGING_VERSION.tar.gz --strip-components 1
     make -C patches DESTDIR=$WRK/$PRGNAM-$SRCVERSION install || exit 1
     sed -i -e 's!^loader server: libs/port libs/wine tools.*!& include!' Makefile.in
+    unset RUN_AUTORECONF
     RUN_AUTORECONF=yes
-else
-    echo "BUILDING WINE STAGING: FALSE"
-    sleep 2
 fi
 
 if [ "$NINE" = "yes" ]; then
-    echo "BUILDING WINE NINE: $NINE_VERSION"
-
-    if [ ! -f wine-d3d9-patches-$PRGNAM-d3d9-$NINE_VERSION.tar.gz ]; then
-	rm -f wine-d3d9-patches-$PRGNAM-d3d9-$NINE_VERSION.tar.gz
-	unset DOWNLOAD_D3D9
-	eval `cat $PRGNAM.info | grep "DOWNLOAD_D3D9="`
-	echo "Downloading `basename $DOWNLOAD_D3D9`"
-	curl -OLJ -C - $DOWNLOAD_D3D9
-    fi
-
     tar xvf $CWD/$D3D9_DIR.tar.gz
     if [ "$STAGING" = "yes" ]; then
 	patch -p1 < ${D3D9_DIR}/staging-helper.patch
@@ -140,10 +156,8 @@ if [ "$NINE" = "yes" ]; then
 	patch -p1 < ${D3D9_DIR}/d3d9-helper.patch
     fi
     patch -p1 < ${D3D9_DIR}/wine-d3d9.patch
+    unset RUN_AUTORECONF
     RUN_AUTORECONF=yes
-else
-  echo "BUILDING WINE NINE: FALSE"
-  sleep 2
 fi
 
 sed 's|OpenCL/opencl.h|CL/opencl.h|g' -i configure*
@@ -182,7 +196,7 @@ cd $WRK/$PRGNAM
   || exit 1
 
 make depend || exit 1
-make -j $(nproc) || make || exit 1
+make -j $NUMTHREADS || make || exit 1
 
 if [ "$ARCH" = "x86_64" ]; then
   echo "Building WINE 32-bit compat for $ARCH"
@@ -214,7 +228,7 @@ if [ "$ARCH" = "x86_64" ]; then
     || exit 1
 
   make depend || exit 1
-  make -j $(nproc) || make || exit 1
+  make -j $NUMTHREADS || make || exit 1
   make install DESTDIR=$PKG || exit 1
   unset PKG_CONFIG_PATH
 fi

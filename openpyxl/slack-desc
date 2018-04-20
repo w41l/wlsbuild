@@ -1,0 +1,19 @@
+# HOW TO EDIT THIS FILE:
+# The "handy ruler" below makes it easier to edit a package description.
+# Line up the first '|' above the ':' following the base package name, and
+# the '|' on the right side marks the last column you can put a character in.
+# You must make exactly 11 lines for the formatting to be correct.  It's also
+# customary to leave one space after the ':' except on otherwise blank lines.
+
+        |-----handy-ruler------------------------------------------------------|
+openpyxl: openpyxl
+openpyxl:
+openpyxl: openpyxl is a Python library to read/write Excel 2010
+openpyxl: xlsx/xlsm/xltx/xltm files. It was born from lack of existing library
+openpyxl: to read/write natively from Python the Office Open XML format.
+openpyxl: All kudos to the PHPExcel team as openpyxl was initially based
+openpyxl: on PHPExcel.
+openpyxl:
+openpyxl: Homepage: https://openpyxl.readthedocs.io/
+openpyxl:
+openpyxl:

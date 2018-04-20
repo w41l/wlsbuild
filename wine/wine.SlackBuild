@@ -133,16 +133,16 @@ mkdir -p $WRK $PKG $OUTPUT
 cd $WRK
 rm -rf $PRGNAM* Wine-*
 echo "extracting $PRGNAM-$SRCVERSION"
-tar xvf $CWD/$PRGNAM-$SRCVERSION.tar.xz
+tar xvf $CWD/$PRGNAM-$SRCVERSION.tar.xz | tee -a $WRK/$PRGNAM-prepare.log
 
 echo "extracting winetricks-$WINETRICKS_VERSION"
-tar xvf $CWD/winetricks-$WINETRICKS_VERSION.tar.gz
+tar xvf $CWD/winetricks-$WINETRICKS_VERSION.tar.gz | tee -a $WRK/$PRGNAM-prepare.log
 
 cd $PRGNAM-$SRCVERSION
 
 if [ "$STAGING" = "yes" ]; then
     tar -xvf $CWD/$PRGNAM-staging-$STAGING_VERSION.tar.gz --strip-components 1
-    make -C patches DESTDIR=$WRK/$PRGNAM-$SRCVERSION install || exit 1
+    make -C patches DESTDIR=$WRK/$PRGNAM-$SRCVERSION install | tee -a $WRK/$PRGNAM-prepare.log || exit 1
     sed -i -e 's!^loader server: libs/port libs/wine tools.*!& include!' Makefile.in
     unset RUN_AUTORECONF
     RUN_AUTORECONF=yes
@@ -155,7 +155,7 @@ if [ "$NINE" = "yes" ]; then
     else
 	patch -p1 < ${D3D9_DIR}/d3d9-helper.patch
     fi
-    patch -p1 < ${D3D9_DIR}/wine-d3d9.patch
+    cat ${D3D9_DIR}/wine-d3d9.patch | patch -p1 --verbose | tee -a $WRK/$PRGNAM-prepare.log
     unset RUN_AUTORECONF
     RUN_AUTORECONF=yes
 fi
@@ -170,7 +170,7 @@ find . \
  -exec chmod 644 {} \;
 
 if [ "$RUN_AUTORECONF" = "yes" ]; then
-    autoreconf -ivsf
+    autoreconf -ivsf | tee -a $WRK/$PRGNAM-prepare.log
 fi
 
 echo "Creating build directory $WRK/$PRGNAM"
@@ -193,10 +193,10 @@ cd $WRK/$PRGNAM
   --enable-largefile \
   --disable-tests \
   ${ENABLE_64} \
-  || exit 1
+  | tee -a $WRK/$PRGNAM-build.log || exit 1
 
-make depend || exit 1
-make -j $NUMTHREADS || make || exit 1
+make depend | tee -a $WRK/$PRGNAM-build.log || exit 1
+make -j $NUMTHREADS | tee -a $WRK/$PRGNAM-build.log || exit 1
 
 if [ "$ARCH" = "x86_64" ]; then
   echo "Building WINE 32-bit compat for $ARCH"
@@ -225,11 +225,11 @@ if [ "$ARCH" = "x86_64" ]; then
     --with-va \
     --enable-largefile \
     --disable-tests \
-    || exit 1
+    | tee -a $WRK/$PRGNAM-build.log || exit 1
 
-  make depend || exit 1
-  make -j $NUMTHREADS || make || exit 1
-  make install DESTDIR=$PKG || exit 1
+  make depend | tee -a $WRK/$PRGNAM-build.log || exit 1
+  make -j $NUMTHREADS | tee -a $WRK/$PRGNAM-build.log || exit 1
+  make install DESTDIR=$PKG | tee -a $WRK/$PRGNAM-install.log || exit 1
   unset PKG_CONFIG_PATH
 fi
 
@@ -238,11 +238,11 @@ cd $WRK/$PRGNAM
 unset PKG_CONFIG_PATH
 eval `cat $WRK/wine-PKG_CONFIG_PATH.orig`
 export PKG_CONFIG_PATH
-make install DESTDIR=$PKG || exit 1
+make install DESTDIR=$PKG | tee -a $WRK/$PRGNAM-install.log || exit 1
 
 cd $WRK/winetricks-$WINETRICKS_VERSION
 echo "Installing winetricks-$WINETRICKS_VERSION"
-make install DESTDIR=$PKG PREFIX=/usr
+make install DESTDIR=$PKG PREFIX=/usr | tee -a $WRK/$PRGNAM-install.log
 
 cd $WRK/$PRGNAM-$SRCVERSION
 
@@ -268,7 +268,8 @@ mkdir -p $PKG/install
 cat $CWD/slack-desc > $PKG/install/slack-desc
 
 cd $PKG
-/sbin/makepkg -p -l y -c n $OUTPUT/$PRGNAM-$VERSION-$ARCH-$BUILD$TAG.txz
+/sbin/makepkg -p -l y -c n $OUTPUT/$PRGNAM-$VERSION-$ARCH-$BUILD$TAG.txz | tee -a $WRK/$PRGNAM-pkg.log || exit 1
 
 echo "Cleaning up build directory"
+cp -a $WRK/*.log $OUTPUT/
 cd $WRK; rm -rf $PRGNAM* $PKG Wine-*

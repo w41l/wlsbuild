@@ -1,4 +1,12 @@
-URL=http://www.nomacs.org/
-SRC=http://downloads.sourceforge.net/project/nomacs/nomacs-1.4.0/nomacs-1.4.0-source.tar.bz2
-MD5=ede84986dce5f67c270bb5ff7354e867
-SHA1=bcd7487d684c8b872ba8286412edcc5d5b717f36
+PRGNAM="nomacs"
+VERSION="3.8.1"
+HOMEPAGE="http://www.nomacs.org/"
+DOWNLOAD="https://codeload.github.com/nomacs/nomacs/tar.gz/3.8.1"
+DOWNLOAD_PLUGINS="https://codeload.github.com/nomacs/nomacs-plugins/tar.gz/3.8.1"
+MD5SUM="8cd9fe30f374a8315314d50eb2fccde3"
+MD5SUM_PLUGINS="6aa30268d9f463be08f22cecd3f335f5"
+DOWNLOAD_x86_64=""
+MD5SUM_x86_64=""
+REQUIRES="opencv"
+MAINTAINER="Widya Walesa"
+EMAIL="walecha_99_[at]_gmail_[dot]_com"

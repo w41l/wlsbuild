@@ -2,7 +2,7 @@
 
 # Slackware build script for nomacs
 
-# Copyright 2013  Widya Walesa <walecha99@gmail.com>
+# Copyright 2013-2018  Widya Walesa <walecha99@gmail.com>
 # All rights reserved.
 #
 # Redistribution and use of this script, with or without modification, is
@@ -24,10 +24,16 @@
 # YOUR DATA IS DESTROYED, YOUR HOUSE BURNS DOWN OR YOUR DOG RUNS OFF.
 
 PRGNAM=nomacs
-VERSION=1.4.0
-BUILD=1
+VERSION=3.8.1
+BUILD=${BUILD:-1}
 TAG=${TAG:-_wls}
-NUMJOBS=${NUMJOBS:--j2}
+
+NUMCORE=$(nproc)
+if [ $NUMCORE -le 3 ]; then
+  NUMJOBS="-j${NUMCORE}"
+else
+  NUMJOBS="-j$(nproc --ignore=2)"
+fi
 
 if [ -z "$ARCH" ]; then
   case "$( uname -m )" in
@@ -41,7 +47,6 @@ CWD=$(pwd)
 WRK=${WRK:-/tmp/wlsbuild}
 PKG=$WRK/package-$PRGNAM
 OUTPUT=${OUTPUT:-/tmp}
-DOCS="COPYRIGHT LICENSE* README*"
 
 if [ "$ARCH" = "i486" ]; then
   SLKCFLAGS="-O2 -pipe -march=i486 -mtune=i686"
@@ -63,8 +68,13 @@ rm -rf $PKG
 mkdir -p $WRK $PKG $OUTPUT
 cd $WRK
 rm -rf $PRGNAM-$VERSION
-tar xvf $CWD/$PRGNAM-$VERSION-source.tar.?z*
+tar xvf $CWD/$PRGNAM-$VERSION.tar.?z*
 cd $PRGNAM-$VERSION
+
+rm -rf ImageLounge/plugins
+tar xvf $CWD/$PRGNAM-plugins-$VERSION.tar.?z*
+mv $PRGNAM-plugins-$VERSION ImageLounge/plugins
+
 chown -R root:root .
 find . \
  \( -perm 777 -o -perm 775 -o -perm 711 -o -perm 555 -o -perm 511 \) \
@@ -74,15 +84,25 @@ find . \
 
 mkdir build
 cd build
-  cmake .. \
+  cmake ../ImageLounge/ \
     -DCMAKE_C_FLAGS="$SLKCFLAGS" \
     -DCMAKE_CXX_FLAGS="$SLKCFLAGS" \
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_PREFIX=/usr \
+    -DLIB_SUFFIX="$LIBDIRSUFFIX"
 
-  make
+  make $NUMJOBS
   make install DESTDIR=$PKG
 cd -
+
+# Don't ship .la files:
+rm -f $PKG/{,usr/}lib${LIBDIRSUFFIX}/*.la
+
+# Fix nomacs-plugins path
+mkdir -p $PKG/usr/lib${LIBDIRSUFFIX}/qt5/plugins
+mv $PKG/usr/lib/nomacs-plugins/* \
+  $PKG/usr/lib${LIBDIRSUFFIX}/qt5/plugins/
+rm -rf $PKG/usr/lib
 
 mv $PKG/usr/share/man $PKG/usr/
 
@@ -93,16 +113,31 @@ find $PKG/usr/man -type f -exec gzip -9 {} \;
 for i in $( find $PKG/usr/man -type l ) ; do ln -s $( readlink $i ).gz $i.gz ; rm $i ; done
 
 mkdir -p $PKG/usr/doc/$PRGNAM-$VERSION
-cp -a Readme/$DOCS $PKG/usr/doc/$PRGNAM-$VERSION
+cp -a ImageLounge/Readme/{COPYRIGHT,Exiv2-Update.md,LICENSE.*,README} $PKG/usr/doc/$PRGNAM-$VERSION
+mkdir -p $PKG/usr/doc/$PRGNAM-$VERSION/3rdparty/libqpsd
+cp -a ImageLounge/3rdparty/libqpsd/{*.md,*.LGPL} \
+  $PKG/usr/doc/$PRGNAM-$VERSION/3rdparty/libqpsd/
+mkdir -p $PKG/usr/doc/$PRGNAM-$VERSION/3rdparty/quazip-0.7
+cp -a ImageLounge/3rdparty/quazip-0.7/{COPYING,NEWS.txt,README.txt} \
+  $PKG/usr/doc/$PRGNAM-$VERSION/3rdparty/quazip-0.7/
+for x in AffineTransformations DocAnalysisPlugin FakeMiniaturesPlugin \
+ ImageStitchingPlugin NikonPlugin OcrPlugin PageExtractionPlugin PaintPlugin \
+ PatchMatchingPlugin RulerDetectionPlugin SIMPLE_PLUGIN;
+do
+  mkdir -p $PKG/usr/doc/$PRGNAM-$VERSION/plugins/$x;
+  cp -a ImageLounge/plugins/${x}/Readme \
+    $PKG/usr/doc/$PRGNAM-$VERSION/plugins/${x}/;
+done
+cp -a ImageLounge/plugins/manuals $PKG/usr/doc/$PRGNAM-$VERSION/plugins/
+cp -a ImageLounge/plugins/README.md $PKG/usr/doc/$PRGNAM-$VERSION/plugins/
 cat $CWD/$PRGNAM.SlackBuild > $PKG/usr/doc/$PRGNAM-$VERSION/$PRGNAM.SlackBuild
 
 mkdir -p $PKG/install
 cat $CWD/doinst.sh > $PKG/install/doinst.sh
 cat $CWD/slack-desc > $PKG/install/slack-desc
-cat $CWD/slack-required > $PKG/install/slack-required
 
 cd $PKG
 /sbin/makepkg -p -l y -c n $OUTPUT/$PRGNAM-$VERSION-$ARCH-$BUILD$TAG.txz
 
 echo "Cleaning up build directory"
-cd $WRK ; rm -rf $PKG $PRGNAM-$VERSION-src
+cd $WRK ; rm -rf $PKG $PRGNAM-$VERSION

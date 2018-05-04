@@ -41,11 +41,11 @@ WRK=${WRK:-/tmp/wlsbuild}
 PKG=$WRK/package-$PRGNAM
 OUTPUT=${OUTPUT:-/tmp}
 DOCS="AUTHORS ChangeLog COPY* HACKING INSTALL NEWS README THANKS TODO"
-if [ $(nproc) -le 4 ]; then
-  NUMJOBS=$(nproc)
-else
-  NUMJOBS=$(nproc --ignore=2)
-fi
+
+# Checking CPU threads
+NUMCPU=$(nproc)
+NUMTHREADS=$(echo "$NUMCPU * 3 / 4" | bc)
+echo "BUILDING THREADS: $NUMTHREADS FROM $NUMCPU CORES"
 
 if [ "$ARCH" = "i486" ]; then
   SLKCFLAGS="-O2 -pipe -march=i486 -mtune=i686"

@@ -2,7 +2,7 @@
 
 # Slackware build script for latte-dock
 
-# Copyright 2017  Widya Walesa <walecha99@gmail.com>
+# Copyright 2017-2018  Widya Walesa <walecha99@gmail.com>
 # All rights reserved.
 #
 # Redistribution and use of this script, with or without modification, is
@@ -24,7 +24,7 @@
 # YOUR DATA IS DESTROYED, YOUR HOUSE BURNS DOWN OR YOUR DOG RUNS OFF.
 
 PRGNAM=latte-dock
-VERSION=${VERSION:-0.7.3}
+VERSION=${VERSION:-0.7.5}
 BUILD=${BUILD:-1}
 TAG=${TAG:-_wls}
 
@@ -35,6 +35,11 @@ if [ -z "$ARCH" ]; then
        *) ARCH=$( uname -m ) ;;
   esac
 fi
+
+# Checking CPU threads
+NUMCPU=$(nproc)
+NUMTHREADS=$(echo "$NUMCPU * 3 / 4" | bc)
+echo "BUILDING THREADS: $NUMTHREADS FROM $NUMCPU CORES"
 
 if [ "$ARCH" = "i586" ]; then
   SLKCFLAGS="-O2 -pipe -march=i586 -mtune=i686"
@@ -88,7 +93,7 @@ cd build
     -DBUILD_TESTING=OFF \
     .. || exit 1
 
-make || exit 1
+make -j${NUMJOBS} || exit 1
 make DESTDIR=$PKG install || exit 1
 cd ..
 

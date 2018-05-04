@@ -45,6 +45,11 @@ WRK=${WRK:-/tmp/wlsbuild}
 PKG=$WRK/package-$PKGNAM
 OUTPUT=${OUTPUT:-/tmp}
 
+# Checking CPU threads
+NUMCPU=$(nproc)
+NUMTHREADS=$(echo "$NUMCPU * 3 / 4" | bc)
+echo "BUILDING THREADS: $NUMTHREADS FROM $NUMCPU CORES"
+
 if [ "$ARCH" = "i586" ]; then
   SLKCFLAGS="-O2 -march=i586 -mtune=i686"
   LIBDIRSUFFIX=""
@@ -235,7 +240,7 @@ CXXFLAGS="$SLKCFLAGS" \
   $tesseract \
   $wavpack || exit 1
 
-make -j $(nproc) || make || exit 1
+make -j ${NUMJOBS} || make || exit 1
 make install DESTDIR=$PKG || exit 1
 make install-man DESTDIR=$PKG || exit 1
 

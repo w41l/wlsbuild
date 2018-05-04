@@ -74,7 +74,8 @@ fi
 
 set -e
 
-if [ ! -e wine-$SRCVERSION.tar.xz ]; then
+eval `cat $PRGNAM.info | grep "MD5SUM_WINE="`
+if [ ! "$(md5sum wine-$SRCVERSION.tar.xz 2>/dev/null)" = "$MD5SUM_WINE" ]; then
   rm -f wine-$SRCVERSION.tar.xz
   unset DOWNLOAD_WINE
   eval `cat $PRGNAM.info | grep "DOWNLOAD_WINE="`
@@ -82,7 +83,8 @@ if [ ! -e wine-$SRCVERSION.tar.xz ]; then
   curl -OLJ -C - $DOWNLOAD_WINE
 fi
 
-if [ ! -e winetricks-$WINETRICKS_VERSION.tar.gz ]; then
+eval `cat $PRGNAM.info | grep "MD5SUM_WINETRICKS="`
+if [ ! "$(md5sum winetricks-$WINETRICKS_VERSION.tar.gz 2>/dev/null)" = "$MD5SUM_WINETRICKS" ]; then
   rm -f winetricks-$WINETRICKS_VERSION.tar.gz
   unset DOWNLOAD_WINETRICKS
   eval `cat $PRGNAM.info | grep "DOWNLOAD_WINETRICKS="`
@@ -92,7 +94,8 @@ fi
 
 if [ "$STAGING" = "yes" ]; then
     echo "BUILDING WINE STAGING: $STAGING_VERSION"
-    if [ ! -e wine-staging-$STAGING_VERSION.tar.gz ]; then
+    eval `cat $PRGNAM.info | grep "MD5SUM_STAGING="`
+    if [ ! "$(md5sum wine-staging-$STAGING_VERSION.tar.gz 2>/dev/null)" = "$MD5SUM_STAGING" ]; then
 	rm -f wine-staging-$STAGING_VERSION.tar.gz
 	unset DOWNLOAD_STAGING
 	eval `cat $PRGNAM.info | grep "DOWNLOAD_STAGING="`
@@ -118,14 +121,11 @@ fi
 
 # Checking CPU threads
 NUMCPU=$(nproc)
-if [ $NUMCPU -ge 4 ]; then
-  NUMTHREADS=$(nproc --ignore=2)
-elif [ $NUMCPU -le 2 ]; then
-  NUMTHREADS=$(nproc)
-fi
-echo "BUILDING THREADS: $NUMTHREADS"
+NUMTHREADS=$(echo "$NUMCPU * 3 / 4" | bc)
+echo "BUILDING THREADS: $NUMTHREADS FROM $NUMCPU CORES"
 
 # Set some time to think of your options
+echo "Press CTRL+C if you want to change build options"
 sleep 7
 
 rm -rf $PKG

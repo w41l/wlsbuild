@@ -25,7 +25,7 @@
 
 PRGNAM=libomxil-bellagio
 VERSION=0.9.3
-BUILD=1
+BUILD=${BUILD:-2}
 TAG="_wls"
 
 CWD=$(pwd)
@@ -33,6 +33,11 @@ WRK=${WRK:-/tmp/wlsbuild}
 PKG=$WRK/package-$PRGNAM
 OUTPUT=${OUTPUT:-/tmp}
 DOCS="AUTHORS COPY* ChangeLog INSTALL NEWS* README* TODO"
+if [ $(nproc) -le 4 ]; then
+  NUMJOBS=$(nproc)
+else
+  NUMJOBS=$(nproc --ignore=2)
+fi
 
 if [ -z "$ARCH" ]; then
   case "$( uname -m )" in
@@ -90,8 +95,11 @@ CXXFLAGS="$SLKCFLAGS" \
   --build=$ARCH-slackware-linux \
   || exit 1
 
-make || exit 1
+make -j ${NUMJOBS} || exit 1
 make DESTDIR=$PKG install || exit 1
+
+# Don't ship .la files:
+rm -f $PKG/{,usr/}lib${LIBDIRSUFFIX}/*.la
 
 find $PKG | xargs file | grep -e "executable" -e "shared object" | grep ELF \
   | cut -f 1 -d : | xargs strip --strip-unneeded 2> /dev/null || true

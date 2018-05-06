@@ -1,0 +1,89 @@
+#!/bin/sh
+
+# Slackware build script for dnscrypt-proxy
+
+# Copyright 2018  Widya Walesa <walecha99@gmail.com>
+# All rights reserved.
+#
+# Redistribution and use of this script, with or without modification, is
+# permitted provided that the following conditions are met:
+#
+# 1. Redistributions of this script must retain the above copyright
+#    notice, this list of conditions and the following disclaimer.
+#
+# THIS SOFTWARE IS PROVIDED BY THE AUTHOR ''AS IS'' AND ANY EXPRESS OR IMPLIED
+# WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF
+# MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO
+# EVENT SHALL THE AUTHOR BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
+# SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,
+# PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS;
+# OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY,
+# WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR
+# OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF
+# ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. FURTHERMORE I AM NOT LIABLE IF
+# YOUR DATA IS DESTROYED, YOUR HOUSE BURNS DOWN OR YOUR DOG RUNS OFF.
+
+PRGNAM=dnscrypt-proxy
+VERSION=${VERSION:-2.0.11}
+BUILD=${BUILD:-1}
+TAG=${TAG:-_wls}
+
+if [ -z "$ARCH" ]; then
+  case "$( uname -m )" in
+    i?86) ARCH=i386 ;;
+       *) ARCH=$( uname -m ) ;;
+  esac
+fi
+
+CWD=$(pwd)
+WRK=${WRK:-/tmp/wlsbuild}
+PKG=$WRK/package-$PRGNAM
+OUTPUT=${OUTPUT:-/tmp}
+
+set -e
+
+rm -rf $PKG
+mkdir -p $WRK $PKG $OUTPUT
+cd $PKG
+rm -rf linux-$ARCH
+tar xvf $CWD/$PRGNAM-linux_${ARCH}-${VERSION}.tar.?z*
+chown -R root:root .
+find . \
+ \( -perm 777 -o -perm 775 -o -perm 711 -o -perm 555 -o -perm 511 \) \
+ -exec chmod 755 {} \; -o \
+ \( -perm 666 -o -perm 664 -o -perm 600 -o -perm 444 -o -perm 440 -o -perm 400 \) \
+ -exec chmod 644 {} \;
+
+mkdir -p usr/sbin
+mv -v linux-${ARCH}/dnscrypt-proxy usr/sbin/
+chmod -v 755 usr/sbin/dnscrypt-proxy
+
+mkdir -p etc/dnscrypt-proxy
+mv -v linux-${ARCH}/example*.txt etc/dnscrypt-proxy/
+mv -v linux-${ARCH}/example*.toml etc/dnscrypt-proxy/dnscrypt-proxy.toml.new
+
+mkdir -p etc/rc.d
+cat $CWD/rc.dnscrypt-proxy >etc/rc.d/rc.dnscrypt-proxy.new
+chmod -v 755 etc/rc.d/rc.dnscrypt-proxy.new
+
+mkdir -p etc/default
+cat $CWD/dnscrypt-proxy.default >etc/default/dnscrypt-proxy.new
+chmod -v 644 etc/default/dnscrypt-proxy.new
+
+mkdir -p $PKG/usr/doc/$PRGNAM-$VERSION
+cp -a linux-${ARCH}/LICENSE $PKG/usr/doc/$PRGNAM-$VERSION
+cat $CWD/$PRGNAM.SlackBuild > $PKG/usr/doc/$PRGNAM-$VERSION/$PRGNAM.SlackBuild
+
+# Remove unneeded files and directory
+cd $PKG
+rm -rf linux-${ARCH}
+
+mkdir -p $PKG/install
+cat $CWD/slack-desc > $PKG/install/slack-desc
+cat $CWD/doinst.sh > $PKG/install/doinst.sh
+
+cd $PKG
+/sbin/makepkg -p -l y -c n $OUTPUT/$PRGNAM-$VERSION-$ARCH-$BUILD$TAG.txz
+
+echo "Cleaning up build directory"
+cd $WRK ; rm -rf $PKG

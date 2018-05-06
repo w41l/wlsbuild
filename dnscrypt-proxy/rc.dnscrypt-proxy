@@ -1,0 +1,124 @@
+#!/bin/bash
+
+CONFIGFILE="/etc/default/dnscrypt-proxy"
+DAEMON="/usr/sbin/dnscrypt-proxy"
+
+. $CONFIGFILE
+
+start_instance() {
+    if [ ! -r ${DNSCRYPTCONFIG[$1]} ]; then
+        echo "No configuration for instance $1 found!"
+        return
+    fi
+    if [ -z ${PIDFILE[$1]} ]; then
+        echo "No PID configuration for instance $1 found!"
+        return
+    fi
+    if [ -r ${PIDFILE[$1]} ]; then
+        echo "dnscrypt-proxy (instance $1) already running!"
+        return
+    fi
+
+    echo "Starting dnscrypt-proxy instance $1: $DAEMON -config ${DNSCRYPTCONFIG[$1]} -pidfile ${PIDFILE[$1]} &"
+    $DAEMON -config ${DNSCRYPTCONFIG[$1]} -pidfile ${PIDFILE[$1]} &
+}
+
+stop_instance() {
+    if [ ! -r ${DNSCRYPTCONFIG[$1]} ]; then
+        echo "No configuration for instance $1 found!"
+        return
+    fi
+    if [ -z ${PIDFILE[$1]} ]; then
+        echo "No PID configuration for instance $1 found!"
+        return
+    fi
+    if [ ! -r ${PIDFILE[$1]} ]; then
+        echo "dnscrypt-proxy (instance $1) is not running!"
+        return
+    fi
+    echo "Stopping dnscrypt-proxy (instance $1)..."
+    kill $(cat ${PIDFILE[$1]})
+}
+
+status_instance() {
+    if [ ! -r ${DNSCRYPTCONFIG[$1]} ]; then
+        echo "No configuration for instance $1 found!"
+        return
+    fi
+    if [ -z ${PIDFILE[$1]} ]; then
+        echo "No PID configuration for instance $1 found!"
+        return
+    fi
+    if [ ! -r ${PIDFILE[$1]} ]; then
+        echo "dnscrypt-proxy (instance $1) is not running."
+        return
+    fi
+    PID=$(cat ${PIDFILE[$1]})
+    if [ -z "$PID" ]; then
+        echo "PID file is empty! dnscrypt-proxy (instance $1) does not appear to be running, but there is a stale PID file."
+    elif kill -0 $PID ; then
+        echo "dnscrypt-proxy (instance $1) is running."
+    else
+        echo "dnscrypt-proxy (instance $1) is not running, but there is a stale PID file."
+    fi
+}
+
+start() {
+    for i in `/usr/bin/seq 0 $((${#DNSCRYPTCONFIG[@]}-1))`
+    do
+        start_instance $i
+    done
+}
+
+stop() {
+    for i in `/usr/bin/seq 0 $((${#DNSCRYPTCONFIG[@]}-1))`
+    do
+        stop_instance $i
+    done
+}
+
+status() {
+    for i in `/usr/bin/seq 0 $((${#DNSCRYPTCONFIG[@]}-1))`
+    do
+        status_instance $i
+    done
+}
+
+case "$1" in
+    'start')
+        start
+        ;;
+    'stop')
+        stop
+        ;;
+    'restart')
+        stop
+        sleep 1
+        start
+        ;;
+    'status')
+        status
+        ;;
+    *_start)
+        INSTANCE=`echo $1 | /bin/cut -d '_' -f 1`
+        start_instance $INSTANCE
+        ;;
+    *_stop)
+        INSTANCE=`echo $1 | /bin/cut -d '_' -f 1`
+        stop_instance $INSTANCE
+        ;;
+    *_restart)
+        INSTANCE=`echo $1 | /bin/cut -d '_' -f 1`
+        stop_instance $INSTANCE
+        sleep 1
+        start_instance $INSTANCE
+        ;;
+    *_status)
+        INSTANCE=`echo $1 | /bin/cut -d '_' -f 1`
+        status_instance $INSTANCE
+        ;;
+    *)
+        echo "Usage: $0 {start|stop|restart|status|#_start|#_stop|#_restart}"
+        exit 1
+        ;;
+esac

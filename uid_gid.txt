@@ -243,4 +243,8 @@ mirrorbrain
 User:	mirrorbrain	UID: 247	GID: 247
 Group:	mirrorbrain			GID: 247
 
+dnscrypt
+=======
+User:	_dnscrypt	UI: 253		GID: 253
+Group:	_dnscrypt			GID: 253
 

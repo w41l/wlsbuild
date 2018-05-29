@@ -60,7 +60,7 @@ chmod -v 755 usr/sbin/dnscrypt-proxy
 
 mkdir -p etc/dnscrypt-proxy
 mv -v linux-${ARCH}/example*.txt etc/dnscrypt-proxy/
-mv -v linux-${ARCH}/example*.toml etc/dnscrypt-proxy/dnscrypt-proxy.toml.new
+cat $CWD/$PRGNAM.toml.new >etc/dnscrypt-proxy/dnscrypt-proxy.toml.new
 
 mkdir -p etc/rc.d
 cat $CWD/rc.dnscrypt-proxy >etc/rc.d/rc.dnscrypt-proxy.new

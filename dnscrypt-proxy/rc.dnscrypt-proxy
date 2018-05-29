@@ -1,6 +1,7 @@
 #!/bin/bash
 
 CONFIGFILE="/etc/default/dnscrypt-proxy"
+CONFIGDIR="/etc/dnscrypt-proxy"
 DAEMON="/usr/sbin/dnscrypt-proxy"
 
 . $CONFIGFILE
@@ -19,8 +20,21 @@ start_instance() {
         return
     fi
 
-    echo "Starting dnscrypt-proxy instance $1: $DAEMON -config ${DNSCRYPTCONFIG[$1]} -pidfile ${PIDFILE[$1]} &"
-    $DAEMON -config ${DNSCRYPTCONFIG[$1]} -pidfile ${PIDFILE[$1]} &
+    CONFIGFILETMP="${DNSCRYPTCONFIG[$1]}"
+    PIDFILETMP="${PIDFILE[$1]}"
+
+    if [ ! -z ${DNSCRYPTUID} ]; then
+        if [ -x /usr/sbin/daemonize ]; then
+            echo "Starting dnscrypt-proxy instance $1 as user ${DNSCRYPTUID}"
+            /usr/sbin/daemonize -u ${DNSCRYPTUID} -p ${PIDFILETMP} -c ${CONFIGDIR} ${DAEMON} -config ${CONFIGFILETMP}
+        else
+            echo "Could not found /usr/sbin/daemonize!"
+            return
+        fi
+    else
+        echo "Starting dnscrypt-proxy instance $1 as root"
+        $DAEMON -config ${CONFIGFILETMP} -pidfile ${PIDFILETMP} &
+    fi
 }
 
 stop_instance() {
@@ -35,9 +49,10 @@ stop_instance() {
     if [ ! -r ${PIDFILE[$1]} ]; then
         echo "dnscrypt-proxy (instance $1) is not running!"
         return
+    else
+        echo "Stopping dnscrypt-proxy (instance $1)..."
+        kill $(cat ${PIDFILE[$1]}) && rm -f ${PIDFILE[$1]}
     fi
-    echo "Stopping dnscrypt-proxy (instance $1)..."
-    kill $(cat ${PIDFILE[$1]})
 }
 
 status_instance() {

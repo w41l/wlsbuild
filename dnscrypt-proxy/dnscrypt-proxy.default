@@ -5,6 +5,15 @@
 # This file supports configuring and running multiple instances (see the bottom
 # of this file for a sample secondary configuration).
 
+# Run dnscrypt-proxy as unprivileged user:
+#
+# * Add user/group for dnscrypt-proxy or using built-in uid/gid nobody:nobody
+# * chown the config directory:
+#    chown -R nobody:nobody /etc/dnscrypt-proxy
+#
+#DNSCRYPTUID="nobody"
+#DNSCRYPTGID="nobody"
+
 # DNSCRYPTCONFIG should be the path to the dnscrypt-proxy configuration file
 # for the given instance. Note that PidFile must be defined in the config for
 # the rc.dnscrypt start/stop script to function properly!
@@ -13,5 +22,5 @@ PIDFILE[0]="/var/run/dnscrypt-proxy.pid"
 
 # A simple example configuration for a second instance (note that this would
 # require a new dnscrypt-proxy configuration file)
-DNSCRYPTCONFIG[1]="/etc/dnscrypt-proxy/dnscrypt-proxy-1.toml"
-PIDFILE[1]="/var/run/dnscrypt-proxy-1.pid"
+#DNSCRYPTCONFIG[1]="/etc/dnscrypt-proxy/dnscrypt-proxy-1.toml"
+#PIDFILE[1]="/var/run/dnscrypt-proxy-1.pid"
